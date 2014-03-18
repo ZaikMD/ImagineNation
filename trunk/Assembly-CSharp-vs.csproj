@@ -50,6 +50,8 @@
      <Compile Include="Assets\Scripts\Prototype\Atrributes\BaseCharAttrib.cs" />
      <Compile Include="Assets\Scripts\Prototype\Atrributes\DerekAttributes.cs" />
      <Compile Include="Assets\Scripts\Prototype\Atrributes\ZoeyAttributes.cs" />
+     <Compile Include="Assets\Scripts\Prototype\CameraController.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Health.cs" />
      <Compile Include="Assets\Scripts\Prototype\PlayerInput.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
