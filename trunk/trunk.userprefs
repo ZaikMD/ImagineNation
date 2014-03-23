@@ -1,27 +1,8 @@
 ﻿<Properties>
-<<<<<<< .mine
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\NerfGun.cs">
-=======
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="c:\Users\elia0034\Desktop\w14_l4_s1_dusk\trunk\Assets\Scripts\Prototype\Checkpoint.cs">
->>>>>>> .r13
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\PlayerMovement.cs">
     <Files>
-<<<<<<< .mine
-      <File FileName="Assets\Scripts\Prototype\PlayerState.cs" Line="389" Column="4" />
-      <File FileName="Assets\Scripts\Prototype\MoveableBlock.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\CharacterSwitch.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Observer\Observer.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\PlayerInput.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Observer\Subject.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Atrributes\ZoeyAttributes.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Atrributes\BaseCharAttrib.cs" Line="1" Column="1" />
-=======
-      <File FileName="Assets\Scripts\Prototype\CheckpointManager.cs" Line="40" Column="42" />
-      <File FileName="c:\Users\elia0034\Desktop\w14_l4_s1_dusk\trunk\Assets\Scripts\Prototype\Checkpoint.cs" Line="25" Column="6" />
->>>>>>> .r13
-      <File FileName="Assets\Scripts\Prototype\NerfGun.cs" Line="49" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\NerfGunProjectile.cs" Line="125" Column="3" />
+      <File FileName="Assets\Scripts\Prototype\PlayerMovement.cs" Line="9" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
