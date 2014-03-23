@@ -1,12 +1,18 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Atrributes\ZoeyAttributes.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\CharacterSwitch.cs">
     <Files>
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\CharacterSwitch.cs" Line="10" Column="3" />
+      <File FileName="Assets\Scripts\Prototype\Observer\Observer.cs" Line="7" Column="9" />
+      <File FileName="Assets\Scripts\Prototype\Observer\Subject.cs" Line="30" Column="3" />
+=======
       <File FileName="Assets\Scripts\Prototype\Atrributes\BaseCharAttrib.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\PlayerInput.cs" Line="36" Column="27" />
       <File FileName="Assets\Scripts\Prototype\Atrributes\AlexAttributes.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\Atrributes\DerekAttributes.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\Atrributes\ZoeyAttributes.cs" Line="31" Column="3" />
+>>>>>>> .r8
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
