@@ -59,6 +59,8 @@
      <Compile Include="Assets\Scripts\Prototype\DerekProjectile.cs" />
      <Compile Include="Assets\Scripts\Prototype\Health.cs" />
      <Compile Include="Assets\Scripts\Prototype\MoveableBlock.cs" />
+     <Compile Include="Assets\Scripts\Prototype\NerfGun.cs" />
+     <Compile Include="Assets\Scripts\Prototype\NerfGunProjectile.cs" />
      <Compile Include="Assets\Scripts\Prototype\Observer\Observer.cs" />
      <Compile Include="Assets\Scripts\Prototype\Observer\Subject.cs" />
      <Compile Include="Assets\Scripts\Prototype\PlayerAIStateMachine.cs" />
