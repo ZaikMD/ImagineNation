@@ -54,14 +54,19 @@
      <Compile Include="Assets\Scripts\Prototype\BoxingGloves.cs" />
      <Compile Include="Assets\Scripts\Prototype\CameraController.cs" />
      <Compile Include="Assets\Scripts\Prototype\CharacterSwitch.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Checkpoint.cs" />
+     <Compile Include="Assets\Scripts\Prototype\CheckpointManager.cs" />
      <Compile Include="Assets\Scripts\Prototype\DerekProjectile.cs" />
      <Compile Include="Assets\Scripts\Prototype\Health.cs" />
      <Compile Include="Assets\Scripts\Prototype\MoveableBlock.cs" />
      <Compile Include="Assets\Scripts\Prototype\Observer\Observer.cs" />
      <Compile Include="Assets\Scripts\Prototype\Observer\Subject.cs" />
+     <Compile Include="Assets\Scripts\Prototype\PlayerAIStateMachine.cs" />
      <Compile Include="Assets\Scripts\Prototype\PlayerInput.cs" />
      <Compile Include="Assets\Scripts\Prototype\PlayerState.cs" />
      <Compile Include="Assets\Scripts\Prototype\TestingScripts\SwitchTest.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Trampoline.cs" />
+     <Compile Include="Assets\Scripts\Prototype\TrampolineButton.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
