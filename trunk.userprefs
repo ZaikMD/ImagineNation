@@ -1,11 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\CharacterSwitch.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\MoveableBlock.cs">
     <Files>
-      <File FileName="Assets\Scripts\Prototype\CharacterSwitch.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\MoveableBlock.cs" Line="13" Column="3" />
+      <File FileName="Assets\Scripts\Prototype\CharacterSwitch.cs" Line="30" Column="20" />
       <File FileName="Assets\Scripts\Prototype\Observer\Observer.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\CharacterSwitch.cs" Line="44" Column="25" />
       <File FileName="Assets\Scripts\Prototype\PlayerInput.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Observer\Subject.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Atrributes\ZoeyAttributes.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Atrributes\BaseCharAttrib.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
