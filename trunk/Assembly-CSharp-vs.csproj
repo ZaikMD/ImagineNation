@@ -50,7 +50,10 @@
      <Compile Include="Assets\Scripts\Prototype\Atrributes\BaseCharAttrib.cs" />
      <Compile Include="Assets\Scripts\Prototype\Atrributes\DerekAttributes.cs" />
      <Compile Include="Assets\Scripts\Prototype\Atrributes\ZoeyAttributes.cs" />
+     <Compile Include="Assets\Scripts\Prototype\BasePrimaryItem.cs" />
+     <Compile Include="Assets\Scripts\Prototype\BoxingGloves.cs" />
      <Compile Include="Assets\Scripts\Prototype\CameraController.cs" />
+     <Compile Include="Assets\Scripts\Prototype\DerekProjectile.cs" />
      <Compile Include="Assets\Scripts\Prototype\Health.cs" />
      <Compile Include="Assets\Scripts\Prototype\PlayerInput.cs" />
      <Compile Include="Assets\Scripts\Prototype\TestingScripts\SwitchTest.cs" />
