@@ -53,11 +53,8 @@
      <Compile Include="Assets\Scripts\Prototype\BasePrimaryItem.cs" />
      <Compile Include="Assets\Scripts\Prototype\BoxingGloves.cs" />
      <Compile Include="Assets\Scripts\Prototype\CameraController.cs" />
-<<<<<<< .mine
      <Compile Include="Assets\Scripts\Prototype\CharacterSwitch.cs" />
-=======
      <Compile Include="Assets\Scripts\Prototype\DerekProjectile.cs" />
->>>>>>> .r8
      <Compile Include="Assets\Scripts\Prototype\Health.cs" />
      <Compile Include="Assets\Scripts\Prototype\Observer\Observer.cs" />
      <Compile Include="Assets\Scripts\Prototype\Observer\Subject.cs" />
