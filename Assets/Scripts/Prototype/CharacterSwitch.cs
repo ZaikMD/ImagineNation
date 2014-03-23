@@ -23,14 +23,24 @@ public class CharacterSwitch : Subject
 	}
 
 	//player ai needs to activly set this
-	public bool AbleToSwitch { public get; public set; }
+	bool m_AbleToSwitch;
 
 	public void switchCharacters()
 	{
-		if(AbleToSwitch)
+		if(m_AbleToSwitch)
 		{
-			AbleToSwitch = false;
+			m_AbleToSwitch = false;
 			sendEvent(ObeserverEvents.CharacterSwitch);
 		}
+	}
+
+	public void setIfAbleToSwitch(bool isAbleToSwitch)
+	{
+		m_AbleToSwitch = isAbleToSwitch;
+	}
+
+	public bool getIfAbleToSwitch()
+	{
+		return m_AbleToSwitch;
 	}
 }
