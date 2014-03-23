@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\Prototype\Observer\Observer.cs" />
      <Compile Include="Assets\Scripts\Prototype\Observer\Subject.cs" />
      <Compile Include="Assets\Scripts\Prototype\PlayerInput.cs" />
+     <Compile Include="Assets\Scripts\Prototype\PlayerState.cs" />
      <Compile Include="Assets\Scripts\Prototype\TestingScripts\SwitchTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
