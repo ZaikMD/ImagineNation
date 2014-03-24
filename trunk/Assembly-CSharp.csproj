@@ -53,6 +53,7 @@
      <Compile Include="Assets\Scripts\Prototype\BasePrimaryItem.cs" />
      <Compile Include="Assets\Scripts\Prototype\BoxingGloves.cs" />
      <Compile Include="Assets\Scripts\Prototype\CameraController.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Cape.cs" />
      <Compile Include="Assets\Scripts\Prototype\CharacterSwitch.cs" />
      <Compile Include="Assets\Scripts\Prototype\Checkpoint.cs" />
      <Compile Include="Assets\Scripts\Prototype\CheckpointManager.cs" />
