@@ -26,4 +26,15 @@ public class PlayerMovement : MonoBehaviour
 		//Move
 		m_Controller.Move (move);
 	}
+
+	public void GlideMovement()
+	{
+
+	}
+
+	// Checks to see if we are on the ground
+	public bool IsGrounded()
+	{
+		return m_Controller.isGrounded;
+	}
 }
