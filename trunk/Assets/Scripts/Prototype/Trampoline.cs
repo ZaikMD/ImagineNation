@@ -5,10 +5,10 @@ public class Trampoline : MonoBehaviour
 {
 
 		//Member Variables
-	const int m_MoveSpeed = 2;
-	const float m_JumpTime = 0.25f;
-	float m_JumpTimer = 0;
-	const float m_DoubleJumpTime = 4;
+	const float m_MoveSpeed = 1;
+	const float m_DoubleMoveSpeed = 1.5f;
+	float m_CurrentMoveSpeed = 0;
+
 	public bool m_DoubleJump = false;
 	GameObject m_Player;
 			
@@ -24,12 +24,15 @@ public class Trampoline : MonoBehaviour
 	void Update()
 	{
 		// If timer is bigger then 0 continue players jump
-		if ( m_JumpTimer > 0)
+		if ( m_CurrentMoveSpeed > 0)
 		{
-			m_Player.GetComponent<CharacterController>().Move(new Vector3(0,m_MoveSpeed,0));
-			
-			m_JumpTimer -= Time.deltaTime;
+			m_Player.GetComponent<CharacterController>().Move(new Vector3(0,m_CurrentMoveSpeed,0));
+
+			m_CurrentMoveSpeed -= 0.01f;
+
 		}
+		else
+			m_CurrentMoveSpeed = 0;
 		
 	}
 	
@@ -41,10 +44,12 @@ public class Trampoline : MonoBehaviour
 			m_Player = other.gameObject;
 			// Check if we want to double jump
 			if (m_DoubleJump)
-				m_JumpTimer = m_DoubleJumpTime;
+				m_CurrentMoveSpeed = m_DoubleMoveSpeed;
 			
 			else
-				m_JumpTimer = m_JumpTime;
+			{
+				m_CurrentMoveSpeed = m_MoveSpeed;
+			}
 			
 			//reset double jump flag
 			m_DoubleJump = false;

@@ -67,7 +67,6 @@
      <Compile Include="Assets\Scripts\Prototype\PlayerInput.cs" />
      <Compile Include="Assets\Scripts\Prototype\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\Prototype\PlayerState.cs" />
-     <Compile Include="Assets\Scripts\Prototype\TestingScripts\Movement.cs" />
      <Compile Include="Assets\Scripts\Prototype\TestingScripts\SwitchTest.cs" />
      <Compile Include="Assets\Scripts\Prototype\Trampoline.cs" />
      <Compile Include="Assets\Scripts\Prototype\TrampolineButton.cs" />
