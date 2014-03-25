@@ -1,8 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Z:\Dusk\DynamicCamera\Assets\Scripts\VelcroGloves.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\StickyHand.cs">
     <Files>
-      <File FileName="Z:\Dusk\DynamicCamera\Assets\Scripts\VelcroGloves.cs" Line="112" Column="4" />
+      <File FileName="Assets\Scripts\Prototype\StickyHandProjectile.cs" Line="7" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\StickyHand.cs" Line="14" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
