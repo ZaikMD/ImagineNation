@@ -34,6 +34,7 @@ public class CrawlSpaces : MonoBehaviour
 					m_Player.transform.position = m_PointBPos.transform.position;//Player position = Crawl Space B
 						//Play crawling animation
 					m_PointABool = false;
+					m_PointBBool = false;
 				}
 				
 				if (m_PointBBool == true)
@@ -41,6 +42,7 @@ public class CrawlSpaces : MonoBehaviour
 					m_Player.transform.position = m_PointAPos.transform.position;//Player position = Crawl SpaceA
 						//Play crawling animation
 					m_PointBBool = false;
+					m_PointABool = false;
 				}
 				
 			}
@@ -53,17 +55,17 @@ public class CrawlSpaces : MonoBehaviour
 		Vector3 distB = m_Player.transform.position - m_PointBPos.transform.position;
 		if(distA.magnitude < distB.magnitude)
 		{
-			m_Timer = 5.0f;   //set amount of time to travel the crawl space
+			m_Timer = 2.0f;   //set amount of time to travel the crawl space
 			m_Player.transform.position = new Vector3 (0.0f, -10000.0f, 0.0f);		//	stick player under the map
 			m_PointABool = true;
 		}
 		else
 		{
-			m_Timer = 5.0f;   //set amount of time to travel the crawl space
+			m_Timer = 2.0f;   //set amount of time to travel the crawl space
 			m_Player.transform.position = new Vector3 (0.0f, -10000.0f, 0.0f);
 			//	use coroutine to delay timer being set
 					
-				//	play animation crawl
+			//	play animation crawl
 			m_PointBBool = true;
 		}
 		
