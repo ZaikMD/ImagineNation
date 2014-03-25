@@ -7,7 +7,11 @@ Attach this script to the player
 
 Tag wall as a "VelcroWall"
 
-This wall and the player must both have trigger box/capsule colliders, and the walls trigger box collider should be a little bit bigger than the wall
+Make sure that walls rotation is facing away from the player
+
+This wall and the player must both have trigger box/capsule colliders
+
+Set the walls trigger box collider to a little outside the wall, outlining the side where the player will be climbing
 
 
 Created by Jason Hein on 3/23/2014
