@@ -8,8 +8,12 @@ Zoey must be tagged according to the script (currently "Zoey")
 
 All the projectile is, is a prefab with a rigid body.
 
-Created by Jason Hein on 3/23/2014
-
+3/23/2014
+	Created by Jason Hein
+3/25/2014
+	Disabled movement while firing.
+	Currently buggy if movement is enabled while firing
+	Currently buggy with going into objects with forward movement
 */
 
 
@@ -24,7 +28,7 @@ public class StickyHandProjectile : MonoBehaviour {
 		Extending = 0,
 		Retracting, 
 		Launching
-	} 
+	}
 	States m_State = States.Extending; 
 	
 	//Speed and max distance to retract
@@ -39,9 +43,13 @@ public class StickyHandProjectile : MonoBehaviour {
 	GameObject m_Zoey;
 	GameObject m_ProjectileLine;
 
+	//Movement, so we can stop the player from moving while launching
+	PlayerMovement m_Movement;
+
 	//Initialization on startup
 	void Start() 
 	{ 
+
 	}
 
 	//On Tick
@@ -81,6 +89,9 @@ public class StickyHandProjectile : MonoBehaviour {
 		//At Zoey while launching or retracting
 		if (other.gameObject == m_Zoey && m_State != States.Extending)
 		{
+			//The player can now move again
+			m_Movement.setCanMove(true);
+
 			Destroy(this.gameObject);
 			Destroy(m_ProjectileLine);
 			return;
@@ -89,6 +100,9 @@ public class StickyHandProjectile : MonoBehaviour {
 		else if (other.gameObject.CompareTag("Glass") && m_State == States.Extending)
 		{
 			m_State = States.Launching;
+
+			//Fix projectile not hitting player
+			rigidbody.velocity = Vector3.zero;
 		}
 		//Hit something other than glass while extending
 		else if (m_State == States.Extending)
@@ -164,6 +178,12 @@ public class StickyHandProjectile : MonoBehaviour {
 	{ 
 		//Find Zoey
 		m_Zoey = GameObject.FindGameObjectWithTag ("Zoey");
+
+		//Get movement
+		m_Movement = (PlayerMovement)m_Zoey.GetComponent<PlayerMovement>();    //Get component to move the player
+
+		//You cannot move while launching
+		m_Movement.setCanMove(false);
 
 		//Set initial positions and rotations
 		m_Target = target;

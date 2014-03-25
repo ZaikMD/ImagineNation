@@ -26,11 +26,6 @@ using System.Collections;
 public class StickyHand : MonoBehaviour {
 
 	GameObject m_Projectile;
-	
-	void Start()
-	{
-
-	}
 
 	//Can be removed once observer pattern is attached
 	void Update() 

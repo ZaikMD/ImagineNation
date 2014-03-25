@@ -1,14 +1,36 @@
-﻿using UnityEngine;
+﻿/*
+
+
+
+
+3/25/2014 - Jason Hein
+	Added can move function to disable movement while in the character is busy
+	Added moveRegular which is a test variable for now. You can remove it when real ground movement is added.
+ */
+
+
+
+
+
+
+
+
+
+using UnityEngine;
 using System.Collections;
 
 public class PlayerMovement : MonoBehaviour 
 {
 	public GameObject m_Player;
 	CharacterController m_Controller;
+	bool m_CanMove = true;
+
 
 
 	//TEST VARIABLE BECAUSE I WANT TO MOVE - Jason
 	bool moveRegular = true;
+
+
 	
 	void Start ()
 	{
@@ -20,11 +42,16 @@ public class PlayerMovement : MonoBehaviour
 
 	void Update ()
 	{
-		if (moveRegular)
+		if (moveRegular && m_CanMove)
 		{
 			Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) / 5;
 			m_Controller.Move (move);
 		}
+	}
+
+	public void setCanMove(bool move)
+	{
+		m_CanMove = move;
 	}
 
 
@@ -32,6 +59,14 @@ public class PlayerMovement : MonoBehaviour
 	public void ClimbMovement()
 	{
 		moveRegular = false;
+
+
+		if (!m_CanMove)
+		{
+			return;
+		}
+
+
 
 		//Do we move up?
 		Vector3 move = new Vector3 (0, Input.GetAxis ("Vertical") / 5, 0);
@@ -45,6 +80,11 @@ public class PlayerMovement : MonoBehaviour
 
 	public void GlideMovement()
 	{
+		if (!m_CanMove)
+		{
+			return;
+		}
+
 		moveRegular = false;
 	}
 
