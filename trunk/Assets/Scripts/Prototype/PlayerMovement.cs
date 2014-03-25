@@ -5,6 +5,10 @@ public class PlayerMovement : MonoBehaviour
 {
 	public GameObject m_Player;
 	CharacterController m_Controller;
+
+
+	//TEST VARIABLE BECAUSE I WANT TO MOVE - Jason
+	bool moveRegular = true;
 	
 	void Start ()
 	{
@@ -14,9 +18,21 @@ public class PlayerMovement : MonoBehaviour
 
 	//MAKE YORE PUBLIC MOVEMENT FUNCTIONS HERE
 
+	void Update ()
+	{
+		if (moveRegular)
+		{
+			Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) / 5;
+			m_Controller.Move (move);
+		}
+	}
+
+
 	//Climb
 	public void ClimbMovement()
 	{
+		moveRegular = false;
+
 		//Do we move up?
 		Vector3 move = new Vector3 (0, Input.GetAxis ("Vertical") / 5, 0);
 
@@ -29,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
 
 	public void GlideMovement()
 	{
-
+		moveRegular = false;
 	}
 
 	// Checks to see if we are on the ground
