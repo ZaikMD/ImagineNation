@@ -1,9 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\StickyHand.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\TestingScripts\CrappyPlayerControl.cs">
     <Files>
-      <File FileName="Assets\Scripts\Prototype\StickyHandProjectile.cs" Line="7" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\StickyHand.cs" Line="14" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\StickyHandProjectile.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\StickyHand.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Trampoline.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\TestingScripts\CrappyPlayerControl.cs" Line="6" Column="20" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
