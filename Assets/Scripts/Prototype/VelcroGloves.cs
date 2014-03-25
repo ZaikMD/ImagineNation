@@ -7,7 +7,7 @@ Attach this script to the player
 
 Tag wall as a "VelcroWall"
 
-Make sure that walls rotation is facing away from the player
+Make sure that walls rotation is facing towards the player
 
 This wall and the player must both have trigger box/capsule colliders
 
@@ -86,7 +86,7 @@ public class VelcroGloves : MonoBehaviour
 			m_Enabled = true;
 
 			//Set rotation of the player to face the wall
-			transform.Rotate (0, m_AngleOfNextWall - this.transform.rotation.eulerAngles.y, 0);
+			transform.Rotate (0, m_AngleOfNextWall - this.transform.rotation.eulerAngles.y - 180, 0);
 
 			//Set flag
 			//m_Player->setEnterSecondItemFlag();       //Set player flag
@@ -130,7 +130,7 @@ public class VelcroGloves : MonoBehaviour
 				else if (collider.gameObject == m_VelcroWalls[0])	//if 
 				{
 					//Set rotation of the player to face the wall
-					transform.Rotate (0, m_AngleOfNextWall - this.transform.rotation.eulerAngles.y, 0);
+					transform.Rotate (0, m_AngleOfNextWall - this.transform.rotation.eulerAngles.y - 180, 0);
 				}
 			}
 
