@@ -52,7 +52,7 @@ public  abstract class PlayerState : MonoBehaviour
 	
     // Player Movement does not exsisit yet;
     //Make the m_PlayerMovement = to this objects playermovement script
-    // m_playerMovement = this.GameObject.GetComponent<PlayerMovement>(); 
+    // m_PlayerMovement = this.gameObject.GetComponent<PlayerMovement>(); 
                 
         m_PlayerState = PlayerStates.Default; 
     }
