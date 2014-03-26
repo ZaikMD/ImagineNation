@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class NewBehaviourScript : MonoBehaviour 
+public class DerekProjectile : MonoBehaviour 
 {
 	public GameObject m_DebrisPrefab;
 	public float m_Speed = 10.0f;
-	public int m_ProjectileRange = 1;
+	public int m_ProjectileRange = 2;
 	Vector3 m_InitialPosition;
 
 	// Use this for initialization
@@ -27,22 +27,18 @@ public class NewBehaviourScript : MonoBehaviour
 
 	void OnCollisionEnter(Collision other)
 	{
-		switch(other.gameObject.tag)
+		if(other.gameObject.CompareTag("Enemy"))
 		{
-		case "enemy":
 			//applyDamage();
+			Destroy(other.gameObject);
 			Destroy (this.gameObject);
+		}
 
-			break;
-		case "destructableWall":
+		if(other.gameObject.CompareTag("DestructableWall"))
+		{
 			Instantiate(m_DebrisPrefab);
 			Destroy(other.gameObject);
 			Destroy(this.gameObject);
-
-			break;
-
-		default:
-			break;
 		}
 	}
 }
