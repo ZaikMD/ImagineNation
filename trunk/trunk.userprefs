@@ -1,31 +1,9 @@
 ﻿<Properties>
-<<<<<<< .mine
-  <MonoDevelop.Ide.Workspace />
-<<<<<<< .mine
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\NerfGunProjectile.cs">
-=======
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\DerekProjectile.cs">
-=======
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\SeeSaw.cs">
->>>>>>> .r32
->>>>>>> .r33
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\DerekProjectile.cs">
     <Files>
-<<<<<<< .mine
-      <File FileName="Assets\Scripts\Prototype\NerfGun.cs" Line="52" Column="6" />
-      <File FileName="Assets\Scripts\Prototype\NerfGunProjectile.cs" Line="153" Column="3" />
-=======
-<<<<<<< .mine
-      <File FileName="Assets\Scripts\Prototype\PlayerMovement.cs" Line="41" Column="35" />
-      <File FileName="Assets\Scripts\Prototype\BoxingGloves.cs" Line="25" Column="43" />
-      <File FileName="Assets\Scripts\Prototype\DerekProjectile.cs" Line="37" Column="54" />
-      <File FileName="Assets\Scripts\Prototype\BasePrimaryItem.cs" Line="16" Column="3" />
-=======
-      <File FileName="Assets\Scripts\Prototype\ZachsMovement.cs" Line="91" Column="23" />
-      <File FileName="Assets\Scripts\Prototype\DivingBoard.cs" Line="24" Column="17" />
-      <File FileName="Assets\Scripts\Prototype\SeeSaw.cs" Line="44" Column="4" />
->>>>>>> .r32
->>>>>>> .r33
+      <File FileName="Assets\Scripts\Prototype\BoxingGloves.cs" Line="7" Column="21" />
+      <File FileName="Assets\Scripts\Prototype\DerekProjectile.cs" Line="23" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

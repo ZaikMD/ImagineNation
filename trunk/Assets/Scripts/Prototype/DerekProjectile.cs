@@ -5,7 +5,7 @@ public class DerekProjectile : MonoBehaviour
 {
 	public GameObject m_DebrisPrefab;
 	public float m_Speed = 10.0f;
-	public int m_ProjectileRange = 2;
+	public int m_ProjectileRange = 20;
 	Vector3 m_InitialPosition;
 
 	// Use this for initialization
@@ -27,14 +27,14 @@ public class DerekProjectile : MonoBehaviour
 
 	void OnCollisionEnter(Collision other)
 	{
-		if(other.gameObject.CompareTag("Enemy"))
+		if(other.gameObject.tag == "Enemy")
 		{
 			//applyDamage();
 			Destroy(other.gameObject);
 			Destroy (this.gameObject);
 		}
 
-		if(other.gameObject.CompareTag("DestructableWall"))
+		if(other.gameObject.tag == "DestructableWall")
 		{
 			Instantiate(m_DebrisPrefab);
 			Destroy(other.gameObject);

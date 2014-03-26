@@ -15,15 +15,15 @@ public class BoxingGloves : BasePrimaryItem
 
 	void Update()
 	{
-		fire ();
+		if(Input.GetKeyDown(KeyCode.Space))
+		{
+			fire ();
+		}
 	}
 	
 	public void fire()
 	{
-		if(Input.GetKeyDown(KeyCode.Space))
-		{
-			Instantiate (m_BaseProjectile, m_BaseProjectile.transform.position, transform.rotation);
-		}
+		Instantiate (m_BaseProjectile, this.transform.position, this.transform.rotation);
 	}
 
 	public void aimFire()
