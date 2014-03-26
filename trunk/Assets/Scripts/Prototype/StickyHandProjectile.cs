@@ -100,7 +100,7 @@ public class StickyHandProjectile : MonoBehaviour {
 			m_Movement.setCanMove(true);
 
 			gameObject.SetActive(false);
-			Destroy(m_ProjectileLine);
+			m_ProjectileLine.SetActive(false);
 			return;
 		}
 		//At Glass while extending
@@ -202,7 +202,10 @@ public class StickyHandProjectile : MonoBehaviour {
 		}
 
 		//Get movement
-		m_Movement = (PlayerMovement)m_Zoey.GetComponent<PlayerMovement>();    //Get component to move the player
+		if (m_Movement == null)
+		{
+			m_Movement = (PlayerMovement)m_Zoey.GetComponent<PlayerMovement>();    //Get component to move the player
+		}
 
 		//Set initial positions and rotations
 		m_Target = target;
@@ -210,8 +213,15 @@ public class StickyHandProjectile : MonoBehaviour {
 		this.transform.Rotate (new Vector3 (90,0,0));
 
 		//Create line to trail behind
-		m_ProjectileLine = (GameObject)Instantiate(Resources.Load("StickyHandLine"), Vector3.Lerp (m_Zoey.transform.position, transform.position, 0.5f), Quaternion.identity);
-		m_ProjectileLine.transform.Rotate (transform.rotation.eulerAngles);
+		if (m_ProjectileLine)
+		{
+			m_ProjectileLine.SetActive(true);
+		}
+		else
+		{
+			m_ProjectileLine = (GameObject)Instantiate(Resources.Load("StickyHandLine"), Vector3.Lerp (m_Zoey.transform.position, transform.position, 0.5f), Quaternion.identity);
+		}
+		updateStickyLine();
 		m_OriginalScale = m_ProjectileLine.transform.localScale.y;
 	}
 }
