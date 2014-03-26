@@ -3,29 +3,32 @@ using System.Collections;
 
 public class BoxingGloves : BasePrimaryItem 
 {
+	public GameObject m_DerekProjectile;
 	GameObject m_Derek;
-	GameObject m_DerekProjectile;
-	bool m_EnableProjectile = false;
 
 	// Use this for initialization
 	void Start () 
 	{
 		//m_Derek = getDerek ();
-		//m_DerekProjectile = m_BaseProjectile;
+		m_BaseProjectile = m_DerekProjectile;
+	}
+
+	void Update()
+	{
+		fire ();
 	}
 	
-	public void fire(Vector3 currentTarget)
+	public void fire()
 	{
-		if(m_EnableProjectile == false)
+		if(Input.GetKeyDown(KeyCode.Space))
 		{
-			Instantiate (m_DerekProjectile, m_DerekProjectile.transform.position, transform.rotation);
-			m_EnableProjectile = true;
+			Instantiate (m_BaseProjectile, m_BaseProjectile.transform.position, transform.rotation);
 		}
 	}
 
-	public void aimFire(Vector3 currentTarget)
+	public void aimFire()
 	{
-		fire (currentTarget);
+
 	}
 
 }
