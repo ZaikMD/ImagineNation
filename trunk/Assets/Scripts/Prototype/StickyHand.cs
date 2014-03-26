@@ -23,7 +23,7 @@ Created by Jason Hein on 3/23/2014
 using UnityEngine;
 using System.Collections;
 
-public class StickyHand : MonoBehaviour {
+public class StickyHand : BasePrimaryItem {
 
 	GameObject m_Projectile;
 
@@ -33,11 +33,15 @@ public class StickyHand : MonoBehaviour {
 		if (Input.GetButtonDown("Fire1"))    //Fire
 		{
 			//Must changed to the vector given by camera, and remove update when obsever pattern is hooked up
-			Use ((transform.forward * 20) + transform.position);
+			fire ((transform.forward * 20) + transform.position);
 		}
 	}
 
-	public void Use(Vector3 target)
+	/// <summary>
+	/// Fires the sticky hand at the specific target
+	/// </summary>
+	/// <param name="target">Target.</param>
+	public void fire(Vector3 target)
 	{
 		if (m_Projectile == null)
 		{
@@ -45,5 +49,14 @@ public class StickyHand : MonoBehaviour {
 			StickyHandProjectile projectile = (StickyHandProjectile)(m_Projectile.GetComponent<StickyHandProjectile>());
 			projectile.updateTarget(target);
 		}
+	}
+
+	/// <summary>
+	/// Calls the fire function
+	/// </summary>
+	/// <param name="currentTarget">Current target.</param>
+	public void aimFire(Vector3 currentTarget)
+	{
+		fire (currentTarget);
 	}
 }
