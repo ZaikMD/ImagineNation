@@ -25,6 +25,8 @@ public class NerfGunProjectile : MonoBehaviour
 
 	bool m_IsPlatform = false;
 
+	bool m_Active;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -74,7 +76,7 @@ public class NerfGunProjectile : MonoBehaviour
 		m_PlatformTimer += Time.deltaTime;
 
 		if(m_PlatformTimer >= m_PlatformLifeSpan)
-			Destroy(this);
+			setActive(false);
 	}
 	
 	void IsMovingState()
@@ -84,7 +86,7 @@ public class NerfGunProjectile : MonoBehaviour
 
 		if (m_Timer >= m_BulletLifeSpan)
 		{
-            Destroy(this);
+			setActive(false);
 		}
 	}
 	
@@ -113,14 +115,14 @@ public class NerfGunProjectile : MonoBehaviour
 			break;
 			
 		default:
-			Destroy(this);
+			setActive(false);
 			break;
 		}
 	}
 	
 	void CollidedWithEnemy(GameObject enemy)
 	{
-		Destroy(this);               
+		setActive(false);               
 		//enemy.applyDamage();
 	}
 	
@@ -140,7 +142,19 @@ public class NerfGunProjectile : MonoBehaviour
 		//activate trigger is simply a placeholder name for a function within
 		//a nerf target script that will perform the intended response upon
 		//being hit
-		Destroy(this);               
+		setActive(false);               
 		//nerfTarget.activateTrigger();
+	}
+
+	public void setActive(bool active)
+	{
+		m_Active = active;
+		//this.gameObject.SetActive (m_Active);
+		Debug.Log (m_Active);
+	}
+
+	public bool getActive()
+	{
+		return m_Active;
 	}
 }
