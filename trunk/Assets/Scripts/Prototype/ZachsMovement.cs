@@ -82,5 +82,15 @@ public class ZachsMovement : MonoBehaviour {
 				m_InteractionKeyPressed = false;
 			}
 		}
+
+		if(obj.name == "DivingBoard" && m_InteractionKeyPressed == true)
+		{
+			DivingBoard divingBoard = obj.GetComponent<DivingBoard>();
+			if(divingBoard != null)
+			{
+				divingBoard.notifySeeSaw(this.gameObject);
+				m_InteractionKeyPressed = false;
+			}
+		}
 	}
 }
