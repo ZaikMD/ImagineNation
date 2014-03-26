@@ -14,6 +14,10 @@ All the projectile is, is a prefab with a rigid body.
 	Disabled movement while firing.
 	Currently buggy if movement is enabled while firing
 	Currently buggy with going into objects with forward movement
+3/25/2014
+	Fixed buggy movement while firing
+	Fixed projectile line while moving
+	Renabled movement while firing, disabled it while launching
 */
 
 
@@ -79,7 +83,10 @@ public class StickyHandProjectile : MonoBehaviour {
 					//
 				}
 				break;
-			} 
+			}
+
+			//Update line to follow this projectile
+			updateStickyLine();
 		}
 	} 
 
@@ -103,6 +110,9 @@ public class StickyHandProjectile : MonoBehaviour {
 
 			//Fix projectile not hitting player
 			rigidbody.velocity = Vector3.zero;
+
+			//You cannot move while launching
+			m_Movement.setCanMove(false);
 		}
 		//Hit something other than glass while extending
 		else if (m_State == States.Extending)
@@ -126,7 +136,6 @@ public class StickyHandProjectile : MonoBehaviour {
 	void retractingUpdatePos() 
 	{
 		transform.position += Vector3.Normalize(m_Zoey.transform.position - this.transform.position) * m_Speed;
-		m_ProjectileLine.transform.position = Vector3.Lerp (m_Zoey.transform.position, transform.position, 0.5f);
 	}
 
 	//Launch
@@ -142,8 +151,7 @@ public class StickyHandProjectile : MonoBehaviour {
 	//Update the stickyhand projectile position and the position of its following line
 	void launchingUpdatePlayerPos() 
 	{ 
-		m_Zoey.transform.position += Vector3.Normalize(m_Target - m_Zoey.transform.position) * m_Speed;
-		m_ProjectileLine.transform.position = Vector3.Lerp (m_Zoey.transform.position, transform.position, 0.5f);
+		m_Zoey.transform.position += Vector3.Normalize(transform.position - m_Zoey.transform.position) * m_Speed;
 	} 
 
 	//Extending
@@ -167,7 +175,14 @@ public class StickyHandProjectile : MonoBehaviour {
 	void extendingUpdatePos() 
 	{ 
 		transform.position += Vector3.Normalize(m_Target - transform.position) * m_Speed;
+	}
+
+	void updateStickyLine()
+	{
+		//Set lines position to between Zoey and this projectile
 		m_ProjectileLine.transform.position = Vector3.Lerp (m_Zoey.transform.position, transform.position, 0.5f);
+		m_ProjectileLine.transform.LookAt (transform.position);
+		m_ProjectileLine.transform.Rotate (new Vector3 (90,0,0));
 	}
 
 	/// <summary>
@@ -181,9 +196,6 @@ public class StickyHandProjectile : MonoBehaviour {
 
 		//Get movement
 		m_Movement = (PlayerMovement)m_Zoey.GetComponent<PlayerMovement>();    //Get component to move the player
-
-		//You cannot move while launching
-		m_Movement.setCanMove(false);
 
 		//Set initial positions and rotations
 		m_Target = target;
