@@ -26,6 +26,15 @@ using System.Collections;
 public class StickyHand : BasePrimaryItem {
 
 	GameObject m_Projectile;
+	StickyHandProjectile m_ProjectileComponent;
+
+	void Start()
+	{
+		//Get sticky hand projectile
+		m_Projectile = (GameObject)Instantiate(Resources.Load("StickyHandProjectile"), this.transform.position + this.transform.forward, Quaternion.identity);
+		m_ProjectileComponent = (StickyHandProjectile)(m_Projectile.GetComponent<StickyHandProjectile>());
+		m_Projectile.SetActive (false);
+	}
 
 	//Can be removed once observer pattern is attached
 	void Update() 
@@ -43,12 +52,8 @@ public class StickyHand : BasePrimaryItem {
 	/// <param name="target">Target.</param>
 	public void fire(Vector3 target)
 	{
-		if (m_Projectile == null)
-		{
-			m_Projectile = (GameObject)Instantiate(Resources.Load("StickyHandProjectile"), this.transform.position + this.transform.forward, Quaternion.identity);
-			StickyHandProjectile projectile = (StickyHandProjectile)(m_Projectile.GetComponent<StickyHandProjectile>());
-			projectile.updateTarget(target);
-		}
+		m_Projectile.transform.position = this.transform.position + this.transform.forward;
+		m_ProjectileComponent.activate(target);
 	}
 
 	/// <summary>

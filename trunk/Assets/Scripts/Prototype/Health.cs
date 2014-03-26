@@ -34,6 +34,12 @@ public class Health : MonoBehaviour {
 	//You can set the colour of the health light
 	public Color m_HealthColor = Color.cyan;
 
+	//You can choose if the character regenerates health
+	public bool m_CanRegenerate = true;
+	float m_RegeneratationTimer = -1.0f;
+	const float REGENERATION_DELAY = 10.0f;
+
+
 	// Use this for initialization
 	void Start () {
 
@@ -52,7 +58,30 @@ public class Health : MonoBehaviour {
 
 		//set the intensity to whatever intensity is set in the prefab
 		m_DefaultIntensity = m_Light.light.intensity;
+
+		takeDamage(9);
 	}
+
+	//Regenerate the character's health.
+	void Update() 
+	{
+		if (m_CanRegenerate && m_RegeneratationTimer >= 0.0f && m_Health > 0)
+		{
+			m_RegeneratationTimer += Time.deltaTime;
+			if (m_RegeneratationTimer >= 1.0f + REGENERATION_DELAY)
+			{
+				m_Health++;
+				m_RegeneratationTimer = 0.0f + REGENERATION_DELAY;
+				m_Light.light.intensity = m_DefaultIntensity * ((float)m_Health / m_MaxHealth);
+
+				if (m_Health > m_MaxHealth)
+				{
+					m_RegeneratationTimer = -1.0f;
+				}
+			}
+		}
+	}
+	
 
 	/// <summary>
 	/// Subtracts health from the character and updates the health light.
@@ -64,6 +93,9 @@ public class Health : MonoBehaviour {
 
 		//Update the intensity of the health light
 		m_Light.light.intensity = m_DefaultIntensity * ((float)m_Health / m_MaxHealth);
+
+		//Sets the regenration timer to start
+		m_RegeneratationTimer = 0.0f;
 	}
 
 	/// <summary>
