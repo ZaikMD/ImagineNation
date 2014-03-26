@@ -74,17 +74,12 @@
      <Compile Include="Assets\Scripts\Prototype\SeeSaw.cs" />
      <Compile Include="Assets\Scripts\Prototype\StickyHand.cs" />
      <Compile Include="Assets\Scripts\Prototype\StickyHandProjectile.cs" />
-     <Compile Include="Assets\Scripts\Prototype\TestingScripts\CrappyPlayerControl.cs" />
      <Compile Include="Assets\Scripts\Prototype\TestingScripts\SwitchTest.cs" />
-     <Compile Include="Assets\Scripts\Prototype\TestingScripts\simpleMoveForTesting.cs" />
      <Compile Include="Assets\Scripts\Prototype\Trampoline.cs" />
      <Compile Include="Assets\Scripts\Prototype\TrampolineButton.cs" />
      <Compile Include="Assets\Scripts\Prototype\VelcroGloves.cs" />
-<<<<<<< .mine
      <Compile Include="Assets\Scripts\Prototype\ZachsMovement.cs" />
      <Compile Include="Assets\Scripts\Prototype\simpleMoveForTesting.cs" />
-=======
->>>>>>> .r26
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -53,6 +53,7 @@ public class CrawlSpaces : MonoBehaviour
 	{
 		Vector3 distA =  m_Player.transform.position - m_PointAPos.transform.position;//calculate the distance between the player and point a 
 		Vector3 distB = m_Player.transform.position - m_PointBPos.transform.position;
+
 		if(distA.magnitude < distB.magnitude)
 		{
 			m_Timer = 2.0f;   //set amount of time to travel the crawl space
