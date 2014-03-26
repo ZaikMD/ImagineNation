@@ -33,7 +33,7 @@ public class StickyHandProjectile : MonoBehaviour {
 		Retracting, 
 		Launching
 	}
-	States m_State = States.Extending; 
+	States m_State; 
 	
 	//Speed and max distance to retract
 	float m_Speed = 0.75f; 
@@ -41,7 +41,7 @@ public class StickyHandProjectile : MonoBehaviour {
 	float m_OriginalScale;
 
 	//Target to fire at
-	Vector3 m_Target = Vector3.zero;
+	Vector3 m_Target;
 
 	//Important Objects
 	GameObject m_Zoey;
@@ -99,7 +99,7 @@ public class StickyHandProjectile : MonoBehaviour {
 			//The player can now move again
 			m_Movement.setCanMove(true);
 
-			Destroy(this.gameObject);
+			gameObject.SetActive(false);
 			Destroy(m_ProjectileLine);
 			return;
 		}
@@ -189,10 +189,17 @@ public class StickyHandProjectile : MonoBehaviour {
 	/// Sets the target position to fire at, and initializes the stickyhand line object
 	/// </summary>
 	/// <param name="target">Target.</param>
-	public void updateTarget(Vector3 target) 
+	public void activate(Vector3 target) 
 	{ 
+		//Reset is to extending
+		m_State = States.Extending; 
+		gameObject.SetActive(true);
+
 		//Find Zoey
-		m_Zoey = GameObject.FindGameObjectWithTag ("Zoey");
+		if (m_Zoey == null)
+		{
+			m_Zoey = GameObject.FindGameObjectWithTag ("Zoey");
+		}
 
 		//Get movement
 		m_Movement = (PlayerMovement)m_Zoey.GetComponent<PlayerMovement>();    //Get component to move the player
