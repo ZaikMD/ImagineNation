@@ -58,8 +58,6 @@ public class Health : MonoBehaviour {
 
 		//set the intensity to whatever intensity is set in the prefab
 		m_DefaultIntensity = m_Light.light.intensity;
-
-		takeDamage(9);
 	}
 
 	//Regenerate the character's health.
