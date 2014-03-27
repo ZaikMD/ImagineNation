@@ -129,14 +129,8 @@ public class StickyHandProjectile : MonoBehaviour {
 		m_ProjectileLine.transform.localScale = new Vector3 (m_ProjectileLine.transform.localScale.x, m_ProjectileLine.transform.localScale.y - (m_Speed * m_OriginalScale / 2), m_ProjectileLine.transform.localScale.z);
 
 		//Update the stickyhand projectile position
-		retractingUpdatePos(); 
-	} 
-
-	//Update the stickyhand projectile position and the position of its following line
-	void retractingUpdatePos() 
-	{
 		transform.position += Vector3.Normalize(m_Zoey.transform.position - this.transform.position) * m_Speed;
-	}
+	} 
 
 	//Launch
 	void launching() 
@@ -145,12 +139,6 @@ public class StickyHandProjectile : MonoBehaviour {
 		m_ProjectileLine.transform.localScale = new Vector3 (m_ProjectileLine.transform.localScale.x, m_ProjectileLine.transform.localScale.y - (m_Speed * m_OriginalScale / 2), m_ProjectileLine.transform.localScale.z);
 
 		//Update the stickyhand projectile position
-		launchingUpdatePlayerPos(); 
-	} 
-
-	//Update the stickyhand projectile position and the position of its following line
-	void launchingUpdatePlayerPos() 
-	{ 
 		m_Zoey.transform.position += Vector3.Normalize(transform.position - m_Zoey.transform.position) * m_Speed;
 	} 
 
@@ -168,15 +156,9 @@ public class StickyHandProjectile : MonoBehaviour {
 		m_ProjectileLine.transform.localScale = new Vector3 (m_ProjectileLine.transform.localScale.x, m_ProjectileLine.transform.localScale.y + m_Speed * m_OriginalScale / 2, m_ProjectileLine.transform.localScale.z);
 
 		//Update the stickyhand projectile position
-		extendingUpdatePos();
-	} 
-
-	//Update the stickyhand projectile position and the position of its following line
-	void extendingUpdatePos() 
-	{ 
 		transform.position += Vector3.Normalize(m_Target - transform.position) * m_Speed;
-	}
-
+	} 
+	
 	void updateStickyLine()
 	{
 		//Set lines position to between Zoey and this projectile
@@ -216,12 +198,14 @@ public class StickyHandProjectile : MonoBehaviour {
 		if (m_ProjectileLine)
 		{
 			m_ProjectileLine.SetActive(true);
+			m_ProjectileLine.transform.localScale = new Vector3 (m_ProjectileLine.transform.localScale.x, m_OriginalScale, m_ProjectileLine.transform.localScale.z);
+
 		}
 		else
 		{
 			m_ProjectileLine = (GameObject)Instantiate(Resources.Load("StickyHandLine"), Vector3.Lerp (m_Zoey.transform.position, transform.position, 0.5f), Quaternion.identity);
+			m_OriginalScale = m_ProjectileLine.transform.localScale.y;
 		}
 		updateStickyLine();
-		m_OriginalScale = m_ProjectileLine.transform.localScale.y;
 	}
 }
