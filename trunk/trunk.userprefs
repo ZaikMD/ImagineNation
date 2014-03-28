@@ -1,10 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\PlayerMovement.cs">
     <Files>
-      <File FileName="Assets\Scripts\Prototype\StickyHandProjectile.cs" Line="200" Column="37" />
-      <File FileName="Assets\Scripts\Prototype\StickyHand.cs" Line="40" Column="16" />
-      <File FileName="Assets\Scripts\Prototype\PlayerMovement.cs" Line="92" Column="35" />
+      <File FileName="Assets\Scripts\Prototype\StickyHandProjectile.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\StickyHand.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\PlayerMovement.cs" Line="81" Column="51" />
+      <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="219" Column="29" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
