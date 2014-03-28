@@ -213,12 +213,8 @@ public class CameraController : MonoBehaviour {
 		}
 		else
 		{
-			//Get Position to Look at (Currently in front of followed object)
-			Vector3 objectForward = Vector3.Normalize(m_CameraFollow.forward);
-			Vector3 originPosition = m_CameraFollow.localPosition;
-
 			//Where to Look
-			Vector3 positionToLookAt = Vector3.Lerp (m_LastLookAtPosition, originPosition + (objectForward * m_ForwardAmount), LOOK_AT_SPEED);
+			Vector3 positionToLookAt = Vector3.Lerp (m_LastLookAtPosition, m_CameraFollow.localPosition + (m_CameraFollow.forward * m_ForwardAmount), LOOK_AT_SPEED);
 
 			//Look in front of object
 			this.transform.LookAt (positionToLookAt);
