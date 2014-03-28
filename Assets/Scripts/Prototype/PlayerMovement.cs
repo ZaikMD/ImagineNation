@@ -1,11 +1,25 @@
 ﻿/*
 
+TO USE
+
+Attach this component to the player.
+
+Create a camera with the camera controller.
+
+Give player movement the camera's transform.
 
 
 
-3/25/2014 - Jason Hein
+
+
+Created by Jason Hein 3/25/2014
+
+
+3/25/2014
 	Added can move function to disable movement while in the character is busy
 	Added moveRegular which is a test variable for now. You can remove it when real ground movement is added.
+3/28/2014
+	Movement is now based on camera projection
  */
 
 
@@ -22,6 +36,8 @@ using System.Collections;
 public class PlayerMovement : MonoBehaviour 
 {
 	public GameObject m_Player;
+	public Transform m_CameraTransform;
+
 	CharacterController m_Controller;
 	bool m_CanMove = true;
 
@@ -71,11 +87,15 @@ public class PlayerMovement : MonoBehaviour
 			return;
 		}
 
-		//*********Replace the follwoing code, right now it's just their for movement testing************
+		Vector3 lookAt = m_CameraTransform.forward * Input.GetAxis("Vertical");
+		lookAt += m_CameraTransform.right * Input.GetAxis("Horizontal");
+		lookAt.y = 0;
+
+
 
 
 		//Moves the player and looks where the player is going
-		Vector3 lookAt = new Vector3 (Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+		//Vector3 lookAt = new Vector3 (Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 		transform.LookAt (transform.position + lookAt);
 		m_Controller.Move (transform.forward / 5);
 	}

@@ -18,6 +18,9 @@ Created by Jason Hein on 3/1/2014
 	Now instantiates an origin on it's own, instead of being provided one
 3/25/2014
 	Slowed lookat lerping by a little
+3/28.2014
+	Increased orientation sensitivity
+	Slightly optimized
 */
 
 
@@ -44,11 +47,11 @@ public class CameraController : MonoBehaviour {
 
 
 	//Sensitivity
-	const float ROTATION_SENSITIVITY = 1.0f;
+	const float ROTATION_SENSITIVITY = 2.0f;
 	const float ZOOM_SENSITIVITY = 0.5f;
 	const float CAMERA_FOLLOW_SPEED = 0.15f;
 	const float RANGE_TO_ENABLE_SWITCHING = 0.1f;
-	const float LOOK_AT_SPEED = 0.10f;
+	const float LOOK_AT_SPEED = 0.08f;
 	const float AIMING_LOOK_AT_FRONT_AMOUNT = 5.0f;
 	const float AIMING_CAMERA_HEIGHT = 0.5f;
 
