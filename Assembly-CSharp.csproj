@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\Prototype\DerekProjectile.cs" />
      <Compile Include="Assets\Scripts\Prototype\DivingBoard.cs" />
      <Compile Include="Assets\Scripts\Prototype\FearScript.cs" />
+     <Compile Include="Assets\Scripts\Prototype\GameManager.cs" />
      <Compile Include="Assets\Scripts\Prototype\Health.cs" />
      <Compile Include="Assets\Scripts\Prototype\MoveableBlock.cs" />
      <Compile Include="Assets\Scripts\Prototype\NerfGun.cs" />

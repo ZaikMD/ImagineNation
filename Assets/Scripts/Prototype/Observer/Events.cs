@@ -1,6 +1,8 @@
 ﻿
 public enum ObeserverEvents
 {
-	CharacterSwitch
+	CharacterSwitch,
+	StartGame,
+	PauseGame
 }
 
