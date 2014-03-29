@@ -145,7 +145,7 @@ public class NerfGunProjectile : MonoBehaviour
 		//a nerf target script that will perform the intended response upon
 		//being hit
 		Destroy (this.gameObject);               
-		//nerfTarget.activateTrigger();
+		nerfTarget.SetActive (false);
 	}
 
 	public void setActive(bool active)
