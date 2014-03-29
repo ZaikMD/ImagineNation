@@ -12,7 +12,8 @@ public abstract class InteractableBaseClass : MonoBehaviour
 	};
 
 
-
+	public InteractableType m_Type;
+	public bool m_IsExitable;
 	// Use this for initialization
 	void Start () 
 	{
@@ -26,7 +27,13 @@ public abstract class InteractableBaseClass : MonoBehaviour
 	}
 
 
-	public abstract InteractableType getType();
-	public abstract bool getIsExitable();
+	public  InteractableType getType()
+	{
+		return m_Type;
+	}
+	public  bool getIsExitable()
+	{
+		return m_IsExitable;
+	}
 
 }
