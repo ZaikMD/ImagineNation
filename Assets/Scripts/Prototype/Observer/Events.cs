@@ -3,6 +3,8 @@ public enum ObeserverEvents
 {
 	CharacterSwitch,
 	StartGame,
-	PauseGame
+	PauseGame,
+	NerfTargetHit,
+	AllTargetTriggered
 }
 

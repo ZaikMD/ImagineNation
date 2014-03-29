@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\Prototype\DerekProjectile.cs" />
      <Compile Include="Assets\Scripts\Prototype\DivingBoard.cs" />
      <Compile Include="Assets\Scripts\Prototype\FearScript.cs" />
+     <Compile Include="Assets\Scripts\Prototype\GameManager.cs" />
      <Compile Include="Assets\Scripts\Prototype\Health.cs" />
      <Compile Include="Assets\Scripts\Prototype\InteractableBaseClass.cs" />
      <Compile Include="Assets\Scripts\Prototype\MoveableBlock.cs" />
@@ -76,6 +77,8 @@
      <Compile Include="Assets\Scripts\Prototype\SeeSaw.cs" />
      <Compile Include="Assets\Scripts\Prototype\StickyHand.cs" />
      <Compile Include="Assets\Scripts\Prototype\StickyHandProjectile.cs" />
+     <Compile Include="Assets\Scripts\Prototype\TargetManager.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Targets.cs" />
      <Compile Include="Assets\Scripts\Prototype\TestingScripts\SwitchTest.cs" />
      <Compile Include="Assets\Scripts\Prototype\Trampoline.cs" />
      <Compile Include="Assets\Scripts\Prototype\TrampolineButton.cs" />
