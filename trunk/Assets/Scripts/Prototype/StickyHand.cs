@@ -17,6 +17,9 @@ MUST CHANGE TARGET PROVIDED TO BE PROVIDED BY CAMERA
 
 Created by Jason Hein on 3/23/2014
 
+3/29/2014
+	Now properly overrides base primary items fire function
+	You can no longer fire while a sticky hand projectile is already active
 */
 
 
@@ -50,18 +53,12 @@ public class StickyHand : BasePrimaryItem {
 	/// Fires the sticky hand at the specific target
 	/// </summary>
 	/// <param name="target">Target.</param>
-	public void fire(Vector3 target)
+	public override void fire(Vector3 target)
 	{
-		m_Projectile.transform.position = this.transform.position + this.transform.forward;
-		m_ProjectileComponent.activate(target);
-	}
-
-	/// <summary>
-	/// Calls the fire function
-	/// </summary>
-	/// <param name="currentTarget">Current target.</param>
-	public void aimFire(Vector3 currentTarget)
-	{
-		fire (currentTarget);
+		if (!m_Projectile.activeInHierarchy)
+		{
+			m_Projectile.transform.position = this.transform.position + this.transform.forward;
+			m_ProjectileComponent.activate(target);
+		}
 	}
 }

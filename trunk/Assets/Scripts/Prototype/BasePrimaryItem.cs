@@ -7,14 +7,14 @@ public abstract class BasePrimaryItem : MonoBehaviour
 	
 	CameraController m_Camera;
 	
-	public virtual void fire()
+	public virtual void fire(Vector3 target)
 	{
 		Instantiate(m_BaseProjectile);
 	}
 	
-	public virtual void aimFire()
+	public virtual void aimFire(Vector3 target)
 	{
 		m_Camera.enableAiming ();
-		fire ();
+		fire (target);
 	}
 }

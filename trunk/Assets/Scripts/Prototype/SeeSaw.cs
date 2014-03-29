@@ -1,22 +1,31 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SeeSaw : MonoBehaviour {
+public class SeeSaw : MonoBehaviour
+{
 
-
+	//Players
 	public GameObject m_SittingPlayer;
 	private GameObject m_JumpingPlayer;
+
+	//Seesaw points
 	public GameObject m_JumpPoint;
 	public GameObject m_SitPoint;
 	public GameObject m_JumpEndPoint;
 
+	//States
 	private  bool m_IsLerping;
+	private bool m_HasLaunchedPlayer;
 
+	//Points
 	private Vector3 m_JumpPointPos;
 	private Vector3 m_SitPointPos;
+
+	//Timer
 	private float m_ResetTimer;
-	private bool m_HasLaunchedPlayer;
 	private float m_LerpTime;
+
+
 	void Start()
 	{
 		//Initialize the jump and sit points.
@@ -49,6 +58,7 @@ public class SeeSaw : MonoBehaviour {
 			reset();
 		}
 	}
+
 	void makeChild(GameObject obj)
 	{
 

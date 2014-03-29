@@ -1,4 +1,13 @@
-﻿using UnityEngine;
+﻿/*
+
+3/29/2014 - Jason
+	Now properly overrides base primary item's fire functions
+
+
+*/
+
+
+using UnityEngine;
 using System.Collections;
 
 public class BoxingGloves : BasePrimaryItem 
@@ -17,18 +26,12 @@ public class BoxingGloves : BasePrimaryItem
 	{
 		if(Input.GetKeyDown(KeyCode.Space))
 		{
-			fire ();
+			fire (transform.position + transform.forward);
 		}
 	}
 	
-	public void fire()
+	public override void fire(Vector3 target)
 	{
 		Instantiate (m_BaseProjectile, this.transform.position, this.transform.rotation);
 	}
-
-	public void aimFire()
-	{
-
-	}
-
 }

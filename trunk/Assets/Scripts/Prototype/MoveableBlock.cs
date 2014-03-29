@@ -7,14 +7,6 @@ public class MoveableBlock : MonoBehaviour
 
 	public Size m_BlockSize; //This get's set by designers
 
-	void start()
-	{
-		
-	}
-	void Update()
-	{
-
-	}
 	Size returnSize()
 	{
 		return m_BlockSize;

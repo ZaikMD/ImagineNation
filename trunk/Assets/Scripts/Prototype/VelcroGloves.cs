@@ -15,6 +15,9 @@ Set the walls trigger box collider to a little outside the wall, outlining the s
 
 
 Created by Jason Hein on 3/23/2014
+
+3/29/2014
+	Now properly inherits from base secondary item
 */
 
 
@@ -26,73 +29,71 @@ using System.Collections;
 using System.Collections.Generic;
 
 [RequireComponent (typeof(PlayerMovement))]
-public class VelcroGloves : MonoBehaviour
+public class VelcroGloves : SecondairyBase
 {
 	//Are we climbing?
-	bool m_Enabled = false;
-
+	bool m_Climbing = false;
+	
 	//The player, so we can set flags
 	//Player m_Player = null
-
-	//Movement, so we can call climbing movement
-	PlayerMovement m_Movement;
-
+	
 	//Angle of the new wall to climb
 	float m_AngleOfNextWall;
-
+	
 	//Walls nearby
 	List <GameObject> m_VelcroWalls = new List<GameObject>();
-
+	
 	//Initialization		
 	void Start ()
 	{
-		//Get the components
-		m_Movement = (PlayerMovement)gameObject.GetComponent<PlayerMovement>();    //Get component to move the player
+		base.Load();
+
+		//Get the component
 		//m_Player = getComponent <Player>();        							   //Get player component to set player flags
 	}
-
+	
 	//Every tick
 	void Update ()
 	{
 		//If we are not near a window, do nothing
-		if ( m_VelcroWalls.Count <= 0 )    //Not near a window
+		if ( m_VelcroWalls.Count <= 0 || !m_Enabled)    //Not near a window
 		{
 			return;
 		}
-
+		
 		//You are climbing
-		else if ( m_Enabled )
+		else if ( m_Climbing )
 		{
 			//Fall button
 			if (Input.GetButtonDown("Fire1"))
 			{
 				//We are no longer climbing
-				m_Enabled = false; 
-
+				m_Climbing = false; 
+				
 				//Set player flag
 				//m_Player->setExitSecondItemFlag ();
-
+				
 				return;
 			}
-
+			
 			//Move
-			m_Movement.ClimbMovement();   //Otherwise we climb
+			Move ();
 		}
-
+		
 		//Grab button
 		else if (Input.GetButtonDown("Fire1"))    //You grabbed the window
 		{
 			//Enable Climbing
-			m_Enabled = true;
-
+			m_Climbing = true;
+			
 			//Set rotation of the player to face the wall
 			transform.Rotate (0, m_AngleOfNextWall - this.transform.rotation.eulerAngles.y - 180, 0);
-
+			
 			//Set flag
 			//m_Player->setEnterSecondItemFlag();       //Set player flag
 		}
 	}
-
+	
 	//When something is nearby
 	void OnTriggerEnter ( Collider collider )
 	{
@@ -101,12 +102,12 @@ public class VelcroGloves : MonoBehaviour
 		{
 			//Save angle of wall
 			m_AngleOfNextWall = collider.transform.eulerAngles.y;
-
+			
 			//You are near this wall
 			m_VelcroWalls.Add ( collider.gameObject );
 		}
 	}
-
+	
 	//When something is no longer nearby
 	void OnTriggerExit ( Collider collider )
 	{
@@ -114,18 +115,18 @@ public class VelcroGloves : MonoBehaviour
 		if ( collider.gameObject.CompareTag("VelcroWall"))
 		{
 			//If we are climbing
-			if (m_Enabled)
+			if (m_Climbing)
 			{
 				//If this was the only nearby window, you fall
 				if ( m_VelcroWalls.Count <= 1 )
 				{
 					//You fall
-					m_Enabled = false;
-
+					m_Climbing = false;
+					
 					//Set player flag
 					//m_Player->setExitSecondItemFlag ();
 				}
-
+				
 				//If we are leaving the first wall
 				else if (collider.gameObject == m_VelcroWalls[0])	//if 
 				{
@@ -133,9 +134,14 @@ public class VelcroGloves : MonoBehaviour
 					transform.Rotate (0, m_AngleOfNextWall - this.transform.rotation.eulerAngles.y - 180, 0);
 				}
 			}
-
+			
 			//You are no longer near this wall
 			m_VelcroWalls.Remove ( collider.gameObject );
 		}
+	}
+	
+	public override void Move()
+	{
+		m_PlayerMovement.ClimbMovement();   //Otherwise we climb
 	}
 }
