@@ -3,11 +3,6 @@ using System.Collections;
 
 using System.Collections.Generic;
 
-public enum ObeserverEvents
-{
-	CharacterSwitch
-}
-
 public class Subject : MonoBehaviour 
 {
 	List <Observer> m_Observers = new List<Observer>();
