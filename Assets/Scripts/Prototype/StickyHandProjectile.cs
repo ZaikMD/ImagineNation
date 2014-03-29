@@ -18,6 +18,10 @@ All the projectile is, is a prefab with a rigid body.
 	Fixed buggy movement while firing
 	Fixed projectile line while moving
 	Renabled movement while firing, disabled it while launching
+3/29/2014
+	Now finds Zoey based on object name, instead of a tag
+	Fixed sticky projectile sometimes never reaching the player
+	Fixed sticky line length not scaling properly
 */
 
 
@@ -36,8 +40,8 @@ public class StickyHandProjectile : MonoBehaviour {
 	States m_State; 
 	
 	//Speed and max distance to retract
-	float m_Speed = 0.75f; 
-	float m_MaxDist = 20.0f; 
+	const float m_Speed = 0.75f; 
+	const float MAX_DISTANCE = 20.0f; 
 	float m_OriginalScale;
 
 	//Target to fire at
@@ -49,12 +53,6 @@ public class StickyHandProjectile : MonoBehaviour {
 
 	//Movement, so we can stop the player from moving while launching
 	PlayerMovement m_Movement;
-
-	//Initialization on startup
-	void Start() 
-	{ 
-
-	}
 
 	//On Tick
 	void Update() 
@@ -97,10 +95,13 @@ public class StickyHandProjectile : MonoBehaviour {
 		if (other.gameObject == m_Zoey && m_State != States.Extending)
 		{
 			//The player can now move again
-			m_Movement.setCanMove(true);
+			if (m_State == States.Launching)
+			{
+				m_Movement.setCanMove(true);
+			}
 
-			gameObject.SetActive(false);
 			m_ProjectileLine.SetActive(false);
+			gameObject.SetActive(false);
 			return;
 		}
 		//At Glass while extending
@@ -125,19 +126,13 @@ public class StickyHandProjectile : MonoBehaviour {
 	//Retract
 	void retracting() 
 	{ 
-		//Resize the following line
-		m_ProjectileLine.transform.localScale = new Vector3 (m_ProjectileLine.transform.localScale.x, m_ProjectileLine.transform.localScale.y - (m_Speed * m_OriginalScale / 2), m_ProjectileLine.transform.localScale.z);
-
 		//Update the stickyhand projectile position
-		transform.position += Vector3.Normalize(m_Zoey.transform.position - this.transform.position) * m_Speed;
+		transform.position -= Vector3.Normalize(transform.position - m_Zoey.transform.position) * m_Speed;
 	} 
 
 	//Launch
 	void launching() 
 	{ 
-		//Resize the following line
-		m_ProjectileLine.transform.localScale = new Vector3 (m_ProjectileLine.transform.localScale.x, m_ProjectileLine.transform.localScale.y - (m_Speed * m_OriginalScale / 2), m_ProjectileLine.transform.localScale.z);
-
 		//Update the stickyhand projectile position
 		m_Zoey.transform.position += Vector3.Normalize(transform.position - m_Zoey.transform.position) * m_Speed;
 	} 
@@ -146,25 +141,28 @@ public class StickyHandProjectile : MonoBehaviour {
 	void extending() 
 	{ 
 		//If the projectile has gone too far, set it to retract
-		if(Vector3.Distance(m_Zoey.transform.position, transform.position) > m_MaxDist)
+		if(Vector3.Distance(m_Zoey.transform.position, transform.position) > MAX_DISTANCE)
 		{ 
 			m_State = States.Retracting;
 			return;
 		}
 
-		//Otherwise resize the following line
-		m_ProjectileLine.transform.localScale = new Vector3 (m_ProjectileLine.transform.localScale.x, m_ProjectileLine.transform.localScale.y + m_Speed * m_OriginalScale / 2, m_ProjectileLine.transform.localScale.z);
-
 		//Update the stickyhand projectile position
 		transform.position += Vector3.Normalize(m_Target - transform.position) * m_Speed;
 	} 
-	
+
+	//Updates the position and length of the sticky line
 	void updateStickyLine()
 	{
 		//Set lines position to between Zoey and this projectile
 		m_ProjectileLine.transform.position = Vector3.Lerp (m_Zoey.transform.position, transform.position, 0.5f);
+
+		//Angle it properly
 		m_ProjectileLine.transform.LookAt (transform.position);
 		m_ProjectileLine.transform.Rotate (new Vector3 (90,0,0));
+
+		//Resize length
+		m_ProjectileLine.transform.localScale = new Vector3 (m_ProjectileLine.transform.localScale.x, Vector3.Distance (m_Zoey.transform.position, transform.position) / 2.0f, m_ProjectileLine.transform.localScale.z);
 	}
 
 	/// <summary>
@@ -174,13 +172,13 @@ public class StickyHandProjectile : MonoBehaviour {
 	public void activate(Vector3 target) 
 	{ 
 		//Reset is to extending
-		m_State = States.Extending; 
+		m_State = States.Extending;
 		gameObject.SetActive(true);
 
 		//Find Zoey
 		if (m_Zoey == null)
 		{
-			m_Zoey = GameObject.FindGameObjectWithTag ("Zoey");
+			m_Zoey = GameObject.Find ("Zoey");
 		}
 
 		//Get movement

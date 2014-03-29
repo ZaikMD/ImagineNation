@@ -20,6 +20,9 @@ Created by Jason Hein 3/25/2014
 	Added moveRegular which is a test variable for now. You can remove it when real ground movement is added.
 3/28/2014
 	Movement is now based on camera projection
+3/29/2014
+	Added basic jumping (still very buggy)
+	Added air, jump, and gliding movement
  */
 
 
@@ -41,9 +44,16 @@ public class PlayerMovement : MonoBehaviour
 	CharacterController m_Controller;
 	bool m_CanMove = true;
 
+	const float MOVE_SPEED = 6.0f;
+	const float FALL_SPEED = 15.0f;
+	const float AIR_MOVE_SPEED = 3.0f;
+	const float GLIDING_FALL_SPEED = 6.0f;
 
-	//TEST VARIABLE BECAUSE I WANT TO MOVE - Jason
-	bool moveRegular = true;
+
+	//TEMPORARY FLOAT THAT SHOULD BE MOVED TO STATE MACHINE
+	const float JUMP_TIME = 0.2f;
+	const float JUMP_SPEED = 15.0f;
+	float m_JumperTimer = 0.0f;
 
 
 	void Start ()
@@ -52,52 +62,88 @@ public class PlayerMovement : MonoBehaviour
 		m_Controller = m_Player.GetComponent<CharacterController>();
 	}
 
+
+
+	//CAN REMOVE BELOW FUNCTION ONCE WE HOOK UP STATE MACHINE
+
+
 	/// <summary>
-	/// Sets if you can move.
+	/// Allows you to enable and renable movement during interactions.
 	/// </summary>
-	/// <param name="move">If set to <c>true</c> move.</param>
 	public void setCanMove(bool move)
 	{
 		m_CanMove = move;
 	}
 
-	//MAKE YORE PUBLIC MOVEMENT FUNCTIONS HERE
-
+	/// <summary>
+	/// Returns a normalized input vector based on camera's rotation.
+	/// </summary>
+	/// <returns>Controller input in relation to camera's rotation.</returns>
+	Vector3 getControllerProjection()
+	{
+		Vector3 projection = m_CameraTransform.forward * Input.GetAxis("Vertical");
+		projection += m_CameraTransform.right * Input.GetAxis("Horizontal");
+		projection.y = 0;
+		return projection.normalized;
+	}
+	
 	void Update ()
 	{
-		//Test code so we can walk
-		if (moveRegular)
+		//Temporary testing of movement
+		if (IsGrounded ())
 		{
-			GroundMovement();
+			if (m_JumperTimer > 0.0f)
+			{
+				m_JumperTimer = 0.0f;
+			}
+
+			if (Input.GetButtonDown("Jump"))
+			{
+				JumpMovement();
+			}
+			else
+			{
+				GroundMovement();
+			}
+		}
+		else if (m_JumperTimer > 0.0f)
+		{
+			JumpMovement();
+		}
+		else
+		{
+			AirMovement();
 		}
 	}
+
+	// Checks to see if we are on the ground
+	public bool IsGrounded()
+	{
+		return m_Controller.isGrounded;
+		//isGrounded = (characterController.Move (forwardDirection * (Time.deltaTime * movementSpeed)) & CollisionFlags.Below) != 0;
+	}
+
+
+	//MAKE YORE PUBLIC MOVEMENT FUNCTIONS HERE
+
+
+
+
+
 
 	/// <summary>
 	/// Basic walking movement
 	/// </summary>
 	public void GroundMovement()
 	{
-		if (!m_CanMove)
+		if (!m_CanMove || (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0))
 		{
 			return;
 		}
-
-		if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
-		{
-			return;
-		}
-
-		Vector3 lookAt = m_CameraTransform.forward * Input.GetAxis("Vertical");
-		lookAt += m_CameraTransform.right * Input.GetAxis("Horizontal");
-		lookAt.y = 0;
-
-
-
 
 		//Moves the player and looks where the player is going
-		//Vector3 lookAt = new Vector3 (Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-		transform.LookAt (transform.position + lookAt);
-		m_Controller.Move (transform.forward / 5);
+		transform.LookAt (transform.position + getControllerProjection());
+		m_Controller.Move (transform.forward * MOVE_SPEED * Time.deltaTime);
 	}
 
 	/// <summary>
@@ -105,21 +151,26 @@ public class PlayerMovement : MonoBehaviour
 	/// </summary>
 	public void ClimbMovement()
 	{
-		if (!m_CanMove)
+		if (!m_CanMove || (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0))
 		{
 			return;
 		}
 
-		moveRegular = false;
+		//Climbing up and down
+		Vector3 move = new Vector3 (0, Input.GetAxis ("Vertical") * MOVE_SPEED, 0);
 
-		//Do we move up?
-		Vector3 move = new Vector3 (0, Input.GetAxis ("Vertical") / 5, 0);
-
-		//Do we move left or right?
-		move += Input.GetAxis ("Horizontal") / 5 * this.transform.right;
+		//Climbing left and right
+		if (m_CameraTransform.forward.x > 0)
+		{
+			move += Input.GetAxis ("Horizontal") * MOVE_SPEED * this.transform.right;
+		}
+		else
+		{
+			move -= Input.GetAxis ("Horizontal") * MOVE_SPEED * this.transform.right;
+		}
 
 		//Move
-		m_Controller.Move (move);
+		m_Controller.Move (move * Time.deltaTime);
 	}
 
 	/// <summary>
@@ -132,12 +183,77 @@ public class PlayerMovement : MonoBehaviour
 			return;
 		}
 
-		moveRegular = false;
+		//Falling
+		m_Controller.Move (-transform.up * GLIDING_FALL_SPEED * Time.deltaTime);
+
+		if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
+		{
+			return;
+		}
+		
+		//Moves the player and looks where the player is going
+		transform.LookAt (transform.position + getControllerProjection());
+		m_Controller.Move (transform.forward * MOVE_SPEED * Time.deltaTime);
 	}
 
-	// Checks to see if we are on the ground
-	public bool IsGrounded()
+	public void AirMovement()
 	{
-		return m_Controller.isGrounded;
+		if (!m_CanMove)
+		{
+			return;
+		}
+
+		//Falling
+		m_Controller.Move (-transform.up * GLIDING_FALL_SPEED * Time.deltaTime);
+		
+		if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
+		{
+			return;
+		}
+		
+		//Moves the player and looks where the player is going
+		transform.LookAt (transform.position + getControllerProjection());
+
+		m_Controller.Move (transform.forward * MOVE_SPEED * Time.deltaTime);
+	}
+
+	public void JumpMovement()
+	{
+		if (!m_CanMove || m_JumperTimer > JUMP_TIME)
+		{
+			m_JumperTimer = 0.0f;
+			return;
+		}
+		m_JumperTimer += Time.deltaTime;
+		
+		//Jumping up
+		if (m_JumperTimer > JUMP_TIME / 1.5f)
+		{
+			m_Controller.Move (transform.up * (JUMP_SPEED / 2 * Time.deltaTime));
+			m_JumperTimer += Time.deltaTime;
+		}
+		else
+		{
+			m_Controller.Move (transform.up * (JUMP_SPEED * Time.deltaTime));
+		}
+		
+		if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
+		{
+			return;
+		}
+		
+		//Moves the player and looks where the player is going
+		transform.LookAt (transform.position + getControllerProjection());
+		m_Controller.Move (transform.forward * AIR_MOVE_SPEED * Time.deltaTime);
+	}
+
+	public void BlockHeldMovement ()
+	{
+		if (!m_CanMove || (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0))
+		{
+			return;
+		}
+
+		//Move
 	}
 }

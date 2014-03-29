@@ -4,17 +4,6 @@ using System.Collections;
 public class TrampolineButton : MonoBehaviour 
 {
 	public Trampoline m_MyTrampoline;
-	// Use this for initialization
-	void Start () 
-	{
-	
-	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-	
-	}
 
 	void OnTriggerStay(Collider other)
 	{
