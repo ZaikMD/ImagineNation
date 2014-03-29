@@ -1,9 +1,22 @@
 ﻿<Properties>
+<<<<<<< .mine
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Cape.cs">
+=======
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\StickyHand.cs">
+>>>>>>> .r42
     <Files>
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\RCCar.cs" Line="21" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\PlayerAIStateMachine.cs" Line="216" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\PlayerState.cs" Line="18" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\PlayerMovement.cs" Line="105" Column="16" />
+      <File FileName="Assets\Scripts\Prototype\Cape.cs" Line="17" Column="37" />
+=======
       <File FileName="Assets\Scripts\Prototype\StickyHand.cs" Line="18" Column="35" />
       <File FileName="Assets\Scripts\Prototype\StickyHandProjectile.cs" Line="55" Column="28" />
+>>>>>>> .r42
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

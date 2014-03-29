@@ -12,9 +12,14 @@ using System.Collections;
 
 public abstract class SecondairyBase : MonoBehaviour {
 
+<<<<<<< .mine
+    public bool m_Enabled = false;
+    public PlayerMovement m_playerMovement;
+=======
     protected bool m_Enabled = true;
     protected PlayerMovement m_PlayerMovement;
 	protected PlayerInput m_InputInstance;
+>>>>>>> .r42
 	// Use this for initialization
 	void Start ()
     {
@@ -35,7 +40,7 @@ public abstract class SecondairyBase : MonoBehaviour {
 	/// Gets or sets a value indicating whether this item can be used.
 	/// </summary>
 	/// <value><c>true</c> if is enabled; otherwise, <c>false</c>.</value>
-    bool isEnabled
+    public bool isEnabled
     {
         get { return m_Enabled; }
         set { m_Enabled = true; }

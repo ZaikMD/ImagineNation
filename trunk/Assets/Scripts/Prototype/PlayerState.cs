@@ -241,7 +241,7 @@ public  abstract class PlayerState : MonoBehaviour
 	}
 	                                                                                                                                    
 
-	bool getInteracting()
+	public bool getInteracting()
 	{
   		if(m_PlayerState == PlayerStates.interacting)
      	{
@@ -257,7 +257,7 @@ public  abstract class PlayerState : MonoBehaviour
 
 
 
-	InteractionTypes interactionType ()
+	public InteractionTypes interactionType ()
 	{
  		return m_InteractionType;
 	}
