@@ -320,7 +320,7 @@ public class PlayerInput : MonoBehaviour
 		return m_InteractWithEnviromentHeld;
 	}
 
-	public bool getauseHeld()
+	public bool getPauseHeld()
 	{
 		return m_PauseHeld;
 	}
