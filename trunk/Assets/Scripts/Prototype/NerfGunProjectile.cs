@@ -15,7 +15,7 @@ public class NerfGunProjectile : MonoBehaviour
 
 	NerfGunProjectileState m_State;
 
-	float m_BulletLifeSpan = 10.0f;
+	float m_BulletLifeSpan = 5.0f;
 	float m_PlatformLifeSpan = 20.0f;
 	float m_Timer = 0.0f;
 	float m_PlatformTimer = 0.0f;
@@ -30,7 +30,8 @@ public class NerfGunProjectile : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-	
+		m_State = NerfGunProjectileState.Default;
+
 	}
 	
 	// Update is called once per frame
@@ -76,7 +77,7 @@ public class NerfGunProjectile : MonoBehaviour
 		m_PlatformTimer += Time.deltaTime;
 
 		if(m_PlatformTimer >= m_PlatformLifeSpan)
-			setActive(false);
+			Destroy (this.gameObject);
 	}
 	
 	void IsMovingState()
@@ -86,7 +87,7 @@ public class NerfGunProjectile : MonoBehaviour
 
 		if (m_Timer >= m_BulletLifeSpan)
 		{
-			setActive(false);
+			Destroy (this.gameObject);
 		}
 	}
 	
@@ -115,14 +116,14 @@ public class NerfGunProjectile : MonoBehaviour
 			break;
 			
 		default:
-			setActive(false);
+			Destroy (this.gameObject);
 			break;
 		}
 	}
 	
 	void CollidedWithEnemy(GameObject enemy)
 	{
-		setActive(false);               
+		Destroy (this.gameObject);              
 		//enemy.applyDamage();
 	}
 	
@@ -132,8 +133,9 @@ public class NerfGunProjectile : MonoBehaviour
 		//preferably increase the size of the bullet or
 		// destroy the bullet and spawn a platform
 		transform.rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-		transform.localScale = new Vector3 (0, transform.localScale .x + 1, 0);
+		transform.localScale = new Vector3 (transform.localScale.x + 1.0f, 0.1f, 1.5f);
 		m_IsPlatform = true;
+		m_State = NerfGunProjectileState.IsPlatform;
 
 	}
 	
@@ -142,7 +144,7 @@ public class NerfGunProjectile : MonoBehaviour
 		//activate trigger is simply a placeholder name for a function within
 		//a nerf target script that will perform the intended response upon
 		//being hit
-		setActive(false);               
+		Destroy (this.gameObject);               
 		//nerfTarget.activateTrigger();
 	}
 
