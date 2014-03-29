@@ -29,7 +29,7 @@ public class Health : MonoBehaviour {
 	float m_DefaultIntensity;
 
 	//Light object
-	GameObject m_Light = null;
+	GameObject m_Light = null; 
 
 	//You can set the colour of the health light
 	public Color m_HealthColor = Color.cyan;
