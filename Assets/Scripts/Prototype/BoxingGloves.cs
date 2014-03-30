@@ -24,7 +24,7 @@ public class BoxingGloves : BasePrimaryItem
 
 	void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.Space))
+		if(Input.GetKeyDown(KeyCode.F))
 		{
 			fire (transform.position + transform.forward);
 		}

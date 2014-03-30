@@ -1,7 +1,18 @@
 ﻿<Properties>
+<<<<<<< .mine
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\RemoveDebris.cs">
+=======
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\EnvironmentInteraction.cs">
+>>>>>>> .r57
     <Files>
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\BoxingGloves.cs" Line="18" Column="30" />
+      <File FileName="Assets\Scripts\Prototype\DerekProjectile.cs" Line="40" Column="84" />
+      <File FileName="Assets\Scripts\Prototype\RemoveDebris.cs" Line="9" Column="3" />
+      <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="1" Column="1" />
+=======
       <File FileName="Assets\Scripts\Prototype\PlayerMovement.cs" Line="92" Column="3" />
       <File FileName="Assets\Scripts\Prototype\NerfGun.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\NerfGunProjectile.cs" Line="1" Column="1" />
@@ -14,6 +25,7 @@
       <File FileName="Assets\Scripts\Prototype\PlayerInput.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\CrawlSpaces.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\EnvironmentInteraction.cs" Line="45" Column="4" />
+>>>>>>> .r57
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
