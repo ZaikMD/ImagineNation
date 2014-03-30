@@ -55,18 +55,12 @@ public class PlayerMovement : MonoBehaviour
 	const float JUMP_SPEED = 15.0f;
 	float m_JumperTimer = 0.0f;
 
-
 	void Start ()
 	{
 		//Get character controller
 		m_Controller = m_Player.GetComponent<CharacterController>();
-		m_Player.AddComponent ("EnviromentInteraction");
+		m_Player.AddComponent ("EnvironmentInteraction");
 	}
-
-
-
-	//CAN REMOVE BELOW FUNCTION ONCE WE HOOK UP STATE MACHINE
-
 
 	/// <summary>
 	/// Allows you to enable and renable movement during interactions.
