@@ -46,6 +46,7 @@ public class StickyHandProjectile : MonoBehaviour {
 
 	//Target to fire at
 	Vector3 m_Target;
+	Vector3 m_OriginalPosition = Vector3.zero;
 
 	//Important Objects
 	GameObject m_Zoey;
@@ -54,33 +55,26 @@ public class StickyHandProjectile : MonoBehaviour {
 	//Movement, so we can stop the player from moving while launching
 	PlayerMovement m_Movement;
 
+
+
+	public float test;
+
 	//On Tick
 	void Update() 
 	{ 
 		if(enabled)
 		{
-			switch (m_State) 
+			if (m_State == States.Extending)
 			{
-				case States.Extending:
-				{
-					extending(); 
-				}
-				break;
-				case States.Retracting:
-				{
-					retracting(); 
-				}
-				break; 
-				case States.Launching:
-				{
-					launching();  
-				}
-				break;
-				default: 
-				{
-					//
-				}
-				break;
+				extending();
+			}
+			else if (m_State == States.Retracting)
+			{
+				retracting();
+			}
+			else if (m_State == States.Launching)
+			{
+				launching();
 			}
 
 			//Update line to follow this projectile
@@ -140,8 +134,10 @@ public class StickyHandProjectile : MonoBehaviour {
 	//Extending
 	void extending() 
 	{ 
+		test = Vector3.Distance (m_OriginalPosition, transform.position);
+
 		//If the projectile has gone too far, set it to retract
-		if(Vector3.Distance(m_Zoey.transform.position, transform.position) > MAX_DISTANCE)
+		if(Vector3.Distance(m_OriginalPosition, transform.position) >= MAX_DISTANCE)
 		{ 
 			m_State = States.Retracting;
 			return;
@@ -181,10 +177,10 @@ public class StickyHandProjectile : MonoBehaviour {
 			m_Zoey = GameObject.Find ("Zoey");
 		}
 
-		//Get movement
+		//Get component to move the player
 		if (m_Movement == null)
 		{
-			m_Movement = (PlayerMovement)m_Zoey.GetComponent<PlayerMovement>();    //Get component to move the player
+			m_Movement = (PlayerMovement)m_Zoey.GetComponent<PlayerMovement>();
 		}
 
 		//Set initial positions and rotations
@@ -192,17 +188,18 @@ public class StickyHandProjectile : MonoBehaviour {
 		this.transform.Rotate (m_Zoey.transform.rotation.eulerAngles - transform.rotation.eulerAngles);
 		this.transform.Rotate (new Vector3 (90,0,0));
 
+		//Set original position
+		m_OriginalPosition = transform.position;
+
 		//Create line to trail behind
 		if (m_ProjectileLine)
 		{
 			m_ProjectileLine.SetActive(true);
-			m_ProjectileLine.transform.localScale = new Vector3 (m_ProjectileLine.transform.localScale.x, m_OriginalScale, m_ProjectileLine.transform.localScale.z);
 
 		}
 		else
 		{
 			m_ProjectileLine = (GameObject)Instantiate(Resources.Load("StickyHandLine"), Vector3.Lerp (m_Zoey.transform.position, transform.position, 0.5f), Quaternion.identity);
-			m_OriginalScale = m_ProjectileLine.transform.localScale.y;
 		}
 		updateStickyLine();
 	}

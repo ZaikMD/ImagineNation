@@ -152,7 +152,7 @@ public class PlayerMovement : MonoBehaviour
 
 		if (m_Aiming)
 		{
-			transform.Rotate(new Vector3 (0.0f, Input.GetAxis("Horizontal"), 0.0f));
+			transform.Rotate(new Vector3 (0.0f, Input.GetAxis("Mouse X"), 0.0f));
 			return;
 		}
 
