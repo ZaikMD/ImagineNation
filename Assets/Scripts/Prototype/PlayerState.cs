@@ -34,7 +34,8 @@ public abstract class PlayerState : MonoBehaviour
 
 	GameObject m_AimReticle;
 	GameObject m_CurrentPartner; // likely set by start menu.
-	float m_KnockBackTimer; 
+	const float KNOCKBACK_TIME = 0.5f;
+	float m_KnockBackTimer = KNOCKBACK_TIME; 
 	bool m_UsingSecondItem;
 	bool m_HaveSecondItem;
 	bool m_Interacting;
@@ -117,18 +118,20 @@ public abstract class PlayerState : MonoBehaviour
 	{
         Debug.Log("state is now interacting");
         //add any others that are exitble
+
+		//TODO: change to work off get is exitable
         if(m_InteractionType == InteractionTypes.PickUp || m_InteractionType == InteractionTypes.SeesawBottom)
 	    {
 	    	if(PlayerInput.Instance.getEnviromentInteraction())
 		    {
-			    //  exit interactible
+				m_Interacting = false;
             	return;
             }
 		}
 
+		//TODO: change to getType();
         switch(m_InteractionType)
-        {
-	
+        {	
     		case InteractionTypes.PickUp:
 			{	
 		   /*    float difference = Vector3.Distance(this.transform.position, pick up destination); //Not made yet.
@@ -199,6 +202,7 @@ public abstract class PlayerState : MonoBehaviour
    		 {
 		   m_DamagedBy = damagedBy;
      	   applyDamage(amount);
+			m_TakeDamage = true;
   		 }
 	}
 
@@ -215,6 +219,7 @@ public abstract class PlayerState : MonoBehaviour
     	else
     	{
       	 // reset m_KnockBackTimer;
+			m_KnockBackTimer = KNOCKBACK_TIME;
        		m_TakeDamage = false;	
     	}
 	}
@@ -267,20 +272,23 @@ public abstract class PlayerState : MonoBehaviour
                                                                                                                                 
 	protected void MovingFunction()
 	{
-     //   Debug.Log("State is now Moving");
-		if(PlayerInput.Instance.getEnviromentInteraction())
+      //  Debug.Log("State is now Moving");
+		if(m_HaveSecondItem)
 		{
 			if(m_UsingSecondItem)
 			{
 		   	 //	exit second item;
+				//TODO: check if supposed to exit if not call the second item use function
 				m_PlayerState = PlayerStates.Default;
+				return;
         	}
-    		// reset variables
-	   		m_UsingSecondItem = false;
-        	m_PlayerState = PlayerStates.Default;
-
+			else if (ableToEnterSecondItem())
+			{
+				//TODO: check if entering second item. if so set bool and return and set state to default
+			} 		
 	    }
-	    else if(PlayerInput.Instance.getUseItem())
+	    
+		if(PlayerInput.Instance.getUseItem())
 	    {
 		   // does not have code yet
 	        attack();
@@ -295,7 +303,7 @@ public abstract class PlayerState : MonoBehaviour
 
 	protected void IdleFunction()
 	{
-       // Debug.Log("State is now idle");
+      //  Debug.Log("State is now idle");
        // m_HaveSecondItem = true;
 		if(m_HaveSecondItem)
 		{
@@ -305,6 +313,9 @@ public abstract class PlayerState : MonoBehaviour
 				if(m_ExitingSecondItem)
 				{
 					// exit second item.
+
+					m_ExitingSecondItem = false;
+
 					m_UsingSecondItem = false;
 	            }
 	            else
@@ -365,6 +376,8 @@ public abstract class PlayerState : MonoBehaviour
 	            {   
 		        	m_CurrentInteraction = m_InteractionsInRange[0];
 	            }
+
+				m_Interacting = true;
 	         }
 	    }   
 		m_PlayerState = PlayerStates.Default;
@@ -376,7 +389,7 @@ public abstract class PlayerState : MonoBehaviour
 	/// </summary>
 	protected void Default()
 	{
-    //    Debug.Log("state is now Default");
+       // Debug.Log("state is now Default");
 
 		if(m_Health <= 0)
 		{
