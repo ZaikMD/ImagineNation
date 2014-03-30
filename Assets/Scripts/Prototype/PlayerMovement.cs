@@ -49,10 +49,10 @@ public class PlayerMovement : MonoBehaviour
 
 	//Speeds
 	const float MOVE_SPEED = 6.0f;
-	const float FALL_SPEED = 24.0f;
-	const float JUMP_SPEED = 20.0f;
+	const float FALL_SPEED = 10.0f;
+	const float JUMP_SPEED = 10.0f;
 	const float AIR_MOVE_SPEED = 3.0f;
-	const float GLIDING_FALL_SPEED = 6.0f;
+	const float GLIDING_FALL_SPEED = 4.0f;
 	const float PUSHING_BLOCK_SPEED = 3.0f;
 	
 	//Jumping timer
@@ -105,6 +105,8 @@ public class PlayerMovement : MonoBehaviour
 			if (Input.GetButtonDown("Jump"))
 			{
 				JumpMovement();
+				m_JumperTimer = JUMP_TIME;
+				m_Controller.Move(transform.up);
 			}
 			else
 			{
@@ -208,7 +210,7 @@ public class PlayerMovement : MonoBehaviour
 		}
 
 		//Falling
-		m_Controller.Move (-transform.up * GLIDING_FALL_SPEED * Time.deltaTime);
+		m_Controller.Move (-transform.up * FALL_SPEED * Time.deltaTime);
 		
 		if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
 		{
@@ -223,18 +225,16 @@ public class PlayerMovement : MonoBehaviour
 
 	public void JumpMovement()
 	{
-		if (!m_CanMove || m_JumperTimer > JUMP_TIME)
+		if (!m_CanMove || m_JumperTimer < 0.0f)
 		{
-			m_JumperTimer = 0.0f;
 			return;
 		}
-		m_JumperTimer += Time.deltaTime;
+		m_JumperTimer -= Time.deltaTime;
 		
 		//Jumping up
-		if (m_JumperTimer > JUMP_TIME / 1.5f)
+		if (m_JumperTimer < JUMP_TIME / 0.35f)
 		{
 			m_Controller.Move (transform.up * (JUMP_SPEED / 2 * Time.deltaTime));
-			m_JumperTimer += Time.deltaTime;
 		}
 		else
 		{

@@ -87,10 +87,12 @@ public class CameraController : Reticle
 			m_Zoom = 1;
 		}
 
+		/*
 		//Set Reticle Texture
-		/*Transform textureTransform = transform.FindChild ("Reticle");
-		m_ReticleTexture = (GUITexture)textureTransform.guiTexture;
-		textureTransform.parent = null;*/
+		GameObject texture = (GameObject)Instantiate(Resources.Load("Reticle"), Vector3.zero, Quaternion.identity);
+		m_ReticleTexture = (GUITexture)(m_ReticleTexture.GetComponent<GUITexture>());
+		m_ReticleTexture.texture = (Texture)Resources.Load("ReticleTexture");
+		*/
 
 		//Set initial Transform to follow
 		m_CameraFollow = transform.parent.transform;
