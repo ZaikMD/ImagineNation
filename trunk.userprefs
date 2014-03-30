@@ -1,7 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\PlayerMovement.cs">
     <Files>
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="39" Column="27" />
+=======
       <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="182" Column="11" />
       <File FileName="Assets\Scripts\Prototype\PlayerMovement.cs" Line="53" Column="33" />
       <File FileName="Assets\Scripts\Prototype\MoveableBlock.cs" Line="1" Column="1" />
@@ -13,6 +16,7 @@
       <File FileName="Assets\Scripts\Prototype\DivingBoard.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\Reticle.cs" Line="13" Column="28" />
       <File FileName="Assets\Scripts\Prototype\CharacterSwitch.cs" Line="1" Column="1" />
+>>>>>>> .r63
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
