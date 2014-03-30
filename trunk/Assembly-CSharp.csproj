@@ -79,6 +79,7 @@
      <Compile Include="Assets\Scripts\Prototype\PlayerInput.cs" />
      <Compile Include="Assets\Scripts\Prototype\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\Prototype\PlayerState.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Reticle.cs" />
      <Compile Include="Assets\Scripts\Prototype\SecondairyBase.cs" />
      <Compile Include="Assets\Scripts\Prototype\SeeSaw.cs" />
      <Compile Include="Assets\Scripts\Prototype\StickyHand.cs" />
