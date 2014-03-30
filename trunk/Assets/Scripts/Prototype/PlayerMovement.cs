@@ -49,15 +49,13 @@ public class PlayerMovement : MonoBehaviour
 	//Speeds
 	const float MOVE_SPEED = 6.0f;
 	const float CLIMB_SPEED = 3.0f;
-	const float FALL_SPEED = 10.0f;
-	const float JUMP_SPEED = 10.0f;
-	const float AIR_MOVE_SPEED = 3.0f;
+	const float FALL_ACCLERATION = 40.0f;
+	const float JUMP_SPEED = 15.0f;
+	const float AIR_HORIZONTAL_MOVE_SPEED = 3.0f;
 	const float GLIDING_FALL_SPEED = 4.0f;
 	const float PUSHING_BLOCK_SPEED = 3.0f;
-	
-	//Jumping timer
-	const float JUMP_TIME = 0.2f;
-	float m_JumperTimer = 0.0f;
+	float m_VerticalVelocity = 0.0f;
+
 
 	void Start ()
 	{
@@ -72,6 +70,14 @@ public class PlayerMovement : MonoBehaviour
 	public void setCanMove(bool move)
 	{
 		m_CanMove = move;
+
+		if (m_CanMove == false)
+		{
+			if (!IsGrounded ())
+			{
+				m_VerticalVelocity = 0;
+			}
+		}
 	}
 
 	/// <summary>
@@ -97,25 +103,19 @@ public class PlayerMovement : MonoBehaviour
 		//Temporary testing of movement
 		if (IsGrounded ())
 		{
-			if (m_JumperTimer > 0.0f)
+			if (PlayerInput.Instance.getJumpInput())
 			{
-				m_JumperTimer = 0.0f;
-			}
-
-			if (Input.GetButtonDown("Jump"))
-			{
-				JumpMovement();
-				m_JumperTimer = JUMP_TIME;
-				m_Controller.Move(transform.up);
+				Jump();
 			}
 			else
 			{
+				if (m_VerticalVelocity != 0)
+				{
+					m_VerticalVelocity = 0;
+				}
+
 				GroundMovement();
 			}
-		}
-		else if (m_JumperTimer > 0.0f)
-		{
-			JumpMovement();
 		}
 		else
 		{
@@ -202,6 +202,9 @@ public class PlayerMovement : MonoBehaviour
 		m_Controller.Move (transform.forward * MOVE_SPEED * Time.deltaTime);
 	}
 
+	/// <summary>
+	/// Movement while airborne.
+	/// </summary>
 	public void AirMovement()
 	{
 		if (!m_CanMove)
@@ -210,7 +213,8 @@ public class PlayerMovement : MonoBehaviour
 		}
 
 		//Falling
-		m_Controller.Move (-transform.up * FALL_SPEED * Time.deltaTime);
+		m_VerticalVelocity -= Time.deltaTime * FALL_ACCLERATION;
+		m_Controller.Move (transform.up * m_VerticalVelocity * Time.deltaTime);
 		
 		if (PlayerInput.Instance.getMovementInput().x == 0 && PlayerInput.Instance.getMovementInput().y == 0)
 		{
@@ -219,36 +223,34 @@ public class PlayerMovement : MonoBehaviour
 		
 		//Moves the player and looks where the player is going
 		transform.LookAt (transform.position + getControllerProjection());
-
-		m_Controller.Move (transform.forward * MOVE_SPEED * Time.deltaTime);
+		m_Controller.Move (transform.forward * AIR_HORIZONTAL_MOVE_SPEED * Time.deltaTime);
 	}
 
-	public void JumpMovement()
+	/// <summary>
+	/// The player jumps.
+	/// </summary>
+	public void Jump()
 	{
-		if (!m_CanMove || m_JumperTimer < 0.0f)
+		if (!m_CanMove)
 		{
 			return;
 		}
-		m_JumperTimer -= Time.deltaTime;
-		
-		//Jumping up
-		if (m_JumperTimer < JUMP_TIME / 0.35f)
-		{
-			m_Controller.Move (transform.up * (JUMP_SPEED / 2 * Time.deltaTime));
-		}
-		else
-		{
-			m_Controller.Move (transform.up * (JUMP_SPEED * Time.deltaTime));
-		}
-		
-		if (PlayerInput.Instance.getMovementInput().x == 0 && PlayerInput.Instance.getMovementInput().y == 0)
+		m_VerticalVelocity = JUMP_SPEED;
+		AirMovement ();
+	}
+
+	/// <summary>
+	/// Jumps the player by a set speed
+	/// </summary>
+	/// <param name="launchSpeed">Launch speed.</param>
+	public void TrampolineJump(float launchSpeed)
+	{
+		if (!m_CanMove)
 		{
 			return;
 		}
-		
-		//Moves the player and looks where the player is going
-		transform.LookAt (transform.position + getControllerProjection());
-		m_Controller.Move (transform.forward * AIR_MOVE_SPEED * Time.deltaTime);
+		m_VerticalVelocity = launchSpeed;
+		AirMovement ();
 	}
 
 	public void BlockHeldMovement (Size blockSize)
