@@ -279,12 +279,23 @@ public abstract class PlayerState : MonoBehaviour
 			{
 		   	 //	exit second item;
 				//TODO: check if supposed to exit if not call the second item use function
+				if(PlayerInput.Instance.getInteractWithEnviromentHeld())
+				{
+					//call items exit function.
+				}
 				m_PlayerState = PlayerStates.Default;
 				return;
         	}
 			else if (ableToEnterSecondItem())
 			{
 				//TODO: check if entering second item. if so set bool and return and set state to default
+				if(PlayerInput.Instance.getEnviromentInteraction())
+				{
+					m_UsingSecondItem = true; 
+					m_Interacting = true;
+					m_PlayerState = PlayerStates.Default;
+
+				}
 			} 		
 	    }
 	    
