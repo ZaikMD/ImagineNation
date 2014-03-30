@@ -86,9 +86,9 @@ public class CameraController : Reticle
 		}
 
 		//Set Reticle Texture
-		Transform textureTransform = transform.FindChild ("Reticle");
+		/*Transform textureTransform = transform.FindChild ("Reticle");
 		m_ReticleTexture = (GUITexture)textureTransform.guiTexture;
-		textureTransform.parent = null;
+		textureTransform.parent = null;*/
 
 		//Set initial Transform to follow
 		m_CameraFollow = transform.parent.transform;
@@ -108,7 +108,7 @@ public class CameraController : Reticle
 		updateZoom ();
 		updateOrientation ();
 		updateLookPosition ();
-		updateReticle ();
+		//updateReticle ();
 	}
 	
 	void updatePosition()
@@ -143,13 +143,13 @@ public class CameraController : Reticle
 	void updateZoom()
 	{
 		//Make sure there is zoom input
-		if (Mathf.Abs (getMouseMovement().y) == 0 || m_State != CameraState.Default)
+		if (Input.GetAxis("Mouse Y") == 0 || m_State != CameraState.Default)
 		{
 			return;
 		}
 		
 		//Set Camera Zoom
-		setZoom(m_Zoom + -getMouseMovement().y * (ZOOM_SENSITIVITY / 100.0f));
+		setZoom(m_Zoom + -Input.GetAxis("Mouse Y") * (ZOOM_SENSITIVITY / 100.0f));
 	}
 	
 	void setZoom(float aZoom)
@@ -183,26 +183,26 @@ public class CameraController : Reticle
 		}
 		else if (m_State == CameraState.Default)
 		{
-			if (Mathf.Abs (getMouseMovement().x) == 0)
+			if (Input.GetAxis("Mouse X") == 0)
 			{
 				return;
 			}
 			
 			//Turn
-			setOrientation (transform.parent.eulerAngles.y + (ROTATION_SENSITIVITY * getMouseMovement().x));
+			setOrientation (transform.parent.eulerAngles.y + (ROTATION_SENSITIVITY * Input.GetAxis("Mouse X")));
 		}
 		else if (m_State == CameraState.Aiming)
 		{
-			if ( Mathf.Abs (getMouseMovement().y) == 0)
+			if (Input.GetAxis("Mouse Y") == 0)
 			{
 				return;
 			}
 
 			//Set where to look
 			transform.parent.transform.position = new Vector3 (transform.parent.transform.position.x,
-			                                                        transform.parent.transform.position.y + (ROTATION_SENSITIVITY/4 * getMouseMovement().y),
+			                                                   transform.parent.transform.position.y + (ROTATION_SENSITIVITY/4 * Input.GetAxis("Mouse Y")),
 			                                                        transform.parent.transform.position.z );
-			//Fix bobbing effect
+			//Fix bobbing effec
 			transform.position.Set (m_CameraFollow.position.x, m_CameraFollow.position.y + AIMING_CAMERA_HEIGHT, m_CameraFollow.position.z);;
 			//this.transform.position = new Vector3 (m_CameraFollow.position.x, m_CameraFollow.position.y + AIMING_CAMERA_HEIGHT, m_CameraFollow.position.z);
 		}

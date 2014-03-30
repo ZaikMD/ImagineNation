@@ -49,8 +49,8 @@ public class PlayerMovement : MonoBehaviour
 
 	//Speeds
 	const float MOVE_SPEED = 6.0f;
-	const float FALL_SPEED = 20.0f;
-	const float JUMP_SPEED = 15.0f;
+	const float FALL_SPEED = 24.0f;
+	const float JUMP_SPEED = 20.0f;
 	const float AIR_MOVE_SPEED = 3.0f;
 	const float GLIDING_FALL_SPEED = 6.0f;
 	const float PUSHING_BLOCK_SPEED = 3.0f;
