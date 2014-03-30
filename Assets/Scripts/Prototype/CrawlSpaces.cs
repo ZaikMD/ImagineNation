@@ -88,7 +88,7 @@ public class CrawlSpaces : MonoBehaviour
 					
 					//Move the player a little ahead of the crawl space
 					m_Player.transform.position = m_OtherCrawlSpace.transform.position;
-					
+						
 					//Rotate to face out of exiting crawl space
 					m_Player.transform.LookAt(m_Player.transform.position + lookAt);
 					
@@ -121,7 +121,7 @@ public class CrawlSpaces : MonoBehaviour
 	
 	public void OnUse() 
 	{
-		if (m_Player == null || m_Movement == null)
+		if (m_OtherCrawlSpace == null || m_Player == null || m_Movement == null)
 		{
 			return;
 		}
