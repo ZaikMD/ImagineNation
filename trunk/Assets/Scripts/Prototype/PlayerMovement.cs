@@ -60,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		//Get character controller
 		m_Controller = m_Player.GetComponent<CharacterController>();
+		m_Player.AddComponent ("EnviromentInteraction");
 	}
 
 
@@ -81,8 +82,14 @@ public class PlayerMovement : MonoBehaviour
 	/// <returns>Controller input in relation to camera's rotation.</returns>
 	Vector3 getControllerProjection()
 	{
+		//movementInput move = PlayerInput.Instance.getCameraMovement();
+
 		Vector3 projection = m_CameraTransform.forward * Input.GetAxis("Vertical");
 		projection += m_CameraTransform.right * Input.GetAxis("Horizontal");
+
+		//Vector3 projection = m_CameraTransform.forward * move.y;
+		//projection += m_CameraTransform.right * move.x;
+
 		projection.y = 0;
 		return projection.normalized;
 	}
@@ -151,7 +158,7 @@ public class PlayerMovement : MonoBehaviour
 	/// </summary>
 	public void ClimbMovement()
 	{
-		if (!m_CanMove || (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0))
+		if ((Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0))
 		{
 			return;
 		}
@@ -178,11 +185,6 @@ public class PlayerMovement : MonoBehaviour
 	/// </summary>
 	public void GlideMovement()
 	{
-		if (!m_CanMove)
-		{
-			return;
-		}
-
 		//Falling
 		m_Controller.Move (-transform.up * GLIDING_FALL_SPEED * Time.deltaTime);
 

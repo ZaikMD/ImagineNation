@@ -49,11 +49,11 @@ public class NerfGun : BasePrimaryItem
 		//Temporary code to test the fire function
 		if(Input.GetKeyDown(KeyCode.P))
 		{
-			Fire(new Vector3(0,0,30));
+			fire(new Vector3(0,0,30));
 		}
 	}
 
-	public void Fire(Vector3 currentTarget)
+	public override void fire(Vector3 currentTarget)
 	{
 		//As long as the clip isn't empty
 		if(m_NumberOfBullets > 0)                                
@@ -93,13 +93,13 @@ public class NerfGun : BasePrimaryItem
 		}
 	}
 		
-	public void aimFire(Vector3 currentTarget)
+	public override void aimFire(Vector3 currentTarget)
 	{
 		//As long as the clip isn't empty call the fire function 
 		//with the new target
 		if(m_NumberOfBullets > 0)
 		{
-			Fire(currentTarget);
+			fire(currentTarget);
 		}
 	}
 }

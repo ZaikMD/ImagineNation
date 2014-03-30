@@ -18,6 +18,7 @@ Created by Jason Hein on 3/23/2014
 
 3/29/2014
 	Now properly inherits from base secondary item
+	Now properly enables normal player movement
 */
 
 
@@ -69,6 +70,9 @@ public class VelcroGloves : SecondairyBase
 			{
 				//We are no longer climbing
 				m_Climbing = false; 
+
+				//Player can now move normally again
+				m_PlayerMovement.setCanMove(true);
 				
 				//Set player flag
 				//m_Player->setExitSecondItemFlag ();
@@ -85,7 +89,10 @@ public class VelcroGloves : SecondairyBase
 		{
 			//Enable Climbing
 			m_Climbing = true;
-			
+
+			//Player can not move normally while climbing
+			m_PlayerMovement.setCanMove(false);
+
 			//Set rotation of the player to face the wall
 			transform.Rotate (0, m_AngleOfNextWall - this.transform.rotation.eulerAngles.y - 180, 0);
 			
@@ -122,6 +129,9 @@ public class VelcroGloves : SecondairyBase
 				{
 					//You fall
 					m_Climbing = false;
+
+					//Player can now move normally again
+					m_PlayerMovement.setCanMove(true);
 					
 					//Set player flag
 					//m_Player->setExitSecondItemFlag ();
