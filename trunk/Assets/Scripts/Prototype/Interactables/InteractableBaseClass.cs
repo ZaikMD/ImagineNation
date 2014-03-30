@@ -1,20 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum InteractableType
-{
-	MovingBlock,
-	Lever,
-	DivingBoard, 
-	SeeSaw,
-	PickUp,
-	NPC,
-	CrawlSpace
-};
-
 public abstract class InteractableBaseClass : MonoBehaviour 
 {
-
+	public enum InteractableType
+	{
+		MovingBlock,
+		Lever,
+		DivingBoard, 
+		SeeSaw
+	};
 	public InteractableType m_Type;
 
 	public bool m_IsExitable;

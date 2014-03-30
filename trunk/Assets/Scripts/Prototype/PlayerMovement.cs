@@ -45,10 +45,10 @@ public class PlayerMovement : MonoBehaviour
 
 	CharacterController m_Controller;
 	bool m_CanMove = true;
-	bool m_Aiming = false;
 
 	//Speeds
 	const float MOVE_SPEED = 6.0f;
+	const float CLIMB_SPEED = 3.0f;
 	const float FALL_SPEED = 10.0f;
 	const float JUMP_SPEED = 10.0f;
 	const float AIR_MOVE_SPEED = 3.0f;
@@ -168,16 +168,16 @@ public class PlayerMovement : MonoBehaviour
 		}
 
 		//Climbing up and down
-		Vector3 move = new Vector3 (0, Input.GetAxis ("Vertical") * MOVE_SPEED, 0);
+		Vector3 move = new Vector3 (0, Input.GetAxis ("Vertical") * CLIMB_SPEED, 0);
 
 		//Climbing left and right
 		if (m_CameraTransform.forward.x > 0)
 		{
-			move += Input.GetAxis ("Horizontal") * MOVE_SPEED * transform.right;
+			move += Input.GetAxis ("Horizontal") * CLIMB_SPEED * transform.right;
 		}
 		else
 		{
-			move -= Input.GetAxis ("Horizontal") * MOVE_SPEED * transform.right;
+			move -= Input.GetAxis ("Horizontal") * CLIMB_SPEED * transform.right;
 		}
 
 		//Move
