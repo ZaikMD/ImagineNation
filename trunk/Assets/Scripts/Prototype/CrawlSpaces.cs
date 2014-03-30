@@ -73,15 +73,13 @@ public class CrawlSpaces : MonoBehaviour
 					
 					//Remove player for now
 					m_Player.SetActive (false);
-					
-					//Where to face
-					Vector3 lookAt = new Vector3 (0.0f, m_OtherCrawlSpace.transform.rotation.eulerAngles.y, 0.0f);
-					
-					//Move the player a little ahead of the crawl space
-					m_Player.transform.position = m_OtherCrawlSpace.transform.position;
-					
+
 					//Rotate to face out of exiting crawl space
-					m_Player.transform.LookAt(m_Player.transform.position + lookAt);
+					m_Player.transform.LookAt(m_Player.transform.position + m_OtherCrawlSpace.transform.forward);
+
+					//Move the player a little ahead of the crawl space
+					m_Player.transform.position = m_OtherCrawlSpace.transform.position + transform.forward;
+
 				}
 			}
 			break;

@@ -18,7 +18,7 @@ public class SwitchTest : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		if (Input.GetKeyDown ("space"))
+		if (Input.GetKeyDown (KeyCode.U))
 		{
 			if (player1Active)
 			{
