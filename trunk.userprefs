@@ -1,30 +1,10 @@
 ﻿<Properties>
-<<<<<<< .mine
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\RemoveDebris.cs">
-=======
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\CameraController.cs">
->>>>>>> .r70
     <Files>
-<<<<<<< .mine
-      <File FileName="Assets\Scripts\Prototype\RemoveDebris.cs" Line="13" Column="29" />
-=======
-      <File FileName="Assets\Scripts\Prototype\PlayerMovement.cs" Line="152" Column="4" />
-      <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="58" Column="42" />
-      <File FileName="Assets\Scripts\Prototype\PlayerMovement.cs" Line="285" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\MoveableBlock.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\EnvironmentInteraction.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Trampoline.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\TrampolineButton.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Targets.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\TargetManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\DivingBoard.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Reticle.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\CharacterSwitch.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\StickyHand.cs" Line="51" Column="2" />
-      <File FileName="Assets\Scripts\Prototype\StickyHandProjectile.cs" Line="142" Column="32" />
->>>>>>> .r70
+      <File FileName="Assets\Scripts\Prototype\DerekProjectile.cs" Line="24" Column="29" />
+      <File FileName="Assets\Scripts\Prototype\RemoveDebris.cs" Line="18" Column="38" />
+      <File FileName="Assets\Scripts\Prototype\FearScript.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

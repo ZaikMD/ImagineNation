@@ -8,11 +8,21 @@ public class RemoveDebris : MonoBehaviour
 	void Start () 
 	{
 		StartCoroutine (DestroyDebris ());
+
+		Component[] colliders = gameObject.GetComponentsInChildren (typeof(Collider));
+
+		GameObject[] players = GameObject.FindGameObjectsWithTag ("Player");
+
+		for(int i = 0; i < colliders.Length; i++)
+		{
+			Physics.IgnoreCollision((Collider)colliders[i], players[0].gameObject.collider);
+		}
+
 	}
 	
 	IEnumerator DestroyDebris()
 	{
-		yield return new WaitForSeconds (2.0f);
+		yield return new WaitForSeconds (5.0f);
 		Destroy (this.gameObject);
 	}
 }
