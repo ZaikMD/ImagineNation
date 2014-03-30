@@ -34,7 +34,10 @@ using System.Collections;
 /// Enables camera movement based on input, and the objects transform.
 /// </summary>
 [RequireComponent (typeof(Camera))]
-public class CameraController : MonoBehaviour {
+public class CameraController : Reticle
+{
+	//What to follow
+	Transform m_CameraFollow;
 
 	//State
 	enum CameraState
@@ -54,9 +57,6 @@ public class CameraController : MonoBehaviour {
 	const float LOOK_AT_SPEED = 0.08f;
 	const float AIMING_LOOK_AT_FRONT_AMOUNT = 5.0f;
 	const float AIMING_CAMERA_HEIGHT = 0.5f;
-
-	//What to follow
-	Transform m_CameraFollow;
 
 	//Looking helper variables
 	public float m_ForwardAmount = 5.0f;
@@ -85,15 +85,20 @@ public class CameraController : MonoBehaviour {
 			m_Zoom = 1;
 		}
 
+		//Set Reticle Texture
+		Transform textureTransform = transform.FindChild ("Reticle");
+		m_ReticleTexture = (GUITexture)textureTransform.guiTexture;
+		textureTransform.parent = null;
+
 		//Set initial Transform to follow
-		m_CameraFollow = this.transform.parent.transform;
+		m_CameraFollow = transform.parent.transform;
 
 		//Create an origin point
 		GameObject origin = new GameObject ();
-		origin.transform.position = this.transform.parent.transform.position;
+		origin.transform.position = transform.parent.transform.position;
 
 		//Set us to follow the transform we were a parent of
-		this.transform.parent = origin.transform;
+		transform.parent = origin.transform;
 	}
 	
 	// Update is called once per frame
@@ -115,22 +120,22 @@ public class CameraController : MonoBehaviour {
 			}
 			else
 			{
-				this.transform.parent.position = Vector3.Lerp(this.transform.parent.position, m_CameraFollow.position , CAMERA_FOLLOW_SPEED);
+				transform.parent.position = Vector3.Lerp(this.transform.parent.position, m_CameraFollow.position , CAMERA_FOLLOW_SPEED);
 			}
 		}
 		else if ( m_State == CameraState.Default )
 		{
 			//We follow the object's position, but not their rotation
-			this.transform.parent.position = m_CameraFollow.position;
+			transform.parent.position = m_CameraFollow.position;
 		}
 		else if ( m_State == CameraState.Aiming )
 		{
 			//Where to Look At
 			Vector3 aPosition = ( AIMING_LOOK_AT_FRONT_AMOUNT * Vector3.Normalize(m_CameraFollow.forward) + m_CameraFollow.position );
-			this.transform.parent.transform.position = new Vector3 ( aPosition.x, this.transform.parent.transform.position.y, aPosition.z );
+			transform.parent.transform.position = new Vector3 ( aPosition.x, transform.parent.transform.position.y, aPosition.z );
 
 			//Fix bobbing effect
-			this.transform.position = new Vector3 (m_CameraFollow.position.x, m_CameraFollow.position.y + AIMING_CAMERA_HEIGHT, m_CameraFollow.position.z);
+			transform.position = new Vector3 (m_CameraFollow.position.x, m_CameraFollow.position.y + AIMING_CAMERA_HEIGHT, m_CameraFollow.position.z);
 		}
 	}
 
@@ -149,7 +154,7 @@ public class CameraController : MonoBehaviour {
 	void setZoom(float aZoom)
 	{
 		//Get max zoom position for lerping
-		Vector3 maxZoomPosition = this.transform.localPosition * (1 / m_Zoom);
+		Vector3 maxZoomPosition = transform.localPosition * (1 / m_Zoom);
 		
 		//Set Camera Zoom
 		m_Zoom = aZoom;
@@ -183,7 +188,7 @@ public class CameraController : MonoBehaviour {
 			}
 			
 			//Turn
-			setOrientation (this.transform.parent.eulerAngles.y + (ROTATION_SENSITIVITY * getMouseMovement().x));
+			setOrientation (transform.parent.eulerAngles.y + (ROTATION_SENSITIVITY * getMouseMovement().x));
 		}
 		else if (m_State == CameraState.Aiming)
 		{
@@ -193,11 +198,11 @@ public class CameraController : MonoBehaviour {
 			}
 
 			//Set where to look
-			this.transform.parent.transform.position = new Vector3 (this.transform.parent.transform.position.x,
-			                                                        this.transform.parent.transform.position.y + (ROTATION_SENSITIVITY/4 * getMouseMovement().y),
-			                                                        this.transform.parent.transform.position.z );
+			transform.parent.transform.position = new Vector3 (transform.parent.transform.position.x,
+			                                                        transform.parent.transform.position.y + (ROTATION_SENSITIVITY/4 * getMouseMovement().y),
+			                                                        transform.parent.transform.position.z );
 			//Fix bobbing effect
-			this.transform.position.Set (m_CameraFollow.position.x, m_CameraFollow.position.y + AIMING_CAMERA_HEIGHT, m_CameraFollow.position.z);;
+			transform.position.Set (m_CameraFollow.position.x, m_CameraFollow.position.y + AIMING_CAMERA_HEIGHT, m_CameraFollow.position.z);;
 			//this.transform.position = new Vector3 (m_CameraFollow.position.x, m_CameraFollow.position.y + AIMING_CAMERA_HEIGHT, m_CameraFollow.position.z);
 		}
 	}
@@ -205,14 +210,14 @@ public class CameraController : MonoBehaviour {
 	void setOrientation(float orientation)
 	{
 		//Turn
-		this.transform.parent.eulerAngles = new Vector3(this.transform.parent.eulerAngles.x, orientation, this.transform.parent.eulerAngles.z);
+		this.transform.parent.eulerAngles = new Vector3(transform.parent.eulerAngles.x, orientation, this.transform.parent.eulerAngles.z);
 	}
 
 	void updateLookPosition ()
 	{
 		if ( m_State == CameraState.Aiming )
 		{
-			this.transform.LookAt (this.transform.parent.transform.position);
+			transform.LookAt (transform.parent.transform.position);
 		}
 		else
 		{
@@ -220,11 +225,29 @@ public class CameraController : MonoBehaviour {
 			Vector3 positionToLookAt = Vector3.Lerp (m_LastLookAtPosition, m_CameraFollow.localPosition + (m_CameraFollow.forward * m_ForwardAmount), LOOK_AT_SPEED);
 
 			//Look in front of object
-			this.transform.LookAt (positionToLookAt);
+			transform.LookAt (positionToLookAt);
 
 			//Save the position for lerping
 			 m_LastLookAtPosition = positionToLookAt;
 		}
+	}
+
+	//Updates the position of the reticle
+	protected override void updateReticle ()
+	{
+		if (m_State == CameraState.Default)
+		{
+			//What to follow
+			m_ReticlePosition = transform.parent.transform.position + (m_CameraFollow.forward * RETICLE_DISTANCE);
+		}
+		else
+		{
+			m_ReticlePosition = transform.parent.transform.position;
+		}
+
+		//Updated the screen texture
+		Vector2 newPos = GUIUtility.ScreenToGUIPoint(camera.WorldToScreenPoint (m_ReticlePosition));
+		m_ReticleTexture.pixelInset = new Rect (newPos.x, newPos.y, m_ReticleTexture.pixelInset.width, m_ReticleTexture.pixelInset.height);
 	}
 
 	/// <summary>
@@ -320,9 +343,16 @@ public class CameraController : MonoBehaviour {
 			return;
 		}
 
+		//Disable moving while aiming
+		PlayerMovement movement = (PlayerMovement)m_CameraFollow.gameObject.GetComponent<PlayerMovement> ();
+		if (movement != null)
+		{
+			movement.setToAiming(true);
+		}
+
 		m_SavedLocalPosition = this.transform.localPosition;
-		this.transform.position = m_CameraFollow.position;
-		this.transform.parent.transform.position = ( AIMING_LOOK_AT_FRONT_AMOUNT * Vector3.Normalize ( m_CameraFollow.forward ) + m_CameraFollow.position );
+		transform.position = m_CameraFollow.position;
+		transform.parent.transform.position = ( AIMING_LOOK_AT_FRONT_AMOUNT * Vector3.Normalize ( m_CameraFollow.forward ) + m_CameraFollow.position );
 		m_State = CameraState.Aiming;
 	}
 
@@ -336,8 +366,15 @@ public class CameraController : MonoBehaviour {
 			return;
 		}
 
-		this.transform.parent.transform.position = m_CameraFollow.position;
-		this.transform.localPosition = m_SavedLocalPosition;
+		//Disable moving while aiming
+		PlayerMovement movement = (PlayerMovement)m_CameraFollow.gameObject.GetComponent<PlayerMovement> ();
+		if (movement != null)
+		{
+			movement.setToAiming(false);
+		}
+
+		transform.parent.transform.position = m_CameraFollow.position;
+		transform.localPosition = m_SavedLocalPosition;
 		setOrientation (m_CameraFollow.position.y);
 		m_State = CameraState.Default;
 	}

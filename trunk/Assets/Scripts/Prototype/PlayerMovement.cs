@@ -45,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
 
 	CharacterController m_Controller;
 	bool m_CanMove = true;
+	bool m_Aiming = false;
 
 	//Speeds
 	const float MOVE_SPEED = 6.0f;
@@ -126,14 +127,18 @@ public class PlayerMovement : MonoBehaviour
 		return m_Controller.isGrounded;
 		//isGrounded = (characterController.Move (forwardDirection * (Time.deltaTime * movementSpeed)) & CollisionFlags.Below) != 0;
 	}
-
-
-	//MAKE YORE PUBLIC MOVEMENT FUNCTIONS HERE
-
-
-
-
-
+	
+	/// <summary>
+	/// Sets to the player to only rotate.
+	/// </summary>
+	public void setToAiming(bool aiming)
+	{
+		if (m_CanMove || aiming == true)
+		{
+			return;
+		}
+		m_Aiming = aiming;
+	}
 
 	/// <summary>
 	/// Basic walking movement
@@ -142,6 +147,12 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if (!m_CanMove || (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0))
 		{
+			return;
+		}
+
+		if (m_Aiming)
+		{
+			transform.Rotate(new Vector3 (0.0f, Input.GetAxis("Horizontal"), 0.0f));
 			return;
 		}
 
