@@ -51,12 +51,14 @@ public class PlayerAIStateMachine : MonoBehaviour
 	GameObject m_Player; 
 	
 	//A list of GameObject enemies to determine which enemies the AI is interacting with in combat 
-	  List<GameObject> enemies;
-	  PlayerState m_playerStateMachine;
+	List<GameObject> enemies;
+	PlayerState m_playerStateMachine;
 	
 	//boolean for entering combat set by the addEnemy
 	bool m_EnterCombatFlag;
 	bool m_EnterPuzzle;
+
+	public const int m_IdealRange = 10;
 
 	//METHODS
 
@@ -261,122 +263,158 @@ public class PlayerAIStateMachine : MonoBehaviour
 	/// </summary>
 	void Combat()
 	{
-//		if(m_CombatState == PlayerAICombatState.Default)
-//		{
-//			CombatDefault();
-//		}
-//		
-//		switch(m_CombatState)
-//		{
-//		case PlayerAICombatState.Unable:
-//			CombatUnable();
-//			break;
-//		case PlayerAICombatState.InRange:
-//			CombatInRange();
-//			break;
-//		case PlayerAICombatState.OutOfRange:
-//			CombatOutOfRange();
-//		case PlayerAICombatState.Hiding:
-//			CombatHiding();
-//			break;
-//		//default:
-//			//assert();
-//		}
+		if(m_CombatState == PlayerAICombatState.Default)
+		{
+			CombatDefault();
+		}
+		
+		switch(m_CombatState)
+		{
+		case PlayerAICombatState.Unable:
+			CombatUnable();
+			break;
+		case PlayerAICombatState.InRange:
+			CombatInRange();
+			break;
+		case PlayerAICombatState.OutOfRange:
+			CombatOutOfRange();
+			break;
+		case PlayerAICombatState.Hiding:
+			CombatHiding();
+			break;
+		//default:
+			//assert();
+		}
 	}
-//
-//	/// <summary>
-//	/// Update loop for Combat default in combat states
-//	/// </summary>
-//	void CombatDefault()
-//	{
-//		if(GetInteracting())
-//		{
-//			m_CombatState = PlayerAICombatState.Unable;
-//		}
-//		else if(inRange)
-//		{
-//			m_CombatState = PlayerAICombatState.InRange;
-//		}
-//		else 
-//		{
-//			m_CombatState = PlayerAICombatState.OutOfRange;
-//		}
+
+	/// <summary>
+	/// Update loop for Combat default in combat states
+	/// </summary>
+	void CombatDefault()
+	{
+		if(GetInteracting())
+		{
+			m_CombatState = PlayerAICombatState.Unable;
+		}
+		else if(inRange())
+		{
+			m_CombatState = PlayerAICombatState.InRange;
+		}
+		else 
+		{
+			m_CombatState = PlayerAICombatState.OutOfRange;
+		}
 //		if(ableToHide)
 //		{
 //			m_CombatState = PlayerAICombatState.Hiding;
 //		}
-//	}
-//
-//	/// <summary>
-//	///  Update loop for CombatUnable in combat states
-//	/// </summary>
-//	void CombatUnable()
-//	{
-//		switch(GetInteractionType())
-//		{
-////			Check if the interactable is exitable if it is exit -> default
-////			if it isn't exitable return to default
-//			m_CombatState = PlayerAICombatState.Default;
-//		}   
-//	}
-//
-//	/// <summary>
-//	/// Update loop for CombatInRange in combat states
-//	/// </summary>
-//	void CombatInRange()
-//	{
-//		if(ButterZone())
-//		{
-//			Attack ();
-//			m_CombatState = PlayerAICombatState.Default;
-//		}
-//		else
-//		{
-//			PathFindToTarget(ideal range);
-//			m_CombatState = PlayerAICombatState.Default;
-//		}
-//	}
-//
-//	/// <summary>
-//	/// Checks to see if plaayer is in the ideal range
-//	/// </summary>
-//	bool ButterZone() 
-//		//This function checks if the playerAI is in the preferred position to attach the enemy target 
-//	{ 
-//		//Check if player is int Ideal range
-//	    
-//	}
-//
-//	/// <summary>
-//	///Applying damage to the desired enemy then setting the AI back to its default state 
-//	/// </summary>
-//	void Attack() 
-//	{ 
-//		//Attack
-//	} 
-//
-//	/// <summary>
-//	/// Update loop for CombatOutOfRange in combat states
-//	/// </summary>
-//	void CombatOutOfRange()
-//	{
-//		//loop through enemies to find the closest
-//		for(int i = 0; i < enemies.Count; i++)
-//		{
-//			//pathfind to closest enemy
-//		}
-//		m_CombatState = PlayerAICombatState.Default;
-//	}
-//
-//	/// <summary>
-//	/// Update loop for CombatHiding in combat states
-//	/// </summary>
-//	void CombatHiding()
-//	{
-//		//find hiding spot and pathfind to it
-//		m_CombatState = PlayerAICombatState.Default;
-//	}
-//
+	}
+
+	/// <summary>
+	///  Update loop for CombatUnable in combat states
+	/// </summary>
+	void CombatUnable()
+	{
+		switch(GetInteractionType())
+		{
+//			Check if the interactable is exitable if it is exit -> default
+//			if it isn't exitable return to default
+			case InteractionTypes.PickUp:
+				
+				m_State = PlayerAIState.Default;
+				break;
+				
+			case InteractionTypes.SeesawBottom:
+				
+				m_State = PlayerAIState.Default;
+				break;
+				
+			case InteractionTypes.SeesawJump:
+				
+				m_State = PlayerAIState.Default;
+				break;
+				
+			case InteractionTypes.NPC:
+				
+				m_State = PlayerAIState.Default;
+				break;
+				
+			case InteractionTypes.CrawlSpace:
+				
+				m_State = PlayerAIState.Default;
+				break;
+
+		}   
+	}
+
+	/// <summary>
+	/// Update loop for CombatInRange in combat states
+	/// </summary>
+	void CombatInRange()
+	{
+
+
+		if(ButterZone(FindClosestEnemy()))
+		{
+			Attack ();
+			m_CombatState = PlayerAICombatState.Default;
+		}
+		else
+		{
+			Attack ();
+//			PathFindToTarget(m_IdealRange);
+			m_CombatState = PlayerAICombatState.Default;
+		}
+	}
+
+	/// <summary>
+	/// Checks to see if plaayer is in the ideal range
+	/// </summary>
+	bool ButterZone(GameObject enemy) 
+		//This function checks if the playerAI is in the preferred position to attack the enemy target 
+	{ 
+		//Check if player is in Ideal range
+		if (Mathf.Abs (enemy.transform.position.x - this.transform.position.x) == m_IdealRange)
+		{
+			return true;
+		}
+
+		else 
+		{
+			return false;
+		}
+	}
+
+	/// <summary>
+	///Applying damage to the desired enemy then setting the AI back to its default state 
+	/// </summary>
+	void Attack() 
+	{ 
+		// TODO Attack
+	} 
+
+	/// <summary>
+	/// Update loop for CombatOutOfRange in combat states
+	/// </summary>
+	void CombatOutOfRange()
+	{
+		//loop through enemies to find the closest
+		for(int i = 0; i < enemies.Count; i++)
+		{
+			//pathfind to closest enemy
+		}
+		m_CombatState = PlayerAICombatState.Default;
+	}
+
+	/// <summary>
+	/// Update loop for CombatHiding in combat states
+	/// </summary>
+	void CombatHiding()
+	{
+		//find hiding spot and pathfind to it
+		m_CombatState = PlayerAICombatState.Default;
+	}
+
 //	/// <summary>
 //	/// Finds the hiding spot.
 //	/// </summary>
@@ -388,11 +426,38 @@ public class PlayerAIStateMachine : MonoBehaviour
 //	{ 
 //		//Create hiding spot and pathfind to it and hide from enemy, if the AI cannot hide then return to //default 
 //	} 
-//
-//	bool inRange()
-//	{
-//	}	
 
+	bool inRange()
+	{
+	 foreach (GameObject enemy in enemies)
+		{
 
-	
+			if (Vector3.Distance(this.transform.position, enemy.transform.position) < m_IdealRange)
+			{
+						return true;					
+
+			}
+		}
+		return false;
+	}
+
+	GameObject FindClosestEnemy()
+	{
+		GameObject closestEnemy = null;
+		foreach (GameObject enemy in enemies)
+		{
+			if (closestEnemy = null)
+			{
+				closestEnemy = enemy;
+			}
+
+			if (Vector3.Distance(this.transform.position, closestEnemy.transform.position) > Vector3.Distance(this.transform.position, enemy.transform.position))
+			{
+				closestEnemy = enemy;
+			}
+		}
+
+		return closestEnemy;
+	}
+
 }
