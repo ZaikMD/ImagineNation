@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Prototype\AI\Enemies\BaseEnemy.cs" />
+     <Compile Include="Assets\Scripts\Prototype\AlexPlayerState.cs" />
      <Compile Include="Assets\Scripts\Prototype\Atrributes\AlexAttributes.cs" />
      <Compile Include="Assets\Scripts\Prototype\Atrributes\BaseCharAttrib.cs" />
      <Compile Include="Assets\Scripts\Prototype\Atrributes\DerekAttributes.cs" />
@@ -58,6 +59,7 @@
      <Compile Include="Assets\Scripts\Prototype\Checkpoint.cs" />
      <Compile Include="Assets\Scripts\Prototype\CheckpointManager.cs" />
      <Compile Include="Assets\Scripts\Prototype\CrawlSpaces.cs" />
+     <Compile Include="Assets\Scripts\Prototype\DerekPlayerState.cs" />
      <Compile Include="Assets\Scripts\Prototype\DerekProjectile.cs" />
      <Compile Include="Assets\Scripts\Prototype\DivingBoard.cs" />
      <Compile Include="Assets\Scripts\Prototype\EnvironmentInteraction.cs" />
@@ -65,6 +67,7 @@
      <Compile Include="Assets\Scripts\Prototype\GameManager.cs" />
      <Compile Include="Assets\Scripts\Prototype\Health.cs" />
      <Compile Include="Assets\Scripts\Prototype\InteractableBaseClass.cs" />
+     <Compile Include="Assets\Scripts\Prototype\MenuScript.cs" />
      <Compile Include="Assets\Scripts\Prototype\MoveableBlock.cs" />
      <Compile Include="Assets\Scripts\Prototype\MovingPlatforms.cs" />
      <Compile Include="Assets\Scripts\Prototype\NerfGun.cs" />
@@ -76,7 +79,6 @@
      <Compile Include="Assets\Scripts\Prototype\PlayerInput.cs" />
      <Compile Include="Assets\Scripts\Prototype\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\Prototype\PlayerState.cs" />
-     <Compile Include="Assets\Scripts\Prototype\Reticle.cs" />
      <Compile Include="Assets\Scripts\Prototype\SecondairyBase.cs" />
      <Compile Include="Assets\Scripts\Prototype\SeeSaw.cs" />
      <Compile Include="Assets\Scripts\Prototype\StickyHand.cs" />
@@ -89,6 +91,7 @@
      <Compile Include="Assets\Scripts\Prototype\TrampolineButton.cs" />
      <Compile Include="Assets\Scripts\Prototype\VelcroGloves.cs" />
      <Compile Include="Assets\Scripts\Prototype\ZachsMovement.cs" />
+     <Compile Include="Assets\Scripts\Prototype\ZoeyPlayerState.cs" />
      <Compile Include="Assets\Scripts\Prototype\simpleMoveForTesting.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

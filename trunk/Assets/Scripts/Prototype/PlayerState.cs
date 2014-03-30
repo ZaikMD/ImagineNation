@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public  abstract class PlayerState : MonoBehaviour 
+public abstract class PlayerState : MonoBehaviour 
 {
 
 	protected enum PlayerStates 
@@ -28,7 +28,7 @@ public  abstract class PlayerState : MonoBehaviour
 	//player movement causes error as class is not created yet.
 	//PlayerMovement m_PlayerMovement;
 
-	PlayerStates m_PlayerState;
+	protected PlayerStates m_PlayerState;
 	InteractionTypes m_InteractionType;
 
 
@@ -41,7 +41,7 @@ public  abstract class PlayerState : MonoBehaviour
 	bool m_TakeDamage;
 	bool m_ExitingSecondItem;
 	bool m_DamagedBy;
-	List<GameObject> m_InteractionsInRange;
+	protected List<GameObject> m_InteractionsInRange = new List<GameObject>();
 	GameObject m_CurrentInteraction;
 	  
 	short m_Health = 100;
@@ -62,12 +62,17 @@ public  abstract class PlayerState : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-	
+        m_HaveSecondItem = true;
+        m_UsingSecondItem = false;
+
 	}
 	
 	// Update is called once per frame
-	void Update ()
+	protected void checkStates()
     {
+       // Debug.Log("anything");
+       // m_HaveSecondItem = true;
+
     	if(m_PlayerState == PlayerStates.Default)
     	{
 			Default();
@@ -95,10 +100,12 @@ public  abstract class PlayerState : MonoBehaviour
 	    case PlayerStates.Dead:
 		    Dead();
 		    break;
+
+            
         }
 	}                                                                                                                                     
 
-	void Dead()
+	protected void Dead()
 	{
 	   //     disable player.
 	   //     decrement m_DeadTimer;  
@@ -106,13 +113,13 @@ public  abstract class PlayerState : MonoBehaviour
 	}
 
 
-	void Interaction()
+	protected void Interaction()
 	{
-
+        Debug.Log("state is now interacting");
         //add any others that are exitble
         if(m_InteractionType == InteractionTypes.PickUp || m_InteractionType == InteractionTypes.SeesawBottom)
 	    {
-	    	if(Input.GetButton("Interact"))
+	    	if(PlayerInput.Instance.getEnviromentInteraction())
 		    {
 			    //  exit interactible
             	return;
@@ -198,7 +205,7 @@ public  abstract class PlayerState : MonoBehaviour
                                                                                                                                                        
 
 
-	void TakeDamage()
+	protected void TakeDamage()
 	{
 		if(m_KnockBackTimer >= 0)
 		{
@@ -212,13 +219,13 @@ public  abstract class PlayerState : MonoBehaviour
     	}
 	}
 
-	void applyDamage(short amount)
+	protected void applyDamage(short amount)
 	{
     	m_Health -= amount;
     	//update the hud to represent current health status.
 	}
 
-	void ResetPlayer()
+	protected void ResetPlayer()
 	{
     	if(m_CurrentPartner.GetComponent<PlayerState>().m_PlayerState != PlayerStates.Dead)
     	{
@@ -231,7 +238,7 @@ public  abstract class PlayerState : MonoBehaviour
 	
 	}
 
-	void KnockBack()
+	protected void KnockBack()
 	{
    		//   get gameObject that hit us being stored in member variable
    		//	get the direction of the attacker by using his position and ours to get a normalized vector.
@@ -251,22 +258,17 @@ public  abstract class PlayerState : MonoBehaviour
      	{
        		return false;
      	}
-	}
-                                                                                                                                          
-
-
-
+	}                                                                                                                                          
 
 	public InteractionTypes interactionType ()
 	{
  		return m_InteractionType;
 	}
-                                                                                                                                        
-
-
-	void MovingFunction()
+                                                                                                                                
+	protected void MovingFunction()
 	{
-		if(Input.GetButton("Interacting"))
+     //   Debug.Log("State is now Moving");
+		if(PlayerInput.Instance.getEnviromentInteraction())
 		{
 			if(m_UsingSecondItem)
 			{
@@ -278,12 +280,11 @@ public  abstract class PlayerState : MonoBehaviour
         	m_PlayerState = PlayerStates.Default;
 
 	    }
-	    else if(Input.GetButton("Attack"))
+	    else if(PlayerInput.Instance.getUseItem())
 	    {
-		   // does not exsist yet
-	       // Attack();
-		    
-	        m_PlayerState = PlayerStates.Default;
+		   // does not have code yet
+	        attack();
+		    m_PlayerState = PlayerStates.Default;
 	    }
 	 
 		m_PlayerState = PlayerStates.Default;
@@ -292,10 +293,13 @@ public  abstract class PlayerState : MonoBehaviour
                                                                                                                                         
 
 
-	void IdleFunction()
+	protected void IdleFunction()
 	{
+       // Debug.Log("State is now idle");
+       // m_HaveSecondItem = true;
 		if(m_HaveSecondItem)
 		{
+            Debug.Log("have second weapon");
 			if(m_UsingSecondItem)
 			{
 				if(m_ExitingSecondItem)
@@ -313,7 +317,7 @@ public  abstract class PlayerState : MonoBehaviour
 	        }
 	        else if (ableToEnterSecondItem())
 	        {
-	            if(Input.GetButton("UseSecondItem"))
+	            if(PlayerInput.Instance.getEnviromentInteraction())
 	            {
 		        	m_UsingSecondItem = true;
 		        	m_PlayerState = PlayerStates.Default;
@@ -322,9 +326,9 @@ public  abstract class PlayerState : MonoBehaviour
 	        }
 	    }
 
-	    if(Input.GetButton("Aiming"))
+	    if(PlayerInput.Instance.getIsAiming())
 	    {
-	    	if(Input.GetButton("Attack"))
+	    	if(PlayerInput.Instance.getUseItem())
 	    	{
 				aimAttack();
 			}
@@ -332,14 +336,15 @@ public  abstract class PlayerState : MonoBehaviour
 	         m_PlayerState = PlayerStates.Default;
 	         return;
 	    }
-	    else if(Input.GetButton("Attack"))
+	    else if(PlayerInput.Instance.getUseItem())
 	    {
 	    	attack();
 	        m_PlayerState = PlayerStates.Default;
 	        return;
 	    }
-	    else if(Input.GetButton("InteractButton"))
+	    else if(PlayerInput.Instance.getEnviromentInteraction())
 	    {
+            Debug.Log("check for interactions");
 	    	if(m_InteractionsInRange.Count!= 0)
 	        {
 		    	if (m_InteractionsInRange.Count > 1)
@@ -369,8 +374,10 @@ public  abstract class PlayerState : MonoBehaviour
 	/// <summary>
 	/// this is a function to see what state we are in.
 	/// </summary>
-	void Default()
+	protected void Default()
 	{
+    //    Debug.Log("state is now Default");
+
 		if(m_Health <= 0)
 		{
 			m_PlayerState = PlayerStates.Dead;
@@ -387,6 +394,18 @@ public  abstract class PlayerState : MonoBehaviour
 			m_PlayerState =  PlayerStates.interacting;
 			return;
 		}
+        float butterZone = 0.1f;
+        Vector2 currentInput = new Vector2(PlayerInput.Instance.getMovementInput().x, PlayerInput.Instance.getMovementInput().y);
+        if(currentInput.x > butterZone || currentInput.x < -butterZone || currentInput.y > butterZone || currentInput.y < -butterZone)
+        {
+            m_PlayerState = PlayerStates.Moving;
+        }
+        else
+        {
+            m_PlayerState = PlayerStates.Idle;
+        }
+
+
 	}
 
 
