@@ -127,18 +127,6 @@ public class PlayerMovement : MonoBehaviour
 		return m_Controller.isGrounded;
 		//isGrounded = (characterController.Move (forwardDirection * (Time.deltaTime * movementSpeed)) & CollisionFlags.Below) != 0;
 	}
-	
-	/// <summary>
-	/// Sets to the player to only rotate.
-	/// </summary>
-	public void setToAiming(bool aiming)
-	{
-		if (m_CanMove || aiming == true)
-		{
-			return;
-		}
-		m_Aiming = aiming;
-	}
 
 	/// <summary>
 	/// Basic walking movement
@@ -150,15 +138,21 @@ public class PlayerMovement : MonoBehaviour
 			return;
 		}
 
-		if (m_Aiming)
-		{
-			transform.Rotate(new Vector3 (0.0f, Input.GetAxis("Mouse X"), 0.0f));
-			return;
-		}
-
 		//Moves the player and looks where the player is going
 		transform.LookAt (transform.position + getControllerProjection());
 		m_Controller.Move (transform.forward * MOVE_SPEED * Time.deltaTime);
+	}
+
+	/// <summary>
+	/// Player can rotate while aiming.
+	/// </summary>
+	public void AimMovement()
+	{
+		if ((Input.GetAxis("Mouse X") == 0))
+		{
+			return;
+		}
+		transform.Rotate(new Vector3 (0.0f, Input.GetAxis("Mouse X") * Time.deltaTime, 0.0f));
 	}
 
 	/// <summary>

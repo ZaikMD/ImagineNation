@@ -53,7 +53,7 @@ public class CameraController : Reticle
 	const float ZOOM_SENSITIVITY = 0.5f;
 	const float CAMERA_FOLLOW_SPEED = 0.15f;
 	const float RANGE_TO_ENABLE_SWITCHING = 0.1f;
-	const float LOOK_AT_SPEED = 0.08f;
+	const float LOOK_AT_SPEED = 0.06f;
 	const float AIMING_LOOK_AT_FRONT_AMOUNT = 5.0f;
 	const float AIMING_CAMERA_HEIGHT = 0.5f;
 
@@ -68,6 +68,9 @@ public class CameraController : Reticle
 	//Aiming
 	public bool m_EnabledAiming = true;
 	Vector3 m_SavedLocalPosition = Vector3.zero;
+
+	//Player movement for aiming
+	PlayerMovement m_Movement;
 
 
 
@@ -195,6 +198,11 @@ public class CameraController : Reticle
 			if (Input.GetAxis("Mouse Y") == 0)
 			{
 				return;
+			}
+
+			if (m_Movement)
+			{
+				m_Movement.AimMovement();
 			}
 
 			//Set where to look
@@ -344,10 +352,10 @@ public class CameraController : Reticle
 		}
 
 		//Disable moving while aiming
-		PlayerMovement movement = (PlayerMovement)m_CameraFollow.gameObject.GetComponent<PlayerMovement> ();
-		if (movement != null)
+		m_Movement = (PlayerMovement)m_CameraFollow.gameObject.GetComponent<PlayerMovement> ();
+		if (m_Movement != null)
 		{
-			movement.setToAiming(true);
+			m_Movement.setCanMove(false);
 		}
 
 		m_SavedLocalPosition = this.transform.localPosition;
@@ -367,10 +375,10 @@ public class CameraController : Reticle
 		}
 
 		//Disable moving while aiming
-		PlayerMovement movement = (PlayerMovement)m_CameraFollow.gameObject.GetComponent<PlayerMovement> ();
-		if (movement != null)
+		m_Movement = (PlayerMovement)m_CameraFollow.gameObject.GetComponent<PlayerMovement> ();
+		if (m_Movement != null)
 		{
-			movement.setToAiming(false);
+			m_Movement.setCanMove(true);
 		}
 
 		transform.parent.transform.position = m_CameraFollow.position;

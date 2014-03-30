@@ -1,12 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\PlayerMovement.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\CameraController.cs">
     <Files>
-<<<<<<< .mine
-      <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="39" Column="27" />
-=======
-      <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="182" Column="11" />
-      <File FileName="Assets\Scripts\Prototype\PlayerMovement.cs" Line="53" Column="33" />
+      <File FileName="Assets\Scripts\Prototype\PlayerMovement.cs" Line="152" Column="4" />
+      <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="58" Column="42" />
+      <File FileName="Assets\Scripts\Prototype\PlayerMovement.cs" Line="285" Column="1" />
       <File FileName="Assets\Scripts\Prototype\MoveableBlock.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\EnvironmentInteraction.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\Trampoline.cs" Line="1" Column="1" />
@@ -14,9 +12,10 @@
       <File FileName="Assets\Scripts\Prototype\Targets.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\TargetManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\DivingBoard.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Reticle.cs" Line="13" Column="28" />
+      <File FileName="Assets\Scripts\Prototype\Reticle.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\CharacterSwitch.cs" Line="1" Column="1" />
->>>>>>> .r63
+      <File FileName="Assets\Scripts\Prototype\StickyHand.cs" Line="51" Column="2" />
+      <File FileName="Assets\Scripts\Prototype\StickyHandProjectile.cs" Line="142" Column="32" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
