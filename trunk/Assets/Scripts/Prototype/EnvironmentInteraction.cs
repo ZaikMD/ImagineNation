@@ -1,4 +1,20 @@
-﻿using UnityEngine;
+﻿/*
+
+Already instantiated by attaching PlayerMovement
+
+Created by Zach
+
+3/29/2014
+	Changed script to enviromental interaction.
+	Now works with player movement.
+	Now works with blocks.
+	Is now instantiated by Player movement.
+*/
+
+
+
+
+using UnityEngine;
 using System.Collections;
 
 public class EnvironmentInteraction : MonoBehaviour
@@ -15,6 +31,11 @@ public class EnvironmentInteraction : MonoBehaviour
 		//PlayerInput.Instance.getEnviromentInteraction()
 		if(obj.CompareTag("CrawlSpace") && Input.GetKeyDown(KeyCode.F))
 		{
+			if (gameObject.name == "Derek")
+			{
+				return;
+			}
+
 			CrawlSpaces crawlSpace = (CrawlSpaces)obj.GetComponent<CrawlSpaces>();
 			if(crawlSpace != null)
 			{
@@ -30,17 +51,17 @@ public class EnvironmentInteraction : MonoBehaviour
 				m_Movement.setCanMove(false);
 			}
 		}
-	}
-	
-	void onCollionStay (Collision obj)
-	{
-		if(obj.collider.CompareTag("MoveableBlock") && Input.GetKeyDown(KeyCode.F))
+		else if(obj.CompareTag("MoveableBlock") && Input.GetKeyDown(KeyCode.F))
 		{
-			MoveableBlock moveableBlock = (MoveableBlock)obj.collider.GetComponent<MoveableBlock>();
+			if (obj.transform.parent != null)
+			{
+				return;
+			}
+
+			MoveableBlock moveableBlock = (MoveableBlock)obj.GetComponent<MoveableBlock>();
 			if(moveableBlock != null)
 			{
 				moveableBlock.makeChild(gameObject);
-				m_Movement.setCanMove(false);
 			}
 		}
 	}
