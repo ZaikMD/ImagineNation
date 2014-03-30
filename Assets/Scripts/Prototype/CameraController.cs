@@ -269,7 +269,7 @@ public class CameraController : Reticle
 		setZoom (other.m_Zoom);
 		setOrientationOfCamera(other.transform.parent.eulerAngles.y);
 		updateLookPosition ();
-	}*/
+	}*/ 
 
 	movementInput getMouseMovement()
 	{

@@ -5,7 +5,7 @@ public abstract class BasePrimaryItem : MonoBehaviour
 {
 	protected GameObject m_BaseProjectile;
 	
-	CameraController m_Camera;
+    CameraController m_Camera;
 	
 	public virtual void fire(Vector3 target)
 	{

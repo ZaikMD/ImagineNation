@@ -61,7 +61,7 @@ public class PlayerInput : MonoBehaviour
 	//----------------------------------------------------
 
 
-	movementInput m_PlayerMovement;
+	movementInput m_PlayerMovement; //why is this not a vector2 instead?
 	bool m_Jump;
 	bool m_SwitchChars;
 	bool m_InteractWithEnviroment;
@@ -110,6 +110,7 @@ public class PlayerInput : MonoBehaviour
 		//http://wiki.unity3d.com/index.php?title=Xbox360Controller
 
 		//controller input
+
 
 		m_PlayerMovement.x = Input.GetAxis (LEFT_STICK_H);
 		m_PlayerMovement.y = Input.GetAxis (LEFT_STICK_V);
