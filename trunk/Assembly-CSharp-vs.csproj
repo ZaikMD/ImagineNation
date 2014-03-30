@@ -80,14 +80,18 @@
      <Compile Include="Assets\Scripts\Prototype\PlayerInput.cs" />
      <Compile Include="Assets\Scripts\Prototype\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\Prototype\PlayerState.cs" />
+<<<<<<< .mine
+     <Compile Include="Assets\Scripts\Prototype\RemoveDebris.cs" />
      <Compile Include="Assets\Scripts\Prototype\Reticle.cs" />
+=======
+     <Compile Include="Assets\Scripts\Prototype\Reticle.cs" />
+>>>>>>> .r70
      <Compile Include="Assets\Scripts\Prototype\SecondairyBase.cs" />
      <Compile Include="Assets\Scripts\Prototype\SeeSaw.cs" />
      <Compile Include="Assets\Scripts\Prototype\StickyHand.cs" />
      <Compile Include="Assets\Scripts\Prototype\StickyHandProjectile.cs" />
      <Compile Include="Assets\Scripts\Prototype\TargetManager.cs" />
      <Compile Include="Assets\Scripts\Prototype\Targets.cs" />
-     <Compile Include="Assets\Scripts\Prototype\TestingScripts\RemoveDebris.cs" />
      <Compile Include="Assets\Scripts\Prototype\TestingScripts\SwitchTest.cs" />
      <Compile Include="Assets\Scripts\Prototype\Trampoline.cs" />
      <Compile Include="Assets\Scripts\Prototype\TrampolineButton.cs" />
