@@ -34,7 +34,7 @@ public class MovingPlatforms : MonoBehaviour
 		{
 			transform.position = Vector3.Lerp(transform.position, m_LerpPosition, m_LerpTime);
 
-			if(transform.position == m_LerpPosition - m_PaddingDistance)
+			if(transform.position == m_LerpPosition)
 			{
 				m_PauseTime = m_InitialPauseTime;
 				m_HasLerped = true;
@@ -44,7 +44,7 @@ public class MovingPlatforms : MonoBehaviour
 		{
 			transform.position = Vector3.Lerp(transform.position, m_InitialPosition, m_LerpTime);
 
-			if(transform.position == m_InitialPosition - m_PaddingDistance)
+			if(transform.position == m_InitialPosition)
 			{
 				m_PauseTime = m_InitialPauseTime;
 				m_HasLerped = false;
