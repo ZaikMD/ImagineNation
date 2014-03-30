@@ -47,59 +47,55 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Prototype\AI\Enemies\BaseEnemy.cs" />
-     <Compile Include="Assets\Scripts\Prototype\AlexPlayerState.cs" />
+     <Compile Include="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" />
      <Compile Include="Assets\Scripts\Prototype\Atrributes\AlexAttributes.cs" />
      <Compile Include="Assets\Scripts\Prototype\Atrributes\BaseCharAttrib.cs" />
      <Compile Include="Assets\Scripts\Prototype\Atrributes\DerekAttributes.cs" />
      <Compile Include="Assets\Scripts\Prototype\Atrributes\ZoeyAttributes.cs" />
-     <Compile Include="Assets\Scripts\Prototype\BasePrimaryItem.cs" />
-     <Compile Include="Assets\Scripts\Prototype\BoxingGloves.cs" />
      <Compile Include="Assets\Scripts\Prototype\CameraController.cs" />
      <Compile Include="Assets\Scripts\Prototype\CharacterSwitch.cs" />
      <Compile Include="Assets\Scripts\Prototype\Checkpoint.cs" />
      <Compile Include="Assets\Scripts\Prototype\CheckpointManager.cs" />
-     <Compile Include="Assets\Scripts\Prototype\CrawlSpaces.cs" />
-     <Compile Include="Assets\Scripts\Prototype\DerekPlayerState.cs" />
-     <Compile Include="Assets\Scripts\Prototype\DerekProjectile.cs" />
-     <Compile Include="Assets\Scripts\Prototype\DivingBoard.cs" />
-     <Compile Include="Assets\Scripts\Prototype\EnvironmentInteraction.cs" />
      <Compile Include="Assets\Scripts\Prototype\FearScript.cs" />
      <Compile Include="Assets\Scripts\Prototype\GameManager.cs" />
      <Compile Include="Assets\Scripts\Prototype\Health.cs" />
-     <Compile Include="Assets\Scripts\Prototype\InteractableBaseClass.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Interactables\CrawlSpaces.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Interactables\DivingBoard.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Interactables\EnvironmentInteraction.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Interactables\InteractableBaseClass.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Interactables\MoveableBlock.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Interactables\PickUp.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Interactables\RemoveDebris.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Interactables\SeeSaw.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Interactables\TargetManager.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Interactables\Targets.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Interactables\Trampoline.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Interactables\TrampolineButton.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Items\BasePrimaryItem.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Items\BoxingGloves.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Items\DerekProjectile.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Items\NerfGun.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Items\NerfGunProjectile.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Items\SecondairyBase.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Items\StickyHand.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Items\StickyHandProjectile.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Items\VelcroGloves.cs" />
      <Compile Include="Assets\Scripts\Prototype\MenuScript.cs" />
-     <Compile Include="Assets\Scripts\Prototype\MoveableBlock.cs" />
      <Compile Include="Assets\Scripts\Prototype\MovingPlatforms.cs" />
-     <Compile Include="Assets\Scripts\Prototype\NerfGun.cs" />
-     <Compile Include="Assets\Scripts\Prototype\NerfGunProjectile.cs" />
      <Compile Include="Assets\Scripts\Prototype\Observer\Events.cs" />
      <Compile Include="Assets\Scripts\Prototype\Observer\Observer.cs" />
      <Compile Include="Assets\Scripts\Prototype\Observer\Subject.cs" />
-     <Compile Include="Assets\Scripts\Prototype\PickUp.cs" />
-     <Compile Include="Assets\Scripts\Prototype\PlayerAIStateMachine.cs" />
      <Compile Include="Assets\Scripts\Prototype\PlayerInput.cs" />
      <Compile Include="Assets\Scripts\Prototype\PlayerMovement.cs" />
-     <Compile Include="Assets\Scripts\Prototype\PlayerState.cs" />
-<<<<<<< .mine
+     <Compile Include="Assets\Scripts\Prototype\Players\AlexPlayerState.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Players\DerekPlayerState.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Players\PlayerState.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Players\ZoeyPlayerState.cs" />
      <Compile Include="Assets\Scripts\Prototype\Reticle.cs" />
-=======
-     <Compile Include="Assets\Scripts\Prototype\RemoveDebris.cs" />
-     <Compile Include="Assets\Scripts\Prototype\Reticle.cs" />
->>>>>>> .r73
-     <Compile Include="Assets\Scripts\Prototype\SecondairyBase.cs" />
-     <Compile Include="Assets\Scripts\Prototype\SeeSaw.cs" />
-     <Compile Include="Assets\Scripts\Prototype\StickyHand.cs" />
-     <Compile Include="Assets\Scripts\Prototype\StickyHandProjectile.cs" />
-     <Compile Include="Assets\Scripts\Prototype\TargetManager.cs" />
-     <Compile Include="Assets\Scripts\Prototype\Targets.cs" />
      <Compile Include="Assets\Scripts\Prototype\TestingScripts\RemoveDebris.cs" />
      <Compile Include="Assets\Scripts\Prototype\TestingScripts\SwitchTest.cs" />
-     <Compile Include="Assets\Scripts\Prototype\Trampoline.cs" />
-     <Compile Include="Assets\Scripts\Prototype\TrampolineButton.cs" />
-     <Compile Include="Assets\Scripts\Prototype\VelcroGloves.cs" />
-     <Compile Include="Assets\Scripts\Prototype\ZachsMovement.cs" />
-     <Compile Include="Assets\Scripts\Prototype\ZoeyPlayerState.cs" />
-     <Compile Include="Assets\Scripts\Prototype\simpleMoveForTesting.cs" />
+     <Compile Include="Assets\Scripts\Prototype\TestingScripts\ZachsMovement.cs" />
+     <Compile Include="Assets\Scripts\Prototype\TestingScripts\simpleMoveForTesting.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
