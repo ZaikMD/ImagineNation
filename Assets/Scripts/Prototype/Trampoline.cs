@@ -3,7 +3,6 @@ using System.Collections;
 
 public class Trampoline : MonoBehaviour 
 {
-
 		//Member Variables
 	const float m_MoveSpeed = 1;
 	const float m_DoubleMoveSpeed = 1.5f;

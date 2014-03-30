@@ -23,6 +23,9 @@ Created by Jason Hein 3/25/2014
 3/29/2014
 	Added basic jumping (still very buggy)
 	Added air, jump, and gliding movement
+3/30/2014
+	Added movement for pushing blocks
+	Now initializes Enviroment interaction script
  */
 
 
@@ -38,28 +41,28 @@ using System.Collections;
 
 public class PlayerMovement : MonoBehaviour 
 {
-	public GameObject m_Player;
 	public Transform m_CameraTransform;
 
 	CharacterController m_Controller;
 	bool m_CanMove = true;
 
+	//Speeds
 	const float MOVE_SPEED = 6.0f;
-	const float FALL_SPEED = 15.0f;
+	const float FALL_SPEED = 20.0f;
+	const float JUMP_SPEED = 15.0f;
 	const float AIR_MOVE_SPEED = 3.0f;
 	const float GLIDING_FALL_SPEED = 6.0f;
-
-
-	//TEMPORARY FLOAT THAT SHOULD BE MOVED TO STATE MACHINE
+	const float PUSHING_BLOCK_SPEED = 3.0f;
+	
+	//Jumping timer
 	const float JUMP_TIME = 0.2f;
-	const float JUMP_SPEED = 15.0f;
 	float m_JumperTimer = 0.0f;
 
 	void Start ()
 	{
 		//Get character controller
-		m_Controller = m_Player.GetComponent<CharacterController>();
-		m_Player.AddComponent ("EnvironmentInteraction");
+		m_Controller = gameObject.GetComponent<CharacterController>();
+		gameObject.AddComponent ("EnvironmentInteraction");
 	}
 
 	/// <summary>
@@ -163,11 +166,11 @@ public class PlayerMovement : MonoBehaviour
 		//Climbing left and right
 		if (m_CameraTransform.forward.x > 0)
 		{
-			move += Input.GetAxis ("Horizontal") * MOVE_SPEED * this.transform.right;
+			move += Input.GetAxis ("Horizontal") * MOVE_SPEED * transform.right;
 		}
 		else
 		{
-			move -= Input.GetAxis ("Horizontal") * MOVE_SPEED * this.transform.right;
+			move -= Input.GetAxis ("Horizontal") * MOVE_SPEED * transform.right;
 		}
 
 		//Move
@@ -243,13 +246,34 @@ public class PlayerMovement : MonoBehaviour
 		m_Controller.Move (transform.forward * AIR_MOVE_SPEED * Time.deltaTime);
 	}
 
-	public void BlockHeldMovement ()
+	public void BlockHeldMovement (Size blockSize)
 	{
-		if (!m_CanMove || (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0))
+		if (Input.GetAxis("Vertical") == 0)
 		{
 			return;
 		}
 
-		//Move
+		//Smaller characters cannot move blocks too large to push
+		if (blockSize == Size.Large && (gameObject.name == "Zoey" || gameObject.name == "Derek"))
+		{
+			return;
+		}
+		else if (blockSize == Size.Medium && gameObject.name == "Zoey")
+		{
+			return;
+		}
+
+		Vector3 move = Vector3.zero;
+		if (m_CameraTransform.forward.z > 0)
+		{
+			move += Input.GetAxis ("Vertical") * transform.forward;
+		}
+		else
+		{
+			move -= Input.GetAxis ("Vertical") * transform.forward;
+		}
+
+		//Moves the player
+		m_Controller.Move (move * PUSHING_BLOCK_SPEED * Time.deltaTime);
 	}
 }
