@@ -45,7 +45,7 @@ public class StickyHand : BasePrimaryItem {
 		if (Input.GetButtonDown("Fire1"))    //Fire
 		{
 			//Must changed to the vector given by camera, and remove update when obsever pattern is hooked up
-			fire ((transform.forward * 20) + transform.position);
+			fire ((transform.forward * 25) + transform.position);
 		}
 	}
 
