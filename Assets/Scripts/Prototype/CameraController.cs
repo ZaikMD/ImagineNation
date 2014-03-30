@@ -108,6 +108,7 @@ public class CameraController : Reticle
 		updateZoom ();
 		updateOrientation ();
 		updateLookPosition ();
+		updateReticle ();
 	}
 	
 	void updatePosition()
