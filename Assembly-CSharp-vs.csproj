@@ -65,6 +65,7 @@
      <Compile Include="Assets\Scripts\Prototype\Health.cs" />
      <Compile Include="Assets\Scripts\Prototype\InteractableBaseClass.cs" />
      <Compile Include="Assets\Scripts\Prototype\MoveableBlock.cs" />
+     <Compile Include="Assets\Scripts\Prototype\MovingPlatforms.cs" />
      <Compile Include="Assets\Scripts\Prototype\NerfGun.cs" />
      <Compile Include="Assets\Scripts\Prototype\NerfGunProjectile.cs" />
      <Compile Include="Assets\Scripts\Prototype\Observer\Events.cs" />
