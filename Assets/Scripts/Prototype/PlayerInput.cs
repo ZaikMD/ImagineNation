@@ -209,7 +209,7 @@ public class PlayerInput : MonoBehaviour
 			}
 		}
 
-		//Debug.Log ("Camera x: " + m_CameraMovement.x + "Camera y: " + m_CameraMovement.y);
+		Debug.Log ("Camera x: " + m_CameraMovement.x + "Camera y: " + m_CameraMovement.y);
 
 		//get the Puase input
 		if(Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown(START))

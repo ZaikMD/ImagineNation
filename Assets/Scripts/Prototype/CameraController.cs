@@ -147,13 +147,13 @@ public class CameraController : Reticle
 	void updateZoom()
 	{
 		//Make sure there is zoom input
-		if (Input.GetAxis("Mouse Y") == 0 || m_State != CameraState.Default)
+		if (PlayerInput.Instance.getCameraMovement().y == 0 || m_State != CameraState.Default)
 		{
 			return;
 		}
 		
 		//Set Camera Zoom
-		setZoom(m_Zoom + -Input.GetAxis("Mouse Y") * (ZOOM_SENSITIVITY / 100.0f));
+		setZoom(m_Zoom + -PlayerInput.Instance.getCameraMovement().y * (ZOOM_SENSITIVITY / 100.0f));
 	}
 	
 	void setZoom(float aZoom)
@@ -187,17 +187,17 @@ public class CameraController : Reticle
 		}
 		else if (m_State == CameraState.Default)
 		{
-			if (Input.GetAxis("Mouse X") == 0)
+			if (PlayerInput.Instance.getCameraMovement().x == 0)
 			{
 				return;
 			}
 			
 			//Turn
-			setOrientation (transform.parent.eulerAngles.y + (ROTATION_SENSITIVITY * Input.GetAxis("Mouse X")));
+			setOrientation (transform.parent.eulerAngles.y + (ROTATION_SENSITIVITY * PlayerInput.Instance.getCameraMovement().x));
 		}
 		else if (m_State == CameraState.Aiming)
 		{
-			if (Input.GetAxis("Mouse Y") == 0)
+			if (PlayerInput.Instance.getCameraMovement().y == 0)
 			{
 				return;
 			}
@@ -209,7 +209,7 @@ public class CameraController : Reticle
 
 			//Set where to look
 			transform.parent.transform.position = new Vector3 (transform.parent.transform.position.x,
-			                                                   transform.parent.transform.position.y + (ROTATION_SENSITIVITY/4 * Input.GetAxis("Mouse Y")),
+			                                                   transform.parent.transform.position.y + (ROTATION_SENSITIVITY/4 * PlayerInput.Instance.getCameraMovement().y),
 			                                                        transform.parent.transform.position.z );
 			//Fix bobbing effec
 			transform.position.Set (m_CameraFollow.position.x, m_CameraFollow.position.y + AIMING_CAMERA_HEIGHT, m_CameraFollow.position.z);;
