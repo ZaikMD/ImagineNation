@@ -82,8 +82,8 @@ public class PlayerMovement : MonoBehaviour
 	{
 		//movementInput move = PlayerInput.Instance.getCameraMovement();
 
-		Vector3 projection = m_CameraTransform.forward * Input.GetAxis("Vertical");
-		projection += m_CameraTransform.right * Input.GetAxis("Horizontal");
+		Vector3 projection = m_CameraTransform.forward * PlayerInput.Instance.getMovementInput().y;
+		projection += m_CameraTransform.right * PlayerInput.Instance.getMovementInput().x;
 
 		//Vector3 projection = m_CameraTransform.forward * move.y;
 		//projection += m_CameraTransform.right * move.x;
@@ -135,7 +135,7 @@ public class PlayerMovement : MonoBehaviour
 	/// </summary>
 	public void GroundMovement()
 	{
-		if (!m_CanMove || (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0))
+		if (!m_CanMove || PlayerInput.Instance.getMovementInput().x == 0 && PlayerInput.Instance.getMovementInput().y == 0)
 		{
 			return;
 		}
@@ -150,11 +150,11 @@ public class PlayerMovement : MonoBehaviour
 	/// </summary>
 	public void AimMovement()
 	{
-		if ((Input.GetAxis("Mouse X") == 0))
+		if (PlayerInput.Instance.getCameraMovement().x == 0)
 		{
 			return;
 		}
-		transform.Rotate(new Vector3 (0.0f, Input.GetAxis("Mouse X") * Time.deltaTime, 0.0f));
+		transform.Rotate(new Vector3 (0.0f, PlayerInput.Instance.getCameraMovement().x * Time.deltaTime, 0.0f));
 	}
 
 	/// <summary>
@@ -162,22 +162,22 @@ public class PlayerMovement : MonoBehaviour
 	/// </summary>
 	public void ClimbMovement()
 	{
-		if ((Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0))
+		if ((PlayerInput.Instance.getMovementInput().x == 0 && PlayerInput.Instance.getMovementInput().y == 0))
 		{
 			return;
 		}
 
 		//Climbing up and down
-		Vector3 move = new Vector3 (0, Input.GetAxis ("Vertical") * CLIMB_SPEED, 0);
+		Vector3 move = new Vector3 (0, PlayerInput.Instance.getMovementInput().y * CLIMB_SPEED, 0);
 
 		//Climbing left and right
 		if (m_CameraTransform.forward.x > 0)
 		{
-			move += Input.GetAxis ("Horizontal") * CLIMB_SPEED * transform.right;
+			move += PlayerInput.Instance.getMovementInput().x * CLIMB_SPEED * transform.right;
 		}
 		else
 		{
-			move -= Input.GetAxis ("Horizontal") * CLIMB_SPEED * transform.right;
+			move -= PlayerInput.Instance.getMovementInput().x * CLIMB_SPEED * transform.right;
 		}
 
 		//Move
@@ -192,7 +192,7 @@ public class PlayerMovement : MonoBehaviour
 		//Falling
 		m_Controller.Move (-transform.up * GLIDING_FALL_SPEED * Time.deltaTime);
 
-		if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
+		if (PlayerInput.Instance.getMovementInput().x == 0 && PlayerInput.Instance.getMovementInput().y == 0)
 		{
 			return;
 		}
@@ -212,7 +212,7 @@ public class PlayerMovement : MonoBehaviour
 		//Falling
 		m_Controller.Move (-transform.up * FALL_SPEED * Time.deltaTime);
 		
-		if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
+		if (PlayerInput.Instance.getMovementInput().x == 0 && PlayerInput.Instance.getMovementInput().y == 0)
 		{
 			return;
 		}
@@ -241,7 +241,7 @@ public class PlayerMovement : MonoBehaviour
 			m_Controller.Move (transform.up * (JUMP_SPEED * Time.deltaTime));
 		}
 		
-		if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
+		if (PlayerInput.Instance.getMovementInput().x == 0 && PlayerInput.Instance.getMovementInput().y == 0)
 		{
 			return;
 		}
@@ -253,7 +253,7 @@ public class PlayerMovement : MonoBehaviour
 
 	public void BlockHeldMovement (Size blockSize)
 	{
-		if (Input.GetAxis("Vertical") == 0)
+		if (PlayerInput.Instance.getMovementInput().y == 0)
 		{
 			return;
 		}
@@ -271,11 +271,11 @@ public class PlayerMovement : MonoBehaviour
 		Vector3 move = Vector3.zero;
 		if (m_CameraTransform.forward.z > 0)
 		{
-			move += Input.GetAxis ("Vertical") * transform.forward;
+			move += PlayerInput.Instance.getMovementInput().y * transform.forward;
 		}
 		else
 		{
-			move -= Input.GetAxis ("Vertical") * transform.forward;
+			move -= PlayerInput.Instance.getMovementInput().y * transform.forward;
 		}
 
 		//Moves the player

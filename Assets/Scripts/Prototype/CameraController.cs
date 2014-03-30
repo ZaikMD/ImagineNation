@@ -58,12 +58,12 @@ public class CameraController : Reticle
 	const float AIMING_CAMERA_HEIGHT = 0.5f;
 
 	//Looking helper variables
-	public float m_ForwardAmount = 5.0f;
+	public float m_ForwardAmount = 3.0f;
 	Vector3 m_LastLookAtPosition = Vector3.zero;
 
 	//Zoom
-	public float m_Zoom = 0.5f;
-	public float m_CloseLimit = 0.3f;
+	public float m_Zoom = 0.6f;
+	public float m_CloseLimit = 0.55f;
 
 	//Aiming
 	public bool m_EnabledAiming = true;
@@ -71,7 +71,6 @@ public class CameraController : Reticle
 
 	//Player movement for aiming
 	PlayerMovement m_Movement;
-
 
 
 	// Use this for initialization
@@ -279,11 +278,6 @@ public class CameraController : Reticle
 		setOrientationOfCamera(other.transform.parent.eulerAngles.y);
 		updateLookPosition ();
 	}*/ 
-
-	movementInput getMouseMovement()
-	{
-		return PlayerInput.Instance.getCameraMovement();
-	}
 
 	/// <summary>
 	/// Provided a new transform to follow, this will switch the camera to following that new transform.
