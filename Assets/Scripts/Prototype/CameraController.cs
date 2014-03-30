@@ -137,13 +137,13 @@ public class CameraController : MonoBehaviour {
 	void updateZoom()
 	{
 		//Make sure there is zoom input
-		if (Mathf.Abs (Input.GetAxis ("Mouse Y")) == 0 || m_State != CameraState.Default)
+		if (Mathf.Abs (getMouseMovement().y) == 0 || m_State != CameraState.Default)
 		{
 			return;
 		}
 		
 		//Set Camera Zoom
-		setZoom(m_Zoom + -Input.GetAxis ("Mouse Y") * (ZOOM_SENSITIVITY / 100.0f));
+		setZoom(m_Zoom + -getMouseMovement().y * (ZOOM_SENSITIVITY / 100.0f));
 	}
 	
 	void setZoom(float aZoom)
@@ -177,24 +177,24 @@ public class CameraController : MonoBehaviour {
 		}
 		else if (m_State == CameraState.Default)
 		{
-			if (Mathf.Abs (Input.GetAxis ("Mouse X")) == 0)
+			if (Mathf.Abs (getMouseMovement().x) == 0)
 			{
 				return;
 			}
 			
 			//Turn
-			setOrientation (this.transform.parent.eulerAngles.y + (ROTATION_SENSITIVITY * Input.GetAxis ("Mouse X")));
+			setOrientation (this.transform.parent.eulerAngles.y + (ROTATION_SENSITIVITY * getMouseMovement().x));
 		}
 		else if (m_State == CameraState.Aiming)
 		{
-			if ( Mathf.Abs (Input.GetAxis ("Mouse Y")) == 0)
+			if ( Mathf.Abs (getMouseMovement().y) == 0)
 			{
 				return;
 			}
 
 			//Set where to look
 			this.transform.parent.transform.position = new Vector3 (this.transform.parent.transform.position.x,
-			                                                        this.transform.parent.transform.position.y + (ROTATION_SENSITIVITY/4 * Input.GetAxis ("Mouse Y")),
+			                                                        this.transform.parent.transform.position.y + (ROTATION_SENSITIVITY/4 * getMouseMovement().y),
 			                                                        this.transform.parent.transform.position.z );
 			//Fix bobbing effect
 			this.transform.position.Set (m_CameraFollow.position.x, m_CameraFollow.position.y + AIMING_CAMERA_HEIGHT, m_CameraFollow.position.z);;
@@ -247,6 +247,10 @@ public class CameraController : MonoBehaviour {
 		updateLookPosition ();
 	}*/
 
+	movementInput getMouseMovement()
+	{
+		return PlayerInput.Instance.getCameraMovement();
+	}
 
 	/// <summary>
 	/// Provided a new transform to follow, this will switch the camera to following that new transform.

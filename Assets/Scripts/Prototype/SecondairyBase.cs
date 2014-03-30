@@ -20,14 +20,12 @@ using System.Collections;
 
 public abstract class SecondairyBase : MonoBehaviour {
 
-//<<<<<<< .mine
     //public bool m_Enabled = false;
-    public PlayerMovement m_playerMovement;
 //=======
     protected bool m_Enabled = true;
     protected PlayerMovement m_PlayerMovement;
 	protected PlayerInput m_InputInstance;
-//>>>>>>> .r42
+
 	// Use this for initialization
 	void Start ()
     {
