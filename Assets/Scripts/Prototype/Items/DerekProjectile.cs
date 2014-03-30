@@ -35,13 +35,21 @@ public class DerekProjectile : MonoBehaviour
 
 		if(other.gameObject.tag == "DestructibleWall")
 		{
-			Instantiate(m_DebrisPrefab, other.transform.position, other.transform.rotation);
-
 			Destroy(other.gameObject);
 
+			Instantiate(m_DebrisPrefab, other.transform.position, other.transform.rotation);
+
 			Destroy(this.gameObject);
+
+			//StartCoroutine (DestroyDebris ());
 	
 		}
 	}
+
+//	IEnumerator DestroyDebris()
+//	{
+//		yield return new WaitForSeconds (2.0f);
+//		Destroy (m_DebrisPrefab.gameObject);
+//	}
 
 }

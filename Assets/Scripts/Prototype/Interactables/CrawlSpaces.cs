@@ -23,7 +23,7 @@ public class CrawlSpaces : MonoBehaviour
 {
 	//Timer
 	float m_Timer = 0.0f;
-	public float m_CrawlDelay = 1.0f;
+	public float m_CrawlDelay = 3.0f;
 	const float TIMER_ANIMATION = 1.0f;
 
 	//Other crawl space to crawl to
