@@ -109,6 +109,11 @@ public class CameraController : MonoBehaviour
 	// Update
 	void Update ()
 	{
+		if (m_State == CameraState.Aiming && m_Movement != null)
+		{
+			m_Movement.AimMovement();
+		}
+
 		updatePosition();
 		updateZoom ();
 		updateOrientation ();
@@ -252,13 +257,13 @@ public class CameraController : MonoBehaviour
 	// Updates the position of the reticle
 	void updateReticlePosition ()
 	{
-		if (m_State == CameraState.Default)
+		if (m_State == CameraState.Aiming)
 		{
-			m_Reticle.setReticlePosition (m_CameraFollow.position + (m_CameraFollow.forward * RETICLE_DISTANCE));
+			m_Reticle.setReticlePosition (m_CameraFollow.position + (m_CameraFollow.position - transform.parent.transform.position).normalized * RETICLE_DISTANCE);
 		}
 		else
 		{
-			m_Reticle.setReticlePosition (m_CameraFollow.position + transform.localPosition.normalized * RETICLE_DISTANCE);
+			m_Reticle.setReticlePosition (m_CameraFollow.position + (m_CameraFollow.forward * RETICLE_DISTANCE));
 		}
 
 		m_Reticle.setReticleScreenPosition (camera.WorldToScreenPoint (m_Reticle.getTargetPosition()));
@@ -376,11 +381,11 @@ public class CameraController : MonoBehaviour
 		}
 
 		//Disable moving while aiming
-		m_Movement = (PlayerMovement)m_CameraFollow.gameObject.GetComponent<PlayerMovement> ();
 		if (m_Movement != null)
 		{
 			m_Movement.setCanMove(true);
 		}
+		m_Movement = null;
 
 		transform.parent.transform.position = m_CameraFollow.position;
 		transform.localPosition = m_SavedLocalPosition;
