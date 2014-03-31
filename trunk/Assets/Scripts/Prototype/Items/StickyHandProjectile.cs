@@ -183,13 +183,13 @@ public class StickyHandProjectile : MonoBehaviour {
 			m_Movement = (PlayerMovement)m_Zoey.GetComponent<PlayerMovement>();
 		}
 
-		//Set initial positions and rotations
-		m_Target = target;
-		this.transform.Rotate (m_Zoey.transform.rotation.eulerAngles - transform.rotation.eulerAngles);
-		this.transform.Rotate (new Vector3 (90,0,0));
-
-		//Set original position
+		//Save position for accurate distance calculations
 		m_OriginalPosition = transform.position;
+
+		//Set initial positions and rotations
+		m_Target = m_OriginalPosition + target * (MAX_DISTANCE + (m_Speed * 2));
+		transform.Rotate (m_Zoey.transform.rotation.eulerAngles - transform.rotation.eulerAngles);
+		transform.Rotate (new Vector3 (90,0,0));
 
 		//Create line to trail behind
 		if (m_ProjectileLine)

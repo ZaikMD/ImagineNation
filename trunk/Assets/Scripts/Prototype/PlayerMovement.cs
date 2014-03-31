@@ -26,6 +26,9 @@ Created by Jason Hein 3/25/2014
 3/30/2014
 	Added movement for pushing blocks
 	Now initializes Enviroment interaction script
+	Added proper airborne movement
+	Added launching
+	Added gliding
  */
 
 
@@ -47,11 +50,11 @@ public class PlayerMovement : MonoBehaviour
 	bool m_CanMove = true;
 
 	//Speeds
-	const float MOVE_SPEED = 6.0f;
+	const float MOVE_SPEED = 7.0f;
 	const float CLIMB_SPEED = 3.0f;
 	const float FALL_ACCLERATION = 40.0f;
 	const float JUMP_SPEED = 15.0f;
-	const float AIR_HORIZONTAL_MOVE_SPEED = 3.0f;
+	const float AIR_HORIZONTAL_MOVE_SPEED = 4.0f;
 	const float GLIDING_FALL_SPEED = 4.0f;
 	const float PUSHING_BLOCK_SPEED = 3.0f;
 	float m_VerticalVelocity = 0.0f;
@@ -65,18 +68,25 @@ public class PlayerMovement : MonoBehaviour
 	}
 
 	/// <summary>
+	/// Gets the verticle speed of the player.
+	/// </summary>
+	/// <returns>The verticle speed.</returns>
+	public float getVerticleSpeed()
+	{
+		return m_VerticalVelocity;
+	}
+
+	/// <summary>
 	/// Allows you to enable and renable movement during interactions.
 	/// </summary>
 	public void setCanMove(bool move)
 	{
 		m_CanMove = move;
 
-		if (m_CanMove == false)
+		//Reset air movement speed
+		if (m_CanMove == false && !IsGrounded ())
 		{
-			if (!IsGrounded ())
-			{
-				m_VerticalVelocity = 0;
-			}
+			m_VerticalVelocity = 0;
 		}
 	}
 
@@ -185,12 +195,16 @@ public class PlayerMovement : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Glides the player.
+	/// Glides the player. You must call setCanMove(true); from the cape class when you touch the ground or exit gliding.
 	/// </summary>
-	public void GlideMovement()
+	public void Glide()
 	{
 		//Falling
-		m_Controller.Move (-transform.up * GLIDING_FALL_SPEED * Time.deltaTime);
+		if (m_VerticalVelocity > GLIDING_FALL_SPEED)
+		{
+			m_VerticalVelocity -= Time.deltaTime * FALL_ACCLERATION;
+		}
+		m_Controller.Move (transform.up * m_VerticalVelocity * Time.deltaTime);
 
 		if (PlayerInput.Instance.getMovementInput().x == 0 && PlayerInput.Instance.getMovementInput().y == 0)
 		{
@@ -199,7 +213,7 @@ public class PlayerMovement : MonoBehaviour
 		
 		//Moves the player and looks where the player is going
 		transform.LookAt (transform.position + getControllerProjection());
-		m_Controller.Move (transform.forward * MOVE_SPEED * Time.deltaTime);
+		m_Controller.Move (transform.forward * AIR_HORIZONTAL_MOVE_SPEED * Time.deltaTime);
 	}
 
 	/// <summary>
@@ -240,10 +254,10 @@ public class PlayerMovement : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Jumps the player by a set speed
+	/// Laucnhes the player upward by a set speed.
 	/// </summary>
 	/// <param name="launchSpeed">Launch speed.</param>
-	public void TrampolineJump(float launchSpeed)
+	public void LaunchJump(float launchSpeed)
 	{
 		if (!m_CanMove)
 		{

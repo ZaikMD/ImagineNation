@@ -42,10 +42,10 @@ public class StickyHand : BasePrimaryItem {
 	//Can be removed once observer pattern is attached
 	void Update() 
 	{
-		if (Input.GetButtonDown("Fire1"))    //Fire
+		if (PlayerInput.Instance.getUseItem())    //Fire
 		{
 			//Must changed to the vector given by camera, and remove update when obsever pattern is hooked up
-			fire ((transform.forward * 25) + transform.position);
+			fire (transform.forward); //Normalized direction
 		}
 	}
 
