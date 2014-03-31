@@ -45,7 +45,7 @@ public class StickyHand : BasePrimaryItem {
 		if (PlayerInput.Instance.getUseItem())    //Fire
 		{
 			//Must changed to the vector given by camera, and remove update when obsever pattern is hooked up
-			fire (transform.forward); //Normalized direction
+			fire (); //Normalized direction
 		}
 	}
 
@@ -53,12 +53,12 @@ public class StickyHand : BasePrimaryItem {
 	/// Fires the sticky hand at the specific target
 	/// </summary>
 	/// <param name="target">Target.</param>
-	public override void fire(Vector3 target)
+	public override void fire()
 	{
 		if (!m_Projectile.activeInHierarchy)
 		{
 			m_Projectile.transform.position = this.transform.position + this.transform.forward;
-			m_ProjectileComponent.activate(target);
+			m_ProjectileComponent.activate(getTargetDirection());
 		}
 	}
 }

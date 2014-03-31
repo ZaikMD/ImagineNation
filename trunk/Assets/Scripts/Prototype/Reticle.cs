@@ -1,19 +1,69 @@
-﻿using UnityEngine;
+﻿/*
+
+Created by Jason Hein
+
+*/
+
+
+using UnityEngine;
 using System.Collections;
 
-public class Reticle : MonoBehaviour {
+public class Reticle : MonoBehaviour
+{
+	//Widht and height of the Reticle
+	const float RETICAL_SCREEN_SIZE = 30.0f;
 
-	protected float RETICLE_DISTANCE = 10.0f;
+	//Reticle Position on screen
+	Vector2 m_ReticleScreenPosition = Vector2.zero;
 
-	protected Vector3 m_ReticlePosition = Vector3.zero;
-	protected GUITexture m_ReticleTexture;
+	//Reticle texture
+	Texture2D m_ReticleTexture;
 
-	public Vector3 getReticlePosition()
+
+	/// <summary>
+	/// Sets the crosshairs texture.
+	/// </summary>
+	public void LoadTexture(string path)
 	{
-		return m_ReticlePosition;
+		//Sets the texture of the Reticle
+		m_ReticleTexture = (Texture2D)Resources.Load(path);
+
+		//Sets the initial screen position to the center of the screen
+		m_ReticleScreenPosition = new Vector2((Screen.width - RETICAL_SCREEN_SIZE) / 2, (Screen.height - RETICAL_SCREEN_SIZE) /2);
+
 	}
 
-	protected virtual void updateReticle ()
+	/// <summary>
+	/// Returns the position of the Reticle in world space.
+	/// </summary>
+	public Vector3 getTargetPosition()
 	{
+		return transform.position;
+	}
+
+	/// <summary>
+	/// Sets where to draw the reticle on screen.
+	/// </summary>
+	public void setReticleScreenPosition (Vector2 screenPosition)
+	{
+		m_ReticleScreenPosition = screenPosition;
+	}
+
+	/// <summary>
+	/// Sets the reticle's position in world space.
+	/// </summary>
+	/// <param name="position">Position.</param>
+	public void setReticlePosition (Vector3 position)
+	{
+		transform.position = position;
+	}
+
+	//Draws the Reticle
+	void OnGUI()
+	{
+		if (m_ReticleTexture != null)
+		{
+			GUI.DrawTexture(new Rect(m_ReticleScreenPosition.x - RETICAL_SCREEN_SIZE / 2.0f, m_ReticleScreenPosition.y - RETICAL_SCREEN_SIZE / 2.0f, RETICAL_SCREEN_SIZE, RETICAL_SCREEN_SIZE), m_ReticleTexture);
+		}
 	}
 }

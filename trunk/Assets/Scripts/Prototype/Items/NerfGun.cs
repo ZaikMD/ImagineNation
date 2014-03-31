@@ -49,11 +49,11 @@ public class NerfGun : BasePrimaryItem
 		//Temporary code to test the fire function
 		if(Input.GetKeyDown(KeyCode.P))
 		{
-			fire(new Vector3(0,0,30));
+			fire();
 		}
 	}
 
-	public override void fire(Vector3 currentTarget)
+	public override void fire()
 	{
 		//As long as the clip isn't empty
 		if(m_NumberOfBullets > 0)                                
@@ -67,7 +67,7 @@ public class NerfGun : BasePrimaryItem
 			                                     Quaternion.identity);
 
 			tempbullet.transform.rotation = transform.rotation;
-			tempbullet.rigidbody.AddForce(currentTarget * 100);
+			tempbullet.rigidbody.AddForce(getTargetDirection() * 100);
 
 			m_NumberOfBullets--;
 
@@ -93,13 +93,13 @@ public class NerfGun : BasePrimaryItem
 		}
 	}
 		
-	public override void aimFire(Vector3 currentTarget)
+	public override void aimFire()
 	{
 		//As long as the clip isn't empty call the fire function 
 		//with the new target
 		if(m_NumberOfBullets > 0)
 		{
-			fire(currentTarget);
+			fire();
 		}
 	}
 }

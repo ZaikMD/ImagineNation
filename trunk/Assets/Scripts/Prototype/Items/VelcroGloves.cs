@@ -47,8 +47,6 @@ public class VelcroGloves : SecondairyBase
 	//Initialization		
 	void Start ()
 	{
-		base.Load();
-
 		//Get the component
 		//m_Player = getComponent <Player>();        							   //Get player component to set player flags
 	}

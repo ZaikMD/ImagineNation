@@ -27,10 +27,10 @@ public abstract class SecondairyBase : MonoBehaviour {
 	protected PlayerInput m_InputInstance;
 
 	// Use this for initialization
-	void Start ()
+	void Awake ()
     {
 		//m_PlayerMovement = gameObject.GetComponent<PlayerMovement>();
-		Load ();
+		Invoke ("Load", 0.01f);
 	}
 
 	/// <summary>
