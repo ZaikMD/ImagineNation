@@ -66,7 +66,7 @@ public class VelcroGloves : SecondairyBase
 		else if ( m_Climbing )
 		{
 			//Fall button
-			if (Input.GetButtonDown("Fire1"))
+			if (PlayerInput.Instance.getEnviromentInteraction() || PlayerInput.Instance.getJumpInput())
 			{
 				//We are no longer climbing
 				m_Climbing = false; 
@@ -84,8 +84,8 @@ public class VelcroGloves : SecondairyBase
 			Move ();
 		}
 		
-		//Grab button
-		else if (Input.GetButtonDown("Fire1"))    //You grabbed the window
+		//You grabbed the window
+		else if (PlayerInput.Instance.getEnviromentInteraction()|| PlayerInput.Instance.getJumpInput())
 		{
 			//Enable Climbing
 			m_Climbing = true;

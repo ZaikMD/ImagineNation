@@ -28,40 +28,44 @@ public class EnvironmentInteraction : MonoBehaviour
 	
 	void OnTriggerStay(Collider obj)
 	{
-		//PlayerInput.Instance.getEnviromentInteraction()
-		if(obj.CompareTag("CrawlSpace") && Input.GetKeyDown(KeyCode.F))
+		//Start Interaction
+		if (PlayerInput.Instance.getEnviromentInteraction())
 		{
-			if (gameObject.name == "Derek")
+			//PlayerInput.Instance.getEnviromentInteraction()
+			if(obj.CompareTag("CrawlSpace"))
 			{
-				return;
+				if (gameObject.name == "Derek")
+				{
+					return;
+				}
+				
+				CrawlSpaces crawlSpace = (CrawlSpaces)obj.GetComponent<CrawlSpaces>();
+				if(crawlSpace != null)
+				{
+					crawlSpace.OnUse();
+				}
 			}
-
-			CrawlSpaces crawlSpace = (CrawlSpaces)obj.GetComponent<CrawlSpaces>();
-			if(crawlSpace != null)
+			else if(obj.name == "DivingBoard")
 			{
-				crawlSpace.OnUse();
+				DivingBoard divingBoard = (DivingBoard)obj.GetComponent<DivingBoard>();
+				if(divingBoard != null)
+				{
+					divingBoard.notifySeeSaw(this.gameObject);
+					m_Movement.setCanMove(false);
+				}
 			}
-		}
-		else if(obj.name == "DivingBoard" && Input.GetKeyDown(KeyCode.F))
-		{
-			DivingBoard divingBoard = (DivingBoard)obj.GetComponent<DivingBoard>();
-			if(divingBoard != null)
+			else if(obj.CompareTag("MoveableBlock"))
 			{
-				divingBoard.notifySeeSaw(this.gameObject);
-				m_Movement.setCanMove(false);
-			}
-		}
-		else if(obj.CompareTag("MoveableBlock") && Input.GetKeyDown(KeyCode.F))
-		{
-			if (obj.transform.parent != null)
-			{
-				return;
-			}
-
-			MoveableBlock moveableBlock = (MoveableBlock)obj.GetComponent<MoveableBlock>();
-			if(moveableBlock != null)
-			{
-				moveableBlock.makeChild(gameObject);
+				if (obj.transform.parent != null)
+				{
+					return;
+				}
+				
+				MoveableBlock moveableBlock = (MoveableBlock)obj.GetComponent<MoveableBlock>();
+				if(moveableBlock != null)
+				{
+					moveableBlock.makeChild(gameObject);
+				}
 			}
 		}
 	}
