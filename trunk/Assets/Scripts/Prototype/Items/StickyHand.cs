@@ -61,4 +61,14 @@ public class StickyHand : BasePrimaryItem {
 			m_ProjectileComponent.activate(getTargetDirection());
 		}
 	}
+
+	public override void aimFire()
+	{
+		if (!m_Projectile.activeInHierarchy)
+		{
+			fire();
+		}
+	}
+
+
 }
