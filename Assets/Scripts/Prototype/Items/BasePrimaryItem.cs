@@ -4,17 +4,41 @@ using System.Collections;
 public abstract class BasePrimaryItem : MonoBehaviour 
 {
 	protected GameObject m_BaseProjectile;
+	protected Reticle m_Reticle;
 	
     CameraController m_Camera;
 	
-	public virtual void fire(Vector3 target)
+	//Load Reticle
+	void Awake()
+	{
+		Invoke ("Load", 0.01f);
+	}
+
+	//Fire weapon
+	public virtual void fire()
 	{
 		Instantiate(m_BaseProjectile);
 	}
-	
-	public virtual void aimFire(Vector3 target)
+
+	//Fire weapon and aim
+	public virtual void aimFire()
 	{
 		m_Camera.enableAiming ();
-		fire (target);
+		fire ();
+	}
+
+	//Loads the reticle
+	void Load()
+	{
+		GameObject reticle = (GameObject)GameObject.Find("Reticle(Clone)");
+		m_Reticle = (Reticle)reticle.GetComponent<Reticle> ();
+	}
+
+	/// <summary>
+	/// Gets the direction to fire.
+	/// </summary>
+	protected Vector3 getTargetDirection()
+	{
+		return (m_Reticle.getTargetPosition() - transform.position).normalized;
 	}
 }

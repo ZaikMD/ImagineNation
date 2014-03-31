@@ -33,7 +33,7 @@ using System.Collections;
 /// Enables camera movement based on input, and the objects transform.
 /// </summary>
 [RequireComponent (typeof(Camera))]
-public class CameraController : Reticle
+public class CameraController : MonoBehaviour
 {
 	//What to follow
 	Transform m_CameraFollow;
@@ -54,7 +54,7 @@ public class CameraController : Reticle
 	const float CAMERA_FOLLOW_SPEED = 0.15f;
 	const float RANGE_TO_ENABLE_SWITCHING = 0.1f;
 	const float LOOK_AT_SPEED = 0.06f;
-	const float AIMING_LOOK_AT_FRONT_AMOUNT = 5.0f;
+	const float AIMING_LOOK_AT_FRONT_AMOUNT = 6.0f;
 	const float AIMING_CAMERA_HEIGHT = 0.5f;
 
 	//Looking helper variables
@@ -72,8 +72,12 @@ public class CameraController : Reticle
 	//Player movement for aiming
 	PlayerMovement m_Movement;
 
+	//Reticle
+	const float RETICLE_DISTANCE = 5.0f;
+	Reticle m_Reticle;
 
-	// Use this for initialization
+
+	// Initialization
 	void Start ()
 	{
 		//Limit Zoom
@@ -86,13 +90,6 @@ public class CameraController : Reticle
 			m_Zoom = 1;
 		}
 
-		/*
-		//Set Reticle Texture
-		GameObject texture = (GameObject)Instantiate(Resources.Load("Reticle"), Vector3.zero, Quaternion.identity);
-		m_ReticleTexture = (GUITexture)(m_ReticleTexture.GetComponent<GUITexture>());
-		m_ReticleTexture.texture = (Texture)Resources.Load("ReticleTexture");
-		*/
-
 		//Set initial Transform to follow
 		m_CameraFollow = transform.parent.transform;
 
@@ -102,18 +99,24 @@ public class CameraController : Reticle
 
 		//Set us to follow the transform we were a parent of
 		transform.parent = origin.transform;
+
+		//Load Reticle
+		GameObject reticle = (GameObject)Instantiate(Resources.Load("Reticle"), m_CameraFollow.position + m_CameraFollow.forward, Quaternion.identity);
+		m_Reticle = (Reticle)(reticle.GetComponent<Reticle>());
+		m_Reticle.LoadTexture("CrossHair_NormalState");
 	}
 	
-	// Update is called once per frame
+	// Update
 	void Update ()
 	{
 		updatePosition();
 		updateZoom ();
 		updateOrientation ();
 		updateLookPosition ();
-		//updateReticle ();
+		updateReticlePosition ();
 	}
 	
+	// Updates the position of the camera's origin
 	void updatePosition()
 	{
 		if ( m_State == CameraState.Switching)
@@ -143,6 +146,7 @@ public class CameraController : Reticle
 		}
 	}
 
+	// Updates the camera's zoom
 	void updateZoom()
 	{
 		//Make sure there is zoom input
@@ -154,7 +158,8 @@ public class CameraController : Reticle
 		//Set Camera Zoom
 		setZoom(m_Zoom + -PlayerInput.Instance.getCameraMovement().y * (ZOOM_SENSITIVITY / 100.0f));
 	}
-	
+
+	// Zooms the camera in or out
 	void setZoom(float aZoom)
 	{
 		//Get max zoom position for lerping
@@ -177,6 +182,7 @@ public class CameraController : Reticle
 		this.transform.localPosition = Vector3.Lerp (Vector3.zero, maxZoomPosition, m_Zoom);
 	}
 
+	// Updates revolution around the player
 	void updateOrientation()
 	{
 		//Only turn Camera if there is input
@@ -216,12 +222,14 @@ public class CameraController : Reticle
 		}
 	}
 
+	// Sets revolution around the player
 	void setOrientation(float orientation)
 	{
 		//Turn
 		this.transform.parent.eulerAngles = new Vector3(transform.parent.eulerAngles.x, orientation, this.transform.parent.eulerAngles.z);
 	}
 
+	// Updates where to look
 	void updateLookPosition ()
 	{
 		if ( m_State == CameraState.Aiming )
@@ -241,22 +249,19 @@ public class CameraController : Reticle
 		}
 	}
 
-	//Updates the position of the reticle
-	protected override void updateReticle ()
+	// Updates the position of the reticle
+	void updateReticlePosition ()
 	{
 		if (m_State == CameraState.Default)
 		{
-			//What to follow
-			m_ReticlePosition = transform.parent.transform.position + (m_CameraFollow.forward * RETICLE_DISTANCE);
+			m_Reticle.setReticlePosition (m_CameraFollow.position + (m_CameraFollow.forward * RETICLE_DISTANCE));
 		}
 		else
 		{
-			m_ReticlePosition = transform.parent.transform.position;
+			m_Reticle.setReticlePosition (m_CameraFollow.position + transform.localPosition.normalized * RETICLE_DISTANCE);
 		}
 
-		//Updated the screen texture
-		Vector2 newPos = GUIUtility.ScreenToGUIPoint(camera.WorldToScreenPoint (m_ReticlePosition));
-		m_ReticleTexture.pixelInset = new Rect (newPos.x, newPos.y, m_ReticleTexture.pixelInset.width, m_ReticleTexture.pixelInset.height);
+		m_Reticle.setReticleScreenPosition (camera.WorldToScreenPoint (m_Reticle.getTargetPosition()));
 	}
 
 	/// <summary>

@@ -144,7 +144,7 @@ public class StickyHandProjectile : MonoBehaviour {
 		}
 
 		//Update the stickyhand projectile position
-		transform.position += Vector3.Normalize(m_Target - transform.position) * m_Speed;
+		transform.position += m_Target * m_Speed;
 	} 
 
 	//Updates the position and length of the sticky line
@@ -187,7 +187,7 @@ public class StickyHandProjectile : MonoBehaviour {
 		m_OriginalPosition = transform.position;
 
 		//Set initial positions and rotations
-		m_Target = m_OriginalPosition + target * (MAX_DISTANCE + (m_Speed * 2));
+		m_Target = target;
 		transform.Rotate (m_Zoey.transform.rotation.eulerAngles - transform.rotation.eulerAngles);
 		transform.Rotate (new Vector3 (90,0,0));
 
