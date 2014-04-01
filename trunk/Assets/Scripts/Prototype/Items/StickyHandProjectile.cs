@@ -92,6 +92,7 @@ public class StickyHandProjectile : MonoBehaviour {
 			if (m_State == States.Launching)
 			{
 				m_Movement.setCanMove(true);
+				m_Zoey.transform.position -= m_Zoey.transform.forward;
 			}
 
 			m_ProjectileLine.SetActive(false);
