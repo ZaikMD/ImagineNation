@@ -270,7 +270,7 @@ public class CameraController : MonoBehaviour
 		//Camera is in aiming state
 		else if (m_State == CameraState.Aiming)
 		{
-			m_Reticle.setReticlePosition (m_CameraFollow.position + (m_CameraFollow.position - transform.parent.transform.position).normalized * Reticle.RETICLE_DISTANCE);
+			m_Reticle.setReticlePosition (m_CameraFollow.position + (transform.parent.transform.position - m_CameraFollow.position).normalized * Reticle.RETICLE_DISTANCE);
 		}
 
 		//Default position of reticle
