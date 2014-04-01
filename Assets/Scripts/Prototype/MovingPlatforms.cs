@@ -3,6 +3,8 @@ using System.Collections;
 
 public class MovingPlatforms : MonoBehaviour 
 {
+
+
 	public float m_PauseTime;
 	public float m_MoveTimeInSeconds;
 
@@ -10,6 +12,7 @@ public class MovingPlatforms : MonoBehaviour
 	public bool m_MovesOnce;
 
 	public GameObject m_Destination;
+	public Lever m_Lever;
 	
 	private float m_InitialPauseTime;
 	private float m_InitialMoveTime;
@@ -108,6 +111,10 @@ public class MovingPlatforms : MonoBehaviour
 				}
 
 			}
+		}
+		if(m_NeedsSwitch == true)
+		{
+			m_SwitchToggled = m_Lever.getIsOn ();
 		}
 
 	}
