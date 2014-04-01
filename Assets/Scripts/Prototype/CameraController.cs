@@ -142,6 +142,7 @@ public class CameraController : MonoBehaviour
 		{
 			//We follow the object's position, but not their rotation
 			transform.parent.position = m_CameraFollow.position;
+			//transform.parent.Rotate (PlayerMovement.getControllerProjection() - transform.parent.rotation.eulerAngles);
 		}
 		else if ( m_State == CameraState.Aiming )
 		{
@@ -382,6 +383,9 @@ public class CameraController : MonoBehaviour
 		transform.position = m_CameraFollow.position;
 		transform.parent.transform.position = ( AIMING_LOOK_AT_FRONT_AMOUNT * Vector3.Normalize ( m_CameraFollow.forward ) + m_CameraFollow.position );
 		m_State = CameraState.Aiming;
+
+		//Draw reticle while aiming
+		m_Reticle.canDraw(true);
 	}
 
 	/// <summary>
@@ -405,5 +409,8 @@ public class CameraController : MonoBehaviour
 		transform.localPosition = m_SavedLocalPosition;
 		setOrientation (m_CameraFollow.position.y);
 		m_State = CameraState.Default;
+
+		//Do not draw reticle by default
+		m_Reticle.canDraw(false);
 	}
 }

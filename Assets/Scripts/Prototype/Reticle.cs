@@ -20,7 +20,8 @@ public class Reticle : MonoBehaviour
 	//Reticle texture
 	Texture2D m_ReticleTexture;
 	Texture2D m_ReticleTextureRed;
-	bool onEnemy = false;
+	bool m_OnEnemy = false;
+	bool m_CanDraw = false;
 	
 
 	/// <summary>
@@ -46,6 +47,14 @@ public class Reticle : MonoBehaviour
 	}
 
 	/// <summary>
+	/// Sets if the reticle can be drawn
+	/// </summary>
+	public void canDraw(bool canDraw)
+	{
+		m_CanDraw = canDraw;
+	}
+
+	/// <summary>
 	/// Sets where to draw the reticle on screen.
 	/// </summary>
 	public void setReticleScreenPosition (Vector2 screenPosition)
@@ -65,7 +74,11 @@ public class Reticle : MonoBehaviour
 	//Draws the Reticle
 	void OnGUI()
 	{
-		if (!onEnemy && m_ReticleTexture != null)
+		if (!m_CanDraw)
+		{
+			return;
+		}
+		if (!m_OnEnemy && m_ReticleTexture != null)
 		{
 			GUI.DrawTexture(new Rect(m_ReticleScreenPosition.x - RETICAL_SCREEN_SIZE / 2.0f, m_ReticleScreenPosition.y - RETICAL_SCREEN_SIZE / 2.0f, RETICAL_SCREEN_SIZE, RETICAL_SCREEN_SIZE), m_ReticleTexture);
 		}
@@ -81,10 +94,10 @@ public class Reticle : MonoBehaviour
 		//If target is on an enemy change textures
 		if ( obj.gameObject.CompareTag("Enemy") )
 		{
-			onEnemy = true;
+			m_OnEnemy = true;
 			return;
 		}
 
-		onEnemy = false;
+		m_OnEnemy = false;
 	}
 }
