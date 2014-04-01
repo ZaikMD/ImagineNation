@@ -95,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
 	/// Returns a normalized input vector based on camera's rotation.
 	/// </summary>
 	/// <returns>Controller input in relation to camera's rotation.</returns>
-	Vector3 getControllerProjection()
+	public Vector3 getControllerProjection()
 	{
 		//movementInput move = PlayerInput.Instance.getCameraMovement();
 
