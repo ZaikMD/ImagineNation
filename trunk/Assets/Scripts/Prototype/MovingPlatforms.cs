@@ -112,7 +112,7 @@ public class MovingPlatforms : MonoBehaviour
 
 			}
 		}
-		if(m_NeedsSwitch == true)
+		if(m_NeedsSwitch == true && m_Lever != null)
 		{
 			m_SwitchToggled = m_Lever.getIsOn ();
 		}
