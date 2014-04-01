@@ -73,6 +73,11 @@ public abstract class PlayerState : MonoBehaviour
     {
        // Debug.Log("anything");
        // m_HaveSecondItem = true;
+        if (PlayerInput.Instance.getPause())
+        {
+            MenuScript.Instance.PauseMenu();       
+        }
+
 
     	if(m_PlayerState == PlayerStates.Default)
     	{
