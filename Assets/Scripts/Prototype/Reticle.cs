@@ -11,6 +11,7 @@ using System.Collections;
 public class Reticle : MonoBehaviour
 {
 	//Widht and height of the Reticle
+	public const float RETICLE_DISTANCE = 5.0f;
 	const float RETICAL_SCREEN_SIZE = 30.0f;
 
 	//Reticle Position on screen
@@ -18,15 +19,18 @@ public class Reticle : MonoBehaviour
 
 	//Reticle texture
 	Texture2D m_ReticleTexture;
-
+	Texture2D m_ReticleTextureRed;
+	bool onEnemy = false;
+	
 
 	/// <summary>
 	/// Sets the crosshairs texture.
 	/// </summary>
-	public void LoadTexture(string path)
+	public void Load()
 	{
 		//Sets the texture of the Reticle
-		m_ReticleTexture = (Texture2D)Resources.Load(path);
+		m_ReticleTexture = (Texture2D)Resources.Load("CrossHair_NormalState");
+		m_ReticleTextureRed = (Texture2D)Resources.Load("CrossHair_HighlitedState");
 
 		//Sets the initial screen position to the center of the screen
 		m_ReticleScreenPosition = new Vector2((Screen.width - RETICAL_SCREEN_SIZE) / 2, (Screen.height - RETICAL_SCREEN_SIZE) /2);
@@ -61,9 +65,26 @@ public class Reticle : MonoBehaviour
 	//Draws the Reticle
 	void OnGUI()
 	{
-		if (m_ReticleTexture != null)
+		if (!onEnemy && m_ReticleTexture != null)
 		{
 			GUI.DrawTexture(new Rect(m_ReticleScreenPosition.x - RETICAL_SCREEN_SIZE / 2.0f, m_ReticleScreenPosition.y - RETICAL_SCREEN_SIZE / 2.0f, RETICAL_SCREEN_SIZE, RETICAL_SCREEN_SIZE), m_ReticleTexture);
 		}
+		else if (m_ReticleTextureRed != null)
+		{
+			GUI.DrawTexture(new Rect(m_ReticleScreenPosition.x - RETICAL_SCREEN_SIZE / 2.0f, m_ReticleScreenPosition.y - RETICAL_SCREEN_SIZE / 2.0f, RETICAL_SCREEN_SIZE, RETICAL_SCREEN_SIZE), m_ReticleTextureRed);
+		}
+	}
+
+	//When something is nearby
+	void OnTriggerStay(Collider obj)
+	{
+		//If target is on an enemy change textures
+		if ( obj.gameObject.CompareTag("Enemy") )
+		{
+			onEnemy = true;
+			return;
+		}
+
+		onEnemy = false;
 	}
 }
