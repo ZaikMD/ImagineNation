@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
+
+////////////////////// ATTACK AND PATHFINDING LEFT TO DO!!!///
 public class PlayerAIStateMachine : MonoBehaviour 
 {
 	//ENUMS
@@ -455,6 +457,7 @@ public class PlayerAIStateMachine : MonoBehaviour
 			{
 				closestEnemy = enemy;
 			}
+
 		}
 
 		return closestEnemy;
