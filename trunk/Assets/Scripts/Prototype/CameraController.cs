@@ -108,6 +108,10 @@ public class CameraController : MonoBehaviour
 	// Update
 	void Update ()
 	{
+		if (Input.GetKeyDown ("x"))
+		{
+			toggleAiming ( );
+		}
 		if (m_State == CameraState.Aiming && m_Movement != null)
 		{
 			m_Movement.AimMovement();

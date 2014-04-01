@@ -31,10 +31,5 @@ public class SwitchTest : MonoBehaviour {
 				player1Active = true;
 			}
 		}
-
-		if (Input.GetKeyDown ("x"))
-		{
-			camera1.toggleAiming ( );
-		}
 	}
 }
