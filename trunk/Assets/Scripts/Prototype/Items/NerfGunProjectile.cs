@@ -76,6 +76,9 @@ public class NerfGunProjectile : MonoBehaviour
 
 		m_PlatformTimer += Time.deltaTime;
 
+
+		//transform.localScale = new Vector3 (transform.localScale.x + 1.0f, 0.1f, 1.5f);
+
 		if(m_PlatformTimer >= m_PlatformLifeSpan)
 			Destroy (this.gameObject);
 	}
@@ -114,6 +117,23 @@ public class NerfGunProjectile : MonoBehaviour
 		case "NerfTarget" :
 				CollidedWithNerfTarget(other.gameObject);
 			break;
+
+		case "Player" :
+		{
+			if(m_State == NerfGunProjectileState.IsMoving)
+			{
+				Destroy (this.gameObject);
+				break;
+			}
+			else
+			{
+				if(other.gameObject.name == "Alex")
+				{
+					Destroy (this.gameObject);
+				}
+			}
+			break;
+		}
 			
 		default:
 			Destroy (this.gameObject);

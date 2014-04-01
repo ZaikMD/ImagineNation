@@ -67,7 +67,7 @@ public class NerfGun : BasePrimaryItem
 			                                     Quaternion.identity);
 
 			tempbullet.transform.rotation = transform.rotation;
-			tempbullet.rigidbody.AddForce(getTargetDirection() * 100);
+			tempbullet.rigidbody.AddForce(getTargetDirection() * 1000);
 
 			m_NumberOfBullets--;
 
