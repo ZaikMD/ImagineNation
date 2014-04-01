@@ -73,9 +73,8 @@ public class CameraController : MonoBehaviour
 	PlayerMovement m_Movement;
 
 	//Reticle
-	const float RETICLE_DISTANCE = 5.0f;
 	Reticle m_Reticle;
-
+	
 
 	// Initialization
 	void Start ()
@@ -103,7 +102,7 @@ public class CameraController : MonoBehaviour
 		//Load Reticle
 		GameObject reticle = (GameObject)Instantiate(Resources.Load("Reticle"), m_CameraFollow.position + m_CameraFollow.forward, Quaternion.identity);
 		m_Reticle = (Reticle)(reticle.GetComponent<Reticle>());
-		m_Reticle.LoadTexture("CrossHair_NormalState");
+		m_Reticle.Load();
 	}
 	
 	// Update
@@ -257,15 +256,26 @@ public class CameraController : MonoBehaviour
 	// Updates the position of the reticle
 	void updateReticlePosition ()
 	{
-		if (m_State == CameraState.Aiming)
+		//Check collision in front of the followed transform
+		RaycastHit hit;
+		if (Physics.Raycast(m_CameraFollow.position + m_CameraFollow.forward, (m_Reticle.getTargetPosition() - m_CameraFollow.position).normalized, out hit, Reticle.RETICLE_DISTANCE))
 		{
-			m_Reticle.setReticlePosition (m_CameraFollow.position + (m_CameraFollow.position - transform.parent.transform.position).normalized * RETICLE_DISTANCE);
-		}
-		else
-		{
-			m_Reticle.setReticlePosition (m_CameraFollow.position + (m_CameraFollow.forward * RETICLE_DISTANCE));
+			m_Reticle.setReticlePosition(hit.point);
 		}
 
+		//Camera is in aiming state
+		else if (m_State == CameraState.Aiming)
+		{
+			m_Reticle.setReticlePosition (m_CameraFollow.position + (m_CameraFollow.position - transform.parent.transform.position).normalized * Reticle.RETICLE_DISTANCE);
+		}
+
+		//Default position of reticle
+		else
+		{
+			m_Reticle.setReticlePosition (m_CameraFollow.position + (m_CameraFollow.forward * Reticle.RETICLE_DISTANCE));
+		}
+
+		//Set 2D paint position
 		m_Reticle.setReticleScreenPosition (camera.WorldToScreenPoint (m_Reticle.getTargetPosition()));
 	}
 

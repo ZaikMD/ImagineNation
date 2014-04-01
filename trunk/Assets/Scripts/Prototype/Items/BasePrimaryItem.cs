@@ -11,7 +11,7 @@ public abstract class BasePrimaryItem : MonoBehaviour
 	//Load Reticle
 	void Awake()
 	{
-		Invoke ("Load", 0.01f);
+		Invoke ("Load", 0.001f);
 	}
 
 	//Fire weapon
