@@ -81,6 +81,8 @@ public class MenuScript : MonoBehaviour
         {
             case MenuState.PlayingGame:
                 {
+                    //TODO: set gamemanager to play game
+
                     m_MainMenu = false;
                     break;
                 }
@@ -273,7 +275,7 @@ public class MenuScript : MonoBehaviour
                 }
            case MenuState.Options:
                 {
-                    //Add Options
+                    //TODO: Add Options
 
                     Rect BackButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 5 * 4), Screen.width / 2, Screen.height / 5);
                     buttonText = "Back";
@@ -294,6 +296,8 @@ public class MenuScript : MonoBehaviour
                 }
             case MenuState.LoadGame:
                 {
+                    //TODO: call load game
+
                     //save slot one
                     Rect SaveButtonOnePosition = new Rect(Screen.width / 2 - Screen.width / 4, 0, Screen.width / 2, Screen.height / 4);
                     buttonText = "Slot One";
@@ -349,6 +353,8 @@ public class MenuScript : MonoBehaviour
                 }
             case MenuState.PauseMenu:
                 {
+                    //TODO: tell gamemager to pause game
+
                     //Resume Game Button
                     Rect ResumeGamebuttonPosition = new Rect(Screen.width / 2 - Screen.width / 4, 0, Screen.width / 2, Screen.height / 5);
                     buttonText = "Resume Game";
@@ -392,6 +398,8 @@ public class MenuScript : MonoBehaviour
                 }
             case MenuState.SaveGame:
                 {
+                    //TODO: call save game
+
                     //add save slots
                     Rect SaveButtonOnePosition = new Rect(Screen.width / 2 - Screen.width / 4, 0, Screen.width / 2, Screen.height / 4);
                     buttonText = "Slot One";
