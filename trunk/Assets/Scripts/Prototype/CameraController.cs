@@ -122,6 +122,7 @@ public class CameraController : MonoBehaviour
 		updateOrientation ();
 		updateLookPosition ();
 		updateReticlePosition ();
+		updateReticle2DPosition ();
 	}
 	
 	// Updates the position of the camera's origin
@@ -263,24 +264,35 @@ public class CameraController : MonoBehaviour
 	{
 		//Check collision in front of the followed transform
 		RaycastHit hit;
-		if (Physics.Raycast(m_CameraFollow.position + m_CameraFollow.forward, (m_Reticle.getTargetPosition() - m_CameraFollow.position).normalized, out hit, Reticle.RETICLE_DISTANCE))
-		{
-			m_Reticle.setReticlePosition(hit.point);
-		}
 
 		//Camera is in aiming state
-		else if (m_State == CameraState.Aiming)
+		if (m_State == CameraState.Aiming)
 		{
+			if (Physics.Raycast(m_CameraFollow.position + m_CameraFollow.forward, (transform.parent.transform.position - m_CameraFollow.position).normalized, out hit, Reticle.RETICLE_DISTANCE))
+			{
+				m_Reticle.setReticlePosition(hit.point);
+				return;
+			}
+
 			m_Reticle.setReticlePosition (m_CameraFollow.position + (transform.parent.transform.position - m_CameraFollow.position).normalized * Reticle.RETICLE_DISTANCE);
 		}
 
 		//Default position of reticle
 		else
 		{
+			if (Physics.Raycast(m_CameraFollow.position + m_CameraFollow.forward, m_CameraFollow.forward, out hit, Reticle.RETICLE_DISTANCE))
+			{
+				m_Reticle.setReticlePosition(hit.point);
+				return;
+			}
+
 			m_Reticle.setReticlePosition (m_CameraFollow.position + (m_CameraFollow.forward * Reticle.RETICLE_DISTANCE));
 		}
+	}
 
-		//Set 2D paint position
+	//Set 2D paint position
+	void updateReticle2DPosition ()
+	{
 		m_Reticle.setReticleScreenPosition (camera.WorldToScreenPoint (m_Reticle.getTargetPosition()));
 	}
 
