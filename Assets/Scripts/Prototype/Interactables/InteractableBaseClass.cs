@@ -7,7 +7,10 @@ public enum InteractableType
 	Lever,
 	DivingBoard, 
 	SeeSaw,
-	PickUp
+	PickUp,
+	NPC,
+	CrawlSpace,
+	Unknown
 };
 
 public abstract class InteractableBaseClass : MonoBehaviour 

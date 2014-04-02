@@ -16,24 +16,28 @@ public class DerekPlayerState : PlayerState {
         checkStates();
     }
 
-    public override void attack()
+	protected override void attack()
     {
 	    //Call Dereks attack.
     }
 
-    public override void aimAttack() // derek does not have aim attack;
+	protected override void aimAttack() // derek does not have aim attack;
     {
         //do nothing?
     }
     
-    public override void  useSecondItem()
+	protected override void  useSecondItem()
     {
 	    //Insert call to gregs velcro hands code;
     }
 
-    public override bool ableToEnterSecondItem()
+	protected override bool ableToEnterSecondItem()
     {
         throw new System.NotImplementedException();
     }
 
+	protected override bool getUseSecondItemInput()
+	{
+		return PlayerInput.Instance.getEnviromentInteraction ();
+	}
 }

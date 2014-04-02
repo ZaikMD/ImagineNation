@@ -14,26 +14,30 @@ public class ZoeyPlayerState : PlayerState {
         checkStates();
 	}
 
-   public override void attack()
+	protected override void attack()
     {
       //Call StickyHand component normal slap function.
     }
     
-   public override void aimAttack() 
+	protected override void aimAttack() 
     {
 	   //Call StickyHand component Aim throw function.
     }
 
 
-   public override void  useSecondItem()
+	protected override void  useSecondItem()
     {
 	    //Insert call to Gliding code;
     }
 
-   public override bool ableToEnterSecondItem()
+	protected override bool ableToEnterSecondItem()
    {
        // add code to check if we can use second item
-       return false;
+       return true;
    }
 
+	protected override bool getUseSecondItemInput()
+	{
+		return PlayerInput.Instance.getJumpInput ();
+	}
 }

@@ -1,21 +1,45 @@
 ﻿<Properties>
+<<<<<<< .mine
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Players\PlayerState.cs">
+=======
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 <<<<<<< .mine
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\AI\Enemies\EnemySpawnManager.cs">
 =======
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\MovingPlatforms.cs">
 >>>>>>> .r127
+>>>>>>> .r129
     <Files>
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\Interactables\PickUp.cs" Line="41" Column="4" />
+=======
 <<<<<<< .mine
       <File FileName="Assets\Scripts\Prototype\AI\Enemies\EnemySpawnManager.cs" Line="12" Column="28" />
       <File FileName="Assets\Scripts\Prototype\AI\Enemies\EnemySpawn.cs" Line="11" Column="22" />
       <File FileName="Assets\Scripts\Prototype\AI\Enemies\BaseEnemy.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" Line="323" Column="1" />
 =======
+>>>>>>> .r129
       <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\Items\StickyHandProjectile.cs" Line="1" Column="1" />
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\Interactables\PickUp.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Interactables\InteractableBaseClass.cs" Line="15" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="403" Column="57" />
+      <File FileName="Assets\Scripts\Prototype\Players\ZoeyPlayerState.cs" Line="24" Column="6" />
+      <File FileName="Assets\Scripts\Prototype\GameManager.cs" Line="34" Column="5" />
+      <File FileName="Assets\Scripts\Prototype\Observer\Observer.cs" Line="9" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\PlayerInput.cs" Line="143" Column="17" />
+      <File FileName="Assets\Scripts\Prototype\Observer\Subject.cs" Line="12" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Players\DerekPlayerState.cs" Line="34" Column="49" />
+      <File FileName="Assets\Scripts\Prototype\Players\AlexPlayerState.cs" Line="46" Column="3" />
+      <File FileName="Assets\Scripts\Prototype\AI\Enemies\BaseEnemy.cs" Line="65" Column="18" />
+      <File FileName="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" Line="370" Column="3" />
+=======
       <File FileName="Assets\Scripts\Prototype\MovingPlatforms.cs" Line="111" Column="6" />
 >>>>>>> .r127
+>>>>>>> .r129
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
