@@ -34,6 +34,7 @@ public class MenuScript : MonoBehaviour
     string m_PlayerOneSelected;
     string m_PlayerTwoSelected;
     public Player m_PlayerTwo;
+	bool firstTimePlayerTwoSelect;
 
     void Awake()
     {
@@ -55,6 +56,7 @@ public class MenuScript : MonoBehaviour
     void Start()
     {
         m_MenuState = MenuState.MainMenu;
+		firstTimePlayerTwoSelect = true;
     }
 
     // Update is called once per frame
@@ -199,9 +201,23 @@ public class MenuScript : MonoBehaviour
 
             case MenuState.SelectPlayerTwo:
                 {
+					if(firstTimePlayerTwoSelect)
+					{
+						if(m_PlayerOne == Player.Alex)
+						{
+							m_PlayerTwo = Player.Derek;
+						}
+						else
+						{
+							m_PlayerTwo = Player.Alex;
+						}
+					firstTimePlayerTwoSelect = false;
+					}
+
+
                     Rect PlayerSelection = new Rect(0, 0, Screen.width / 4, Screen.height);
                     string playerSelectOne = "Player One:\n";
-                    string PlayerSelectTwo = "\n Player Two: \n ";
+                    string PlayerSelectTwo = "\n Player Two: \n";
                     switch (m_PlayerTwo)
                     {
                         case Player.Alex:
@@ -261,6 +277,7 @@ public class MenuScript : MonoBehaviour
                     if (GUI.Button(PlayButtonPosition, buttonText))
                     {
                         m_MenuState = MenuState.PlayingGame;
+						firstTimePlayerTwoSelect = true;
                     }
 
                     //Back
@@ -269,6 +286,7 @@ public class MenuScript : MonoBehaviour
                     if (GUI.Button(BackButtonPosition, buttonText))
                     {
                         m_MenuState = MenuState.SelectPlayerOne;
+						firstTimePlayerTwoSelect = true;
                     }
 
                     break;
@@ -322,7 +340,7 @@ public class MenuScript : MonoBehaviour
 
                     
                     //back to previous menu
-                    Rect BackButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 5 * 4), Screen.width / 2, Screen.height / 4);
+                    Rect BackButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 4 * 3), Screen.width / 2, Screen.height / 4);
                     buttonText = "Back";
                     if (GUI.Button(BackButtonPosition, buttonText))
                     {
