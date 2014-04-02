@@ -1,6 +1,12 @@
 ﻿/*
 
-Created by Jason Hein
+TO USE:
+
+Do nothing. It is instantiated by the camera script.
+
+
+
+Created by Jason Hein on 3/31/2014
 
 */
 
