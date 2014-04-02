@@ -1,12 +1,23 @@
 ﻿<Properties>
 <<<<<<< .mine
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+<<<<<<< .mine
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\PlayerInput.cs">
+=======
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Items\NerfGunProjectile.cs">
 =======
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Interactables\Trampoline.cs">
+>>>>>>> .r115
 >>>>>>> .r110
     <Files>
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\PlayerInput.cs" Line="165" Column="7" />
+      <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="46" Column="33" />
+      <File FileName="Assets\Scripts\Prototype\Interactables\DivingBoard.cs" Line="12" Column="41" />
+      <File FileName="Assets\Scripts\Prototype\PlayerMovement.cs" Line="58" Column="40" />
+      <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="79" Column="19" />
+=======
 <<<<<<< .mine
       <File FileName="Assets\Scripts\Prototype\Interactables\TargetManager.cs" Line="33" Column="34" />
       <File FileName="Assets\Scripts\Prototype\TestingScripts\WhitlawTargetTest.cs" Line="29" Column="43" />
@@ -20,6 +31,7 @@
 =======
       <File FileName="Assets\Scripts\Prototype\Interactables\Trampoline.cs" Line="8" Column="36" />
       <File FileName="Assets\Scripts\Prototype\PlayerMovement.cs" Line="1" Column="1" />
+>>>>>>> .r115
 >>>>>>> .r110
     </Files>
   </MonoDevelop.Ide.Workbench>
