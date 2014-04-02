@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿//To use:
+
+//The script accessing it needs a OnTriggerEnter
+//Give the item it is attached to a trigger and collider
+
+using UnityEngine;
 using System.Collections;
 
 public class PickUp : InteractableBaseClass
@@ -30,7 +35,8 @@ public class PickUp : InteractableBaseClass
 			transform.Rotate (0, 1, Mathf.Sin (Time.time * m_BounceMultiplier) *0.2f + 1);
 		}
 	}
-	
+
+	//checks if the item being carried has hit the drop zone
 	void OnTriggerEnter(Collider other)
 	{
 		if(other.gameObject.name == "DropZone")
@@ -40,14 +46,33 @@ public class PickUp : InteractableBaseClass
 			this.transform.localRotation = Quaternion.identity;
 		}
 
-		else if(other.gameObject.CompareTag("Player"))
+
+	}
+
+	//when it is being called the item will be checked to be dropped
+	public void DropItem()
+	{
+		//TODO Change the key to be pressed
+		if(Input.GetKeyDown(KeyCode.T) && m_HasPickup == true)
 		{
-			//Destroy(this.gameObject);
+			this.transform.parent = null;
+			rigidbody.useGravity = true;
+
+			//m_HasPickup = false;
+		}
+	}
+
+	//when it is being called, will check to pick up
+	public void PickUpItem(Collider other)
+	{
+
+		if(other.gameObject.CompareTag("Player"))
+		{
+			rigidbody.useGravity = false;
+			m_HasPickup = true;
 			this.transform.parent = other.transform.Find ("ItemPickPoint");
 			this.transform.localPosition = Vector3.zero;
 			this.transform.localRotation = Quaternion.identity;
-
-			m_HasPickup = true;
 		}
 	}
 }
