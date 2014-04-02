@@ -98,8 +98,6 @@
      <Compile Include="Assets\Scripts\Prototype\TestingScripts\RemoveDebris.cs" />
      <Compile Include="Assets\Scripts\Prototype\TestingScripts\SwitchTest.cs" />
      <Compile Include="Assets\Scripts\Prototype\TestingScripts\WhitlawTargetTest.cs" />
-     <Compile Include="Assets\Scripts\Prototype\TestingScripts\ZachsMovement.cs" />
-     <Compile Include="Assets\Scripts\Prototype\TestingScripts\simpleMoveForTesting.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
