@@ -61,13 +61,14 @@ public class PlayerAIStateMachine : MonoBehaviour
 	bool m_EnterPuzzle;
 
 	public const int m_IdealRange = 10;
+	public const int m_InRange = 15;
 
 	//METHODS
 
 	// Use this for initialization
 	void Start () 
 	{
-		m_playerStateMachine = gameObject.GetComponent<PlayerState>();
+		m_playerStateMachine = this.gameObject.GetComponent<PlayerState>();
 	}
 
 	/// <summary>
@@ -123,6 +124,7 @@ public class PlayerAIStateMachine : MonoBehaviour
 		//Move to desired location based on target passed in, using Pathfinding 
 		//return true if the AI has found the target to pathfind to 
 
+		//TODO pathfinding
 		return false;
 	} 
 	
@@ -158,7 +160,7 @@ public class PlayerAIStateMachine : MonoBehaviour
 	/// </summary>
 	void Default()
 	{
-		if(m_EnterCombatFlag == true)
+		if(m_EnterCombatFlag)
 		{
 			m_State = PlayerAIState.Combat;
 			m_CombatState = PlayerAICombatState.Default;
@@ -215,6 +217,7 @@ public class PlayerAIStateMachine : MonoBehaviour
 				//exit Movable Block
 				m_State = PlayerAIState.Default;
 				break;
+
 			}
 		}		
 
@@ -317,36 +320,40 @@ public class PlayerAIStateMachine : MonoBehaviour
 	/// </summary>
 	void CombatUnable()
 	{
-		switch(GetInteractionType())
+		if (GetInteracting)
 		{
-//			Check if the interactable is exitable if it is exit -> default
-//			if it isn't exitable return to default
-			case InteractionTypes.PickUp:
+			//TODO Fill in what happens with each interactable
+			switch(GetInteractionType())
+			{
+//				Check if the interactable is exitable if it is exit -> default
+//				if it isn't exitable return to default
+				case InteractionTypes.PickUp:
 				
-				m_State = PlayerAIState.Default;
-				break;
+					m_State = PlayerAIState.Default;
+					break;
 				
-			case InteractionTypes.SeesawBottom:
+				case InteractionTypes.SeesawBottom:
 				
-				m_State = PlayerAIState.Default;
-				break;
+					m_State = PlayerAIState.Default;
+					break;
 				
-			case InteractionTypes.SeesawJump:
+				case InteractionTypes.SeesawJump:
 				
-				m_State = PlayerAIState.Default;
-				break;
+					m_State = PlayerAIState.Default;
+					break;
 				
-			case InteractionTypes.NPC:
+				case InteractionTypes.NPC:
 				
-				m_State = PlayerAIState.Default;
-				break;
+					m_State = PlayerAIState.Default;
+					break;
 				
-			case InteractionTypes.CrawlSpace:
+				case InteractionTypes.CrawlSpace:
 				
-				m_State = PlayerAIState.Default;
-				break;
+					m_State = PlayerAIState.Default;
+					break;
 
-		}   
+			} 
+		}
 	}
 
 	/// <summary>
@@ -354,7 +361,6 @@ public class PlayerAIStateMachine : MonoBehaviour
 	/// </summary>
 	void CombatInRange()
 	{
-
 
 		if(ButterZone(FindClosestEnemy()))
 		{
@@ -376,7 +382,7 @@ public class PlayerAIStateMachine : MonoBehaviour
 		//This function checks if the playerAI is in the preferred position to attack the enemy target 
 	{ 
 		//Check if player is in Ideal range
-		if (Mathf.Abs (enemy.transform.position.x - this.transform.position.x) == m_IdealRange)
+		if (Vector3.Distance(this.transform.position, enemy.transform.position) == m_IdealRange)
 		{
 			return true;
 		}
@@ -403,6 +409,7 @@ public class PlayerAIStateMachine : MonoBehaviour
 		//loop through enemies to find the closest
 		for(int i = 0; i < enemies.Count; i++)
 		{
+			//TODO pathfinding
 			//pathfind to closest enemy
 		}
 		m_CombatState = PlayerAICombatState.Default;
@@ -434,7 +441,7 @@ public class PlayerAIStateMachine : MonoBehaviour
 	 foreach (GameObject enemy in enemies)
 		{
 
-			if (Vector3.Distance(this.transform.position, enemy.transform.position) < m_IdealRange)
+			if (Vector3.Distance(this.transform.position, enemy.transform.position) < m_InRange)
 			{
 						return true;					
 
@@ -445,17 +452,16 @@ public class PlayerAIStateMachine : MonoBehaviour
 
 	GameObject FindClosestEnemy()
 	{
-		GameObject closestEnemy = null;
+		float closestEnemyDistance = 0;
+		GameObject closestEnemy = enemies[0];
+		float currentEnemyDistance = 0;
 		foreach (GameObject enemy in enemies)
-		{
-			if (closestEnemy = null)
+		{		
+			currentEnemyDistance = Vector3.Distance(this.transform.position, enemy.transform.position);
+			if (closestEnemyDistance > currentEnemyDistance)
 			{
 				closestEnemy = enemy;
-			}
-
-			if (Vector3.Distance(this.transform.position, closestEnemy.transform.position) > Vector3.Distance(this.transform.position, enemy.transform.position))
-			{
-				closestEnemy = enemy;
+				closestEnemyDistance = currentEnemyDistance;
 			}
 
 		}
