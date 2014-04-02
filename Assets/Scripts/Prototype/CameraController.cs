@@ -63,6 +63,7 @@ public class CameraController : MonoBehaviour
 	const float LOOK_AT_SPEED = 0.04f;
 	const float AIMING_LOOK_AT_FRONT_AMOUNT = 20.0f;
 	const float AIMING_CAMERA_HEIGHT = 0.5f;
+	const float ZOOM_RETURN_SPEED = 0.01f;
 
 	//Looking helper variables
 	const float FORWARD_AMOUNT = 2.0f;
@@ -71,6 +72,9 @@ public class CameraController : MonoBehaviour
 	//Zoom
 	float m_Zoom = 0.6f;
 	float m_CloseLimit = 0.55f;
+	const float DEFAULT_ZOOM = 0.65f;
+	const float BACK_ZOOM = 0.8f;
+	float m_Zoom_Return = DEFAULT_ZOOM;
 
 	//Aiming
 	public bool m_EnabledAiming = true;
@@ -170,13 +174,37 @@ public class CameraController : MonoBehaviour
 	void updateZoom()
 	{
 		//Make sure there is zoom input
-		if (PlayerInput.Instance.getCameraMovement().y == 0 || m_State != CameraState.Default)
+		if (m_State == CameraState.Default)
 		{
-			return;
+			if (PlayerInput.Instance.getCameraMovement().y != 0)
+			{
+				//Set Camera Zoom
+				setZoom(m_Zoom + -PlayerInput.Instance.getCameraMovement().y * (ZOOM_SENSITIVITY / 100.0f));
+			}
+			else if (m_Zoom != m_Zoom_Return && PlayerInput.Instance.getMovementInput() != Vector2.zero)
+			{
+				if (PlayerInput.Instance.getMovementInput().y < 0.0f)
+				{
+					if (m_Zoom_Return != BACK_ZOOM)
+					{
+						m_Zoom_Return = BACK_ZOOM;
+					}
+				}
+				else
+				{
+					if (m_Zoom_Return != DEFAULT_ZOOM)
+					{
+						m_Zoom_Return = DEFAULT_ZOOM;
+					}
+				}
+
+				setZoom(Mathf.Lerp(m_Zoom , m_Zoom_Return, ZOOM_RETURN_SPEED));
+			}
 		}
-		
-		//Set Camera Zoom
-		setZoom(m_Zoom + -PlayerInput.Instance.getCameraMovement().y * (ZOOM_SENSITIVITY / 100.0f));
+		else if (m_State == CameraState.Switching && m_Zoom != m_Zoom_Return)
+		{
+			setZoom(Mathf.Lerp(m_Zoom , m_Zoom_Return, ZOOM_RETURN_SPEED));
+		}
 	}
 
 	// Zooms the camera in or out
