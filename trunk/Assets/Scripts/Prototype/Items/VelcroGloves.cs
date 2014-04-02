@@ -3,18 +3,17 @@ TO USE:
 
 Attach this script to the player
 
-*Uncomment the player class related comments, if the player class  is implemented*
+Set Velcro Wall prefab into world.
 
-Tag wall as a "VelcroWall"
+Make sure that walls rotation is facing towards the player.
 
-Make sure that walls rotation is facing towards the player
 
-This wall and the player must both have trigger box/capsule colliders
 
-Set the walls trigger box collider to a little outside the wall, outlining the side where the player will be climbing
+
 
 
 Created by Jason Hein on 3/23/2014
+
 
 3/29/2014
 	Now properly inherits from base secondary item

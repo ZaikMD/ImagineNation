@@ -6,6 +6,11 @@ Make this camera a child of the object you want to follow.
 
 Set this camera's local position to where you'd like it in relation to the object you want to follow.
 
+
+
+
+
+
 Created by Jason Hein on 3/1/2014
 
 
@@ -18,9 +23,11 @@ Created by Jason Hein on 3/1/2014
 	Now instantiates an origin on it's own, instead of being provided one
 3/25/2014
 	Slowed lookat lerping by a little
-3/28.2014
+3/28/2014
 	Increased orientation sensitivity
 	Slightly optimized
+3/30/2014
+	Added reticle functions
 */
 
 

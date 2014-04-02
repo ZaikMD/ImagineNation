@@ -1,22 +1,26 @@
-﻿using UnityEngine;
-using System.Collections;
-
-
-/*
+﻿/*
 TO USE
 
- * Add script to character
- * Set maximum health of the character
- * set color of the health light (default cyan blue)
- * Call the takeDamage ( int damage ) function to deal damage to the character
- * Call the resetHealth ( ) function to reset the players health when he revives
+Add script to character
+
+Set maximum health of the character
+
+set color of the health light (default cyan blue)
+
+Call the takeDamage ( int damage ) function to deal damage to the character
+
+Call the resetHealth ( ) function to reset the players health when he revives
 
 Created by Jason Hein
+
 
 3/16/2014
     Implemented
 */
 
+
+using UnityEngine;
+using System.Collections;
 
 
 public class Health : MonoBehaviour {

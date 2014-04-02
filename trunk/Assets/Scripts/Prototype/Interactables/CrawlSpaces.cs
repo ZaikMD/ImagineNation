@@ -2,8 +2,18 @@
 
 TO USE:
 
+Add two of the prefab to world.
+
+Set crawl space for each crawl space.
+
+A crawl space not set will make that crawl space an exit only.
+
+
+
+
 
 Created by Zach
+
 
 3/29/2014
 	Is no longer a script with two points.
