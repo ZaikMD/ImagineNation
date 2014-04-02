@@ -118,6 +118,22 @@ public class MovingPlatforms : MonoBehaviour
 		}
 
 	}
+
+	void OnTriggerStay(Collider obj)
+	{
+		if(obj.tag == "Player")
+		{
+			obj.transform.parent = this.transform;
+		}
+	}
+
+	void OnTriggerExit(Collider obj)
+	{
+		if(obj.tag == "Player")
+		{
+			obj.transform.parent = null;
+		}
+	}
 	
 
 }
