@@ -150,7 +150,7 @@ public class CameraController : MonoBehaviour
 			}
 			else
 			{
-				transform.parent.position = Vector3.Lerp(this.transform.parent.position, m_CameraFollow.position , CAMERA_FOLLOW_SPEED);
+				transform.parent.position = Vector3.Lerp(transform.parent.position, m_CameraFollow.position , CAMERA_FOLLOW_SPEED);
 			}
 		}
 		else if ( m_State == CameraState.Default )
@@ -227,7 +227,7 @@ public class CameraController : MonoBehaviour
 		}
 		
 		//Set new camera position based on zoom
-		this.transform.localPosition = Vector3.Lerp (Vector3.zero, maxZoomPosition, m_Zoom);
+		transform.localPosition = Vector3.Lerp (Vector3.zero, maxZoomPosition, m_Zoom);
 	}
 
 	// Updates revolution around the player
@@ -316,7 +316,7 @@ public class CameraController : MonoBehaviour
 	void setOrientation(float orientation)
 	{
 		//Turn
-		this.transform.parent.eulerAngles = new Vector3(transform.parent.eulerAngles.x, orientation, this.transform.parent.eulerAngles.z);
+		transform.parent.eulerAngles = new Vector3(transform.parent.eulerAngles.x, orientation, transform.parent.eulerAngles.z);
 	}
 
 	// Updates where to look
@@ -333,11 +333,11 @@ public class CameraController : MonoBehaviour
 			Vector3 positionToLookAt;
 			if (PlayerInput.Instance.getMovementInput() == Vector2.zero)
 			{
-				positionToLookAt = Vector3.Lerp (m_LastLookAtPosition, m_CameraFollow.localPosition + m_CameraFollow.forward, LOOK_AT_SPEED);
+					positionToLookAt = Vector3.Lerp (m_LastLookAtPosition, m_CameraFollow.position + m_CameraFollow.forward, LOOK_AT_SPEED);
 			}
 			else
 			{
-				positionToLookAt = Vector3.Lerp (m_LastLookAtPosition, m_CameraFollow.localPosition  + (m_CameraFollow.forward * FORWARD_AMOUNT), LOOK_AT_SPEED);
+					positionToLookAt = Vector3.Lerp (m_LastLookAtPosition, m_CameraFollow.position + (m_CameraFollow.forward * FORWARD_AMOUNT), LOOK_AT_SPEED);
 			}
 
 			//Look in front of object
