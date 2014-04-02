@@ -4,34 +4,34 @@ using System.Collections.Generic;
 
 public class TargetManager : Subject, Observer
 {
-	List <Subject> m_Subjects = new List<Subject>();
-	public int m_NumberOfSubjects;
+
+	int m_NumberOfTargetsHit = 0;
+
+	//Change this to the object that you want to recieve an event from a 
+	// target manager
+
+	public Targets[] m_Targets;
 
 	// Use this for initialization
 	void Start () 
 	{
-	
-	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-		if(m_Subjects.Count == m_NumberOfSubjects)
+		for(int i = 0; i< m_Targets.Length; i++)
 		{
-			sendEvent(ObeserverEvents.AllTargetTriggered);
+			m_Targets[i].addObserver(this);
 		}
-	}
-
-	public void addSubject(Subject subject)
-	{
-		m_Subjects.Add (subject);
-	}
+	}	
 
 	public void recieveEvent(Subject sender, ObeserverEvents recievedEvent)
 	{
 		if(recievedEvent == ObeserverEvents.NerfTargetHit)
 		{
-			addSubject(sender);
+			Debug.Log ("Recieved Hit");
+			m_NumberOfTargetsHit++;
+			if(m_NumberOfTargetsHit >= m_Targets.Length)
+			{
+				sendEvent(ObeserverEvents.AllTargetTriggered);
+				Debug.Log("All Targets Hit");
+			}
 		}
 	}
 }

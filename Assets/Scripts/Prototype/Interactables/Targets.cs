@@ -12,15 +12,13 @@ public class Targets : Subject
 	// to the targetManager
 
 	//In unity set the appropriate target manager
-	public TargetManager m_TargetManager;
 
-	bool m_Active = true;
+	public bool m_Active = true;
 
 	void Start () 
 	{
 		//Add the manager as an observer so that it will be notified
 		// when the nerf target has been hit
-		addObserver (m_TargetManager);
 	}
 	
 	// Update is called once per frame
@@ -35,9 +33,11 @@ public class Targets : Subject
 		//Update: Currently have the nerf projectile setting the
 		//target to inactive and based on that relaying the send event
 		// This is subject to change...
-		if(this.gameObject.active == false)
+		if(!m_Active)
 		{
 			sendEvent (ObeserverEvents.NerfTargetHit);
+			Debug.Log ("HIT");
+			gameObject.SetActive(false);
 		}
 	}
 }
