@@ -1,12 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public struct movementInput
-{
-	public float x;
-	public float y;
-}
-
 public class PlayerInput : MonoBehaviour
 {
 	public static PlayerInput Instance{ get; private set; }
@@ -61,126 +55,53 @@ public class PlayerInput : MonoBehaviour
 	//----------------------------------------------------
 
 
-	movementInput m_PlayerMovement; //why is this not a vector2 instead?
-	bool m_Jump;
-	bool m_SwitchChars;
-	bool m_InteractWithEnviroment;
-	movementInput m_CameraMovement;
-	bool m_Pause;
-	bool m_UseItem;
-	bool m_IsAiming;
-
-	bool m_JumpHeld;
-	bool m_SwitchCharsHeld;
-	bool m_InteractWithEnviromentHeld;
-	bool m_PauseHeld;
-	bool m_UseItemHeld;
-
-	void Start () 
+	public Vector2 getMovementInput()
 	{
-		Debug.Log ("Start");
-		m_PlayerMovement.x = 0.0f; 
-		m_PlayerMovement.y = 0.0f;
-		m_Jump = false;
-		m_SwitchChars = false;
-		m_InteractWithEnviroment = false;
-		m_CameraMovement.x = 0.0f;
-		m_CameraMovement.y = 0.0f;
-		m_Pause = false;
-		m_UseItem = false;
-		m_IsAiming = false;
-    }
-    
-    void Update()
+		Vector2 m_PlayerMovement = new Vector2(Input.GetAxis (LEFT_STICK_H), Input.GetAxis (LEFT_STICK_V));
+		return m_PlayerMovement;
+	}
+
+	public bool getJumpInput()
 	{
-		//reset the input
-		m_PlayerMovement.x = 0.0f; 
-		m_PlayerMovement.y = 0.0f;
-		m_Jump = false;
-		m_SwitchChars = false;
-		m_InteractWithEnviroment = false;
-		m_CameraMovement.x = 0.0f;
-		m_CameraMovement.y = 0.0f;
-		m_Pause = false;
-        m_UseItem = false;
-        m_IsAiming = false;
-		//--------------------------------------------
-
-		//get the movement input
-		//http://wiki.unity3d.com/index.php?title=Xbox360Controller
-
-		//controller input
-
-
-		m_PlayerMovement.x = Input.GetAxis (LEFT_STICK_H);
-		m_PlayerMovement.y = Input.GetAxis (LEFT_STICK_V);
-
-
-
 		//get the jump input
 		if(Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown(A))
 		{
-			m_Jump = true;
-			Debug.Log("Jump");
+			return true;
 		}
 		else
 		{
-			m_Jump = false;
-		}
+			return false;
+		} 
+	}
 
-		//get the jump held input
-		if(Input.GetKey(KeyCode.Space) || Input.GetButton(A))
-		{
-			m_JumpHeld = true;
-		}
-		else
-		{
-			m_JumpHeld = false;
-		}
-
-		//get the switch character input
+	public bool getSwitchInput()
+	{
 		if(Input.GetKeyDown(KeyCode.Tab) || Input.GetButtonDown(Y))
 		{
-			m_SwitchChars = true;
-			Debug.Log("Switch Characters");
+			return true;
 		}
 		else
 		{
-			m_SwitchChars = false;
+			return false;
 		}
+	}
 
-		//get the switch character held input
-		if(Input.GetKey(KeyCode.Tab) || Input.GetButton(Y))
-		{
-			m_SwitchCharsHeld = true;
-		}
-		else
-		{
-			m_SwitchCharsHeld = false;
-		}
-
-		//get the enviroment interaction input
+	public bool getEnviromentInteraction()
+	{
 		if(Input.GetKeyDown(KeyCode.F) || Input.GetButtonDown(B))
 		{
-			m_InteractWithEnviroment = true;
-			Debug.Log("Interact With Enviroment");
+			return true;
 		}
 		else
 		{
-			m_InteractWithEnviroment = false;
+			return false;
 		}
+	}
 
-		//get the enviroment interaction held input
-		if(Input.GetKey(KeyCode.F) || Input.GetButton(B))
-		{
-			m_InteractWithEnviromentHeld = true;
-		}
-		else
-		{
-			m_InteractWithEnviromentHeld = false;
-		}
+	public Vector2 getCameraMovement()
+	{
+		Vector2 m_CameraMovement = new Vector2 ();
 
-		//get Camera Input
 		float mouse = Input.GetAxis ("Mouse X");
 		float gamepad = Input.GetAxis (RIGHT_STICK_H);
 		if( Mathf.Abs(mouse) > 0.0f || Mathf.Abs(gamepad) > 0.0f)
@@ -194,7 +115,7 @@ public class PlayerInput : MonoBehaviour
 				m_CameraMovement.x = gamepad;
 			}
 		}
-
+		
 		mouse = Input.GetAxis("Mouse Y");
 		gamepad = Input.GetAxis(RIGHT_STICK_V);
 		if( Mathf.Abs(mouse) > 0.0f || Mathf.Abs(gamepad) > 0.0f)
@@ -209,123 +130,103 @@ public class PlayerInput : MonoBehaviour
 			}
 		}
 
-		//get the Puase input
-		if(Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown(START))
-		{
-			m_Pause = true;
-			Debug.Log("Pause");
-		}
-		else
-		{
-			m_Pause = false;
-		}
-
-		//get the Puase held input
-		if(Input.GetKey(KeyCode.Escape) || Input.GetButton(START))
-		{
-			m_PauseHeld = true;
-		}
-		else
-		{
-			m_PauseHeld = false;
-		}
-
-		//get the use item input
-		if(Input.GetMouseButtonDown(0) || Input.GetButtonDown(X))
-		{
-			m_UseItem = true;
-			Debug.Log("Use Item");
-		}
-		else
-		{
-			m_UseItem = false;
-		}
-
-		//get the use item held input
-		if(Input.GetMouseButton(0) || Input.GetButton(X))
-		{
-			m_UseItemHeld = true;
-		}
-		else
-		{
-			m_UseItemHeld = false;
-		}
-
-		//get the aiming input
-		//might have to invert the triggers data in the input manager
-		if(Input.GetKey(KeyCode.LeftShift) || (Input.GetAxis(LEFT_TRIGGER) != 0.0f))
-		{
-			m_IsAiming = true;
-			Debug.Log("Aiming");
-		}
-		else
-		{
-			m_IsAiming = false;
-		}
-	}
-
-	public movementInput getMovementInput()
-	{
-		return m_PlayerMovement;
-	}
-
-	public bool getJumpInput()
-	{
-		return m_Jump;
-	}
-
-	public bool getSwitchInput()
-	{
-		return m_SwitchChars;
-	}
-
-	public bool getEnviromentInteraction()
-	{
-		return m_InteractWithEnviroment;
-	}
-
-	public movementInput getCameraMovement()
-	{
 		return m_CameraMovement;
 	}
 
 	public bool getPause()
 	{
-		return m_Pause;
+		if(Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown(START))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	public bool getUseItem()
 	{
-		return m_UseItem;
+		if(Input.GetMouseButtonDown(0) || Input.GetButtonDown(X))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	public bool getIsAiming()
 	{
-		return m_IsAiming;
+		if(Input.GetKey(KeyCode.LeftShift) || (Input.GetAxis(LEFT_TRIGGER) != 0.0f))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
+
 
 	public bool getJumpHeld()
 	{
-		return m_JumpHeld;
+		if(Input.GetKey(KeyCode.Space) || Input.GetButton(A))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	public bool getSwitchCharsHeld()
 	{
-		return m_SwitchCharsHeld;
+		if(Input.GetKey(KeyCode.Tab) || Input.GetButton(Y))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
-	public bool getInteractWithEnviromentHeld()
+	public bool getEnviromentInteractionHeld()
 	{
-		return m_InteractWithEnviromentHeld;
+		if(Input.GetKey(KeyCode.F) || Input.GetButton(B))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	public bool getPauseHeld()
 	{
-		return m_PauseHeld;
+		if(Input.GetKey(KeyCode.Escape) || Input.GetButton(START))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	public bool getUseItemHeld()
 	{
-		return m_UseItemHeld;
+		if(Input.GetMouseButton(0) || Input.GetButton(X))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 }

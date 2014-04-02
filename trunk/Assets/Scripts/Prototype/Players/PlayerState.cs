@@ -284,7 +284,7 @@ public abstract class PlayerState : MonoBehaviour
 			{
 		   	 //	exit second item;
 				//TODO: check if supposed to exit if not call the second item use function
-                if (PlayerInput.Instance.getInteractWithEnviromentHeld())
+                if (PlayerInput.Instance.getEnviromentInteractionHeld())
                 {
                     //call items exit function.
                     m_UsingSecondItem = false;
