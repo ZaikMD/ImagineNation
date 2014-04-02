@@ -1,9 +1,18 @@
 ﻿<Properties>
+<<<<<<< .mine
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\MenuScript.cs">
+=======
   <MonoDevelop.Ide.Workspace />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Players\PlayerState.cs">
+>>>>>>> .r108
     <Files>
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\MenuScript.cs" Line="280" Column="7" />
+=======
       <File FileName="Assets\Scripts\Prototype\PlayerInput.cs" Line="101" Column="16" />
       <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="340" Column="6" />
+>>>>>>> .r108
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
