@@ -49,7 +49,7 @@ public class CameraController : MonoBehaviour
 
 
 	//Sensitivity
-	const float ROTATION_SENSITIVITY = 2.0f;
+	const float ROTATION_SENSITIVITY = 4.0f;
 	const float ZOOM_SENSITIVITY = 0.5f;
 	const float CAMERA_FOLLOW_SPEED = 0.15f;
 	const float RANGE_TO_ENABLE_SWITCHING = 0.1f;
@@ -58,12 +58,12 @@ public class CameraController : MonoBehaviour
 	const float AIMING_CAMERA_HEIGHT = 0.5f;
 
 	//Looking helper variables
-	public float m_ForwardAmount = 3.0f;
+	const float FORWARD_AMOUNT = 2.0f;
 	Vector3 m_LastLookAtPosition = Vector3.zero;
 
 	//Zoom
-	public float m_Zoom = 0.6f;
-	public float m_CloseLimit = 0.55f;
+	float m_Zoom = 0.6f;
+	float m_CloseLimit = 0.55f;
 
 	//Aiming
 	public bool m_EnabledAiming = true;
@@ -91,6 +91,7 @@ public class CameraController : MonoBehaviour
 
 		//Set initial Transform to follow
 		m_CameraFollow = transform.parent.transform;
+		m_Movement = (PlayerMovement)m_CameraFollow.gameObject.GetComponent<PlayerMovement> ();
 
 		//Create an origin point
 		GameObject origin = new GameObject ();
@@ -108,7 +109,7 @@ public class CameraController : MonoBehaviour
 	// Update
 	void Update ()
 	{
-		if (Input.GetKeyDown ("x"))
+		if (PlayerInput.Instance.getIsAiming())
 		{
 			toggleAiming ( );
 		}
@@ -202,13 +203,32 @@ public class CameraController : MonoBehaviour
 		}
 		else if (m_State == CameraState.Default)
 		{
-			if (PlayerInput.Instance.getCameraMovement().x == 0)
+			//Turn to face player
+			if (PlayerInput.Instance.getCameraMovement().x == 0 && /*(PlayerInput.Instance.getMovementInput().x != 0.0f ||*/ PlayerInput.Instance.getMovementInput().y < 0f)
 			{
+				/*if (Mathf.Abs(transform.parent.eulerAngles.y - m_CameraFollow.transform.rotation.eulerAngles.y) < 180.0f)
+				{
+					setOrientation (Mathf.Lerp(transform.parent.eulerAngles.y, m_CameraFollow.transform.rotation.eulerAngles.y, 0.02f));
+				}
+				else
+				{
+					setOrientation (Mathf.Lerp(transform.parent.eulerAngles.y, -m_CameraFollow.transform.rotation.eulerAngles.y, 0.02f));
+					if (m_CameraFollow.transform.rotation.eulerAngles.y > transform.parent.eulerAngles.y)
+					{
+						setOrientation (Mathf.Lerp(transform.parent.eulerAngles.y, -m_CameraFollow.transform.rotation.eulerAngles.y, 0.01f));
+					}
+					else
+					{
+						setOrientation (Mathf.Lerp(transform.parent.eulerAngles.y, -m_CameraFollow.transform.rotation.eulerAngles.y, 0.01f));
+					}
+				}*/
 				return;
 			}
-			
-			//Turn
+
+			//Turn by camera rotation input
 			setOrientation (transform.parent.eulerAngles.y + (ROTATION_SENSITIVITY * PlayerInput.Instance.getCameraMovement().x));
+
+
 		}
 		else if (m_State == CameraState.Aiming)
 		{
@@ -249,7 +269,7 @@ public class CameraController : MonoBehaviour
 		else
 		{
 			//Where to Look
-			Vector3 positionToLookAt = Vector3.Lerp (m_LastLookAtPosition, m_CameraFollow.localPosition + (m_CameraFollow.forward * m_ForwardAmount), LOOK_AT_SPEED);
+			Vector3 positionToLookAt = Vector3.Lerp (m_LastLookAtPosition, m_CameraFollow.localPosition + (m_CameraFollow.forward * FORWARD_AMOUNT), LOOK_AT_SPEED);
 
 			//Look in front of object
 			transform.LookAt (positionToLookAt);
@@ -330,6 +350,7 @@ public class CameraController : MonoBehaviour
 		setToNormal ();
 		m_State = CameraState.Switching;
 		m_CameraFollow = newFollowedTransform;
+		m_Movement = (PlayerMovement)m_CameraFollow.gameObject.GetComponent<PlayerMovement> ();
 	}
 
 	/// <summary>
@@ -385,7 +406,6 @@ public class CameraController : MonoBehaviour
 		}
 
 		//Disable moving while aiming
-		m_Movement = (PlayerMovement)m_CameraFollow.gameObject.GetComponent<PlayerMovement> ();
 		if (m_Movement != null)
 		{
 			m_Movement.setCanMove(false);
@@ -415,7 +435,6 @@ public class CameraController : MonoBehaviour
 		{
 			m_Movement.setCanMove(true);
 		}
-		m_Movement = null;
 
 		transform.parent.transform.position = m_CameraFollow.position;
 		transform.localPosition = m_SavedLocalPosition;
