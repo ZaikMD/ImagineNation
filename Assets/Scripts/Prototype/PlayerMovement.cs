@@ -29,6 +29,8 @@ Created by Jason Hein 3/25/2014
 	Added proper airborne movement
 	Added launching
 	Added gliding
+4/2/2014
+	Added maximum falling speed
  */
 
 
