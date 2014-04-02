@@ -95,7 +95,6 @@
      <Compile Include="Assets\Scripts\Prototype\Players\PlayerState.cs" />
      <Compile Include="Assets\Scripts\Prototype\Players\ZoeyPlayerState.cs" />
      <Compile Include="Assets\Scripts\Prototype\Reticle.cs" />
-     <Compile Include="Assets\Scripts\Prototype\SoundManager.cs" />
      <Compile Include="Assets\Scripts\Prototype\TestingScripts\RemoveDebris.cs" />
      <Compile Include="Assets\Scripts\Prototype\TestingScripts\SwitchTest.cs" />
      <Compile Include="Assets\Scripts\Prototype\TestingScripts\ZachsMovement.cs" />

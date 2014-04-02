@@ -4,8 +4,8 @@ using System.Collections;
 public class Trampoline : MonoBehaviour 
 {
 		//Member Variables
-	const float m_MoveSpeed = 1;
-	const float m_DoubleMoveSpeed = 1.5f;
+	const float m_MoveSpeed = 35.0f;
+	const float m_DoubleMoveSpeed = 65.0f;
 	float m_CurrentMoveSpeed = 0;
 
 	public bool m_DoubleJump = false;
@@ -22,16 +22,7 @@ public class Trampoline : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		// If timer is bigger then 0 continue players jump
-		if ( m_CurrentMoveSpeed > 0)
-		{
-			m_Player.GetComponent<CharacterController>().Move(new Vector3(0,m_CurrentMoveSpeed,0));
 
-			m_CurrentMoveSpeed -= 0.01f;
-
-		}
-		else
-			m_CurrentMoveSpeed = 0;
 		
 	}
 	
@@ -49,7 +40,9 @@ public class Trampoline : MonoBehaviour
 			{
 				m_CurrentMoveSpeed = m_MoveSpeed;
 			}
-			
+
+
+			m_Player.GetComponent<PlayerMovement>().LaunchJump(m_CurrentMoveSpeed);
 			//reset double jump flag
 			m_DoubleJump = false;
 					
