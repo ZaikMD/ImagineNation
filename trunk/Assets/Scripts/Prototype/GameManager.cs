@@ -41,4 +41,17 @@ public class GameManager : Subject
 			m_IsPaused = !m_IsPaused;
 		}
 	}
+
+
+	/// <summary>
+	/// Dont call this unless told to
+	/// </summary>
+	public void startGame()
+	{
+		if(m_IsPaused)
+		{
+			m_IsPaused = false;
+		}
+		sendEvent(ObeserverEvents.StartGame);
+	}
 }

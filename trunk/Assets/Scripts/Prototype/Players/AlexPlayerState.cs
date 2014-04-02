@@ -16,28 +16,33 @@ public class AlexPlayerState : PlayerState
         checkStates();   
     }
                                                                                                                                                                            
-    public override void attack()
+	protected override void attack()
     {
         //Call Nerf component normal shoot function.
         Debug.Log("attacking");
     }
                                                                                                                                                                                                
-    public override void aimAttack()
+	protected override void aimAttack()
     {
 	   //Call Nerf component Aim Shoot function.
         Debug.Log("Aim attack in progess");
     }
-    public override void  useSecondItem()
+	protected override void  useSecondItem()
     {
 	//Insert call to Matts RC car code;
         Debug.Log("using Second item");
     }
 
-    public override bool ableToEnterSecondItem()
+	protected override bool ableToEnterSecondItem()
     {
         // Check to see if we alex can use his rc car. 
         // returning false to actual code is implementing.
         Debug.Log("Testing to see if we can use second item");
         return false;
     }
+
+	protected override bool getUseSecondItemInput()
+	{
+		return PlayerInput.Instance.getEnviromentInteraction ();
+	}
 }

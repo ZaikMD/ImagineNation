@@ -2,35 +2,23 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public abstract class PlayerState : MonoBehaviour 
+public abstract class PlayerState : MonoBehaviour, Observer
 {
 
 	protected enum PlayerStates 
 	{
-	Default = 0,
-	Idle,
-	Moving,
-	interacting, 
-	takingDamage, 
-	Dead,
-	}
-
-	public enum InteractionTypes
-	{
-	    PickUp = 0,
-	    SeesawBottom,
-	    SeesawJump,
-	    NPC,
-	    CrawlSpace,
-	    unKnown
+		Default = 0,
+		Idle,
+		Moving,
+		Interacting, 
+		TakingDamage, 
+		Dead
 	}
 
 	//player movement causes error as class is not created yet.
 	//PlayerMovement m_PlayerMovement;
 
 	protected PlayerStates m_PlayerState;
-	InteractionTypes m_InteractionType;
-
 
 	GameObject m_AimReticle;
 	GameObject m_CurrentPartner; // likely set by start menu.
@@ -42,12 +30,20 @@ public abstract class PlayerState : MonoBehaviour
 	bool m_TakeDamage;
 	bool m_ExitingSecondItem;
 	bool m_DamagedBy;
-	protected List<GameObject> m_InteractionsInRange = new List<GameObject>();
-	GameObject m_CurrentInteraction;
+
+	protected List<InteractableBaseClass> m_InteractionsInRange = new List<InteractableBaseClass>();
+	InteractableBaseClass m_CurrentInteraction;
 	  
 	short m_Health = 100;
 
-    
+	bool m_IsAiming = false;
+
+	bool m_IsPaused = false;
+
+
+	float timer = 0.0f;
+	float delay = 0.5f;
+
     void Awake()
     {
 	
@@ -56,59 +52,64 @@ public abstract class PlayerState : MonoBehaviour
     // m_PlayerMovement = this.gameObject.GetComponent<PlayerMovement>(); 
                 
         m_PlayerState = PlayerStates.Default; 
+
+		GameManager.Instance.addObserver (this);
     }
-
-
 
 	// Use this for initialization
 	void Start ()
     {
         m_HaveSecondItem = true;
         m_UsingSecondItem = false;
-
 	}
 	
 	// Update is called once per frame
 	protected void checkStates()
     {
-       // Debug.Log("anything");
-       // m_HaveSecondItem = true;
-        if (PlayerInput.Instance.getPause())
-        {
-            MenuScript.Instance.PauseMenu();       
-        }
+		/*
+		if(timer<delay)
+		{
+			timer += Time.deltaTime;
+			return;
+		}
+		timer = 0.0f;
+*/
+		if(!m_IsPaused)
+		{
+	       //Debug.Log("update");
+	       // m_HaveSecondItem = true;
 
+	    	if(m_PlayerState == PlayerStates.Default)
+	    	{
+				Default();
+	    	}
 
-    	if(m_PlayerState == PlayerStates.Default)
-    	{
-			Default();
-    	}
+	    	switch(m_PlayerState)
+	        {
 
-    	switch(m_PlayerState)
-        {
+	        case PlayerStates.Interacting:
+		        Interaction();	
+	        	break;
 
-        case PlayerStates.interacting:
-	        Interaction();	
-        	break;
+	        case PlayerStates.Idle:	
+		        IdleFunction();
+		        break;
 
-        case PlayerStates.Idle:	
-	        IdleFunction();
-	        break;
+		    case PlayerStates.Moving:
+			    MovingFunction();
+			    break;
+		
+	        case PlayerStates.TakingDamage:
+		        TakeDamage();
+		        break;
 
-	    case PlayerStates.Moving:
-		    MovingFunction();
-		    break;
-	
-        case PlayerStates.takingDamage:
-	        TakeDamage();
-	        break;
+		    case PlayerStates.Dead:
+			    Dead();
+			    break;
 
-	    case PlayerStates.Dead:
-		    Dead();
-		    break;
-
-            
-        }
+	            
+	        }
+		}
 	}                                                                                                                                     
 
 	protected void Dead()
@@ -125,7 +126,7 @@ public abstract class PlayerState : MonoBehaviour
         //add any others that are exitble
 
 		//TODO: change to work off get is exitable
-        if(m_InteractionType == InteractionTypes.PickUp || m_InteractionType == InteractionTypes.SeesawBottom)
+        if(m_CurrentInteraction.getIsExitable())
 	    {
 	    	if(PlayerInput.Instance.getEnviromentInteraction())
 		    {
@@ -135,67 +136,9 @@ public abstract class PlayerState : MonoBehaviour
 		}
 
 		//TODO: change to getType();
-        switch(m_InteractionType)
+        switch(m_CurrentInteraction.getType())
         {	
-    		case InteractionTypes.PickUp:
-			{	
-		   /*    float difference = Vector3.Distance(this.transform.position, pick up destination); //Not made yet.
-		        if(difference < 5)
-		        {
-		    	    // call the use function of the object.
-		        }
-		        else
-		        {
-		            // m_PlayerMovement.Move(); // PlayerMovement Not Made yet;		
-		        }
-		    */
-		        m_PlayerState = PlayerStates.Default;
-		
-		    	break;
-			}
-		    case InteractionTypes.SeesawBottom:
-			{
-			    m_PlayerState = PlayerStates.Default;
-		    	break;
-			}
-		    case InteractionTypes.NPC:
-			{
-			 /*   if( !TalkingDone)
-			    {
-				    Update talk timer;
-			    }
-		    else
-		    {
-			    stop interacting
-			    reset timer
-		    }
-		     */ 
-		   		m_PlayerState =  PlayerStates.Default;
-		    	break;
-			}
-
-			case InteractionTypes.CrawlSpace:
-			{
-				/*	if(TeleportDone)
-					{
-					reset stuff
-	    			}
-
-				*/
-	   			m_PlayerState = PlayerStates.Default;
-	    		break;
-			}
-			case InteractionTypes.SeesawJump:
-			{
-					/* if(atBottom)
-						{
-						reset
-    					} 
-					*/
-
-   				m_PlayerState = PlayerStates.Default;
-    			break;
-			}
+    		//TODO: add all interaction function calls here
 		}
 
 	}                                                                                                                                     
@@ -260,7 +203,7 @@ public abstract class PlayerState : MonoBehaviour
 
 	public bool getInteracting()
 	{
-  		if(m_PlayerState == PlayerStates.interacting)
+  		if(m_PlayerState == PlayerStates.Interacting)
      	{
        		return true;
      	}
@@ -270,9 +213,9 @@ public abstract class PlayerState : MonoBehaviour
      	}
 	}                                                                                                                                          
 
-	public InteractionTypes interactionType ()
+	public InteractableType interactionType ()
 	{
- 		return m_InteractionType;
+ 		return m_CurrentInteraction.getType();
 	}
                                                                                                                                 
 	protected void MovingFunction()
@@ -283,11 +226,11 @@ public abstract class PlayerState : MonoBehaviour
 			if(m_UsingSecondItem)
 			{
 		   	 //	exit second item;
-				//TODO: check if supposed to exit if not call the second item use function
-                if (PlayerInput.Instance.getEnviromentInteractionHeld())
+                if (m_ExitingSecondItem)
                 {
                     //call items exit function.
                     m_UsingSecondItem = false;
+					m_ExitingSecondItem = false;
                 }
                 else
                 {
@@ -299,13 +242,12 @@ public abstract class PlayerState : MonoBehaviour
         	}
 			else if (ableToEnterSecondItem())
 			{
-				//TODO: check if entering second item. if so set bool and return and set state to default
-				if(PlayerInput.Instance.getEnviromentInteraction())
+				if(getUseSecondItemInput())
 				{
 					m_UsingSecondItem = true; 
 					m_Interacting = true;
 					m_PlayerState = PlayerStates.Default;
-
+					return;
 				}
 			} 		
 	    }
@@ -314,7 +256,6 @@ public abstract class PlayerState : MonoBehaviour
 	    {
 		   // does not have code yet
 	        attack();
-		    m_PlayerState = PlayerStates.Default;
 	    }
 	 
 		m_PlayerState = PlayerStates.Default;
@@ -326,10 +267,9 @@ public abstract class PlayerState : MonoBehaviour
 	protected void IdleFunction()
 	{
       //  Debug.Log("State is now idle");
-       // m_HaveSecondItem = true;
+       //m_HaveSecondItem = true;
 		if(m_HaveSecondItem)
 		{
-            Debug.Log("have second weapon");
 			if(m_UsingSecondItem)
 			{
 				if(m_ExitingSecondItem)
@@ -337,7 +277,6 @@ public abstract class PlayerState : MonoBehaviour
 					// exit second item.
 
 					m_ExitingSecondItem = false;
-
 					m_UsingSecondItem = false;
 	            }
 	            else
@@ -350,8 +289,8 @@ public abstract class PlayerState : MonoBehaviour
 	        }
 	        else if (ableToEnterSecondItem())
 	        {
-	            if(PlayerInput.Instance.getEnviromentInteraction())
-	            {
+				if(getUseSecondItemInput())
+                {
 		        	m_UsingSecondItem = true;
 		        	m_PlayerState = PlayerStates.Default;
 			        return;
@@ -359,7 +298,13 @@ public abstract class PlayerState : MonoBehaviour
 	        }
 	    }
 
-	    if(PlayerInput.Instance.getIsAiming())
+		if(PlayerInput.Instance.getIsAiming())
+		{
+			m_IsAiming = !m_IsAiming;
+		}
+
+
+	    if(m_IsAiming)
 	    {
 	    	if(PlayerInput.Instance.getUseItem())
 	    	{
@@ -369,13 +314,22 @@ public abstract class PlayerState : MonoBehaviour
 	         m_PlayerState = PlayerStates.Default;
 	         return;
 	    }
-	    else if(PlayerInput.Instance.getUseItem())
+
+	    if(PlayerInput.Instance.getUseItem())
 	    {
 	    	attack();
 	        m_PlayerState = PlayerStates.Default;
 	        return;
 	    }
-	    else if(PlayerInput.Instance.getEnviromentInteraction())
+
+
+		//Debug.Log ("not");
+		m_PlayerState = PlayerStates.Default;
+        return;
+        
+
+		//TODO: test enviro interaction
+	   	if(PlayerInput.Instance.getEnviromentInteraction())
 	    {
             Debug.Log("check for interactions");
 	    	if(m_InteractionsInRange.Count!= 0)
@@ -411,8 +365,6 @@ public abstract class PlayerState : MonoBehaviour
 	/// </summary>
 	protected void Default()
 	{
-       // Debug.Log("state is now Default");
-
 		if(m_Health <= 0)
 		{
 			m_PlayerState = PlayerStates.Dead;
@@ -421,17 +373,18 @@ public abstract class PlayerState : MonoBehaviour
 
 	    if(m_TakeDamage)	
 		{
-			m_PlayerState = PlayerStates.takingDamage;
+			m_PlayerState = PlayerStates.TakingDamage;
 			return;
 		}
+
 		if(m_Interacting)	
 		{
-			m_PlayerState =  PlayerStates.interacting;
+			m_PlayerState =  PlayerStates.Interacting;
 			return;
 		}
-        float butterZone = 0.1f;
-        Vector2 currentInput = new Vector2(PlayerInput.Instance.getMovementInput().x, PlayerInput.Instance.getMovementInput().y);
-        if(currentInput.x > butterZone || currentInput.x < -butterZone || currentInput.y > butterZone || currentInput.y < -butterZone)
+		
+        Vector2 currentInput = PlayerInput.Instance.getMovementInput();
+		if(Mathf.Abs(currentInput.x) > 0.0f || Mathf.Abs(currentInput.y) > 0.0f)
         {
             m_PlayerState = PlayerStates.Moving;
         }
@@ -439,20 +392,15 @@ public abstract class PlayerState : MonoBehaviour
         {
             m_PlayerState = PlayerStates.Idle;
         }
-
-
 	}
 
-
-
-
-	public void interactionInRange(GameObject Interaction)
+	public void interactionInRange(InteractableBaseClass Interaction)
 	{
 		m_InteractionsInRange.Add(Interaction);
 	}
 
 
-	public void interactionOutOfRange(GameObject interaction)
+	public void interactionOutOfRange(InteractableBaseClass interaction)
 	{
 	    m_InteractionsInRange.Remove(interaction);
 	}
@@ -462,14 +410,22 @@ public abstract class PlayerState : MonoBehaviour
 	    m_ExitingSecondItem = isExiting;
 	}
 
+	protected abstract bool getUseSecondItemInput();
+
 	//checks to see if the player is able to use second item.
-	public abstract bool ableToEnterSecondItem();
+	protected abstract bool ableToEnterSecondItem();
 
-	public abstract void useSecondItem();
+	protected abstract void useSecondItem();
 
-	public abstract void attack();
+	protected abstract void attack();
 
-	public abstract void aimAttack();  // <- derek cannot implement, does not have a aim attack.
+	protected abstract void aimAttack();  // <- derek cannot implement, does not have a aim attack.
 
-
+	public void recieveEvent(Subject sender, ObeserverEvents recievedEvent)
+	{
+		if(recievedEvent == ObeserverEvents.PauseGame || recievedEvent == ObeserverEvents.StartGame)
+		{
+			m_IsPaused = !m_IsPaused;
+		}
+	}
 }
