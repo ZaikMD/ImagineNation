@@ -320,7 +320,7 @@ public class PlayerAIStateMachine : MonoBehaviour
 	/// </summary>
 	void CombatUnable()
 	{
-		if (GetInteracting)
+		if (GetInteracting())
 		{
 			//TODO Fill in what happens with each interactable
 			switch(GetInteractionType())
