@@ -54,7 +54,6 @@ public class PlayerInput : MonoBehaviour
 	//Right Trigger Axis: 10th (Both axis are 0-1))
 	//----------------------------------------------------
 
-
 	public Vector2 getMovementInput()
 	{
 		Vector2 m_PlayerMovement = new Vector2(Input.GetAxis (LEFT_STICK_H), Input.GetAxis (LEFT_STICK_V));
@@ -157,7 +156,7 @@ public class PlayerInput : MonoBehaviour
 		}
 	}
 
-	public bool getIsAiming()
+	public bool getIsAimingHeld()
 	{
 		if(Input.GetKey(KeyCode.LeftShift) || (Input.GetAxis(LEFT_TRIGGER) != 0.0f))
 		{
@@ -169,6 +168,17 @@ public class PlayerInput : MonoBehaviour
 		}
 	}
 
+	public bool getIsAiming()
+	{
+		if(Input.GetKeyDown(KeyCode.LeftShift) || Input.GetButtonDown(LB))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 
 	public bool getJumpHeld()
 	{
