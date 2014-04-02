@@ -158,7 +158,7 @@ public class PlayerInput : MonoBehaviour
 
 	public bool getIsAimingHeld()
 	{
-		if(Input.GetKey(KeyCode.LeftShift) || (Input.GetButton(LB))
+		if(Input.GetKey(KeyCode.LeftShift) || (Input.GetButton(LB)))
 		{
 			return true;
 		}
