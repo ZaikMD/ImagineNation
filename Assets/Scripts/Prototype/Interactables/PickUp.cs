@@ -1,30 +1,33 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PickUp : MonoBehaviour {
-	
-	public float BounceMultiplier = 3.0f;
-	public bool hasPickup = false;
+public class PickUp : InteractableBaseClass
+{
+	public float m_BounceMultiplier = 3.0f;
+	public bool m_HasPickup = false;
 
-	Vector3 startPosition;
-	
+	Vector3 m_StartPosition;
 	
 	// Use this for initialization
-	void Start () {
-		
-		startPosition = transform.position;
+	void Start () 
+	{
+		m_Type = InteractableType.PickUp;		
+		m_IsExitable = true;
+
+
+		m_StartPosition = transform.position;
 	}
 	
 	// Update is called once per frame
-	void Update () {
-
-		if(hasPickup == false)
+	void Update () 
+	{
+		if(m_HasPickup == false)
 		{
-		float bounce = Mathf.Sin (Time.time * BounceMultiplier) * 0.2f + startPosition.y;
+			float bounce = Mathf.Sin (Time.time * m_BounceMultiplier) * 0.2f + m_StartPosition.y;
 		
-		transform.position = new Vector3 (startPosition.x, bounce, startPosition.z);
+			transform.position = new Vector3 (m_StartPosition.x, bounce, m_StartPosition.z);
 		
-		transform.Rotate (0, 1, Mathf.Sin (Time.time * BounceMultiplier) *0.2f + 1);
+			transform.Rotate (0, 1, Mathf.Sin (Time.time * m_BounceMultiplier) *0.2f + 1);
 		}
 	}
 	
@@ -32,8 +35,7 @@ public class PickUp : MonoBehaviour {
 	{
 		if(other.gameObject.name == "DropZone")
 		{
-			this.transform.parent = 
-				other.transform.Find ("DropZonePoint");
+			this.transform.parent = other.transform.Find ("DropZonePoint");
 			this.transform.localPosition = Vector3.zero;
 			this.transform.localRotation = Quaternion.identity;
 		}
@@ -41,14 +43,11 @@ public class PickUp : MonoBehaviour {
 		else if(other.gameObject.CompareTag("Player"))
 		{
 			//Destroy(this.gameObject);
-			this.transform.parent = 
-				other.transform.Find ("ItemPickPoint");
+			this.transform.parent = other.transform.Find ("ItemPickPoint");
 			this.transform.localPosition = Vector3.zero;
 			this.transform.localRotation = Quaternion.identity;
 
-
-
-			hasPickup = true;
+			m_HasPickup = true;
 		}
 	}
 }
