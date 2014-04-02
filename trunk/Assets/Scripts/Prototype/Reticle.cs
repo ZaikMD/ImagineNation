@@ -11,7 +11,7 @@ using System.Collections;
 public class Reticle : MonoBehaviour
 {
 	//Widht and height of the Reticle
-	public const float RETICLE_DISTANCE = 5.0f;
+	public const float RETICLE_DISTANCE = 10.0f;
 	const float RETICAL_SCREEN_SIZE = 30.0f;
 
 	//Reticle Position on screen
@@ -97,7 +97,6 @@ public class Reticle : MonoBehaviour
 			m_OnEnemy = true;
 			return;
 		}
-
 		m_OnEnemy = false;
 	}
 }
