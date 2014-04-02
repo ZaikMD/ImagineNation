@@ -28,6 +28,8 @@ Created by Jason Hein on 3/1/2014
 	Slightly optimized
 3/30/2014
 	Added reticle functions
+4/2/2014
+	Now automatically zooms in and out while moving
 */
 
 
@@ -62,7 +64,7 @@ public class CameraController : MonoBehaviour
 	const float RANGE_TO_ENABLE_SWITCHING = 0.1f;
 	const float LOOK_AT_SPEED = 0.04f;
 	const float AIMING_LOOK_AT_FRONT_AMOUNT = 20.0f;
-	const float AIMING_CAMERA_HEIGHT = 0.5f;
+	const float AIMING_CAMERA_HEIGHT = 0.3f;
 	const float ZOOM_RETURN_SPEED = 0.01f;
 
 	//Looking helper variables
@@ -144,7 +146,7 @@ public class CameraController : MonoBehaviour
 	{
 		if ( m_State == CameraState.Switching)
 		{
-		    if (Vector3.Distance(this.transform.parent.position, m_CameraFollow.position) < RANGE_TO_ENABLE_SWITCHING )
+		    if (Vector3.Distance(transform.parent.position, m_CameraFollow.position) < RANGE_TO_ENABLE_SWITCHING )
 			{
 				m_State = CameraState.Default;
 			}
@@ -162,11 +164,12 @@ public class CameraController : MonoBehaviour
 		else if ( m_State == CameraState.Aiming )
 		{
 			//Where to Look At
-			Vector3 aPosition = ( AIMING_LOOK_AT_FRONT_AMOUNT * Vector3.Normalize(m_CameraFollow.forward) + m_CameraFollow.position );
-			transform.parent.position = new Vector3 ( aPosition.x, transform.parent.position.y, aPosition.z );
+			//Vector3 aPosition = ( AIMING_LOOK_AT_FRONT_AMOUNT * Vector3.Normalize(m_CameraFollow.forward) + m_CameraFollow.position );
+			//transform.parent.position = new Vector3 ( aPosition.x, transform.parent.position.y, aPosition.z );
 
 			//Fix bobbing effect
-			transform.position = new Vector3 (m_CameraFollow.position.x, m_CameraFollow.position.y + AIMING_CAMERA_HEIGHT, m_CameraFollow.position.z);
+			//transform.position = m_CameraFollow.position + new Vector3 (0, AIMING_CAMERA_HEIGHT, 0) - m_CameraFollow.forward;
+			transform.localPosition = new Vector3 (0, AIMING_CAMERA_HEIGHT, 0);
 		}
 	}
 
@@ -241,74 +244,21 @@ public class CameraController : MonoBehaviour
 		else if (m_State == CameraState.Default)
 		{
 			setOrientation (transform.parent.eulerAngles.y + (ROTATION_SENSITIVITY * PlayerInput.Instance.getCameraMovement().x));
-			/*//Turn to face player
-			if (PlayerInput.Instance.getCameraMovement().x == 0 && (PlayerInput.Instance.getMovementInput().x != 0.0f || PlayerInput.Instance.getMovementInput().y < 0.0f))
-			{
-
-
-				if (PlayerInput.Instance.getMovementInput().y < 0.0f && PlayerInput.Instance.getMovementInput().x == 0.0f)
-				{
-					if (m_CanFlip)
-					{
-						setOrientation (m_CameraFollow.rotation.eulerAngles.y);
-						m_CanFlip = false;
-						return;
-					}
-				}
-				else
-				{
-					m_CanFlip = true;
-				}
-				Vector3 angle = Vector3.Lerp(transform.parent.forward, m_Movement.getControllerProjection(),0.01f);
-				transform.parent.LookAt(transform.parent.position + angle);
-
-
-
-
-
-				//transform.parent.transform.Rotate(Vector3.Lerp( m_CameraFollow.transform.rotation.eulerAngles, transform.parent.rotation.eulerAngles, 0.01f));
-
-				/*float currentAngle = m_CameraFollow.transform.rotation.eulerAngles.y + 360.0f;
-				float desiredAngle = transform.parent.transform.rotation.eulerAngles.y + 360.0f;
-				float angle = desiredAngle - currentAngle;
-				angle -= 360.0f;
-
-				if (Mathf.Abs (angle) > 180.0f)
-				{
-					angle = -angle;
-				}
-				transform.parent.transform.Rotate(new Vector3 (0.0f, angle / 0.01f * Time.deltaTime, 0.0f));
-				//float angle = Mathf.Lerp(transform.parent.eulerAngles.y, transform.parent.eulerAngles.y + angle, 0.02f))
-			}
-			else
-			{
-				//Turn by camera rotation input
-				if (!m_CanFlip)
-				{
-					m_CanFlip = true;
-				}
-				setOrientation (transform.parent.eulerAngles.y + (ROTATION_SENSITIVITY * PlayerInput.Instance.getCameraMovement().x));
-			}*/
 		}
 		else if (m_State == CameraState.Aiming)
 		{
-			if (PlayerInput.Instance.getCameraMovement().y == 0)
-			{
-				return;
-			}
-
+			//Rotate the player
 			if (m_Movement)
 			{
 				m_Movement.AimMovement();
 			}
 
-			//Set where to look
-			transform.parent.transform.position = new Vector3 (transform.parent.position.x,
-			                                                   transform.parent.position.y + (ROTATION_SENSITIVITY/4 * PlayerInput.Instance.getCameraMovement().y),
-			                                                   transform.parent.position.z );
-			//Fix bobbing effec
-			transform.position.Set (m_CameraFollow.position.x, m_CameraFollow.position.y + AIMING_CAMERA_HEIGHT, m_CameraFollow.position.z);;
-			//this.transform.position = new Vector3 (m_CameraFollow.position.x, m_CameraFollow.position.y + AIMING_CAMERA_HEIGHT, m_CameraFollow.position.z);
+			//Set reticle height
+			if (PlayerInput.Instance.getCameraMovement().y != 0)
+			{
+				//Set where to look
+				m_Reticle.transform.position += m_Reticle.transform.up * PlayerInput.Instance.getCameraMovement().y;
+			}
 		}
 	}
 
@@ -324,7 +274,7 @@ public class CameraController : MonoBehaviour
 	{
 		if ( m_State == CameraState.Aiming )
 		{
-			transform.LookAt (transform.parent.transform.position);
+			transform.LookAt (m_Reticle.transform.position);
 		}
 		else
 		{
@@ -357,13 +307,13 @@ public class CameraController : MonoBehaviour
 		//Camera is in aiming state
 		if (m_State == CameraState.Aiming)
 		{
-			if (Physics.Raycast(m_CameraFollow.position + m_CameraFollow.forward, (transform.parent.position - m_CameraFollow.position).normalized, out hit, Reticle.RETICLE_DISTANCE))
+			if (Physics.Raycast(m_CameraFollow.position + m_CameraFollow.forward, (m_Reticle.transform.position - m_CameraFollow.position).normalized, out hit, Reticle.RETICLE_DISTANCE))
 			{
 				m_Reticle.setReticlePosition(hit.point);
 				return;
 			}
 
-			m_Reticle.setReticlePosition (m_CameraFollow.position + (transform.parent.position - m_CameraFollow.position).normalized * Reticle.RETICLE_DISTANCE);
+			m_Reticle.setReticlePosition (m_CameraFollow.position + (m_Reticle.transform.position - m_CameraFollow.position).normalized * Reticle.RETICLE_DISTANCE);
 		}
 
 		//Default position of reticle
@@ -479,10 +429,11 @@ public class CameraController : MonoBehaviour
 		{
 			m_Movement.setCanMove(false);
 		}
-
-		m_SavedLocalPosition = this.transform.localPosition;
-		transform.position = m_CameraFollow.position;
-		transform.parent.position = ( AIMING_LOOK_AT_FRONT_AMOUNT * Vector3.Normalize ( m_CameraFollow.forward ) + m_CameraFollow.position );
+		
+		//Set positions
+		m_SavedLocalPosition = transform.localPosition;
+		transform.localPosition = Vector3.zero;
+		transform.parent.position = transform.parent.transform.position + new Vector3 (0, AIMING_CAMERA_HEIGHT, 0);
 		m_State = CameraState.Aiming;
 
 		//Draw reticle while aiming
@@ -505,7 +456,8 @@ public class CameraController : MonoBehaviour
 			m_Movement.setCanMove(true);
 		}
 
-		transform.parent.position = m_CameraFollow.position;
+		//transform.parent.position = m_CameraFollow.position;
+		transform.parent.position = transform.parent.transform.position;
 		transform.localPosition = m_SavedLocalPosition;
 		setOrientation (m_CameraFollow.position.y);
 		m_State = CameraState.Default;
