@@ -58,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
 	const float GLIDING_FALL_SPEED = 4.0f;
 	const float PUSHING_BLOCK_SPEED = 3.0f;
 	const float AIMING_ROTATION_SPEED = 50.0f;
+	const float MAXIMUM_FALLING_SPEED = 21.0f;
 	float m_VerticalVelocity = 0.0f;
 
 
@@ -229,6 +230,13 @@ public class PlayerMovement : MonoBehaviour
 
 		//Falling
 		m_VerticalVelocity -= Time.deltaTime * FALL_ACCLERATION;
+
+		//There is a maximum falling speed
+		if (m_VerticalVelocity < -MAXIMUM_FALLING_SPEED)
+		{
+			m_VerticalVelocity = -MAXIMUM_FALLING_SPEED;
+		}
+
 		m_Controller.Move (transform.up * m_VerticalVelocity * Time.deltaTime);
 		
 		if (PlayerInput.Instance.getMovementInput().x == 0 && PlayerInput.Instance.getMovementInput().y == 0)
