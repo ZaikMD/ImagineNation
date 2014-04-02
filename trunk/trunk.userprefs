@@ -1,10 +1,21 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+<<<<<<< .mine
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\AI\Enemies\EnemySpawnManager.cs">
+=======
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\MovingPlatforms.cs">
+>>>>>>> .r127
     <Files>
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\AI\Enemies\EnemySpawnManager.cs" Line="12" Column="28" />
+      <File FileName="Assets\Scripts\Prototype\AI\Enemies\EnemySpawn.cs" Line="11" Column="22" />
+      <File FileName="Assets\Scripts\Prototype\AI\Enemies\BaseEnemy.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" Line="323" Column="1" />
+=======
       <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\Items\StickyHandProjectile.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\MovingPlatforms.cs" Line="111" Column="6" />
+>>>>>>> .r127
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
