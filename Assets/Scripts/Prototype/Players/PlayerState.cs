@@ -58,6 +58,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
         m_PlayerState = PlayerStates.Default; 
 		
 		GameManager.Instance.addObserver (this);
+
     }
 
 	// Use this for initialization

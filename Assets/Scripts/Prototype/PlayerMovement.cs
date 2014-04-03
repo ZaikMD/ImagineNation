@@ -175,7 +175,7 @@ public class PlayerMovement : MonoBehaviour
 	/// </summary>
 	public void ClimbMovement()
 	{
-		if ((PlayerInput.Instance.getMovementInput().x == 0 && PlayerInput.Instance.getMovementInput().y == 0))
+		if ((PlayerInput.Instance.getMovementInput() == Vector2.zero))
 		{
 			return;
 		}
@@ -202,21 +202,20 @@ public class PlayerMovement : MonoBehaviour
 	/// </summary>
 	public void Glide()
 	{
+		//Horizontal Movement
+		if (PlayerInput.Instance.getMovementInput() != Vector2.zero)
+		{
+			//Moves the player and looks where the player is going
+			transform.LookAt (transform.position + getControllerProjection());
+			m_Controller.Move (transform.forward * AIR_HORIZONTAL_MOVE_SPEED * Time.deltaTime);
+		}
+
 		//Falling
 		if (m_VerticalVelocity > GLIDING_FALL_SPEED)
 		{
 			m_VerticalVelocity -= Time.deltaTime * FALL_ACCLERATION;
 		}
 		m_Controller.Move (transform.up * m_VerticalVelocity * Time.deltaTime);
-
-		if (PlayerInput.Instance.getMovementInput().x == 0 && PlayerInput.Instance.getMovementInput().y == 0)
-		{
-			return;
-		}
-		
-		//Moves the player and looks where the player is going
-		transform.LookAt (transform.position + getControllerProjection());
-		m_Controller.Move (transform.forward * AIR_HORIZONTAL_MOVE_SPEED * Time.deltaTime);
 	}
 
 	/// <summary>
