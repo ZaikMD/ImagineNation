@@ -68,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		//Get character controller
 		m_Controller = gameObject.GetComponent<CharacterController>();
-		gameObject.AddComponent ("EnvironmentInteraction");
+		//gameObject.AddComponent ("EnvironmentInteraction");
 	}
 
 	/// <summary>

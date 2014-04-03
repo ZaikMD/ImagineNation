@@ -91,6 +91,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	        {
 
 	        case PlayerStates.Interacting:
+				Debug.Log("Interacting with : " + m_CurrentInteraction.getType());
 		        Interaction();	
 	        	break;
 
@@ -123,9 +124,23 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	}
 
 
+	public void exitInteracting()
+	{
+		m_CurrentInteraction = null;
+
+		m_Interacting = false;
+		PlayerMovement movement = gameObject.GetComponent<PlayerMovement>();
+		
+		if(movement != null)
+		{
+			movement.setCanMove ( true );
+		}
+		
+		m_PlayerState = PlayerStates.Default;
+	}
+
 	protected void Interaction()
 	{
-        Debug.Log("state is now interacting");
         //add any others that are exitble
 
 		//TODO: change to work off get is exitable
@@ -133,20 +148,67 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	    {
 	    	if(PlayerInput.Instance.getEnviromentInteraction())
 		    {
-				m_Interacting = false;
-				//TODO: reset movement things
+				exitInteracting();
             	return;
             }
 		}
 
 		//TODO: change to getType();
         switch(m_CurrentInteraction.getType())
-        {	
-    		//TODO: add all interaction function calls here
-		}
+        {
+			case InteractableType.SeeSaw:
+			{
+				break;
+			}
 
+			case InteractableType.DivingBoard:
+			{
+				break;
+			}
+		}
+		m_PlayerState = PlayerStates.Default;
 	}                                                                                                                                     
 
+	void initialInteraction()
+	{
+		switch (m_CurrentInteraction.getType ()) {
+			case InteractableType.SeeSaw:
+			{				
+				SeeSaw seesaw = (SeeSaw)m_CurrentInteraction;
+				seesaw.makeChild (this.gameObject);				
+
+				PlayerMovement movement = gameObject.GetComponent<PlayerMovement> ();
+
+				if (movement != null) 
+				{
+					movement.setCanMove (false);
+				}
+				break;
+			}
+
+			case InteractableType.DivingBoard:
+			{
+				DivingBoard divingBoard = (DivingBoard)m_CurrentInteraction;
+				divingBoard.notifySeeSaw (this.gameObject);
+
+				PlayerMovement movement = gameObject.GetComponent<PlayerMovement> ();
+
+				if (movement != null) 
+				{
+					movement.setCanMove (false);
+				}
+				break;
+			}
+
+			case InteractableType.Lever:
+			{
+				Lever lever = (Lever)m_CurrentInteraction;
+				lever.toggleIsOn();
+				exitInteracting();
+				break;
+			}
+		}
+	}
 
 	public void FlagDamage(short amount, GameObject damagedBy)
 	{
@@ -281,6 +343,38 @@ public abstract class PlayerState : MonoBehaviour, Observer
 
 	protected void IdleFunction()
 	{
+
+		if(PlayerInput.Instance.getEnviromentInteraction())
+		{
+			Debug.Log("check for interactions");
+			if(m_InteractionsInRange.Count!= 0)
+			{
+				if (m_InteractionsInRange.Count > 1)
+				{
+					float best = Vector3.Distance(this.gameObject.transform.position, m_InteractionsInRange[0].gameObject.transform.position);
+					m_CurrentInteraction = m_InteractionsInRange[0];
+					for( int i = 1; i <  m_InteractionsInRange.Count; i++)
+					{
+						float Next = Vector3.Distance(this.gameObject.transform.position, m_InteractionsInRange[i].gameObject.transform.position);
+						if(Next < best)
+						{
+							best = Next;		
+							m_CurrentInteraction = m_InteractionsInRange[i];	
+						}
+					}
+				}
+				else
+				{   
+					m_CurrentInteraction = m_InteractionsInRange[0];
+				}
+				
+				m_Interacting = true;
+				m_PlayerState = PlayerStates.Default;
+				initialInteraction();
+				return;
+			}
+		} 
+
       //  Debug.Log("State is now idle");
        //m_HaveSecondItem = true;
 		if(m_HaveSecondItem)
@@ -349,42 +443,8 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	    	attack();
 	        m_PlayerState = PlayerStates.Default;
 	        return;
-	    }
-
-
-		//Debug.Log ("not");
-		m_PlayerState = PlayerStates.Default;
-        return;
-        
-
-		//TODO: test enviro interaction
-	   	if(PlayerInput.Instance.getEnviromentInteraction())
-	    {
-            Debug.Log("check for interactions");
-	    	if(m_InteractionsInRange.Count!= 0)
-	        {
-		    	if (m_InteractionsInRange.Count > 1)
-		        {
-			    	float best = Vector3.Distance(this.gameObject.transform.position, m_InteractionsInRange[0].gameObject.transform.position);
-			        m_CurrentInteraction = m_InteractionsInRange[0];
-			        for( int i = 1; i <  m_InteractionsInRange.Count; i++)
-	                {
-	 					float Next = Vector3.Distance(this.gameObject.transform.position, m_InteractionsInRange[i].gameObject.transform.position);
-						if(Next < best)
-						{
-	                    	best = Next;		
-	                        m_CurrentInteraction = m_InteractionsInRange[i];	
-	                    }
-	                 }
-				}
-	            else
-	            {   
-		        	m_CurrentInteraction = m_InteractionsInRange[0];
-	            }
-
-				m_Interacting = true;
-	         }
-	    }   
+	    }        
+	  
 		m_PlayerState = PlayerStates.Default;
 	}
                                                                                                                                          

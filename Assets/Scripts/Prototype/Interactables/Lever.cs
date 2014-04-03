@@ -4,7 +4,7 @@ using System.Collections;
 public class Lever : InteractableBaseClass 
 {
 
-	public bool m_IsOn;
+	private bool m_IsOn;
 	// Use this for initialization
 	void Start () 
 	{
@@ -21,5 +21,26 @@ public class Lever : InteractableBaseClass
 	public bool getIsOn()
 	{
 		return m_IsOn;
+	}
+
+	public void toggleIsOn()
+	{
+		m_IsOn = !m_IsOn;
+	}
+
+	void OnTriggerEnter(Collider obj)
+	{
+		if(obj.tag == "Player")
+		{
+			obj.gameObject.GetComponent<PlayerState>().interactionInRange(this);
+		}
+	}
+	
+	void OnTriggerExit(Collider obj)
+	{
+		if(obj.tag == "Player")
+		{
+			obj.gameObject.GetComponent<PlayerState>().interactionOutOfRange(this);
+		}
 	}
 }

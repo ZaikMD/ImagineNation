@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MovingPlatforms : MonoBehaviour 
+public class MovingPlatforms : MonoBehaviour , Observer
 {
 
 
@@ -31,6 +31,9 @@ public class MovingPlatforms : MonoBehaviour
 	private float m_XMovePercent;
 	private float m_YMovePercent;
 	private float m_ZMovePercent;
+
+	bool m_IsPaused = false;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -48,75 +51,91 @@ public class MovingPlatforms : MonoBehaviour
 		m_XMovePercent = m_XDistance/ m_MoveTimeInMilliseconds;
 		m_YMovePercent = m_YDistance/ m_MoveTimeInMilliseconds;
 		m_ZMovePercent = m_ZDistance/ m_MoveTimeInMilliseconds;
+
+		GameManager.Instance.addObserver (this);
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		if (m_NeedsSwitch == false) 
+		if(!m_IsPaused)
 		{
-						if (m_PauseTime > 0) {
-								m_PauseTime -= Time.deltaTime;
-								m_MoveTimeInSeconds = m_InitialMoveTime;
-						} else if (m_HasMoved == false) {
-								//transform.position = Vector3.Lerp(transform.position, m_LerpPosition, m_LerpTime);
-								transform.Translate (m_XMovePercent, m_YMovePercent, m_ZMovePercent);
-								m_MoveTimeInSeconds -= Time.deltaTime;
-
-								if (m_MoveTimeInSeconds < 0) {
-
-										m_PauseTime = m_InitialPauseTime;
-										m_HasMoved = true;
-								} 
-						} else if (m_HasMoved == true && m_MovesOnce == false) {
-								//transform.position = Vector3.Lerp(transform.position, m_InitialPosition, m_LerpTime);
-								transform.Translate (-1 * m_XMovePercent, -1 * m_YMovePercent, -1 * m_ZMovePercent);
-								m_MoveTimeInSeconds -= Time.deltaTime;
-
-								if (m_MoveTimeInSeconds < 0) {
-										m_PauseTime = m_InitialPauseTime;
-										m_HasMoved = false;
-								}
-						}
-
-		}
-
-		else
-		{
-			if(m_SwitchToggled == true)
+			if (m_NeedsSwitch == false) 
 			{
-
-				if (m_PauseTime > 0) {
+				if (m_PauseTime > 0) 
+				{
 					m_PauseTime -= Time.deltaTime;
 					m_MoveTimeInSeconds = m_InitialMoveTime;
-				} else if (m_HasMoved == false) {
+				} 
+				else if (m_HasMoved == false) 
+				{
+
 					//transform.position = Vector3.Lerp(transform.position, m_LerpPosition, m_LerpTime);
 					transform.Translate (m_XMovePercent, m_YMovePercent, m_ZMovePercent);
 					m_MoveTimeInSeconds -= Time.deltaTime;
-					
-					if (m_MoveTimeInSeconds < 0) {
-						
+
+					if (m_MoveTimeInSeconds < 0) 
+					{
+
 						m_PauseTime = m_InitialPauseTime;
 						m_HasMoved = true;
 					} 
-				} else if (m_HasMoved == true && m_MovesOnce == false) {
+				} 
+				else if (m_HasMoved == true && m_MovesOnce == false) 
+				{
 					//transform.position = Vector3.Lerp(transform.position, m_InitialPosition, m_LerpTime);
 					transform.Translate (-1 * m_XMovePercent, -1 * m_YMovePercent, -1 * m_ZMovePercent);
 					m_MoveTimeInSeconds -= Time.deltaTime;
-					
-					if (m_MoveTimeInSeconds < 0) {
-						m_PauseTime = m_InitialPauseTime;
-						m_HasMoved = false;
+
+					if (m_MoveTimeInSeconds < 0) 
+					{
+					m_PauseTime = m_InitialPauseTime;
+					m_HasMoved = false;
 					}
 				}
+			}
+			else
+			{
+				if(m_SwitchToggled == true)
+				{
+					if (m_PauseTime > 0) 
+					{
+						m_PauseTime -= Time.deltaTime;
+						m_MoveTimeInSeconds = m_InitialMoveTime;
+					} 
+					else if (m_HasMoved == false) 
+					{
+						//transform.position = Vector3.Lerp(transform.position, m_LerpPosition, m_LerpTime);
+						transform.Translate (m_XMovePercent, m_YMovePercent, m_ZMovePercent);
+						m_MoveTimeInSeconds -= Time.deltaTime;
+						
+						if (m_MoveTimeInSeconds < 0) 
+						{
+							
+							m_PauseTime = m_InitialPauseTime;
+							m_HasMoved = true;
+						} 
+					} 
+					else if (m_HasMoved == true && m_MovesOnce == false) 
+					{
+						//transform.position = Vector3.Lerp(transform.position, m_InitialPosition, m_LerpTime);
+						transform.Translate (-1 * m_XMovePercent, -1 * m_YMovePercent, -1 * m_ZMovePercent);
+						m_MoveTimeInSeconds -= Time.deltaTime;
+						
+						if (m_MoveTimeInSeconds < 0) 
+						{
+							m_PauseTime = m_InitialPauseTime;
+							m_HasMoved = false;
+						}
+					}
 
+				}
+			}
+			if(m_NeedsSwitch == true && m_Lever != null)
+			{
+				m_SwitchToggled = m_Lever.getIsOn ();
 			}
 		}
-		if(m_NeedsSwitch == true && m_Lever != null)
-		{
-			m_SwitchToggled = m_Lever.getIsOn ();
-		}
-
 	}
 
 	void OnTriggerStay(Collider obj)
@@ -134,6 +153,12 @@ public class MovingPlatforms : MonoBehaviour
 			obj.transform.parent = null;
 		}
 	}
-	
 
+	public void recieveEvent(Subject sender, ObeserverEvents recievedEvent)
+	{
+		if(recievedEvent == ObeserverEvents.PauseGame || recievedEvent == ObeserverEvents.StartGame)
+		{
+			m_IsPaused = !m_IsPaused;
+		}
+	}
 }
