@@ -50,8 +50,6 @@ public class PlayerMovement : MonoBehaviour
 
 	CharacterController m_Controller;
 	bool m_CanMove = true;
-	float m_JumpNextTimer = 0.0f;
-	const float JUMP_NEXT_TIMER = 1.0f;
 
 	//Speeds
 	const float MOVE_SPEED = 10.0f;
@@ -119,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
 		//Temporary testing of movement
 		if (IsGrounded ())
 		{
-			if (PlayerInput.Instance.getJumpInput() || PlayerInput.Instance.getJumpHeld() || m_JumpNextTimer > 0.0f)
+			if (PlayerInput.Instance.getJumpInput() || PlayerInput.Instance.getJumpHeld())
 			{
 				Jump();
 			}
@@ -129,29 +127,12 @@ public class PlayerMovement : MonoBehaviour
 				{
 					m_VerticalVelocity = 0;
 				}
-
 				GroundMovement();
-			}
-			if (m_JumpNextTimer > 0.0f)
-			{
-				m_JumpNextTimer = -Time.deltaTime;
 			}
 		}
 		else
 		{
 			AirMovement();
-
-			if (PlayerInput.Instance.getJumpInput() || PlayerInput.Instance.getJumpHeld())
-			{
-				m_JumpNextTimer = JUMP_NEXT_TIMER;
-			}
-			else
-			{
-				if (m_JumpNextTimer > 0.0f)
-				{
-					m_JumpNextTimer = -Time.deltaTime;
-				}
-			}
 		}
 	}
 
@@ -248,6 +229,13 @@ public class PlayerMovement : MonoBehaviour
 			return;
 		}
 
+		//Moves the player and looks where the player is going
+		if (PlayerInput.Instance.getMovementInput() != Vector2.zero)
+		{
+			transform.LookAt (transform.position + getControllerProjection());
+			m_Controller.Move (transform.forward * AIR_HORIZONTAL_MOVE_SPEED * Time.deltaTime);
+		}
+
 		//Falling
 		m_VerticalVelocity -= Time.deltaTime * FALL_ACCLERATION;
 
@@ -259,15 +247,6 @@ public class PlayerMovement : MonoBehaviour
 
 		//Fall
 		m_Controller.Move (transform.up * m_VerticalVelocity * Time.deltaTime);
-		
-		if (PlayerInput.Instance.getMovementInput() == Vector2.zero)
-		{
-			return;
-		}
-		
-		//Moves the player and looks where the player is going
-		transform.LookAt (transform.position + getControllerProjection());
-		m_Controller.Move (transform.forward * AIR_HORIZONTAL_MOVE_SPEED * Time.deltaTime);
 	}
 
 	/// <summary>
