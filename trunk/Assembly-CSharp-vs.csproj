@@ -47,8 +47,8 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Prototype\AI\Enemies\BaseEnemy.cs" />
-     <Compile Include="Assets\Scripts\Prototype\AI\Enemies\Crock.cs" />
      <Compile Include="Assets\Scripts\Prototype\AI\Enemies\EnemySpawn.cs" />
+     <Compile Include="Assets\Scripts\Prototype\AI\Enemies\EnemySpawnManager.cs" />
      <Compile Include="Assets\Scripts\Prototype\AI\Enemies\Furbulls.cs" />
      <Compile Include="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" />
      <Compile Include="Assets\Scripts\Prototype\AI\PlayerPathfinding.cs" />
@@ -72,10 +72,10 @@
      <Compile Include="Assets\Scripts\Prototype\Interactables\PickUp.cs" />
      <Compile Include="Assets\Scripts\Prototype\Interactables\RemoveDebris.cs" />
      <Compile Include="Assets\Scripts\Prototype\Interactables\SeeSaw.cs" />
-     <Compile Include="Assets\Scripts\Prototype\Interactables\TargetManager.cs" />
      <Compile Include="Assets\Scripts\Prototype\Interactables\Targets.cs" />
      <Compile Include="Assets\Scripts\Prototype\Interactables\Trampoline.cs" />
      <Compile Include="Assets\Scripts\Prototype\Interactables\TrampolineButton.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Interactables\TriggerManager.cs" />
      <Compile Include="Assets\Scripts\Prototype\Items\BasePrimaryItem.cs" />
      <Compile Include="Assets\Scripts\Prototype\Items\BoxingGloves.cs" />
      <Compile Include="Assets\Scripts\Prototype\Items\Cape.cs" />

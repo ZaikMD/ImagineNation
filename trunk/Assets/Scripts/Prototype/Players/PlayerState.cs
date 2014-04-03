@@ -56,7 +56,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
     // m_PlayerMovement = this.gameObject.GetComponent<PlayerMovement>(); 
                 
         m_PlayerState = PlayerStates.Default; 
-
+		
 		GameManager.Instance.addObserver (this);
     }
 
@@ -65,14 +65,12 @@ public abstract class PlayerState : MonoBehaviour, Observer
     {
         m_HaveSecondItem = true;
         m_UsingSecondItem = false;
-		GameManager.Instance.addObserver (this);
 	}
 	
 	// Update is called once per frame
 	protected void checkStates()
     {
         Debug.Log(m_CurrentPartner);
-
 		/*
 		if(timer<delay)
 		{
@@ -83,7 +81,6 @@ public abstract class PlayerState : MonoBehaviour, Observer
 */
 		if(!m_IsPaused)
 		{
-			Debug.Log ("check motherfucka");
 	       //Debug.Log("update");
 	       // m_HaveSecondItem = true;
 
@@ -161,13 +158,9 @@ public abstract class PlayerState : MonoBehaviour, Observer
 		//TODO: change to getType();
         switch(m_CurrentInteraction.getType())
         {
-			case InteractableType.SeeSaw:
+			default:
 			{
-				break;
-			}
-
-			case InteractableType.DivingBoard:
-			{
+				Debug.Log("NO INTERACTION");
 				break;
 			}
 		}
@@ -210,6 +203,12 @@ public abstract class PlayerState : MonoBehaviour, Observer
 				Lever lever = (Lever)m_CurrentInteraction;
 				lever.toggleIsOn();
 				exitInteracting();
+				break;
+			}
+
+			default:
+			{
+				Debug.Log("NO INTERACTION");
 				break;
 			}
 		}

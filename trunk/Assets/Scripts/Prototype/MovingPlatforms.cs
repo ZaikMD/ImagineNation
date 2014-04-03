@@ -12,7 +12,6 @@ public class MovingPlatforms : MonoBehaviour , Observer
 	public bool m_MovesOnce;
 
 	public GameObject m_Destination;
-	public Lever m_Lever;
 	
 	private float m_InitialPauseTime;
 	private float m_InitialMoveTime;
@@ -34,6 +33,8 @@ public class MovingPlatforms : MonoBehaviour , Observer
 
 	bool m_IsPaused = false;
 
+	public Subject m_Sender;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -53,6 +54,9 @@ public class MovingPlatforms : MonoBehaviour , Observer
 		m_ZMovePercent = m_ZDistance/ m_MoveTimeInMilliseconds;
 
 		GameManager.Instance.addObserver (this);
+
+		m_Sender.addObserver (this);
+
 	}
 	
 	// Update is called once per frame
@@ -131,10 +135,6 @@ public class MovingPlatforms : MonoBehaviour , Observer
 
 				}
 			}
-			if(m_NeedsSwitch == true && m_Lever != null)
-			{
-				m_SwitchToggled = m_Lever.getIsOn ();
-			}
 		}
 	}
 
@@ -160,5 +160,10 @@ public class MovingPlatforms : MonoBehaviour , Observer
 		{
 			m_IsPaused = !m_IsPaused;
 		}
+
+		if(recievedEvent == ObeserverEvents.Used && sender == m_Sender)
+		{
+			m_SwitchToggled = !m_SwitchToggled;
+        }
 	}
 }

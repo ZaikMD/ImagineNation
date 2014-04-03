@@ -23,6 +23,6 @@ public class RCCar : SecondairyBase
 
 	public override bool ableToBeUsed()
 	{
-		return true;
+		return false;
 	}
 }
