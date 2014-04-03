@@ -1,17 +1,38 @@
 ﻿<Properties>
+<<<<<<< .mine
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Interactables\TrampolineButton.cs">
+=======
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Items\BoxingGloves.cs">
+>>>>>>> .r141
     <Files>
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\Interactables\TrampolineButton.cs" Line="18" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Interactables\Trampoline.cs" Line="23" Column="15" />
+      <File FileName="Assets\Scripts\Prototype\Items\Cape.cs" Line="45" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Items\SecondairyBase.cs" Line="26" Column="38" />
+      <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="320" Column="19" />
+      <File FileName="Assets\Scripts\Prototype\PlayerMovement.cs" Line="62" Column="44" />
+      <File FileName="Assets\Scripts\Prototype\Players\ZoeyPlayerState.cs" Line="35" Column="2" />
+      <File FileName="Assets\Scripts\Prototype\Items\RCCar.cs" Line="24" Column="2" />
+      <File FileName="Assets\Scripts\Prototype\Items\VelcroGloves.cs" Line="158" Column="3" />
+=======
       <File FileName="Assets\Scripts\Prototype\Items\BoxingGloves.cs" Line="35" Column="3" />
       <File FileName="Assets\Scripts\Prototype\Items\BoxingGloves.cs" Line="45" Column="1" />
       <File FileName="Assets\Scripts\Prototype\Items\DerekProjectile.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\AI\Enemies\Furbulls.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\AI\Enemies\BaseEnemy.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\Items\BasePrimaryItem.cs" Line="1" Column="1" />
+>>>>>>> .r141
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\mati0029\Desktop\svn\trunk\Assets\Scripts\Prototype\Items\Cape.cs" line="45" />
+      <Breakpoint file="C:\Users\mati0029\Desktop\svn\trunk\Assets\Scripts\Prototype\Players\PlayerState.cs" line="309" />
+      <Breakpoint file="C:\Users\mati0029\Desktop\svn\trunk\Assets\Scripts\Prototype\Players\PlayerState.cs" line="254" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

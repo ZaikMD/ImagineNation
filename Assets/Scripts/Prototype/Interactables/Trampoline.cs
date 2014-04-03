@@ -4,8 +4,8 @@ using System.Collections;
 public class Trampoline : MonoBehaviour 
 {
 		//Member Variables
-	const float m_MoveSpeed = 35.0f;
-	const float m_DoubleMoveSpeed = 65.0f;
+	const float m_MoveSpeed = 25.0f;
+	const float m_DoubleMoveSpeed = 35.0f;
 	float m_CurrentMoveSpeed = 0;
 
 	public bool m_DoubleJump = false;
@@ -29,7 +29,7 @@ public class Trampoline : MonoBehaviour
 	
 	void OnTriggerEnter(Collider other)
 	{
-		if  (other.tag == "Character")
+		if  (other.tag == "Player")
 		{
 			m_Player = other.gameObject;
 			// Check if we want to double jump

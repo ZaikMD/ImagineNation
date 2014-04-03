@@ -151,4 +151,9 @@ public class VelcroGloves : SecondairyBase
 	{
 		m_PlayerMovement.ClimbMovement();   //Otherwise we climb
 	}
+
+	public override bool ableToBeUsed()
+	{
+		return true;
+	}
 }

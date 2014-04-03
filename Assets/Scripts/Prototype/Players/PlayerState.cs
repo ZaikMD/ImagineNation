@@ -225,6 +225,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	protected void MovingFunction()
 	{
       //  Debug.Log("State is now Moving");
+		m_HaveSecondItem = true;
 		if(m_HaveSecondItem)
 		{
 			if(m_UsingSecondItem)
@@ -260,7 +261,6 @@ public abstract class PlayerState : MonoBehaviour, Observer
 
 					//player state machine shit
 					m_UsingSecondItem = true; 
-					m_Interacting = true;
 					m_PlayerState = PlayerStates.Default;
 					return;
 				}
@@ -306,6 +306,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	        {
 				if(getUseSecondItemInput())
                 {
+					Debug.Log("Use Second Item");
 					//Movement shit
 					PlayerMovement movement = gameObject.GetComponent<PlayerMovement>();
 					
@@ -412,7 +413,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 		}
 		
         Vector2 currentInput = PlayerInput.Instance.getMovementInput();
-		if(Mathf.Abs(currentInput.x) > 0.0f || Mathf.Abs(currentInput.y) > 0.0f)
+		if(Mathf.Abs(currentInput.x) > 0.0f || Mathf.Abs(currentInput.y) > 0.0f || !gameObject.GetComponent<PlayerMovement>().IsGrounded())
         {
             m_PlayerState = PlayerStates.Moving;
         }
@@ -433,7 +434,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	    m_InteractionsInRange.Remove(interaction);
 	}
 
-	void setExitingSecond (bool isExiting)
+	public void setExitingSecond (bool isExiting)
 	{
 	    m_ExitingSecondItem = isExiting;
 	}
