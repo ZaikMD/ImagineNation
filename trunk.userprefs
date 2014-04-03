@@ -1,12 +1,8 @@
 ﻿<Properties>
-<<<<<<< .mine
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Interactables\TriggerManager.cs">
-=======
-<<<<<<< .mine
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-=======
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+<<<<<<< .mine
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\FearScript.cs">
+=======
 <<<<<<< .mine
 =======
 >>>>>>> .r149
@@ -18,7 +14,13 @@
 <<<<<<< .mine
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\AI\PlayerPathfinding.cs">
 >>>>>>> .r149
+>>>>>>> .r154
     <Files>
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\Items\StickyHand.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\FearScript.cs" Line="87" Column="14" />
+      <File FileName="Assets\Scripts\Prototype\GameManager.cs" Line="27" Column="1" />
+=======
 <<<<<<< .mine
       <File FileName="Assets\Scripts\Prototype\AI\PlayerPathfinding.cs" Line="10" Column="9" />
       <File FileName="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" Line="23" Column="26" />
@@ -68,10 +70,13 @@
 >>>>>>> .r146
 >>>>>>> .r152
 >>>>>>> .r149
+>>>>>>> .r154
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\mati0029\Desktop\svn\trunk\Assets\Scripts\Prototype\FearScript.cs" line="77" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
