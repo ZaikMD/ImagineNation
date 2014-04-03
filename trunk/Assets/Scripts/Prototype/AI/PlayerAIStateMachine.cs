@@ -182,7 +182,6 @@ public class PlayerAIStateMachine : MonoBehaviour
 	/// </summary>
 	void Following()                                        
 	{
-			PathFindToTarget(m_Player);
 			m_State = PlayerAIState.Default;
 	}
 
