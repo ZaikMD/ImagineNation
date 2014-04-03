@@ -59,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
 	const float AIR_HORIZONTAL_MOVE_SPEED = 6.0f;
 	const float GLIDING_FALL_SPEED = -1.0f;
 	const float PUSHING_BLOCK_SPEED = 3.0f;
-	const float AIMING_ROTATION_SPEED = 125.0f;
+	const float AIMING_ROTATION_SPEED = 120.0f;
 	const float MAXIMUM_FALLING_SPEED = 21.0f;
 	float m_VerticalVelocity = 0.0f;
 
