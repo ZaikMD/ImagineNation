@@ -1,8 +1,21 @@
 ﻿<Properties>
+<<<<<<< .mine
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\CameraController.cs">
+=======
   <MonoDevelop.Ide.Workspace />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\SoundManager.cs">
+>>>>>>> .r133
     <Files>
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\PlayerMovement.cs" Line="186" Column="39" />
+      <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="331" Column="5" />
+      <File FileName="Assets\Scripts\Prototype\Items\VelcroGloves.cs" Line="68" Column="32" />
+      <File FileName="Assets\Scripts\Prototype\Items\SecondairyBase.cs" Line="31" Column="15" />
+      <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="440" Column="4" />
+=======
       <File FileName="Assets\Scripts\Prototype\SoundManager.cs" Line="20" Column="40" />
+>>>>>>> .r133
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

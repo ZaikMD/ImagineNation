@@ -44,6 +44,9 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	float timer = 0.0f;
 	float delay = 0.5f;
 
+
+	public CameraController m_CameraController;
+
     void Awake()
     {
 	
@@ -131,6 +134,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	    	if(PlayerInput.Instance.getEnviromentInteraction())
 		    {
 				m_Interacting = false;
+				//TODO: reset movement things
             	return;
             }
 		}
@@ -228,7 +232,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 		   	 //	exit second item;
                 if (m_ExitingSecondItem)
                 {
-                    //call items exit function.
+					//player state machine shit
                     m_UsingSecondItem = false;
 					m_ExitingSecondItem = false;
                 }
@@ -244,6 +248,17 @@ public abstract class PlayerState : MonoBehaviour, Observer
 			{
 				if(getUseSecondItemInput())
 				{
+					//player movement shit
+
+					PlayerMovement movement = gameObject.GetComponent<PlayerMovement>();
+
+					if(movement != null)
+					{
+						movement.setCanMove ( false );
+					}
+					//----------------------------------------------------
+
+					//player state machine shit
 					m_UsingSecondItem = true; 
 					m_Interacting = true;
 					m_PlayerState = PlayerStates.Default;
@@ -291,6 +306,14 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	        {
 				if(getUseSecondItemInput())
                 {
+					//Movement shit
+					PlayerMovement movement = gameObject.GetComponent<PlayerMovement>();
+					
+					if(movement != null)
+					{
+						movement.setCanMove ( false );
+					}
+					//----------------------------------------------------
 		        	m_UsingSecondItem = true;
 		        	m_PlayerState = PlayerStates.Default;
 			        return;
@@ -301,6 +324,11 @@ public abstract class PlayerState : MonoBehaviour, Observer
 		if(PlayerInput.Instance.getIsAiming())
 		{
 			m_IsAiming = !m_IsAiming;
+
+			if (PlayerInput.Instance.getIsAiming())
+			{
+				m_CameraController.toggleAiming ( );
+			}
 		}
 
 

@@ -124,15 +124,6 @@ public class CameraController : MonoBehaviour
 	// Update
 	void Update ()
 	{
-		if (PlayerInput.Instance.getIsAiming())
-		{
-			toggleAiming ( );
-		}
-		if (m_State == CameraState.Aiming && m_Movement != null)
-		{
-			m_Movement.AimMovement();
-		}
-
 		updatePosition();
 		updateZoom ();
 		updateOrientation ();
@@ -391,6 +382,11 @@ public class CameraController : MonoBehaviour
 		else
 		{
 			setToNormal ();
+		}
+
+		if (m_State == CameraState.Aiming && m_Movement != null)
+		{
+			m_Movement.AimMovement();
 		}
 	}
 
