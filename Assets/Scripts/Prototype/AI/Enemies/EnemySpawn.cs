@@ -14,7 +14,7 @@ public class EnemySpawn : MonoBehaviour
 		}
 		else
 		{
-			//TODO: instantiate the enemy type specifed
+			//TODO: instantiate the enemy type specified
 			//Instantiate (m_Enemy, this.transform.position, this.transform.rotation);
 		}
 	}

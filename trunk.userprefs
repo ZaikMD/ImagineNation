@@ -1,12 +1,21 @@
 ﻿<Properties>
 <<<<<<< .mine
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\AI\Enemies\Furbulls.cs">
+=======
+<<<<<<< .mine
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\CameraController.cs">
 =======
   <MonoDevelop.Ide.Workspace />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\SoundManager.cs">
 >>>>>>> .r133
+>>>>>>> .r138
     <Files>
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\AI\Enemies\Furbulls.cs" Line="17" Column="2" />
+      <File FileName="Assets\Scripts\Prototype\AI\Enemies\BaseEnemy.cs" Line="153" Column="6" />
+=======
 <<<<<<< .mine
       <File FileName="Assets\Scripts\Prototype\PlayerMovement.cs" Line="186" Column="39" />
       <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="331" Column="5" />
@@ -16,6 +25,7 @@
 =======
       <File FileName="Assets\Scripts\Prototype\SoundManager.cs" Line="20" Column="40" />
 >>>>>>> .r133
+>>>>>>> .r138
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
