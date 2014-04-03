@@ -83,7 +83,9 @@
      <Compile Include="Assets\Scripts\Prototype\Items\DerekProjectile.cs" />
      <Compile Include="Assets\Scripts\Prototype\Items\NerfGun.cs" />
      <Compile Include="Assets\Scripts\Prototype\Items\NerfGunProjectile.cs" />
-     <Compile Include="Assets\Scripts\Prototype\Items\RCCar.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Items\RCCar\RCCar.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Items\RCCar\RCCarMovement.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Items\RCCar\RCCarWheelAllignment.cs" />
      <Compile Include="Assets\Scripts\Prototype\Items\SecondairyBase.cs" />
      <Compile Include="Assets\Scripts\Prototype\Items\StickyHand.cs" />
      <Compile Include="Assets\Scripts\Prototype\Items\StickyHandProjectile.cs" />

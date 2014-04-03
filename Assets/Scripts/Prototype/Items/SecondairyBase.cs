@@ -31,6 +31,8 @@ public abstract class SecondairyBase : MonoBehaviour
     {
 		//m_PlayerMovement = gameObject.GetComponent<PlayerMovement>();
 		Invoke ("Load", 0.01f);
+
+		Load ();
 	}
 
 	/// <summary>

@@ -32,6 +32,7 @@ public class AlexPlayerState : PlayerState
     {
 	//Insert call to Matts RC car code;
         //Debug.Log("using Second item");
+		m_RCCar.BeginRCCar ();
     }
 
 	protected override bool ableToEnterSecondItem()
