@@ -18,7 +18,8 @@ script wasnt compileing
 using UnityEngine;
 using System.Collections;
 
-public abstract class SecondairyBase : MonoBehaviour {
+public abstract class SecondairyBase : MonoBehaviour 
+{
 
     //public bool m_Enabled = false;
 //=======
