@@ -1,11 +1,27 @@
 ﻿<Properties>
+<<<<<<< .mine
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+=======
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+>>>>>>> .r149
+<<<<<<< .mine
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Players\PlayerState.cs">
+=======
 <<<<<<< .mine
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\AI\PlayerPathfinding.cs">
 =======
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Players\PlayerState.cs">
 >>>>>>> .r146
+>>>>>>> .r149
     <Files>
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\MenuScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\FearScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\PlayerMovement.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\GameManager.cs" Line="1" Column="1" />
+=======
 <<<<<<< .mine
       <File FileName="Assets\Scripts\Prototype\AI\PlayerPathfinding.cs" Line="72" Column="1" />
       <File FileName="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" Line="65" Column="34" />
@@ -24,6 +40,7 @@
       <File FileName="Assets\Scripts\Prototype\Interactables\Lever.cs" Line="6" Column="2" />
       <File FileName="Assets\Scripts\Prototype\MovingPlatforms.cs" Line="126" Column="7" />
 >>>>>>> .r146
+>>>>>>> .r149
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -11,6 +11,7 @@ public enum MenuState
     ExitGame,
     PauseMenu,
     SaveGame,
+    Credit,
     PlayingGame
 }
 
@@ -22,12 +23,19 @@ public enum Player
 }
 
 
-public class MenuScript : MonoBehaviour
+public class MenuScript : MonoBehaviour , Observer
 {
 
     public static MenuScript Instance { get; private set; }
 
+  //  public Rigidbody playerOneInstance;
+  //  public Rigidbody playerTwoInstance;
 
+    GameObject player1;
+    GameObject player2;
+
+    public Camera m_MenuCamera;
+    public Camera m_GameCamera;
     public MenuState m_MenuState;
     public bool m_MainMenu = true;
     public Player m_PlayerOne;
@@ -57,26 +65,40 @@ public class MenuScript : MonoBehaviour
     {
         m_MenuState = MenuState.MainMenu;
 		firstTimePlayerTwoSelect = true;
+		GameManager.Instance.addObserver (this);
+        m_MenuCamera.enabled = true;
+        m_GameCamera.enabled = false;
+
+        player1 = GameObject.Find("PlayerOnePrefab");
+        player2 = GameObject.Find("PlayerTwoPrefab");
     }
 
     // Update is called once per frame
     void Update()
     {
-
-
+        Debug.Log(m_PlayerOneSelected);
+        Debug.Log(m_PlayerTwoSelected);
 
     }
      
 
     public void PauseMenu()
     {
-        m_MenuState = MenuState.PauseMenu;    
+        m_MenuState = MenuState.PauseMenu; 
+   
     }
+
+	public void ResumeGame()
+	{
+		m_MenuState = MenuState.PlayingGame;
+       
+	}
 
     void OnGUI()
     {
 
-        
+        GUI.skin.label.fontSize = 64;
+
         string buttonText = "NewGame";
 
         switch (m_MenuState)
@@ -84,7 +106,7 @@ public class MenuScript : MonoBehaviour
             case MenuState.PlayingGame:
                 {
                     //TODO: set gamemanager to play game
-
+                    GameManager.Instance.startGame();
                     m_MainMenu = false;
                     break;
                 }
@@ -278,6 +300,9 @@ public class MenuScript : MonoBehaviour
                     {
                         m_MenuState = MenuState.PlayingGame;
 						firstTimePlayerTwoSelect = true;
+						setPlayer();
+                        m_MenuCamera.enabled = false;
+                        m_GameCamera.enabled = true;
                     }
 
                     //Back
@@ -294,6 +319,13 @@ public class MenuScript : MonoBehaviour
            case MenuState.Options:
                 {
                     //TODO: Add Options
+
+                    Rect CreditsButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 5 * 3), Screen.width / 2, Screen.height / 5);
+                    buttonText = "Credits";
+                    if (GUI.Button(CreditsButtonPosition, buttonText))
+                    {
+                        m_MenuState = MenuState.Credit;                    
+                    }
 
                     Rect BackButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 5 * 4), Screen.width / 2, Screen.height / 5);
                     buttonText = "Back";
@@ -312,6 +344,33 @@ public class MenuScript : MonoBehaviour
 
                     break;
                 }
+
+
+            case MenuState.Credit:
+                {
+
+                    GUI.skin.label.fontSize = 124;
+
+                    Rect CreditsButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 5), Screen.width / 2, Screen.height - (Screen.height / 5 * 2));
+                    buttonText = "Project Manager: Sean Donnely \n\nLead Designer: Adam Holloway \n\nLead Artist: Justin Lamoureux \nArtist: Luc Pitre \n\nLead Programmer: Kristoffer 'Kris' Matis \nProgrammer: Matthew WhitLaw \nProgrammer: Joe Burchill \nProgrammer: Zach Dubuc \nProgrammer: Kole Tackney \nProgrammer: Matt Elias \nProgrammer: Greg Fortier \nProgrammer: Jason Hein \n\nWith special thanks to Nick McNielly";
+                    GUI.TextArea(CreditsButtonPosition, buttonText);
+                   
+
+                    Rect BackButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 5 * 4), Screen.width / 2, Screen.height / 5);
+                    buttonText = "Back";
+                    if (GUI.Button(BackButtonPosition, buttonText))
+                    {
+                        if (m_MainMenu)
+                        {
+                            m_MenuState = MenuState.MainMenu;
+                        }
+                        else
+                        {
+                            m_MenuState = MenuState.PauseMenu;
+                        }
+                    }
+                    break;
+                }
             case MenuState.LoadGame:
                 {
                     //TODO: call load game
@@ -322,6 +381,9 @@ public class MenuScript : MonoBehaviour
                     if (GUI.Button(SaveButtonOnePosition, buttonText))
                     {
                         //load game to Slot one
+                        loadGame(1);
+                        m_MenuState = MenuState.PlayingGame;
+                        ResumeGame();
                     }
 
                     //save slot two
@@ -330,12 +392,16 @@ public class MenuScript : MonoBehaviour
                     if (GUI.Button(SaveButtonTwoPosition, buttonText))
                     {
                         //load game to Slot Two
+                        loadGame(2);
+                        m_MenuState = MenuState.PlayingGame;
                     }
                     Rect SaveButtonThreePosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 4 * 2), Screen.width / 2, Screen.height / 4);
                     buttonText = "Slot Three";
                     if (GUI.Button(SaveButtonThreePosition, buttonText))
                     {
                         //load game to Slot Three
+                        loadGame(3);
+                        m_MenuState = MenuState.PlayingGame;
                     }
 
                     
@@ -373,12 +439,15 @@ public class MenuScript : MonoBehaviour
                 {
                     //TODO: tell gamemager to pause game
 
+
                     //Resume Game Button
                     Rect ResumeGamebuttonPosition = new Rect(Screen.width / 2 - Screen.width / 4, 0, Screen.width / 2, Screen.height / 5);
                     buttonText = "Resume Game";
                     if (GUI.Button(ResumeGamebuttonPosition, buttonText))
                     {
                         m_MenuState = MenuState.PlayingGame;
+						//TODO set observer to play game;
+						GameManager.Instance.startGame();
                     }
 
                     //Save Game Button
@@ -424,18 +493,21 @@ public class MenuScript : MonoBehaviour
                     if (GUI.Button(SaveButtonOnePosition, buttonText))
                     {
                        //save game to Slot one
+                        saveGame(1);
                     }
                     Rect SaveButtonTwoPosition = new Rect(Screen.width / 2 - Screen.width / 4, Screen.height / 4 , Screen.width / 2, Screen.height / 4);
                     buttonText = "Slot Two";
                     if (GUI.Button(SaveButtonTwoPosition, buttonText))
                     {
                         //save game to Slot Two
+                        saveGame(2);
                     }
                     Rect SaveButtonThreePosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 4 * 2), Screen.width / 2, Screen.height / 4);
                     buttonText = "Slot Three";
                     if (GUI.Button(SaveButtonThreePosition, buttonText))
                     {
                         //save game to Slot Three
+                        saveGame(3);
                     }
 
                     Rect BackButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 4 * 3), Screen.width / 2, Screen.height / 4);
@@ -450,11 +522,100 @@ public class MenuScript : MonoBehaviour
         }
 
 
-
-
     }
 
+	void setPlayer()
+	{
+		
+        player1.name = m_PlayerOneSelected;
+        player2.name = m_PlayerTwoSelected;
 
-   
+        
+		switch(m_PlayerOne)
+		{
+			case Player.Alex:
+				{
+					player1.AddComponent<AlexPlayerState>();
+					break;
+				}
+			case Player.Derek:
+				{
+					player1.AddComponent<DerekPlayerState>();
+					break;
+				}
+			case Player.Zoey:
+				{
+					player1.AddComponent<ZoeyPlayerState>();
+					break;
+				}
+		}
 
-}
+        player1.GetComponent<PlayerState>().m_CurrentPartner = player2;
+
+		switch(m_PlayerTwo)
+		{
+			case Player.Alex:
+				{
+
+					player2.AddComponent<AlexPlayerState>();
+					break;
+				}
+			case Player.Derek:
+				{
+					player2.AddComponent<DerekPlayerState>();
+					break;
+				}
+			case Player.Zoey:
+				{
+					player2.AddComponent<ZoeyPlayerState>();
+					break;
+				}
+
+		}
+        player2.GetComponent<PlayerState>().m_CurrentPartner = player1;
+	}
+    	
+    void saveGame(int slot)
+    {
+        PlayerPrefs.SetInt("PlayerOne" + slot, (int)m_PlayerOne);
+        PlayerPrefs.SetInt("PlayerTwo" + slot, (int)m_PlayerTwo);
+        PlayerPrefs.SetString("PlayerNameOne" + slot, m_PlayerOneSelected);
+        PlayerPrefs.SetString("PlayerNameTwo" + slot, m_PlayerTwoSelected); 
+    }
+
+    void loadGame(int slot)
+    {
+     
+        m_PlayerOne = (Player)PlayerPrefs.GetInt("PlayerOne" + slot);
+      
+        m_PlayerTwo = (Player)PlayerPrefs.GetInt("PlayerTwo" + slot);
+
+        m_PlayerOneSelected = PlayerPrefs.GetString("PlayerNameOne" + slot);
+
+        m_PlayerTwoSelected = PlayerPrefs.GetString("PlayerNameTwo" + slot);
+
+        setPlayer();
+
+     }
+
+
+	public void recieveEvent(Subject sender, ObeserverEvents recievedEvent)
+	{
+		if(!m_MainMenu)
+		{
+			if(recievedEvent == ObeserverEvents.PauseGame)
+			{
+				PauseMenu();
+                m_MenuCamera.enabled = true;
+                m_GameCamera.enabled = false;
+			}
+			else
+			{
+				ResumeGame();
+                m_MenuCamera.enabled = false;
+                m_GameCamera.enabled = true;
+			}
+		}
+	}
+
+ }
