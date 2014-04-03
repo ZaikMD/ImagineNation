@@ -3,7 +3,7 @@ using System.Collections;
 
 
 
-//The Enum for the sounds. They will have to be IN ORDER
+//The Enum for the sounds. They will have to be IN THE SAME ORDER AS YOU LOAD THEM
 public enum Sounds
 {
 	testSound = 0,
@@ -55,7 +55,7 @@ public class SoundManager : MonoBehaviour {
 		//Create the Songs array
 		m_Songs = new AudioClip[(int)Songs.Count];
 
-		//TODO: Load ALL sounds here. MAKE SURE THEY ARE IN ORDER
+		//TODO: Load ALL sounds here. MAKE SURE THEY ARE IN THE SAME ORDER AS THE ENUM
 		m_Sounds[0] = Resources.Load<AudioClip>("Blip_Select");
 
 		m_Songs [0] = Resources.Load<AudioClip> ("Music");
