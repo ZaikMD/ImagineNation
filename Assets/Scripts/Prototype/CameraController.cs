@@ -307,13 +307,13 @@ public class CameraController : MonoBehaviour
 		//Camera is in aiming state
 		if (m_State == CameraState.Aiming)
 		{
-			if (Physics.Raycast(m_CameraFollow.position + m_CameraFollow.forward, (m_Reticle.transform.position - m_CameraFollow.position).normalized, out hit, Reticle.RETICLE_DISTANCE))
+			Vector3 rayDirection = new Vector3(m_CameraFollow.forward.x, Mathf.Abs(m_Reticle.transform.position.y - m_CameraFollow.position.y), m_CameraFollow.forward.z).normalized;
+			if (Physics.Raycast(m_CameraFollow.position + m_CameraFollow.forward, rayDirection, out hit, Reticle.RETICLE_DISTANCE))
 			{
 				m_Reticle.setReticlePosition(hit.point);
 				return;
 			}
-
-			m_Reticle.setReticlePosition (m_CameraFollow.position + (m_Reticle.transform.position - m_CameraFollow.position).normalized * Reticle.RETICLE_DISTANCE);
+			m_Reticle.setReticlePosition (m_CameraFollow.position + rayDirection * Reticle.RETICLE_DISTANCE);
 		}
 
 		//Default position of reticle
