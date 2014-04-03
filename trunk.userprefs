@@ -1,31 +1,13 @@
 ﻿<Properties>
-<<<<<<< .mine
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\AI\Enemies\Furbulls.cs">
-=======
-<<<<<<< .mine
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\CameraController.cs">
-=======
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\SoundManager.cs">
->>>>>>> .r133
->>>>>>> .r138
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Items\BoxingGloves.cs">
     <Files>
-<<<<<<< .mine
-      <File FileName="Assets\Scripts\Prototype\AI\Enemies\Furbulls.cs" Line="17" Column="2" />
-      <File FileName="Assets\Scripts\Prototype\AI\Enemies\BaseEnemy.cs" Line="153" Column="6" />
-=======
-<<<<<<< .mine
-      <File FileName="Assets\Scripts\Prototype\PlayerMovement.cs" Line="186" Column="39" />
-      <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="331" Column="5" />
-      <File FileName="Assets\Scripts\Prototype\Items\VelcroGloves.cs" Line="68" Column="32" />
-      <File FileName="Assets\Scripts\Prototype\Items\SecondairyBase.cs" Line="31" Column="15" />
-      <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="440" Column="4" />
-=======
-      <File FileName="Assets\Scripts\Prototype\SoundManager.cs" Line="20" Column="40" />
->>>>>>> .r133
->>>>>>> .r138
+      <File FileName="Assets\Scripts\Prototype\Items\BoxingGloves.cs" Line="35" Column="3" />
+      <File FileName="Assets\Scripts\Prototype\Items\BoxingGloves.cs" Line="45" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Items\DerekProjectile.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\AI\Enemies\Furbulls.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\AI\Enemies\BaseEnemy.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Items\BasePrimaryItem.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -5,7 +5,7 @@ public class DerekProjectile : MonoBehaviour
 {
 	public GameObject m_DebrisPrefab;
 	public float m_Speed = 10.0f;
-	public int m_ProjectileRange = 2;
+	public float m_ProjectileRange = 2.0f;
 	Vector3 m_InitialPosition;
 
 	// Use this for initialization
@@ -44,6 +44,11 @@ public class DerekProjectile : MonoBehaviour
 			//StartCoroutine (DestroyDebris ());
 	
 		}
+	}
+
+	public float getProjectileRange()
+	{
+		return m_ProjectileRange;
 	}
 
 //	IEnumerator DestroyDebris()
