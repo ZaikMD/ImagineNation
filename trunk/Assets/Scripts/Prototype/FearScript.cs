@@ -7,6 +7,7 @@ public class FearScript : MonoBehaviour {
     GameObject[] m_ClaustrophobiaFear;
     GameObject[] m_Players;
     GameObject[] m_NerfDarts;
+    GameObject[] m_Enemys;
     	
 	void Start ()
     {
@@ -15,6 +16,7 @@ public class FearScript : MonoBehaviour {
 		m_NerfDarts = GameObject.FindGameObjectsWithTag("NerfDart");
         m_DarkFear = GameObject.FindGameObjectsWithTag("Darkness");
         m_ClaustrophobiaFear = GameObject.FindGameObjectsWithTag("Claustrophobia");
+        m_Enemys = GameObject.FindGameObjectsWithTag("Enemy");
 
         //calls a function that calls all the ignore collision voloumes
         resetCollisionIgnores();
@@ -84,10 +86,19 @@ public class FearScript : MonoBehaviour {
         }   
     }
 
+    public void setEnemyIgnore()
+    {
+        foreach (GameObject enemy in m_Enemys)
+        {
+            setIgnoreFears(enemy.gameObject);
+        }   
+    }
+
     public void resetCollisionIgnores()
     {
         setPlayerIgnore();
         setNerfDartIgnore();
+        setEnemyIgnore();
     }
 
 }

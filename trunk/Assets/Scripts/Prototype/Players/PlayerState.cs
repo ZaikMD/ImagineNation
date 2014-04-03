@@ -21,7 +21,8 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	protected PlayerStates m_PlayerState;
 
 	GameObject m_AimReticle;
-	GameObject m_CurrentPartner; // likely set by start menu.
+
+	public GameObject m_CurrentPartner; // likely set by start menu.
 	const float KNOCKBACK_TIME = 0.5f;
 	float m_KnockBackTimer = KNOCKBACK_TIME; 
 	bool m_UsingSecondItem;
@@ -64,11 +65,14 @@ public abstract class PlayerState : MonoBehaviour, Observer
     {
         m_HaveSecondItem = true;
         m_UsingSecondItem = false;
+		GameManager.Instance.addObserver (this);
 	}
 	
 	// Update is called once per frame
 	protected void checkStates()
     {
+        Debug.Log(m_CurrentPartner);
+
 		/*
 		if(timer<delay)
 		{
@@ -79,6 +83,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 */
 		if(!m_IsPaused)
 		{
+			Debug.Log ("check motherfucka");
 	       //Debug.Log("update");
 	       // m_HaveSecondItem = true;
 
