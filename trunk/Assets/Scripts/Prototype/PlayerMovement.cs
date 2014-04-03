@@ -50,6 +50,8 @@ public class PlayerMovement : MonoBehaviour
 
 	CharacterController m_Controller;
 	bool m_CanMove = true;
+	float m_JumpNextTimer = 0.0f;
+	const float JUMP_NEXT_TIMER = 1.0f;
 
 	//Speeds
 	const float MOVE_SPEED = 10.0f;
@@ -117,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
 		//Temporary testing of movement
 		if (IsGrounded ())
 		{
-			if (PlayerInput.Instance.getJumpInput() || PlayerInput.Instance.getJumpHeld())
+			if (PlayerInput.Instance.getJumpInput() || PlayerInput.Instance.getJumpHeld() || m_JumpNextTimer > 0.0f)
 			{
 				Jump();
 			}
@@ -130,10 +132,26 @@ public class PlayerMovement : MonoBehaviour
 
 				GroundMovement();
 			}
+			if (m_JumpNextTimer > 0.0f)
+			{
+				m_JumpNextTimer = -Time.deltaTime;
+			}
 		}
 		else
 		{
 			AirMovement();
+
+			if (PlayerInput.Instance.getJumpInput() || PlayerInput.Instance.getJumpHeld())
+			{
+				m_JumpNextTimer = JUMP_NEXT_TIMER;
+			}
+			else
+			{
+				if (m_JumpNextTimer > 0.0f)
+				{
+					m_JumpNextTimer = -Time.deltaTime;
+				}
+			}
 		}
 	}
 
