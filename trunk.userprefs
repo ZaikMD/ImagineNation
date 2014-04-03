@@ -7,18 +7,23 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 =======
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+<<<<<<< .mine
+=======
 >>>>>>> .r149
 <<<<<<< .mine
+>>>>>>> .r152
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Players\PlayerState.cs">
 >>>>>>> .r150
 =======
 <<<<<<< .mine
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\AI\PlayerPathfinding.cs">
-=======
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Players\PlayerState.cs">
->>>>>>> .r146
 >>>>>>> .r149
     <Files>
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\AI\PlayerPathfinding.cs" Line="10" Column="9" />
+      <File FileName="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" Line="23" Column="26" />
+      <File FileName="Assets\Scripts\Prototype\AI\Enemies\BaseEnemy.cs" Line="173" Column="22" />
+=======
 <<<<<<< .mine
       <File FileName="Assets\Scripts\Prototype\Interactables\SeeSaw.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\Interactables\DivingBoard.cs" Line="1" Column="1" />
@@ -61,6 +66,7 @@
       <File FileName="Assets\Scripts\Prototype\Observer\Events.cs" Line="7" Column="6" />
       <File FileName="Assets\Scripts\Prototype\Interactables\Targets.cs" Line="39" Column="6" />
 >>>>>>> .r146
+>>>>>>> .r152
 >>>>>>> .r149
     </Files>
   </MonoDevelop.Ide.Workbench>

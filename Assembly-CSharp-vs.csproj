@@ -50,6 +50,7 @@
      <Compile Include="Assets\Scripts\Prototype\AI\Enemies\EnemySpawn.cs" />
      <Compile Include="Assets\Scripts\Prototype\AI\Enemies\EnemySpawnManager.cs" />
      <Compile Include="Assets\Scripts\Prototype\AI\Enemies\Furbulls.cs" />
+     <Compile Include="Assets\Scripts\Prototype\AI\Enemies\FurbullsProjectile.cs" />
      <Compile Include="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" />
      <Compile Include="Assets\Scripts\Prototype\AI\PlayerPathfinding.cs" />
      <Compile Include="Assets\Scripts\Prototype\Atrributes\AlexAttributes.cs" />

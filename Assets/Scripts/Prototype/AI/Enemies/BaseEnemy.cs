@@ -135,7 +135,7 @@ public abstract class BaseEnemy : MonoBehaviour, Observer
 				m_Timer -= Time.deltaTime;
 				m_State = States.Follow;
 			}
-			//chec timer
+			//check timer
 			return;
 		}
 
@@ -168,13 +168,15 @@ public abstract class BaseEnemy : MonoBehaviour, Observer
 
 	protected abstract void fightState();
 
-	void patrolState()
+	protected virtual void followState()
 	{
-		//TODO: PathFind Between Nodes in m_PatrolNodes
+		//TODO: Follow Code
 	}
 
-	void followState()
+	protected virtual void patrolState()
 	{
-		//TODO: Patrol to player in range
+		//TODO: patrol code
 	}
+	
+
 }
