@@ -6,7 +6,7 @@ public class Furbulls : BaseEnemy
 	// Use this for initialization
 	void Start () 
 	{
-		m_Health = 3.0f;
+		m_Health.getHealth();
 		m_CombatRange = 2.0f;
 	}
 

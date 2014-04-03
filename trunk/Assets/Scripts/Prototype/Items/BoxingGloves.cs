@@ -13,6 +13,7 @@ using System.Collections;
 public class BoxingGloves : BasePrimaryItem 
 {
 	public GameObject m_DerekProjectile;
+	DerekProjectile m_ProjectileRange;
 	GameObject m_Derek;
 	
 	// Use this for initialization
@@ -34,5 +35,10 @@ public class BoxingGloves : BasePrimaryItem
 	{
 		Instantiate (m_BaseProjectile, this.transform.position, this.transform.rotation);
 		//getTargetDirection();	//Use for getting firing direction
+	}
+
+	public override float getRange()
+	{
+		return m_ProjectileRange.getProjectileRange ();
 	}
 }
