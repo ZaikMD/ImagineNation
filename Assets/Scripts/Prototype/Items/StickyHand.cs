@@ -67,5 +67,8 @@ public class StickyHand : BasePrimaryItem {
 		}
 	}
 
-
+	public virtual float getRange()
+	{
+		return StickyHandProjectile.MAX_DISTANCE;
+	}
 }
