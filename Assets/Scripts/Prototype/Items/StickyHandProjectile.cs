@@ -51,14 +51,9 @@ public class StickyHandProjectile : MonoBehaviour {
 	//Important Objects
 	GameObject m_Zoey;
 	GameObject m_ProjectileLine;
-	CapsuleCollider m_Collider;
 
 	//Movement, so we can stop the player from moving while launching
 	PlayerMovement m_Movement;
-
-
-
-	public float test;
 
 	//On Tick
 	void Update() 
@@ -92,8 +87,9 @@ public class StickyHandProjectile : MonoBehaviour {
 			//The player can now move again
 			if (m_State == States.Launching)
 			{
-				m_Collider.radius = 5.0f;
-				Invoke("enableMovementAfterTimer", 0.1f);
+				(collider as CapsuleCollider).radius = 6.0f;
+
+				Invoke("enableMovementAfterTimer", 0.10f);
 			}
 
 			m_ProjectileLine.SetActive(false);
@@ -140,8 +136,6 @@ public class StickyHandProjectile : MonoBehaviour {
 	//Extending
 	void extending() 
 	{ 
-		test = Vector3.Distance (m_OriginalPosition, transform.position);
-
 		//If the projectile has gone too far, set it to retract
 		if(Vector3.Distance(m_OriginalPosition, transform.position) >= MAX_DISTANCE)
 		{ 
@@ -188,11 +182,7 @@ public class StickyHandProjectile : MonoBehaviour {
 		{
 			m_Movement = (PlayerMovement)m_Zoey.GetComponent<PlayerMovement>();
 		}
-		if (!m_Collider)
-		{
-			m_Collider = (CapsuleCollider)m_Zoey.GetComponent<CapsuleCollider>();
-			m_Collider.radius = 2.0f;
-		}
+		(collider as CapsuleCollider).radius = 2.0f;
 
 		//Save position for accurate distance calculations
 		m_OriginalPosition = transform.position;
