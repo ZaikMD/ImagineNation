@@ -243,13 +243,6 @@ public class CameraController : MonoBehaviour
 			{
 				m_Movement.AimMovement();
 			}
-
-			//Set reticle height
-			if (PlayerInput.Instance.getCameraMovement().y != 0)
-			{
-				//Set where to look
-				m_Reticle.transform.position += m_Reticle.transform.up * PlayerInput.Instance.getCameraMovement().y;
-			}
 		}
 	}
 
@@ -298,13 +291,24 @@ public class CameraController : MonoBehaviour
 		//Camera is in aiming state
 		if (m_State == CameraState.Aiming)
 		{
-			Vector3 reticleShouldBePosition = (m_CameraFollow.forward * Reticle.RETICLE_DISTANCE) + new Vector3 (0, m_Reticle.getTargetPosition().y - m_CameraFollow.position.y, 0);
-			/*if (Physics.Raycast(m_CameraFollow.position + m_CameraFollow.forward, reticleShouldBePosition - m_CameraFollow.position, out hit, Reticle.RETICLE_DISTANCE))
+			//Looking up and down
+			if (PlayerInput.Instance.getCameraMovement().y != 0)
 			{
-				m_Reticle.setReticlePosition(hit.point);
-				return;
-			}*/
-			m_Reticle.setReticlePosition (m_CameraFollow.position + reticleShouldBePosition);
+				m_Reticle.setReticlePosition(m_Reticle.transform.position + m_Reticle.transform.up * PlayerInput.Instance.getCameraMovement().y * Time.deltaTime * ROTATION_SENSITIVITY * 3.75f);
+			}
+
+			//Where reticle would normally be in relation to the player
+			Vector3 localPositionToPlayer = (m_CameraFollow.forward * Reticle.RETICLE_DISTANCE) + new Vector3 (0, m_Reticle.getTargetPosition().y - m_CameraFollow.position.y, 0);
+
+			//Raycast to close objects
+			if (Physics.Raycast(m_CameraFollow.position + m_CameraFollow.forward, localPositionToPlayer.normalized, out hit, Reticle.RETICLE_DISTANCE))
+			{
+				float distance = (Vector3.Distance(m_CameraFollow.position, hit.point));
+				localPositionToPlayer = (m_CameraFollow.forward * distance) + new Vector3 (0, m_Reticle.getTargetPosition().y - m_CameraFollow.position.y, 0);
+			}
+
+			//Default reticle position
+			m_Reticle.setReticlePosition (m_CameraFollow.position + localPositionToPlayer);
 		}
 
 		//Default position of reticle
