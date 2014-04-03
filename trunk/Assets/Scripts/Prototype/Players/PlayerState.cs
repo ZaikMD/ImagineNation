@@ -126,9 +126,39 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	   //    if m_DeadTimer is less then 0, call reset player function.
 	}
 
+	void stopInteractiong ()
+	{
+		switch (m_CurrentInteraction.getType ()) 
+		{
+			case InteractableType.SeeSaw:
+			{			
+				SeeSaw seeSaw = (SeeSaw)m_CurrentInteraction;
+				seeSaw.makeChild(null);
+				break;
+			}
+				
+			case InteractableType.DivingBoard:
+			{
+				break;
+			}
+				
+			case InteractableType.Lever:
+			{
+				break;
+			}
+				
+			default:
+			{
+				Debug.Log("NO INTERACTION");
+				break;
+			}
+		}
+	}
 
 	public void exitInteracting()
 	{
+		stopInteractiong ();
+
 		m_CurrentInteraction = null;
 
 		m_Interacting = false;

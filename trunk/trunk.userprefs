@@ -1,19 +1,16 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Items\BoxingGloves.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Interactables\SeeSaw.cs">
     <Files>
-      <File FileName="Assets\Scripts\Prototype\Items\BoxingGloves.cs" Line="32" Column="39" />
-      <File FileName="Assets\Scripts\Prototype\Items\BoxingGloves.cs" Line="43" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Players\DerekPlayerState.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Items\VelcroGloves.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\PlayerInput.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Items\NerfGun.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Items\BasePrimaryItem.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Items\DerekProjectile.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\SoundManager.cs" Line="6" Column="83" />
+      <File FileName="Assets\Scripts\Prototype\Interactables\SeeSaw.cs" Line="143" Column="5" />
+      <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="137" Column="5" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\dubu0017\Desktop\asdfgh\trunk\Assets\Scripts\Prototype\Players\PlayerState.cs" line="165" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
