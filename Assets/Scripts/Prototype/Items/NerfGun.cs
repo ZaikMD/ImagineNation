@@ -45,12 +45,6 @@ public class NerfGun : BasePrimaryItem
 				m_ReloadTimer += Time.deltaTime;
 			}
 		}
-
-		//Temporary code to test the fire function
-		if(Input.GetKeyDown(KeyCode.P))
-		{
-			fire();
-		}
 	}
 
 	public override void fire()
@@ -70,26 +64,6 @@ public class NerfGun : BasePrimaryItem
 			tempbullet.rigidbody.AddForce(getTargetDirection() * 1000);
 
 			m_NumberOfBullets--;
-
-			/*
-			for(int i = 0; i < bulletPool; i++)
-			{
-				GameObject temp = BulletPool[i].gameObject;
-				NerfGunProjectile tempProj = temp.GetComponent<NerfGunProjectile>();
-				if(tempProj.getActive() == false)
-				{
-					tempbullet = BulletPool[i];
-					BulletPool[i].gameObject.GetComponent<NerfGunProjectile>().setActive(true);
-
-					tempbullet.transform.rotation = transform.rotation;
-					tempbullet.rigidbody.AddForce(currentTarget * 5000);
-					
-					m_BulletsUsed++;
-					m_NumberOfBullets--;
-					break;
-				}
-			}
-			*/
 		}
 	}
 		

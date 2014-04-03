@@ -100,7 +100,7 @@ public class NerfGunProjectile : MonoBehaviour
 		// collided with the bullet by default is destroyed
 
 		m_CollidedTag = other.gameObject.tag;
-
+		Debug.Log (m_CollidedTag);
 		switch(m_CollidedTag)
 		{
 			//All cases call a function that takes the gameobject of the object

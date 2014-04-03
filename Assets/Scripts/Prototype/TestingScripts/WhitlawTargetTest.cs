@@ -5,12 +5,12 @@ public class WhitlawTargetTest : MonoBehaviour, Observer
 {
 	bool m_Action = false;
 
-	public TargetManager m_TargetManager;
+	public TriggerManager m_TriggerManager;
 
 	// Use this for initialization
 	void Start () 
 	{
-		m_TargetManager.addObserver (this);
+		m_TriggerManager.addObserver (this);
 	}
 	
 	// Update is called once per frame
@@ -24,7 +24,7 @@ public class WhitlawTargetTest : MonoBehaviour, Observer
 
 	public void recieveEvent(Subject sender, ObeserverEvents recievedEvent)
 	{
-		if(recievedEvent == ObeserverEvents.AllTargetTriggered)
+		if(recievedEvent == ObeserverEvents.Used)
 		{
 			Debug.Log ("Recieved All targets hit");
 			m_Action = true;

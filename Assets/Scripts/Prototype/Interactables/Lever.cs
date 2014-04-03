@@ -25,7 +25,7 @@ public class Lever : InteractableBaseClass
 
 	public void toggleIsOn()
 	{
-		m_IsOn = !m_IsOn;
+		sendEvent (ObeserverEvents.Used);
 	}
 
 	void OnTriggerEnter(Collider obj)

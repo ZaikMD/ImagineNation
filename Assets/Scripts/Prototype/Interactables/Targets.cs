@@ -35,8 +35,8 @@ public class Targets : Subject
 		// This is subject to change...
 		if(!m_Active)
 		{
-			sendEvent (ObeserverEvents.NerfTargetHit);
-			Debug.Log ("HIT");
+			sendEvent (ObeserverEvents.Used);
+			//Debug.Log ("HIT");
 			gameObject.SetActive(false);
 		}
 	}

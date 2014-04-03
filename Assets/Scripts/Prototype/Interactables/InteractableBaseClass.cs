@@ -13,7 +13,7 @@ public enum InteractableType
 	Unknown
 };
 
-public abstract class InteractableBaseClass : MonoBehaviour 
+public abstract class InteractableBaseClass : Subject 
 {
 
 
