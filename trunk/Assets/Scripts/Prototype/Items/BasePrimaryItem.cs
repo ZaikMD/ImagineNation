@@ -5,6 +5,7 @@ public abstract class BasePrimaryItem : MonoBehaviour
 {
 	protected GameObject m_BaseProjectile;
 	protected Reticle m_Reticle;
+	protected float m_Range;
 	
     CameraController m_Camera;
 	
@@ -40,5 +41,10 @@ public abstract class BasePrimaryItem : MonoBehaviour
 	protected Vector3 getTargetDirection()
 	{
 		return (m_Reticle.getTargetPosition() - transform.position).normalized;
+	}
+
+	public float getRange()
+	{
+		return m_Range;
 	}
 }
