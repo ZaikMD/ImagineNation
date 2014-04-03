@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SeeSaw : MonoBehaviour
+public class SeeSaw : InteractableBaseClass, Observer
 {
 
 	//Players
@@ -25,6 +25,10 @@ public class SeeSaw : MonoBehaviour
 	private float m_ResetTimer = 5.0f;
 	const float LERP_TIME = 0.05f;
 
+	bool m_IsEnabled = true;
+
+	public float m_LaunchHeight = 10.0f;
+
 	//Initialization
 	void Start()
 	{
@@ -33,37 +37,52 @@ public class SeeSaw : MonoBehaviour
 		m_SitPointPos = m_SitPoint.transform.position;
 		m_ResetTimer = 5.0f;
 		m_HasLaunchedPlayer = false;
+
+
+		m_Type = InteractableType.SeeSaw;
+		
+		m_IsExitable = true;
+
+		GameManager.Instance.addObserver (this);
+
 	}
 
 	//Launch
 	void Update()
 	{
-		if(m_IsLerping)
+		if(m_IsEnabled)
 		{
-			m_JumpPoint.transform.position = Vector3.Lerp(m_JumpPoint.transform.position, m_JumpEndPoint.transform.position, LERP_TIME);
-			m_JumpingPlayer.transform.position = Vector3.Lerp (m_JumpingPlayer.transform.position, m_JumpPoint.transform.position , LERP_TIME); //Lerp m_JumpingPlayer to m_JumpPoint
-			if(m_JumpingPlayer.transform.position.y <= m_JumpPoint.transform.position.y)
+			if(m_IsLerping)
 			{
-				//If the jumping player has reached the jump point, then notify the player and give back control
-				m_JumpingPlayer.transform.parent = null;
+				m_JumpPoint.transform.position = Vector3.Lerp(m_JumpPoint.transform.position, m_JumpEndPoint.transform.position, LERP_TIME);
+				m_JumpingPlayer.transform.position = Vector3.Lerp (m_JumpingPlayer.transform.position, m_JumpPoint.transform.position , LERP_TIME); //Lerp m_JumpingPlayer to m_JumpPoint
+				if(m_JumpingPlayer.transform.position.y <= m_JumpPoint.transform.position.y + 0.5f)
+				{
+					m_JumpingPlayer.gameObject.GetComponent<PlayerState>().exitInteracting();
 
-				//Also m_IsLerping = false && call launchPlayer();
-				m_IsLerping = false;
-				launchPlayer();
+					//If the jumping player has reached the jump point, then notify the player and give back control
+					m_JumpingPlayer.transform.parent = null;
+
+
+
+					//Also m_IsLerping = false && call launchPlayer();
+					m_IsLerping = false;
+					launchPlayer();
+				}
 			}
-		}
-		if(m_HasLaunchedPlayer == true)
-		{
-			m_ResetTimer -= Time.deltaTime;
-		}
-		if(m_ResetTimer < 0.0f)
-		{
-			reset();
+			if(m_HasLaunchedPlayer == true)
+			{
+				m_ResetTimer -= Time.deltaTime;
+			}
+			if(m_ResetTimer < 0.0f)
+			{
+				reset();
+			}
 		}
 	}
 
 	//Sit
-	void makeChild(GameObject obj)
+	public void makeChild(GameObject obj)  //Called by player
 	{
 		//Set m_SittingPlayer to obj 
 		m_SittingPlayer = obj.gameObject; 
@@ -79,16 +98,23 @@ public class SeeSaw : MonoBehaviour
 	//Launch
 	void launchPlayer()
 	{
+		m_SittingPlayer.gameObject.GetComponent<PlayerState>().exitInteracting();
+
+		m_SittingPlayer.gameObject.GetComponent<PlayerMovement>().LaunchJump(m_LaunchHeight);
+
+		m_SitPoint.transform.Translate (0, 10.0f, 0.0f);
+		m_SittingPlayer = null;
+		m_HasLaunchedPlayer = true;
 		//Terminate Parent-child relation between m_SittingPlayer and the SeeSaw
 		m_SittingPlayer.transform.parent = null;
 
 		//Apply force to m_SittingPlayer
-		m_SittingPlayer.transform.Translate (0, 10.0f, 0.0f);
+		//m_SittingPlayer.transform.Translate (0, 10.0f, 0.0f);
+
+
 
 		//Move the platform up as well
-		m_SitPoint.transform.Translate (0, 5.0f, 0.0f);
-		m_SittingPlayer = null;
-		m_HasLaunchedPlayer = true;
+
 
 	}
 
@@ -133,5 +159,29 @@ public class SeeSaw : MonoBehaviour
 		//Reset states and timer
 		m_ResetTimer = 5.0f;
 		m_HasLaunchedPlayer = false;
+	}
+
+	void OnTriggerEnter(Collider obj)
+	{
+		if(obj.tag == "Player")
+		{
+			obj.gameObject.GetComponent<PlayerState>().interactionInRange(this);
+		}
+	}
+	
+	void OnTriggerExit(Collider obj)
+	{
+		if(obj.tag == "Player")
+		{
+			obj.gameObject.GetComponent<PlayerState>().interactionOutOfRange(this);
+		}
+	}
+
+	public void recieveEvent(Subject sender, ObeserverEvents recievedEvent)
+	{
+		if(recievedEvent == ObeserverEvents.PauseGame ||recievedEvent == ObeserverEvents.StartGame)
+		{
+			m_IsEnabled = !m_IsEnabled;
+		}
 	}
 }
