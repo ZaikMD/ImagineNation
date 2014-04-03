@@ -41,7 +41,7 @@ public class StickyHandProjectile : MonoBehaviour {
 	
 	//Speed and max distance to retract
 	const float m_Speed = 0.75f; 
-	const float MAX_DISTANCE = 20.0f; 
+	public const float MAX_DISTANCE = 20.0f; 
 	float m_OriginalScale;
 
 	//Target to fire at

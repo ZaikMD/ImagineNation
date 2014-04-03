@@ -298,15 +298,13 @@ public class CameraController : MonoBehaviour
 		//Camera is in aiming state
 		if (m_State == CameraState.Aiming)
 		{
-			Vector3 yDifference = (m_Reticle.transform.position - m_CameraFollow.position).normalized;
-			Vector3 rayDirection = new Vector3(m_CameraFollow.forward.x, yDifference.y, m_CameraFollow.forward.z).normalized;
-
-			if (Physics.Raycast(m_CameraFollow.position + m_CameraFollow.forward, rayDirection, out hit, Reticle.RETICLE_DISTANCE))
+			Vector3 reticleShouldBePosition = (m_CameraFollow.forward * Reticle.RETICLE_DISTANCE) + new Vector3 (0, m_Reticle.getTargetPosition().y - m_CameraFollow.position.y, 0);
+			/*if (Physics.Raycast(m_CameraFollow.position + m_CameraFollow.forward, reticleShouldBePosition - m_CameraFollow.position, out hit, Reticle.RETICLE_DISTANCE))
 			{
 				m_Reticle.setReticlePosition(hit.point);
 				return;
-			}
-			m_Reticle.setReticlePosition (m_CameraFollow.position + rayDirection * Reticle.RETICLE_DISTANCE);
+			}*/
+			m_Reticle.setReticlePosition (m_CameraFollow.position + reticleShouldBePosition);
 		}
 
 		//Default position of reticle
@@ -455,7 +453,7 @@ public class CameraController : MonoBehaviour
 		}
 
 		//transform.parent.position = m_CameraFollow.position;
-		transform.parent.position = transform.parent.transform.position;
+		transform.parent.position = m_CameraFollow.position;
 		transform.localPosition = m_SavedLocalPosition;
 		setOrientation (m_CameraFollow.position.y);
 		m_State = CameraState.Default;
