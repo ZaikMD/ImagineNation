@@ -19,7 +19,6 @@ public class NerfGunProjectile : MonoBehaviour
 	float m_PlatformLifeSpan = 20.0f;
 	float m_Timer = 0.0f;
 	float m_PlatformTimer = 0.0f;
-	float m_Speed = 15.0f;
 
 	string m_CollidedTag;
 
