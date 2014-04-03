@@ -43,7 +43,7 @@ public abstract class BasePrimaryItem : MonoBehaviour
 		return (m_Reticle.getTargetPosition() - transform.position).normalized;
 	}
 
-	public float getRange()
+	public virtual float getRange()
 	{
 		return m_Range;
 	}
