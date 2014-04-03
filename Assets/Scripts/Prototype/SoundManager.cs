@@ -28,6 +28,7 @@ public class SoundManager : MonoBehaviour {
 	private AudioClip[] m_Songs;
 
 	private int m_CurrentSong;
+	private int m_SongPosition;
 	void Awake()
 	{
 		if(Instance != null && Instance != this)
@@ -61,6 +62,8 @@ public class SoundManager : MonoBehaviour {
 
 		audio.clip = m_Songs [m_CurrentSong];
 		audio.Play ();
+
+		m_SongPosition = m_CurrentSong;
 	}
 	
 	// Update is called once per frame
@@ -70,6 +73,11 @@ public class SoundManager : MonoBehaviour {
 		{
 			audio.clip = m_Songs[m_CurrentSong];
 			audio.Play();
+		}
+
+		if(m_CurrentSong > m_SongPosition)
+		{
+			m_CurrentSong = m_SongPosition;
 		}
 	}
 	 //Call This from any fucntion with the appropriate sound name
@@ -81,6 +89,7 @@ public class SoundManager : MonoBehaviour {
 	public void playSong(Songs song, float volume)
 	{
 		m_CurrentSong = (int)song;
+		m_SongPosition = m_CurrentSong;
 	}
 
 
