@@ -7,9 +7,9 @@ public class TrampolineButton : MonoBehaviour
 
 	void OnTriggerStay(Collider other)
 	{
-		if (other.gameObject.tag == "Character" &&
+		if (other.gameObject.tag == "Player" &&
 		    other.gameObject.GetComponent<CharacterController>().velocity.y < 0 &&
-		    Input.GetKeyDown(KeyCode.B))
+		    PlayerInput.Instance.getEnviromentInteraction())
 		{
 			m_MyTrampoline.m_DoubleJump = true;
 		}

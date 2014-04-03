@@ -23,9 +23,8 @@ public abstract class SecondairyBase : MonoBehaviour
 
     //public bool m_Enabled = false;
 //=======
-    protected bool m_Enabled = true;
-    protected PlayerMovement m_PlayerMovement;
-	protected PlayerInput m_InputInstance;
+    protected bool m_Enabled = false;
+    public PlayerMovement m_PlayerMovement;
 
 	// Use this for initialization
 	void Awake ()
@@ -40,7 +39,6 @@ public abstract class SecondairyBase : MonoBehaviour
 	protected void Load ()
 	{
 		m_PlayerMovement = (PlayerMovement)gameObject.GetComponent<PlayerMovement>();
-		m_InputInstance = PlayerInput.Instance;
 	}
 
 	/// <summary>
@@ -52,6 +50,8 @@ public abstract class SecondairyBase : MonoBehaviour
         get { return m_Enabled; }
         set { m_Enabled = true; }
     }
+
+	public abstract bool ableToBeUsed();
 
 	/// <summary>
 	/// Move the player according to this item's interaction

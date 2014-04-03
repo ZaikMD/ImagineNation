@@ -17,10 +17,12 @@ public class Cape : SecondairyBase
 			{
 				m_Enabled = false;    //If you are on the ground disable the cape
 				m_PlayerMovement.setCanMove(true);
+				gameObject.GetComponent<ZoeyPlayerState>().setExitingSecond(true);
 			}
 			return;
 		}
-		
+
+
 		//Airborne
 		if ( m_Enabled )
 		{
@@ -28,21 +30,32 @@ public class Cape : SecondairyBase
 			Move();
 
 			//Turn cape off
-		if ( PlayerInput.Instance.getJumpHeld() == false )
+			if ( PlayerInput.Instance.getJumpHeld() == false )
 			{
 				m_Enabled = false;
 				m_PlayerMovement.setCanMove(true);
+				gameObject.GetComponent<ZoeyPlayerState>().setExitingSecond(true);
 			}
 		}
-		else if ( PlayerInput.Instance.getJumpHeld() == true )
-		{
-			m_Enabled = true;    //Turn cape on
-		}
+
 	}
 
 	public override void Move ()
 	{
 		m_PlayerMovement.Glide(); 
+	}
+
+	public override bool ableToBeUsed ()
+	{
+		if (m_PlayerMovement.IsGrounded() == true)
+						return false;
+		else 
+			return true;
+	}
+
+	public void StartGliding()
+	{
+		m_Enabled = true;
 	}
 
 }

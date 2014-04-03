@@ -3,9 +3,12 @@ using System.Collections;
 
 public class ZoeyPlayerState : PlayerState {
 
+	Cape m_Cape;
+
 	// Use this for initialization
-	void Start () {
-	
+	void Start () 
+	{
+		m_Cape = gameObject.GetComponent<Cape> ();
 	}
 	
 	// Update is called once per frame
@@ -27,13 +30,13 @@ public class ZoeyPlayerState : PlayerState {
 
 	protected override void  useSecondItem()
     {
-	    //Insert call to Gliding code;
+		m_Cape.StartGliding ();
     }
 
 	protected override bool ableToEnterSecondItem()
    {
        // add code to check if we can use second item
-       return true;
+		return m_Cape.ableToBeUsed ();
    }
 
 	protected override bool getUseSecondItemInput()

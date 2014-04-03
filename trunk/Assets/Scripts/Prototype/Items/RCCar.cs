@@ -20,4 +20,9 @@ public class RCCar : SecondairyBase
 	{
 		throw new System.NotImplementedException ();
 	}
+
+	public override bool ableToBeUsed()
+	{
+		return true;
+	}
 }
