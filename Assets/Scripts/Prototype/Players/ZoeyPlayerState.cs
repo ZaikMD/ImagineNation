@@ -27,7 +27,6 @@ public class ZoeyPlayerState : PlayerState {
 	   //Call StickyHand component Aim throw function.
     }
 
-
 	protected override void  useSecondItem()
     {
 		m_Cape.StartGliding ();

@@ -117,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
 		//Temporary testing of movement
 		if (IsGrounded ())
 		{
-			if (PlayerInput.Instance.getJumpInput())
+			if (PlayerInput.Instance.getJumpInput() || PlayerInput.Instance.getJumpHeld())
 			{
 				Jump();
 			}
@@ -149,7 +149,7 @@ public class PlayerMovement : MonoBehaviour
 	/// </summary>
 	public void GroundMovement()
 	{
-		if (!m_CanMove || PlayerInput.Instance.getMovementInput().x == 0 && PlayerInput.Instance.getMovementInput().y == 0)
+		if (!m_CanMove || PlayerInput.Instance.getMovementInput() == Vector2.zero)
 		{
 			return;
 		}
@@ -239,9 +239,10 @@ public class PlayerMovement : MonoBehaviour
 			m_VerticalVelocity = -MAXIMUM_FALLING_SPEED;
 		}
 
+		//Fall
 		m_Controller.Move (transform.up * m_VerticalVelocity * Time.deltaTime);
 		
-		if (PlayerInput.Instance.getMovementInput().x == 0 && PlayerInput.Instance.getMovementInput().y == 0)
+		if (PlayerInput.Instance.getMovementInput() == Vector2.zero)
 		{
 			return;
 		}

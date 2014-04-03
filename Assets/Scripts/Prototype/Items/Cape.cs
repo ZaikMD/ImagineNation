@@ -3,10 +3,6 @@ using System.Collections;
 
 public class Cape : SecondairyBase 
 {
-			
-	void Start ( )
-		{
-		}
 	
 	void Update ( )
 	{

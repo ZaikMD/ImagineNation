@@ -56,8 +56,7 @@ public class PlayerInput : MonoBehaviour
 
 	public Vector2 getMovementInput()
 	{
-		Vector2 m_PlayerMovement = new Vector2(Input.GetAxis (LEFT_STICK_H), Input.GetAxis (LEFT_STICK_V));
-		return m_PlayerMovement;
+		return new Vector2(Input.GetAxis (LEFT_STICK_H), Input.GetAxis (LEFT_STICK_V));
 	}
 
 	public bool getJumpInput()
