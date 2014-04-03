@@ -1,82 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-<<<<<<< .mine
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\FearScript.cs">
-=======
-<<<<<<< .mine
-=======
->>>>>>> .r149
-<<<<<<< .mine
->>>>>>> .r152
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Players\PlayerState.cs">
->>>>>>> .r150
-=======
-<<<<<<< .mine
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\AI\PlayerPathfinding.cs">
->>>>>>> .r149
->>>>>>> .r154
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Players\DerekPlayerState.cs">
     <Files>
-<<<<<<< .mine
-      <File FileName="Assets\Scripts\Prototype\Items\StickyHand.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\FearScript.cs" Line="87" Column="14" />
-      <File FileName="Assets\Scripts\Prototype\GameManager.cs" Line="27" Column="1" />
-=======
-<<<<<<< .mine
-      <File FileName="Assets\Scripts\Prototype\AI\PlayerPathfinding.cs" Line="10" Column="9" />
-      <File FileName="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" Line="23" Column="26" />
-      <File FileName="Assets\Scripts\Prototype\AI\Enemies\BaseEnemy.cs" Line="173" Column="22" />
-=======
-<<<<<<< .mine
-      <File FileName="Assets\Scripts\Prototype\Interactables\SeeSaw.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Interactables\DivingBoard.cs" Line="1" Column="1" />
-=======
-<<<<<<< .mine
-      <File FileName="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\MenuScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\FearScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\PlayerMovement.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\GameManager.cs" Line="1" Column="1" />
-=======
-<<<<<<< .mine
-      <File FileName="Assets\Scripts\Prototype\AI\PlayerPathfinding.cs" Line="72" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" Line="65" Column="34" />
-      <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="459" Column="2" />
-      <File FileName="Assets\Scripts\Prototype\Items\BasePrimaryItem.cs" Line="41" Column="2" />
-      <File FileName="Assets\Scripts\Prototype\Items\NerfGun.cs" Line="70" Column="52" />
-      <File FileName="Assets\Scripts\Prototype\Items\NerfGunProjectile.cs" Line="21" Column="31" />
-      <File FileName="Assets\Scripts\Prototype\PlayerMovement.cs" Line="120" Column="1" />
-=======
-      <File FileName="Assets\Scripts\Prototype\Interactables\SeeSaw.cs" Line="164" Column="2" />
-      <File FileName="Assets\Scripts\Prototype\Interactables\DivingBoard.cs" Line="16" Column="42" />
->>>>>>> .r150
-      <File FileName="Assets\Scripts\Prototype\Players\ZoeyPlayerState.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="203" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Players\DerekPlayerState.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Players\AlexPlayerState.cs" Line="24" Column="21" />
-      <File FileName="Assets\Scripts\Prototype\Interactables\Lever.cs" Line="28" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\MovingPlatforms.cs" Line="34" Column="26" />
-      <File FileName="Assets\Scripts\Prototype\GameManager.cs" Line="22" Column="19" />
-      <File FileName="Assets\Scripts\Prototype\Observer\Subject.cs" Line="29" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Items\RCCar.cs" Line="26" Column="15" />
-      <File FileName="Assets\Scripts\Prototype\Items\NerfGun.cs" Line="64" Column="63" />
-      <File FileName="Assets\Scripts\Prototype\PlayerMovement.cs" Line="113" Column="3" />
-      <File FileName="Assets\Scripts\Prototype\Items\NerfGunProjectile.cs" Line="149" Column="2" />
-      <File FileName="Assets\Scripts\Prototype\Interactables\TriggerManager.cs" Line="24" Column="4" />
-      <File FileName="Assets\Scripts\Prototype\TestingScripts\WhitlawTargetTest.cs" Line="27" Column="43" />
-      <File FileName="Assets\Scripts\Prototype\Interactables\InteractableBaseClass.cs" Line="11" Column="6" />
-      <File FileName="Assets\Scripts\Prototype\Observer\Events.cs" Line="7" Column="6" />
-      <File FileName="Assets\Scripts\Prototype\Interactables\Targets.cs" Line="39" Column="6" />
->>>>>>> .r146
->>>>>>> .r152
->>>>>>> .r149
->>>>>>> .r154
+      <File FileName="Assets\Scripts\Prototype\Players\DerekPlayerState.cs" Line="40" Column="30" />
+      <File FileName="Assets\Scripts\Prototype\Items\VelcroGloves.cs" Line="147" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="C:\Users\mati0029\Desktop\svn\trunk\Assets\Scripts\Prototype\FearScript.cs" line="77" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

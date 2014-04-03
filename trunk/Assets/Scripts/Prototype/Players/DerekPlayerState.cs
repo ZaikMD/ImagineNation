@@ -1,12 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DerekPlayerState : PlayerState {
+public class DerekPlayerState : PlayerState 
+{
+	BoxingGloves m_BoxingGloves;
+	VelcroGloves m_VelcroGloves;
 
 	// Use this for initialization
 	void Start () 
     {
-	
+		m_BoxingGloves = gameObject.GetComponent<BoxingGloves> ();
+		m_VelcroGloves = gameObject.GetComponent<VelcroGloves> ();
 	}
 	
 	// Update is called once per frame
@@ -18,22 +22,22 @@ public class DerekPlayerState : PlayerState {
 
 	protected override void attack()
     {
-	    //Call Dereks attack.
+		m_BoxingGloves.fire ();
     }
 
 	protected override void aimAttack() // derek does not have aim attack;
     {
-        //do nothing?
+		m_BoxingGloves.aimFire ();
     }
     
 	protected override void  useSecondItem()
     {
-	    //Insert call to gregs velcro hands code;
+	    //TODO: use second item
     }
 
 	protected override bool ableToEnterSecondItem()
     {
-        throw new System.NotImplementedException();
+		return m_VelcroGloves.ableToBeUsed ();
     }
 
 	protected override bool getUseSecondItemInput()
