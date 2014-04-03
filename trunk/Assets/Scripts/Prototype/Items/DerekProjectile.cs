@@ -8,6 +8,8 @@ public class DerekProjectile : MonoBehaviour
 	public float m_ProjectileRange = 2.0f;
 	Vector3 m_InitialPosition;
 
+
+	Vector3 m_Direction;
 	// Use this for initialization
 	void Start () 
 	{
@@ -17,7 +19,7 @@ public class DerekProjectile : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		transform.position += transform.forward * m_Speed * Time.deltaTime;
+		transform.position += m_Direction * m_Speed * Time.deltaTime;
 		float distance = Vector3.Distance (m_InitialPosition, transform.position);
 		if(distance > m_ProjectileRange)
 		{
@@ -51,6 +53,11 @@ public class DerekProjectile : MonoBehaviour
 		return m_ProjectileRange;
 	}
 
+
+	public void setForwardDirection(Vector3 direction)
+	{
+		m_Direction = direction;
+	}
 //	IEnumerator DestroyDebris()
 //	{
 //		yield return new WaitForSeconds (2.0f);
