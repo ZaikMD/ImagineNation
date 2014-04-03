@@ -8,7 +8,33 @@ public class FearScript : MonoBehaviour {
     GameObject[] m_Players;
     GameObject[] m_NerfDarts;
     GameObject[] m_Enemys;
-    	
+    
+	public static FearScript Instance{ get; private set; }
+	
+
+	
+	
+	void Awake()
+	{
+		//if theres another instance (there shouldnt be) destroy this... there can be only one
+		if(Instance != null && Instance != this)
+		{
+			//destroy all other instances
+			Destroy(gameObject);
+		}
+		
+		//set the instance
+		Instance = this;
+		
+		//prevents this object being destroyed between scene loads
+		DontDestroyOnLoad(gameObject);
+	}
+
+
+
+
+
+
 	void Start ()
     {
 
@@ -24,10 +50,7 @@ public class FearScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update ()
-    {
-	
-	}
+
 
     public void setIgnoreFears(GameObject other)
     {
@@ -60,17 +83,17 @@ public class FearScript : MonoBehaviour {
         foreach (GameObject player in m_Players)
         {
             //Does a check to make sure only effects currect characters. 
-            if (this.gameObject.name == "Derek")
+            if (player.gameObject.name == "Derek")
             {
                 setIgnoreDarkness(player.gameObject);
             }
 
-            if (this.gameObject.name == "Zoey")
+            if (player.gameObject.name == "Zoey")
             {
                 setIgnoreClaustrophobia(player.gameObject);
             }
 
-            if (this.gameObject.name == "Alex")
+            if (player.gameObject.name == "Alex")
             {
                 setIgnoreFears(player.gameObject);
             }
