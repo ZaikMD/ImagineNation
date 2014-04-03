@@ -25,15 +25,13 @@ public class BoxingGloves : BasePrimaryItem
 	
 	void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.F))
-		{
-			fire ();
-		}
 	}
 	
 	public override void fire()
 	{
-		Instantiate (m_BaseProjectile, this.transform.position, this.transform.rotation);
+		 GameObject projectile = (GameObject)Instantiate (m_BaseProjectile, this.transform.position, this.transform.rotation);
+
+		projectile.gameObject.GetComponent<DerekProjectile> ().setForwardDirection(getTargetDirection());
 		//getTargetDirection();	//Use for getting firing direction
 	}
 
