@@ -51,6 +51,7 @@ public class PlayerAIStateMachine : MonoBehaviour
 		
 	//An m_Player GameObject for pathfinding purposes 
 	GameObject m_Player; 
+	PlayerPathfinding m_PathFinding;
 	
 	//A list of GameObject enemies to determine which enemies the AI is interacting with in combat 
 	List<GameObject> enemies;
@@ -69,6 +70,7 @@ public class PlayerAIStateMachine : MonoBehaviour
 	void Start () 
 	{
 		m_playerStateMachine = this.gameObject.GetComponent<PlayerState>();
+		m_PathFinding = this.gameObject.GetComponent<PlayerPathfinding>();
 	}
 
 	/// <summary>
