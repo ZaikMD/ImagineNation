@@ -52,29 +52,33 @@ public class FearScript : MonoBehaviour {
 	// Update is called once per frame
 
 
-    public void setIgnoreFears(GameObject other)
+    public void setIgnoreFears(Collider other)
     {
         setIgnoreDarkness(other);
         setIgnoreClaustrophobia(other);        
     }
 
-    public void setIgnoreDarkness(GameObject other)
+    public void setIgnoreDarkness(Collider other)
     {
+        
         //Loops through and set to ignore collision.
         foreach (GameObject dark in m_DarkFear)
         {
             //tells the colliders to ignore each other
-            Physics.IgnoreCollision(other.collider, dark.collider);
+            Physics.IgnoreCollision(other, dark.collider);
+           // Physics.IgnoreCollision(dark.collider, other.collider, true);
         }
     
     }
 
-    public void setIgnoreClaustrophobia(GameObject other)
+    public void setIgnoreClaustrophobia(Collider other)
     {
         foreach (GameObject claus in m_ClaustrophobiaFear)
         {
+            Debug.Log("ignoring alex");
             //tells the colliders to ignore each other
-            Physics.IgnoreCollision(other.collider, claus.collider);
+            Physics.IgnoreCollision(other, claus.collider);
+            //Physics.IgnoreCollision( claus.collider, other.collider);
         }    
     }
 
@@ -85,17 +89,31 @@ public class FearScript : MonoBehaviour {
             //Does a check to make sure only effects currect characters. 
             if (player.gameObject.name == "Derek")
             {
-                setIgnoreDarkness(player.gameObject);
+                Collider[] collider = player.GetComponents<Collider>();
+                foreach (Collider col in collider)
+                {
+                    setIgnoreDarkness(col);
+                }
             }
 
             if (player.gameObject.name == "Zoey")
             {
-                setIgnoreClaustrophobia(player.gameObject);
+                Collider[] collider = player.GetComponents<Collider>();
+                foreach (Collider col in collider)
+                {
+                    setIgnoreClaustrophobia(col);
+                }
+                
             }
 
             if (player.gameObject.name == "Alex")
             {
-                setIgnoreFears(player.gameObject);
+                Collider[] collider = player.GetComponents<Collider>();
+                foreach (Collider col in collider)
+                {
+                    setIgnoreFears(col);
+                }
+                
             }
         
         }
@@ -105,7 +123,12 @@ public class FearScript : MonoBehaviour {
     {
         foreach (GameObject nerf in m_NerfDarts)
         {
-            setIgnoreFears(nerf.gameObject);       
+            Collider[] collider = nerf.GetComponents<Collider>();
+            foreach (Collider col in collider)
+            {
+                setIgnoreFears(col);  
+            }
+                 
         }   
     }
 
@@ -113,7 +136,12 @@ public class FearScript : MonoBehaviour {
     {
         foreach (GameObject enemy in m_Enemys)
         {
-            setIgnoreFears(enemy.gameObject);
+            Collider[] collider = enemy.GetComponents<Collider>();
+            foreach (Collider col in collider)
+            {
+                setIgnoreFears(col);
+            }
+            
         }   
     }
 
