@@ -84,6 +84,7 @@ public class SeeSaw : InteractableBaseClass, Observer
 						m_JumpingPlayer.transform.parent = null;
 						m_JumpingPlayer.gameObject.GetComponent<PlayerState>().exitInteracting();
 						m_IsLerping = false;
+						Debug.Log("PLayerLaunched");
 					}
 				}
 			}
@@ -105,28 +106,27 @@ public class SeeSaw : InteractableBaseClass, Observer
 				reset();
 			}
 
-			//if(m_SittingPlayer.gameObject.GetComponent<PlayerState>().
 		}
 	}
 
 	//Sit
 	public void makeChild(GameObject obj)  //Called by player
 	{
-		if(obj == null)
-		{
-			m_SittingPlayer = null;
-		}
-
-		else
+		if(obj != null)
 		{
 			//Set m_SittingPlayer to obj 
 			m_SittingPlayer = obj.gameObject; 
-
+			
 			//Make obj the child of the SeeSaw
 			m_SittingPlayer.transform.parent = this.transform;
-
+			
 			//Set the obj's position to m_SitPoint's position
 			m_SittingPlayer.transform.position = m_SitPointPos;
+		} 
+
+		if(obj == null)
+		{
+			m_SittingPlayer = null;
 		}
 
 
@@ -145,7 +145,7 @@ public class SeeSaw : InteractableBaseClass, Observer
 
 				m_SittingPlayer.transform.parent = null;
 				m_SittingPlayer = null;
-				m_HasLaunchedPlayer = true;
+				m_HasLaunchedPlayer = true; 
 				//Terminate Parent-child relation between m_SittingPlayer and the SeeSaw
 			}
 
@@ -165,14 +165,14 @@ public class SeeSaw : InteractableBaseClass, Observer
 	}
 
 	//This gets called by the sitting player to exit
-	void exitSeeSaw(GameObject obj)
+	/*void exitSeeSaw(GameObject obj)
 	{
 		//Terminate parent-child relation between m_SittingPlayer and SeeSaw
 		m_SittingPlayer.transform.parent = null;
 
 		//Clear m_SittingPlayer
 		m_SittingPlayer = null;
-	}
+	} */
 
 	//This should be called after the player is launched, resetting the SeeSaw back to it's original Position
 	void reset()
