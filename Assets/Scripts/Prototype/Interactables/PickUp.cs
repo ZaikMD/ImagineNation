@@ -10,7 +10,9 @@ public class PickUp : InteractableBaseClass, Observer
 {
 	public float m_BounceMultiplier = 3.0f;
 	public bool m_HasPickup = false;
-	public SeeSaw m_SeeSaw;
+	public DropZone m_DropZone;
+
+	public bool m_IsAdded = false;
 
 	Vector3 m_StartPosition;
 
@@ -24,6 +26,8 @@ public class PickUp : InteractableBaseClass, Observer
 
 
 		m_StartPosition = transform.position;
+
+		m_DropZone.addObserver (this);
 	}
 	
 	// Update is called once per frame
@@ -42,17 +46,25 @@ public class PickUp : InteractableBaseClass, Observer
 	//checks if the item being carried has hit the drop zone
 	void OnTriggerEnter(Collider other)
 	{
-		if(other.tag == "Player")
+		if(!m_IsAdded)
 		{
-			other.gameObject.GetComponent<PlayerState>().interactionInRange(this);
+			if(other.tag == "Player")
+			{
+				m_IsAdded = true;
+				other.gameObject.GetComponent<PlayerState>().interactionInRange(this);
+			}
 		}
 	}
 
 	void OnTriggerExit(Collider obj)
 	{
-		if(obj.tag == "Player")
+		if(m_IsAdded)
 		{
-			obj.gameObject.GetComponent<PlayerState>().interactionOutOfRange(this);
+			if(obj.tag == "Player")
+			{
+				m_IsAdded = false;
+				obj.gameObject.GetComponent<PlayerState>().interactionOutOfRange(this);
+			}
 		}
 	}
 
@@ -60,12 +72,10 @@ public class PickUp : InteractableBaseClass, Observer
 	//when it is being called the item will be checked to be dropped
 	public void DropItem()
 	{
-		//TODO Change the key to be pressed
-
 		this.transform.parent = null;
 		Rigidbody rigid = gameObject.AddComponent<Rigidbody> ();
 		rigidbody.useGravity = true;
-
+		m_PlayerHolding.gameObject.GetComponent<PlayerState>().interactionOutOfRange(this);
 		m_PlayerHolding = null;
 	}
 
@@ -77,21 +87,19 @@ public class PickUp : InteractableBaseClass, Observer
 			this.transform.parent = other.transform.Find ("PickUpPoint");
 			m_HasPickup = true;
 			this.transform.localPosition = Vector3.zero;
-			//this.transform.localRotation = Quaternion.Euler( new Vector3(90,0,0));
 			this.transform.localRotation = Quaternion.identity;
 			rigidbody.useGravity = false;
 
 			m_PlayerHolding = other;
-			//this.transform.parent = other.transform.Find ("ItemPickPoint");
 			Destroy( gameObject.GetComponent<Rigidbody>());
 		}
 	}
 
 	public void recieveEvent(Subject sender, ObeserverEvents recievedEvent)
 	{
-		if(sender.tag == "Drop Zone" && recievedEvent == ObeserverEvents.PickUpIsAtDropZone)
+		if(sender.tag == "DropZone" && recievedEvent == ObeserverEvents.PickUpIsAtDropZone)
 		{
-			m_PlayerHolding.GetComponent<PlayerState>().exitInteracting();
+			Destroy(this.gameObject);
 		}
 	}
 }

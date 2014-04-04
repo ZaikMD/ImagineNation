@@ -3,7 +3,8 @@ using System.Collections;
 
 public class SeeSaw : InteractableBaseClass, Observer
 {
-
+	//Subject
+	public Subject m_PickUpSubject;
 
 	//Players
 	GameObject m_SittingPlayer;
@@ -19,7 +20,9 @@ public class SeeSaw : InteractableBaseClass, Observer
 	public GameObject m_TopPiece;
 	public GameObject m_BottomPiece;
 
-	//States
+	//Bools
+	public bool m_NeedsTopPiece = false;   //DESIGNERS: SET THESE PLEASE
+	public bool m_NeedsBottomPiece = false;
 	public bool m_HasTopPiece = true;
 	public bool m_HasBottomPiece = true;
 	bool m_IsLerping;
@@ -59,6 +62,20 @@ public class SeeSaw : InteractableBaseClass, Observer
 
 		GameManager.Instance.addObserver (this);
 
+		if(m_NeedsTopPiece == true)
+		{
+			m_TopPiece.gameObject.SetActive(false);
+			m_JumpPoint.gameObject.SetActive(false);
+		}
+
+		if(m_NeedsBottomPiece == true)
+		{
+			m_BottomPiece.gameObject.SetActive(false);
+			m_SitPoint.gameObject.SetActive(false);
+		}
+
+		m_PickUpSubject.addObserver (this);
+
 	}
 
 	//Launch
@@ -66,7 +83,7 @@ public class SeeSaw : InteractableBaseClass, Observer
 	{
 		if(m_IsEnabled)
 		{
-			if(m_HasBottomPiece && m_HasTopPiece)
+			if(m_HasTopPiece && m_HasBottomPiece)
 			{
 				if(m_IsLerping)
 				{
@@ -198,21 +215,9 @@ public class SeeSaw : InteractableBaseClass, Observer
 		m_PlayerHasJumped = false;
 	}
 
-	public void placePieces(GameObject pickup)
+	public void placePieces(PickUp pickUp)
 	{
-		if(pickup.gameObject.name == m_TopPiece.name)
-		{
-			m_TopPiece.transform.position = m_JumpPoint.transform.position;
-			m_TopPiece.transform.parent = m_JumpPoint.transform;
-			m_HasTopPiece = true;
-		}
 
-		if(pickup.gameObject.name == m_BottomPiece.name)
-		{
-			m_BottomPiece.transform.position = m_SitPoint.transform.position;
-			m_BottomPiece.transform.parent = m_SitPoint.transform;
-			m_HasBottomPiece = true;
-		}
 	}
 
 
@@ -237,6 +242,19 @@ public class SeeSaw : InteractableBaseClass, Observer
 		if(recievedEvent == ObeserverEvents.PauseGame ||recievedEvent == ObeserverEvents.StartGame)
 		{
 			m_IsEnabled = !m_IsEnabled;
+		}
+		if(recievedEvent == ObeserverEvents.PickUpIsAtDropZone)
+		{
+			if(m_NeedsTopPiece)
+			{
+				m_TopPiece.gameObject.SetActive(true);
+				m_SitPoint.gameObject.SetActive(true);
+			}
+			if(m_NeedsBottomPiece)
+			{
+				m_BottomPiece.gameObject.SetActive(true);
+				m_SitPoint.gameObject.SetActive(true);
+			}
 		}
 	}
 }
