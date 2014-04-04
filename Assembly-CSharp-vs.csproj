@@ -71,7 +71,6 @@
      <Compile Include="Assets\Scripts\Prototype\Interactables\EnvironmentInteraction.cs" />
      <Compile Include="Assets\Scripts\Prototype\Interactables\InteractableBaseClass.cs" />
      <Compile Include="Assets\Scripts\Prototype\Interactables\Lever.cs" />
-     <Compile Include="Assets\Scripts\Prototype\Interactables\LightDestroyDarkness.cs" />
      <Compile Include="Assets\Scripts\Prototype\Interactables\MoveableBlock.cs" />
      <Compile Include="Assets\Scripts\Prototype\Interactables\PickUp.cs" />
      <Compile Include="Assets\Scripts\Prototype\Interactables\RemoveDebris.cs" />
