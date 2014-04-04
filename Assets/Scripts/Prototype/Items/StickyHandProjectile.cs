@@ -87,8 +87,6 @@ public class StickyHandProjectile : MonoBehaviour {
 			//The player can now move again
 			if (m_State == States.Launching)
 			{
-				(collider as CapsuleCollider).radius = 6.0f;
-
 				Invoke("enableMovementAfterTimer", 0.10f);
 			}
 
@@ -102,6 +100,7 @@ public class StickyHandProjectile : MonoBehaviour {
 
 			//Fix projectile not hitting player
 			rigidbody.velocity = Vector3.zero;
+			(collider as CapsuleCollider).radius = 3.0f;
 
 			//You cannot move while launching
 			m_Movement.setCanMove(false);
