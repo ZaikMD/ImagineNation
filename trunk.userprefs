@@ -1,14 +1,135 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+<<<<<<< .mine
+<<<<<<< .mine
+=======
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Interactables\Trampoline.cs">
+=======
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+<<<<<<< .mine
+=======
+>>>>>>> .r181
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\MovingPlatforms.cs">
+<<<<<<< .mine
+=======
+<<<<<<< .mine
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Interactables\MoveableBlock.cs">
+=======
+<<<<<<< .mine
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Interactables\PickUp.cs">
+=======
+=======
+=======
+<<<<<<< .mine
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+>>>>>>> .r180
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Items\RCCar\RCCar.cs">
+<<<<<<< .mine
+=======
+=======
+>>>>>>> .r173
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+<<<<<<< .mine
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\AI\Enemies\EnemyPathfinding.cs">
+=======
+>>>>>>> .r172
+<<<<<<< .mine
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Interactables\SeeSawDropZone.cs">
+=======
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Interactables\LightDestroyDarkness.cs">
+>>>>>>> .r178
+>>>>>>> .r172
+>>>>>>> .r176
+>>>>>>> .r174
+>>>>>>> .r180
+>>>>>>> .r178
+>>>>>>> .r176
+=======
+>>>>>>> .r181
     <Files>
+<<<<<<< .mine
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\Items\RCCar\RCCarMovement.cs" Line="15" Column="2" />
+      <File FileName="Assets\Scripts\Prototype\Items\RCCar\RCCar.cs" Line="87" Column="5" />
+      <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="160" Column="19" />
+      <File FileName="Assets\Scripts\Prototype\Interactables\Lever.cs" Line="40" Column="24" />
+      <File FileName="Assets\Scripts\Prototype\Interactables\CrawlSpaces.cs" Line="94" Column="10" />
+      <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="140" Column="1" />
+=======
+<<<<<<< .mine
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\Interactables\TriggerManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\MovingPlatforms.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Observer\Events.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Interactables\Trampoline.cs" Line="1" Column="1" />
+=======
+=======
+      <File FileName="Assets\Scripts\Prototype\MovingPlatforms.cs" Line="30" Column="2" />
+=======
+>>>>>>> .r179
+<<<<<<< .mine
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\AI\Enemies\BaseEnemy.cs" Line="101" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\AI\PlayerPathfinding.cs" Line="22" Column="61" />
+      <File FileName="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" Line="18" Column="9" />
+      <File FileName="Assets\Scripts\Prototype\AI\Enemies\EnemyPathfinding.cs" Line="129" Column="2" />
+=======
+<<<<<<< .mine
+=======
+      <File FileName="Assets\Scripts\Prototype\Items\RCCar\RCCar.cs" Line="123" Column="10" />
+      <File FileName="Assets\Scripts\Prototype\Interactables\Lever.cs" Line="41" Column="4" />
+      <File FileName="Assets\Scripts\Prototype\Items\RCCar\RCCarMovement.cs" Line="23" Column="45" />
+      <File FileName="Assets\Scripts\Prototype\Interactables\MoveableBlock.cs" Line="18" Column="27" />
+=======
+<<<<<<< .mine
+>>>>>>> .r177
+      <File FileName="Assets\Scripts\Prototype\Interactables\PickUp.cs" Line="69" Column="26" />
+      <File FileName="Assets\Scripts\Prototype\Interactables\SeeSaw.cs" Line="219" Column="2" />
+      <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="453" Column="4" />
+      <File FileName="Assets\Scripts\Prototype\Observer\Observer.cs" Line="7" Column="2" />
+      <File FileName="Assets\Scripts\Prototype\Observer\Events.cs" Line="8" Column="20" />
+=======
+<<<<<<< .mine
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\Interactables\SeeSawDropZone.cs" Line="1" Column="1" />
+=======
+=======
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\Items\RCCar\RCCar.cs" Line="156" Column="36" />
+      <File FileName="Assets\Scripts\Prototype\Interactables\Lever.cs" Line="26" Column="24" />
+      <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="390" Column="26" />
+      <File FileName="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" Line="456" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="357" Column="19" />
+      <File FileName="Assets\Scripts\Prototype\Items\RCCar\RCCarMovement.cs" Line="1" Column="1" />
+=======
+>>>>>>> .r173
+      <File FileName="Assets\Scripts\Prototype\Interactables\TriggerManager.cs" Line="47" Column="7" />
+      <File FileName="Assets\Scripts\Prototype\Interactables\LightDestroyDarkness.cs" Line="20" Column="4" />
+      <File FileName="Assets\Scripts\Prototype\MovingPlatforms.cs" Line="164" Column="6" />
+      <File FileName="Assets\Scripts\Prototype\Observer\Events.cs" Line="7" Column="2" />
+>>>>>>> .r178
+>>>>>>> .r172
+>>>>>>> .r176
+>>>>>>> .r174
+>>>>>>> .r180
+>>>>>>> .r178
+>>>>>>> .r176
+=======
       <File FileName="Assets\Scripts\Prototype\MovingPlatforms.cs" Line="117" Column="25" />
+>>>>>>> .r181
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
+<<<<<<< .mine
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\mati0029\Desktop\SVN\trunk\Assets\Scripts\Prototype\Interactables\CrawlSpaces.cs" line="124" />
+      <Breakpoint file="C:\Users\mati0029\Desktop\SVN\trunk\Assets\Scripts\Prototype\Interactables\CrawlSpaces.cs" line="121" />
+    </BreakpointStore>
+=======
     <BreakpointStore>
       <Breakpoint file="C:\Users\whit0717\Desktop\Demo Level One\trunk\Assets\Scripts\Prototype\MovingPlatforms.cs" line="79" />
     </BreakpointStore>
+>>>>>>> .r181
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
