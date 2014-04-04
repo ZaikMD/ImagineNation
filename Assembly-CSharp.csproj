@@ -47,10 +47,12 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Prototype\AI\Enemies\BaseEnemy.cs" />
+     <Compile Include="Assets\Scripts\Prototype\AI\Enemies\EnemyPathfinding.cs" />
      <Compile Include="Assets\Scripts\Prototype\AI\Enemies\EnemySpawn.cs" />
      <Compile Include="Assets\Scripts\Prototype\AI\Enemies\EnemySpawnManager.cs" />
      <Compile Include="Assets\Scripts\Prototype\AI\Enemies\Furbulls.cs" />
      <Compile Include="Assets\Scripts\Prototype\AI\Enemies\FurbullsProjectile.cs" />
+     <Compile Include="Assets\Scripts\Prototype\AI\Enemies\PatrolNode.cs" />
      <Compile Include="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" />
      <Compile Include="Assets\Scripts\Prototype\AI\PlayerPathfinding.cs" />
      <Compile Include="Assets\Scripts\Prototype\Atrributes\AlexAttributes.cs" />
