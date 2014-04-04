@@ -4,12 +4,12 @@ using System.Collections;
 public class SeeSaw : InteractableBaseClass, Observer
 {
 	//Subject
-	public Subject m_PickUpSubject;
+	public Subject m_DropZone;
 
 	//Players
 	GameObject m_SittingPlayer;
 	GameObject m_JumpingPlayer;
-	GameObject m_Block;
+	public GameObject m_Block;
 
 	//Seesaw points
 	public GameObject m_JumpPoint;
@@ -73,9 +73,10 @@ public class SeeSaw : InteractableBaseClass, Observer
 			m_BottomPiece.gameObject.SetActive(false);
 			m_SitPoint.gameObject.SetActive(false);
 		}
-
-		m_PickUpSubject.addObserver (this);
-
+		if(m_DropZone != null)
+		{
+			m_DropZone.addObserver (this);
+		}
 	}
 
 	//Launch
@@ -92,20 +93,20 @@ public class SeeSaw : InteractableBaseClass, Observer
 
 							
 					m_IsPlatformLerping = true;
-							
-					if(m_JumpPoint.transform.position.y <= m_JumpEndPoint.transform.position.y + 0.5f)
+					if(m_JumpingPlayer != null)
 					{
-						m_JumpingPlayer.transform.parent = null;
-						if(m_JumpingPlayer.name != m_Block.name)
+						if(m_JumpPoint.transform.position.y <= m_JumpEndPoint.transform.position.y + 0.5f)
 						{
-							m_JumpingPlayer.gameObject.GetComponent<PlayerState>().exitInteracting();
+							m_JumpingPlayer.transform.parent = null;
+							if(m_Block != null && m_JumpingPlayer.name != m_Block.name)
+							{
+								m_JumpingPlayer.gameObject.GetComponent<PlayerState>().exitInteracting();
+							}
+							m_IsLerping = false;
+							Debug.Log("PlayerLaunched");
 						}
-						m_IsLerping = false;
-						Debug.Log("PlayerLaunched");
-
-					}
 				
-
+					}
 					if(m_IsPlatformLerping == true)
 					{
 						m_SitPoint.transform.position = Vector3.Lerp(m_SitPoint.transform.position, m_SitPointEndPos, LERP_TIME);
