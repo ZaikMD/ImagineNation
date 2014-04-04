@@ -73,7 +73,7 @@ public class CameraController : MonoBehaviour
 
 	//Zoom
 	float m_Zoom = 0.75f;
-	float m_CloseLimit = 0.50f;
+	float m_CloseLimit = 0.40f;
 	const float DEFAULT_ZOOM = 0.65f;
 	const float BACK_ZOOM = 0.8f;
 	float m_Zoom_Return = DEFAULT_ZOOM;

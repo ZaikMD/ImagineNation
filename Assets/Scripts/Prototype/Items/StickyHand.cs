@@ -36,16 +36,6 @@ public class StickyHand : BasePrimaryItem {
 		m_Projectile.SetActive (false);
 	}
 
-	//Can be removed once observer pattern is attached
-	void Update() 
-	{
-		if (PlayerInput.Instance.getUseItem())    //Fire
-		{
-			//Must changed to the vector given by camera, and remove update when obsever pattern is hooked up
-			fire (); //Normalized direction
-		}
-	}
-
 	/// <summary>
 	/// Fires the sticky hand at the specific target
 	/// </summary>
