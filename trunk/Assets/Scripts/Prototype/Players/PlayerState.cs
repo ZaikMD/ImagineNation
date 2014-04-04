@@ -137,13 +137,20 @@ public abstract class PlayerState : MonoBehaviour, Observer
 				break;
 			}
 				
-		case InteractableType.MovingBlock:
-		{
-			MoveableBlock moveableBlock = (MoveableBlock)m_CurrentInteraction;
-			moveableBlock.onExit();
-			break;
-		}
+			case InteractableType.MovingBlock:
+			{
+				MoveableBlock moveableBlock = (MoveableBlock)m_CurrentInteraction;
+				moveableBlock.onExit();
+				break;
+			}
 				
+			case InteractableType.PickUp:
+			{
+				PickUp pickUp = (PickUp)m_CurrentInteraction;
+				pickUp.DropItem();
+				break;
+			}
+
 			default:
 			{
 				break;
@@ -249,12 +256,19 @@ public abstract class PlayerState : MonoBehaviour, Observer
 				break;
 			}
 
-		case InteractableType.MovingBlock:
-		{
-			MoveableBlock moveableBlock = (MoveableBlock)m_CurrentInteraction;
-			moveableBlock.onUse(this.gameObject);
-			break;
-		}
+			case InteractableType.MovingBlock:
+			{
+				MoveableBlock moveableBlock = (MoveableBlock)m_CurrentInteraction;
+				moveableBlock.onUse(this.gameObject);
+				break;
+			}
+
+			case InteractableType.PickUp:
+			{
+				PickUp pickUp = (PickUp)m_CurrentInteraction;
+				pickUp.PickUpItem(this.gameObject);
+				break;
+			}
 		}
 	}
 
@@ -405,37 +419,39 @@ public abstract class PlayerState : MonoBehaviour, Observer
 			m_PlayerState = PlayerStates.Default;
 			return;
 		}
-
-		if(PlayerInput.Instance.getEnviromentInteraction())
+		if(!m_UsingSecondItem)
 		{
-			Debug.Log("check for interactions");
-			if(m_InteractionsInRange.Count!= 0)
+			if(PlayerInput.Instance.getEnviromentInteraction())
 			{
-				if (m_InteractionsInRange.Count > 1)
+				Debug.Log("check for interactions");
+				if(m_InteractionsInRange.Count!= 0)
 				{
-					float best = Vector3.Distance(this.gameObject.transform.position, m_InteractionsInRange[0].gameObject.transform.position);
-					m_CurrentInteraction = m_InteractionsInRange[0];
-					for( int i = 1; i <  m_InteractionsInRange.Count; i++)
+					if (m_InteractionsInRange.Count > 1)
 					{
-						float Next = Vector3.Distance(this.gameObject.transform.position, m_InteractionsInRange[i].gameObject.transform.position);
-						if(Next < best)
+						float best = Vector3.Distance(this.gameObject.transform.position, m_InteractionsInRange[0].gameObject.transform.position);
+						m_CurrentInteraction = m_InteractionsInRange[0];
+						for( int i = 1; i <  m_InteractionsInRange.Count; i++)
 						{
-							best = Next;		
-							m_CurrentInteraction = m_InteractionsInRange[i];	
+							float Next = Vector3.Distance(this.gameObject.transform.position, m_InteractionsInRange[i].gameObject.transform.position);
+							if(Next < best)
+							{
+								best = Next;		
+								m_CurrentInteraction = m_InteractionsInRange[i];	
+							}
 						}
 					}
+					else
+					{   
+						m_CurrentInteraction = m_InteractionsInRange[0];
+					}
+					
+					m_Interacting = true;
+					m_PlayerState = PlayerStates.Default;
+					initialInteraction();
+					return;
 				}
-				else
-				{   
-					m_CurrentInteraction = m_InteractionsInRange[0];
-				}
-				
-				m_Interacting = true;
-				m_PlayerState = PlayerStates.Default;
-				initialInteraction();
-				return;
-			}
-		} 
+			} 
+		}
 
       //  Debug.Log("State is now idle");
        //m_HaveSecondItem = true;

@@ -4,6 +4,7 @@ public enum ObeserverEvents
 	CharacterSwitch,
 	StartGame,
 	PauseGame,
-	Used
+	Used,
+	PickUpIsAtDropZone
 }
 
