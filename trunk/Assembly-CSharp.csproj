@@ -68,6 +68,7 @@
      <Compile Include="Assets\Scripts\Prototype\Health.cs" />
      <Compile Include="Assets\Scripts\Prototype\Interactables\CrawlSpaces.cs" />
      <Compile Include="Assets\Scripts\Prototype\Interactables\DivingBoard.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Interactables\DropZone.cs" />
      <Compile Include="Assets\Scripts\Prototype\Interactables\EnvironmentInteraction.cs" />
      <Compile Include="Assets\Scripts\Prototype\Interactables\InteractableBaseClass.cs" />
      <Compile Include="Assets\Scripts\Prototype\Interactables\Lever.cs" />

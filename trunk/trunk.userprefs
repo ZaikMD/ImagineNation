@@ -1,6 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
 <<<<<<< .mine
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\MovingPlatforms.cs">
+=======
+<<<<<<< .mine
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Interactables\MoveableBlock.cs">
 =======
 <<<<<<< .mine
@@ -25,8 +28,12 @@
 >>>>>>> .r172
 >>>>>>> .r176
 >>>>>>> .r174
+>>>>>>> .r178
 >>>>>>> .r176
     <Files>
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\MovingPlatforms.cs" Line="30" Column="2" />
+=======
 <<<<<<< .mine
 <<<<<<< .mine
       <File FileName="Assets\Scripts\Prototype\AI\Enemies\BaseEnemy.cs" Line="101" Column="1" />
@@ -70,6 +77,7 @@
 >>>>>>> .r172
 >>>>>>> .r176
 >>>>>>> .r174
+>>>>>>> .r178
 >>>>>>> .r176
     </Files>
   </MonoDevelop.Ide.Workbench>
