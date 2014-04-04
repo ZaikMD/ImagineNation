@@ -87,7 +87,7 @@ public class StickyHandProjectile : MonoBehaviour {
 			//The player can now move again
 			if (m_State == States.Launching)
 			{
-				Invoke("enableMovementAfterTimer", 0.10f);
+				m_Movement.setCanMove(true);
 			}
 
 			m_ProjectileLine.SetActive(false);
@@ -98,9 +98,13 @@ public class StickyHandProjectile : MonoBehaviour {
 		{
 			m_State = States.Launching;
 
+			if(m_Zoey.GetComponent<PlayerState>().getIsAiming())
+			{
+				m_Zoey.GetComponent<PlayerState>().toggleAiming();
+			}
 			//Fix projectile not hitting player
 			rigidbody.velocity = Vector3.zero;
-			(collider as CapsuleCollider).radius = 3.0f;
+			(collider as CapsuleCollider).radius = 4.0f;
 
 			//You cannot move while launching
 			m_Movement.setCanMove(false);
@@ -111,11 +115,6 @@ public class StickyHandProjectile : MonoBehaviour {
 			m_State = States.Retracting;
 		}
 		//Hit while retracting does nothing
-	}
-
-	void enableMovementAfterTimer()
-	{
-		m_Movement.setCanMove(true);
 	}
 
 	//Retract

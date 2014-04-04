@@ -378,6 +378,22 @@ public abstract class PlayerState : MonoBehaviour, Observer
 
 	protected void IdleFunction()
 	{
+		if(m_IsAiming)
+		{
+			if(PlayerInput.Instance.getIsAiming())
+			{
+				toggleAiming();
+				return;
+			}
+
+			if(PlayerInput.Instance.getUseItem())
+			{
+				aimAttack();
+			}
+			
+			m_PlayerState = PlayerStates.Default;
+			return;
+		}
 
 		if(PlayerInput.Instance.getEnviromentInteraction())
 		{
@@ -453,25 +469,8 @@ public abstract class PlayerState : MonoBehaviour, Observer
 
 		if(PlayerInput.Instance.getIsAiming())
 		{
-			m_IsAiming = !m_IsAiming;
-
-			if (PlayerInput.Instance.getIsAiming())
-			{
-				m_CameraController.toggleAiming ( );
-			}
+			toggleAiming();
 		}
-
-
-	    if(m_IsAiming)
-	    {
-	    	if(PlayerInput.Instance.getUseItem())
-	    	{
-				aimAttack();
-			}
-	    
-	         m_PlayerState = PlayerStates.Default;
-	         return;
-	    }
 
 	    if(PlayerInput.Instance.getUseItem())
 	    {
@@ -483,6 +482,17 @@ public abstract class PlayerState : MonoBehaviour, Observer
 		m_PlayerState = PlayerStates.Default;
 	}
                                                                                                                                          
+
+	public void toggleAiming()
+	{
+		m_IsAiming = !m_IsAiming;
+		m_CameraController.toggleAiming ( );
+	}
+
+	public bool getIsAiming()
+	{
+		return m_IsAiming;
+	}
 
 	/// <summary>
 	/// this is a function to see what state we are in.

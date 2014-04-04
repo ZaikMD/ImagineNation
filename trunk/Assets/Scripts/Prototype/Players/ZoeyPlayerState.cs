@@ -4,11 +4,13 @@ using System.Collections;
 public class ZoeyPlayerState : PlayerState {
 
 	Cape m_Cape;
+	StickyHand m_StickyHand;
 
 	// Use this for initialization
 	void Start () 
 	{
 		m_Cape = gameObject.GetComponent<Cape> ();
+		m_StickyHand = gameObject.GetComponent<StickyHand> ();
 	}
 	
 	// Update is called once per frame
@@ -19,12 +21,12 @@ public class ZoeyPlayerState : PlayerState {
 
 	protected override void attack()
     {
-      //Call StickyHand component normal slap function.
+		m_StickyHand.fire ();
     }
     
 	protected override void aimAttack() 
     {
-	   //Call StickyHand component Aim throw function.
+		m_StickyHand.aimFire ();
     }
 
 	protected override void  useSecondItem()
