@@ -35,6 +35,8 @@ public class PickUp : InteractableBaseClass
 		
 			transform.Rotate (0, 1, Mathf.Sin (Time.time * m_BounceMultiplier) *0.2f + 1);
 		}
+
+		DropItem ();
 	}
 
 	//checks if the item being carried has hit the drop zone
