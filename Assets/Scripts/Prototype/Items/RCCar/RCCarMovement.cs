@@ -52,6 +52,23 @@ public class RCCarMovement : MonoBehaviour
 
 	}
 
+	public void MoveBlock()
+	{
+		if (m_CanMove)
+		{
+			
+			rigidbody.drag = rigidbody.velocity.magnitude / 250;
+			
+			EngineRPM = (FrontLeftWheel.rpm + FrontRightWheel.rpm) / 2 * GearRatio [CurrentGear - 1];
+			
+			ShiftGear ();
+			FrontLeftWheel.motorTorque = EngineTorque / GearRatio [CurrentGear - 1] * -PlayerInput.Instance.getMovementInput ().y;
+			FrontRightWheel.motorTorque = EngineTorque / GearRatio [CurrentGear - 1] * -PlayerInput.Instance.getMovementInput ().y;
+			
+			}
+		
+	}
+
 	void ShiftGear()
 	{
 		if (EngineRPM >= MaxEngineRPM)

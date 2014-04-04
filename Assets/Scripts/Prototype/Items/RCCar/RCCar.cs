@@ -103,7 +103,7 @@ public class RCCar : SecondairyBase
 
 	public override void Move ()
 	{
-		m_RCCar.GetComponent<RCCarMovement> ().RegularMove ();
+		m_RCCar.GetComponent<RCCarMovement> ().MoveBlock();
 		m_State = RCCarStates.Idle;
 	}
 
