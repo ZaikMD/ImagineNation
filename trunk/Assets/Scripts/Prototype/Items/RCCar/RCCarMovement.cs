@@ -10,7 +10,7 @@ public class RCCarMovement : MonoBehaviour
 	public int CurrentGear;
 	
 	public float EngineTorque = 800;
-	public float MaxEngineRPM = 1000;
+	public float MaxEngineRPM = 800;
 	public float MinEngineRPM = 500;
 	
 	public float EngineRPM;
@@ -18,7 +18,7 @@ public class RCCarMovement : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		rigidbody.centerOfMass = new Vector3 (rigidbody.centerOfMass.x, 0, rigidbody.centerOfMass.z);
+		rigidbody.centerOfMass = new Vector3 (0, 0, -0.05f);
 
 	}
 	
@@ -27,9 +27,10 @@ public class RCCarMovement : MonoBehaviour
 	{
 
 	}
+
 	public void RegularMove()
 	{
-			rigidbody.AddForce (new Vector3 (0, -20, 0));
+			rigidbody.AddForce (new Vector3 (0, -200, 0));
 			rigidbody.drag = rigidbody.velocity.magnitude / 250;
 	
 			EngineRPM = (FrontLeftWheel.rpm + FrontRightWheel.rpm) / 2 * GearRatio [CurrentGear - 1];
