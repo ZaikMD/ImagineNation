@@ -137,19 +137,15 @@ public abstract class PlayerState : MonoBehaviour, Observer
 				break;
 			}
 				
-			case InteractableType.DivingBoard:
-			{
-				break;
-			}
-				
-			case InteractableType.Lever:
-			{
-				break;
-			}
+		case InteractableType.MovingBlock:
+		{
+			MoveableBlock moveableBlock = (MoveableBlock)m_CurrentInteraction;
+			moveableBlock.onExit();
+			break;
+		}
 				
 			default:
 			{
-				Debug.Log("NO INTERACTION");
 				break;
 			}
 		}
@@ -189,6 +185,15 @@ public abstract class PlayerState : MonoBehaviour, Observer
 		//TODO: change to getType();
         switch(m_CurrentInteraction.getType())
         {
+			case InteractableType.MovingBlock:
+			{
+				MoveableBlock moveblock = (MoveableBlock)m_CurrentInteraction;
+				
+				gameObject.GetComponent<PlayerMovement>().BlockHeldMovement(moveblock.m_BlockSize);
+
+				break;
+			}
+
 			default:
 			{
 				break;
@@ -199,7 +204,8 @@ public abstract class PlayerState : MonoBehaviour, Observer
 
 	void initialInteraction()
 	{
-		switch (m_CurrentInteraction.getType ()) {
+		switch (m_CurrentInteraction.getType ()) 
+		{
 			case InteractableType.SeeSaw:
 			{				
 				SeeSaw seesaw = (SeeSaw)m_CurrentInteraction;
@@ -242,6 +248,13 @@ public abstract class PlayerState : MonoBehaviour, Observer
 				crawlSpace.OnUse(this.gameObject);
 				break;
 			}
+
+		case InteractableType.MovingBlock:
+		{
+			MoveableBlock moveableBlock = (MoveableBlock)m_CurrentInteraction;
+			moveableBlock.onUse(this.gameObject);
+			break;
+		}
 		}
 	}
 

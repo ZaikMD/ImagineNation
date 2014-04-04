@@ -12,7 +12,7 @@ Created by Zach
 */
 
 
-
+/*
 
 using UnityEngine;
 using System.Collections;
@@ -69,4 +69,4 @@ public class EnvironmentInteraction : MonoBehaviour
 			}
 		}
 	}
-}
+}*/
