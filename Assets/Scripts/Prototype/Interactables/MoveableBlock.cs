@@ -19,7 +19,6 @@ public class MoveableBlock : InteractableBaseClass
 {
 	//This get's set by designers
 	public Size m_BlockSize;
-	PlayerMovement m_Movement;
 	bool canInteract = true;
 
 	void Start()
@@ -39,30 +38,58 @@ public class MoveableBlock : InteractableBaseClass
 	/// </summary>
 	public void onUse(GameObject obj)
 	{
-		if(obj.tag == "Player")
+		if(obj.tag == "Player" || obj.tag == "RCCar")
 		{
-
-			m_Movement = (PlayerMovement)obj.GetComponent<PlayerMovement> ();
-			if (m_Movement)
+			if(obj.tag == "Player")
 			{
-				//Look at the block
-				Vector3 lookAt = transform.position;
-				lookAt.y = obj.transform.position.y;
-				obj.transform.LookAt(lookAt);
+				PlayerMovement movement = (PlayerMovement)obj.GetComponent<PlayerMovement> ();
+				movement.setCanMove (false);
+			}
 
+			//Look at the block
+			Vector3 lookAt = transform.position;
+			Vector3 newPos;
+
+			if(obj.tag == "RCCar")
+			{
+				GameObject rcCar = obj;//.transform.parent.gameObject;
+
+
+
+				lookAt.y = rcCar.transform.position.y;
+				rcCar.transform.LookAt(lookAt);
+				
 				//set the state of the block and player
-				transform.parent = obj.transform;
-				m_Movement.setCanMove (false);
+				transform.parent = rcCar.transform;
+				
 				rigidbody.useGravity = false;
-
+				
 				//Move the block in front of the player
-				Vector3 newPos = obj.transform.position;
+				newPos = rcCar.transform.position;
 				newPos.y = transform.position.y;
-				transform.position = newPos + ((obj.transform.forward * 1.2f) * transform.localScale.x);
-
+				transform.position = newPos + ((rcCar.transform.forward * 1.2f) * transform.localScale.x);
+				
 				//Fix instantly exiting block pushing
 				canInteract = false;
+				return;
 			}
+
+			lookAt.y = obj.transform.position.y;
+			obj.transform.LookAt(lookAt);
+
+			//set the state of the block and player
+			transform.parent = obj.transform;
+			
+			rigidbody.useGravity = false;
+
+			//Move the block in front of the player
+			newPos = obj.transform.position;
+			newPos.y = transform.position.y;
+			transform.position = newPos + ((obj.transform.forward * 1.2f) * transform.localScale.x);
+
+			//Fix instantly exiting block pushing
+			canInteract = false;
+
 		}
 
 		//TODO: rc car
@@ -74,7 +101,6 @@ public class MoveableBlock : InteractableBaseClass
 	public void onExit()
 	{
 		transform.parent = null;
-		m_Movement = null;
 		rigidbody.useGravity = true;
 	}
 
@@ -85,7 +111,10 @@ public class MoveableBlock : InteractableBaseClass
 			obj.gameObject.GetComponent<PlayerState>().interactionInRange(this);
 		}
 
-		//TODO: rc car
+		if(obj.tag == "RCCar")
+		{
+			obj.transform.parent.gameObject.GetComponent<RCCarMovement>().m_RCCarManager.interactionInRange(this);
+		}
 	}
 	
 	void OnTriggerExit(Collider obj)
@@ -94,6 +123,10 @@ public class MoveableBlock : InteractableBaseClass
 		{
 			obj.gameObject.GetComponent<PlayerState>().interactionOutOfRange(this);
 		}
-		//TODO: rc car
+
+		if(obj.tag == "RCCar")
+		{
+			obj.transform.parent.gameObject.GetComponent<RCCarMovement>().m_RCCarManager.interactionOutOfRange(this);
+		}
 	}	
 }

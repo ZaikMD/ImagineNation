@@ -36,32 +36,32 @@ public class RCCar : SecondairyBase
 	{
 		if (m_HasBegun)
 		{
-		switch(m_State)
-		{
-			case RCCarStates.Idle:
-				{
-				Idle();
-				}
-				break;
+			switch(m_State)
+			{
+				case RCCarStates.Idle:
+					{
+					Idle();
+					}
+					break;
 
-			case RCCarStates.Moving:
-				{
-				Move();
-				}
-				break;
+				case RCCarStates.Moving:
+					{
+					Move();
+					}
+					break;
 
-			case RCCarStates.Interacting:
-				{
-				Interacting();
-				}
-				break;
+				case RCCarStates.Interacting:
+					{
+					Interacting();
+					}
+					break;
 
-			case RCCarStates.Exiting:
-				{
-				Exiting();
-				}
-				break;
-		}
+				case RCCarStates.Exiting:
+					{
+					Exiting();
+					}
+					break;
+			}
 		}
 
 	}
@@ -90,8 +90,15 @@ public class RCCar : SecondairyBase
 					m_CurrentInteraction = ClosestInteraction();
 					m_State = RCCarStates.Interacting;
 					m_Interacting = true;
+					initialInteraction();
 					return;
 				}
+			}
+
+			if(m_Interacting)
+			{
+				m_State = RCCarStates.Interacting;
+				return;
 			}
 
 			if (PlayerInput.Instance.getMovementInput() != new Vector2(0,0))
@@ -103,34 +110,49 @@ public class RCCar : SecondairyBase
 
 	public override void Move ()
 	{
-		m_RCCar.GetComponent<RCCarMovement> ().MoveBlock();
+		m_RCCar.GetComponent<RCCarMovement> ().RegularMove();
 		m_State = RCCarStates.Idle;
+	}
+
+	void initialInteraction()
+	{
+		switch(m_CurrentInteraction.getType())
+		{
+			case InteractableType.Lever:
+			{
+				Lever lever = (Lever)m_CurrentInteraction;
+				lever.toggleIsOn();
+				m_Interacting = false;
+				break;
+			}
+			
+			
+			case InteractableType.MovingBlock:
+			{
+				MoveableBlock moveableBlock = (MoveableBlock)m_CurrentInteraction;
+				moveableBlock.onUse(m_RCCar);
+				break;
+			}
+			
+			case InteractableType.CrawlSpace:
+			{
+				CrawlSpaces crawlSpace = (CrawlSpaces)m_CurrentInteraction;
+				crawlSpace.OnUse(m_RCCar);
+			}
+			break;
+		}
 	}
 
 	void Interacting()
 	{
+
 		switch(m_CurrentInteraction.getType())
-		{
-		case InteractableType.Lever:
-			{
-			Lever lever = (Lever)m_CurrentInteraction;
-			lever.toggleIsOn();
-			m_Interacting = false;
-			break;
-			}
-
-
+		{		
 			case InteractableType.MovingBlock:
 			{
-			break;
+				m_RCCar.GetComponent<RCCarMovement> ().MoveBlock();
+				break;
 			}
-
-			case InteractableType.CrawlSpace:
-			{
-				CrawlSpaces crawlSpace = (CrawlSpaces)m_CurrentInteraction;
-				crawlSpace.OnUse(m_RCCar.gameObject);
-			}
-			break;
 		}
 
 		m_State = RCCarStates.Idle;
@@ -140,17 +162,18 @@ public class RCCar : SecondairyBase
 	{
 		switch(m_CurrentInteraction.getType())
 		{
-		case InteractableType.MovingBlock:
-		{
-
-			m_Interacting = false;
-		}
+			case InteractableType.MovingBlock:
+			{
+				MoveableBlock moveableBlock = (MoveableBlock)m_CurrentInteraction;
+				moveableBlock.onExit();
+				m_Interacting = false;
+			}
 			break;
 
-		case InteractableType.CrawlSpace:
-		{
-			m_Interacting = false;
-		}
+			case InteractableType.CrawlSpace:
+			{
+				m_Interacting = false;
+			}
 			break;
 		}
 	}
