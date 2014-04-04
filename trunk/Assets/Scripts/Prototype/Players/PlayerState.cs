@@ -191,7 +191,6 @@ public abstract class PlayerState : MonoBehaviour, Observer
         {
 			default:
 			{
-				Debug.Log("NO INTERACTION");
 				break;
 			}
 		}
@@ -237,9 +236,10 @@ public abstract class PlayerState : MonoBehaviour, Observer
 				break;
 			}
 
-			default:
+			case InteractableType.CrawlSpace:
 			{
-				Debug.Log("NO INTERACTION");
+				CrawlSpaces crawlSpace = (CrawlSpaces)m_CurrentInteraction;
+				crawlSpace.OnUse(this.gameObject);
 				break;
 			}
 		}
@@ -253,10 +253,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
      	   applyDamage(amount);
 			m_TakeDamage = true;
   		 }
-	}
-
-                                                                                                                                                       
-
+	}                                                                                                                                                      
 
 	protected void TakeDamage()
 	{

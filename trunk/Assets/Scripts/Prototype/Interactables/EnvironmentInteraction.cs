@@ -42,7 +42,7 @@ public class EnvironmentInteraction : MonoBehaviour
 				CrawlSpaces crawlSpace = (CrawlSpaces)obj.GetComponent<CrawlSpaces>();
 				if(crawlSpace != null)
 				{
-					crawlSpace.OnUse();
+					//crawlSpace.OnUse();
 				}
 			}
 			else if(obj.name == "DivingBoard")

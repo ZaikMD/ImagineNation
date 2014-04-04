@@ -29,7 +29,7 @@ Created by Zach
 using UnityEngine;
 using System.Collections;
 
-public class CrawlSpaces : MonoBehaviour 
+public class CrawlSpaces : InteractableBaseClass 
 {
 	//Timer
 	float m_Timer = 0.0f;
@@ -41,7 +41,6 @@ public class CrawlSpaces : MonoBehaviour
 
 	//Player
 	GameObject m_Player;
-	PlayerMovement m_Movement;
 
 	//State of crawling
 	enum State
@@ -56,8 +55,8 @@ public class CrawlSpaces : MonoBehaviour
 	//Initialization
 	void Start ()
 	{
-		m_Player = GameObject.Find ("Zoey");
-		m_Movement = (PlayerMovement)m_Player.GetComponent<PlayerMovement>();
+		m_IsExitable = false;
+		m_Type = InteractableType.CrawlSpace;
 	}
 
 	//Crawling
@@ -113,10 +112,11 @@ public class CrawlSpaces : MonoBehaviour
 				{
 					m_State = State.Default;
 
-					//Renable movement
-					m_Movement.setCanMove(true);
-
 					//No longer interacting
+					if (m_Player.CompareTag("Player"))
+					{
+						m_Player.GetComponent<PlayerState>().exitInteracting();
+					}
 				}
 			}
 			break;
@@ -127,23 +127,56 @@ public class CrawlSpaces : MonoBehaviour
 		}
 	}
 	
-	public void OnUse() 
+	public void OnUse(GameObject aObject) 
 	{
-		if (m_OtherCrawlSpace == null || m_Player == null || m_Movement == null)
+		if (m_OtherCrawlSpace == null || aObject.name != "Zoey")
 		{
 			return;
 		}
+
+		m_Player = aObject;
+
+		if (aObject.name == "Zoey")
+		{
+			PlayerMovement movement = (PlayerMovement)m_Player.GetComponent<PlayerMovement>();
+			movement.setCanMove(false);
+			m_Player.gameObject.GetComponent<PlayerState>().interactionOutOfRange(this);
+		}
+
+		//TODO: RC car movement
 
 		//Set state
 		m_State = State.Entering;
 
 		//Set amount of time to travel the crawl space
 		m_Timer = TIMER_ANIMATION;
-
-		//Disable other player movement
-		m_Movement.setCanMove(false);
 		
 		//Play crawl animation
 
+	}
+
+	void OnTriggerEnter(Collider obj)
+	{
+		if(obj.tag == "Player")
+		{
+			if(obj.name == "Zoey")
+			{
+				obj.gameObject.GetComponent<PlayerState>().interactionInRange(this);
+				//Debug.Log(this + " is in range");
+			}
+		}
+		//TODO: add to rc car
+	}
+	
+	void OnTriggerExit(Collider obj)
+	{
+		if(obj.tag == "Player")
+		{
+			if(obj.name == "Zoey")
+			{
+				obj.gameObject.GetComponent<PlayerState>().interactionOutOfRange(this);
+			}
+		}
+		//TODO: remove from rc car
 	}
 }
