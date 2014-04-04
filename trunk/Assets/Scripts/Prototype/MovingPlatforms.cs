@@ -7,6 +7,7 @@ public class MovingPlatforms : MonoBehaviour , Observer
 
 	public float m_PauseTime;
 	public float m_MoveTimeInSeconds;
+	public float m_DelayTime;
 
 	public bool m_NeedsSwitch;
 	public bool m_MovesOnce;
@@ -64,43 +65,10 @@ public class MovingPlatforms : MonoBehaviour , Observer
 	{
 		if(!m_IsPaused)
 		{
-			if (m_NeedsSwitch == false) 
+			if(m_DelayTime < 0)
 			{
-				if (m_PauseTime > 0) 
-				{
-					m_PauseTime -= Time.deltaTime;
-					m_MoveTimeInSeconds = m_InitialMoveTime;
-				} 
-				else if (m_HasMoved == false) 
-				{
 
-					//transform.position = Vector3.Lerp(transform.position, m_LerpPosition, m_LerpTime);
-					transform.Translate (m_XMovePercent, m_YMovePercent, m_ZMovePercent);
-					m_MoveTimeInSeconds -= Time.deltaTime;
-
-					if (m_MoveTimeInSeconds < 0) 
-					{
-
-						m_PauseTime = m_InitialPauseTime;
-						m_HasMoved = true;
-					} 
-				} 
-				else if (m_HasMoved == true && m_MovesOnce == false) 
-				{
-					//transform.position = Vector3.Lerp(transform.position, m_InitialPosition, m_LerpTime);
-					transform.Translate (-1 * m_XMovePercent, -1 * m_YMovePercent, -1 * m_ZMovePercent);
-					m_MoveTimeInSeconds -= Time.deltaTime;
-
-					if (m_MoveTimeInSeconds < 0) 
-					{
-					m_PauseTime = m_InitialPauseTime;
-					m_HasMoved = false;
-					}
-				}
-			}
-			else
-			{
-				if(m_SwitchToggled == true)
+				if (m_NeedsSwitch == false) 
 				{
 					if (m_PauseTime > 0) 
 					{
@@ -109,13 +77,14 @@ public class MovingPlatforms : MonoBehaviour , Observer
 					} 
 					else if (m_HasMoved == false) 
 					{
+
 						//transform.position = Vector3.Lerp(transform.position, m_LerpPosition, m_LerpTime);
 						transform.Translate (m_XMovePercent, m_YMovePercent, m_ZMovePercent);
 						m_MoveTimeInSeconds -= Time.deltaTime;
-						
+
 						if (m_MoveTimeInSeconds < 0) 
 						{
-							
+
 							m_PauseTime = m_InitialPauseTime;
 							m_HasMoved = true;
 						} 
@@ -125,16 +94,54 @@ public class MovingPlatforms : MonoBehaviour , Observer
 						//transform.position = Vector3.Lerp(transform.position, m_InitialPosition, m_LerpTime);
 						transform.Translate (-1 * m_XMovePercent, -1 * m_YMovePercent, -1 * m_ZMovePercent);
 						m_MoveTimeInSeconds -= Time.deltaTime;
-						
+
 						if (m_MoveTimeInSeconds < 0) 
 						{
-							m_PauseTime = m_InitialPauseTime;
-							m_HasMoved = false;
+						m_PauseTime = m_InitialPauseTime;
+						m_HasMoved = false;
 						}
 					}
+				}
+				else
+				{
+					if(m_SwitchToggled == true)
+					{
+						if (m_PauseTime > 0) 
+						{
+							m_PauseTime -= Time.deltaTime;
+							m_MoveTimeInSeconds = m_InitialMoveTime;
+						} 
+						else if (m_HasMoved == false) 
+						{
+							//transform.position = Vector3.Lerp(transform.position, m_LerpPosition, m_LerpTime);
+							transform.Translate (m_XMovePercent, m_YMovePercent, m_ZMovePercent);
+							m_MoveTimeInSeconds -= Time.deltaTime;
+							
+							if (m_MoveTimeInSeconds < 0) 
+							{
+								
+								m_PauseTime = m_InitialPauseTime;
+								m_HasMoved = true;
+							} 
+						} 
+						else if (m_HasMoved == true && m_MovesOnce == false) 
+						{
+							//transform.position = Vector3.Lerp(transform.position, m_InitialPosition, m_LerpTime);
+							transform.Translate (-1 * m_XMovePercent, -1 * m_YMovePercent, -1 * m_ZMovePercent);
+							m_MoveTimeInSeconds -= Time.deltaTime;
+							
+							if (m_MoveTimeInSeconds < 0) 
+							{
+								m_PauseTime = m_InitialPauseTime;
+								m_HasMoved = false;
+							}
+						}
 
+					}
 				}
 			}
+
+			m_DelayTime -= Time.deltaTime;
 		}
 	}
 
