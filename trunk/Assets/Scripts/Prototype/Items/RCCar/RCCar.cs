@@ -161,7 +161,8 @@ public class RCCar : SecondairyBase
 	{
 		if (m_HasBegun == false)
 		{
-			m_RCCar = (GameObject)Instantiate(Resources.Load("Prefabs/RCCarPrefab"));
+			m_RCCar = (GameObject)Instantiate(Resources.Load("Prefabs/RCCarTest"));
+			m_RCCar.GetComponent<RCCarMovement>().m_RCCarManager = this;
 			m_RCCar.transform.position = m_Alex.transform.position + m_StartingOffset; 
 			m_HasBegun = true;
 			CameraController cameraController = (GameObject.FindObjectOfType<Camera>()).GetComponent<CameraController>();
