@@ -32,7 +32,6 @@ public class DerekPlayerState : PlayerState
     
 	protected override void  useSecondItem()
     {
-	    //TODO: use second item
     }
 
 	protected override bool ableToEnterSecondItem()
@@ -43,5 +42,10 @@ public class DerekPlayerState : PlayerState
 	protected override bool getUseSecondItemInput()
 	{
 		return PlayerInput.Instance.getEnviromentInteraction ();
+	}
+
+	protected override void	enterSecond()
+	{
+		m_VelcroGloves.onUse ();
 	}
 }

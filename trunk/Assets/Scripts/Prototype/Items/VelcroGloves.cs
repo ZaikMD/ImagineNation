@@ -34,70 +34,55 @@ public class VelcroGloves : SecondairyBase
 	//Are we climbing?
 	bool m_Climbing = false;
 	
-	//The player, so we can set flags
-	//Player m_Player = null
-	
 	//Angle of the new wall to climb
 	float m_AngleOfNextWall;
 	
 	//Walls nearby
 	List <GameObject> m_VelcroWalls = new List<GameObject>();
 	
-	//Initialization		
-	void Start ()
-	{
-		//Get the component
-		//m_Player = getComponent <Player>();        							   //Get player component to set player flags
-	}
-	
 	//Every tick
 	void Update ()
 	{
-		//If we are not near a window, do nothing
-		if ( m_VelcroWalls.Count <= 0 || !m_Enabled)    //Not near a window
-		{
-			return;
-		}
-		
 		//You are climbing
-		else if ( m_Climbing )
+		if ( m_Enabled && m_Climbing )
 		{
 			//Fall button
 			if (PlayerInput.Instance.getEnviromentInteraction() || PlayerInput.Instance.getJumpInput())
 			{
-				//We are no longer climbing
-				m_Climbing = false; 
-
-				//Player can now move normally again
-				m_PlayerMovement.setCanMove(true);
-				
-				//Set player flag
-				//m_Player->setExitSecondItemFlag ();
-				
+				onExit();
 				return;
 			}
 			
 			//Move
 			Move ();
 		}
-		
-		//You grabbed the window
-		else if (PlayerInput.Instance.getEnviromentInteraction()|| PlayerInput.Instance.getJumpInput())
-		{
-			//Enable Climbing
-			m_Climbing = true;
-
-			//Player can not move normally while climbing
-			m_PlayerMovement.setCanMove(false);
-
-			//Set rotation of the player to face the wall
-			transform.Rotate (0, m_AngleOfNextWall - this.transform.rotation.eulerAngles.y - 180, 0);
-			
-			//Set flag
-			//m_Player->setEnterSecondItemFlag();       //Set player flag
-		}
 	}
-	
+
+	//Starts climbing
+	public void onUse()
+	{
+		//Enable Climbing
+		m_Climbing = true;
+		
+		//Player can not move normally while climbing
+		m_PlayerMovement.setCanMove(false);
+		
+		//Set rotation of the player to face the wall
+		transform.Rotate (0, m_AngleOfNextWall - this.transform.rotation.eulerAngles.y - 180, 0);
+	}
+
+	//Stops climbing
+	public void onExit()
+	{
+		//You fall
+		m_Climbing = false;
+		
+		//Player can now move normally again
+		m_PlayerMovement.setCanMove (true);
+
+		gameObject.GetComponent<PlayerState> ().setExitingSecond (true);
+	}
+
 	//When something is nearby
 	void OnTriggerEnter ( Collider collider )
 	{
@@ -109,6 +94,8 @@ public class VelcroGloves : SecondairyBase
 			
 			//You are near this wall
 			m_VelcroWalls.Add ( collider.gameObject );
+
+			m_Enabled = true;
 		}
 	}
 	
@@ -124,14 +111,8 @@ public class VelcroGloves : SecondairyBase
 				//If this was the only nearby window, you fall
 				if ( m_VelcroWalls.Count <= 1 )
 				{
-					//You fall
-					m_Climbing = false;
-
-					//Player can now move normally again
-					m_PlayerMovement.setCanMove(true);
-					
-					//Set player flag
-					//m_Player->setExitSecondItemFlag ();
+					onExit();
+					m_Enabled = false;
 				}
 				
 				//If we are leaving the first wall
@@ -154,6 +135,6 @@ public class VelcroGloves : SecondairyBase
 
 	public override bool ableToBeUsed()
 	{
-		return false;
+		return m_Enabled;
 	}
 }

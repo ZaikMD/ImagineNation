@@ -1,10 +1,23 @@
 ﻿<Properties>
+<<<<<<< .mine
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Items\VelcroGloves.cs">
+=======
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Interactables\SeeSawDropZone.cs">
+>>>>>>> .r170
     <Files>
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\Players\ZoeyPlayerState.cs" Line="23" Column="6" />
+      <File FileName="Assets\Scripts\Prototype\Items\VelcroGloves.cs" Line="81" Column="38" />
+      <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="451" Column="23" />
+      <File FileName="Assets\Scripts\Prototype\Players\DerekPlayerState.cs" Line="34" Column="6" />
+      <File FileName="Assets\Scripts\Prototype\Players\AlexPlayerState.cs" Line="53" Column="29" />
+=======
       <File FileName="Assets\Scripts\Prototype\Interactables\SeeSaw.cs" Line="203" Column="1" />
       <File FileName="Assets\Scripts\Prototype\Interactables\PickUp.cs" Line="67" Column="32" />
       <File FileName="Assets\Scripts\Prototype\Interactables\SeeSawDropZone.cs" Line="22" Column="35" />
+>>>>>>> .r170
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

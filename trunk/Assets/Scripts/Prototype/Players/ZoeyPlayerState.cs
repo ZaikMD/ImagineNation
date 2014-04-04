@@ -44,4 +44,9 @@ public class ZoeyPlayerState : PlayerState {
 	{
 		return PlayerInput.Instance.getJumpInput ();
 	}
+
+	protected override void	enterSecond()
+	{
+
+	}
 }

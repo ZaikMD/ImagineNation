@@ -369,6 +369,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 					//player state machine shit
 					m_UsingSecondItem = true; 
 					m_PlayerState = PlayerStates.Default;
+					enterSecond();
 					return;
 				}
 			} 		
@@ -472,6 +473,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 					//----------------------------------------------------
 		        	m_UsingSecondItem = true;
 		        	m_PlayerState = PlayerStates.Default;
+					enterSecond();
 			        return;
 	            }
 	        }
@@ -562,6 +564,8 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	protected abstract void useSecondItem();
 
 	protected abstract void attack();
+
+	protected abstract void enterSecond();
 
 	protected abstract void aimAttack();  // <- derek cannot implement, does not have a aim attack.
 
