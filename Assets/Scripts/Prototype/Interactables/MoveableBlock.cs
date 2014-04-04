@@ -28,23 +28,6 @@ public class MoveableBlock : InteractableBaseClass
 		m_Type = InteractableType.MovingBlock;
 	}
 
-	void Update ()
-	{
-		if (m_Movement)
-		{
-			if (Input.GetKeyDown(KeyCode.F) && canInteract)
-			{
-				removeParent();
-			}
-
-			m_Movement.BlockHeldMovement(m_BlockSize);
-		}
-		if (!canInteract)
-		{
-			canInteract = true;
-		}
-	}
-
 	//Get the size of the block
 	Size returnSize()
 	{
@@ -54,48 +37,63 @@ public class MoveableBlock : InteractableBaseClass
 	/// <summary>
 	/// Set block to being moved by a player
 	/// </summary>
-	public void makeChild(GameObject obj)
+	public void onUse(GameObject obj)
 	{
-		m_Movement = (PlayerMovement)obj.GetComponent<PlayerMovement> ();
-		if (m_Movement)
+		if(obj.tag == "Player")
 		{
-			//Look at the block
-			Vector3 lookAt = transform.position;
-			lookAt.y = obj.transform.position.y;
-			obj.transform.LookAt(lookAt);
 
-			//set the state of the block and player
-			transform.parent = obj.transform;
-			m_Movement.setCanMove (false);
-			rigidbody.useGravity = false;
+			m_Movement = (PlayerMovement)obj.GetComponent<PlayerMovement> ();
+			if (m_Movement)
+			{
+				//Look at the block
+				Vector3 lookAt = transform.position;
+				lookAt.y = obj.transform.position.y;
+				obj.transform.LookAt(lookAt);
 
-			//Move the block in front of the player
-			Vector3 newPos = obj.transform.position;
-			newPos.y = transform.position.y;
-			transform.position = newPos + ((obj.transform.forward * 1.2f) * transform.localScale.x);
+				//set the state of the block and player
+				transform.parent = obj.transform;
+				m_Movement.setCanMove (false);
+				rigidbody.useGravity = false;
 
-			//Fix instantly exiting block pushing
-			canInteract = false;
+				//Move the block in front of the player
+				Vector3 newPos = obj.transform.position;
+				newPos.y = transform.position.y;
+				transform.position = newPos + ((obj.transform.forward * 1.2f) * transform.localScale.x);
+
+				//Fix instantly exiting block pushing
+				canInteract = false;
+			}
 		}
+
+		//TODO: rc car
 	}
 	
 	/// <summary>
 	/// Set block to not being moved by any player.
 	/// </summary>
-	public void removeParent()
+	public void onExit()
 	{
 		transform.parent = null;
-		m_Movement.setCanMove (true);
 		m_Movement = null;
 		rigidbody.useGravity = true;
 	}
 
-	void OnCollisionEnter (Collision obj)
+	void OnTriggerEnter(Collider obj)
 	{
-		if (transform.parent && obj.gameObject != transform.parent)
+		if(obj.tag == "Player")
 		{
-			//removeParent();
+			obj.gameObject.GetComponent<PlayerState>().interactionInRange(this);
 		}
+
+		//TODO: rc car
 	}
 	
+	void OnTriggerExit(Collider obj)
+	{
+		if(obj.tag == "Player")
+		{
+			obj.gameObject.GetComponent<PlayerState>().interactionOutOfRange(this);
+		}
+		//TODO: rc car
+	}	
 }
