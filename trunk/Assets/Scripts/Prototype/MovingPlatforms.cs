@@ -65,40 +65,44 @@ public class MovingPlatforms : MonoBehaviour , Observer
 	{
 		if(!m_IsPaused)
 		{
-			if(m_DelayTime < 0)
-			{
+
 
 				if (m_NeedsSwitch == false) 
 				{
-					if (m_PauseTime > 0) 
-					{
-						m_PauseTime -= Time.deltaTime;
-						m_MoveTimeInSeconds = m_InitialMoveTime;
-					} 
-					else if (m_HasMoved == false) 
-					{
+					m_DelayTime -= Time.deltaTime;
 
-						//transform.position = Vector3.Lerp(transform.position, m_LerpPosition, m_LerpTime);
-						transform.Translate (m_XMovePercent, m_YMovePercent, m_ZMovePercent);
-						m_MoveTimeInSeconds -= Time.deltaTime;
-
-						if (m_MoveTimeInSeconds < 0) 
+					if(m_DelayTime < 0)
+					{
+						if (m_PauseTime >= 0) 
 						{
-
-							m_PauseTime = m_InitialPauseTime;
-							m_HasMoved = true;
+							m_PauseTime -= Time.deltaTime;
+							m_MoveTimeInSeconds = m_InitialMoveTime;
 						} 
-					} 
-					else if (m_HasMoved == true && m_MovesOnce == false) 
-					{
-						//transform.position = Vector3.Lerp(transform.position, m_InitialPosition, m_LerpTime);
-						transform.Translate (-1 * m_XMovePercent, -1 * m_YMovePercent, -1 * m_ZMovePercent);
-						m_MoveTimeInSeconds -= Time.deltaTime;
-
-						if (m_MoveTimeInSeconds < 0) 
+						else if (m_HasMoved == false) 
 						{
-						m_PauseTime = m_InitialPauseTime;
-						m_HasMoved = false;
+
+							//transform.position = Vector3.Lerp(transform.position, m_LerpPosition, m_LerpTime);
+							transform.Translate (m_XMovePercent, m_YMovePercent, m_ZMovePercent);
+							m_MoveTimeInSeconds -= Time.deltaTime;
+
+							if (m_MoveTimeInSeconds < 0) 
+							{
+
+								m_PauseTime = m_InitialPauseTime;
+								m_HasMoved = true;
+							} 
+						} 
+						else if (m_HasMoved == true && m_MovesOnce == false) 
+						{
+							//transform.position = Vector3.Lerp(transform.position, m_InitialPosition, m_LerpTime);
+							transform.Translate (-1 * m_XMovePercent, -1 * m_YMovePercent, -1 * m_ZMovePercent);
+							m_MoveTimeInSeconds -= Time.deltaTime;
+
+							if (m_MoveTimeInSeconds < 0) 
+							{
+							m_PauseTime = m_InitialPauseTime;
+							m_HasMoved = false;
+							}
 						}
 					}
 				}
@@ -106,7 +110,11 @@ public class MovingPlatforms : MonoBehaviour , Observer
 				{
 					if(m_SwitchToggled == true)
 					{
-						if (m_PauseTime > 0) 
+						m_DelayTime -= Time.deltaTime;
+						if(m_DelayTime < 0)
+						{
+
+						if (m_PauseTime >= 0) 
 						{
 							m_PauseTime -= Time.deltaTime;
 							m_MoveTimeInSeconds = m_InitialMoveTime;
@@ -141,7 +149,7 @@ public class MovingPlatforms : MonoBehaviour , Observer
 				}
 			}
 
-			m_DelayTime -= Time.deltaTime;
+
 		}
 	}
 
