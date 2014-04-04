@@ -5,6 +5,9 @@ public class DivingBoard : InteractableBaseClass
 {
 
 	public SeeSaw seeSaw;
+	public bool m_NeedsBlock;
+
+	public GameObject m_Block;
 
 	void Start()
 	{
@@ -24,6 +27,11 @@ public class DivingBoard : InteractableBaseClass
 		if(obj.tag == "Player")
 		{
 			obj.gameObject.GetComponent<PlayerState>().interactionInRange(this);
+		}
+
+		if(obj.tag == m_Block.tag)
+		{
+			seeSaw.playerJumping(m_Block);
 		}
 	}
 

@@ -10,6 +10,7 @@ public class PickUp : InteractableBaseClass
 {
 	public float m_BounceMultiplier = 3.0f;
 	public bool m_HasPickup = false;
+	public SeeSaw m_SeeSaw;
 
 	Vector3 m_StartPosition;
 	
@@ -41,12 +42,17 @@ public class PickUp : InteractableBaseClass
 	{
 		if(other.gameObject.name == "DropZone")
 		{
-			this.transform.parent = other.transform.Find ("DropZonePoint");
+			//this.transform.parent = other.transform.Find ("DropZonePoint");
 			this.transform.localPosition = Vector3.zero;
-			this.transform.localRotation = Quaternion.identity;
+		//	this.transform.localRotation = Quaternion.identity;
+			this.transform.localRotation = Quaternion.Euler( new Vector3(90,0,0));
+			//Call this in seesaw to attach the 
+			m_SeeSaw.placePieces(this.gameObject);
+
+			m_HasPickup = false;
+
 		}
-
-
+		PickUpItem (other);
 	}
 
 	//when it is being called the item will be checked to be dropped
@@ -65,14 +71,17 @@ public class PickUp : InteractableBaseClass
 	//when it is being called, will check to pick up
 	public void PickUpItem(Collider other)
 	{
-
 		if(other.gameObject.CompareTag("Player"))
 		{
-			rigidbody.useGravity = false;
+			this.transform.parent = other.transform.Find ("PickUpPoint");
 			m_HasPickup = true;
-			this.transform.parent = other.transform.Find ("ItemPickPoint");
 			this.transform.localPosition = Vector3.zero;
-			this.transform.localRotation = Quaternion.identity;
+			this.transform.localRotation = Quaternion.Euler( new Vector3(90,0,0));
+			//this.transform.localRotation = Quaternion.identity;
+			rigidbody.useGravity = false;
+
+			//this.transform.parent = other.transform.Find ("ItemPickPoint");
+
 		}
 	}
 }

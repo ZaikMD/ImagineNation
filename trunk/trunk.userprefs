@@ -1,7 +1,17 @@
 ﻿<Properties>
+<<<<<<< .mine
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Interactables\DivingBoard.cs">
+=======
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\CameraController.cs">
+>>>>>>> .r167
     <Files>
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\Interactables\SeeSaw.cs" Line="152" Column="24" />
+      <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="133" Column="4" />
+      <File FileName="Assets\Scripts\Prototype\Interactables\DivingBoard.cs" Line="35" Column="4" />
+=======
       <File FileName="Assets\Scripts\Prototype\Interactables\SeeSaw.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\Items\StickyHandProjectile.cs" Line="103" Column="55" />
       <File FileName="Assets\Scripts\Prototype\PlayerMovement.cs" Line="142" Column="34" />
@@ -10,6 +20,7 @@
       <File FileName="Assets\Scripts\Prototype\Players\ZoeyPlayerState.cs" Line="29" Column="27" />
       <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="487" Column="3" />
       <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="78" Column="31" />
+>>>>>>> .r167
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

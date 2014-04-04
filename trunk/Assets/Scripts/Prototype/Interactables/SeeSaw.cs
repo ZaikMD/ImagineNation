@@ -4,20 +4,27 @@ using System.Collections;
 public class SeeSaw : InteractableBaseClass, Observer
 {
 
+
 	//Players
-	private GameObject m_SittingPlayer;
+	GameObject m_SittingPlayer;
 	GameObject m_JumpingPlayer;
+	GameObject m_Block;
 
 	//Seesaw points
 	public GameObject m_JumpPoint;
 	public GameObject m_SitPoint;
 	public GameObject m_JumpEndPoint;
 
+	//Pieces
+	public GameObject m_TopPiece;
+	public GameObject m_BottomPiece;
+
 	//States
+	public bool m_HasTopPiece = true;
+	public bool m_HasBottomPiece = true;
 	bool m_IsLerping;
 	bool m_HasLaunchedPlayer;
 	bool m_IsPlatformLerping = false;
-
 	bool m_PlayerHasJumped = false;
 
 	//Points
@@ -27,7 +34,7 @@ public class SeeSaw : InteractableBaseClass, Observer
 	Vector3 m_SitPointEndPos;
 
 	//Timer
-	private float m_ResetTimer = 5.0f;
+	float m_ResetTimer = 5.0f;
 	const float LERP_TIME = 0.05f;
 
 	bool m_IsEnabled = true;
@@ -43,7 +50,7 @@ public class SeeSaw : InteractableBaseClass, Observer
 		m_ResetTimer = 5.0f;
 		m_HasLaunchedPlayer = false;
 
-		m_SitPointEndPos = new Vector3 (m_SitPoint.transform.position.x, m_SitPoint.transform.position.y + m_LaunchHeight, m_SitPoint.transform.position.z);
+		m_SitPointEndPos = new Vector3 (m_SitPoint.transform.position.x, m_SitPoint.transform.position.y + 10, m_SitPoint.transform.position.z);
 
 
 		m_Type = InteractableType.SeeSaw;
@@ -59,56 +66,49 @@ public class SeeSaw : InteractableBaseClass, Observer
 	{
 		if(m_IsEnabled)
 		{
-			if(m_IsLerping)
+			if(m_HasBottomPiece && m_HasTopPiece)
 			{
-
-				//m_JumpingPlayer.transform.position = Vector3.Lerp (m_JumpingPlayer.transform.position, new Vector3(m_JumpPoint.transform.position.x,m_JumpPoint.transform.position.y + 1,m_JumpPoint.transform.position.z)  , LERP_TIME*2); //Lerp m_JumpingPlayer to m_JumpPoint
-				if(!m_PlayerHasJumped)
-				{
-					m_JumpingPlayer.gameObject.GetComponent<PlayerMovement>().Jump();
-				}
-
-				if(m_PlayerHasJumped)
+				if(m_IsLerping)
 				{
 					m_JumpingPlayer.transform.position = Vector3.Lerp(m_JumpingPlayer.transform.position, m_JumpEndPoint.transform.position, LERP_TIME);
-				}
 
-				if(m_JumpingPlayer.transform.position.y >= m_JumpPoint.transform.position.y + 0.5f)
-				{
-				
+
+							
 					m_IsPlatformLerping = true;
-					//If the jumping player has reached the jump point, then notify the player and give back control
-
-					if(m_JumpPoint.transform.position.y <= m_JumpEndPoint.transform.position.y)
+							
+					if(m_JumpPoint.transform.position.y <= m_JumpEndPoint.transform.position.y + 0.5f)
 					{
 						m_JumpingPlayer.transform.parent = null;
-						m_JumpingPlayer.gameObject.GetComponent<PlayerState>().exitInteracting();
+						if(m_JumpingPlayer.name != m_Block.name)
+						{
+							m_JumpingPlayer.gameObject.GetComponent<PlayerState>().exitInteracting();
+						}
 						m_IsLerping = false;
-						Debug.Log("PLayerLaunched");
+						Debug.Log("PlayerLaunched");
+
+					}
+				
+
+					if(m_IsPlatformLerping == true)
+					{
+						m_SitPoint.transform.position = Vector3.Lerp(m_SitPoint.transform.position, m_SitPointEndPos, LERP_TIME);
+						m_JumpPoint.transform.position = Vector3.Lerp(m_JumpPoint.transform.position, m_JumpEndPoint.transform.position, LERP_TIME);
+
+						launchPlayer();
+					}
+					if(m_HasLaunchedPlayer == true)
+					{
+						m_ResetTimer -= Time.deltaTime;
+								
+					}
+					if(m_ResetTimer < 0.0f)
+					{
+						reset();
 					}
 				}
 			}
-
-			if(m_IsPlatformLerping == true)
-			{
-				m_SitPoint.transform.position = Vector3.Lerp(m_SitPoint.transform.position, m_SitPointEndPos, LERP_TIME);
-				m_JumpPoint.transform.position = Vector3.Lerp(m_JumpPoint.transform.position, m_JumpEndPoint.transform.position, LERP_TIME);
-
-				launchPlayer();
-			}
-			if(m_HasLaunchedPlayer == true)
-			{
-				m_ResetTimer -= Time.deltaTime;
-
-			}
-			if(m_ResetTimer < 0.0f)
-			{
-				reset();
-			}
-
 		}
 	}
-
 	//Sit
 	public void makeChild(GameObject obj)  //Called by player
 	{
@@ -139,12 +139,12 @@ public class SeeSaw : InteractableBaseClass, Observer
 		{
 			if(m_SittingPlayer != null)
 			{
-				m_SittingPlayer.gameObject.GetComponent<PlayerState>().exitInteracting();
-
+				m_SittingPlayer.gameObject.GetComponent<PlayerMovement>().setCanMove(true);
 				m_SittingPlayer.gameObject.GetComponent<PlayerMovement>().LaunchJump(50);
 
-				m_SittingPlayer.transform.parent = null;
-				m_SittingPlayer = null;
+				m_SittingPlayer.gameObject.GetComponent<PlayerState>().exitInteracting();
+				/*m_SittingPlayer.transform.parent = null;
+				m_SittingPlayer = null;*/
 				m_HasLaunchedPlayer = true; 
 				//Terminate Parent-child relation between m_SittingPlayer and the SeeSaw
 			}
@@ -157,22 +157,18 @@ public class SeeSaw : InteractableBaseClass, Observer
 	public void playerJumping(GameObject obj)
 	{
 		//Set m_JumpingPlayer to obj
-		m_JumpingPlayer = obj.gameObject;
+		m_JumpingPlayer = obj;
+
+		if(obj.tag == "MoveableBlock")
+		{
+			m_Block = obj;
+		}
 
 		//Make obj the child of the SeeSaw
 		m_JumpingPlayer.transform.parent = this.transform;
+
 		m_IsLerping = true; //Start the lerp to m_JumpPoint
 	}
-
-	//This gets called by the sitting player to exit
-	/*void exitSeeSaw(GameObject obj)
-	{
-		//Terminate parent-child relation between m_SittingPlayer and SeeSaw
-		m_SittingPlayer.transform.parent = null;
-
-		//Clear m_SittingPlayer
-		m_SittingPlayer = null;
-	} */
 
 	//This should be called after the player is launched, resetting the SeeSaw back to it's original Position
 	void reset()
@@ -201,6 +197,24 @@ public class SeeSaw : InteractableBaseClass, Observer
 		m_IsPlatformLerping = false;
 		m_PlayerHasJumped = false;
 	}
+
+	public void placePieces(GameObject pickup)
+	{
+		if(pickup.gameObject.name == m_TopPiece.name)
+		{
+			m_TopPiece.transform.position = m_JumpPoint.transform.position;
+			m_TopPiece.transform.parent = m_JumpPoint.transform;
+			m_HasTopPiece = true;
+		}
+
+		if(pickup.gameObject.name == m_BottomPiece.name)
+		{
+			m_BottomPiece.transform.position = m_SitPoint.transform.position;
+			m_BottomPiece.transform.parent = m_SitPoint.transform;
+			m_HasBottomPiece = true;
+		}
+	}
+
 
 	void OnTriggerEnter(Collider obj)
 	{
