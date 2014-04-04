@@ -72,8 +72,8 @@ public class CameraController : MonoBehaviour
 	Vector3 m_LastLookAtPosition = Vector3.zero;
 
 	//Zoom
-	float m_Zoom = 0.75f;
-	float m_CloseLimit = 0.40f;
+	float m_Zoom = 0.65f;
+	float m_CloseLimit = 0.1f;
 	const float DEFAULT_ZOOM = 0.65f;
 	const float BACK_ZOOM = 0.8f;
 	float m_Zoom_Return = DEFAULT_ZOOM;
@@ -87,8 +87,6 @@ public class CameraController : MonoBehaviour
 
 	//Reticle
 	Reticle m_Reticle;
-
-	bool m_CanFlip = true;
 	
 
 	// Initialization
@@ -464,5 +462,42 @@ public class CameraController : MonoBehaviour
 
 		//Do not draw reticle by default
 		m_Reticle.canDraw(false);
+	}
+
+	//Colliding
+	void OnCollisionStay(Collision collision)
+	{
+		if (m_State != CameraState.Default)
+		{
+			return;
+		}
+
+		RaycastHit hit;
+		//Right
+		if (Physics.Raycast(m_CameraFollow.position, transform.right, out hit, Vector3.Distance(transform.position, collision.transform.position) * 1.5f))
+		{
+			setOrientation(transform.parent.eulerAngles.y + 1.0f - PlayerInput.Instance.getCameraMovement().x);
+		}
+		//Left
+		else if (Physics.Raycast(m_CameraFollow.position, -transform.right, out hit, Vector3.Distance(transform.position, collision.transform.position) * 1.5f))
+		{
+			setOrientation(transform.parent.eulerAngles.y - 1.0f + PlayerInput.Instance.getCameraMovement().x);
+		}
+		//Back Right
+		else if (Physics.Raycast(m_CameraFollow.position, -transform.forward + transform.right, out hit, Vector3.Distance(transform.position, collision.transform.position) * 1.5f))
+		{
+			setOrientation(transform.parent.eulerAngles.y + 2.0f - PlayerInput.Instance.getCameraMovement().x);
+		}
+		//Back Left
+		else if (Physics.Raycast(m_CameraFollow.position, -transform.forward - transform.right, out hit, Vector3.Distance(transform.position, collision.transform.position) * 1.5f))
+		{
+			setOrientation(transform.parent.eulerAngles.y - 2.0f + PlayerInput.Instance.getCameraMovement().x);
+		}
+		//Backwards
+		else if (Physics.Raycast(transform.position, -transform.forward, out hit, Vector3.Distance(collision.transform.position, m_CameraFollow.position) * 1.1f))
+		{
+			float itsZoom = Vector3.Distance(transform.localPosition, Vector3.zero) * (m_Zoom / Vector3.Distance(collision.transform.position, m_CameraFollow.position));
+			setZoom(m_Zoom - Mathf.Abs(itsZoom - m_Zoom));
+		}
 	}
 }
