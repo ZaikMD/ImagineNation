@@ -73,7 +73,6 @@
      <Compile Include="Assets\Scripts\Prototype\Interactables\PickUp.cs" />
      <Compile Include="Assets\Scripts\Prototype\Interactables\RemoveDebris.cs" />
      <Compile Include="Assets\Scripts\Prototype\Interactables\SeeSaw.cs" />
-     <Compile Include="Assets\Scripts\Prototype\Interactables\SeeSawDropZone.cs" />
      <Compile Include="Assets\Scripts\Prototype\Interactables\Targets.cs" />
      <Compile Include="Assets\Scripts\Prototype\Interactables\Trampoline.cs" />
      <Compile Include="Assets\Scripts\Prototype\Interactables\TrampolineButton.cs" />
