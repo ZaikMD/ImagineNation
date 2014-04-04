@@ -222,6 +222,43 @@ public class CameraController : MonoBehaviour
 		transform.localPosition = Vector3.Lerp (Vector3.zero, maxZoomPosition, m_Zoom);
 	}
 
+	//Colliding
+	void OnCollisionStay(Collision collision)
+	{
+		if (m_State != CameraState.Default)
+		{
+			return;
+		}
+		
+		RaycastHit hit;
+		//Right
+		if (Physics.Raycast(m_CameraFollow.position, transform.right, out hit, Vector3.Distance(transform.position, collision.transform.position) * 1.5f))
+		{
+			setOrientation(transform.parent.eulerAngles.y + 1.0f - PlayerInput.Instance.getCameraMovement().x);
+		}
+		//Left
+		else if (Physics.Raycast(m_CameraFollow.position, -transform.right, out hit, Vector3.Distance(transform.position, collision.transform.position) * 1.5f))
+		{
+			setOrientation(transform.parent.eulerAngles.y - 1.0f + PlayerInput.Instance.getCameraMovement().x);
+		}
+		//Back Right
+		else if (Physics.Raycast(m_CameraFollow.position, -transform.forward + transform.right, out hit, Vector3.Distance(transform.position, collision.transform.position) * 1.5f))
+		{
+			setOrientation(transform.parent.eulerAngles.y + 2.0f - PlayerInput.Instance.getCameraMovement().x);
+		}
+		//Back Left
+		else if (Physics.Raycast(m_CameraFollow.position, -transform.forward - transform.right, out hit, Vector3.Distance(transform.position, collision.transform.position) * 1.5f))
+		{
+			setOrientation(transform.parent.eulerAngles.y - 2.0f + PlayerInput.Instance.getCameraMovement().x);
+		}
+		//Backwards
+		else if (Physics.Raycast(transform.position, -transform.forward, out hit, Vector3.Distance(collision.transform.position, m_CameraFollow.position) * 1.1f))
+		{
+			float itsZoom = Vector3.Distance(transform.localPosition, Vector3.zero) * (m_Zoom / Vector3.Distance(collision.transform.position, m_CameraFollow.position));
+			setZoom(m_Zoom - Mathf.Abs(itsZoom - m_Zoom));
+		}
+	}
+
 	// Updates revolution around the player
 	void updateOrientation()
 	{
@@ -359,7 +396,7 @@ public class CameraController : MonoBehaviour
 			return;
 		}
 
-		setToNormal ();
+		//setToNormal ();
 		m_State = CameraState.Switching;
 		m_CameraFollow = newFollowedTransform;
 		m_Movement = (PlayerMovement)m_CameraFollow.gameObject.GetComponent<PlayerMovement> ();
@@ -454,7 +491,6 @@ public class CameraController : MonoBehaviour
 			m_Movement.setCanMove(true);
 		}
 
-		//transform.parent.position = m_CameraFollow.position;
 		transform.parent.position = m_CameraFollow.position;
 		transform.localPosition = m_SavedLocalPosition;
 		setOrientation (m_CameraFollow.position.y);
@@ -462,42 +498,5 @@ public class CameraController : MonoBehaviour
 
 		//Do not draw reticle by default
 		m_Reticle.canDraw(false);
-	}
-
-	//Colliding
-	void OnCollisionStay(Collision collision)
-	{
-		if (m_State != CameraState.Default)
-		{
-			return;
-		}
-
-		RaycastHit hit;
-		//Right
-		if (Physics.Raycast(m_CameraFollow.position, transform.right, out hit, Vector3.Distance(transform.position, collision.transform.position) * 1.5f))
-		{
-			setOrientation(transform.parent.eulerAngles.y + 1.0f - PlayerInput.Instance.getCameraMovement().x);
-		}
-		//Left
-		else if (Physics.Raycast(m_CameraFollow.position, -transform.right, out hit, Vector3.Distance(transform.position, collision.transform.position) * 1.5f))
-		{
-			setOrientation(transform.parent.eulerAngles.y - 1.0f + PlayerInput.Instance.getCameraMovement().x);
-		}
-		//Back Right
-		else if (Physics.Raycast(m_CameraFollow.position, -transform.forward + transform.right, out hit, Vector3.Distance(transform.position, collision.transform.position) * 1.5f))
-		{
-			setOrientation(transform.parent.eulerAngles.y + 2.0f - PlayerInput.Instance.getCameraMovement().x);
-		}
-		//Back Left
-		else if (Physics.Raycast(m_CameraFollow.position, -transform.forward - transform.right, out hit, Vector3.Distance(transform.position, collision.transform.position) * 1.5f))
-		{
-			setOrientation(transform.parent.eulerAngles.y - 2.0f + PlayerInput.Instance.getCameraMovement().x);
-		}
-		//Backwards
-		else if (Physics.Raycast(transform.position, -transform.forward, out hit, Vector3.Distance(collision.transform.position, m_CameraFollow.position) * 1.1f))
-		{
-			float itsZoom = Vector3.Distance(transform.localPosition, Vector3.zero) * (m_Zoom / Vector3.Distance(collision.transform.position, m_CameraFollow.position));
-			setZoom(m_Zoom - Mathf.Abs(itsZoom - m_Zoom));
-		}
 	}
 }
