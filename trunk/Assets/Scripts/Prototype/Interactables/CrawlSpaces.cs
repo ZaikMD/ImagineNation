@@ -117,6 +117,12 @@ public class CrawlSpaces : InteractableBaseClass
 					{
 						m_Player.GetComponent<PlayerState>().exitInteracting();
 					}
+
+					if (m_Player.CompareTag("RCCar"))
+					{
+						m_Player.gameObject.GetComponent<RCCarMovement>().m_CanMove = true;
+						m_Player.gameObject.GetComponent<RCCarMovement>().m_RCCarManager.ExitInteraction();
+					}
 				}
 			}
 			break;
@@ -129,7 +135,7 @@ public class CrawlSpaces : InteractableBaseClass
 	
 	public void OnUse(GameObject aObject) 
 	{
-		if (m_OtherCrawlSpace == null || aObject.name != "Zoey")
+		if (m_OtherCrawlSpace == null || ( (aObject.name != "Zoey")&&( aObject.tag != "RCCar")))
 		{
 			return;
 		}
@@ -143,7 +149,17 @@ public class CrawlSpaces : InteractableBaseClass
 			m_Player.gameObject.GetComponent<PlayerState>().interactionOutOfRange(this);
 		}
 
-		//TODO: RC car movement
+		if(aObject.tag == "RCCar")
+		{
+			//PlayerMovement movement = (PlayerMovement)m_Player.GetComponent<PlayerMovement>();
+			//GameObject parent = aObject.transform.parent.gameObject;
+
+			//RCCarMovement rCCarMovement = parent.GetComponent<RCCarMovement>();
+
+
+			m_Player.gameObject.GetComponent<RCCarMovement>().m_CanMove = false;
+			m_Player.gameObject.GetComponent<RCCarMovement>().m_RCCarManager.interactionOutOfRange(this);
+		}
 
 		//Set state
 		m_State = State.Entering;
@@ -165,7 +181,11 @@ public class CrawlSpaces : InteractableBaseClass
 				//Debug.Log(this + " is in range");
 			}
 		}
-		//TODO: add to rc car
+
+		if(obj.tag == "RCCar")
+		{
+			obj.transform.parent.gameObject.GetComponent<RCCarMovement>().m_RCCarManager.interactionInRange(this);
+		}
 	}
 	
 	void OnTriggerExit(Collider obj)
@@ -177,6 +197,10 @@ public class CrawlSpaces : InteractableBaseClass
 				obj.gameObject.GetComponent<PlayerState>().interactionOutOfRange(this);
 			}
 		}
-		//TODO: remove from rc car
+
+		if(obj.tag == "RCCar")
+		{
+			obj.transform.parent.gameObject.GetComponent<RCCarMovement>().m_RCCarManager.interactionOutOfRange(this);
+		}
 	}
 }

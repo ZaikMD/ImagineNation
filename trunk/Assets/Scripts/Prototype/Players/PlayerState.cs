@@ -71,7 +71,6 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	// Update is called once per frame
 	protected void checkStates()
     {
-        Debug.Log(m_CurrentPartner);
 		/*
 		if(timer<delay)
 		{
@@ -82,7 +81,6 @@ public abstract class PlayerState : MonoBehaviour, Observer
 */
 		if(!m_IsPaused)
 		{
-	       //Debug.Log("update");
 	       // m_HaveSecondItem = true;
 
 	    	if(m_PlayerState == PlayerStates.Default)
@@ -94,7 +92,6 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	        {
 
 	        case PlayerStates.Interacting:
-				Debug.Log("Interacting with : " + m_CurrentInteraction.getType());
 		        Interaction();	
 	        	break;
 
@@ -345,7 +342,6 @@ public abstract class PlayerState : MonoBehaviour, Observer
                                                                                                                                 
 	protected void MovingFunction()
 	{
-      //  Debug.Log("State is now Moving");
 		m_HaveSecondItem = true;
 		if(m_HaveSecondItem)
 		{
@@ -423,7 +419,6 @@ public abstract class PlayerState : MonoBehaviour, Observer
 		{
 			if(PlayerInput.Instance.getEnviromentInteraction())
 			{
-				Debug.Log("check for interactions");
 				if(m_InteractionsInRange.Count!= 0)
 				{
 					if (m_InteractionsInRange.Count > 1)
@@ -452,8 +447,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 				}
 			} 
 		}
-
-      //  Debug.Log("State is now idle");
+		
        //m_HaveSecondItem = true;
 		if(m_HaveSecondItem)
 		{
@@ -478,7 +472,6 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	        {
 				if(getUseSecondItemInput())
                 {
-					Debug.Log("Use Second Item");
 					//Movement shit
 					PlayerMovement movement = gameObject.GetComponent<PlayerMovement>();
 					
