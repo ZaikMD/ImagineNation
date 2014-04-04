@@ -34,6 +34,11 @@ public class Lever : InteractableBaseClass
 		{
 			obj.gameObject.GetComponent<PlayerState>().interactionInRange(this);
 		}
+
+		if (obj.tag == "RCCar") 
+		{
+
+		}
 	}
 	
 	void OnTriggerExit(Collider obj)

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 enum RCCarStates
 {
@@ -17,9 +18,12 @@ public class RCCar : SecondairyBase
 	GameObject m_RCCar = null;
 
 	bool m_HasBegun = false;
-	bool m_Interacting;	
 
 	Vector3 m_StartingOffset = new Vector3(4,1,0);
+
+	bool m_Interacting;
+    List<InteractableBaseClass> m_InteractionsInRange = new List<InteractableBaseClass>();
+	InteractableBaseClass m_CurrentInteraction;
 
 	// Use this for initialization
 	void Start () 
@@ -63,26 +67,34 @@ public class RCCar : SecondairyBase
 	}
 
 
-	public void BeginRCCar()
-	{
-		if (m_HasBegun == false)
-		{
-			m_RCCar = (GameObject)Instantiate(Resources.Load("Prefabs/RCCarPrefab"));
-			m_RCCar.transform.position = m_Alex.transform.position + m_StartingOffset; 
-			m_HasBegun = true;
-		}
-	}
-
 	void Idle()
 	{
-		if (PlayerInput.Instance.getEnviromentInteraction () && m_HasBegun) 
+		if (m_HasBegun)
 		{
-			m_State = RCCarStates.Exiting;
-		}
+			if (PlayerInput.Instance.getEnviromentInteraction ()) 
+			{
+				if (m_Interacting)
+				{
+					ExitInteraction();
+				}
 
-		else if (PlayerInput.Instance.getMovementInput() != new Vector2(0,0))
-		{
-			m_State = RCCarStates.Moving;
+				else if (m_InteractionsInRange.Count == 0)
+				{
+				m_State = RCCarStates.Exiting;
+				}
+
+				else 
+				{
+					m_CurrentInteraction = ClosestInteraction();
+					m_State = RCCarStates.Interacting;
+					m_Interacting = true;
+				}
+			}
+
+			else if (PlayerInput.Instance.getMovementInput() != new Vector2(0,0))
+			{
+				m_State = RCCarStates.Moving;
+			}
 		}
 
 	}
@@ -95,7 +107,37 @@ public class RCCar : SecondairyBase
 
 	void Interacting()
 	{
+		switch(m_CurrentInteraction.name)
+		{
+		case "Lever":
+			{
+			Lever lever = (Lever)m_CurrentInteraction;
+			lever.toggleIsOn();
+			m_Interacting = false;
+			}
+			break;
+
+		case "MovingBlock":
+			{
+			
+			}
+			break;
+		}
+
 		m_State = RCCarStates.Idle;
+	}
+
+	void ExitInteraction()
+	{
+		switch(m_CurrentInteraction.name)
+		{
+		case "MovingBlock":
+		{
+
+			m_Interacting = false;
+		}
+			break;
+		}
 	}
 
 	void Exiting()
@@ -106,6 +148,29 @@ public class RCCar : SecondairyBase
 		m_PlayerMovement.setCanMove (true);
 		m_Alex.setExitingSecond (true);
 		m_State = RCCarStates.Idle;
+
+		CameraController cameraController = (GameObject.FindObjectOfType<Camera>()).GetComponent<CameraController>();
+		
+		if (cameraController)
+		{
+			cameraController.switchTo(m_Alex.transform);
+		}
+	}
+
+	public void BeginRCCar()
+	{
+		if (m_HasBegun == false)
+		{
+			m_RCCar = (GameObject)Instantiate(Resources.Load("Prefabs/RCCarPrefab"));
+			m_RCCar.transform.position = m_Alex.transform.position + m_StartingOffset; 
+			m_HasBegun = true;
+			CameraController cameraController = (GameObject.FindObjectOfType<Camera>()).GetComponent<CameraController>();
+
+			if (cameraController)
+			{
+				cameraController.switchTo(m_RCCar.transform);
+			}
+		}
 	}
 
 	public override bool ableToBeUsed()
@@ -115,4 +180,36 @@ public class RCCar : SecondairyBase
 				else 
 						return false;
 	}
+
+	public void interactionInRange(InteractableBaseClass Interaction)
+	{
+		m_InteractionsInRange.Add (Interaction);
+	}
+
+	public void interactionOutInRange(InteractableBaseClass Interaction)
+	{
+		m_InteractionsInRange.Remove (Interaction);
+	}
+
+	public InteractableBaseClass ClosestInteraction()
+	{
+		float closestInteractableDistance = 0;
+		InteractableBaseClass closestInteractable = m_InteractionsInRange[0];
+
+		float currentInteractableDistance = 0;
+
+		foreach (InteractableBaseClass Interaction in m_InteractionsInRange)
+		{		
+			currentInteractableDistance = Vector3.Distance(m_RCCar.transform.position, Interaction.transform.position);
+			if (closestInteractableDistance > currentInteractableDistance)
+			{
+				closestInteractable = Interaction;
+				closestInteractableDistance = currentInteractableDistance;
+			}
+			
+		}
+		
+		return closestInteractable;
+	}
+
 }
