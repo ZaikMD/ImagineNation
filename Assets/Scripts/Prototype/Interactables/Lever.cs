@@ -37,7 +37,7 @@ public class Lever : InteractableBaseClass
 
 		if (obj.tag == "RCCar") 
 		{
-			obj.gameObject.GetComponent<RCCarMovement>().m_RCCarManager.interactionInRange(this);
+			obj.transform.parent.gameObject.GetComponent<RCCarMovement>().m_RCCarManager.interactionInRange(this);
 		}
 	}
 	
@@ -50,7 +50,7 @@ public class Lever : InteractableBaseClass
 
 		if (obj.tag == "RCCar") 
 		{
-			obj.gameObject.GetComponent<RCCarMovement>().m_RCCarManager.interactionOutInRange(this);
+			obj.transform.parent.gameObject.GetComponent<RCCarMovement>().m_RCCarManager.interactionOutOfRange(this);
 		}
 	}
 }

@@ -15,12 +15,15 @@ public class RCCarMovement : MonoBehaviour
 	
 	public float EngineRPM;
 
+	public bool m_CanMove;
+
 	public RCCar m_RCCarManager{ get; set;}
 
 	// Use this for initialization
 	void Start () 
 	{
 		rigidbody.centerOfMass = new Vector3 (0, 0, 0);
+		m_CanMove = true;
 	}
 	
 	// Update is called once per frame
@@ -31,6 +34,8 @@ public class RCCarMovement : MonoBehaviour
 
 	public void RegularMove()
 	{
+		if (m_CanMove)
+		{
 		    this.rigidbody.AddForce (new Vector3 (0, -9000, 0));
 
 			rigidbody.drag = rigidbody.velocity.magnitude / 250;
@@ -43,6 +48,7 @@ public class RCCarMovement : MonoBehaviour
 	
 			FrontLeftWheel.steerAngle = 15 * PlayerInput.Instance.getMovementInput ().x;
 			FrontRightWheel.steerAngle = 15 * PlayerInput.Instance.getMovementInput ().x;
+		}
 
 	}
 

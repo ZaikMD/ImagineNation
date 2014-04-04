@@ -73,30 +73,32 @@ public class RCCar : SecondairyBase
 		{
 			if (PlayerInput.Instance.getEnviromentInteraction ()) 
 			{
-				if (m_Interacting)
+				if (m_Interacting && m_CurrentInteraction.getIsExitable())
 				{
 					ExitInteraction();
+					return;
 				}
 
-				else if (m_InteractionsInRange.Count == 0)
+				if (m_InteractionsInRange.Count == 0 && m_Interacting == false)
 				{
-				m_State = RCCarStates.Exiting;
+					m_State = RCCarStates.Exiting;
+					return;
 				}
 
-				else 
+				if(!m_Interacting)
 				{
 					m_CurrentInteraction = ClosestInteraction();
 					m_State = RCCarStates.Interacting;
 					m_Interacting = true;
+					return;
 				}
 			}
 
-			else if (PlayerInput.Instance.getMovementInput() != new Vector2(0,0))
+			if (PlayerInput.Instance.getMovementInput() != new Vector2(0,0))
 			{
 				m_State = RCCarStates.Moving;
 			}
 		}
-
 	}
 
 	public override void Move ()
@@ -107,19 +109,26 @@ public class RCCar : SecondairyBase
 
 	void Interacting()
 	{
-		switch(m_CurrentInteraction.name)
+		switch(m_CurrentInteraction.getType())
 		{
-		case "Lever":
+		case InteractableType.Lever:
 			{
 			Lever lever = (Lever)m_CurrentInteraction;
 			lever.toggleIsOn();
 			m_Interacting = false;
-			}
 			break;
+			}
 
-		case "MovingBlock":
+
+			case InteractableType.MovingBlock:
 			{
-			
+			break;
+			}
+
+			case InteractableType.CrawlSpace:
+			{
+				CrawlSpaces crawlSpace = (CrawlSpaces)m_CurrentInteraction;
+				crawlSpace.OnUse(m_RCCar.gameObject);
 			}
 			break;
 		}
@@ -127,13 +136,19 @@ public class RCCar : SecondairyBase
 		m_State = RCCarStates.Idle;
 	}
 
-	void ExitInteraction()
+	public void ExitInteraction()
 	{
-		switch(m_CurrentInteraction.name)
+		switch(m_CurrentInteraction.getType())
 		{
-		case "MovingBlock":
+		case InteractableType.MovingBlock:
 		{
 
+			m_Interacting = false;
+		}
+			break;
+
+		case InteractableType.CrawlSpace:
+		{
 			m_Interacting = false;
 		}
 			break;
@@ -161,7 +176,7 @@ public class RCCar : SecondairyBase
 	{
 		if (m_HasBegun == false)
 		{
-			m_RCCar = (GameObject)Instantiate(Resources.Load("Prefabs/RCCarTest"));
+			m_RCCar = (GameObject)Instantiate(Resources.Load("Prefabs/GoodRCCarPrefab"));
 			m_RCCar.GetComponent<RCCarMovement>().m_RCCarManager = this;
 			m_RCCar.transform.position = m_Alex.transform.position + m_StartingOffset; 
 			m_HasBegun = true;
@@ -187,7 +202,7 @@ public class RCCar : SecondairyBase
 		m_InteractionsInRange.Add (Interaction);
 	}
 
-	public void interactionOutInRange(InteractableBaseClass Interaction)
+	public void interactionOutOfRange(InteractableBaseClass Interaction)
 	{
 		m_InteractionsInRange.Remove (Interaction);
 	}
