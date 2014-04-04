@@ -1,4 +1,8 @@
 ﻿<Properties>
+<<<<<<< .mine
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Interactables\Trampoline.cs">
+=======
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
 <<<<<<< .mine
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\MovingPlatforms.cs">
@@ -25,6 +29,7 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Interactables\SeeSawDropZone.cs">
 =======
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Interactables\LightDestroyDarkness.cs">
+>>>>>>> .r178
 >>>>>>> .r172
 >>>>>>> .r176
 >>>>>>> .r174
@@ -32,8 +37,16 @@
 >>>>>>> .r176
     <Files>
 <<<<<<< .mine
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\Interactables\TriggerManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\MovingPlatforms.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Observer\Events.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Interactables\Trampoline.cs" Line="1" Column="1" />
+=======
+=======
       <File FileName="Assets\Scripts\Prototype\MovingPlatforms.cs" Line="30" Column="2" />
 =======
+>>>>>>> .r179
 <<<<<<< .mine
 <<<<<<< .mine
       <File FileName="Assets\Scripts\Prototype\AI\Enemies\BaseEnemy.cs" Line="101" Column="1" />
@@ -74,6 +87,7 @@
       <File FileName="Assets\Scripts\Prototype\Interactables\LightDestroyDarkness.cs" Line="20" Column="4" />
       <File FileName="Assets\Scripts\Prototype\MovingPlatforms.cs" Line="164" Column="6" />
       <File FileName="Assets\Scripts\Prototype\Observer\Events.cs" Line="7" Column="2" />
+>>>>>>> .r178
 >>>>>>> .r172
 >>>>>>> .r176
 >>>>>>> .r174
