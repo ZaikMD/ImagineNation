@@ -391,7 +391,7 @@ public class CameraController : MonoBehaviour
 	/// <param name="newFollowedTransform">New followed transform.</param>
 	public void switchTo (Transform newFollowedTransform)
 	{
-		if ( m_State == CameraState.Switching )
+		if ( m_State == CameraState.Switching || m_State == CameraState.Aiming)
 		{
 			return;
 		}
