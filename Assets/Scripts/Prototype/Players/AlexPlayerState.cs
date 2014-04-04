@@ -47,4 +47,9 @@ public class AlexPlayerState : PlayerState
 	{
 		return PlayerInput.Instance.getEnviromentInteraction ();
 	}
+
+	protected override void	enterSecond()
+	{
+		//TODO initial rc car shit
+	}
 }
