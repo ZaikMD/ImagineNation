@@ -35,6 +35,9 @@ public class Reticle : MonoBehaviour
 	/// </summary>
 	public void Load()
 	{
+		//Hide cursor
+		Screen.showCursor = false;
+
 		//Sets the texture of the Reticle
 		m_ReticleTexture = (Texture2D)Resources.Load("CrossHair_NormalState");
 		m_ReticleTextureRed = (Texture2D)Resources.Load("CrossHair_HighlitedState");

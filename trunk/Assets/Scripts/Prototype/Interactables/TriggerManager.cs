@@ -6,6 +6,7 @@ public class TriggerManager : Subject, Observer
 {
 
 	int m_NumberOfTargetsHit = 0;
+	public bool m_TriggerOneIsEnough = true;
 
 	//Change this to the object that you want to recieve an event from a 
 	// target manager
@@ -37,7 +38,8 @@ public class TriggerManager : Subject, Observer
 					{
 						m_RecievedEvents [i] = true;
 						m_NumberOfTargetsHit++;
-						if(m_NumberOfTargetsHit >= m_Subjects.Length)
+
+						if(m_TriggerOneIsEnough || m_NumberOfTargetsHit >= m_Subjects.Length)
 						{
 							sendEvent(ObeserverEvents.Used);
 							//Debug.Log("All Targets Hit");
