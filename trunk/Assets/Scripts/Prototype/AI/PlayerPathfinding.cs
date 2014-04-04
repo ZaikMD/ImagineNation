@@ -19,6 +19,7 @@ public class PlayerPathfinding : MonoBehaviour
 	
 	NavMeshAgent m_Agent;
 
+	//Test, possibly make public to tailor to specific siblings
 	float m_MinimumDistanceAway = 10.0f;
 
 	// Use this for initialization
@@ -99,7 +100,5 @@ public class PlayerPathfinding : MonoBehaviour
 	{
 		m_Target = nextTarget.transform;
 	}
-
-
 
 }

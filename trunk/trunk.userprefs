@@ -14,6 +14,9 @@
 =======
 >>>>>>> .r173
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+<<<<<<< .mine
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\AI\Enemies\EnemyPathfinding.cs">
+=======
 >>>>>>> .r172
 <<<<<<< .mine
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Interactables\SeeSawDropZone.cs">
@@ -22,14 +25,24 @@
 >>>>>>> .r172
 >>>>>>> .r176
 >>>>>>> .r174
+>>>>>>> .r176
     <Files>
 <<<<<<< .mine
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\AI\Enemies\BaseEnemy.cs" Line="101" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\AI\PlayerPathfinding.cs" Line="22" Column="61" />
+      <File FileName="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" Line="18" Column="9" />
+      <File FileName="Assets\Scripts\Prototype\AI\Enemies\EnemyPathfinding.cs" Line="129" Column="2" />
+=======
+<<<<<<< .mine
+=======
       <File FileName="Assets\Scripts\Prototype\Items\RCCar\RCCar.cs" Line="123" Column="10" />
       <File FileName="Assets\Scripts\Prototype\Interactables\Lever.cs" Line="41" Column="4" />
       <File FileName="Assets\Scripts\Prototype\Items\RCCar\RCCarMovement.cs" Line="23" Column="45" />
       <File FileName="Assets\Scripts\Prototype\Interactables\MoveableBlock.cs" Line="18" Column="27" />
 =======
 <<<<<<< .mine
+>>>>>>> .r177
       <File FileName="Assets\Scripts\Prototype\Interactables\PickUp.cs" Line="69" Column="26" />
       <File FileName="Assets\Scripts\Prototype\Interactables\SeeSaw.cs" Line="219" Column="2" />
       <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="453" Column="4" />
@@ -57,6 +70,7 @@
 >>>>>>> .r172
 >>>>>>> .r176
 >>>>>>> .r174
+>>>>>>> .r176
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
