@@ -1,6 +1,8 @@
 ﻿<Properties>
-<<<<<<< .mine
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+<<<<<<< .mine
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Interactables\MoveableBlock.cs">
+=======
 <<<<<<< .mine
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Interactables\PickUp.cs">
 =======
@@ -18,8 +20,15 @@
 =======
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Interactables\LightDestroyDarkness.cs">
 >>>>>>> .r172
+>>>>>>> .r176
 >>>>>>> .r174
     <Files>
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\Items\RCCar\RCCar.cs" Line="123" Column="10" />
+      <File FileName="Assets\Scripts\Prototype\Interactables\Lever.cs" Line="41" Column="4" />
+      <File FileName="Assets\Scripts\Prototype\Items\RCCar\RCCarMovement.cs" Line="23" Column="45" />
+      <File FileName="Assets\Scripts\Prototype\Interactables\MoveableBlock.cs" Line="18" Column="27" />
+=======
 <<<<<<< .mine
       <File FileName="Assets\Scripts\Prototype\Interactables\PickUp.cs" Line="69" Column="26" />
       <File FileName="Assets\Scripts\Prototype\Interactables\SeeSaw.cs" Line="219" Column="2" />
@@ -46,6 +55,7 @@
       <File FileName="Assets\Scripts\Prototype\MovingPlatforms.cs" Line="164" Column="6" />
       <File FileName="Assets\Scripts\Prototype\Observer\Events.cs" Line="7" Column="2" />
 >>>>>>> .r172
+>>>>>>> .r176
 >>>>>>> .r174
     </Files>
   </MonoDevelop.Ide.Workbench>
