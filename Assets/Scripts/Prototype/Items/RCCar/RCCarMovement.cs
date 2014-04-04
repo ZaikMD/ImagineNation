@@ -15,11 +15,12 @@ public class RCCarMovement : MonoBehaviour
 	
 	public float EngineRPM;
 
+	public RCCar m_RCCarManager{ get; set;}
+
 	// Use this for initialization
 	void Start () 
 	{
-		rigidbody.centerOfMass = new Vector3 (0, 0, -0.05f);
-
+		rigidbody.centerOfMass = new Vector3 (0, 0, 0);
 	}
 	
 	// Update is called once per frame
@@ -30,7 +31,8 @@ public class RCCarMovement : MonoBehaviour
 
 	public void RegularMove()
 	{
-			rigidbody.AddForce (new Vector3 (0, -200, 0));
+		    this.rigidbody.AddForce (new Vector3 (0, -9000, 0));
+
 			rigidbody.drag = rigidbody.velocity.magnitude / 250;
 	
 			EngineRPM = (FrontLeftWheel.rpm + FrontRightWheel.rpm) / 2 * GearRatio [CurrentGear - 1];
@@ -41,6 +43,7 @@ public class RCCarMovement : MonoBehaviour
 	
 			FrontLeftWheel.steerAngle = 15 * PlayerInput.Instance.getMovementInput ().x;
 			FrontRightWheel.steerAngle = 15 * PlayerInput.Instance.getMovementInput ().x;
+
 	}
 
 	void ShiftGear()
