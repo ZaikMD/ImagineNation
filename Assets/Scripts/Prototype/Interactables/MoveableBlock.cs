@@ -33,6 +33,14 @@ public class MoveableBlock : InteractableBaseClass
 		return m_BlockSize;
 	}
 
+	void Update ()
+	{
+		if (transform.parent)
+		{
+			//transform.localPosition = transform.parent.forward;
+		}
+	}
+
 	/// <summary>
 	/// Set block to being moved by a player
 	/// </summary>
