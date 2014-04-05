@@ -66,6 +66,7 @@ public class CameraController : MonoBehaviour
 	const float AIMING_LOOK_AT_FRONT_AMOUNT = 20.0f;
 	const float AIMING_CAMERA_HEIGHT = 0.3f;
 	const float ZOOM_RETURN_SPEED = 0.01f;
+	const float AIMING_VERTICAL_SENSITIVITY = 13.0f;
 
 	//Looking helper variables
 	const float FORWARD_AMOUNT = 2.0f;
@@ -329,22 +330,19 @@ public class CameraController : MonoBehaviour
 			//Looking up and down
 			if (PlayerInput.Instance.getCameraMovement().y != 0)
 			{
-				m_Reticle.setReticlePosition(m_Reticle.transform.position + m_Reticle.transform.up * PlayerInput.Instance.getCameraMovement().y * Time.deltaTime * ROTATION_SENSITIVITY * 3.75f);
+				m_Reticle.setReticlePosition(m_Reticle.transform.position + m_Reticle.transform.up * PlayerInput.Instance.getCameraMovement().y * Time.deltaTime * ROTATION_SENSITIVITY * AIMING_VERTICAL_SENSITIVITY);
 			}
 
 			//Where reticle would normally be in relation to the player
 			Vector3 localPositionToPlayer = (m_CameraFollow.forward * Reticle.RETICLE_DISTANCE) + new Vector3 (0, m_Reticle.getTargetPosition().y - m_CameraFollow.position.y, 0);
 
 			//Raycast to close objects
-			if (Physics.Raycast(m_CameraFollow.position + m_CameraFollow.forward, localPositionToPlayer.normalized, out hit, Reticle.RETICLE_DISTANCE))
-			{
-				float distance = (Vector3.Distance(m_CameraFollow.position, hit.point));
-				localPositionToPlayer = (m_CameraFollow.forward * distance) + new Vector3 (0, m_Reticle.getTargetPosition().y - m_CameraFollow.position.y, 0);
-			}
+			Physics.Raycast(m_CameraFollow.position + m_CameraFollow.forward, localPositionToPlayer.normalized, out hit, Reticle.RETICLE_DISTANCE);
 
 			//Default reticle position
 			m_Reticle.setReticlePosition (m_CameraFollow.position + localPositionToPlayer);
 
+			//Set if reticle is red or blue
 			if (hit.transform == null)
 			{
 				m_Reticle.SetIsOnSomething(false);
@@ -365,12 +363,6 @@ public class CameraController : MonoBehaviour
 		//Default position of reticle
 		else
 		{
-			if (Physics.Raycast(m_CameraFollow.position + m_CameraFollow.forward, m_CameraFollow.forward, out hit, Reticle.RETICLE_DISTANCE))
-			{
-				m_Reticle.setReticlePosition(hit.point);
-				return;
-			}
-
 			m_Reticle.setReticlePosition (m_CameraFollow.position + (m_CameraFollow.forward * Reticle.RETICLE_DISTANCE));
 		}
 	}
