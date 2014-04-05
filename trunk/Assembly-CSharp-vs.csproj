@@ -104,10 +104,14 @@
      <Compile Include="Assets\Scripts\Prototype\Players\PlayerState.cs" />
      <Compile Include="Assets\Scripts\Prototype\Players\ZoeyPlayerState.cs" />
      <Compile Include="Assets\Scripts\Prototype\Reticle.cs" />
+     <Compile Include="Assets\Scripts\Prototype\SceneSettup.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Setting.cs" />
      <Compile Include="Assets\Scripts\Prototype\SoundManager.cs" />
+     <Compile Include="Assets\Scripts\Prototype\TestingScripts\Menu.cs" />
      <Compile Include="Assets\Scripts\Prototype\TestingScripts\RemoveDebris.cs" />
      <Compile Include="Assets\Scripts\Prototype\TestingScripts\SwitchTest.cs" />
      <Compile Include="Assets\Scripts\Prototype\TestingScripts\WhitlawTargetTest.cs" />
+     <Compile Include="Assets\Scripts\Prototype\TestingScripts\buttons.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

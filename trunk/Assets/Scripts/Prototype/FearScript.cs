@@ -5,6 +5,7 @@ public class FearScript : MonoBehaviour {
 
     GameObject[] m_DarkFear;
     GameObject[] m_ClaustrophobiaFear;
+    GameObject[] m_HeightFear;
     GameObject[] m_Players;
     GameObject[] m_NerfDarts;
     GameObject[] m_Enemys;
@@ -42,6 +43,7 @@ public class FearScript : MonoBehaviour {
 		m_NerfDarts = GameObject.FindGameObjectsWithTag("NerfDart");
         m_DarkFear = GameObject.FindGameObjectsWithTag("Darkness");
         m_ClaustrophobiaFear = GameObject.FindGameObjectsWithTag("Claustrophobia");
+        m_HeightFear = GameObject.FindGameObjectsWithTag("Height");
         m_Enemys = GameObject.FindGameObjectsWithTag("Enemy");
 
         //calls a function that calls all the ignore collision voloumes
@@ -57,6 +59,18 @@ public class FearScript : MonoBehaviour {
         setIgnoreDarkness(other);
         setIgnoreClaustrophobia(other);        
     }
+
+    public void setIgnoreHeights(Collider other)
+    { 
+        foreach (GameObject height in m_HeightFear)
+        {
+            //tells the colliders to ignore each other
+            Physics.IgnoreCollision(other, height.collider);
+           // Physics.IgnoreCollision(dark.collider, other.collider, true);
+        }
+    
+    }
+
 
     public void setIgnoreDarkness(Collider other)
     {
@@ -111,7 +125,7 @@ public class FearScript : MonoBehaviour {
                 Collider[] collider = player.GetComponents<Collider>();
                 foreach (Collider col in collider)
                 {
-                    setIgnoreFears(col);
+                    setIgnoreHeights( col );
                 }
                 
             }
