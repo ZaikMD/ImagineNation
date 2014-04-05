@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// Place this script on your trampoline along with a trigger in order to make it a trampolime
+// If you want a doublejump create another gameobject with another trigger in the area above the trampoline and place the TrampolineButton script on it.
+// You must pass the appropriate trampoline to the public variable of trampolineButton
+
 public class Trampoline : MonoBehaviour 
 {
 		//Member Variables
@@ -15,15 +19,11 @@ public class Trampoline : MonoBehaviour
 	// Use this for initialization
 	void start()
 	{
-		// Assign values to all variables
-
 	}
 	
 	// Update is called once per frame
 	void Update()
-	{
-
-		
+	{		
 	}
 	
 	
