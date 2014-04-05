@@ -344,6 +344,22 @@ public class CameraController : MonoBehaviour
 
 			//Default reticle position
 			m_Reticle.setReticlePosition (m_CameraFollow.position + localPositionToPlayer);
+
+			if (hit.transform == null)
+			{
+				m_Reticle.SetIsOnSomething(false);
+			}
+			else
+			{
+				if ( hit.transform.gameObject.CompareTag("Enemy"))
+				{
+					m_Reticle.SetIsOnSomething(true);
+				}
+				else
+				{
+					m_Reticle.SetIsOnSomething(false);
+				}
+			}
 		}
 
 		//Default position of reticle
