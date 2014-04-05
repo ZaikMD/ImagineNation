@@ -57,12 +57,11 @@ public class PlayerMovement : MonoBehaviour
 	const float FALL_ACCLERATION = 40.0f;
 	const float JUMP_SPEED = 15.0f;
 	const float AIR_HORIZONTAL_MOVE_SPEED = 6.0f;
-	const float GLIDING_FALL_SPEED = -1.0f;
-	const float PUSHING_BLOCK_SPEED = 3.0f;
+	const float PUSHING_BLOCK_SPEED = 5.0f;
 	const float AIMING_ROTATION_SPEED = 120.0f;
-	const float MAXIMUM_FALLING_SPEED = 21.0f;
+	const float MAXIMUM_FALLING_SPEED = -21.0f;
+	const float GLIDING_FALL_SPEED = -1.0f;
 	float m_VerticalVelocity = 0.0f;
-
 
 	void Start ()
 	{
@@ -100,13 +99,8 @@ public class PlayerMovement : MonoBehaviour
 	/// <returns>Controller input in relation to camera's rotation.</returns>
 	public Vector3 getControllerProjection()
 	{
-		//movementInput move = PlayerInput.Instance.getCameraMovement();
-
 		Vector3 projection = m_CameraTransform.forward * PlayerInput.Instance.getMovementInput().y;
 		projection += m_CameraTransform.right * PlayerInput.Instance.getMovementInput().x;
-
-		//Vector3 projection = m_CameraTransform.forward * move.y;
-		//projection += m_CameraTransform.right * move.x;
 
 		projection.y = 0;
 		return projection.normalized;
@@ -236,12 +230,11 @@ public class PlayerMovement : MonoBehaviour
 		}
 
 		//Falling
-		m_VerticalVelocity -= Time.deltaTime * FALL_ACCLERATION;
 
 		//There is a maximum falling speed
-		if (m_VerticalVelocity < -MAXIMUM_FALLING_SPEED)
+		if (m_VerticalVelocity > MAXIMUM_FALLING_SPEED)
 		{
-			m_VerticalVelocity = -MAXIMUM_FALLING_SPEED;
+			m_VerticalVelocity -= Time.deltaTime * FALL_ACCLERATION;
 		}
 
 		//Fall
@@ -288,26 +281,29 @@ public class PlayerMovement : MonoBehaviour
 			return;
 		}
 
-		Vector3 move = Vector3.zero;
-		move -= (getControllerProjection().x + getControllerProjection().y) * transform.forward;
-		move.y = 0.0f;
-
-		//Moves the player
-		m_Controller.Move (move * PUSHING_BLOCK_SPEED * Time.deltaTime);
-
+		//Falling while holding the block
 		if (!IsGrounded())
 		{
-			//Falling
-			m_VerticalVelocity -= Time.deltaTime * FALL_ACCLERATION;
-			
 			//There is a maximum falling speed
-			if (m_VerticalVelocity < -MAXIMUM_FALLING_SPEED)
+			if (m_VerticalVelocity > MAXIMUM_FALLING_SPEED)
 			{
-				m_VerticalVelocity = -MAXIMUM_FALLING_SPEED;
+				m_VerticalVelocity -= Time.deltaTime * FALL_ACCLERATION;
 			}
 			
 			//Fall
 			m_Controller.Move (transform.up * m_VerticalVelocity * Time.deltaTime);
+			return;
 		}
+
+		//Push or Pull
+		Vector3 controls = getControllerProjection ();
+		Vector3 move = Vector3.zero;
+		move.x = (transform.forward.x / Mathf.Abs(transform.forward.x)) / (controls.x / Mathf.Abs(controls.x));
+		move.x *= transform.forward.x;
+
+		move.z = (transform.forward.z / Mathf.Abs(transform.forward.z)) / (controls.z / Mathf.Abs(controls.z));
+		move.z *= transform.forward.z;
+
+		m_Controller.Move (move * PUSHING_BLOCK_SPEED * Time.deltaTime);
 	}
 }
