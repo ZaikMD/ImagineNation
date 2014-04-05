@@ -1,12 +1,35 @@
 ﻿<Properties>
+<<<<<<< .mine
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Items\RCCar.cs">
+=======
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\CameraController.cs">
+>>>>>>> .r158
     <Files>
+<<<<<<< .mine
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\Items\Cape.cs" Line="31" Column="3" />
+      <File FileName="Assets\Scripts\Prototype\PlayerMovement.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Items\SecondairyBase.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Items\RCCar.cs" Line="21" Column="47" />
+=======
+      <File FileName="Assets\Scripts\Prototype\Items\BoxingGloves.cs" Line="32" Column="39" />
+      <File FileName="Assets\Scripts\Prototype\Items\BoxingGloves.cs" Line="43" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Players\DerekPlayerState.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Items\VelcroGloves.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\PlayerInput.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Items\NerfGun.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Items\BasePrimaryItem.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Items\DerekProjectile.cs" Line="1" Column="1" />
+=======
       <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="75" Column="23" />
       <File FileName="Assets\Scripts\Prototype\Items\RCCar\RCCar.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\Interactables\MoveableBlock.cs" Line="55" Column="30" />
       <File FileName="Assets\Scripts\Prototype\Interactables\CrawlSpaces.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="1" Column="1" />
+>>>>>>> .r193
+>>>>>>> .r158
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

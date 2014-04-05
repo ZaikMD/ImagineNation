@@ -36,11 +36,18 @@ public class Cape : SecondairyBase
 
 	}
 
+	/// <summary>
+	/// Move the player according to this item's interaction
+	/// </summary>
 	public override void Move ()
 	{
 		m_PlayerMovement.Glide(); 
 	}
 
+	/// <summary>
+	/// Returns wether or not the Item can be used
+	/// </summary>
+	/// <returns><c>true</c>, if to be used was abled, <c>false</c> otherwise.</returns>
 	public override bool ableToBeUsed ()
 	{
 		if (m_PlayerMovement.IsGrounded() == true)
@@ -49,6 +56,9 @@ public class Cape : SecondairyBase
 			return true;
 	}
 
+	/// <summary>
+	/// Starts the gliding.
+	/// </summary>
 	public void StartGliding()
 	{
 		m_Enabled = true;
