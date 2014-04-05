@@ -80,6 +80,12 @@ public class Reticle : MonoBehaviour
 		transform.position = position;
 	}
 
+	//Sets reticle to red or blue
+	public void SetIsOnSomething(bool isOnSomething)
+	{
+		m_OnSomething = isOnSomething;
+	}
+
 	//Draws the Reticle
 	void OnGUI()
 	{
@@ -95,17 +101,5 @@ public class Reticle : MonoBehaviour
 		{
 			GUI.DrawTexture(new Rect(m_ReticleScreenPosition.x - RETICAL_SCREEN_SIZE / 2.0f, m_ReticleScreenPosition.y - RETICAL_SCREEN_SIZE / 2.0f, RETICAL_SCREEN_SIZE, RETICAL_SCREEN_SIZE), m_ReticleTextureRed);
 		}
-	}
-
-	//When something is nearby
-	void OnTriggerStay(Collider obj)
-	{
-		//If target is on an enemy change textures
-		if ( obj.gameObject.CompareTag("Enemy"))
-		{
-			m_OnSomething = true;
-			return;
-		}
-		m_OnSomething = false;
 	}
 }
