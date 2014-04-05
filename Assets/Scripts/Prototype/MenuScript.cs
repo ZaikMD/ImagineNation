@@ -39,8 +39,8 @@ public class MenuScript : MonoBehaviour , Observer
     public MenuState m_MenuState;
     public bool m_MainMenu = true;
     public Player m_PlayerOne;
-    string m_PlayerOneSelected;
-    string m_PlayerTwoSelected;
+    string m_PlayerOneSelected = null;
+    string m_PlayerTwoSelected = null;
     public Player m_PlayerTwo;
 	bool firstTimePlayerTwoSelect;
 
@@ -293,7 +293,7 @@ public class MenuScript : MonoBehaviour , Observer
                         m_PlayerTwo = Player.Zoey;
                     }
 
-                    //Continue
+                    //Play
                     Rect PlayButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 5 * 3), Screen.width / 2, Screen.height / 5);
                     buttonText = "Play";
                     if (GUI.Button(PlayButtonPosition, buttonText))
@@ -526,7 +526,9 @@ public class MenuScript : MonoBehaviour , Observer
 
 	void setPlayer()
 	{
-		
+	    
+
+
         player1.name = m_PlayerOneSelected;
         player2.name = m_PlayerTwoSelected;
 
@@ -535,17 +537,27 @@ public class MenuScript : MonoBehaviour , Observer
 		{
 			case Player.Alex:
 				{
+
 					player1.AddComponent<AlexPlayerState>();
+                    player1.AddComponent<RCCar>();
+                    player1.renderer.material.color = new Color(1, 0, 0);
 					break;
 				}
 			case Player.Derek:
 				{
 					player1.AddComponent<DerekPlayerState>();
+                    player1.AddComponent<VelcroGloves>();
+                    player1.AddComponent<BoxingGloves>();
+                    player1.GetComponent<BoxingGloves>().m_DerekProjectile = (GameObject)Instantiate(Resources.Load("Derek Projectile"));
+                    player1.renderer.material.color = new Color(0, 1, 0);
 					break;
 				}
 			case Player.Zoey:
 				{
 					player1.AddComponent<ZoeyPlayerState>();
+                    player1.AddComponent<StickyHand>();
+                    player1.AddComponent<Cape>();
+                    player1.renderer.material.color = new Color(0, 0, 1);
 					break;
 				}
 		}
@@ -558,16 +570,24 @@ public class MenuScript : MonoBehaviour , Observer
 				{
 
 					player2.AddComponent<AlexPlayerState>();
+                    player2.AddComponent<RCCar>();
+                    player2.renderer.material.color = new Color(1, 0, 0);
 					break;
 				}
 			case Player.Derek:
 				{
 					player2.AddComponent<DerekPlayerState>();
+                    player2.AddComponent<VelcroGloves>();
+                    player2.AddComponent<BoxingGloves>();
+                    player2.renderer.material.color = new Color(0, 1, 0);
 					break;
 				}
 			case Player.Zoey:
 				{
 					player2.AddComponent<ZoeyPlayerState>();
+                    player2.AddComponent<StickyHand>();
+                    player2.AddComponent<Cape>();
+                    player2.renderer.material.color = new Color(0, 0, 1);
 					break;
 				}
 
@@ -585,6 +605,9 @@ public class MenuScript : MonoBehaviour , Observer
 
     void loadGame(int slot)
     {
+
+
+        DestroyPreviousComponents();
      
         m_PlayerOne = (Player)PlayerPrefs.GetInt("PlayerOne" + slot);
       
@@ -594,8 +617,10 @@ public class MenuScript : MonoBehaviour , Observer
 
         m_PlayerTwoSelected = PlayerPrefs.GetString("PlayerNameTwo" + slot);
 
-        setPlayer();
-
+        if (m_PlayerOneSelected != null)
+        {
+            setPlayer();
+        }
      }
 
 
@@ -617,5 +642,59 @@ public class MenuScript : MonoBehaviour , Observer
 			}
 		}
 	}
+
+    void DestroyPreviousComponents()
+    {
+        if (player1.name == "PlayerOnePrefab")
+        {
+            switch (m_PlayerOne)
+            {
+                case Player.Alex:
+                    {
+                        Destroy(player1.GetComponent<RCCar>());
+                        break;
+                    }
+
+                case Player.Derek:
+                    {
+                        Destroy(player1.GetComponent<VelcroGloves>());
+                        Destroy(player1.GetComponent<BoxingGloves>());
+                        break;
+                    }
+
+                case Player.Zoey:
+                    {
+                        Destroy(player1.GetComponent<StickyHand>());
+                        Destroy(player1.GetComponent<Cape>());
+                        break;
+                    }
+            }
+
+            switch (m_PlayerTwo)
+            {
+                case Player.Alex:
+                    {
+                        Destroy(player2.GetComponent<RCCar>());
+                        break;
+                    }
+
+                case Player.Derek:
+                    {
+                        Destroy(player2.GetComponent<VelcroGloves>());
+                        Destroy(player2.GetComponent<BoxingGloves>());
+                        break;
+                    }
+
+                case Player.Zoey:
+                    {
+                        Destroy(player2.GetComponent<StickyHand>());
+                        Destroy(player2.GetComponent<Cape>());
+                        break;
+                    }
+            }
+        }
+    
+    
+    }
 
  }
