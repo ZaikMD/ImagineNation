@@ -20,6 +20,8 @@ public class MoveableBlock : InteractableBaseClass
 	//This get's set by designers
 	public Size m_BlockSize;
 	bool canInteract = true;
+	Vector3 m_SavedLocalPos;
+	bool m_InUse = false;
 
 	void Start()
 	{
@@ -35,9 +37,9 @@ public class MoveableBlock : InteractableBaseClass
 
 	void Update ()
 	{
-		if (transform.parent)
+		if (m_InUse)
 		{
-			//transform.localPosition = transform.parent.forward;
+			transform.localPosition = m_SavedLocalPos;
 		}
 	}
 
@@ -56,51 +58,27 @@ public class MoveableBlock : InteractableBaseClass
 
 			//Look at the block
 			Vector3 lookAt = transform.position;
-			Vector3 newPos;
-
-			if(obj.tag == "RCCar")
-			{
-				GameObject rcCar = obj;//.transform.parent.gameObject;
-
-
-
-				lookAt.y = rcCar.transform.position.y;
-				rcCar.transform.LookAt(lookAt);
-				
-				//set the state of the block and player
-				transform.parent = rcCar.transform;
-				
-				rigidbody.useGravity = false;
-				
-				//Move the block in front of the player
-				newPos = rcCar.transform.position;
-				newPos.y = transform.position.y;
-				transform.position = newPos + ((rcCar.transform.forward * 1.2f) * transform.localScale.x);
-				
-				//Fix instantly exiting block pushing
-				canInteract = false;
-				return;
-			}
-
 			lookAt.y = obj.transform.position.y;
 			obj.transform.LookAt(lookAt);
 
-			//set the state of the block and player
-			transform.parent = obj.transform;
-			
+			//Make sure block does not collide with ground
 			rigidbody.useGravity = false;
 
-			//Move the block in front of the player
-			newPos = obj.transform.position;
+			//set the state of the block and obj
+			transform.parent = obj.transform;
+
+			//Move the block in front of the obj
+			Vector3 newPos = obj.transform.position;
 			newPos.y = transform.position.y;
-			transform.position = newPos + ((obj.transform.forward * 1.2f) * transform.localScale.x);
+			transform.position = newPos + obj.transform.forward * 1.2f * transform.localScale.x;
+			m_SavedLocalPos = transform.localPosition;
+			Physics.IgnoreCollision(collider, obj.collider);
 
 			//Fix instantly exiting block pushing
 			canInteract = false;
 
+			m_InUse = true;
 		}
-
-		//TODO: rc car
 	}
 	
 	/// <summary>
@@ -108,8 +86,16 @@ public class MoveableBlock : InteractableBaseClass
 	/// </summary>
 	public void onExit()
 	{
+		Physics.IgnoreCollision(collider, transform.parent.collider, false);
 		transform.parent = null;
 		rigidbody.useGravity = true;
+		m_InUse = false;
+	}
+
+	//Exit if we hit something
+	void OnCollisionEnter()
+	{
+		//Flag player to exit state
 	}
 
 	void OnTriggerEnter(Collider obj)
