@@ -80,7 +80,10 @@ public class Reticle : MonoBehaviour
 		transform.position = position;
 	}
 
-	//Sets reticle to red or blue
+	/// <summary>
+	/// Sets reticle to red or blue.
+	/// </summary>
+	/// <param name="isOnSomething">If set to <c>true</c> is on something.</param>
 	public void SetIsOnSomething(bool isOnSomething)
 	{
 		m_OnSomething = isOnSomething;
