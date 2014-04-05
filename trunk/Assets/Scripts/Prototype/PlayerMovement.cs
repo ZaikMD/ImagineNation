@@ -277,32 +277,37 @@ public class PlayerMovement : MonoBehaviour
 
 	public void BlockHeldMovement (Size blockSize)
 	{
-		if (PlayerInput.Instance.getMovementInput().y == 0)
+		if (PlayerInput.Instance.getMovementInput() == Vector2.zero)
 		{
 			return;
 		}
 
 		//Smaller characters cannot move blocks too large to push
-		if (blockSize == Size.Large && (gameObject.name == "Zoey" || gameObject.name == "Derek"))
-		{
-			return;
-		}
-		else if (blockSize == Size.Medium && gameObject.name == "Zoey")
+		if ((blockSize == Size.Large && (gameObject.name == "Zoey" || gameObject.name == "Derek")) || (blockSize == Size.Medium && gameObject.name == "Zoey"))
 		{
 			return;
 		}
 
 		Vector3 move = Vector3.zero;
-		if (m_CameraTransform.forward.z > 0)
-		{
-			move += PlayerInput.Instance.getMovementInput().y * transform.forward;
-		}
-		else
-		{
-			move -= PlayerInput.Instance.getMovementInput().y * transform.forward;
-		}
+		move -= (getControllerProjection().x + getControllerProjection().y) * transform.forward;
+		move.y = 0.0f;
 
 		//Moves the player
 		m_Controller.Move (move * PUSHING_BLOCK_SPEED * Time.deltaTime);
+
+		if (!IsGrounded())
+		{
+			//Falling
+			m_VerticalVelocity -= Time.deltaTime * FALL_ACCLERATION;
+			
+			//There is a maximum falling speed
+			if (m_VerticalVelocity < -MAXIMUM_FALLING_SPEED)
+			{
+				m_VerticalVelocity = -MAXIMUM_FALLING_SPEED;
+			}
+			
+			//Fall
+			m_Controller.Move (transform.up * m_VerticalVelocity * Time.deltaTime);
+		}
 	}
 }
