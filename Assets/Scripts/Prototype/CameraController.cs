@@ -30,6 +30,10 @@ Created by Jason Hein on 3/1/2014
 	Added reticle functions
 4/2/2014
 	Now automatically zooms in and out while moving
+4/4/2014
+	Now can collide with walls
+4/5/2014
+	Reticle movement smoothed out
 */
 
 
