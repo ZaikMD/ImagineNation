@@ -1,5 +1,9 @@
 ﻿<Properties>
 <<<<<<< .mine
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\CharacterSwitch.cs">
+=======
+<<<<<<< .mine
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\MovingPlatforms.cs">
 =======
@@ -9,8 +13,23 @@
 =======
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\CameraController.cs">
 >>>>>>> .r214
+>>>>>>> .r218
 >>>>>>> .r217
     <Files>
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="79" Column="2" />
+      <File FileName="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" Line="454" Column="27" />
+      <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="127" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\MenuScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\AI\PlayerPathfinding.cs" Line="63" Column="37" />
+      <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="626" Column="2" />
+      <File FileName="Assets\Scripts\Prototype\Players\DerekPlayerState.cs" Line="13" Column="61" />
+      <File FileName="Assets\Scripts\Prototype\PlayerMovement.cs" Line="112" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Players\ZoeyPlayerState.cs" Line="6" Column="14" />
+      <File FileName="Assets\Scripts\Prototype\Players\AlexPlayerState.cs" Line="40" Column="56" />
+      <File FileName="Assets\Scripts\Prototype\CharacterSwitch.cs" Line="25" Column="2" />
+      <File FileName="Assets\Scripts\Prototype\Observer\Subject.cs" Line="31" Column="1" />
+=======
 <<<<<<< .mine
       <File FileName="Assets\Scripts\Prototype\Interactables\SeeSaw.cs" Line="4" Column="51" />
       <File FileName="Assets\Scripts\Prototype\Interactables\InteractableBaseClass.cs" Line="13" Column="9" />
@@ -29,11 +48,15 @@
       <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="64" Column="1" />
 >>>>>>> .r215
 >>>>>>> .r214
+>>>>>>> .r218
 >>>>>>> .r217
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\elia0034\Desktop\Imagine Nation\w14_l4_s1_dusk\trunk\Assets\Scripts\Prototype\Players\DerekPlayerState.cs" line="39" />
+      <Breakpoint file="C:\Users\elia0034\Desktop\Imagine Nation\w14_l4_s1_dusk\trunk\Assets\Scripts\Prototype\Players\PlayerState.cs" line="628" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

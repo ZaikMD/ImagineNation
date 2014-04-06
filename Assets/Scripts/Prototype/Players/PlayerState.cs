@@ -40,7 +40,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 
 	bool m_IsPaused = false;
 
-	public bool m_IsActive;
+	public bool m_IsActive = false;
 
 	public CameraController m_CameraController;
 
@@ -64,8 +64,19 @@ public abstract class PlayerState : MonoBehaviour, Observer
     {
         m_HaveSecondItem = true;
         m_UsingSecondItem = false;
+
+		gameObject.GetComponent<PlayerMovement>().setCanMove(m_IsActive);
+
+		if(m_IsActive)
+		{
+			GameObject.FindGameObjectWithTag("Camera").GetComponentInChildren<CameraController>().switchTo(this.gameObject.transform);
+		}
+
+		start ();
 	}
-	
+
+	protected abstract void start ();
+
 	// Update is called once per frame
 	protected void checkStates()
     {
@@ -102,11 +113,10 @@ public abstract class PlayerState : MonoBehaviour, Observer
 			    case PlayerStates.Dead:
 				    Dead();
 				    break;
-
 		            
 		        }
 			}
-		}    
+		}
 	}
 
 	protected void Dead()
@@ -605,6 +615,14 @@ public abstract class PlayerState : MonoBehaviour, Observer
 		if(recievedEvent == ObeserverEvents.CharacterSwitch)
 		{
 			m_IsActive = !m_IsActive;
+
+			gameObject.GetComponent<PlayerMovement>().setCanMove(m_IsActive);
+
+			if(m_IsActive)
+			{
+				GameObject.FindGameObjectWithTag("Camera").GetComponentInChildren<CameraController>().switchTo(this.gameObject.transform);
+			}
+
 			return;
 		}
 	}

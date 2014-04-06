@@ -83,6 +83,8 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 
 		//------------------------------
 		m_NavAgent = gameObject.GetComponent<NavMeshAgent> ();
+
+		m_NavAgent.enabled = m_IsActive;
 	}
 
 
@@ -93,8 +95,6 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 	{
 		if(m_IsActive)
 		{
-			m_NavAgent.enabled = true;
-
 			if(!m_IsPaused)
 			{
 				if(m_State == PlayerAIState.Default)
@@ -123,10 +123,6 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 						break;
 				}
 			}
-		}
-		else
-		{
-			m_NavAgent.enabled = false;
 		}
 	}
 
@@ -157,7 +153,7 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 	/// </summary>
 	void Following()                                        
 	{
-		Pathfinding ();
+		m_PathFinding.Following (m_Partner.transform);
 
 		m_State = PlayerAIState.Default;
 			
@@ -168,8 +164,6 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 	/// </summary>
 	void InPuzzle()
 	{
-		//TODO: tell pathfinding not to move
-		Pathfinding ();
 
 		if (GetInteracting ())
 		{
@@ -298,7 +292,7 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 		if(ButterZone(m_CombatTarget))
 		{
 			Attack (true);
-			Pathfinding();
+			m_PathFinding.Combat(m_CombatTarget.transform,m_IdealAttackRange);
 			m_CombatState = PlayerAICombatState.Default;
 			m_State = PlayerAIState.Default;
 		}
@@ -306,7 +300,7 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 		else
 		{
 			Attack (false);
-			Pathfinding();
+			m_PathFinding.Combat(m_CombatTarget.transform,m_IdealAttackRange);
 			m_CombatState = PlayerAICombatState.Default;
 			m_State = PlayerAIState.Default;
 		}
@@ -319,7 +313,7 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 	void CombatOutOfRange()
 	{
 		m_CombatTarget = FindClosestEnemy ();
-		Pathfinding ();
+		m_PathFinding.Combat(m_CombatTarget.transform,m_MaxAttackRange);
 		
 		m_CombatState = PlayerAICombatState.Default;
 		m_State = PlayerAIState.Default;
@@ -408,49 +402,14 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 	{ 
 		return m_playerStateMachine.getInteracting();
 	} 
-	
+
 	/// <summary>
-	/// Gets the type of the interaction.
-	/// // returns a reference to the game object being interacted with
-	/// <returns>The interaction type.</returns>
-	InteractableType GetInteractionType() 
+	/// Gets the interacting.
+	/// A function used to see if the AI is interacting or not, accessed from the Player
+	/// <returns><c>true</c>, if interacting was gotten, <c>false</c> otherwise.</returns>
+	InteractableType GetInteractionType()	 
 	{ 
-		return  m_playerStateMachine.interactionType();
-		
-	} 
-	
-	/// <summary>
-	/// Paths the find to target.
-	/// Go to the passed in target
-	/// <returns><c>true</c>, if find to target was pathed, <c>false</c> otherwise.</returns>
-	/// <param name="target">Target.</param>
-	void Pathfinding() 
-	{ 
-		//TODO: change all this shit
-		/*
-		switch(m_State)		
-		{			
-		case PlayerAIState.InPuzzle:
-		{
-			m_PathFinding.SetState(PlayerPathfindingStates.Puzzle);
-		}
-			break;
-			
-		case PlayerAIState.Following:
-		{
-			m_PathFinding.setTarget(m_Partner); 
-			m_PathFinding.SetState(PlayerPathfindingStates.Following);
-		}
-			break;
-			
-		case PlayerAIState.Combat:
-		{
-			m_PathFinding.setTarget(m_CombatTarget);
-			m_PathFinding.SetState(PlayerPathfindingStates.Combat);
-		}
-			break;
-		}
-		*/
+		return m_playerStateMachine.interactionType();
 	} 
 
 	public void AddCombatEnemy(GameObject enemy) 		 
@@ -477,6 +436,7 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 		{
 		case "PuzzleArea":
 			m_EnterPuzzle = true;
+			m_PathFinding.Puzzle();
 			break;
 			
 		case "Enemy":
@@ -491,6 +451,7 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 		{
 		case "PuzzleArea":
 			m_EnterPuzzle = false;
+			m_PathFinding.Puzzle();
 			break;
 			
 		case "Enemy":
@@ -510,6 +471,9 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 		if(recievedEvent == ObeserverEvents.CharacterSwitch)
 		{
 			m_IsActive = !m_IsActive;
+
+			m_NavAgent.enabled = m_IsActive;
+
 			return;
 		}
 	}

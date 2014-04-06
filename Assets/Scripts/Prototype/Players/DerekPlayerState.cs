@@ -7,7 +7,7 @@ public class DerekPlayerState : PlayerState
 	VelcroGloves m_VelcroGloves;
 
 	// Use this for initialization
-	void Start () 
+	protected override void start () 
     {
 		m_BoxingGloves = gameObject.GetComponent<BoxingGloves> ();
 		m_VelcroGloves = gameObject.GetComponent<VelcroGloves> ();
