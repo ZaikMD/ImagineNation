@@ -4,8 +4,8 @@ using System.Collections;
 public class DivingBoard : InteractableBaseClass 
 {
 
-	public SeeSaw seeSaw;
-	public bool m_NeedsBlock;
+	public SeeSaw seeSaw; //The seesaw it's attached too
+	public bool m_NeedsBlock; //If it takes a block
 
 	public GameObject m_Block;
 
@@ -26,12 +26,12 @@ public class DivingBoard : InteractableBaseClass
 	{
 		if(obj.tag == "Player")
 		{
-			obj.gameObject.GetComponent<PlayerState>().interactionInRange(this);
+			obj.gameObject.GetComponent<PlayerState>().interactionInRange(this); //Put this in the interaction list
 		}
 
 		if(obj.tag == m_Block.tag)
 		{
-			seeSaw.playerJumping(m_Block);
+			seeSaw.playerJumping(m_Block); //Pass the block to the seesaw to start it
 		}
 	}
 
@@ -39,7 +39,7 @@ public class DivingBoard : InteractableBaseClass
 	{
 		if(obj.tag == "Player")
 		{
-			obj.gameObject.GetComponent<PlayerState>().interactionOutOfRange(this);
+			obj.gameObject.GetComponent<PlayerState>().interactionOutOfRange(this); //Remove from the interaction list
 		}
 	}
 

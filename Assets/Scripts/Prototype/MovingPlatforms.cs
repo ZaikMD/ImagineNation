@@ -97,57 +97,54 @@ public class MovingPlatforms : MonoBehaviour , Observer
 								m_HasMoved = true;
 							} 
 						} 
-						else if (m_HasMoved == true && m_MovesOnce == false) 
+						else if (m_HasMoved == true && m_MovesOnce == false)  //Check to see if it needs to go back
 						{
-							transform.Translate (-1 * m_XMovePercent, -1 * m_YMovePercent, -1 * m_ZMovePercent);
+							transform.Translate (-1 * m_XMovePercent, -1 * m_YMovePercent, -1 * m_ZMovePercent); //Move the platform
 							m_MoveTimeInSeconds -= Time.deltaTime;
 
 							if (m_MoveTimeInSeconds < 0) 
 							{
-							m_PauseTime = m_InitialPauseTime;
-							m_HasMoved = false;
+							m_PauseTime = m_InitialPauseTime; //Reset pause time
+							m_HasMoved = false; // Has moved is now false
 							}
 						}
 					}
 				}
-				else
+				else //Else it needs a switch
 				{
-					if(m_SwitchToggled == true)
+					if(m_SwitchToggled == true) //Check to see if the switch is toggled
 					{
-						m_DelayTime -= Time.deltaTime;
+						m_DelayTime -= Time.deltaTime; //Countdown delay timer
 						if(m_DelayTime < 0)
 						{
 
-						if (m_PauseTime >= 0) 
-						{
-							m_PauseTime -= Time.deltaTime;
-							m_MoveTimeInSeconds = m_InitialMoveTime;
-						} 
-						else if (m_HasMoved == false) 
-						{
-							//transform.position = Vector3.Lerp(transform.position, m_LerpPosition, m_LerpTime);
-							transform.Translate (m_XMovePercent, m_YMovePercent, m_ZMovePercent);
-							m_MoveTimeInSeconds -= Time.deltaTime;
-							
-							if (m_MoveTimeInSeconds < 0) 
+							if (m_PauseTime >= 0) //Check pause timer
 							{
-								
-								m_PauseTime = m_InitialPauseTime;
-								m_HasMoved = true;
+								m_PauseTime -= Time.deltaTime; //Countdown pause timer
+								m_MoveTimeInSeconds = m_InitialMoveTime; //Set move time
 							} 
-						} 
-						else if (m_HasMoved == true && m_MovesOnce == false) 
-						{
-							//transform.position = Vector3.Lerp(transform.position, m_InitialPosition, m_LerpTime);
-							transform.Translate (-1 * m_XMovePercent, -1 * m_YMovePercent, -1 * m_ZMovePercent);
-							m_MoveTimeInSeconds -= Time.deltaTime;
-							
-							if (m_MoveTimeInSeconds < 0) 
+							else if (m_HasMoved == false) 
 							{
-								m_PauseTime = m_InitialPauseTime;
-								m_HasMoved = false;
+								transform.Translate (m_XMovePercent, m_YMovePercent, m_ZMovePercent); //Move platform by move percent
+								m_MoveTimeInSeconds -= Time.deltaTime; //countdown move time
+								
+								if (m_MoveTimeInSeconds < 0)  //Check move time
+								{
+									m_PauseTime = m_InitialPauseTime; //reset pause time
+									m_HasMoved = true; //Set has moved
+								} 
+							} 
+							else if (m_HasMoved == true && m_MovesOnce == false) //Check to see if it needs to move again, and if it has moved already
+							{
+								transform.Translate (-1 * m_XMovePercent, -1 * m_YMovePercent, -1 * m_ZMovePercent); //Move back to original position
+								m_MoveTimeInSeconds -= Time.deltaTime; //Countdown move time
+								
+								if (m_MoveTimeInSeconds < 0) 
+								{
+									m_PauseTime = m_InitialPauseTime; //reset pause time
+									m_HasMoved = false; //Has moved is now false
+								}
 							}
-						}
 
 					}
 				}
@@ -161,7 +158,7 @@ public class MovingPlatforms : MonoBehaviour , Observer
 	{
 		if(obj.tag == "Player")
 		{
-			obj.transform.parent = this.transform;
+			obj.transform.parent = this.transform; //Set the player as the child so it moves with the platform
 		}
 	}
 
@@ -169,7 +166,7 @@ public class MovingPlatforms : MonoBehaviour , Observer
 	{
 		if(obj.tag == "Player")
 		{
-			obj.transform.parent = null;
+			obj.transform.parent = null; //Delete the parent child relation
 		}
 	}
 
@@ -177,12 +174,12 @@ public class MovingPlatforms : MonoBehaviour , Observer
 	{
 		if(recievedEvent == ObeserverEvents.PauseGame || recievedEvent == ObeserverEvents.StartGame)
 		{
-			m_IsPaused = !m_IsPaused;
+			m_IsPaused = !m_IsPaused; //For activating the platform is the game isn't paused
 		}
 
 		if(recievedEvent == ObeserverEvents.Used && sender == m_Sender)
 		{
-			m_SwitchToggled = !m_SwitchToggled;
+			m_SwitchToggled = !m_SwitchToggled; //For activating the platform if it needs a switch
         }
 	}
 }
