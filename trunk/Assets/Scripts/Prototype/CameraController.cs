@@ -294,12 +294,12 @@ public class CameraController : MonoBehaviour
 			m_CollisionOrientation = transform.parent.eulerAngles.y - 1.0f;
 			m_CollisionTimer = COLLISION_FIX_TIMER;
 		}
-
+		/*
 		distance = Vector3.Distance (collision.transform.position, m_CameraFollow.position);
 		if (distance == 0.0f)
 		{
 			distance = 1.0f;
-		}
+		}*/
 
 		//Backwards
 		if (Physics.Raycast(transform.position, -transform.forward, out hit, distance))
@@ -308,6 +308,21 @@ public class CameraController : MonoBehaviour
 			m_CollisionZoom = true;
 			m_CollisionTimer = COLLISION_FIX_TIMER;
 		}
+
+		/*
+		//Backwards
+		if (Physics.Raycast(m_CameraFollow.position, (transform.position - m_CameraFollow.position).normalized, out hit, distance))
+		{
+			float localDistance = Vector3.Distance(transform.localPosition, Vector3.zero);
+			if (localDistance == 0.0f)
+			{
+				localDistance = 1.0f;
+			}
+
+			m_Zoom_Collision = localDistance * (m_Zoom / Vector3.Distance(collision.transform.position, m_CameraFollow.position));
+			m_CollisionZoom = true;
+			m_CollisionTimer = COLLISION_FIX_TIMER;
+		}*/
 	}
 
 	// Updates revolution around the player
