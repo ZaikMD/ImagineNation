@@ -1,15 +1,27 @@
 ﻿<Properties>
 <<<<<<< .mine
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Items\NerfGun.cs">
+=======
+<<<<<<< .mine
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Interactables\SeeSaw.cs">
 =======
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Interactables\LightDestroyingObject.cs">
 >>>>>>> .r202
+>>>>>>> .r203
     <Files>
 <<<<<<< .mine
       <File FileName="Assets\Scripts\Prototype\AI\Enemies\FurbullsProjectile.cs" Line="1" Column="1" />
+=======
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\AI\Enemies\FurbullsProjectile.cs" Line="1" Column="1" />
+>>>>>>> .r203
       <File FileName="Assets\Scripts\Prototype\AI\Enemies\EnemyPathfinding.cs" Line="75" Column="15" />
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\Items\NerfGun.cs" Line="1" Column="1" />
+=======
 =======
       <File FileName="Assets\Scripts\Prototype\AI\Enemies\FurbullsProjectile.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\AI\Enemies\EnemyPathfinding.cs" Line="1" Column="1" />
@@ -20,6 +32,7 @@
       <File FileName="Assets\Scripts\Prototype\Interactables\TriggerManager.cs" Line="20" Column="42" />
 >>>>>>> .r202
       <File FileName="Assets\Scripts\Prototype\Interactables\SeeSaw.cs" Line="1" Column="1" />
+>>>>>>> .r203
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

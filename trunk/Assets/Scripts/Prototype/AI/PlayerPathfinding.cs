@@ -1,73 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum PlayerPathfindingStates
-{
-	Following = 0,
-	Combat,
-	Puzzle,
-	Count,
-	Unknown
-}
-
 public class PlayerPathfinding : MonoBehaviour 
 {
-
-	public Transform m_Target;
-
-	PlayerPathfindingStates m_State;
-	
+	Transform m_Target;
 	NavMeshAgent m_Agent;
-
-	//Test, possibly make public to tailor to specific siblings
-	float m_MinimumDistanceAway = 10.0f;
 
 	// Use this for initialization
 	void Start () 
 	{
 		m_Agent = this.gameObject.GetComponent<NavMeshAgent> ();
-
-		//TestLine
-		m_State = PlayerPathfindingStates.Following;
 	}
 
-	// Update is called once per frame
-	void Update () 
-	{		
-
-
-		switch(m_State)
-		{
-		case PlayerPathfindingStates.Following:
-		{
-			Following();
-		}
-			break;
-
-		case PlayerPathfindingStates.Combat:
-		{
-			Combat();
-		}
-			break;
-
-		case PlayerPathfindingStates.Puzzle:
-		{
-			Puzzle();
-		}
-			break;
-
-		case PlayerPathfindingStates.Unknown:
-		{
-			
-		}
-			break;
-
-		}
-	}
-
-
-	 void Following()
+	/// <summary>
+	/// When the PlayerAI should be in the following state it will call this function
+	/// </summary>
+	 void Following(Transform target)
 	{
+		m_Target = target;
+
 		if (m_Target != null) 
 		{
 			m_Agent.enabled = true;
@@ -75,30 +26,30 @@ public class PlayerPathfinding : MonoBehaviour
 		}
 	}
 
-	 void Combat()
+	/// <summary>
+	/// When the PlayerAI should be in the combat state it will call this function
+	/// and pass in the minimum distance the PlayerAI should be away from the enemy
+	/// </summary>
+	/// <param name="minimumDistanceAway">Minimum distance away.</param>
+	void Combat(Transform target, float minimumDistanceAway)
 	{
+		m_Target = target;
+
 		if (m_Target != null) 
 		{
 			m_Agent.enabled = true;
 			
 			Vector3 Direction = (transform.position - m_Target.transform.position).normalized;
-			m_Agent.SetDestination(m_Target.transform.position + (Direction * m_MinimumDistanceAway));
+			m_Agent.SetDestination(m_Target.transform.position + (Direction * minimumDistanceAway));
 		}
 	}
 
+	/// <summary>
+	/// When the PlayerAI should be in the puzzle state it will call this function
+	/// deactive the agent and no longer use navMesh
+	/// </summary>
 	public void Puzzle()
 	{
 		m_Agent.enabled = false;
 	}
-
-	public void SetState(PlayerPathfindingStates nextState)
-	{
-		m_State = nextState;
-	}
-
-	public void setTarget(GameObject nextTarget)
-	{
-		m_Target = nextTarget.transform;
-	}
-
 }
