@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-////////////////////// ATTACK AND PATHFINDING LEFT TO DO!!!///
+
 public class PlayerAIStateMachine : MonoBehaviour 
 {
 	//ENUMS
@@ -26,20 +26,8 @@ public class PlayerAIStateMachine : MonoBehaviour
 		Unable, 
 		InRange, 
 		OutOfRange, 
-		Hiding,
 		Count, 
 		Unknown 
-	}
-
-	public enum InteractionTypes
-	{
-		PickUp = 0,
-		SeesawBottom,
-		SeesawJump,
-		NPC,
-		CrawlSpace,
-		Count,
-		unKnown
 	}
 
 	//MEMBER VARIABLES
@@ -50,19 +38,20 @@ public class PlayerAIStateMachine : MonoBehaviour
 	PlayerAICombatState m_CombatState;
 		
 	//An m_Player GameObject for pathfinding purposes 
-	GameObject m_Player; 
+	GameObject m_Player; // TODO set to current player
 	PlayerPathfinding m_PathFinding;
 	
 	//A list of GameObject enemies to determine which enemies the AI is interacting with in combat 
-	List<GameObject> enemies;
+	List<GameObject> m_enemies = new List<GameObject>();
 	PlayerState m_playerStateMachine;
+	GameObject m_CombatTarget;
 	
 	//boolean for entering combat set by the addEnemy
 	bool m_EnterCombatFlag;
 	bool m_EnterPuzzle;
 
-	public const int m_IdealRange = 10;
-	public const int m_InRange = 15;
+	public const int m_IdealAttackRange = 10;
+	public const int m_MaxAttackRange = 15;
 
 	//METHODS
 
@@ -73,63 +62,7 @@ public class PlayerAIStateMachine : MonoBehaviour
 		m_PathFinding = this.gameObject.GetComponent<PlayerPathfinding>();
 	}
 
-	/// <summary>
-	/// Adds the combat enemy.
-	/// This function would allow us to add an Enemy to our list by passing in the desired enemy to add, //giving our AI a target to engage.
-	/// <param name="enemy">Enemy.</param>
-	public void AddCombatEnemy(GameObject enemy) 		 
-	{ 
-		enemies.Add(enemy); 
-		m_EnterCombatFlag = true;
-	}
 
-	/// <summary>
-	/// Removes the enemy.
-	/// Just as the addCombatEnemy adds an Enemy to our list, this will remove one suggesting that the //Enemy that was previously active, is being set to inactive
-	/// <param name="enemy">Enemy.</param>
-	public void RemoveEnemy(GameObject enemy)
-	{ 
-		enemies.Remove(enemy); 
-		if(enemies.Count<=0)
-		{
-			m_EnterCombatFlag = false;
-		}
-	} 
-
-	/// <summary>
-	/// Gets the interacting.
-	/// A function used to see if the AI is interacting or not, accessed from the Player
-	/// <returns><c>true</c>, if interacting was gotten, <c>false</c> otherwise.</returns>
-	bool GetInteracting()	 
-	{ 
-		return m_playerStateMachine.getInteracting();
-	} 
-
-	/// <summary>
-	/// Gets the type of the interaction.
-	/// // returns a reference to the game object being interacted with
-	/// <returns>The interaction type.</returns>
- 	 InteractionTypes GetInteractionType() 
-	{ 
-		return (InteractionTypes) m_playerStateMachine.interactionType();
-
-	} 
-
-	/// <summary>
-	/// Paths the find to target.
-	///Pathfinding is still a work in progress, but the function will return a bool to have the AI pathfind to 
-	//a passed in target, this will be used for moving the AI and setting it InRange
-	/// <returns><c>true</c>, if find to target was pathed, <c>false</c> otherwise.</returns>
-	/// <param name="target">Target.</param>
-	bool PathFindToTarget(GameObject target) 
-	{ 
-		//Move to desired location based on target passed in, using Pathfinding 
-		//return true if the AI has found the target to pathfind to 
-
-		//TODO pathfinding
-		return false;
-	} 
-	
 	/// <summary>
 	/// Update this instance.
 	/// </summary>
@@ -142,19 +75,26 @@ public class PlayerAIStateMachine : MonoBehaviour
 
 		switch(m_State)
 		{
-		case PlayerAIState.InPuzzle:
-			InPuzzle();
-			break;
-		case PlayerAIState.Following:
-			Following();
-			break;
-		case PlayerAIState.Combat:
-			Combat();
-			break;
-		//default:
-			//assert
+			case PlayerAIState.InPuzzle:
+			{
+				InPuzzle();
+			}
+				break;
 
+			case PlayerAIState.Following:
+			{
+				Following();
+			}
+				break;
+
+			case PlayerAIState.Combat:
+			{
+				Combat();
+			}
+				break;
 		}
+
+
 	}
 
 	/// <summary>
@@ -162,15 +102,19 @@ public class PlayerAIStateMachine : MonoBehaviour
 	/// </summary>
 	void Default()
 	{
+		if(m_EnterPuzzle)
+		{
+			m_State = PlayerAIState.InPuzzle;
+			return;
+		}
+
 		if(m_EnterCombatFlag)
 		{
 			m_State = PlayerAIState.Combat;
 			m_CombatState = PlayerAICombatState.Default;
+			return;
 		}
-		else if(m_EnterPuzzle)
-		{
-			m_State = PlayerAIState.InPuzzle;
-		}
+
 		else
 		{
 			m_State = PlayerAIState.Following;
@@ -182,7 +126,10 @@ public class PlayerAIStateMachine : MonoBehaviour
 	/// </summary>
 	void Following()                                        
 	{
-			m_State = PlayerAIState.Default;
+		Pathfinding ();
+
+		m_State = PlayerAIState.Default;
+			
 	}
 
 	/// <summary>
@@ -190,34 +137,42 @@ public class PlayerAIStateMachine : MonoBehaviour
 	/// </summary>
 	void InPuzzle()
 	{
+		Pathfinding ();
+
 		if (GetInteracting ())
 		{
 			switch(GetInteractionType())
-			{
-			case InteractionTypes.PickUp:
-				//exit Movable Block
-				m_State = PlayerAIState.Default;
-				break;
+			{	
+				//TODO handle Interactions
+				case InteractableType.DivingBoard:
+				{
+					m_State = PlayerAIState.Default;
+				}
+					break;
 
-			case InteractionTypes.SeesawBottom:
-				//exit Movable Block
-				m_State = PlayerAIState.Default;
-				break;
+				case InteractableType.Lever:
+				{
+					m_State = PlayerAIState.Default;
+				}
+					break;
 
-			case InteractionTypes.SeesawJump:
-				//exit Movable Block
-				m_State = PlayerAIState.Default;
-				break;
+				case InteractableType.MovingBlock:
+				{
+					m_State = PlayerAIState.Default;
+				}
+					break;
 
-			case InteractionTypes.NPC:
-				//exit Movable Block
-				m_State = PlayerAIState.Default;
-				break;
+				case InteractableType.PickUp:
+				{
+					m_State = PlayerAIState.Default;
+				}
+					break;
 
-			case InteractionTypes.CrawlSpace:
-				//exit Movable Block
-				m_State = PlayerAIState.Default;
-				break;
+				case InteractableType.SeeSaw:
+				{
+					m_State = PlayerAIState.Default;
+				}
+					break;
 
 			}
 		}		
@@ -225,42 +180,6 @@ public class PlayerAIStateMachine : MonoBehaviour
 		else
 		{
 			m_State = PlayerAIState.Default;
-		}
-	}
-
-	/// <summary>
-	/// Raises the trigger enter event.
-	/// </summary>
-	/// <param name="other">Other.</param>
-	void OnTriggerEnter(Collider other)
-	{
-		switch(other.name)
-		{
-		case "puzzleArea":
-			m_EnterPuzzle = true;
-			break;
-
-		case "ennemy":
-			AddCombatEnemy(other.gameObject);
-			break;
-		}
-	}
-
-	/// <summary>
-	/// Raises the trigger exit event.
-	/// </summary>
-	/// <param name="other">Other.</param>
-	void OnTriggerExit(Collider other)
-	{
-		switch(other.name)
-		{
-		case "puzzleArea":
-			m_EnterPuzzle = false;
-			break;
-
-		case "ennemy":
-			RemoveEnemy(other.gameObject);
-			break;
 		}
 	}
 
@@ -285,11 +204,6 @@ public class PlayerAIStateMachine : MonoBehaviour
 		case PlayerAICombatState.OutOfRange:
 			CombatOutOfRange();
 			break;
-		case PlayerAICombatState.Hiding:
-			CombatHiding();
-			break;
-		//default:
-			//assert();
 		}
 	}
 
@@ -301,21 +215,21 @@ public class PlayerAIStateMachine : MonoBehaviour
 		if(GetInteracting())
 		{
 			m_CombatState = PlayerAICombatState.Unable;
+			return;
 		}
-		else if(inRange())
+		
+		if(inRange())
 		{
 			m_CombatState = PlayerAICombatState.InRange;
+			return;
 		}
+		
 		else 
 		{
 			m_CombatState = PlayerAICombatState.OutOfRange;
 		}
-//		if(ableToHide)
-//		{
-//			m_CombatState = PlayerAICombatState.Hiding;
-//		}
 	}
-
+	
 	/// <summary>
 	///  Update loop for CombatUnable in combat states
 	/// </summary>
@@ -326,56 +240,75 @@ public class PlayerAIStateMachine : MonoBehaviour
 			//TODO Fill in what happens with each interactable
 			switch(GetInteractionType())
 			{
-//				Check if the interactable is exitable if it is exit -> default
-//				if it isn't exitable return to default
-				case InteractionTypes.PickUp:
+				//				Check if the interactable is exitable if it is exit -> default
+				//				if it isn't exitable return to default				
 				
-					m_State = PlayerAIState.Default;
-					break;
+			case InteractableType.Lever:
+			{
+				m_State = PlayerAIState.Default;
+			}
+				break;
 				
-				case InteractionTypes.SeesawBottom:
+			case InteractableType.MovingBlock:
+			{
+				m_State = PlayerAIState.Default;
+			}
+				break;		
 				
-					m_State = PlayerAIState.Default;
-					break;
+			case InteractableType.PickUp:
+			{
+				m_State = PlayerAIState.Default;
+			}
+				break;
 				
-				case InteractionTypes.SeesawJump:
+			case InteractableType.SeeSaw:
+			{
+				m_State = PlayerAIState.Default;
+			}
+				break;
 				
-					m_State = PlayerAIState.Default;
-					break;
 				
-				case InteractionTypes.NPC:
-				
-					m_State = PlayerAIState.Default;
-					break;
-				
-				case InteractionTypes.CrawlSpace:
-				
-					m_State = PlayerAIState.Default;
-					break;
-
 			} 
 		}
 	}
-
+	
 	/// <summary>
 	/// Update loop for CombatInRange in combat states
 	/// </summary>
-	void CombatInRange()
+	void CombatInRange()	
 	{
-
-		if(ButterZone(FindClosestEnemy()))
+		m_CombatTarget = FindClosestEnemy();
+		
+		if(ButterZone(m_CombatTarget))
 		{
-			Attack ();
+			Attack (true);
+			Pathfinding();
 			m_CombatState = PlayerAICombatState.Default;
+			m_State = PlayerAIState.Default;
 		}
+		
 		else
 		{
-			Attack ();
-//			PathFindToTarget(m_IdealRange);
+			Attack (false);
+			Pathfinding();
 			m_CombatState = PlayerAICombatState.Default;
+			m_State = PlayerAIState.Default;
 		}
 	}
 
+	
+	/// <summary>
+	/// Update loop for CombatOutOfRange in combat states
+	/// </summary>
+	void CombatOutOfRange()
+	{
+		m_CombatTarget = FindClosestEnemy ();
+		Pathfinding ();
+		
+		m_CombatState = PlayerAICombatState.Default;
+		m_State = PlayerAIState.Default;
+	}
+	
 	/// <summary>
 	/// Checks to see if plaayer is in the ideal range
 	/// </summary>
@@ -383,80 +316,60 @@ public class PlayerAIStateMachine : MonoBehaviour
 		//This function checks if the playerAI is in the preferred position to attack the enemy target 
 	{ 
 		//Check if player is in Ideal range
-		if (Vector3.Distance(this.transform.position, enemy.transform.position) == m_IdealRange)
+		if (Vector3.Distance(this.transform.position, enemy.transform.position) == m_IdealAttackRange)
 		{
 			return true;
 		}
-
-		else 
-		{
-			return false;
-		}
+		
+		return false;		
 	}
-
+	
 	/// <summary>
 	///Applying damage to the desired enemy then setting the AI back to its default state 
 	/// </summary>
-	void Attack() 
+	void Attack(bool inButterZone) 
 	{ 
 		// TODO Attack
+		if (inButterZone)
+		{
+			//More Damage
+			
+		}
+		
+		else
+		{
+			
+		}
+		m_CombatState = PlayerAICombatState.Default;
 	} 
 
 	/// <summary>
-	/// Update loop for CombatOutOfRange in combat states
+	/// Checks to see if any enemies are in range  		
 	/// </summary>
-	void CombatOutOfRange()
-	{
-		//loop through enemies to find the closest
-		for(int i = 0; i < enemies.Count; i++)
-		{
-			//TODO pathfinding
-			//pathfind to closest enemy
-		}
-		m_CombatState = PlayerAICombatState.Default;
-	}
-
-	/// <summary>
-	/// Update loop for CombatHiding in combat states
-	/// </summary>
-	void CombatHiding()
-	{
-		//find hiding spot and pathfind to it
-		m_CombatState = PlayerAICombatState.Default;
-	}
-
-//	/// <summary>
-//	/// Finds the hiding spot.
-//	/// </summary>
-//	/// <returns><c>true</c>, if hiding spot was found, <c>false</c> otherwise.</returns>
-//	/// <param name="hidingSpot">Hiding spot.</param>
-//	bool FindHidingSpot(GameObject* hidingSpot) 
-//		//This function will create an empty gameObject for the AI to hide in if they can't get InRange of 
-//		//their target 
-//	{ 
-//		//Create hiding spot and pathfind to it and hide from enemy, if the AI cannot hide then return to //default 
-//	} 
-
+	/// <returns><c>true</c>, if range was ined, <c>false</c> otherwise.</returns>
 	bool inRange()
 	{
-	 foreach (GameObject enemy in enemies)
+		foreach (GameObject enemy in m_enemies)
 		{
-
-			if (Vector3.Distance(this.transform.position, enemy.transform.position) < m_InRange)
+			if (Vector3.Distance(this.transform.position, enemy.transform.position) < m_MaxAttackRange)
 			{
-						return true;					
-
+				return true;
 			}
 		}
+		
 		return false;
 	}
-
+	
+	/// <summary>
+	/// Finds the closest enemy to you and returns it
+	/// </summary>
+	/// <returns>The closest enemy.</returns>
 	GameObject FindClosestEnemy()
 	{
 		float closestEnemyDistance = 0;
-		GameObject closestEnemy = enemies[0];
+		GameObject closestEnemy = m_enemies[0];
 		float currentEnemyDistance = 0;
-		foreach (GameObject enemy in enemies)
+		foreach (GameObject enemy in m_enemies)
 		{		
 			currentEnemyDistance = Vector3.Distance(this.transform.position, enemy.transform.position);
 			if (closestEnemyDistance > currentEnemyDistance)
@@ -464,10 +377,109 @@ public class PlayerAIStateMachine : MonoBehaviour
 				closestEnemy = enemy;
 				closestEnemyDistance = currentEnemyDistance;
 			}
-
+			
 		}
-
+		
 		return closestEnemy;
 	}
+
+
+	/// <summary>
+	/// Gets the interacting.
+	/// A function used to see if the AI is interacting or not, accessed from the Player
+	/// <returns><c>true</c>, if interacting was gotten, <c>false</c> otherwise.</returns>
+	bool GetInteracting()	 
+	{ 
+		return m_playerStateMachine.getInteracting();
+	} 
+	
+	/// <summary>
+	/// Gets the type of the interaction.
+	/// // returns a reference to the game object being interacted with
+	/// <returns>The interaction type.</returns>
+	InteractableType GetInteractionType() 
+	{ 
+		return  m_playerStateMachine.interactionType();
+		
+	} 
+	
+	/// <summary>
+	/// Paths the find to target.
+	/// Go to the passed in target
+	/// <returns><c>true</c>, if find to target was pathed, <c>false</c> otherwise.</returns>
+	/// <param name="target">Target.</param>
+	void Pathfinding() 
+	{ 
+		switch(m_State)
+		{
+			
+		case PlayerAIState.InPuzzle:
+		{
+			m_PathFinding.SetState(PlayerPathfindingStates.Puzzle);
+		}
+			break;
+			
+		case PlayerAIState.Following:
+		{
+			m_PathFinding.setTarget(m_Player); 
+			m_PathFinding.SetState(PlayerPathfindingStates.Following);
+		}
+			break;
+			
+		case PlayerAIState.Combat:
+		{
+			m_PathFinding.setTarget(m_CombatTarget);
+			m_PathFinding.SetState(PlayerPathfindingStates.Combat);
+		}
+			break;
+		}
+	} 
+
+	public void AddCombatEnemy(GameObject enemy) 		 
+	{ 
+		m_enemies.Add(enemy); 
+		m_EnterCombatFlag = true;
+	}
+	
+
+	public void RemoveEnemy(GameObject enemy)
+	{ 
+		//TODO if enemy dies is he removed from the list?
+		m_enemies.Remove(enemy); 
+		if(m_enemies.Count<=0)
+		{
+			m_EnterCombatFlag = false;
+		}
+	} 
+
+
+	void OnTriggerEnter(Collider other)
+	{
+		switch(other.tag)
+		{
+		case "PuzzleArea":
+			m_EnterPuzzle = true;
+			break;
+			
+		case "Enemy":
+			AddCombatEnemy(other.gameObject);
+			break;
+		}
+	}
+
+	void OnTriggerExit(Collider other)
+	{
+		switch(other.tag)
+		{
+		case "PuzzleArea":
+			m_EnterPuzzle = false;
+			break;
+			
+		case "Enemy":
+			RemoveEnemy(other.gameObject);
+			break;
+		}
+	}
+
 
 }

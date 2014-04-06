@@ -26,6 +26,6 @@ public class Furbulls : BaseEnemy
 		GameObject projectile = (GameObject)Instantiate (m_FurbullsProjectile, this.transform.position, this.transform.rotation);
 		Vector3 direction = (this.transform.position - m_Player.transform.position).normalized;
 		
-		projectile.gameObject.GetComponent<FurbullsProjectile> ().setForwardDirection(direction)();
+		//projectile.gameObject.GetComponent<FurbullsProjectile> ().setForwardDirection(direction)();
 	}
 }
