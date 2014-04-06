@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿
+//hi
+using UnityEngine;
 using System.Collections;
 
 public class LightDestroyingObject : MonoBehaviour , Observer
