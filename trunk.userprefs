@@ -1,11 +1,21 @@
 ﻿<Properties>
+<<<<<<< .mine
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\MovingPlatforms.cs">
+=======
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
 <<<<<<< .mine
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Interactables\DropZone.cs">
 =======
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\CameraController.cs">
 >>>>>>> .r214
+>>>>>>> .r217
     <Files>
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\Interactables\SeeSaw.cs" Line="4" Column="51" />
+      <File FileName="Assets\Scripts\Prototype\Interactables\InteractableBaseClass.cs" Line="13" Column="9" />
+      <File FileName="Assets\Scripts\Prototype\MovingPlatforms.cs" Line="67" Column="31" />
+=======
 <<<<<<< .mine
       <File FileName="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" Line="453" Column="5" />
       <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="93" Column="20" />
@@ -19,6 +29,7 @@
       <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="64" Column="1" />
 >>>>>>> .r215
 >>>>>>> .r214
+>>>>>>> .r217
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
