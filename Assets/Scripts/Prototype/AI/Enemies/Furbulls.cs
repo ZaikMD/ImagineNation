@@ -23,6 +23,9 @@ public class Furbulls : BaseEnemy
 	protected override void fightState()
 	{
 		//TODO:play attack animation and attack sound
-		Instantiate (m_FurbullsProjectile, this.transform.position, this.transform.rotation);
+		GameObject projectile = (GameObject)Instantiate (m_FurbullsProjectile, this.transform.position, this.transform.rotation);
+		Vector3 direction = (this.transform.position - m_Player.transform.position).normalized;
+		
+		projectile.gameObject.GetComponent<FurbullsProjectile> ().setForwardDirection(direction)();
 	}
 }

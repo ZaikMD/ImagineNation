@@ -6,6 +6,8 @@ public class FurbullsProjectile : MonoBehaviour {
 	public float m_Speed = 10.0f;
 	public float m_ProjectileRange = 2.0f;
 	Vector3 m_InitialPosition;
+
+	Vector3 m_Direction;
 	
 	// Use this for initialization
 	void Start () 
@@ -31,5 +33,10 @@ public class FurbullsProjectile : MonoBehaviour {
 			//applyDamage() to player
 			Destroy (this.gameObject);
 		}
+	}
+
+	public void setForwardDirection(Vector3 direction)
+	{
+		m_Direction = direction;
 	}
 }
