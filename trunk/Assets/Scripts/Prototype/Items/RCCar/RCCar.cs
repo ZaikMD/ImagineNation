@@ -180,35 +180,41 @@ public class RCCar : SecondairyBase
 
 	void Exiting()
 	{
-		Destroy (m_RCCar);
-		m_RCCar = null;
-		m_HasBegun = false;
-		m_PlayerMovement.setCanMove (true);
-		m_Alex.setExitingSecond (true);
-		m_State = RCCarStates.Idle;
-
-		CameraController cameraController = (GameObject.FindObjectOfType<Camera>()).GetComponent<CameraController>();
-		
-		if (cameraController)
+		if(GameObject.FindGameObjectWithTag("Camera").GetComponentInChildren<CameraController>().isAbleToSwitch())
 		{
-			cameraController.switchTo(m_Alex.transform);
+			Destroy (m_RCCar);
+			m_RCCar = null;
+			m_HasBegun = false;
+			m_PlayerMovement.setCanMove (true);
+			m_Alex.setExitingSecond (true);
+			m_State = RCCarStates.Idle;
+
+			CameraController cameraController = (GameObject.FindObjectOfType<Camera>()).GetComponent<CameraController>();
+			
+			if (cameraController)
+			{
+				cameraController.switchTo(m_Alex.transform);
+			}
 		}
 	}
 
 	public void BeginRCCar()
 	{
-		if (m_HasBegun == false)
+		if(GameObject.FindGameObjectWithTag("Camera").GetComponentInChildren<CameraController>().isAbleToSwitch())
 		{
-			m_RCCar = (GameObject)Instantiate(Resources.Load("Prefabs/GoodRCCarPrefab"));
-			m_RCCar.GetComponent<RCCarMovement>().m_RCCarManager = this;
-			m_RCCar.transform.position = m_Alex.transform.position + m_StartingOffset; 
-			m_HasBegun = true;
-			CameraController cameraController = (GameObject.FindObjectOfType<Camera>()).GetComponent<CameraController>();
+			if (m_HasBegun == false)
+			{
+				m_RCCar = (GameObject)Instantiate(Resources.Load("Prefabs/GoodRCCarPrefab"));
+				m_RCCar.GetComponent<RCCarMovement>().m_RCCarManager = this;
+				m_RCCar.transform.position = m_Alex.transform.position + m_StartingOffset; 
+				m_HasBegun = true;
+				CameraController cameraController = (GameObject.FindObjectOfType<Camera>()).GetComponent<CameraController>();
 			FearScript.Instance.setIgnoreFears(m_RCCar.collider);
 
-			if (cameraController)
-			{
-				cameraController.switchTo(m_RCCar.transform);
+				if (cameraController)
+				{
+					cameraController.switchTo(m_RCCar.transform);
+				}
 			}
 		}
 	}
