@@ -25,7 +25,7 @@ public class PlayerPathfinding : MonoBehaviour
 	/// <summary>
 	/// When the PlayerAI should be in the following state it will call this function
 	/// </summary>
-	 void Following(Transform target)
+	public void Following(Transform target)
 	{
 		m_Target = target;
 
@@ -41,7 +41,7 @@ public class PlayerPathfinding : MonoBehaviour
 	/// and pass in the minimum distance the PlayerAI should be away from the enemy
 	/// </summary>
 	/// <param name="minimumDistanceAway">Minimum distance away.</param>
-	void Combat(Transform target, float minimumDistanceAway)
+	public void Combat(Transform target, float minimumDistanceAway)
 	{
 		m_Target = target;
 
@@ -60,6 +60,6 @@ public class PlayerPathfinding : MonoBehaviour
 	/// </summary>
 	public void Puzzle()
 	{
-		m_Agent.enabled = false;
+		m_Agent.enabled = !m_Agent.enabled;
 	}
 }

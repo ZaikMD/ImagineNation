@@ -7,7 +7,7 @@ public class ZoeyPlayerState : PlayerState {
 	StickyHand m_StickyHand;
 
 	// Use this for initialization
-	void Start () 
+	protected override void start ()
 	{
 		m_Cape = gameObject.GetComponent<Cape> ();
 		m_StickyHand = gameObject.GetComponent<StickyHand> ();

@@ -5,7 +5,7 @@ public class CharacterSwitch : Subject
 {
 	public static CharacterSwitch Instance{ get; private set; }
 	// Use this for initialization
-	
+
 	void Awake()
 	{
 		//if theres another instance (there shouldnt be) destroy it... there can be only one
@@ -20,10 +20,22 @@ public class CharacterSwitch : Subject
 		
 		//prevents this object being destroyed between scene loads
 		DontDestroyOnLoad(gameObject);
+
+		//---------------------------------- 
 	}
 
+
+	void Update()
+	{
+		if(GameObject.FindGameObjectWithTag ("Camera").GetComponentInChildren<CameraController> ().isAbleToSwitch())
+		{
+			m_AbleToSwitch = true;
+		}
+	}
+
+
 	//player ai needs to activly set this
-	bool m_AbleToSwitch;
+	bool m_AbleToSwitch = true;
 
 	public void switchCharacters()
 	{

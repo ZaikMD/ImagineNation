@@ -7,7 +7,7 @@ public class AlexPlayerState : PlayerState
 	NerfGun m_NerfGun;
 
 	// Use this for initialization
-    void Start()
+	protected override void start ()
     {
 		m_RCCar = gameObject.GetComponent<RCCar> ();
 		m_NerfGun = gameObject.GetComponentInChildren<NerfGun> ();
