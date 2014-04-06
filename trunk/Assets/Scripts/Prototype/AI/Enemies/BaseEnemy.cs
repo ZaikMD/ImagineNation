@@ -49,6 +49,7 @@ public abstract class BaseEnemy : MonoBehaviour, Observer
 		}
 	}
 
+	//Use RecieveEvent to pause the enemy
 	public void recieveEvent(Subject sender, ObeserverEvents recievedEvent)
 	{
 		if(recievedEvent == ObeserverEvents.PauseGame || recievedEvent == ObeserverEvents.StartGame)
@@ -215,7 +216,6 @@ public abstract class BaseEnemy : MonoBehaviour, Observer
 			if(distance <= m_AggroRange)
 			{
 				m_IsInCombat = true;
-				//TODO set target
 				m_EnemyPathfinding.setTarget(m_Players[i].gameObject);
 				m_Target = m_EnemyPathfinding.getTarget();
 				return;

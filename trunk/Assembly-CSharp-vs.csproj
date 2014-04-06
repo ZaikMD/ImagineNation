@@ -52,6 +52,7 @@
      <Compile Include="Assets\Scripts\Prototype\AI\Enemies\EnemySpawnManager.cs" />
      <Compile Include="Assets\Scripts\Prototype\AI\Enemies\Furbulls.cs" />
      <Compile Include="Assets\Scripts\Prototype\AI\Enemies\FurbullsProjectile.cs" />
+     <Compile Include="Assets\Scripts\Prototype\AI\Enemies\PathfindNode.cs" />
      <Compile Include="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" />
      <Compile Include="Assets\Scripts\Prototype\AI\PlayerPathfinding.cs" />
      <Compile Include="Assets\Scripts\Prototype\Atrributes\AlexAttributes.cs" />
@@ -71,6 +72,7 @@
      <Compile Include="Assets\Scripts\Prototype\Interactables\EnvironmentInteraction.cs" />
      <Compile Include="Assets\Scripts\Prototype\Interactables\InteractableBaseClass.cs" />
      <Compile Include="Assets\Scripts\Prototype\Interactables\Lever.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Interactables\LightDestroyingObject.cs" />
      <Compile Include="Assets\Scripts\Prototype\Interactables\MoveableBlock.cs" />
      <Compile Include="Assets\Scripts\Prototype\Interactables\PickUp.cs" />
      <Compile Include="Assets\Scripts\Prototype\Interactables\RemoveDebris.cs" />

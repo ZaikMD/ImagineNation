@@ -25,7 +25,8 @@ public class FurbullsProjectile : MonoBehaviour {
 			Destroy(this.gameObject);
 		}
 	}
-	
+
+	//Check Collision with player
 	void OnCollisionEnter(Collision other)
 	{
 		if(other.gameObject.tag == "Player")
