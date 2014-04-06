@@ -29,10 +29,6 @@ Created by Jason Hein on 3/1/2014
 	Added reticle functions
 4/2/2014
 	Now automatically zooms in and out while moving
-4/4/2014
-	Now can collide with walls
-4/5/2014
-	Reticle movement smoothed out
 4/6/2014
 	Smoothed collision with walls
 */
@@ -94,18 +90,16 @@ public class CameraController : MonoBehaviour
 	//Player movement for aiming
 	PlayerMovement m_Movement;
 
-	//Reticle
-	Reticle m_Reticle;
-
-	//Movement after collision
-	float m_CollisionTimer = 0.0f;
+	//Movement after Collision
 	float m_CollisionOrientation = 0.0f;
+	float m_CollisionTimer = 0.0f;
 	float m_Zoom_Collision = 0.0f;
 	bool m_CollisionZoom = false;
-	//Use m_Zoom_Return for colllision zoom (and backwards movement)
+
+
+	//Reticle
+	Reticle m_Reticle;
 	
-
-
 
 	// Initialization
 	void Start ()
@@ -130,6 +124,9 @@ public class CameraController : MonoBehaviour
 
 		//Set us to follow the transform we were a parent of
 		transform.parent = origin.transform;
+
+		//setting the origins tag
+		origin.tag = "Camera";
 
 		//Load Reticle
 		GameObject reticle = (GameObject)Instantiate(Resources.Load("Reticle"), m_CameraFollow.position + m_CameraFollow.forward, Quaternion.identity);
