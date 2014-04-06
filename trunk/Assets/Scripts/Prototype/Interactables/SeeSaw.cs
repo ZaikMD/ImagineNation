@@ -4,7 +4,7 @@ using System.Collections;
 public class SeeSaw : InteractableBaseClass, Observer
 {
 	//Subject
-	public Subject m_DropZone;
+	public Subject m_DropZone; //The dropZone
 
 	//Players
 	GameObject m_SittingPlayer;
