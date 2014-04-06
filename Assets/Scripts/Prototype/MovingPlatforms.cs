@@ -64,7 +64,10 @@ public class MovingPlatforms : MonoBehaviour , Observer
 
 		GameManager.Instance.addObserver (this);
 
-		m_Sender.addObserver (this);
+		if (m_Sender)
+		{
+			m_Sender.addObserver (this);
+		}
 
 	}
 	
