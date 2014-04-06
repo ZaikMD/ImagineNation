@@ -1,71 +1,26 @@
 ﻿<Properties>
-<<<<<<< .mine
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\FearScript.cs">
-=======
-<<<<<<< .mine
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\CharacterSwitch.cs">
-=======
-<<<<<<< .mine
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\MovingPlatforms.cs">
-=======
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-<<<<<<< .mine
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Interactables\DropZone.cs">
-=======
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\CameraController.cs">
->>>>>>> .r214
->>>>>>> .r218
->>>>>>> .r217
->>>>>>> .r219
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Players\PlayerState.cs">
     <Files>
-<<<<<<< .mine
-      <File FileName="Assets\Scripts\Prototype\MenuScript.cs" Line="145" Column="59" />
-      <File FileName="Assets\Scripts\Prototype\FearScript.cs" Line="69" Column="61" />
-=======
-<<<<<<< .mine
-      <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="79" Column="2" />
-      <File FileName="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" Line="454" Column="27" />
-      <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="127" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="149" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="163" Column="23" />
+      <File FileName="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" Line="173" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="611" Column="1" />
       <File FileName="Assets\Scripts\Prototype\MenuScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\AI\PlayerPathfinding.cs" Line="63" Column="37" />
-      <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="626" Column="2" />
-      <File FileName="Assets\Scripts\Prototype\Players\DerekPlayerState.cs" Line="13" Column="61" />
-      <File FileName="Assets\Scripts\Prototype\PlayerMovement.cs" Line="112" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Players\ZoeyPlayerState.cs" Line="6" Column="14" />
-      <File FileName="Assets\Scripts\Prototype\Players\AlexPlayerState.cs" Line="40" Column="56" />
-      <File FileName="Assets\Scripts\Prototype\CharacterSwitch.cs" Line="25" Column="2" />
-      <File FileName="Assets\Scripts\Prototype\Observer\Subject.cs" Line="31" Column="1" />
-=======
-<<<<<<< .mine
-      <File FileName="Assets\Scripts\Prototype\Interactables\SeeSaw.cs" Line="4" Column="51" />
-      <File FileName="Assets\Scripts\Prototype\Interactables\InteractableBaseClass.cs" Line="13" Column="9" />
-      <File FileName="Assets\Scripts\Prototype\MovingPlatforms.cs" Line="67" Column="31" />
-=======
-<<<<<<< .mine
-      <File FileName="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" Line="453" Column="5" />
-      <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="93" Column="20" />
-=======
-<<<<<<< .mine
-      <File FileName="Assets\Scripts\Prototype\MovingPlatforms.cs" Line="186" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Interactables\SeeSaw.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Interactables\DivingBoard.cs" Line="21" Column="48" />
-      <File FileName="Assets\Scripts\Prototype\Interactables\DropZone.cs" Line="18" Column="40" />
-=======
-      <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="64" Column="1" />
->>>>>>> .r215
->>>>>>> .r214
->>>>>>> .r218
->>>>>>> .r217
->>>>>>> .r219
+      <File FileName="Assets\Scripts\Prototype\AI\PlayerPathfinding.cs" Line="63" Column="28" />
+      <File FileName="Assets\Scripts\Prototype\Players\DerekPlayerState.cs" Line="24" Column="6" />
+      <File FileName="Assets\Scripts\Prototype\PlayerMovement.cs" Line="126" Column="4" />
+      <File FileName="Assets\Scripts\Prototype\Players\ZoeyPlayerState.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Players\AlexPlayerState.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\CharacterSwitch.cs" Line="30" Column="93" />
+      <File FileName="Assets\Scripts\Prototype\Observer\Subject.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Items\RCCar\RCCar.cs" Line="183" Column="38" />
+      <File FileName="Assets\Scripts\Prototype\Interactables\PickUp.cs" Line="91" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="C:\Users\elia0034\Desktop\Imagine Nation\w14_l4_s1_dusk\trunk\Assets\Scripts\Prototype\Players\DerekPlayerState.cs" line="39" />
-      <Breakpoint file="C:\Users\elia0034\Desktop\Imagine Nation\w14_l4_s1_dusk\trunk\Assets\Scripts\Prototype\Players\PlayerState.cs" line="628" />
+      <Breakpoint file="C:\Users\elia0034\Desktop\Imagine Nation\w14_l4_s1_dusk\trunk\Assets\Scripts\Prototype\Players\PlayerState.cs" line="641" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
