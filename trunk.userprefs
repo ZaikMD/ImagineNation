@@ -1,7 +1,19 @@
 ﻿<Properties>
+<<<<<<< .mine
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\AI\Enemies\EnemyPathfinding.cs">
+=======
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\CameraController.cs">
+>>>>>>> .r207
     <Files>
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\AI\Enemies\FurbullsProjectile.cs" Line="17" Column="2" />
+      <File FileName="Assets\Scripts\Prototype\AI\Enemies\Furbulls.cs" Line="15" Column="2" />
+      <File FileName="Assets\Scripts\Prototype\AI\Enemies\BaseEnemy.cs" Line="52" Column="39" />
+      <File FileName="Assets\Scripts\Prototype\AI\Enemies\EnemyPathfinding.cs" Line="105" Column="3" />
+      <File FileName="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" Line="416" Column="9" />
+=======
       <File FileName="Assets\Scripts\Prototype\AI\Enemies\FurbullsProjectile.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\AI\Enemies\EnemyPathfinding.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="553" Column="37" />
@@ -9,6 +21,7 @@
       <File FileName="Assets\Scripts\Prototype\Interactables\LightDestroyingObject.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\MovingPlatforms.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\Interactables\TriggerManager.cs" Line="1" Column="1" />
+>>>>>>> .r207
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

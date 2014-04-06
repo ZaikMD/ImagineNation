@@ -20,15 +20,17 @@ public class EnemyPathfinding : MonoBehaviour
 	NavMeshAgent m_Agent;
 	public GameObject[] m_PatrolNodes;
 	float m_InitialStoppingDistance;
-	bool m_ReachedNode = false;
 	bool m_MidNode = false;
 	int m_NodeCount = 0;
+	public PathfindNode[] m_PathfindNode;
+	public int m_MaxNodes = 3;
 
 
 	// Use this for initialization
 	void Start () 
 	{
 		m_Agent = this.gameObject.GetComponent<NavMeshAgent> ();
+		//m_PathfindNode = this.gameObject.GetComponent<PathfindNode> ();
 		m_InitialStoppingDistance = m_Agent.stoppingDistance;
 		//Testing purposes
 		m_State = EnemyPathfindingStates.Patrol;
@@ -92,7 +94,7 @@ public class EnemyPathfinding : MonoBehaviour
 			m_Target = m_PatrolNodes[m_NodeCount].transform;
 		}
 
-		if(m_ReachedNode == true)
+		if(m_PathfindNode[m_NodeCount].getNodeStatus() == true)
 		{
 			m_MidNode = false;
 			m_NodeCount++;
@@ -100,7 +102,7 @@ public class EnemyPathfinding : MonoBehaviour
 		else
 		{
 			m_MidNode = true;
-			m_ReachedNode = false;
+			m_PathfindNode[m_NodeCount].setNodeStatus(false);
 		}
 
 
@@ -113,8 +115,14 @@ public class EnemyPathfinding : MonoBehaviour
 		}
 		else
 		{
+			if(m_NodeCount >= m_MaxNodes)
+			{
+				m_NodeCount = 0;
+			}
+				
 			m_Target = m_PatrolNodes[m_NodeCount].transform;
 			m_MidNode = true;
+			m_PathfindNode[m_NodeCount].setNodeStatus(false);
 		}
 
 	}
@@ -123,7 +131,8 @@ public class EnemyPathfinding : MonoBehaviour
 	{
 		m_State = nextState;
 	}
-	
+
+	//Set target
 	public void setTarget(GameObject nextTarget)
 	{
 		m_Target = nextTarget.transform;
@@ -134,17 +143,8 @@ public class EnemyPathfinding : MonoBehaviour
 		return m_Target;
 	}
 
-	public void SetReachedNode(bool reachedNode)
-	{
-		m_ReachedNode = reachedNode;
-	}
-
-	void OnTriggerEnter(Collider other)
-	{
-
-		if(other.gameObject.transform == m_Target)
-		{
-			m_ReachedNode = true;
-		}
-	}
+	//public void SetReachedNode(bool reachedNode)
+	//{
+	//	m_ReachedNode = reachedNode;
+	//}
 }
