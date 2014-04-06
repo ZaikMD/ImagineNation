@@ -21,6 +21,7 @@ public class MoveableBlock : InteractableBaseClass
 	public Size m_BlockSize;
 	bool canInteract = true;
 	Vector3 m_SavedLocalPos;
+	Quaternion m_SavedLocalRotation;
 	bool m_InUse = false;
 
 	void Start()
@@ -40,6 +41,7 @@ public class MoveableBlock : InteractableBaseClass
 		if (m_InUse)
 		{
 			transform.localPosition = m_SavedLocalPos;
+			transform.localRotation = m_SavedLocalRotation;
 		}
 	}
 
@@ -70,8 +72,9 @@ public class MoveableBlock : InteractableBaseClass
 			//Move the block in front of the obj
 			Vector3 newPos = obj.transform.position;
 			newPos.y = transform.position.y;
-			transform.position = newPos + obj.transform.forward * 1.2f * transform.localScale.x;
+			transform.position = newPos + obj.transform.forward * obj.transform.localScale.x * 1.3f;
 			m_SavedLocalPos = transform.localPosition;
+			m_SavedLocalRotation = transform.localRotation;
 			Physics.IgnoreCollision(collider, obj.collider);
 
 			//Fix instantly exiting block pushing
