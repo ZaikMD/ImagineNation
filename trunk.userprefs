@@ -1,5 +1,5 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
 <<<<<<< .mine
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Interactables\DropZone.cs">
 =======
@@ -7,12 +7,17 @@
 >>>>>>> .r214
     <Files>
 <<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" Line="453" Column="5" />
+      <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="93" Column="20" />
+=======
+<<<<<<< .mine
       <File FileName="Assets\Scripts\Prototype\MovingPlatforms.cs" Line="186" Column="1" />
       <File FileName="Assets\Scripts\Prototype\Interactables\SeeSaw.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\Interactables\DivingBoard.cs" Line="21" Column="48" />
       <File FileName="Assets\Scripts\Prototype\Interactables\DropZone.cs" Line="18" Column="40" />
 =======
       <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="64" Column="1" />
+>>>>>>> .r215
 >>>>>>> .r214
     </Files>
   </MonoDevelop.Ide.Workbench>

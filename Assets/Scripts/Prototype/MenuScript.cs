@@ -611,7 +611,7 @@ public class MenuScript : MonoBehaviour , Observer
 				}
 		}
 
-        player1.GetComponent<PlayerState>().m_CurrentPartner = player2;
+        //player1.GetComponent<PlayerState>().m_CurrentPartner = player2;
 
 		switch(m_PlayerTwo)
 		{
@@ -644,7 +644,7 @@ public class MenuScript : MonoBehaviour , Observer
 				}
 
 		}
-        player2.GetComponent<PlayerState>().m_CurrentPartner = player1;
+        //player2.GetComponent<PlayerState>().m_CurrentPartner = player1;
 	}
     	
 	/// <summary>

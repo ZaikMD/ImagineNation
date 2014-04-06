@@ -22,7 +22,6 @@ public abstract class PlayerState : MonoBehaviour, Observer
 
 	GameObject m_AimReticle;
 
-	public GameObject m_CurrentPartner; // likely set by start menu.
 	const float KNOCKBACK_TIME = 0.5f;
 	float m_KnockBackTimer = KNOCKBACK_TIME; 
 	bool m_UsingSecondItem;
@@ -41,10 +40,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 
 	bool m_IsPaused = false;
 
-
-	float timer = 0.0f;
-	float delay = 0.5f;
-
+	public bool m_IsActive;
 
 	public CameraController m_CameraController;
 
@@ -59,6 +55,8 @@ public abstract class PlayerState : MonoBehaviour, Observer
 		
 		GameManager.Instance.addObserver (this);
 
+		CharacterSwitch.Instance.addObserver (this);
+
     }
 
 	// Use this for initialization
@@ -71,50 +69,45 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	// Update is called once per frame
 	protected void checkStates()
     {
-		/*
-		if(timer<delay)
+		if(m_IsActive)
 		{
-			timer += Time.deltaTime;
-			return;
-		}
-		timer = 0.0f;
-*/
-		if(!m_IsPaused)
-		{
-	       // m_HaveSecondItem = true;
+			if(!m_IsPaused)
+			{
+		       // m_HaveSecondItem = true;
 
-	    	if(m_PlayerState == PlayerStates.Default)
-	    	{
-				Default();
-	    	}
+		    	if(m_PlayerState == PlayerStates.Default)
+		    	{
+					Default();
+		    	}
 
-	    	switch(m_PlayerState)
-	        {
+		    	switch(m_PlayerState)
+		        {
 
-	        case PlayerStates.Interacting:
-		        Interaction();	
-	        	break;
+		        case PlayerStates.Interacting:
+			        Interaction();	
+		        	break;
 
-	        case PlayerStates.Idle:	
-		        IdleFunction();
-		        break;
+		        case PlayerStates.Idle:	
+			        IdleFunction();
+			        break;
 
-		    case PlayerStates.Moving:
-			    MovingFunction();
-			    break;
-		
-	        case PlayerStates.TakingDamage:
-		        TakeDamage();
-		        break;
+			    case PlayerStates.Moving:
+				    MovingFunction();
+				    break;
+			
+		        case PlayerStates.TakingDamage:
+			        TakeDamage();
+			        break;
 
-		    case PlayerStates.Dead:
-			    Dead();
-			    break;
+			    case PlayerStates.Dead:
+				    Dead();
+				    break;
 
-	            
-	        }
-		}
-	}                                                                                                                                     
+		            
+		        }
+			}
+		}    
+	}
 
 	protected void Dead()
 	{
@@ -302,7 +295,20 @@ public abstract class PlayerState : MonoBehaviour, Observer
 
 	protected void ResetPlayer()
 	{
-    	if(m_CurrentPartner.GetComponent<PlayerState>().m_PlayerState != PlayerStates.Dead)
+		GameObject[] players = GameObject.FindGameObjectsWithTag ("Player");
+
+		PlayerState partner;
+		if(players[0] != this.gameObject )
+		{
+			partner = players[0].GetComponent<PlayerState>();
+		}
+		else
+		{
+			partner = players[1].GetComponent<PlayerState>();
+		}
+
+
+		if(partner.m_PlayerState != PlayerStates.Dead)
     	{
       	   //  if so enable our player and set his , transform. position to equal near our other character
     	}
@@ -520,6 +526,16 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	/// </summary>
 	protected void Default()
 	{
+		if(!m_UsingSecondItem)
+		{
+			if(PlayerInput.Instance.getSwitchInput())
+			{
+				CharacterSwitch.Instance.switchCharacters();
+
+				return;
+			}
+		}
+
 		if(m_Health <= 0)
 		{
 			m_PlayerState = PlayerStates.Dead;
@@ -583,6 +599,13 @@ public abstract class PlayerState : MonoBehaviour, Observer
 		if(recievedEvent == ObeserverEvents.PauseGame || recievedEvent == ObeserverEvents.StartGame)
 		{
 			m_IsPaused = !m_IsPaused;
+			return;
+		}
+
+		if(recievedEvent == ObeserverEvents.CharacterSwitch)
+		{
+			m_IsActive = !m_IsActive;
+			return;
 		}
 	}
 }
