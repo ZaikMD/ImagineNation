@@ -89,12 +89,11 @@ public class FearScript : MonoBehaviour {
     {
         foreach (GameObject claus in m_ClaustrophobiaFear)
         {
-            Debug.Log("ignoring alex");
             //tells the colliders to ignore each other
             Physics.IgnoreCollision(other, claus.collider);
-            //Physics.IgnoreCollision( claus.collider, other.collider);
         }    
     }
+
 
     public void setPlayerIgnore()
     {

@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
 {
 	public Transform m_CameraTransform;
 
-	CharacterController m_Controller;
+	public CharacterController m_Controller;
 	bool m_CanMove = true;
 
 	//Speeds
