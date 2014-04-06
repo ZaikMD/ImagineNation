@@ -1,6 +1,10 @@
 ﻿<Properties>
 <<<<<<< .mine
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\FearScript.cs">
+=======
+<<<<<<< .mine
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\CharacterSwitch.cs">
 =======
 <<<<<<< .mine
@@ -15,7 +19,12 @@
 >>>>>>> .r214
 >>>>>>> .r218
 >>>>>>> .r217
+>>>>>>> .r219
     <Files>
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\MenuScript.cs" Line="145" Column="59" />
+      <File FileName="Assets\Scripts\Prototype\FearScript.cs" Line="69" Column="61" />
+=======
 <<<<<<< .mine
       <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="79" Column="2" />
       <File FileName="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" Line="454" Column="27" />
@@ -50,6 +59,7 @@
 >>>>>>> .r214
 >>>>>>> .r218
 >>>>>>> .r217
+>>>>>>> .r219
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

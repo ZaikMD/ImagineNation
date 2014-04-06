@@ -204,6 +204,7 @@ public class RCCar : SecondairyBase
 			m_RCCar.transform.position = m_Alex.transform.position + m_StartingOffset; 
 			m_HasBegun = true;
 			CameraController cameraController = (GameObject.FindObjectOfType<Camera>()).GetComponent<CameraController>();
+			FearScript.Instance.setIgnoreFears(m_RCCar.collider);
 
 			if (cameraController)
 			{
