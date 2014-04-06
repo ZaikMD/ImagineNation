@@ -68,6 +68,8 @@ public abstract class BaseEnemy : MonoBehaviour, Observer
 	{
 		if(m_IsEnabled)
 		{
+
+
 			if(m_State == States.Default)
 			{
 				defaultState();
@@ -77,6 +79,7 @@ public abstract class BaseEnemy : MonoBehaviour, Observer
 			{
 				case States.Fight:
 				{
+					updateCombat();
 					fightState();
 					break;
 				}
@@ -94,6 +97,10 @@ public abstract class BaseEnemy : MonoBehaviour, Observer
 				}
 			}
 		}
+	}
+
+	protected virtual void updateCombat ()
+	{
 	}
 
 	protected virtual void defaultState()
