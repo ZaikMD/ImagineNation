@@ -69,8 +69,8 @@ public class CameraController : MonoBehaviour
 	const float ZOOM_RETURN_SPEED = 0.01f;
 	const float AIMING_VERTICAL_SENSITIVITY = 13.0f;
 	const float COLLISION_FIX_TIMER = 0.25f;
-	const float COLLISION_TURN_SPEED = 0.3f;
-	const float COLLISION_ZOOM_SPEED = 0.20f;
+	const float COLLISION_TURN_SPEED = 0.06f;
+	const float COLLISION_ZOOM_SPEED = 0.06f;
 
 	//Looking helper variables
 	const float FORWARD_AMOUNT = 2.0f;
@@ -276,35 +276,50 @@ public class CameraController : MonoBehaviour
 		}
 
 		//Right
-		if (Physics.Raycast(transform.position, transform.right, out hit, distance) ||
-			//Back RIght
-		    Physics.Raycast(transform.position, -transform.forward + transform.right, out hit, distance))
+		if (Physics.Raycast(transform.position, transform.right, out hit, distance))
 		{
-			m_CollisionOrientation = transform.parent.eulerAngles.y + 1.0f;
+			m_CollisionOrientation = transform.parent.eulerAngles.y + distance;
+			m_CollisionTimer = COLLISION_FIX_TIMER;
+		}
+		//Back RIght
+		else if (Physics.Raycast(transform.position, -transform.forward + transform.right, out hit, distance))
+		{
+			m_Zoom_Collision = Vector3.Distance(transform.localPosition, Vector3.zero) * (m_Zoom / Vector3.Distance(collision.transform.position, m_CameraFollow.position));
+			m_CollisionZoom = true;
+
+			m_CollisionOrientation = transform.parent.eulerAngles.y + distance;
 			m_CollisionTimer = COLLISION_FIX_TIMER;
 		}
 		//Left
-		else if (Physics.Raycast(transform.position, -transform.right, out hit, distance) ||
-		         //Back Left
-		         Physics.Raycast(transform.position, -transform.forward - transform.right, out hit, distance))
+		else if (Physics.Raycast(transform.position, -transform.right, out hit, distance))
 		{
-			m_CollisionOrientation = transform.parent.eulerAngles.y - 1.0f;
+			m_CollisionOrientation = transform.parent.eulerAngles.y - distance;
 			m_CollisionTimer = COLLISION_FIX_TIMER;
 		}
+		//Back Left
+		else if (Physics.Raycast(transform.position, -transform.forward - transform.right, out hit, distance))
+		{
+			m_Zoom_Collision = Vector3.Distance(transform.localPosition, Vector3.zero) * (m_Zoom / Vector3.Distance(collision.transform.position, m_CameraFollow.position));
+			m_CollisionZoom = true;
+
+			m_CollisionOrientation = transform.parent.eulerAngles.y - distance;
+			m_CollisionTimer = COLLISION_FIX_TIMER;
+		}
+		//Backwards
+		else if (Physics.Raycast(transform.position, -transform.forward, out hit, distance))
+		{
+			m_Zoom_Collision = Vector3.Distance(transform.localPosition, Vector3.zero) * (m_Zoom / Vector3.Distance(collision.transform.position, m_CameraFollow.position));
+			m_CollisionZoom = true;
+			m_CollisionTimer = COLLISION_FIX_TIMER;
+		}
+
+
 		/*
 		distance = Vector3.Distance (collision.transform.position, m_CameraFollow.position);
 		if (distance == 0.0f)
 		{
 			distance = 1.0f;
 		}*/
-
-		//Backwards
-		if (Physics.Raycast(transform.position, -transform.forward, out hit, distance))
-		{
-			m_Zoom_Collision = Vector3.Distance(transform.localPosition, Vector3.zero) * (m_Zoom / Vector3.Distance(collision.transform.position, m_CameraFollow.position));
-			m_CollisionZoom = true;
-			m_CollisionTimer = COLLISION_FIX_TIMER;
-		}
 
 		/*
 		//Backwards
