@@ -77,11 +77,12 @@ public class CameraController : MonoBehaviour
 	Vector3 m_LastLookAtPosition = Vector3.zero;
 
 	//Zoom
-	float m_Zoom = 0.65f;
+	public float m_Zoom = 0.65f;
 	float m_CloseLimit = 0.1f;
 	const float DEFAULT_ZOOM = 0.65f;
 	const float BACK_ZOOM = 0.8f;
 	float m_Zoom_Return = DEFAULT_ZOOM;
+	const float TUNNEL_ZOOM = 0.25f;
 
 	//Aiming
 	public bool m_EnabledAiming = true;
@@ -96,10 +97,15 @@ public class CameraController : MonoBehaviour
 	float m_Zoom_Collision = 0.0f;
 	bool m_CollisionZoom = false;
 
-
 	//Reticle
 	Reticle m_Reticle;
-	
+
+	float m_DefaultClippingPlane = 0.0f;
+	float m_ClippingTimer = 0.0f;
+	const float CLIPPING_TIMER = 0.5f;
+	const float TUNNEL_CLIPPING = 3.65f;
+
+
 
 	// Initialization
 	void Start ()
@@ -113,6 +119,9 @@ public class CameraController : MonoBehaviour
 		{
 			m_Zoom = 1;
 		}
+
+		//Near clipping
+		m_DefaultClippingPlane = camera.nearClipPlane;
 
 		//Set initial Transform to follow
 		m_CameraFollow = transform.parent.transform;
@@ -153,6 +162,17 @@ public class CameraController : MonoBehaviour
 		if (m_CollisionTimer > 0.0f)
 		{
 			m_CollisionTimer -= Time.deltaTime;
+		}
+
+		//Tunel Clipping Plane Timer
+		if (m_ClippingTimer > 0.0f)
+		{
+			m_ClippingTimer -= Time.deltaTime;
+
+			if (m_ClippingTimer <= 0.0f)
+			{
+				camera.nearClipPlane = m_DefaultClippingPlane;
+			}
 		}
 	}
 	
@@ -275,8 +295,15 @@ public class CameraController : MonoBehaviour
 			distance = 1.0f;
 		}
 
+		//In a tunnel
+		if (Physics.Raycast(m_CameraFollow.position + m_CameraFollow.up, m_CameraFollow.up, out hit, 5.0f))
+		{
+			setZoom(TUNNEL_ZOOM);
+			camera.nearClipPlane = TUNNEL_CLIPPING;
+			m_ClippingTimer = CLIPPING_TIMER;
+		}
 		//Right
-		if (Physics.Raycast(transform.position, transform.right, out hit, distance))
+		else if (Physics.Raycast(transform.position, transform.right, out hit, distance))
 		{
 			m_CollisionOrientation = transform.parent.eulerAngles.y + distance;
 			m_CollisionTimer = COLLISION_FIX_TIMER;
@@ -312,6 +339,14 @@ public class CameraController : MonoBehaviour
 			m_CollisionZoom = true;
 			m_CollisionTimer = COLLISION_FIX_TIMER;
 		}
+
+		//Up
+		/*if (Physics.Raycast(transform.position, transform.up, out hit, distance))
+		{
+			m_Zoom_Collision = Vector3.Distance(transform.localPosition, Vector3.zero) * (m_Zoom / Vector3.Distance(collision.transform.position, m_CameraFollow.position)) - 0.1f;
+			m_CollisionZoom = true;
+			m_CollisionTimer = COLLISION_FIX_TIMER;
+		}*/
 
 
 		/*
