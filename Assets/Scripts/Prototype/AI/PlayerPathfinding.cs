@@ -66,7 +66,7 @@ public class PlayerPathfinding : MonoBehaviour
 	}
 
 
-	void Following()
+	 void Following()
 	{
 		if (m_Target != null) 
 		{
@@ -75,7 +75,7 @@ public class PlayerPathfinding : MonoBehaviour
 		}
 	}
 
-	void Combat()
+	 void Combat()
 	{
 		if (m_Target != null) 
 		{
@@ -86,7 +86,7 @@ public class PlayerPathfinding : MonoBehaviour
 		}
 	}
 
-	void Puzzle()
+	public void Puzzle()
 	{
 		m_Agent.enabled = false;
 	}
