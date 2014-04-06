@@ -1,7 +1,16 @@
 ﻿<Properties>
+<<<<<<< .mine
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Interactables\SeeSaw.cs">
+=======
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Interactables\LightDestroyingObject.cs">
+>>>>>>> .r202
     <Files>
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\AI\Enemies\FurbullsProjectile.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\AI\Enemies\EnemyPathfinding.cs" Line="75" Column="15" />
+=======
       <File FileName="Assets\Scripts\Prototype\AI\Enemies\FurbullsProjectile.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\AI\Enemies\EnemyPathfinding.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="1" Column="1" />
@@ -9,6 +18,8 @@
       <File FileName="Assets\Scripts\Prototype\Interactables\LightDestroyingObject.cs" Line="12" Column="23" />
       <File FileName="Assets\Scripts\Prototype\MovingPlatforms.cs" Line="59" Column="3" />
       <File FileName="Assets\Scripts\Prototype\Interactables\TriggerManager.cs" Line="20" Column="42" />
+>>>>>>> .r202
+      <File FileName="Assets\Scripts\Prototype\Interactables\SeeSaw.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
