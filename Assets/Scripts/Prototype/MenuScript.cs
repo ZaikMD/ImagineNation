@@ -1,6 +1,41 @@
-﻿using UnityEngine;
+﻿/// <summary>
+/// Menu state.
+/// 
+/// THIS SCRIPT IS A PROTOTYPE, WILL CHANGE FOR FINAL GAME
+/// 
+/// this menu will become its own scene later.
+/// 
+/// this menu handles all saving and loading.
+/// It also deals with setting the players that are selected.
+/// 
+/// for this menu to work, add the playerOnePrefab and the playerTwoPrefab.
+/// next add a camera for the menu,
+/// add the camera from the playerOnePrefab and the menu camera added previously to menu script
+/// 
+/// note: playerTwoPrefab may need its playerMovement transform set to player ones camera, and character collider set to its own character conrtller.
+/// 
+/// TODO: Add Options,
+/// TODO: Add Textures to buttons so it looks Pretty.
+/// 
+/// </summary>
+
+
+
+
+
+
+
+
+
+
+
+using UnityEngine;
 using System.Collections;
 
+
+/// <summary>
+/// this is the current state that the menu is in.
+/// </summary>
 public enum MenuState
 { 
     MainMenu,
@@ -15,6 +50,9 @@ public enum MenuState
     PlayingGame
 }
 
+/// <summary>
+/// this is used to keep track of the current players selected.
+/// </summary>
 public enum Player
 { 
     Alex,
@@ -22,7 +60,9 @@ public enum Player
     Zoey
 }
 
-
+/// <summary>
+/// Handles all of the Menu
+/// </summary>
 public class MenuScript : MonoBehaviour , Observer
 {
 
@@ -44,6 +84,10 @@ public class MenuScript : MonoBehaviour , Observer
     public Player m_PlayerTwo;
 	bool firstTimePlayerTwoSelect;
 
+
+	/// <summary>
+	/// handles some singleton logic
+	/// </summary>
     void Awake()
     {
         //if theres another instance (there shouldnt be) destroy it... there can be only one
@@ -60,7 +104,10 @@ public class MenuScript : MonoBehaviour , Observer
         DontDestroyOnLoad(gameObject);
     }
 
-    // Use this for initialization
+    /// <summary>
+    /// Start.
+	/// sets some needed variables.
+    /// </summary>
     void Start()
     {
         m_MenuState = MenuState.MainMenu;
@@ -71,29 +118,32 @@ public class MenuScript : MonoBehaviour , Observer
 
         player1 = GameObject.Find("PlayerOnePrefab");
         player2 = GameObject.Find("PlayerTwoPrefab");
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        Debug.Log(m_PlayerOneSelected);
-        Debug.Log(m_PlayerTwoSelected);
 
     }
-     
 
-    public void PauseMenu()
+	/// <summary>
+	/// Calling Pauses the menu.
+	/// </summary>
+	public void PauseMenu()
     {
         m_MenuState = MenuState.PauseMenu; 
-   
+		Screen.showCursor = true;
     }
 
+	/// <summary>
+	/// Calling Resumes the game.
+	/// </summary>
 	public void ResumeGame()
 	{
 		m_MenuState = MenuState.PlayingGame;
-       
+		Screen.showCursor = false;
 	}
 
+
+	/// <summary>
+	/// Raises the GU event. Contains all logic for the menu.
+	/// </summary>
     void OnGUI()
     {
 
@@ -108,6 +158,7 @@ public class MenuScript : MonoBehaviour , Observer
                     //TODO: set gamemanager to play game
                     GameManager.Instance.startGame();
                     m_MainMenu = false;
+					Screen.showCursor = false;
                     break;
                 }
 
@@ -523,16 +574,14 @@ public class MenuScript : MonoBehaviour , Observer
 
 
     }
-
+	/// <summary>
+	/// Sets the PlayerPrefabs to the current selection of players, and adds nessa
+	/// </summary>
 	void setPlayer()
 	{
-	    
-
-
-        player1.name = m_PlayerOneSelected;
+	    player1.name = m_PlayerOneSelected;
         player2.name = m_PlayerTwoSelected;
-
-        
+		       
 		switch(m_PlayerOne)
 		{
 			case Player.Alex:
@@ -540,7 +589,7 @@ public class MenuScript : MonoBehaviour , Observer
 
 					player1.AddComponent<AlexPlayerState>();
                     player1.AddComponent<RCCar>();
-                    player1.renderer.material.color = new Color(1, 0, 0);
+			        player1.renderer.material.color = new Color(1, 0, 0);
 					break;
 				}
 			case Player.Derek:
@@ -549,7 +598,7 @@ public class MenuScript : MonoBehaviour , Observer
                     player1.AddComponent<VelcroGloves>();
                     player1.AddComponent<BoxingGloves>();
                     player1.GetComponent<BoxingGloves>().m_DerekProjectile = (GameObject)Instantiate(Resources.Load("Derek Projectile"));
-                    player1.renderer.material.color = new Color(0, 1, 0);
+					player1.renderer.material.color = new Color(0, 1, 0);
 					break;
 				}
 			case Player.Zoey:
@@ -557,7 +606,7 @@ public class MenuScript : MonoBehaviour , Observer
 					player1.AddComponent<ZoeyPlayerState>();
                     player1.AddComponent<StickyHand>();
                     player1.AddComponent<Cape>();
-                    player1.renderer.material.color = new Color(0, 0, 1);
+					player1.renderer.material.color = new Color(0, 0, 1);
 					break;
 				}
 		}
@@ -571,6 +620,7 @@ public class MenuScript : MonoBehaviour , Observer
 
 					player2.AddComponent<AlexPlayerState>();
                     player2.AddComponent<RCCar>();
+					player2.GetComponent<AlexPlayerState>().enabled = false;
                     player2.renderer.material.color = new Color(1, 0, 0);
 					break;
 				}
@@ -579,6 +629,7 @@ public class MenuScript : MonoBehaviour , Observer
 					player2.AddComponent<DerekPlayerState>();
                     player2.AddComponent<VelcroGloves>();
                     player2.AddComponent<BoxingGloves>();
+					player2.GetComponent<DerekPlayerState>().enabled = false;
                     player2.renderer.material.color = new Color(0, 1, 0);
 					break;
 				}
@@ -587,6 +638,7 @@ public class MenuScript : MonoBehaviour , Observer
 					player2.AddComponent<ZoeyPlayerState>();
                     player2.AddComponent<StickyHand>();
                     player2.AddComponent<Cape>();
+					player2.GetComponent<DerekPlayerState>().enabled = false;
                     player2.renderer.material.color = new Color(0, 0, 1);
 					break;
 				}
@@ -595,6 +647,10 @@ public class MenuScript : MonoBehaviour , Observer
         player2.GetComponent<PlayerState>().m_CurrentPartner = player1;
 	}
     	
+	/// <summary>
+	/// Saves the game Settings.
+	/// </summary>
+	/// <param name="slot">this is the Slot that is being saved to.</param>
     void saveGame(int slot)
     {
         PlayerPrefs.SetInt("PlayerOne" + slot, (int)m_PlayerOne);
@@ -603,6 +659,11 @@ public class MenuScript : MonoBehaviour , Observer
         PlayerPrefs.SetString("PlayerNameTwo" + slot, m_PlayerTwoSelected); 
     }
 
+	/// <summary>
+	/// Loads the game settings.
+	/// currently Loads Name and Player.
+	/// </summary>
+	/// <param name="slot">This is the Slot to be loaded</param>
     void loadGame(int slot)
     {
 
@@ -623,7 +684,11 @@ public class MenuScript : MonoBehaviour , Observer
         }
      }
 
-
+	/// <summary>
+	/// Implementation of the observer function to make this a observer
+	/// </summary>
+	/// <param name="sender">Sender.</param>
+	/// <param name="recievedEvent">Recieved event.</param>
 	public void recieveEvent(Subject sender, ObeserverEvents recievedEvent)
 	{
 		if(!m_MainMenu)
@@ -643,6 +708,11 @@ public class MenuScript : MonoBehaviour , Observer
 		}
 	}
 
+
+	/// <summary>
+	/// Destroies all the previous components. called before loading a new character
+	/// so it doesnt have extra components it doesn't need.
+	/// </summary>
     void DestroyPreviousComponents()
     {
         if (player1.name == "PlayerOnePrefab")

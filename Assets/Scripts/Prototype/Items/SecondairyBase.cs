@@ -43,6 +43,11 @@ public abstract class SecondairyBase : MonoBehaviour
 		m_PlayerMovement = (PlayerMovement)gameObject.GetComponent<PlayerMovement>();
 	}
 
+	protected void Start ()
+	{
+		m_PlayerMovement = gameObject.GetComponent<PlayerMovement> ();
+	}
+
 	/// <summary>
 	/// Gets or sets a value indicating whether this item can be used.
 	/// </summary>
