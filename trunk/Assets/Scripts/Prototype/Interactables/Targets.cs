@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//Last updated 04/06/2014
+
 public class Targets : Subject 
 {
 	//Ensure that targets with this script are tagged appropriately

@@ -3,6 +3,8 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+//Last updated 04/06/2014
+
 public class TriggerManager : Subject, Observer
 {
 
