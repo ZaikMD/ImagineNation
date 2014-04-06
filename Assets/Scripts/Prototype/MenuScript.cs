@@ -49,6 +49,27 @@ public enum MenuState
     Credit,
     PlayingGame
 }
+	
+enum Resolution
+{
+	Res2160p,
+	Res1440p,
+	Res1080p, 
+	Res720p,
+	Res768p,
+	Res480p,
+	Res360p,
+	count
+}
+
+enum Quality
+{
+	Ultra,
+	High,
+	Medium,
+	Low,
+	ImUsingACalculator
+}
 
 /// <summary>
 /// this is used to keep track of the current players selected.
@@ -74,7 +95,15 @@ public class MenuScript : MonoBehaviour , Observer
     GameObject player1;
     GameObject player2;
 
-    public Camera m_MenuCamera;
+	//Setting variables
+	Resolution m_Resolution;
+	QualityLevel m_Quality;
+	bool m_FullScreen;
+	float m_Volume;
+	Vector2 m_CurrentRes;
+	float m_RefreshRate = 60;
+
+	public Camera m_MenuCamera;
     public Camera m_GameCamera;
     public MenuState m_MenuState;
     public bool m_MainMenu = true;
@@ -83,7 +112,7 @@ public class MenuScript : MonoBehaviour , Observer
     string m_PlayerTwoSelected = null;
     public Player m_PlayerTwo;
 	bool firstTimePlayerTwoSelect;
-
+	
 
 	/// <summary>
 	/// handles some singleton logic
@@ -121,6 +150,15 @@ public class MenuScript : MonoBehaviour , Observer
 
 
     }
+
+	void applyChanges()
+	{
+		Screen.SetResolution (m_CurrentRes.x, m_CurrentRes.y, m_FullScreen, m_RefreshRate); 
+		QualitySettings.SetQualityLevel = m_Quality;
+
+		SoundManager.Instance.m_Volume = m_Volume;
+		//TODO access sound manager to change volume to setting.
+	}
 
 	/// <summary>
 	/// Calling Pauses the menu.
@@ -160,6 +198,8 @@ public class MenuScript : MonoBehaviour , Observer
                     m_MainMenu = false;
 					Screen.showCursor = false;
                     break;
+			   
+										
                 }
 
             case MenuState.MainMenu:
@@ -370,6 +410,18 @@ public class MenuScript : MonoBehaviour , Observer
            case MenuState.Options:
                 {
                     //TODO: Add Options
+					
+					
+
+					
+
+					Rect ApplyButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 5 * 2), Screen.width / 2, Screen.height / 5);
+                    buttonText = "Apply Changes";
+                    if (GUI.Button(ApplyButtonPosition, buttonText))
+                    {
+                        applyChanges();                    
+                    }		
+
 
                     Rect CreditsButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 5 * 3), Screen.width / 2, Screen.height / 5);
                     buttonText = "Credits";

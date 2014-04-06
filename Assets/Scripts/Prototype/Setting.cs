@@ -1,4 +1,18 @@
-﻿using UnityEngine;
+﻿/// <summary>
+/// 
+/// THIS CLASS IS FOR FUTURE VERSIONS 
+/// 
+/// this class is for use menu and keeping track of setting, 
+/// it will be used when implementing multipule scenes( Next Semester)
+/// 
+/// Setting.
+/// 
+/// </summary>
+
+
+
+
+using UnityEngine;
 using System.Collections;
 
 public class Setting : MonoBehaviour {

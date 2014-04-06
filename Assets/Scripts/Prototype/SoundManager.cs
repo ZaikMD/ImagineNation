@@ -27,6 +27,8 @@ public class SoundManager : MonoBehaviour {
 	private  AudioClip[] m_Sounds;
 	private AudioClip[] m_Songs;
 
+	public float m_Volume;
+
 	private int m_CurrentSong;
 	private int m_SongPosition;
 	void Awake()
