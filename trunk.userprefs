@@ -1,61 +1,8 @@
 ﻿<Properties>
-<<<<<<< .mine
-<<<<<<< .mine
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-=======
-=======
-<<<<<<< .mine
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\AI\Enemies\EnemyPathfinding.cs">
-=======
->>>>>>> .r208
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
->>>>>>> .r207
-<<<<<<< .mine
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Items\NerfGun.cs">
-=======
-<<<<<<< .mine
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Interactables\SeeSaw.cs">
->>>>>>> .r203
-=======
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\CameraController.cs">
->>>>>>> .r207
     <Files>
-<<<<<<< .mine
-      <File FileName="Assets\Scripts\Prototype\Interactables\SeeSaw.cs" Line="154" Column="2" />
-      <File FileName="Assets\Scripts\Prototype\MovingPlatforms.cs" Line="59" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Observer\Subject.cs" Line="12" Column="1" />
-=======
-<<<<<<< .mine
-=======
-<<<<<<< .mine
-      <File FileName="Assets\Scripts\Prototype\AI\Enemies\FurbullsProjectile.cs" Line="17" Column="2" />
-      <File FileName="Assets\Scripts\Prototype\AI\Enemies\Furbulls.cs" Line="15" Column="2" />
-      <File FileName="Assets\Scripts\Prototype\AI\Enemies\BaseEnemy.cs" Line="52" Column="39" />
-      <File FileName="Assets\Scripts\Prototype\AI\Enemies\EnemyPathfinding.cs" Line="105" Column="3" />
-      <File FileName="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" Line="416" Column="9" />
-=======
->>>>>>> .r208
-      <File FileName="Assets\Scripts\Prototype\AI\Enemies\FurbullsProjectile.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\AI\Enemies\EnemyPathfinding.cs" Line="1" Column="1" />
-<<<<<<< .mine
-      <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Interactables\CrawlSpaces.cs" Line="171" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Interactables\LightDestroyingObject.cs" Line="12" Column="23" />
-      <File FileName="Assets\Scripts\Prototype\MovingPlatforms.cs" Line="59" Column="3" />
-      <File FileName="Assets\Scripts\Prototype\Interactables\TriggerManager.cs" Line="20" Column="42" />
->>>>>>> .r202
-      <File FileName="Assets\Scripts\Prototype\Interactables\SeeSaw.cs" Line="1" Column="1" />
->>>>>>> .r204
->>>>>>> .r203
-=======
-      <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="553" Column="37" />
-      <File FileName="Assets\Scripts\Prototype\Interactables\CrawlSpaces.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Interactables\LightDestroyingObject.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\MovingPlatforms.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Interactables\TriggerManager.cs" Line="1" Column="1" />
->>>>>>> .r207
+      <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="64" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
