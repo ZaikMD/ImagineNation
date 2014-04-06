@@ -36,7 +36,7 @@ public class RCCarMovement : MonoBehaviour
 	{
 		if (m_CanMove)
 		{
-		    //this.rigidbody.AddForce (new Vector3 (0, -9000, 0));
+		    this.rigidbody.AddForce (new Vector3 (0, -9000, 0));
 
 			rigidbody.drag = rigidbody.velocity.magnitude / 250;
 	

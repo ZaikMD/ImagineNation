@@ -49,10 +49,6 @@ public class NerfGun : BasePrimaryItem
 		}
 	}
 
-	/// <summary>
-	/// An overrided fire function from the BasePrimaryItem class
-	/// Is responsible for instantiating bullet and moving it
-	/// </summary>
 	public override void fire()
 	{
 		//As long as the clip isn't empty
@@ -72,11 +68,7 @@ public class NerfGun : BasePrimaryItem
 			m_NumberOfBullets--;
 		}
 	}
-
-	/// <summary>
-	/// An overrided aimFire function from the BasePrimaryItem class
-	/// Responsible for calling the fire function but with a new target based on the reticle
-	/// </summary>
+		
 	public override void aimFire()
 	{
 		//As long as the clip isn't empty call the fire function 

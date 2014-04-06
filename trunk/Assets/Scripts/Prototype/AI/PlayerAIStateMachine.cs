@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 
 
-public class PlayerAIStateMachine : MonoBehaviour 
+public class PlayerAIStateMachine : MonoBehaviour, Observer 
 {
 	//ENUMS
 
@@ -38,7 +38,7 @@ public class PlayerAIStateMachine : MonoBehaviour
 	PlayerAICombatState m_CombatState;
 		
 	//An m_Player GameObject for pathfinding purposes 
-	GameObject m_Player; // TODO set to current player
+	GameObject m_Partner; // TODO set to current player
 	PlayerPathfinding m_PathFinding;
 	
 	//A list of GameObject enemies to determine which enemies the AI is interacting with in combat 
@@ -53,6 +53,11 @@ public class PlayerAIStateMachine : MonoBehaviour
 	public const int m_IdealAttackRange = 10;
 	public const int m_MaxAttackRange = 15;
 
+	bool m_IsPaused = false;
+	public bool m_IsActive;
+
+	NavMeshAgent m_NavAgent;
+
 	//METHODS
 
 	// Use this for initialization
@@ -60,6 +65,24 @@ public class PlayerAIStateMachine : MonoBehaviour
 	{
 		m_playerStateMachine = this.gameObject.GetComponent<PlayerState>();
 		m_PathFinding = this.gameObject.GetComponent<PlayerPathfinding>();
+
+		GameManager.Instance.addObserver (this);
+		CharacterSwitch.Instance.addObserver (this);
+
+
+		GameObject[] players = GameObject.FindGameObjectsWithTag ("Player");
+
+		if(players[0] != this.gameObject )
+		{
+			m_Partner = players[0];
+		}
+		else
+		{
+			m_Partner = players[1];
+		}
+
+		//------------------------------
+		m_NavAgent = gameObject.GetComponent<NavMeshAgent> ();
 	}
 
 
@@ -68,33 +91,43 @@ public class PlayerAIStateMachine : MonoBehaviour
 	/// </summary>
 	void Update () 
 	{
-		if(m_State == PlayerAIState.Default)
+		if(m_IsActive)
 		{
-			Default();  
-		}
+			m_NavAgent.enabled = true;
 
-		switch(m_State)
+			if(!m_IsPaused)
+			{
+				if(m_State == PlayerAIState.Default)
+				{
+					Default();  
+				}
+
+				switch(m_State)
+				{
+					case PlayerAIState.InPuzzle:
+					{
+						InPuzzle();
+					}
+						break;
+
+					case PlayerAIState.Following:
+					{
+						Following();
+					}
+						break;
+
+					case PlayerAIState.Combat:
+					{
+						Combat();
+					}
+						break;
+				}
+			}
+		}
+		else
 		{
-			case PlayerAIState.InPuzzle:
-			{
-				InPuzzle();
-			}
-				break;
-
-			case PlayerAIState.Following:
-			{
-				Following();
-			}
-				break;
-
-			case PlayerAIState.Combat:
-			{
-				Combat();
-			}
-				break;
+			m_NavAgent.enabled = false;
 		}
-
-
 	}
 
 	/// <summary>
@@ -102,12 +135,6 @@ public class PlayerAIStateMachine : MonoBehaviour
 	/// </summary>
 	void Default()
 	{
-		if(m_EnterPuzzle)
-		{
-			m_State = PlayerAIState.InPuzzle;
-			return;
-		}
-
 		if(m_EnterCombatFlag)
 		{
 			m_State = PlayerAIState.Combat;
@@ -115,10 +142,14 @@ public class PlayerAIStateMachine : MonoBehaviour
 			return;
 		}
 
-		else
+		if(m_EnterPuzzle)
 		{
-			m_State = PlayerAIState.Following;
+			m_State = PlayerAIState.InPuzzle;
+			return;
 		}
+
+		m_State = PlayerAIState.Following;
+
 	}
 
 	/// <summary>
@@ -137,50 +168,35 @@ public class PlayerAIStateMachine : MonoBehaviour
 	/// </summary>
 	void InPuzzle()
 	{
+		//TODO: tell pathfinding not to move
 		Pathfinding ();
 
 		if (GetInteracting ())
 		{
 			switch(GetInteractionType())
 			{	
-				//TODO handle Interactions
-				case InteractableType.DivingBoard:
-				{
-					m_State = PlayerAIState.Default;
-				}
-					break;
-
-				case InteractableType.Lever:
-				{
-					m_State = PlayerAIState.Default;
-				}
-					break;
-
 				case InteractableType.MovingBlock:
 				{
-					m_State = PlayerAIState.Default;
+					//TODO: stop interacting
 				}
 					break;
 
 				case InteractableType.PickUp:
 				{
-					m_State = PlayerAIState.Default;
+					//TODO: drop
 				}
 					break;
 
 				case InteractableType.SeeSaw:
 				{
-					m_State = PlayerAIState.Default;
+				//stay
+					
 				}
 					break;
 
 			}
 		}		
-
-		else
-		{
-			m_State = PlayerAIState.Default;
-		}
+		m_State = PlayerAIState.Default;
 	}
 
 	/// <summary>
@@ -410,9 +426,10 @@ public class PlayerAIStateMachine : MonoBehaviour
 	/// <param name="target">Target.</param>
 	void Pathfinding() 
 	{ 
-		/*switch(m_State)
-		{
-			
+		//TODO: change all this shit
+		/*
+		switch(m_State)		
+		{			
 		case PlayerAIState.InPuzzle:
 		{
 			m_PathFinding.SetState(PlayerPathfindingStates.Puzzle);
@@ -421,7 +438,7 @@ public class PlayerAIStateMachine : MonoBehaviour
 			
 		case PlayerAIState.Following:
 		{
-			m_PathFinding.setTarget(m_Player); 
+			m_PathFinding.setTarget(m_Partner); 
 			m_PathFinding.SetState(PlayerPathfindingStates.Following);
 		}
 			break;
@@ -432,7 +449,8 @@ public class PlayerAIStateMachine : MonoBehaviour
 			m_PathFinding.SetState(PlayerPathfindingStates.Combat);
 		}
 			break;
-		}*/
+		}
+		*/
 	} 
 
 	public void AddCombatEnemy(GameObject enemy) 		 
@@ -481,5 +499,18 @@ public class PlayerAIStateMachine : MonoBehaviour
 		}
 	}
 
+	public void recieveEvent(Subject sender, ObeserverEvents recievedEvent)
+	{
+		if(recievedEvent == ObeserverEvents.PauseGame || recievedEvent == ObeserverEvents.StartGame)
+		{
+			m_IsPaused = !m_IsPaused;
+			return;
+		}
 
+		if(recievedEvent == ObeserverEvents.CharacterSwitch)
+		{
+			m_IsActive = !m_IsActive;
+			return;
+		}
+	}
 }
