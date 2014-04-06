@@ -71,6 +71,9 @@ public class CameraController : MonoBehaviour
 	const float AIMING_CAMERA_HEIGHT = 0.3f;
 	const float ZOOM_RETURN_SPEED = 0.01f;
 	const float AIMING_VERTICAL_SENSITIVITY = 13.0f;
+	const float COLLISION_FIX_TIMER = 0.25f;
+	const float COLLISION_TURN_SPEED = 0.25f;
+	const float COLLISION_ZOOM_SPEED = 0.15f;
 
 	//Looking helper variables
 	const float FORWARD_AMOUNT = 2.0f;
@@ -92,7 +95,16 @@ public class CameraController : MonoBehaviour
 
 	//Reticle
 	Reticle m_Reticle;
+
+	//Movement after collision
+	float m_CollisionTimer = 0.0f;
+	float m_CollisionOrientation = 0.0f;
+	float m_Zoom_Collision = 0.0f;
+	bool m_CollisionZoom = false;
+	//Use m_Zoom_Return for colllision zoom (and backwards movement)
 	
+
+
 
 	// Initialization
 	void Start ()
@@ -127,12 +139,23 @@ public class CameraController : MonoBehaviour
 	// Update
 	void Update ()
 	{
+		updateCollisionTimer ();
 		updatePosition();
 		updateZoom ();
 		updateOrientation ();
 		updateLookPosition ();
 		updateReticlePosition ();
 		updateReticle2DPosition ();
+	}
+
+	//Updates timer for lerping after collisions
+	void updateCollisionTimer()
+	{
+		//CollisionTimer
+		if (m_CollisionTimer > 0.0f)
+		{
+			m_CollisionTimer -= Time.deltaTime;
+		}
 	}
 	
 	// Updates the position of the camera's origin
@@ -173,6 +196,13 @@ public class CameraController : MonoBehaviour
 		//Make sure there is zoom input
 		if (m_State == CameraState.Default)
 		{
+			if (m_CollisionTimer > 0.0f && m_CollisionZoom)
+			{
+				//Set Camera Zoom
+				setZoom(Mathf.Lerp(m_Zoom , m_Zoom_Collision, COLLISION_ZOOM_SPEED));
+				return;
+			}
+
 			if (PlayerInput.Instance.getCameraMovement().y != 0)
 			{
 				//Set Camera Zoom
@@ -194,7 +224,6 @@ public class CameraController : MonoBehaviour
 						m_Zoom_Return = DEFAULT_ZOOM;
 					}
 				}
-
 				setZoom(Mathf.Lerp(m_Zoom , m_Zoom_Return, ZOOM_RETURN_SPEED));
 			}
 		}
@@ -234,33 +263,33 @@ public class CameraController : MonoBehaviour
 		{
 			return;
 		}
-		
+
+		//By default do not zoom in or out from collision
+		m_CollisionZoom = false;
+
 		RaycastHit hit;
 		//Right
-		if (Physics.Raycast(m_CameraFollow.position, transform.right, out hit, Vector3.Distance(transform.position, collision.transform.position) * 1.5f))
+		if (Physics.Raycast(transform.position, transform.right, out hit, Vector3.Distance(transform.position, collision.transform.position)) ||
+			//Back RIght
+		    Physics.Raycast(transform.position, -transform.forward + transform.right, out hit, Vector3.Distance(transform.position, collision.transform.position)))
 		{
-			setOrientation(transform.parent.eulerAngles.y + 1.0f - PlayerInput.Instance.getCameraMovement().x);
+			m_CollisionOrientation = transform.parent.eulerAngles.y + 1.0f;
+			m_CollisionTimer = COLLISION_FIX_TIMER;
 		}
 		//Left
-		else if (Physics.Raycast(m_CameraFollow.position, -transform.right, out hit, Vector3.Distance(transform.position, collision.transform.position) * 1.5f))
+		else if (Physics.Raycast(transform.position, -transform.right, out hit, Vector3.Distance(transform.position, collision.transform.position)) ||
+		         //Back Left
+		         Physics.Raycast(transform.position, -transform.forward - transform.right, out hit, Vector3.Distance(transform.position, collision.transform.position)))
 		{
-			setOrientation(transform.parent.eulerAngles.y - 1.0f + PlayerInput.Instance.getCameraMovement().x);
-		}
-		//Back Right
-		else if (Physics.Raycast(m_CameraFollow.position, -transform.forward + transform.right, out hit, Vector3.Distance(transform.position, collision.transform.position) * 1.5f))
-		{
-			setOrientation(transform.parent.eulerAngles.y + 2.0f - PlayerInput.Instance.getCameraMovement().x);
-		}
-		//Back Left
-		else if (Physics.Raycast(m_CameraFollow.position, -transform.forward - transform.right, out hit, Vector3.Distance(transform.position, collision.transform.position) * 1.5f))
-		{
-			setOrientation(transform.parent.eulerAngles.y - 2.0f + PlayerInput.Instance.getCameraMovement().x);
+			m_CollisionOrientation = transform.parent.eulerAngles.y - 1.0f;
+			m_CollisionTimer = COLLISION_FIX_TIMER;
 		}
 		//Backwards
-		else if (Physics.Raycast(transform.position, -transform.forward, out hit, Vector3.Distance(collision.transform.position, m_CameraFollow.position) * 1.1f))
+		if (Physics.Raycast(transform.position, -transform.forward, out hit, Vector3.Distance(collision.transform.position, m_CameraFollow.position)))
 		{
-			float itsZoom = Vector3.Distance(transform.localPosition, Vector3.zero) * (m_Zoom / Vector3.Distance(collision.transform.position, m_CameraFollow.position));
-			setZoom(m_Zoom - Mathf.Abs(itsZoom - m_Zoom));
+			m_Zoom_Collision = Vector3.Distance(transform.localPosition, Vector3.zero) * (m_Zoom / Vector3.Distance(collision.transform.position, m_CameraFollow.position));
+			m_CollisionZoom = true;
+			m_CollisionTimer = COLLISION_FIX_TIMER;
 		}
 	}
 
@@ -274,7 +303,15 @@ public class CameraController : MonoBehaviour
 		}
 		else if (m_State == CameraState.Default)
 		{
-			setOrientation (transform.parent.eulerAngles.y + (ROTATION_SENSITIVITY * PlayerInput.Instance.getCameraMovement().x));
+			if (m_CollisionTimer > 0.0f)
+			{
+				setOrientation (Mathf.Lerp(transform.parent.eulerAngles.y, m_CollisionOrientation, COLLISION_TURN_SPEED));
+
+			}
+			else
+			{
+				setOrientation (transform.parent.eulerAngles.y + (ROTATION_SENSITIVITY * PlayerInput.Instance.getCameraMovement().x));
+			}
 		}
 		else if (m_State == CameraState.Aiming)
 		{
@@ -510,5 +547,20 @@ public class CameraController : MonoBehaviour
 
 		//Do not draw reticle by default
 		m_Reticle.canDraw(false);
+	}
+
+	/// <summary>
+	/// Get's if you can switch or not.
+	/// </summary>
+	public bool isAbleToSwitch()
+	{
+		if (m_State != CameraState.Switching)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 }
