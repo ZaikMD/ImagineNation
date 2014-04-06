@@ -164,20 +164,19 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 	/// </summary>
 	void InPuzzle()
 	{
-
 		if (GetInteracting ())
 		{
 			switch(GetInteractionType())
 			{	
 				case InteractableType.MovingBlock:
 				{
-					//TODO: stop interacting
+					m_playerStateMachine.exitInteracting();
 				}
 					break;
 
 				case InteractableType.PickUp:
 				{
-					//TODO: drop
+					m_playerStateMachine.exitInteracting();
 				}
 					break;
 
@@ -252,12 +251,6 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 			{
 				//				Check if the interactable is exitable if it is exit -> default
 				//				if it isn't exitable return to default				
-				
-			case InteractableType.Lever:
-			{
-				m_State = PlayerAIState.Default;
-			}
-				break;
 				
 			case InteractableType.MovingBlock:
 			{
@@ -436,7 +429,7 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 		{
 		case "PuzzleArea":
 			m_EnterPuzzle = true;
-			m_PathFinding.Puzzle();
+			m_PathFinding.Puzzle( false);
 			break;
 			
 		case "Enemy":
@@ -451,7 +444,10 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 		{
 		case "PuzzleArea":
 			m_EnterPuzzle = false;
-			m_PathFinding.Puzzle();
+			if(m_IsActive)
+			{
+				m_PathFinding.Puzzle(true);
+			}
 			break;
 			
 		case "Enemy":

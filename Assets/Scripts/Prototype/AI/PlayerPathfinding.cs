@@ -58,8 +58,8 @@ public class PlayerPathfinding : MonoBehaviour
 	/// When the PlayerAI should be in the puzzle state it will call this function
 	/// deactive the agent and no longer use navMesh
 	/// </summary>
-	public void Puzzle()
+	public void Puzzle(bool active)
 	{
-		m_Agent.enabled = !m_Agent.enabled;
+		m_Agent.enabled = active;
 	}
 }

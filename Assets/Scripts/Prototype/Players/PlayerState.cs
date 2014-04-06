@@ -169,7 +169,10 @@ public abstract class PlayerState : MonoBehaviour, Observer
 		
 		if(movement != null)
 		{
-			movement.setCanMove ( true );
+			if(m_IsActive)
+			{
+				movement.setCanMove ( true );
+			}
 		}
 		
 		m_PlayerState = PlayerStates.Default;
@@ -341,7 +344,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 
 	public bool getInteracting()
 	{
-  		if(m_PlayerState == PlayerStates.Interacting)
+  		if(m_CurrentInteraction != null)
      	{
        		return true;
      	}
@@ -626,4 +629,6 @@ public abstract class PlayerState : MonoBehaviour, Observer
 			return;
 		}
 	}
+
+
 }
