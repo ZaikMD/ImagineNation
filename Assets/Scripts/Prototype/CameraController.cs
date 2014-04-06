@@ -73,8 +73,8 @@ public class CameraController : MonoBehaviour
 	const float ZOOM_RETURN_SPEED = 0.01f;
 	const float AIMING_VERTICAL_SENSITIVITY = 13.0f;
 	const float COLLISION_FIX_TIMER = 0.25f;
-	const float COLLISION_TURN_SPEED = 0.25f;
-	const float COLLISION_ZOOM_SPEED = 0.15f;
+	const float COLLISION_TURN_SPEED = 0.3f;
+	const float COLLISION_ZOOM_SPEED = 0.20f;
 
 	//Looking helper variables
 	const float FORWARD_AMOUNT = 2.0f;
@@ -268,25 +268,41 @@ public class CameraController : MonoBehaviour
 		//By default do not zoom in or out from collision
 		m_CollisionZoom = false;
 
+		//Math variables for Raycasting
 		RaycastHit hit;
+		float distance = Vector3.Distance(transform.position, collision.transform.position);
+
+		//Fix distance error
+		if (distance == 0.0f)
+		{
+			distance = 1.0f;
+		}
+
 		//Right
-		if (Physics.Raycast(transform.position, transform.right, out hit, Vector3.Distance(transform.position, collision.transform.position)) ||
+		if (Physics.Raycast(transform.position, transform.right, out hit, distance) ||
 			//Back RIght
-		    Physics.Raycast(transform.position, -transform.forward + transform.right, out hit, Vector3.Distance(transform.position, collision.transform.position)))
+		    Physics.Raycast(transform.position, -transform.forward + transform.right, out hit, distance))
 		{
 			m_CollisionOrientation = transform.parent.eulerAngles.y + 1.0f;
 			m_CollisionTimer = COLLISION_FIX_TIMER;
 		}
 		//Left
-		else if (Physics.Raycast(transform.position, -transform.right, out hit, Vector3.Distance(transform.position, collision.transform.position)) ||
+		else if (Physics.Raycast(transform.position, -transform.right, out hit, distance) ||
 		         //Back Left
-		         Physics.Raycast(transform.position, -transform.forward - transform.right, out hit, Vector3.Distance(transform.position, collision.transform.position)))
+		         Physics.Raycast(transform.position, -transform.forward - transform.right, out hit, distance))
 		{
 			m_CollisionOrientation = transform.parent.eulerAngles.y - 1.0f;
 			m_CollisionTimer = COLLISION_FIX_TIMER;
 		}
+
+		distance = Vector3.Distance (collision.transform.position, m_CameraFollow.position);
+		if (distance == 0.0f)
+		{
+			distance = 1.0f;
+		}
+
 		//Backwards
-		if (Physics.Raycast(transform.position, -transform.forward, out hit, Vector3.Distance(collision.transform.position, m_CameraFollow.position)))
+		if (Physics.Raycast(transform.position, -transform.forward, out hit, distance))
 		{
 			m_Zoom_Collision = Vector3.Distance(transform.localPosition, Vector3.zero) * (m_Zoom / Vector3.Distance(collision.transform.position, m_CameraFollow.position));
 			m_CollisionZoom = true;

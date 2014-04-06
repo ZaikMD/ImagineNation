@@ -410,7 +410,7 @@ public class PlayerAIStateMachine : MonoBehaviour
 	/// <param name="target">Target.</param>
 	void Pathfinding() 
 	{ 
-		switch(m_State)
+		/*switch(m_State)
 		{
 			
 		case PlayerAIState.InPuzzle:
@@ -432,7 +432,7 @@ public class PlayerAIStateMachine : MonoBehaviour
 			m_PathFinding.SetState(PlayerPathfindingStates.Combat);
 		}
 			break;
-		}
+		}*/
 	} 
 
 	public void AddCombatEnemy(GameObject enemy) 		 
