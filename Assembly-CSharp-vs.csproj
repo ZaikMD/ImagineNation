@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Prototype\AI\Enemies\BaseEnemy.cs" />
+     <Compile Include="Assets\Scripts\Prototype\AI\Enemies\Crochuck.cs" />
      <Compile Include="Assets\Scripts\Prototype\AI\Enemies\EnemyPathfinding.cs" />
      <Compile Include="Assets\Scripts\Prototype\AI\Enemies\EnemySpawn.cs" />
      <Compile Include="Assets\Scripts\Prototype\AI\Enemies\EnemySpawnManager.cs" />
