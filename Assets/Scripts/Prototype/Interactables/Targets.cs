@@ -9,30 +9,20 @@ public class Targets : Subject
 	// a target gameobject in unity and will be
 	// used to record whether this specific target
 	// has been triggered and relay that information
-	// to the targetManager
+	// to the corresponding triggerManager
 
-	//In unity set the appropriate target manager
+	//In unity set the appropriate triggerManager
 
 	public bool m_Active = true;
 
 	void Start () 
 	{
-		//Add the manager as an observer so that it will be notified
-		// when the nerf target has been hit
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		//Will need to add an if statement around sendEvent
-		//It will be the condition that the nerf target is hit,
-
-		//Undetermined how the nerf projectile script will 
-		//communicate with the target
-
-		//Update: Currently have the nerf projectile setting the
-		//target to inactive and based on that relaying the send event
-		// This is subject to change...
+		//If the target becomes inactive send the used event to all observers
 		if(!m_Active)
 		{
 			sendEvent (ObeserverEvents.Used);

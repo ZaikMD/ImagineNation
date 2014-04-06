@@ -53,6 +53,9 @@ public class NerfGunProjectile : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// The function for the default state that will determine whether the bullet isMoving or isPlatform
+	/// </summary>
 	void DefaultState()
 	{
 		//the Default state simply determines which of the two other states
@@ -67,6 +70,11 @@ public class NerfGunProjectile : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// The function for the isPlatformState
+	/// If the bullet is a platform update the platform timer and if that timer has expired destroy the bullet
+	/// </summary>
+	/// <returns><c>true</c> if this instance is platform state; otherwise, <c>false</c>.</returns>
 	void IsPlatformState()
 	{
 		//update the platform timer and if the timer has expired delete the platform
@@ -81,7 +89,12 @@ public class NerfGunProjectile : MonoBehaviour
 		if(m_PlatformTimer >= m_PlatformLifeSpan)
 			Destroy (this.gameObject);
 	}
-	
+
+	/// <summary>
+	/// The function for the isMovingState
+	/// If the bullet is currently moving increase ths timer and if that timer has expired destroy the bullet
+	/// </summary>
+	/// <returns><c>true</c> if this instance is moving state; otherwise, <c>false</c>.</returns>
 	void IsMovingState()
 	{
 		//update the bullets general timer and destroy it if it exceeds its set lifespan
@@ -92,7 +105,12 @@ public class NerfGunProjectile : MonoBehaviour
 			Destroy (this.gameObject);
 		}
 	}
-	
+
+	/// <summary>
+	/// This OnCollisionEnter function determines what it collided with through a switch
+	/// statement of "other"s tag and executes the appropriate function based on what it collided with
+	/// </summary>
+	/// <param name="other">Other.</param>
 	void OnCollisionEnter(Collision other)
 	{             
 		//Essentially this switch statement checks the tag of the object the bullet collided
@@ -139,13 +157,23 @@ public class NerfGunProjectile : MonoBehaviour
 			break;
 		}
 	}
-	
+
+	/// <summary>
+	/// Once the collision has been determined to be with a enemy.
+	/// execute the following code, apply damage to the enemy.
+	/// </summary>
+	/// <param name="enemy"></param>
 	void CollidedWithEnemy(GameObject enemy)
 	{
 		Destroy (this.gameObject);              
 		//enemy.applyDamage();
 	}
-	
+
+	/// <summary>
+	/// Once the collision has been determined to be with a nerfwall.
+	/// execute the following code, freeze the projectile, increase it's size and set state to isPlatform.
+	/// </summary>
+	/// <param name="nerfWall">Nerf wall.</param>
 	void CollidedWithNerfWall(GameObject nerfWall)
 	{
 		//freeze the bullets position at the point of collision       
@@ -157,7 +185,12 @@ public class NerfGunProjectile : MonoBehaviour
 		m_State = NerfGunProjectileState.IsPlatform;
 
 	}
-	
+
+	/// <summary>
+	/// Once the collision has been determined to be with a nerftarget.
+	/// execute the following code, deactivate the target.
+	/// </summary>
+	/// <param name="nerfTarget">Nerf target.</param>
 	void CollidedWithNerfTarget(GameObject nerfTarget)
 	{             
 		//activate trigger is simply a placeholder name for a function within
@@ -167,6 +200,10 @@ public class NerfGunProjectile : MonoBehaviour
 		nerfTarget.GetComponent<Targets> ().m_Active = false;
 	}
 
+	/// <summary>
+	/// A setter for m_Active
+	/// </summary>
+	/// <param name="active">If set to <c>true</c> active.</param>
 	public void setActive(bool active)
 	{
 		m_Active = active;
@@ -174,6 +211,10 @@ public class NerfGunProjectile : MonoBehaviour
 		Debug.Log (m_Active);
 	}
 
+	/// <summary>
+	/// A getter for m_Active
+	/// </summary>
+	/// <returns><c>true</c>, if active was gotten, <c>false</c> otherwise.</returns>
 	public bool getActive()
 	{
 		return m_Active;
