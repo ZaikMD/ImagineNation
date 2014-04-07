@@ -83,9 +83,9 @@ public class SoundManager : MonoBehaviour {
 		}
 	}
 	 //Call This from any fucntion with the appropriate sound name
-	public void playSound(Sounds sound, Vector3 position, float volume)
+	public void playSound(Sounds sound, Vector3 position)
 	{
-		AudioSource.PlayClipAtPoint (m_Sounds [(int)sound], position, volume);
+		AudioSource.PlayClipAtPoint (m_Sounds [(int)sound], position, m_Volume);
 	}
 
 	public void playSong(Songs song, float volume)
