@@ -17,11 +17,12 @@ public class LeverRotation : MonoBehaviour, Observer {
 	//public Quaternion m_Rotation = Quaternion.Euler(new Vector3(0, 0, 0));
 
 	bool m_TriggerActivated = false;
-	bool m_IsEnabled = false;
+	bool m_IsEnabled = true;
 
 
 	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
 	
 	
 		//m_OriginalRotation = this.transform.rotation;
@@ -32,7 +33,8 @@ public class LeverRotation : MonoBehaviour, Observer {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+	{
 
 		if(m_IsEnabled)
 		{
@@ -57,6 +59,4 @@ public class LeverRotation : MonoBehaviour, Observer {
 			m_TriggerActivated = !m_TriggerActivated; //Activate the rotation
 		}
 	}
-
-
 }

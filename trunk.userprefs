@@ -1,11 +1,19 @@
 ﻿<Properties>
 <<<<<<< .mine
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Interactables\LeverRotation.cs">
+=======
+<<<<<<< .mine
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs">
 =======
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\AI\Enemies\PathfindNode.cs">
+>>>>>>> .r237
     <Files>
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\Interactables\LeverRotation.cs" Line="36" Column="17" />
+=======
 <<<<<<< .mine
 =======
 <<<<<<< .mine
@@ -38,10 +46,16 @@
       <File FileName="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="1" Column="1" />
 >>>>>>> .r232
+>>>>>>> .r237
 >>>>>>> .r234
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
+<<<<<<< .mine
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\fort0222\Desktop\svn - Copy\trunk\Assets\Scripts\Prototype\Interactables\LeverRotation.cs" line="41" />
+    </BreakpointStore>
+=======
 <<<<<<< .mine
     <BreakpointStore>
       <Breakpoint file="C:\Users\holl0161\Desktop\Puzzle 3\trunk\Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" line="431" />
@@ -49,6 +63,7 @@
     </BreakpointStore>
 =======
     <BreakpointStore />
+>>>>>>> .r237
 >>>>>>> .r234
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
