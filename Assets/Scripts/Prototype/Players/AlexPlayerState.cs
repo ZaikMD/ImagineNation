@@ -52,4 +52,10 @@ public class AlexPlayerState : PlayerState
 	{
 		//TODO initial rc car shit
 	}
+
+    public void setUp()
+    {
+        m_RCCar = gameObject.GetComponent<RCCar> ();
+		m_NerfGun = gameObject.GetComponentInChildren<NerfGun> ();
+    }
 }

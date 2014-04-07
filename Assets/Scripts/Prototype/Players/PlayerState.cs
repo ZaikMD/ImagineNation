@@ -8,7 +8,7 @@ using System.Collections.Generic;
 public abstract class PlayerState : MonoBehaviour, Observer
 {
 
-	protected enum PlayerStates 
+	public enum PlayerStates 
 	{
 		Default = 0,
 		Idle,
@@ -21,7 +21,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	//player movement causes error as class is not created yet.
 	//PlayerMovement m_PlayerMovement;
 
-	protected PlayerStates m_PlayerState;
+	public PlayerStates m_PlayerState;
 
 	GameObject m_AimReticle;
 
@@ -65,6 +65,12 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	// Use this for initialization
 	void Start ()
     {
+        m_PlayerState = PlayerStates.Default;
+
+        GameManager.Instance.addObserver(this);
+
+        CharacterSwitch.Instance.addObserver(this);
+
         m_HaveSecondItem = true;
         m_UsingSecondItem = false;
 
@@ -77,6 +83,28 @@ public abstract class PlayerState : MonoBehaviour, Observer
 
 		start ();
 	}
+
+    public void SetUp()
+    {
+        m_PlayerState = PlayerStates.Default;
+
+        GameManager.Instance.addObserver(this);
+
+        CharacterSwitch.Instance.addObserver(this);
+
+        m_HaveSecondItem = true;
+        m_UsingSecondItem = false;
+
+        gameObject.GetComponent<PlayerMovement>().setCanMove(m_IsActive);
+
+        if (m_IsActive)
+        {
+            GameObject.FindGameObjectWithTag("Camera").GetComponentInChildren<CameraController>().switchTo(this.gameObject.transform);
+        }
+
+        start();
+    }
+
 
 	protected abstract void start ();
 
