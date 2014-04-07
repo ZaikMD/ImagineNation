@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b80b61dfbfa67ed42a2556e93f395525
+guid: 6d4cb6b72a799c24085b5d9a6e3a7278
 ModelImporter:
   serializedVersion: 15
   fileIDToRecycleName:
@@ -160,37 +160,6 @@ ModelImporter:
     4300056: Rectangle009
     4300058: Box295
     4300060: Box296
-    6400000: Box295
-    6400002: Box296
-    6400004: Box305
-    6400006: Box308
-    6400008: Box310
-    6400010: Box313
-    6400012: Box314
-    6400014: Box315
-    6400016: Box316
-    6400018: Box317
-    6400020: Box318
-    6400022: Box319
-    6400024: Box320
-    6400026: Box332
-    6400028: Box333
-    6400030: Box334
-    6400032: Box335
-    6400034: Box337
-    6400036: Box346
-    6400038: Box349
-    6400040: Box353
-    6400042: Box354
-    6400044: Box355
-    6400046: Box356
-    6400048: Box357
-    6400050: Box361
-    6400052: Cylinder331
-    6400054: Cylinder332
-    6400056: Cylinder333
-    6400058: Cylinder335
-    6400060: Rectangle009
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -212,7 +181,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: .00999999978
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0

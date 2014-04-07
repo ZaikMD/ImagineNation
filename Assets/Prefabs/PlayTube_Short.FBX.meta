@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a37e8ed17c71c4b4ab1b136b7b2e6b99
+guid: 3a85002276f78644db8c19260a340999
 ModelImporter:
   serializedVersion: 15
   fileIDToRecycleName:
@@ -20,6 +20,9 @@ ModelImporter:
     4300000: Torus005
     4300002: Torus009
     4300004: Tube008
+    6400000: Torus005
+    6400002: Torus009
+    6400004: Tube008
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -41,7 +44,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: .00999999978
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fc413c7f46f7bb7499b67b08f06b84d2
+guid: deb5f5e7368cceb43873028a1705dbd2
 ModelImporter:
   serializedVersion: 15
   fileIDToRecycleName:
@@ -54,15 +54,6 @@ ModelImporter:
     4300012: Cylinder346
     4300014: Cylinder391
     4300016: Switch
-    6400000: Cylinder346
-    6400002: Cylinder347
-    6400004: Cylinder348
-    6400006: Cylinder349
-    6400008: Cylinder350
-    6400010: Cylinder391
-    6400012: Line033
-    6400014: Sphere009
-    6400016: Switch
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -84,7 +75,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: .00999999978
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
