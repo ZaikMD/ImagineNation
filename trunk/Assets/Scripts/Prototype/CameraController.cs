@@ -633,7 +633,7 @@ public class CameraController : MonoBehaviour
 	/// </summary>
 	public bool isAbleToSwitch()
 	{
-		if (m_State != CameraState.Switching)
+		if (m_State == CameraState.Default)
 		{
 			return true;
 		}
