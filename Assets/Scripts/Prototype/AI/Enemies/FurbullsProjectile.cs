@@ -26,7 +26,11 @@ public class FurbullsProjectile : MonoBehaviour {
 		}
 	}
 
-	//Check Collision with player
+	/// <summary>
+	/// Checks if the Projectile has collided
+	/// with the player and is then destroyed
+	/// </summary>
+	/// <param name="other">Other.</param>
 	void OnCollisionEnter(Collision other)
 	{
 		if(other.gameObject.tag == "Player")
@@ -36,8 +40,4 @@ public class FurbullsProjectile : MonoBehaviour {
 		}
 	}
 
-	public void setForwardDirection(Vector3 direction)
-	{
-		m_Direction = direction;
-	}
 }

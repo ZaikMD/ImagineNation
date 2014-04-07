@@ -67,6 +67,9 @@ public class EnemyPathfinding : MonoBehaviour
 	
 	}
 
+	/// <summary>
+	/// Pursue sets the destination of the AI
+	/// </summary>
 	void Pursue()
 	{
 		m_Agent.stoppingDistance = m_InitialStoppingDistance;
@@ -76,6 +79,9 @@ public class EnemyPathfinding : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Combat state also sets the destinaiton of the AI
+	/// </summary>
 	void Combat()
 	{
 		m_Agent.stoppingDistance = m_InitialStoppingDistance;
@@ -85,6 +91,10 @@ public class EnemyPathfinding : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Handles all the logic of the node pathfinding
+	/// for the Enemy AI
+	/// </summary>
 	void Patrol()
 	{
 		m_Agent.stoppingDistance = 0;
@@ -127,17 +137,28 @@ public class EnemyPathfinding : MonoBehaviour
 
 	}
 
+	/// <summary>
+	/// Sets the state of the AI with a passed in EnemyPathfindingState
+	/// </summary>
+	/// <param name="nextState">Next state.</param>
 	public void SetState(EnemyPathfindingStates nextState)
 	{
 		m_State = nextState;
 	}
 
-	//Set target
+	/// <summary>
+	/// Sets the target for the Enemy AI with a passed in GameObject
+	/// </summary>
+	/// <param name="nextTarget">Next target.</param>
 	public void setTarget(GameObject nextTarget)
 	{
 		m_Target = nextTarget.transform;
 	}
 
+	/// <summary>
+	/// Returns the Transfor m_Target
+	/// </summary>
+	/// <returns>The target.</returns>
 	public Transform getTarget()
 	{
 		return m_Target;

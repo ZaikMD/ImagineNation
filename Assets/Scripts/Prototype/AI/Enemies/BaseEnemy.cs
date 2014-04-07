@@ -49,7 +49,11 @@ public abstract class BaseEnemy : MonoBehaviour, Observer
 		}
 	}
 
-	//Use RecieveEvent to pause the enemy
+	/// <summary>
+	/// Checks if the game is paused and sets the m_IsEnabled
+	/// </summary>
+	/// <param name="sender">Sender.</param>
+	/// <param name="recievedEvent">Recieved event.</param>
 	public void recieveEvent(Subject sender, ObeserverEvents recievedEvent)
 	{
 		if(recievedEvent == ObeserverEvents.PauseGame || recievedEvent == ObeserverEvents.StartGame)
@@ -58,9 +62,26 @@ public abstract class BaseEnemy : MonoBehaviour, Observer
 		}
 	}
 
+	/// <summary>
+	/// Applies damage to the enemy by a passed in
+	/// amount.
+	/// </summary>
+	/// <param name="amount">Amount.</param>
 	public void applyDamage(int amount)
 	{
 		m_Health.takeDamage(amount);
+	}
+
+	/// <summary>
+	/// Reset variables back to a default state for spawning
+	/// </summary>
+	public void reset()
+	{
+		m_IsInCombat = false;
+		m_IsEnabled = true;
+		m_Target = null;
+		m_Timer = EXIT_COMBAT_TIME;
+		m_State = States.Default;
 	}
 
 	// Update is called once per frame
@@ -99,10 +120,18 @@ public abstract class BaseEnemy : MonoBehaviour, Observer
 		}
 	}
 
+	/// <summary>
+	/// Used to do any specific combat update, able to be
+	/// overridden for inheriting classes
+	/// </summary>
 	protected virtual void updateCombat ()
 	{
 	}
 
+	/// <summary>
+	/// Makes sure enemy has health, then checks with various
+	/// ranges and timers to go into the next state
+	/// </summary>
 	protected virtual void defaultState()
 	{
 		//first check if enemy dead
@@ -234,15 +263,29 @@ public abstract class BaseEnemy : MonoBehaviour, Observer
 
 	}
 
+	/// <summary>
+	/// abstract die state which is different for each
+	/// enemy that inherits
+	/// </summary>
 	protected abstract void die();
 
+	/// <summary>
+	/// abstract fightState that can be overridden because
+	/// each enemy will fight differently
+	/// </summary>
 	protected abstract void fightState();
 
+	/// <summary>
+	/// Calls the pursue state of EnemyPathFinding
+	/// </summary>
 	protected virtual void followState()
 	{
 		m_EnemyPathfinding.SetState (EnemyPathfindingStates.Pursue);
 	}
 
+	/// <summary>
+	/// sets the EnemyPathFinding state to Patrol
+	/// </summary>
 	protected virtual void patrolState()
 	{
 		//TODO: patrol code
