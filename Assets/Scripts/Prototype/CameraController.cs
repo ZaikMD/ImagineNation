@@ -616,7 +616,7 @@ public class CameraController : MonoBehaviour
 		//Disable moving while aiming
 		if (m_Movement != null)
 		{
-			m_Movement.setCanMove(true);
+			m_Movement.setCanMove(m_CameraFollow.gameObject.GetComponent<PlayerState>().m_IsActive);
 		}
 
 		transform.parent.position = m_CameraFollow.position;

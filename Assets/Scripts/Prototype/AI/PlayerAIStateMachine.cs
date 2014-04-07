@@ -429,7 +429,7 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 		{
 		case "PuzzleArea":
 			m_EnterPuzzle = true;
-			m_PathFinding.Puzzle( false);
+			//m_PathFinding.Puzzle( false);
 			break;
 			
 		case "Enemy":
@@ -446,7 +446,7 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 			m_EnterPuzzle = false;
 			if(m_IsActive)
 			{
-				m_PathFinding.Puzzle(true);
+				//m_PathFinding.Puzzle(true);
 			}
 			break;
 			

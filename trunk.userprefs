@@ -7,6 +7,15 @@
 >>>>>>> .r228
     <Files>
 <<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\MenuScript.cs" Line="1619" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\TestingScripts\Menu.cs" Line="700" Column="3" />
+      <File FileName="Assets\Scripts\Prototype\Setting.cs" Line="114" Column="2" />
+      <File FileName="Assets\Scripts\Prototype\SceneSettup.cs" Line="211" Column="3" />
+      <File FileName="Assets\Scripts\Prototype\MovingPlatforms.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Interactables\TriggerManager.cs" Line="26" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="55" Column="3" />
+=======
+<<<<<<< .mine
       <File FileName="Assets\Scripts\Prototype\AI\Enemies\FurbullsProjectile.cs" Line="44" Column="1" />
       <File FileName="Assets\Scripts\Prototype\AI\Enemies\EnemyPathfinding.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\AI\PlayerPathfinding.cs" Line="1" Column="1" />
@@ -34,13 +43,12 @@
       <File FileName="Assets\Scripts\Prototype\Observer\Subject.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\Items\RCCar\RCCar.cs" Line="183" Column="38" />
       <File FileName="Assets\Scripts\Prototype\Interactables\PickUp.cs" Line="91" Column="1" />
+>>>>>>> .r231
 >>>>>>> .r228
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="C:\Users\elia0034\Desktop\Imagine Nation\w14_l4_s1_dusk\trunk\Assets\Scripts\Prototype\Players\PlayerState.cs" line="641" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

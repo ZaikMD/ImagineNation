@@ -55,7 +55,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 		
 		GameManager.Instance.addObserver (this);
 
-		CharacterSwitch.Instance.addObserver (this);
+  		CharacterSwitch.Instance.addObserver (this);
 
     }
 
@@ -542,9 +542,11 @@ public abstract class PlayerState : MonoBehaviour, Observer
 		if(!m_UsingSecondItem)
 		{
 			if(PlayerInput.Instance.getSwitchInput())
-			{
-				CharacterSwitch.Instance.switchCharacters();
-
+			{ 
+				if (m_CameraController.isAbleToSwitch())
+				{
+					CharacterSwitch.Instance.switchCharacters();
+				}
 				return;
 			}
 		}
