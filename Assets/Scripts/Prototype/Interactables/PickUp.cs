@@ -8,6 +8,7 @@ using System.Collections;
 
 public class PickUp : InteractableBaseClass, Observer
 {
+	//initializing values
 	public float m_BounceMultiplier = 3.0f;
 	public bool m_HasPickup = false;
 	public DropZone m_DropZone;
@@ -33,6 +34,7 @@ public class PickUp : InteractableBaseClass, Observer
 	// Update is called once per frame
 	void Update () 
 	{
+		//if the player has not picked up the pick up item. It will spin and bounce to help the player locate it. If the player drops it, it will not spin again
 		if(m_HasPickup == false)
 		{
 			float bounce = Mathf.Sin (Time.time * m_BounceMultiplier) * 0.2f + m_StartPosition.y;
@@ -56,6 +58,7 @@ public class PickUp : InteractableBaseClass, Observer
 		}
 	}
 
+	//when the player exits the trigger, it says the interaction is out of range
 	void OnTriggerExit(Collider obj)
 	{
 		if(m_IsAdded)
@@ -73,8 +76,8 @@ public class PickUp : InteractableBaseClass, Observer
 	public void DropItem()
 	{
 		this.transform.parent = null;
-		Rigidbody rigid = gameObject.AddComponent<Rigidbody> ();
-		rigidbody.useGravity = true;
+		Rigidbody rigid = gameObject.AddComponent<Rigidbody> (); // add a rigidbody so it can be dropped from heights and fall on the ground
+		rigidbody.useGravity = true; //add gravity to the rigidbody
 		m_PlayerHolding.gameObject.GetComponent<PlayerState>().interactionOutOfRange(this);
 		m_PlayerHolding = null;
 	}
@@ -84,14 +87,15 @@ public class PickUp : InteractableBaseClass, Observer
 	{
 		if(other.CompareTag("Player"))
 		{
+			//moves the object to the players empty game object PickUpPoint
 			this.transform.parent = other.transform.Find ("PickUpPoint");
 			m_HasPickup = true;
 			this.transform.localPosition = Vector3.zero;
 			this.transform.localRotation = Quaternion.identity;
-			rigidbody.useGravity = false;
+			rigidbody.useGravity = false;// take off rotation
 
 			m_PlayerHolding = other;
-			Destroy( gameObject.GetComponent<Rigidbody>());
+			Destroy( gameObject.GetComponent<Rigidbody>()); // delete the rigid body so that it does not fall out of the player's hands
 		}
 	}
 
@@ -99,7 +103,8 @@ public class PickUp : InteractableBaseClass, Observer
 	{
 		if(sender.tag == "DropZone" && recievedEvent == ObeserverEvents.PickUpIsAtDropZone)
 		{
-			Destroy(this.gameObject);
+			Destroy(this.gameObject);	// if the pick up hits the drop zone, the pick will be deleted (the reason it is deleted is because we enable a gameobject that was at the 
+			//specified location from  the very start.
 		}
 	}
 }
