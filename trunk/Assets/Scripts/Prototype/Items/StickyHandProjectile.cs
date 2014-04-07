@@ -110,7 +110,7 @@ public class StickyHandProjectile : MonoBehaviour {
 			m_Movement.setCanMove(false);
 		}
 		//Hit something other than glass while extending
-		else if (m_State == States.Extending)
+		else if (m_State == States.Extending && other.gameObject.name != "Main Camera")
 		{
 			m_State = States.Retracting;
 		}
