@@ -1,4 +1,8 @@
 ﻿<Properties>
+<<<<<<< .mine
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs">
+=======
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\AI\Enemies\PathfindNode.cs">
     <Files>
@@ -10,7 +14,16 @@
 >>>>>>> .r233
 <<<<<<< .mine
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Players\PlayerState.cs">
+>>>>>>> .r234
     <Files>
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="74" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\MenuScript.cs" Line="1622" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" Line="428" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Players\AlexPlayerState.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\AI\PlayerPathfinding.cs" Line="35" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\FearScript.cs" Line="120" Column="1" />
+=======
 =======
 >>>>>>> .r233
       <File FileName="Assets\Scripts\Prototype\Players\ZoeyPlayerState.cs" Line="1" Column="1" />
@@ -25,10 +38,18 @@
       <File FileName="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="1" Column="1" />
 >>>>>>> .r232
+>>>>>>> .r234
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
+<<<<<<< .mine
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\holl0161\Desktop\Puzzle 3\trunk\Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" line="431" />
+      <Breakpoint file="C:\Users\holl0161\Desktop\Puzzle 3\trunk\Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" line="428" />
+    </BreakpointStore>
+=======
     <BreakpointStore />
+>>>>>>> .r234
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

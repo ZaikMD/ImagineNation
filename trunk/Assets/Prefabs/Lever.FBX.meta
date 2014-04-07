@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 19dba297561bced4e8d565674cdfd184
+guid: 0d9c5bcc1dc3d984a9e9a45cdd826642
 ModelImporter:
   serializedVersion: 15
   fileIDToRecycleName:
@@ -15,6 +15,8 @@ ModelImporter:
     3300002: Line040
     4300000: Cylinder094
     4300002: Line040
+    6400000: Cylinder094
+    6400002: Line040
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -36,7 +38,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: .00999999978
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0

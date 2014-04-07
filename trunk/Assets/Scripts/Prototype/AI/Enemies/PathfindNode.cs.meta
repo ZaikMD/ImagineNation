@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< .mine
+guid: c5efd6df7e2e2d34b8c928b7ab86721e
+=======
 guid: a26fe9406fbcaf440b96888b5626d272
+>>>>>>> .r234
 MonoImporter:
   serializedVersion: 2
   defaultReferences: []
