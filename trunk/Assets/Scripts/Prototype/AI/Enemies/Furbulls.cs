@@ -12,13 +12,20 @@ public class Furbulls : BaseEnemy
 		m_CombatRange = 2.0f;
 	}
 
-	//Override die state
+	/// <summary>
+	/// Override the die state from the BaseEnemy
+	/// to set the die state for the Furbulls.
+	/// </summary>
 	protected override void die()
 	{
 		//TODO:play death animation and instantiate ragdoll
 		Destroy (this.gameObject);
 	}
 
+	/// <summary>
+	/// Abstract fight state that is overridden to do the
+	/// logic of the Furbulls' fighting state
+	/// </summary>
 	protected override void fightState()
 	{
 		//TODO:play attack animation and attack sound

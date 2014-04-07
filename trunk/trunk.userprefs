@@ -1,11 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-<<<<<<< .mine
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs">
-=======
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Players\PlayerState.cs">
->>>>>>> .r228
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\AI\Enemies\PathfindNode.cs">
     <Files>
+<<<<<<< .mine
+      <File FileName="Assets\Scripts\Prototype\AI\Enemies\PathfindNode.cs" Line="26" Column="3" />
+=======
 <<<<<<< .mine
       <File FileName="Assets\Scripts\Prototype\MenuScript.cs" Line="1619" Column="1" />
       <File FileName="Assets\Scripts\Prototype\TestingScripts\Menu.cs" Line="700" Column="3" />
@@ -45,6 +44,7 @@
       <File FileName="Assets\Scripts\Prototype\Interactables\PickUp.cs" Line="91" Column="1" />
 >>>>>>> .r231
 >>>>>>> .r228
+>>>>>>> .r232
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
