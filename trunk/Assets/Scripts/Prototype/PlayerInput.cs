@@ -54,11 +54,13 @@ public class PlayerInput : MonoBehaviour
 	//Right Trigger Axis: 10th (Both axis are 0-1))
 	//----------------------------------------------------
 
+	//gets the movement input
 	public Vector2 getMovementInput()
 	{
 		return new Vector2(Input.GetAxis (LEFT_STICK_H), Input.GetAxis (LEFT_STICK_V));
 	}
 
+	//gets the jump input
 	public bool getJumpInput()
 	{
 		//get the jump input
@@ -72,6 +74,7 @@ public class PlayerInput : MonoBehaviour
 		} 
 	}
 
+	//gets the switch input
 	public bool getSwitchInput()
 	{
 		if(Input.GetKeyDown(KeyCode.Tab) || Input.GetButtonDown(Y))
@@ -84,6 +87,7 @@ public class PlayerInput : MonoBehaviour
 		}
 	}
 
+	//gets the enviroment interaction input
 	public bool getEnviromentInteraction()
 	{
 		if(Input.GetKeyDown(KeyCode.F) || Input.GetButtonDown(B))
@@ -96,6 +100,7 @@ public class PlayerInput : MonoBehaviour
 		}
 	}
 
+	//gets the camera movement input
 	public Vector2 getCameraMovement()
 	{
 		Vector2 m_CameraMovement = new Vector2 ();
@@ -131,6 +136,7 @@ public class PlayerInput : MonoBehaviour
 		return m_CameraMovement;
 	}
 
+	//gets the pause input
 	public bool getPause()
 	{
 		if(Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown(START))
@@ -143,6 +149,7 @@ public class PlayerInput : MonoBehaviour
 		}
 	}
 
+	//gets the use item input
 	public bool getUseItem()
 	{
 		if(Input.GetMouseButtonDown(0) || Input.GetButtonDown(X))
@@ -155,6 +162,7 @@ public class PlayerInput : MonoBehaviour
 		}
 	}
 
+	//gets the aiming is held input
 	public bool getIsAimingHeld()
 	{
 		if(Input.GetKey(KeyCode.LeftShift) || (Input.GetButton(LB)))
@@ -167,6 +175,7 @@ public class PlayerInput : MonoBehaviour
 		}
 	}
 
+	//gets the aiming input
 	public bool getIsAiming()
 	{
 		if(Input.GetKeyDown(KeyCode.LeftShift) || Input.GetButtonDown(LB))
@@ -179,6 +188,7 @@ public class PlayerInput : MonoBehaviour
 		}
 	}
 
+	//gets the jump button held input
 	public bool getJumpHeld()
 	{
 		if(Input.GetKey(KeyCode.Space) || Input.GetButton(A))
@@ -191,6 +201,7 @@ public class PlayerInput : MonoBehaviour
 		}
 	}
 
+	//gets the switch characters input
 	public bool getSwitchCharsHeld()
 	{
 		if(Input.GetKey(KeyCode.Tab) || Input.GetButton(Y))
@@ -203,6 +214,7 @@ public class PlayerInput : MonoBehaviour
 		}
 	}
 
+	//gets the interaction button held input
 	public bool getEnviromentInteractionHeld()
 	{
 		if(Input.GetKey(KeyCode.F) || Input.GetButton(B))
@@ -215,6 +227,7 @@ public class PlayerInput : MonoBehaviour
 		}
 	}
 
+	//gets the pause button held input
 	public bool getPauseHeld()
 	{
 		if(Input.GetKey(KeyCode.Escape) || Input.GetButton(START))
@@ -227,6 +240,7 @@ public class PlayerInput : MonoBehaviour
 		}
 	}
 
+	//gets the use item held input
 	public bool getUseItemHeld()
 	{
 		if(Input.GetMouseButton(0) || Input.GetButton(X))
