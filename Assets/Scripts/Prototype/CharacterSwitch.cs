@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// sends a switch event when the active player state machine says to switch
+/// </summary>
+
 public class CharacterSwitch : Subject 
 {
 	public static CharacterSwitch Instance{ get; private set; }

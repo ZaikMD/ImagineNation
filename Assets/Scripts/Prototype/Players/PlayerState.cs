@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-//hi
+
+/// <summary>
+/// the annoying class that controls the entire game flow
+/// </summary>
 public abstract class PlayerState : MonoBehaviour, Observer
 {
 
@@ -80,6 +83,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	// Update is called once per frame
 	protected void checkStates()
     {
+		//only updates if the script is active and unpaused
 		if(m_IsActive)
 		{
 			if(!m_IsPaused)
@@ -119,6 +123,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 		}
 	}
 
+	//not implemented yet since no enemies
 	protected void Dead()
 	{
 	   //     disable player.
@@ -126,6 +131,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	   //    if m_DeadTimer is less then 0, call reset player function.
 	}
 
+	//used to call any functions that need calling when stoping the interaction with an object
 	void stopInteractiong ()
 	{
 		switch (m_CurrentInteraction.getType ()) 
@@ -158,6 +164,8 @@ public abstract class PlayerState : MonoBehaviour, Observer
 		}
 	}
 
+	//used to exit interactions
+	//public so interactions the player cant exit can call it
 	public void exitInteracting()
 	{
 		stopInteractiong ();
@@ -178,6 +186,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 		m_PlayerState = PlayerStates.Default;
 	}
 
+	//called every update loop any interaction functions that need regular calling should be called here
 	protected void Interaction()
 	{
         //add any others that are exitble
@@ -212,6 +221,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 		m_PlayerState = PlayerStates.Default;
 	}                                                                                                                                     
 
+	//called when initaily interactiong with something
 	void initialInteraction()
 	{
 		switch (m_CurrentInteraction.getType ()) 
@@ -275,6 +285,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 		}
 	}
 
+	//not implemented/tested yet since no enemies
 	public void FlagDamage(short amount, GameObject damagedBy)
 	{
    		 if (!m_TakeDamage && m_PlayerState != PlayerStates.Dead)
@@ -285,6 +296,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
   		 }
 	}                                                                                                                                                      
 
+	//not implemented/tested yet since no enemies
 	protected void TakeDamage()
 	{
 		if(m_KnockBackTimer >= 0)
@@ -300,12 +312,14 @@ public abstract class PlayerState : MonoBehaviour, Observer
     	}
 	}
 
+	//not implemented/tested yet since no enemies
 	protected void applyDamage(short amount)
 	{
     	m_Health -= amount;
     	//update the hud to represent current health status.
 	}
 
+	//not implemented/tested yet since no enemies
 	protected void ResetPlayer()
 	{
 		GameObject[] players = GameObject.FindGameObjectsWithTag ("Player");
@@ -332,6 +346,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	
 	}
 
+	//not implemented/tested yet since no enemies
 	protected void KnockBack()
 	{
    		//   get gameObject that hit us being stored in member variable
@@ -342,6 +357,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	}
 	                                                                                                                                    
 
+	//returns when the player is interacting
 	public bool getInteracting()
 	{
   		if(m_CurrentInteraction != null)
@@ -354,11 +370,13 @@ public abstract class PlayerState : MonoBehaviour, Observer
      	}
 	}                                                                                                                                          
 
+	//returns the type of the current interaction
 	public InteractableType interactionType ()
 	{
  		return m_CurrentInteraction.getType();
 	}
-                                                                                                                                
+                        
+	//decides what to do when youre moving
 	protected void MovingFunction()
 	{
 		m_HaveSecondItem = true;
@@ -415,7 +433,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 
                                                                                                                                         
 
-
+	//decides what to do when youre stationary
 	protected void IdleFunction()
 	{
 		if(m_IsAiming)
@@ -506,7 +524,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	            }
 	        }
 	    }
-
+		
 		if(PlayerInput.Instance.getIsAiming())
 		{
 			toggleAiming();
@@ -522,13 +540,14 @@ public abstract class PlayerState : MonoBehaviour, Observer
 		m_PlayerState = PlayerStates.Default;
 	}
                                                                                                                                          
-
+	//toggles whether the player is aiming or not
 	public void toggleAiming()
 	{
 		m_IsAiming = !m_IsAiming;
 		m_CameraController.toggleAiming ( );
 	}
 
+	//returns whether the player is aiming or not
 	public bool getIsAiming()
 	{
 		return m_IsAiming;
@@ -580,17 +599,19 @@ public abstract class PlayerState : MonoBehaviour, Observer
         }
 	}
 
+	//used by interactions to tell the player statemachine that they are in range
 	public void interactionInRange(InteractableBaseClass Interaction)
 	{
 		m_InteractionsInRange.Add(Interaction);
 	}
 
-
+	//used by interactions to tell the player state machine that an interaction is now out of range
 	public void interactionOutOfRange(InteractableBaseClass interaction)
 	{
 	    m_InteractionsInRange.Remove(interaction);
 	}
 
+	//used to flag if the player should exit their second item
 	public void setExitingSecond (bool isExiting)
 	{
 	    m_ExitingSecondItem = isExiting;
@@ -609,6 +630,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 
 	protected abstract void aimAttack();  // <- derek cannot implement, does not have a aim attack.
 
+	//observer design pattern things
 	public void recieveEvent(Subject sender, ObeserverEvents recievedEvent)
 	{
 		if(recievedEvent == ObeserverEvents.PauseGame || recievedEvent == ObeserverEvents.StartGame)
@@ -631,6 +653,4 @@ public abstract class PlayerState : MonoBehaviour, Observer
 			return;
 		}
 	}
-
-
 }

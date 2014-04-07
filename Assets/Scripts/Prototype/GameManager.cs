@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// anything with an update should observe this for noe all it sends if events when the game is paused/ unpaused
+/// </summary>
 public class GameManager : Subject 
 {
 
