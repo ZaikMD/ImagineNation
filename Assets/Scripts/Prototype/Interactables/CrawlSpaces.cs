@@ -179,7 +179,6 @@ public class CrawlSpaces : InteractableBaseClass
 			if(obj.name == "Zoey")
 			{
 				obj.gameObject.GetComponent<PlayerState>().interactionInRange(this);
-				//Debug.Log(this + " is in range");
 			}
 		}
 
