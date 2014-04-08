@@ -181,6 +181,14 @@ public abstract class PlayerState : MonoBehaviour, Observer
 				pickUp.DropItem();
 				break;
 			}
+			/*
+		case InteractableType.DivingBoard:
+		{
+			PickUp pickUp = (PickUp)m_CurrentInteraction;
+			pickUp.DropItem();
+			break;
+		}
+*/
 
 			default:
 			{
@@ -267,15 +275,17 @@ public abstract class PlayerState : MonoBehaviour, Observer
 
 			case InteractableType.DivingBoard:
 			{
-				DivingBoard divingBoard = (DivingBoard)m_CurrentInteraction;
-				divingBoard.notifySeeSaw (this.gameObject);
-
 				PlayerMovement movement = gameObject.GetComponent<PlayerMovement> ();
-
+				
 				if (movement != null) 
 				{
 					movement.setCanMove (false);
 				}
+				
+				DivingBoard divingBoard = (DivingBoard)m_CurrentInteraction;
+				divingBoard.notifySeeSaw (this.gameObject);
+
+				
 				break;
 			}
 

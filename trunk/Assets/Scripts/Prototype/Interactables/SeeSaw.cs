@@ -89,33 +89,36 @@ public class SeeSaw : InteractableBaseClass, Observer
 		{
 			if(m_HasTopPiece && m_HasBottomPiece)
 			{
-				if(m_IsLerping)
+				if(m_SittingPlayer != null)
 				{
-					m_JumpingPlayer.transform.position = Vector3.Lerp(m_JumpingPlayer.transform.position, m_JumpEndPoint.transform.position, LERP_TIME);
-
-					m_SitPoint.transform.position = Vector3.Lerp(m_SitPoint.transform.position, m_SitPointEndPos, LERP_TIME/2);
-					m_JumpPoint.transform.position = Vector3.Lerp(m_JumpPoint.transform.position, m_JumpEndPoint.transform.position, LERP_TIME);
-
-					if(m_JumpingPlayer != null)
+					if(m_IsLerping)
 					{
-						if(m_JumpPoint.transform.position.y <= m_JumpEndPoint.transform.position.y + 0.5f)
+						m_JumpingPlayer.transform.position = Vector3.Lerp(m_JumpingPlayer.transform.position, m_JumpEndPoint.transform.position, LERP_TIME);
+
+						m_SitPoint.transform.position = Vector3.Lerp(m_SitPoint.transform.position, m_SitPointEndPos, LERP_TIME/2);
+						m_JumpPoint.transform.position = Vector3.Lerp(m_JumpPoint.transform.position, m_JumpEndPoint.transform.position, LERP_TIME);
+
+						if(m_JumpingPlayer != null)
 						{
-							m_JumpingPlayer.transform.parent = null;
-
-							if(m_Block != null && m_JumpingPlayer.name != m_Block.name)
+							if(m_JumpPoint.transform.position.y <= m_JumpEndPoint.transform.position.y + 0.5f)
 							{
-								m_JumpingPlayer.gameObject.GetComponent<PlayerState>().exitInteracting();
+								m_JumpingPlayer.transform.parent = null;
+
+								if(m_Block != null && m_JumpingPlayer.name != m_Block.name)
+								{
+									m_JumpingPlayer.gameObject.GetComponent<PlayerState>().exitInteracting();
+								}
+
+								m_IsLerping = false;
+								Debug.Log("PlayerLaunched");
 							}
-
-							m_IsLerping = false;
-							Debug.Log("PlayerLaunched");
+					
 						}
-				
-					}
-						
+							
 
-						launchPlayer();
-					}
+							launchPlayer();
+						}
+				}
 					if(m_HasLaunchedPlayer)
 					{
 						m_ResetTimer -= Time.deltaTime;
@@ -125,6 +128,8 @@ public class SeeSaw : InteractableBaseClass, Observer
 						reset();
 				}
 			}
+
+
 		}
 	}
 
@@ -135,14 +140,17 @@ public class SeeSaw : InteractableBaseClass, Observer
 		{
 			if(m_SittingPlayer == null)
 			{
-				//Set m_SittingPlayer to obj 
-				m_SittingPlayer = obj.gameObject; 
-				
-				//Make obj the child of the SeeSaw
-				m_SittingPlayer.transform.parent = this.transform;
-				
-				//Set the obj's position to m_SitPoint's position
-				m_SittingPlayer.transform.position = m_SitPointPos;
+				if(obj.name != "Alex")
+				{
+					//Set m_SittingPlayer to obj 
+					m_SittingPlayer = obj.gameObject; 
+					
+					//Make obj the child of the SeeSaw
+					m_SittingPlayer.transform.parent = this.transform;
+					
+					//Set the obj's position to m_SitPoint's position
+					m_SittingPlayer.transform.position = m_SitPointPos;
+				}
 			}
 		} 
 
@@ -175,18 +183,27 @@ public class SeeSaw : InteractableBaseClass, Observer
 	//This gets called by DivingBoard to jump
 	public void playerJumping(GameObject obj)
 	{
-		//Set m_JumpingPlayer to obj
-		m_JumpingPlayer = obj;
-
-		if(obj.tag == "MoveableBlock")
+		if(m_SittingPlayer != null)
 		{
-			m_Block = obj;
+			//Set m_JumpingPlayer to obj
+			m_JumpingPlayer = obj;
+
+			if(obj.tag == "MoveableBlock")
+			{
+				m_Block = obj;
+			}
+
+			//Make obj the child of the SeeSaw
+			m_JumpingPlayer.transform.parent = this.transform;
+
+			m_IsLerping = true; //Start the lerp to m_JumpPoint
 		}
 
-		//Make obj the child of the SeeSaw
-		m_JumpingPlayer.transform.parent = this.transform;
+		else
+		{
+			obj.gameObject.GetComponent<PlayerState>().exitInteracting();
+		}
 
-		m_IsLerping = true; //Start the lerp to m_JumpPoint
 	}
 
 	//This should be called after the player is launched, resetting the SeeSaw back to it's original Position

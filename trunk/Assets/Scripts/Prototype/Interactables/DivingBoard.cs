@@ -20,6 +20,7 @@ public class DivingBoard : InteractableBaseClass
 	{
 		//Notify the SeeSaw of the player interaction
 		seeSaw.playerJumping (obj.gameObject);
+
 	}
 
 	void OnTriggerEnter(Collider obj)
