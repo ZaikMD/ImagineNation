@@ -9,6 +9,9 @@ Created by Zach
 	Now adds and removes a rigid body to the block.
 	Now is no longer pushed if it collides with something else
 	Is now moved in front of the player to avoid colliding with them
+4/6/2014
+	Fixed the block sometime flying
+	Fixed movable block movement (in Playermovement)
 */
 
 
@@ -95,20 +98,13 @@ public class MoveableBlock : InteractableBaseClass
 		m_InUse = false;
 	}
 
-	//Exit if we hit something
-	void OnCollisionEnter()
-	{
-		//Flag player to exit state
-	}
-
 	void OnTriggerEnter(Collider obj)
 	{
 		if(obj.tag == "Player")
 		{
 			obj.gameObject.GetComponent<PlayerState>().interactionInRange(this);
 		}
-
-		if(obj.tag == "RCCar")
+		else if(obj.tag == "RCCar")
 		{
 			obj.transform.parent.gameObject.GetComponent<RCCarMovement>().m_RCCarManager.interactionInRange(this);
 		}
@@ -120,8 +116,7 @@ public class MoveableBlock : InteractableBaseClass
 		{
 			obj.gameObject.GetComponent<PlayerState>().interactionOutOfRange(this);
 		}
-
-		if(obj.tag == "RCCar")
+		else if(obj.tag == "RCCar")
 		{
 			obj.transform.parent.gameObject.GetComponent<RCCarMovement>().m_RCCarManager.interactionOutOfRange(this);
 		}
