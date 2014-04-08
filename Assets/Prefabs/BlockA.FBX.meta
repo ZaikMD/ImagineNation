@@ -1,20 +1,13 @@
 fileFormatVersion: 2
-guid: 3a976dc32077c904f80491d13618cf65
+guid: db030caa07caefc4b80dcf02afd548dd
 ModelImporter:
   serializedVersion: 15
   fileIDToRecycleName:
     100000: //RootNode
-    100002: ChamferBox003
-    100004: Text002
     400000: //RootNode
-    400002: ChamferBox003
-    400004: Text002
-    2300000: ChamferBox003
-    2300002: Text002
-    3300000: ChamferBox003
-    3300002: Text002
-    4300000: Text002
-    4300002: ChamferBox003
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: ChamferBox003
     9500000: //RootNode
   materials:
     importMaterials: 1
