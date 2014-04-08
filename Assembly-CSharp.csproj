@@ -56,10 +56,10 @@
      <Compile Include="Assets\Scripts\Prototype\AI\Enemies\PathfindNode.cs" />
      <Compile Include="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" />
      <Compile Include="Assets\Scripts\Prototype\AI\PlayerPathfinding.cs" />
-     <Compile Include="Assets\Scripts\Prototype\Atrributes(i dont think anyone uses these)\AlexAttributes.cs" />
-     <Compile Include="Assets\Scripts\Prototype\Atrributes(i dont think anyone uses these)\BaseCharAttrib.cs" />
-     <Compile Include="Assets\Scripts\Prototype\Atrributes(i dont think anyone uses these)\DerekAttributes.cs" />
-     <Compile Include="Assets\Scripts\Prototype\Atrributes(i dont think anyone uses these)\ZoeyAttributes.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Atrributes\AlexAttributes.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Atrributes\BaseCharAttrib.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Atrributes\DerekAttributes.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Atrributes\ZoeyAttributes.cs" />
      <Compile Include="Assets\Scripts\Prototype\CameraController.cs" />
      <Compile Include="Assets\Scripts\Prototype\CharacterSwitch.cs" />
      <Compile Include="Assets\Scripts\Prototype\Checkpoint.cs" />

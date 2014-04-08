@@ -67,10 +67,6 @@ public abstract class PlayerState : MonoBehaviour, Observer
     {
         m_PlayerState = PlayerStates.Default;
 
-        GameManager.Instance.addObserver(this);
-
-        CharacterSwitch.Instance.addObserver(this);
-
         m_HaveSecondItem = true;
         m_UsingSecondItem = false;
 
@@ -78,6 +74,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 
 		if(m_IsActive)
 		{
+			Debug.Log(this.gameObject.name + " is active");
 			GameObject.FindGameObjectWithTag("Camera").GetComponentInChildren<CameraController>().switchTo(this.gameObject.transform);
 		}
 
@@ -673,8 +670,11 @@ public abstract class PlayerState : MonoBehaviour, Observer
 
 			gameObject.GetComponent<PlayerMovement>().setCanMove(m_IsActive);
 
+			Debug.Log(this.gameObject.name + " is " + m_IsActive);
+
 			if(m_IsActive)
 			{
+				Debug.Log(this.gameObject.name + " is telling the camera to switch to it");
 				GameObject.FindGameObjectWithTag("Camera").GetComponentInChildren<CameraController>().switchTo(this.gameObject.transform);
 			}
 
