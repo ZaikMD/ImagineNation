@@ -105,10 +105,10 @@ public class CameraController : MonoBehaviour
 	const float TUNNEL_CLIPPING = 4.0f;
 
 	//Collision
-	const float COLLISION_FIX_TIMER = 0.05f;
-	const float COLLISION_TURN_SPEED = 0.05f;
-	const float COLLISION_ZOOM_SPEED = 0.2f;
-	float COLLISION_CHECK_RANGE =  1.0f;
+	const float COLLISION_FIX_TIMER = 0.01f;
+	const float COLLISION_TURN_SPEED = 0.01f;
+	const float COLLISION_ZOOM_SPEED = 0.22f;
+	float COLLISION_CHECK_RANGE = 0.5f;
 
 
 
@@ -325,7 +325,7 @@ public class CameraController : MonoBehaviour
 			m_Zoom_Collision = Vector3.Distance(transform.localPosition, Vector3.zero) * (m_Zoom / Vector3.Distance(hit.point, m_CameraFollow.position));
 			m_CollisionZoom = true;
 			
-			m_CollisionOrientation = transform.parent.eulerAngles.y + COLLISION_CHECK_RANGE;
+			m_CollisionOrientation = transform.parent.eulerAngles.y + COLLISION_CHECK_RANGE * 2.0f;
 			m_CollisionTimer = COLLISION_FIX_TIMER;
 		}
 		//Back Left
@@ -335,7 +335,7 @@ public class CameraController : MonoBehaviour
 			m_Zoom_Collision = Vector3.Distance(transform.localPosition, Vector3.zero) * (m_Zoom / Vector3.Distance(hit.point, m_CameraFollow.position));
 			m_CollisionZoom = true;
 			
-			m_CollisionOrientation = transform.parent.eulerAngles.y - COLLISION_CHECK_RANGE;
+			m_CollisionOrientation = transform.parent.eulerAngles.y - COLLISION_CHECK_RANGE * 2.0f;
 			m_CollisionTimer = COLLISION_FIX_TIMER;
 		}
 		//Backwards
