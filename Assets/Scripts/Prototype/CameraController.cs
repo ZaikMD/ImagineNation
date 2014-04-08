@@ -63,7 +63,7 @@ public class CameraController : MonoBehaviour
 	const float ROTATION_SENSITIVITY = 4.0f;
 	const float ZOOM_SENSITIVITY = 0.5f;
 	const float CAMERA_FOLLOW_SPEED = 0.15f;
-	const float RANGE_TO_ENABLE_SWITCHING = 0.1f;
+	const float RANGE_TO_ENABLE_SWITCHING = 1.0f;
 	const float LOOK_AT_SPEED = 0.04f;
 	const float AIMING_LOOK_AT_FRONT_AMOUNT = 20.0f;
 	const float AIMING_CAMERA_HEIGHT = 0.3f;
