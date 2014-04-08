@@ -32,6 +32,9 @@ Created by Jason Hein on 3/1/2014
 4/6/2014
 	Smoothed collision with walls
 	No longer needs a collider or rigid body
+4/8/2014
+	Smoothed camera collsiion
+	Reduced collision sensitivity.
 */
 
 
@@ -301,6 +304,7 @@ public class CameraController : MonoBehaviour
 			setZoom(TUNNEL_ZOOM);
 			camera.nearClipPlane = TUNNEL_CLIPPING;
 			m_ClippingTimer = CLIPPING_TIMER;
+			m_Zoom_Return = DEFAULT_ZOOM;
 		}
 		//Check if their is a wall in the way
 		else if (Physics.Raycast(m_CameraFollow.position + m_CameraFollow.up, (transform.position - m_CameraFollow.position).normalized, out hit, Vector3.Distance(transform.position, m_CameraFollow.position)))
@@ -317,6 +321,7 @@ public class CameraController : MonoBehaviour
 
 			m_CollisionZoom = true;
 			m_CollisionTimer = COLLISION_FIX_TIMER;
+			m_Zoom_Return = DEFAULT_ZOOM;
 		}
 		//Back Right
 		else if (Physics.Raycast(transform.position, -transform.forward + transform.right, out hit, COLLISION_CHECK_RANGE) ||
@@ -327,6 +332,7 @@ public class CameraController : MonoBehaviour
 			
 			m_CollisionOrientation = transform.parent.eulerAngles.y + COLLISION_CHECK_RANGE * 2.0f;
 			m_CollisionTimer = COLLISION_FIX_TIMER;
+			m_Zoom_Return = DEFAULT_ZOOM;
 		}
 		//Back Left
 		else if (Physics.Raycast(transform.position, -transform.forward - transform.right, out hit, COLLISION_CHECK_RANGE) || 
@@ -337,6 +343,7 @@ public class CameraController : MonoBehaviour
 			
 			m_CollisionOrientation = transform.parent.eulerAngles.y - COLLISION_CHECK_RANGE * 2.0f;
 			m_CollisionTimer = COLLISION_FIX_TIMER;
+			m_Zoom_Return = DEFAULT_ZOOM;
 		}
 		//Backwards
 		else if (Physics.Raycast(transform.position, -transform.forward, out hit, COLLISION_CHECK_RANGE))
@@ -344,6 +351,7 @@ public class CameraController : MonoBehaviour
 			m_Zoom_Collision = Vector3.Distance(transform.localPosition, Vector3.zero) * (m_Zoom / Vector3.Distance(hit.point, m_CameraFollow.position));
 			m_CollisionZoom = true;
 			m_CollisionTimer = COLLISION_FIX_TIMER;
+			m_Zoom_Return = DEFAULT_ZOOM;
 		}
 	}
 
