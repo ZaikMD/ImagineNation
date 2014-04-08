@@ -109,10 +109,9 @@ public class VelcroGloves : SecondairyBase
 			if (m_Climbing)
 			{
 				//If this was the only nearby window, you fall
-				if ( m_VelcroWalls.Count <= 1 )
+				if ( m_VelcroWalls.Count != 0 )
 				{
 					onExit();
-					m_Enabled = false;
 				}
 				
 				//If we are leaving the first wall
@@ -125,6 +124,11 @@ public class VelcroGloves : SecondairyBase
 			
 			//You are no longer near this wall
 			m_VelcroWalls.Remove ( collider.gameObject );
+
+			if ( m_VelcroWalls.Count == 0 )
+			{
+				m_Enabled = false;
+			}
 		}
 	}
 	
