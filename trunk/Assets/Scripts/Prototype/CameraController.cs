@@ -104,8 +104,8 @@ public class CameraController : MonoBehaviour
 	//Clipping in tunnels
 	float m_DefaultClippingPlane = 0.0f;
 	float m_ClippingTimer = 0.0f;
-	const float CLIPPING_TIMER = 0.5f;
-	const float TUNNEL_CLIPPING = 3.75f;
+	const float CLIPPING_TIMER = 0.4f;
+	const float TUNNEL_CLIPPING = 4.0f;
 
 	//Collision
 	float COLLISION_CHECK_RANGE = 3.0f;
@@ -152,7 +152,7 @@ public class CameraController : MonoBehaviour
 	void Update ()
 	{
 		updateCollisionTimer ();
-		//updateCameraCollision ();
+		updateCameraCollision ();
 		updatePosition();
 		updateZoom ();
 		updateOrientation ();
@@ -310,8 +310,6 @@ public class CameraController : MonoBehaviour
 			if (m_Zoom_Collision < TUNNEL_ZOOM)
 			{
 				m_Zoom_Collision = TUNNEL_ZOOM;
-				camera.nearClipPlane = TUNNEL_CLIPPING;
-				m_ClippingTimer = CLIPPING_TIMER;
 			}
 
 			//hit.normal
