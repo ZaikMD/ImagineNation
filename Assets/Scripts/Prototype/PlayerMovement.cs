@@ -178,7 +178,7 @@ public class PlayerMovement : MonoBehaviour
 		Vector3 move = new Vector3 (0, PlayerInput.Instance.getMovementInput().y * CLIMB_SPEED, 0);
 
 		//Climbing left and right
-		if (m_CameraTransform.forward.x > 0)
+		if (m_CameraTransform.forward.x < 0)
 		{
 			move += PlayerInput.Instance.getMovementInput().x * CLIMB_SPEED * transform.right;
 		}
