@@ -105,7 +105,7 @@ public class CameraController : MonoBehaviour
 	float m_DefaultClippingPlane = 0.0f;
 	float m_ClippingTimer = 0.0f;
 	const float CLIPPING_TIMER = 0.4f;
-	const float TUNNEL_CLIPPING = 4.0f;
+	const float TUNNEL_CLIPPING = 2.0f;
 
 	//Collision
 	const float COLLISION_FIX_TIMER = 4.0f;
