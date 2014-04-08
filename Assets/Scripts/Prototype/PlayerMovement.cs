@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
 	const float MOVE_SPEED = 10.0f;
 	const float CLIMB_SPEED = 3.0f;
 	const float FALL_ACCLERATION = 40.0f;
-	const float JUMP_SPEED = 15.0f;
+	public const float JUMP_SPEED = 15.0f;
 	const float AIR_HORIZONTAL_MOVE_SPEED = 6.0f;
 	const float PUSHING_BLOCK_SPEED = 5.0f;
 	const float AIMING_ROTATION_SPEED = 120.0f;
