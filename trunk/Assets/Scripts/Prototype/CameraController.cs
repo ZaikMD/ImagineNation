@@ -35,6 +35,7 @@ Created by Jason Hein on 3/1/2014
 4/8/2014
 	Smoothed camera collsiion
 	Reduced collision sensitivity.
+	Removed mouse cursor
 */
 
 
@@ -128,6 +129,9 @@ public class CameraController : MonoBehaviour
 		{
 			m_Zoom = 1;
 		}
+
+		//Remove mouse cursor
+		Screen.showCursor = false;
 
 		//Near clipping
 		m_DefaultClippingPlane = camera.nearClipPlane;
