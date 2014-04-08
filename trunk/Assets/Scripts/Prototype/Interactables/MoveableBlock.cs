@@ -12,6 +12,8 @@ Created by Zach
 4/6/2014
 	Fixed the block sometime flying
 	Fixed movable block movement (in Playermovement)
+4/8/2014
+	Fixed block teleporting
 */
 
 
