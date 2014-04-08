@@ -78,7 +78,7 @@ public class CameraController : MonoBehaviour
 
 	//Zoom
 	public float m_Zoom = 0.65f;
-	float m_CloseLimit = 0.15f;
+	float m_CloseLimit = 0.10f;
 	const float DEFAULT_ZOOM = 0.65f;
 	const float BACK_ZOOM = 0.8f;
 	float m_Zoom_Return = DEFAULT_ZOOM;
@@ -108,10 +108,11 @@ public class CameraController : MonoBehaviour
 	const float TUNNEL_CLIPPING = 4.0f;
 
 	//Collision
-	const float COLLISION_FIX_TIMER = 0.01f;
-	const float COLLISION_TURN_SPEED = 0.01f;
-	const float COLLISION_ZOOM_SPEED = 0.22f;
-	float COLLISION_CHECK_RANGE = 0.5f;
+	const float COLLISION_FIX_TIMER = 4.0f;
+	const float COLLISION_TURN_SPEED = 0.1f;
+	const float COLLISION_ZOOM_SPEED = 0.15f;
+	const float COLLISION_CHECK_RANGE = 2.0f;
+	const float COLLISION_TURN_AMOUNT = 2.0f;
 
 
 
@@ -223,17 +224,16 @@ public class CameraController : MonoBehaviour
 		//Make sure there is zoom input
 		if (m_State == CameraState.Default)
 		{
-			if (m_CollisionTimer > 0.0f && m_CollisionZoom)
-			{
-				//Set Camera Zoom
-				setZoom(Mathf.Lerp(m_Zoom , m_Zoom_Collision, COLLISION_ZOOM_SPEED));
-				return;
-			}
-
 			if (PlayerInput.Instance.getCameraMovement().y != 0)
 			{
 				//Set Camera Zoom
 				setZoom(m_Zoom + -PlayerInput.Instance.getCameraMovement().y * (ZOOM_SENSITIVITY / 100.0f));
+				m_CollisionTimer = 0.0f;
+			}
+			else if (m_CollisionTimer > 0.0f && m_CollisionZoom)
+			{
+				//Set Camera Zoom
+				setZoom(Mathf.Lerp(m_Zoom , m_Zoom_Collision, COLLISION_ZOOM_SPEED));
 			}
 			else if (m_Zoom != m_Zoom_Return && PlayerInput.Instance.getMovementInput() != Vector2.zero)
 			{
@@ -297,58 +297,33 @@ public class CameraController : MonoBehaviour
 		//Hit variable for getting raycast information
 		RaycastHit hit;
 
-		//In a tunnel
-		if (Physics.Raycast(m_CameraFollow.position + m_CameraFollow.up, m_CameraFollow.up, out hit, 5.0f) &&
-		    Physics.Raycast(m_CameraFollow.position + m_CameraFollow.up, (transform.position - m_CameraFollow.position).normalized, out hit, Vector3.Distance(transform.position, m_CameraFollow.position)))
+
+		//Back Right for slight turning
+		if (Physics.Raycast(transform.position, -transform.forward + transform.right, out hit, COLLISION_CHECK_RANGE) ||
+		    Physics.Raycast(transform.position, transform.right, out hit, COLLISION_CHECK_RANGE))
 		{
-			setZoom(TUNNEL_ZOOM);
-			camera.nearClipPlane = TUNNEL_CLIPPING;
-			m_ClippingTimer = CLIPPING_TIMER;
-			m_Zoom_Return = DEFAULT_ZOOM;
+			m_CollisionOrientation = transform.parent.eulerAngles.y + COLLISION_TURN_AMOUNT;
+			m_CollisionTimer = COLLISION_FIX_TIMER;
+		}
+		//Back Left for slight turning
+		else if (Physics.Raycast(transform.position, -transform.forward - transform.right, out hit, COLLISION_CHECK_RANGE) || 
+		    Physics.Raycast(transform.position, -transform.right, out hit, COLLISION_CHECK_RANGE))
+		{
+			m_CollisionOrientation = transform.parent.eulerAngles.y - COLLISION_TURN_AMOUNT;
+			m_CollisionTimer = COLLISION_FIX_TIMER;
 		}
 		//Check if their is a wall in the way
-		else if (Physics.Raycast(m_CameraFollow.position + m_CameraFollow.up, (transform.position - m_CameraFollow.position).normalized, out hit, Vector3.Distance(transform.position, m_CameraFollow.position)))
+		if (Physics.Raycast(m_CameraFollow.position + m_CameraFollow.up, (transform.position - m_CameraFollow.position).normalized, out hit, Vector3.Distance(transform.position, m_CameraFollow.position)))
 		{
 			m_Zoom_Collision = (m_Zoom / Vector3.Distance(transform.localPosition + (transform.position - m_CameraFollow.position).normalized, Vector3.zero)) *
-			Vector3.Distance(m_CameraFollow.position, hit.point);
+				Vector3.Distance(m_CameraFollow.position, hit.point);
 
 			if (m_Zoom_Collision < TUNNEL_ZOOM)
 			{
-				m_Zoom_Collision = TUNNEL_ZOOM;
+				camera.nearClipPlane = TUNNEL_CLIPPING;
+				m_ClippingTimer = CLIPPING_TIMER;
 			}
 
-			//hit.normal
-
-			m_CollisionZoom = true;
-			m_CollisionTimer = COLLISION_FIX_TIMER;
-			m_Zoom_Return = DEFAULT_ZOOM;
-		}
-		//Back Right
-		else if (Physics.Raycast(transform.position, -transform.forward + transform.right, out hit, COLLISION_CHECK_RANGE) ||
-		         Physics.Raycast(transform.position, transform.right, out hit, COLLISION_CHECK_RANGE))
-		{
-			m_Zoom_Collision = Vector3.Distance(transform.localPosition, Vector3.zero) * (m_Zoom / Vector3.Distance(hit.point, m_CameraFollow.position));
-			m_CollisionZoom = true;
-			
-			m_CollisionOrientation = transform.parent.eulerAngles.y + COLLISION_CHECK_RANGE * 2.0f;
-			m_CollisionTimer = COLLISION_FIX_TIMER;
-			m_Zoom_Return = DEFAULT_ZOOM;
-		}
-		//Back Left
-		else if (Physics.Raycast(transform.position, -transform.forward - transform.right, out hit, COLLISION_CHECK_RANGE) || 
-		         Physics.Raycast(transform.position, -transform.right, out hit, COLLISION_CHECK_RANGE))
-		{
-			m_Zoom_Collision = Vector3.Distance(transform.localPosition, Vector3.zero) * (m_Zoom / Vector3.Distance(hit.point, m_CameraFollow.position));
-			m_CollisionZoom = true;
-			
-			m_CollisionOrientation = transform.parent.eulerAngles.y - COLLISION_CHECK_RANGE * 2.0f;
-			m_CollisionTimer = COLLISION_FIX_TIMER;
-			m_Zoom_Return = DEFAULT_ZOOM;
-		}
-		//Backwards
-		else if (Physics.Raycast(transform.position, -transform.forward, out hit, COLLISION_CHECK_RANGE))
-		{
-			m_Zoom_Collision = Vector3.Distance(transform.localPosition, Vector3.zero) * (m_Zoom / Vector3.Distance(hit.point, m_CameraFollow.position));
 			m_CollisionZoom = true;
 			m_CollisionTimer = COLLISION_FIX_TIMER;
 			m_Zoom_Return = DEFAULT_ZOOM;
@@ -365,14 +340,14 @@ public class CameraController : MonoBehaviour
 		}
 		else if (m_State == CameraState.Default)
 		{
-			if (m_CollisionTimer > 0.0f)
-			{
-				setOrientation (Mathf.Lerp(transform.parent.eulerAngles.y, m_CollisionOrientation, COLLISION_TURN_SPEED));
-
-			}
-			else
+			if (PlayerInput.Instance.getCameraMovement().x != 0)
 			{
 				setOrientation (transform.parent.eulerAngles.y + (ROTATION_SENSITIVITY * PlayerInput.Instance.getCameraMovement().x));
+				m_CollisionTimer = 0.0f;
+			}
+			else if (m_CollisionTimer > 0.0f)
+			{
+				setOrientation (Mathf.Lerp(transform.parent.eulerAngles.y, m_CollisionOrientation, COLLISION_TURN_SPEED));
 			}
 		}
 		else if (m_State == CameraState.Aiming)
