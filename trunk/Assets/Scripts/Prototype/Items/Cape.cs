@@ -50,10 +50,14 @@ public class Cape : SecondairyBase
 	/// <returns><c>true</c>, if to be used was abled, <c>false</c> otherwise.</returns>
 	public override bool ableToBeUsed ()
 	{
-		if (m_PlayerMovement.IsGrounded() == true)
-						return false;
+		if (m_PlayerMovement.IsGrounded() == true || m_PlayerMovement.getVerticleSpeed() >= PlayerMovement.JUMP_SPEED - 1.0f)
+		{
+			return false;
+		}
 		else 
+		{
 			return true;
+		}
 	}
 
 	/// <summary>
