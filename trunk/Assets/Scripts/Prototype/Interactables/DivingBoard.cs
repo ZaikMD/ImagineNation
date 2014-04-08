@@ -29,9 +29,12 @@ public class DivingBoard : InteractableBaseClass
 			obj.gameObject.GetComponent<PlayerState>().interactionInRange(this); //Put this in the interaction list
 		}
 
-		if(obj.tag == m_Block.tag)
+		if(m_Block != null)
 		{
-			seeSaw.playerJumping(m_Block); //Pass the block to the seesaw to start it
+			if(obj.tag == m_Block.tag)
+			{
+				seeSaw.playerJumping(m_Block); //Pass the block to the seesaw to start it
+			}
 		}
 	}
 

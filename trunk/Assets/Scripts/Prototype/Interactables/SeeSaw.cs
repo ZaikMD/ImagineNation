@@ -245,11 +245,13 @@ public class SeeSaw : InteractableBaseClass, Observer
 			{
 				m_TopPiece.gameObject.SetActive(true);
 				m_JumpPoint.gameObject.SetActive(true);
+				m_HasTopPiece = true;
 			}
 			if(!m_HasBottomPiece)
 			{
 				m_BottomPiece.gameObject.SetActive(true);
 				m_SitPoint.gameObject.SetActive(true);
+				m_HasBottomPiece = true;
 			}
 		}
 	}

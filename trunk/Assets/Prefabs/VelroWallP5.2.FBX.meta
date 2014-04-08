@@ -1,20 +1,20 @@
 fileFormatVersion: 2
-guid: 287604dc49346b140bb26e359ab177c4
+guid: e9d95ed20f0ebd9429f8997bb833f725
 ModelImporter:
   serializedVersion: 15
   fileIDToRecycleName:
-    100000: Box420
-    100002: Box421
+    100000: Box424
+    100002: Box425
     100004: //RootNode
-    400000: Box420
-    400002: Box421
+    400000: Box424
+    400002: Box425
     400004: //RootNode
-    2300000: Box420
-    2300002: Box421
-    3300000: Box420
-    3300002: Box421
-    4300000: Box421
-    4300002: Box420
+    2300000: Box424
+    2300002: Box425
+    3300000: Box424
+    3300002: Box425
+    4300000: Box424
+    4300002: Box425
     9500000: //RootNode
   materials:
     importMaterials: 1
