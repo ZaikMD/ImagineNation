@@ -1,17 +1,18 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Items\StickyHandProjectile.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Players\PlayerState.cs">
     <Files>
-      <File FileName="Assets\Scripts\Prototype\Items\NerfGunProjectile.cs" Line="105" Column="5" />
-      <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="68" Column="46" />
-      <File FileName="Assets\Scripts\Prototype\CharacterSwitch.cs" Line="43" Column="2" />
-      <File FileName="Assets\Scripts\Prototype\Players\AlexPlayerState.cs" Line="18" Column="6" />
+      <File FileName="Assets\Scripts\Prototype\Items\StickyHandProjectile.cs" Line="149" Column="25" />
+      <File FileName="Assets\Scripts\Prototype\Items\NerfGunProjectile.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="59" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\CharacterSwitch.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Players\AlexPlayerState.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Prototype\Players\DerekPlayerState.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Players\ZoeyPlayerState.cs" Line="19" Column="23" />
-      <File FileName="Assets\Scripts\Prototype\Items\StickyHandProjectile.cs" Line="63" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="378" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\PlayerMovement.cs" Line="102" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Items\StickyHand.cs" Line="27" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Players\ZoeyPlayerState.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Items\StickyHandProjectile.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\PlayerMovement.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Items\StickyHand.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
