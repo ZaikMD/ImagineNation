@@ -1,9 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+using System.Collections.Generic;
+
 public class EnemySpawnManager : MonoBehaviour 
 {
-	public EnemySpawn[] m_EnemySpawn;
+	List <EnemySpawn> m_EnemySpawn = new List<EnemySpawn>();
+
+	void Start()
+	{
+		GameObject[] spawners = GameObject.FindGameObjectsWithTag ("Spawner");
+
+		for (int i = 0; i < spawners.Length; i++)
+		{
+			m_EnemySpawn.Add(spawners[i].GetComponent<EnemySpawn>());
+		}
+	}
 
 	/// <summary>
 	/// Loops through all the spawn points and spawns the
@@ -11,7 +23,7 @@ public class EnemySpawnManager : MonoBehaviour
 	/// </summary>
 	public void respawnAll()
 	{
-		for(int i = 0; i < m_EnemySpawn.Length; i++)
+		for(int i = 0; i < m_EnemySpawn.Count; i++)
 		{
 			m_EnemySpawn[i].spawn();
 		}
