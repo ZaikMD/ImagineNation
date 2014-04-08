@@ -191,6 +191,42 @@ ModelImporter:
     4300066: Line027
     4300068: Line025
     4300070: Line060
+    6400000: Box295
+    6400002: Box296
+    6400004: Box305
+    6400006: Box308
+    6400008: Box310
+    6400010: Box313
+    6400012: Box314
+    6400014: Box315
+    6400016: Box316
+    6400018: Box317
+    6400020: Box318
+    6400022: Box319
+    6400024: Box320
+    6400026: Box332
+    6400028: Box333
+    6400030: Box334
+    6400032: Box335
+    6400034: Box337
+    6400036: Box346
+    6400038: Box349
+    6400040: Box353
+    6400042: Box354
+    6400044: Box355
+    6400046: Box356
+    6400048: Box357
+    6400050: Box361
+    6400052: Cylinder047
+    6400054: Cylinder331
+    6400056: Cylinder332
+    6400058: Cylinder333
+    6400060: Line025
+    6400062: Line026
+    6400064: Line027
+    6400066: Line060
+    6400068: Rectangle009
+    6400070: Sphere296
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -212,7 +248,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: .00999999978
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
@@ -228,7 +264,7 @@ ModelImporter:
     splitTangentsAcrossUV: 1
     normalImportMode: 0
     tangentImportMode: 1
-  importAnimation: 1
+  importAnimation: 0
   copyAvatar: 0
   humanDescription:
     human: []
