@@ -1,62 +1,20 @@
 ﻿<Properties>
-<<<<<<< .mine
-<<<<<<< .mine
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\MenuScript.cs">
-=======
-<<<<<<< .mine
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs">
-=======
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\AI\Enemies\PathfindNode.cs">
->>>>>>> .r236
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Items\StickyHandProjectile.cs">
     <Files>
-<<<<<<< .mine
-      <File FileName="Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\MenuScript.cs" Line="446" Column="8" />
-      <File FileName="Assets\Scripts\Prototype\FearScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Items\RCCar\RCCar.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Setting.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\SoundManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Prototype\Observer\Subject.cs" Line="1" Column="1" />
-=======
-<<<<<<< .mine
-=======
-<<<<<<< .mine
-      <File FileName="Assets\Scripts\Prototype\AI\Enemies\PathfindNode.cs" Line="26" Column="3" />
-=======
->>>>>>> .r233
-<<<<<<< .mine
-=======
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
->>>>>>> .r240
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Prototype\Players\PlayerState.cs">
-    <Files>
-      <File FileName="Assets\Scripts\Prototype\PlayerInput.cs" Line="243" Column="32" />
-      <File FileName="Assets\Scripts\Prototype\Items\StickyHandProjectile.cs" Line="152" Column="19" />
-      <File FileName="Assets\Scripts\Prototype\GameManager.cs" Line="5" Column="113" />
-      <File FileName="Assets\Scripts\Prototype\CharacterSwitch.cs" Line="5" Column="77" />
-      <File FileName="Assets\Scripts\Prototype\Players\ZoeyPlayerState.cs" Line="48" Column="31" />
-      <File FileName="Assets\Scripts\Prototype\Players\DerekPlayerState.cs" Line="33" Column="34" />
-      <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="633" Column="34" />
->>>>>>> .r236
+      <File FileName="Assets\Scripts\Prototype\Items\NerfGunProjectile.cs" Line="105" Column="5" />
+      <File FileName="Assets\Scripts\Prototype\Players\PlayerState.cs" Line="68" Column="46" />
+      <File FileName="Assets\Scripts\Prototype\CharacterSwitch.cs" Line="43" Column="2" />
+      <File FileName="Assets\Scripts\Prototype\Players\AlexPlayerState.cs" Line="18" Column="6" />
+      <File FileName="Assets\Scripts\Prototype\Players\DerekPlayerState.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Players\ZoeyPlayerState.cs" Line="19" Column="23" />
+      <File FileName="Assets\Scripts\Prototype\Items\StickyHandProjectile.cs" Line="63" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\CameraController.cs" Line="378" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\PlayerMovement.cs" Line="102" Column="1" />
+      <File FileName="Assets\Scripts\Prototype\Items\StickyHand.cs" Line="27" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-<<<<<<< .mine
-<<<<<<< .mine
-    <BreakpointStore />
-=======
-<<<<<<< .mine
-    <BreakpointStore>
-      <Breakpoint file="C:\Users\holl0161\Desktop\Puzzle 3\trunk\Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" line="431" />
-      <Breakpoint file="C:\Users\holl0161\Desktop\Puzzle 3\trunk\Assets\Scripts\Prototype\AI\PlayerAIStateMachine.cs" line="428" />
-    </BreakpointStore>
->>>>>>> .r236
-=======
-=======
->>>>>>> .r240
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

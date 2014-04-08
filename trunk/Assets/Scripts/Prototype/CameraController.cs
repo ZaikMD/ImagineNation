@@ -152,7 +152,7 @@ public class CameraController : MonoBehaviour
 	void Update ()
 	{
 		updateCollisionTimer ();
-		updateCameraCollision ();
+		//updateCameraCollision ();
 		updatePosition();
 		updateZoom ();
 		updateOrientation ();
