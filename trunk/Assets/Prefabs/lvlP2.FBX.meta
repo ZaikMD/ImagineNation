@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6d4cb6b72a799c24085b5d9a6e3a7278
+guid: c6c3016a6af9ddf40873df0ac28fec67
 ModelImporter:
   serializedVersion: 15
   fileIDToRecycleName:
@@ -29,12 +29,20 @@ ModelImporter:
     100046: Box356
     100048: Box357
     100050: Box361
-    100052: Cylinder331
-    100054: Cylinder332
-    100056: Cylinder333
-    100058: Cylinder335
-    100060: //RootNode
-    100062: Rectangle009
+    100052: Cylinder047
+    100054: Cylinder048
+    100056: Cylinder331
+    100058: Cylinder332
+    100060: Cylinder333
+    100062: Group002
+    100064: lamp
+    100066: Line025
+    100068: Line026
+    100070: Line027
+    100072: Line060
+    100074: //RootNode
+    100076: Rectangle009
+    100078: Sphere296
     400000: Box295
     400002: Box296
     400004: Box305
@@ -61,12 +69,20 @@ ModelImporter:
     400046: Box356
     400048: Box357
     400050: Box361
-    400052: Cylinder331
-    400054: Cylinder332
-    400056: Cylinder333
-    400058: Cylinder335
-    400060: //RootNode
-    400062: Rectangle009
+    400052: Cylinder047
+    400054: Cylinder048
+    400056: Cylinder331
+    400058: Cylinder332
+    400060: Cylinder333
+    400062: Group002
+    400064: lamp
+    400066: Line025
+    400068: Line026
+    400070: Line027
+    400072: Line060
+    400074: //RootNode
+    400076: Rectangle009
+    400078: Sphere296
     2300000: Box295
     2300002: Box296
     2300004: Box305
@@ -93,11 +109,16 @@ ModelImporter:
     2300046: Box356
     2300048: Box357
     2300050: Box361
-    2300052: Cylinder331
-    2300054: Cylinder332
-    2300056: Cylinder333
-    2300058: Cylinder335
-    2300060: Rectangle009
+    2300052: Cylinder047
+    2300054: Cylinder331
+    2300056: Cylinder332
+    2300058: Cylinder333
+    2300060: Line025
+    2300062: Line026
+    2300064: Line027
+    2300066: Line060
+    2300068: Rectangle009
+    2300070: Sphere296
     3300000: Box295
     3300002: Box296
     3300004: Box305
@@ -124,42 +145,52 @@ ModelImporter:
     3300046: Box356
     3300048: Box357
     3300050: Box361
-    3300052: Cylinder331
-    3300054: Cylinder332
-    3300056: Cylinder333
-    3300058: Cylinder335
-    3300060: Rectangle009
+    3300052: Cylinder047
+    3300054: Cylinder331
+    3300056: Cylinder332
+    3300058: Cylinder333
+    3300060: Line025
+    3300062: Line026
+    3300064: Line027
+    3300066: Line060
+    3300068: Rectangle009
+    3300070: Sphere296
     4300000: Box333
-    4300002: Cylinder335
-    4300004: Box346
-    4300006: Cylinder333
-    4300008: Cylinder332
-    4300010: Cylinder331
-    4300012: Box356
-    4300014: Box355
-    4300016: Box353
-    4300018: Box349
-    4300020: Box337
-    4300022: Box335
-    4300024: Box361
-    4300026: Box332
-    4300028: Box320
-    4300030: Box334
-    4300032: Box319
-    4300034: Box318
-    4300036: Box317
-    4300038: Box316
-    4300040: Box354
-    4300042: Box315
-    4300044: Box314
-    4300046: Box357
-    4300048: Box313
-    4300050: Box308
-    4300052: Box305
-    4300054: Box310
-    4300056: Rectangle009
-    4300058: Box295
-    4300060: Box296
+    4300002: Box346
+    4300004: Cylinder333
+    4300006: Cylinder332
+    4300008: Cylinder331
+    4300010: Box356
+    4300012: Box355
+    4300014: Box353
+    4300016: Box349
+    4300018: Box337
+    4300020: Box335
+    4300022: Box361
+    4300024: Box332
+    4300026: Box320
+    4300028: Box334
+    4300030: Box319
+    4300032: Box318
+    4300034: Box317
+    4300036: Box316
+    4300038: Box354
+    4300040: Box315
+    4300042: Box314
+    4300044: Box357
+    4300046: Box313
+    4300048: Box308
+    4300050: Box305
+    4300052: Box310
+    4300054: Rectangle009
+    4300056: Box295
+    4300058: Box296
+    4300060: Cylinder047
+    4300062: Sphere296
+    4300064: Line026
+    4300066: Line027
+    4300068: Line025
+    4300070: Line060
     9500000: //RootNode
   materials:
     importMaterials: 1
