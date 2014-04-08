@@ -67,7 +67,7 @@ public class CameraController : MonoBehaviour
 	const float LOOK_AT_SPEED = 0.04f;
 	const float AIMING_LOOK_AT_FRONT_AMOUNT = 20.0f;
 	const float AIMING_CAMERA_HEIGHT = 0.3f;
-	const float ZOOM_RETURN_SPEED = 0.01f;
+	const float ZOOM_RETURN_SPEED = 0.02f;
 	const float AIMING_VERTICAL_SENSITIVITY = 13.0f;
 	const float COLLISION_FIX_TIMER = 0.05f;
 	const float COLLISION_TURN_SPEED = 0.06f;
@@ -108,7 +108,7 @@ public class CameraController : MonoBehaviour
 	const float TUNNEL_CLIPPING = 4.0f;
 
 	//Collision
-	float COLLISION_CHECK_RANGE = 3.0f;
+	float COLLISION_CHECK_RANGE =  2.0f;
 
 
 
