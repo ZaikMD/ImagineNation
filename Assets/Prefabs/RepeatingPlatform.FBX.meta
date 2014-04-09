@@ -230,6 +230,49 @@ ModelImporter:
     4300080: Cylinder086
     4300082: Cylinder087
     4300084: Cylinder088
+    6400000: Box332
+    6400002: Box333
+    6400004: Cylinder049
+    6400006: Cylinder052
+    6400008: Cylinder053
+    6400010: Cylinder054
+    6400012: Cylinder055
+    6400014: Cylinder056
+    6400016: Cylinder057
+    6400018: Cylinder058
+    6400020: Cylinder059
+    6400022: Cylinder060
+    6400024: Cylinder061
+    6400026: Cylinder062
+    6400028: Cylinder063
+    6400030: Cylinder064
+    6400032: Cylinder065
+    6400034: Cylinder066
+    6400036: Cylinder067
+    6400038: Cylinder068
+    6400040: Cylinder069
+    6400042: Cylinder070
+    6400044: Cylinder071
+    6400046: Cylinder072
+    6400048: Cylinder073
+    6400050: Cylinder074
+    6400052: Cylinder075
+    6400054: Cylinder076
+    6400056: Cylinder077
+    6400058: Cylinder078
+    6400060: Cylinder079
+    6400062: Cylinder080
+    6400064: Cylinder081
+    6400066: Cylinder082
+    6400068: Cylinder083
+    6400070: Cylinder084
+    6400072: Cylinder085
+    6400074: Cylinder086
+    6400076: Cylinder087
+    6400078: Cylinder088
+    6400080: OilTank013
+    6400082: OilTank014
+    6400084: OilTank015
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -251,7 +294,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: .00999999978
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
@@ -267,7 +310,7 @@ ModelImporter:
     splitTangentsAcrossUV: 1
     normalImportMode: 0
     tangentImportMode: 1
-  importAnimation: 1
+  importAnimation: 0
   copyAvatar: 0
   humanDescription:
     human: []
