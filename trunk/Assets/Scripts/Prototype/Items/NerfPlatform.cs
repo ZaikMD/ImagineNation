@@ -14,6 +14,7 @@ public class NerfPlatform : MonoBehaviour {
 	void Start () 
 	{
 		m_OriginalPlatformTimer = m_PlatformTimer;
+		SoundManager.Instance.playSound(Sounds.NerfGunPlatform, this.transform.position);
 	}
 	
 	// Update is called once per frame
