@@ -18,7 +18,7 @@ public class LeverRotation : MonoBehaviour, Observer {
 
 	bool m_TriggerActivated = false;
 	bool m_IsPaused = false;
-	bool m_HasTurned = false;
+	bool m_isUntouched = true;
 
 
 	// Use this for initialization
@@ -36,15 +36,29 @@ public class LeverRotation : MonoBehaviour, Observer {
 	// Update is called once per frame
 	void Update () 
 	{
-		if(!m_HasTurned)
+		if(!m_isUntouched)
 		{
 			if(!m_IsPaused )
 			{
 				if(m_TriggerActivated)
 				{
-					m_HasTurned = true;
-					m_TriggerActivated = false;
+
 					this.gameObject.transform.eulerAngles = new Vector3(transform.eulerAngles.x + m_RotationValue.x, transform.eulerAngles.y + m_RotationValue.y, transform.eulerAngles.z + m_RotationValue.z);
+					m_isUntouched = true;
+					m_TriggerActivated = false;
+
+				}
+			}
+		}
+		else if(m_isUntouched)
+		{
+			if(!m_IsPaused )
+			{
+				if(m_TriggerActivated)
+				{
+					m_isUntouched = false;
+					m_TriggerActivated = false;
+					this.gameObject.transform.eulerAngles = new Vector3(transform.eulerAngles.x - m_RotationValue.x, transform.eulerAngles.y - m_RotationValue.y, transform.eulerAngles.z - m_RotationValue.z);
 
 				}
 			}
