@@ -17,7 +17,8 @@ public class LeverRotation : MonoBehaviour, Observer {
 	//public Quaternion m_Rotation = Quaternion.Euler(new Vector3(0, 0, 0));
 
 	bool m_TriggerActivated = false;
-	bool m_IsEnabled = true;
+	bool m_IsPaused = false;
+	bool m_JustHit = false;
 
 
 	// Use this for initialization
@@ -36,10 +37,11 @@ public class LeverRotation : MonoBehaviour, Observer {
 	void Update () 
 	{
 
-		if(m_IsEnabled)
+		if(!m_IsPaused )
 		{
 			if(m_TriggerActivated)
 			{
+				m_TriggerActivated = false;
 				this.gameObject.transform.eulerAngles = new Vector3(transform.eulerAngles.x + m_RotationValue.x, transform.eulerAngles.y + m_RotationValue.y, transform.eulerAngles.z + m_RotationValue.z);
 
 			}
@@ -51,7 +53,7 @@ public class LeverRotation : MonoBehaviour, Observer {
 	{
 		if(recievedEvent == ObeserverEvents.PauseGame ||recievedEvent == ObeserverEvents.StartGame)
 		{
-			m_IsEnabled = !m_IsEnabled; //Enable 
+			m_IsPaused = !m_IsPaused; //toggles if you paused
 		}
 
 		if(recievedEvent == ObeserverEvents.Used)
