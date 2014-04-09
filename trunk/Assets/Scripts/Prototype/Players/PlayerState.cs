@@ -317,6 +317,13 @@ public abstract class PlayerState : MonoBehaviour, Observer
 				pickUp.PickUpItem(this.gameObject);
 				break;
 			}
+
+			case InteractableType.NPC:
+			{
+				NPC pickUp = (NPC)m_CurrentInteraction;
+				pickUp.setShowText(true);
+				break;
+			}
 		}
 	}
 
