@@ -41,6 +41,7 @@ public class SeeSaw : InteractableBaseClass, Observer
 	bool m_IsEnabled = true;
 
 	public float m_LaunchHeight = 10.0f;
+	public float m_BottomLaunchHeight = 5.0f;
 
 	//Initialization
 	void Start()
@@ -51,8 +52,7 @@ public class SeeSaw : InteractableBaseClass, Observer
 		m_ResetTimer = 5.0f;
 		m_HasLaunchedPlayer = false;
 
-		m_SitPointEndPos = new Vector3 (m_SitPoint.transform.position.x, m_SitPoint.transform.position.y + 10, m_SitPoint.transform.position.z);
-
+		m_SitPointEndPos = new Vector3 (m_SitPoint.transform.position.x, m_SitPoint.transform.position.y + m_BottomLaunchHeight, m_SitPoint.transform.position.z);
 
 		m_Type = InteractableType.SeeSaw;
 		
@@ -91,9 +91,10 @@ public class SeeSaw : InteractableBaseClass, Observer
 			{
 					if(m_IsLerping)
 					{
+						launchPlayer();
 						m_JumpingPlayer.transform.position = Vector3.Lerp(m_JumpingPlayer.transform.position, m_JumpEndPoint.transform.position, LERP_TIME);
 
-						m_SitPoint.transform.position = Vector3.Lerp(m_SitPoint.transform.position, m_SitPointEndPos, LERP_TIME);
+						m_SitPoint.transform.position = Vector3.Lerp(m_SitPoint.transform.position, m_SitPointEndPos, LERP_TIME/2);
 						m_JumpPoint.transform.position = Vector3.Lerp(m_JumpPoint.transform.position, m_JumpEndPoint.transform.position, LERP_TIME);
 
 						if(m_JumpingPlayer != null)
@@ -110,7 +111,7 @@ public class SeeSaw : InteractableBaseClass, Observer
 								Debug.Log("PlayerLaunched");
 							}
 						}
-						launchPlayer();
+						
 					}
 
 			if(m_HasLaunchedPlayer)
@@ -158,9 +159,11 @@ public class SeeSaw : InteractableBaseClass, Observer
 			{
 				CharacterSwitch.Instance.switchCharacters();
 				m_SittingPlayer.gameObject.GetComponent<PlayerMovement>().setCanMove(true);
-				m_SittingPlayer.gameObject.GetComponent<PlayerMovement>().LaunchJump(50);
+				m_SittingPlayer.gameObject.GetComponent<PlayerMovement>().LaunchJump(m_LaunchHeight);
 				m_SittingPlayer.gameObject.GetComponent<PlayerState>().exitInteracting();
 				m_HasLaunchedPlayer = true; 
+
+				//SoundManager.Instance.playSound(Sounds.SeesawJump, this.transform.position);
 			}
 
 		}
