@@ -27,6 +27,10 @@ ModelImporter:
     4300002: Cylinder125
     4300004: Sphere297
     4300006: MirrorFace
+    6400000: Cylinder125
+    6400002: MirrorFace
+    6400004: Sphere296
+    6400006: Sphere297
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -48,7 +52,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: .00999999978
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
