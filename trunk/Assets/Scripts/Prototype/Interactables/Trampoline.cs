@@ -31,6 +31,7 @@ public class Trampoline : MonoBehaviour
 	{
 		if  (other.tag == "Player")
 		{
+			SoundManager.Instance.playSound(Sounds.Trampoline, this.transform.position);
 			m_Player = other.gameObject;
 			// Check if we want to double jump
 			if (m_DoubleJump)
