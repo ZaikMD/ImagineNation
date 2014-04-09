@@ -57,6 +57,7 @@ public class NerfGun : BasePrimaryItem
 
 			Transform tempbullet;
 			//Play animation/sounds
+			SoundManager.Instance.playSound(Sounds.NerfGunBullet, this.transform.position);
 
 			tempbullet = (Transform) Instantiate(m_BulletPrefab,
 			                                     transform.position,
