@@ -320,8 +320,16 @@ public abstract class PlayerState : MonoBehaviour, Observer
 
 			case InteractableType.NPC:
 			{
-				NPC pickUp = (NPC)m_CurrentInteraction;
-				pickUp.setShowText(true);
+				NPC npc = (NPC)m_CurrentInteraction;
+				npc.setShowText(true, this.gameObject);
+
+				PlayerMovement movement = gameObject.GetComponent<PlayerMovement> ();
+				
+				if (movement != null) 
+				{
+					movement.setCanMove (false);
+				}
+
 				break;
 			}
 		}

@@ -76,6 +76,7 @@
      <Compile Include="Assets\Scripts\Prototype\Interactables\LeverRotation.cs" />
      <Compile Include="Assets\Scripts\Prototype\Interactables\LightDestroyingObject.cs" />
      <Compile Include="Assets\Scripts\Prototype\Interactables\MoveableBlock.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Interactables\NPC.cs" />
      <Compile Include="Assets\Scripts\Prototype\Interactables\PickUp.cs" />
      <Compile Include="Assets\Scripts\Prototype\Interactables\RemoveDebris.cs" />
      <Compile Include="Assets\Scripts\Prototype\Interactables\SeeSaw.cs" />
