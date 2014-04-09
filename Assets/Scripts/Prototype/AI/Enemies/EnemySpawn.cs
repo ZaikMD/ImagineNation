@@ -3,8 +3,15 @@ using System.Collections;
 
 public class EnemySpawn : MonoBehaviour 
 {
+	enum EnemyTypes
+	{
+		Furbull = 0,
+		Crochuck,
+		Count
+	}
+
 	public BaseEnemy m_Enemy;
-	//TODO: public enemy type variable
+	EnemyTypes m_EnemyType;
 
 	/// <summary>
 	/// Spawns the enemy based off the enemy type
@@ -15,10 +22,15 @@ public class EnemySpawn : MonoBehaviour
 		{
 			m_Enemy.reset();
 		}
-		else
-		{
-			//TODO: instantiate the enemy type specified
-			//Instantiate (m_Enemy, this.transform.position, this.transform.rotation);
-		}
+//		else
+//		{
+//			switch(m_EnemyType)
+//			{
+//				case(Furbull)
+//				{
+//
+//				}
+//			}
+//		}
 	}
 }
