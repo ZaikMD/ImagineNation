@@ -98,11 +98,11 @@
      <Compile Include="Assets\Scripts\Prototype\Items\StickyHand.cs" />
      <Compile Include="Assets\Scripts\Prototype\Items\StickyHandProjectile.cs" />
      <Compile Include="Assets\Scripts\Prototype\Items\VelcroGloves.cs" />
-     <Compile Include="Assets\Scripts\Prototype\MenuScript.cs" />
      <Compile Include="Assets\Scripts\Prototype\MovingPlatforms.cs" />
      <Compile Include="Assets\Scripts\Prototype\Observer\Events.cs" />
      <Compile Include="Assets\Scripts\Prototype\Observer\Observer.cs" />
      <Compile Include="Assets\Scripts\Prototype\Observer\Subject.cs" />
+     <Compile Include="Assets\Scripts\Prototype\PauseMenu.cs" />
      <Compile Include="Assets\Scripts\Prototype\PlayerInput.cs" />
      <Compile Include="Assets\Scripts\Prototype\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\Prototype\Players\AlexPlayerState.cs" />
