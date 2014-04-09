@@ -89,13 +89,11 @@ public class SeeSaw : InteractableBaseClass, Observer
 		{
 			if(m_HasTopPiece && m_HasBottomPiece)
 			{
-				if(m_SittingPlayer != null)
-				{
 					if(m_IsLerping)
 					{
 						m_JumpingPlayer.transform.position = Vector3.Lerp(m_JumpingPlayer.transform.position, m_JumpEndPoint.transform.position, LERP_TIME);
 
-						m_SitPoint.transform.position = Vector3.Lerp(m_SitPoint.transform.position, m_SitPointEndPos, LERP_TIME/2);
+						m_SitPoint.transform.position = Vector3.Lerp(m_SitPoint.transform.position, m_SitPointEndPos, LERP_TIME);
 						m_JumpPoint.transform.position = Vector3.Lerp(m_JumpPoint.transform.position, m_JumpEndPoint.transform.position, LERP_TIME);
 
 						if(m_JumpingPlayer != null)
@@ -103,36 +101,29 @@ public class SeeSaw : InteractableBaseClass, Observer
 							if(m_JumpPoint.transform.position.y <= m_JumpEndPoint.transform.position.y + 0.5f)
 							{
 								m_JumpingPlayer.transform.parent = null;
-
-								if(m_Block != null && m_JumpingPlayer.name != m_Block.name)
+								
+								if(m_Block == null)
 								{
 									m_JumpingPlayer.gameObject.GetComponent<PlayerState>().exitInteracting();
 								}
-
 								m_IsLerping = false;
 								Debug.Log("PlayerLaunched");
 							}
-					
 						}
-							
-
-							launchPlayer();
-						}
-				}
-					if(m_HasLaunchedPlayer)
-					{
-						m_ResetTimer -= Time.deltaTime;
+						launchPlayer();
 					}
-					if(m_ResetTimer < 0.0f)
-					{
-						reset();
-				}
+
+			if(m_HasLaunchedPlayer)
+			{
+				m_ResetTimer -= Time.deltaTime;
 			}
-
-
+			if(m_ResetTimer < 0.0f)
+			{
+				reset();
+			}
 		}
 	}
-
+}
 	//Sit
 	public void makeChild(GameObject obj)  //Called by player
 	{
@@ -144,10 +135,8 @@ public class SeeSaw : InteractableBaseClass, Observer
 				{
 					//Set m_SittingPlayer to obj 
 					m_SittingPlayer = obj.gameObject; 
-					
 					//Make obj the child of the SeeSaw
 					m_SittingPlayer.transform.parent = this.transform;
-					
 					//Set the obj's position to m_SitPoint's position
 					m_SittingPlayer.transform.position = m_SitPointPos;
 				}
@@ -170,10 +159,8 @@ public class SeeSaw : InteractableBaseClass, Observer
 				CharacterSwitch.Instance.switchCharacters();
 				m_SittingPlayer.gameObject.GetComponent<PlayerMovement>().setCanMove(true);
 				m_SittingPlayer.gameObject.GetComponent<PlayerMovement>().LaunchJump(50);
-
 				m_SittingPlayer.gameObject.GetComponent<PlayerState>().exitInteracting();
 				m_HasLaunchedPlayer = true; 
-
 			}
 
 		}
@@ -232,6 +219,7 @@ public class SeeSaw : InteractableBaseClass, Observer
 		m_HasLaunchedPlayer = false;
 		m_IsPlatformLerping = false;
 		m_PlayerHasJumped = false;
+		m_IsLerping = false;
 	}
 	
 	void OnTriggerEnter(Collider obj)
