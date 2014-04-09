@@ -28,6 +28,7 @@ public class RCCar : SecondairyBase
 	// Use this for initialization
 	void Start () 
 	{
+		base.Start ();
 		m_Alex = this.gameObject.GetComponent<AlexPlayerState> ();
 	}
 	
@@ -112,6 +113,9 @@ public class RCCar : SecondairyBase
 	{
 		m_RCCar.GetComponent<RCCarMovement> ().RegularMove();
 		m_State = RCCarStates.Idle;
+
+		//Sound 
+		//SoundManager.Instance.playSound (Sounds.RcCar, m_RCCar.transform.position);
 	}
 
 	void initialInteraction()
@@ -164,9 +168,9 @@ public class RCCar : SecondairyBase
 		{
 			case InteractableType.MovingBlock:
 			{
-				MoveableBlock moveableBlock = (MoveableBlock)m_CurrentInteraction;
-				moveableBlock.onExit();
 				m_Interacting = false;
+				MoveableBlock moveableBlock = (MoveableBlock)m_CurrentInteraction;
+				moveableBlock.onExit();				
 			}
 			break;
 

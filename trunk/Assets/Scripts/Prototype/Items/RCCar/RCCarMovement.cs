@@ -9,9 +9,9 @@ public class RCCarMovement : MonoBehaviour
 	public float[] GearRatio;
 	public int CurrentGear;
 	
-	public float EngineTorque = 800;
-	public float MaxEngineRPM = 800;
-	public float MinEngineRPM = 500;
+	float EngineTorque = 100;
+	float MaxEngineRPM = 400;
+	float MinEngineRPM = 200;
 	
 	public float EngineRPM;
 
@@ -41,31 +41,46 @@ public class RCCarMovement : MonoBehaviour
 			rigidbody.drag = rigidbody.velocity.magnitude / 250;
 	
 			EngineRPM = (FrontLeftWheel.rpm + FrontRightWheel.rpm) / 2 * GearRatio [CurrentGear - 1];
-	
+
 			ShiftGear ();
-			FrontLeftWheel.motorTorque = EngineTorque / GearRatio [CurrentGear - 1] * -PlayerInput.Instance.getMovementInput ().y;
-			FrontRightWheel.motorTorque = EngineTorque / GearRatio [CurrentGear - 1] * -PlayerInput.Instance.getMovementInput ().y;
-	
+
+			if (PlayerInput.Instance.getMovementInput().y < 0)
+			{
+			FrontLeftWheel.motorTorque = EngineTorque / GearRatio [CurrentGear - 1] * -PlayerInput.Instance.getMovementInput ().y/1.5f;
+			FrontRightWheel.motorTorque = EngineTorque / GearRatio [CurrentGear - 1] * -PlayerInput.Instance.getMovementInput ().y/1.5f;
+			}
+
+			else
+			{
+				FrontLeftWheel.motorTorque = EngineTorque / GearRatio [CurrentGear - 1] * -PlayerInput.Instance.getMovementInput ().y;
+				FrontRightWheel.motorTorque = EngineTorque / GearRatio [CurrentGear - 1] * -PlayerInput.Instance.getMovementInput ().y;
+			}
+
 			FrontLeftWheel.steerAngle = 15 * PlayerInput.Instance.getMovementInput ().x;
 			FrontRightWheel.steerAngle = 15 * PlayerInput.Instance.getMovementInput ().x;
-		}
 
+		}
+	
 	}
 
 	public void MoveBlock()
 	{
 		if (m_CanMove)
 		{
-			
+			if (PlayerInput.Instance.getMovementInput().y > 0)
+			{
 			rigidbody.drag = rigidbody.velocity.magnitude / 250;
 			
 			EngineRPM = (FrontLeftWheel.rpm + FrontRightWheel.rpm) / 2 * GearRatio [CurrentGear - 1];
 			
 			ShiftGear ();
-			FrontLeftWheel.motorTorque = EngineTorque / GearRatio [CurrentGear - 1] * -PlayerInput.Instance.getMovementInput ().y;
-			FrontRightWheel.motorTorque = EngineTorque / GearRatio [CurrentGear - 1] * -PlayerInput.Instance.getMovementInput ().y;
-			
+			FrontLeftWheel.motorTorque = EngineTorque / GearRatio [CurrentGear - 1] * -PlayerInput.Instance.getMovementInput ().y/3;
+			FrontRightWheel.motorTorque = EngineTorque / GearRatio [CurrentGear - 1] * -PlayerInput.Instance.getMovementInput ().y/3;
+
+			FrontLeftWheel.steerAngle = 5 * PlayerInput.Instance.getMovementInput ().x;
+			FrontRightWheel.steerAngle = 5 * PlayerInput.Instance.getMovementInput ().x;
 			}
+		}
 		
 	}
 

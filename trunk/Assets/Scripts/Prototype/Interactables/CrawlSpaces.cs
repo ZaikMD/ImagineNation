@@ -184,7 +184,7 @@ public class CrawlSpaces : InteractableBaseClass
 
 		if(obj.tag == "RCCar")
 		{
-			obj.transform.parent.gameObject.GetComponent<RCCarMovement>().m_RCCarManager.interactionInRange(this);
+			obj.gameObject.GetComponent<RCCarMovement>().m_RCCarManager.interactionInRange(this);
 		}
 	}
 	
@@ -200,7 +200,7 @@ public class CrawlSpaces : InteractableBaseClass
 
 		if(obj.tag == "RCCar")
 		{
-			obj.transform.parent.gameObject.GetComponent<RCCarMovement>().m_RCCarManager.interactionOutOfRange(this);
+			obj.gameObject.GetComponent<RCCarMovement>().m_RCCarManager.interactionOutOfRange(this);
 		}
 	}
 }
