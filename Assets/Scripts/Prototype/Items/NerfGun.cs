@@ -12,7 +12,7 @@ public class NerfGun : BasePrimaryItem
 	int m_NumberOfBullets;
 
 	//Maximum number of bullets in a clip
-	const int maxBullets = 5;
+	const int maxBullets = 10;
 
 	//Reload timer that begins after clip is emptied
 	float m_ReloadTimer = 0.0f;

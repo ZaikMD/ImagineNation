@@ -17,8 +17,10 @@ public class NerfGunProjectile : MonoBehaviour
 
 	NerfGunProjectileState m_State;
 
+	public Transform m_PlatformPrefab;
+
 	float m_BulletLifeSpan = 5.0f;
-	float m_PlatformLifeSpan = 20.0f;
+	float m_PlatformLifeSpan = 60.0f;
 	float m_Timer = 0.0f;
 	float m_PlatformTimer = 0.0f;
 
@@ -76,9 +78,6 @@ public class NerfGunProjectile : MonoBehaviour
 		// on the time remaing.
 
 		m_PlatformTimer += Time.deltaTime;
-
-
-		//transform.localScale = new Vector3 (transform.localScale.x + 1.0f, 0.1f, 1.5f);
 
 		if(m_PlatformTimer >= m_PlatformLifeSpan)
 			Destroy (this.gameObject);
@@ -150,13 +149,24 @@ public class NerfGunProjectile : MonoBehaviour
 	
 	void CollidedWithNerfWall(GameObject nerfWall)
 	{
+		/*
 		//freeze the bullets position at the point of collision       
 		//preferably increase the size of the bullet or
 		// destroy the bullet and spawn a platform
 		transform.rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-		transform.localScale = new Vector3 (transform.localScale.x + 1.0f, 0.1f, 1.5f);
+		transform.localScale = new Vector3 (transform.localScale.x + 2.25f, 0.1f, 2.25f);
 		m_IsPlatform = true;
 		m_State = NerfGunProjectileState.IsPlatform;
+		*/
+
+		Transform tempPlatform;
+		//Play animation/sounds
+		
+		tempPlatform = (Transform) Instantiate(m_PlatformPrefab,
+		                                     transform.position,
+		                                     Quaternion.identity);
+
+		Destroy(this.gameObject);
 
 	}
 	
