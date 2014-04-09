@@ -64,6 +64,7 @@
      <Compile Include="Assets\Scripts\Prototype\CharacterSwitch.cs" />
      <Compile Include="Assets\Scripts\Prototype\Checkpoint.cs" />
      <Compile Include="Assets\Scripts\Prototype\CheckpointManager.cs" />
+     <Compile Include="Assets\Scripts\Prototype\FearKillingLightOfMagicalAwesomenessMadeAtTheRequestOfMrAdamHollaway.cs" />
      <Compile Include="Assets\Scripts\Prototype\FearScript.cs" />
      <Compile Include="Assets\Scripts\Prototype\GameManager.cs" />
      <Compile Include="Assets\Scripts\Prototype\Health.cs" />
