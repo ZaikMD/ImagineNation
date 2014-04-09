@@ -14,13 +14,13 @@ public class NPC : InteractableBaseClass {
 	public float m_TimerLength = 5.0f;
 
 	//Variables for designers
-	public Vector2 m_NormalizedTextPos = new Vector2(0.0f,0.0f);
+	public Vector2 m_NormalizedTextPos = new Vector2(0.5f, 0.5f);
 	Rect m_Rectangle;
 
 	//Font size
 	public float m_FontSize = 20.0f;
 
-
+	GameObject m_Player = null;
 
 	// Initialization
 	void Start ()
@@ -45,14 +45,17 @@ public class NPC : InteractableBaseClass {
 
 			if (m_Timer <= 0.0f)
 			{
-				setShowText(false);
+				m_Player.GetComponent<PlayerState>().exitInteracting();
+				setShowText(false, null);
 			}
 		}
 	}
 
 	// Show text
-	public void setShowText(bool show)
+	public void setShowText(bool show, GameObject obj)
 	{
+		m_Player = obj;
+
 		m_ShowText = show;
 		if (m_ShowText == true)
 		{
