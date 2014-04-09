@@ -24,16 +24,14 @@ public class EnemyPathfinding : MonoBehaviour
 	int m_NodeCount = 0;
 	public PathfindNode[] m_PathfindNode;
 	public int m_MaxNodes = 3;
+	GameObject[] m_Player;
 
 
 	// Use this for initialization
 	void Start () 
 	{
 		m_Agent = this.gameObject.GetComponent<NavMeshAgent> ();
-		//m_PathfindNode = this.gameObject.GetComponent<PathfindNode> ();
 		m_InitialStoppingDistance = m_Agent.stoppingDistance;
-		//Testing purposes
-		m_State = EnemyPathfindingStates.Patrol;
 	}
 	
 	// Update is called once per frame

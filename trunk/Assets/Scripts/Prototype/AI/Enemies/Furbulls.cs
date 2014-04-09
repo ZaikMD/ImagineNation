@@ -6,7 +6,7 @@ public class Furbulls : BaseEnemy
 	public GameObject m_FurbullsProjectile;
 
 	// Use this for initialization
-	void Start () 
+	protected override void start () 
 	{
 		m_Health.m_MaxHealth = 3;
 		m_CombatRange = 2.0f;
@@ -30,5 +30,7 @@ public class Furbulls : BaseEnemy
 	{
 		//TODO:play attack animation and attack sound
 		Instantiate (m_FurbullsProjectile, this.transform.position, this.transform.rotation);
+		m_EnemyPathfinding.SetState (EnemyPathfindingStates.Combat);
+		m_State = States.Default;
 	}
 }
