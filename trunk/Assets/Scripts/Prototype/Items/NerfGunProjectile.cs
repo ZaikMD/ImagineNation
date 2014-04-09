@@ -24,6 +24,8 @@ public class NerfGunProjectile : MonoBehaviour
 	float m_Timer = 0.0f;
 	float m_PlatformTimer = 0.0f;
 
+	float m_StartRotation = 90.0f;
+
 	string m_CollidedTag;
 
 	bool m_IsPlatform = false;
@@ -34,6 +36,7 @@ public class NerfGunProjectile : MonoBehaviour
 	void Start () 
 	{
 		m_State = NerfGunProjectileState.Default;
+		transform.Rotate(new Vector3(m_StartRotation, 0.0f, 0.0f));
 
 	}
 	
