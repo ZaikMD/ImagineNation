@@ -46,6 +46,7 @@ public class CharacterSwitch : Subject
 		if(m_AbleToSwitch)
 		{
 			m_AbleToSwitch = false;
+			SoundManager.Instance.playSound(Sounds.CharacterSwitch, this.transform.position);
 			sendEvent(ObeserverEvents.CharacterSwitch);
 		}
 	}

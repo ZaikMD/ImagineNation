@@ -46,6 +46,8 @@ public class StickyHand : BasePrimaryItem {
 		{
 			m_Projectile.transform.position = this.transform.position + this.transform.forward;
 			m_ProjectileComponent.activate(getTargetDirection());
+
+			SoundManager.Instance.playSound(Sounds.StickyHandShot, this.transform.position);
 		}
 	}
 
