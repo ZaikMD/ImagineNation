@@ -14,6 +14,7 @@ Created by Zach
 	Fixed movable block movement (in Playermovement)
 4/8/2014
 	Fixed block teleporting
+	Fixed blocks colliding with projectiles
 */
 
 
@@ -48,6 +49,11 @@ public class MoveableBlock : InteractableBaseClass
 			transform.localPosition = m_SavedLocalPos;
 			transform.localRotation = m_SavedLocalRotation;
 		}
+
+		if (!rigidbody.isKinematic && !m_InUse && isGrounded())
+		{
+			rigidbody.isKinematic = true;
+		}
 	}
 
 	/// <summary>
@@ -69,7 +75,7 @@ public class MoveableBlock : InteractableBaseClass
 			obj.transform.LookAt(lookAt);
 
 			//Make sure block does not collide with ground
-			rigidbody.useGravity = false;
+			rigidbody.isKinematic = false;
 
 			//set the state of the block and obj
 			transform.parent = obj.transform;
@@ -96,8 +102,12 @@ public class MoveableBlock : InteractableBaseClass
 	{
 		Physics.IgnoreCollision(collider, transform.parent.collider, false);
 		transform.parent = null;
-		rigidbody.useGravity = true;
 		m_InUse = false;
+	}
+
+	bool isGrounded()
+	{
+		return Physics.Raycast(transform.position, -Vector3.up, 1.1f);
 	}
 
 	void OnTriggerEnter(Collider obj)
