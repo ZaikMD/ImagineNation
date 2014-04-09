@@ -34,8 +34,10 @@ Created by Jason "The Casual" Hein on 3/1/2014
 	No longer needs a collider or rigid body
 4/8/2014
 	Smoothed camera collsiion
-	Reduced collision sensitivity.
+	Reduced collision sensitivity
 	Removed mouse cursor
+4/9/2014
+	Now ignores single thin objects
 */
 
 
@@ -98,6 +100,7 @@ public class CameraController : MonoBehaviour
 	float m_CollisionTimer = 0.0f;
 	float m_Zoom_Collision = 0.0f;
 	bool m_CollisionZoom = false;
+	float COLLISION_MAX_THINNESS_OF_OBJECT = 3.0f;
 
 	//Reticle
 	Reticle m_Reticle;
@@ -232,28 +235,24 @@ public class CameraController : MonoBehaviour
 			{
 				//Set Camera Zoom
 				setZoom(m_Zoom + -PlayerInput.Instance.getCameraMovement().y * (ZOOM_SENSITIVITY / 100.0f));
+				m_Zoom_Return = DEFAULT_ZOOM;
 				m_CollisionTimer = 0.0f;
 			}
 			else if (m_CollisionTimer > 0.0f && m_CollisionZoom)
 			{
 				//Set Camera Zoom
 				setZoom(Mathf.Lerp(m_Zoom , m_Zoom_Collision, COLLISION_ZOOM_SPEED));
+				m_Zoom_Return = DEFAULT_ZOOM;
 			}
 			else if (m_Zoom != m_Zoom_Return && PlayerInput.Instance.getMovementInput() != Vector2.zero)
 			{
-				if (PlayerInput.Instance.getMovementInput().y < 0.0f)
+				if (PlayerInput.Instance.getMovementInput().y < 0.0f && m_Zoom_Return != BACK_ZOOM)
 				{
-					if (m_Zoom_Return != BACK_ZOOM)
-					{
-						m_Zoom_Return = BACK_ZOOM;
-					}
+					m_Zoom_Return = BACK_ZOOM;
 				}
-				else
+				else if (m_Zoom_Return != DEFAULT_ZOOM)
 				{
-					if (m_Zoom_Return != DEFAULT_ZOOM)
-					{
-						m_Zoom_Return = DEFAULT_ZOOM;
-					}
+					m_Zoom_Return = DEFAULT_ZOOM;
 				}
 				setZoom(Mathf.Lerp(m_Zoom , m_Zoom_Return, ZOOM_RETURN_SPEED));
 			}
@@ -316,9 +315,18 @@ public class CameraController : MonoBehaviour
 			m_CollisionOrientation = transform.parent.eulerAngles.y - COLLISION_TURN_AMOUNT;
 			m_CollisionTimer = COLLISION_FIX_TIMER;
 		}
-		//Check if their is a wall in the way
-		if (Physics.Raycast(m_CameraFollow.position + m_CameraFollow.up, (transform.position - m_CameraFollow.position).normalized, out hit, Vector3.Distance(transform.position, m_CameraFollow.position)))
+		//Check if their is a wall in the wayS
+		if (Physics.Raycast(m_CameraFollow.position, (transform.position - m_CameraFollow.position).normalized, out hit, Vector3.Distance(transform.position, m_CameraFollow.position)))
 		{
+			//Check if the object hit is thin, and should be ignored
+			RaycastHit hit2;
+			Physics.Raycast(transform.position, (m_CameraFollow.position - transform.position).normalized, out hit2, Vector3.Distance(transform.position, m_CameraFollow.position));
+			if (Vector3.Distance(hit.point, hit2.point) < COLLISION_MAX_THINNESS_OF_OBJECT)
+			{
+				return;
+			}
+
+
 			m_Zoom_Collision = (m_Zoom / Vector3.Distance(transform.localPosition + (transform.position - m_CameraFollow.position).normalized, Vector3.zero)) *
 				Vector3.Distance(m_CameraFollow.position, hit.point);
 
@@ -330,7 +338,6 @@ public class CameraController : MonoBehaviour
 
 			m_CollisionZoom = true;
 			m_CollisionTimer = COLLISION_FIX_TIMER;
-			m_Zoom_Return = DEFAULT_ZOOM;
 		}
 	}
 
@@ -389,7 +396,7 @@ public class CameraController : MonoBehaviour
 			}
 			else
 			{
-					positionToLookAt = Vector3.Lerp (m_LastLookAtPosition, m_CameraFollow.position + (m_CameraFollow.forward * FORWARD_AMOUNT), LOOK_AT_SPEED);
+				positionToLookAt = Vector3.Lerp (m_LastLookAtPosition, m_CameraFollow.position + (m_CameraFollow.forward * FORWARD_AMOUNT), LOOK_AT_SPEED);
 			}
 
 			//Look in front of object
