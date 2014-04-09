@@ -29,6 +29,7 @@ public class BoxingGloves : BasePrimaryItem
 	
 	public override void fire()
 	{
+		 SoundManager.Instance.playSound(Sounds.BoxingGloveImpact, this.transform.position);
 		 GameObject projectile = (GameObject)Instantiate (m_BaseProjectile, this.transform.position, this.transform.rotation);
 
 		projectile.gameObject.GetComponent<DerekProjectile> ().setForwardDirection(getTargetDirection());

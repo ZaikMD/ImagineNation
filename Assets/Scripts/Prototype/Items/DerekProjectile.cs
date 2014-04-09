@@ -8,7 +8,6 @@ public class DerekProjectile : MonoBehaviour
 	public float m_ProjectileRange = 2.0f;
 	Vector3 m_InitialPosition;
 
-
 	Vector3 m_Direction;
 	// Use this for initialization
 	void Start () 
@@ -37,6 +36,8 @@ public class DerekProjectile : MonoBehaviour
 
 		if(other.gameObject.tag == "DestructibleWall")
 		{
+			//play sound
+			SoundManager.Instance.playSound(Sounds.BreakingObject, this.transform.position);
 			Destroy(other.gameObject);
 
 			Instantiate(m_DebrisPrefab, other.transform.position, other.transform.rotation);

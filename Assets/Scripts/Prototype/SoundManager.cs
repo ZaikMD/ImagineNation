@@ -6,14 +6,25 @@ using System.Collections;
 //The Enum for the sounds. They will have to be IN THE SAME ORDER AS YOU LOAD THEM
 public enum Sounds
 {
-	testSound = 0,
+	ArmyMenTalk = 0,
+	BoxingGloveHit= 1,
+	BoxingGloveImpact= 2,
+	BreakingObject= 3,
+	CharacterSwitch = 4,
+	NerfGunBullet = 5,
+	NerfGunPlatform = 6,
+	RcCar = 7,
+	SeesawJump= 8,
+	StickyHandShot = 9,
+	Trampoline = 10,
+
 	Count
 };
 
 
 public enum Songs
 {
-	testSong = 0,
+	BackgroundSong = 0,
 	Count
 };
 
@@ -57,10 +68,21 @@ public class SoundManager : MonoBehaviour {
 		//Create the Songs array
 		m_Songs = new AudioClip[(int)Songs.Count];
 
-		//TODO: Load ALL sounds here. MAKE SURE THEY ARE IN THE SAME ORDER AS THE ENUM
-		m_Sounds[0] = Resources.Load<AudioClip>("Blip_Select");
+		// Load ALL sounds here. MAKE SURE THEY ARE IN THE SAME ORDER AS THE ENUM
+		m_Sounds[0] = Resources.Load<AudioClip>("Sound Effects/ArmyMenTalk");
+		m_Sounds[1] = Resources.Load<AudioClip>("Sound Effects/BoxingGloveHit");
+		m_Sounds[2] = Resources.Load<AudioClip>("Sound Effects/BoxingGloveImpact");
+		m_Sounds[3] = Resources.Load<AudioClip>("Sound Effects/BreakingObject");
+		m_Sounds[4] = Resources.Load<AudioClip>("Sound Effects/CharacterSwitch");
+		m_Sounds[5] = Resources.Load<AudioClip>("Sound Effects/NerfGunBullet");
+		m_Sounds[6] = Resources.Load<AudioClip>("Sound Effects/NerfGunPlatform");
+		m_Sounds[7] = Resources.Load<AudioClip>("Sound Effects/RcCar");
+		m_Sounds[8] = Resources.Load<AudioClip>("Sound Effects/SeesawJump");
+		m_Sounds[9] = Resources.Load<AudioClip>("Sound Effects/StickyHandShot");
+		m_Sounds[10] = Resources.Load<AudioClip>("Sound Effects/Trampoline");
 
-		m_Songs [0] = Resources.Load<AudioClip> ("Music");
+		//Load Music here. Have same order as enum!
+		m_Songs [0] = Resources.Load<AudioClip> ("Sound Effects/BackgroundSong"); 
 
 		audio.clip = m_Songs [m_CurrentSong];
 		audio.Play ();
@@ -71,6 +93,7 @@ public class SoundManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+		//makes sure there is background music player
 		if(audio.isPlaying == false)
 		{
 			audio.clip = m_Songs[m_CurrentSong];
