@@ -25,7 +25,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 
 	GameObject m_AimReticle;
 
-	const float KNOCKBACK_TIME = 0.5f;
+	const float KNOCKBACK_TIME = 1.0f;
 	float m_KnockBackTimer = KNOCKBACK_TIME; 
 	bool m_UsingSecondItem;
 	bool m_HaveSecondItem;
@@ -37,7 +37,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	protected List<InteractableBaseClass> m_InteractionsInRange = new List<InteractableBaseClass>();
 	InteractableBaseClass m_CurrentInteraction;
 	  
-	short m_Health = 100;
+	Health m_Health;
 
 	bool m_IsAiming = false;
 
@@ -78,6 +78,10 @@ public abstract class PlayerState : MonoBehaviour, Observer
 			GameObject.FindGameObjectWithTag("Camera").GetComponentInChildren<CameraController>().switchTo(this.gameObject.transform);
 		}
 
+		m_Health = gameObject.GetComponent<Health> ();
+		m_Health.m_MaxHealth = 100;
+		m_Health.resetHealth ();
+
 		start ();
 	}
 
@@ -117,6 +121,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 
 		    	if(m_PlayerState == PlayerStates.Default)
 		    	{
+					Debug.Log ("Default");
 					Default();
 		    	}
 
@@ -124,22 +129,27 @@ public abstract class PlayerState : MonoBehaviour, Observer
 		        {
 
 		        case PlayerStates.Interacting:
+					Debug.Log ("Interacting");
 			        Interaction();	
 		        	break;
 
 		        case PlayerStates.Idle:	
+					Debug.Log ("Idle");
 			        IdleFunction();
 			        break;
 
 			    case PlayerStates.Moving:
+					Debug.Log ("Moving");
 				    MovingFunction();
 				    break;
 			
 		        case PlayerStates.TakingDamage:
+					Debug.Log ("TakingDamage");
 			        TakeDamage();
 			        break;
 
 			    case PlayerStates.Dead:
+					Debug.Log ("Dead");
 				    Dead();
 				    break;
 		            
@@ -181,14 +191,6 @@ public abstract class PlayerState : MonoBehaviour, Observer
 				pickUp.DropItem();
 				break;
 			}
-			/*
-		case InteractableType.DivingBoard:
-		{
-			PickUp pickUp = (PickUp)m_CurrentInteraction;
-			pickUp.DropItem();
-			break;
-		}
-*/
 
 			default:
 			{
@@ -336,14 +338,24 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	}
 
 	//not implemented/tested yet since no enemies
-	public void FlagDamage(short amount, GameObject damagedBy)
+	public void FlagDamage(short amount)
 	{
-   		 if (!m_TakeDamage && m_PlayerState != PlayerStates.Dead)
+  		 if (!m_TakeDamage && m_PlayerState != PlayerStates.Dead)
    		 {
-		   m_DamagedBy = damagedBy;
-     	   applyDamage(amount);
+     	   	applyDamage(amount);
 			m_TakeDamage = true;
-  		 }
+			gameObject.GetComponent<PlayerMovement>().setCanMove(false);
+
+			if(m_CurrentInteraction != null)
+			{
+				exitInteracting();
+			}
+
+			if(m_UsingSecondItem)
+			{
+				setExitingSecond(true);
+			}
+		}
 	}                                                                                                                                                      
 
 	//not implemented/tested yet since no enemies
@@ -359,14 +371,21 @@ public abstract class PlayerState : MonoBehaviour, Observer
       	 // reset m_KnockBackTimer;
 			m_KnockBackTimer = KNOCKBACK_TIME;
        		m_TakeDamage = false;	
+			gameObject.GetComponent<PlayerMovement>().setCanMove(true);
+			m_PlayerState = PlayerStates.Default;
     	}
 	}
 
 	//not implemented/tested yet since no enemies
-	protected void applyDamage(short amount)
+	protected void applyDamage(int amount)
 	{
-    	m_Health -= amount;
+    	m_Health.takeDamage(amount);
     	//update the hud to represent current health status.
+	}
+
+	public int getHealth()
+	{
+		return m_Health.getHealth ();
 	}
 
 	//not implemented/tested yet since no enemies
@@ -620,7 +639,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 			}
 		}
 
-		if(m_Health <= 0)
+		if(m_Health.getHealth() <= 0)
 		{
 			m_PlayerState = PlayerStates.Dead;
 			return;
