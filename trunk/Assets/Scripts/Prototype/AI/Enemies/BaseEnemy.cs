@@ -220,12 +220,12 @@ public abstract class BaseEnemy : MonoBehaviour, Observer
 			//if yes change target and go to follow state and Reset exit combat timer and return
 			if(m_Timer <= 0)
 			{
-				//Debug.Log("Exit Combat");
+				Debug.Log("Exit Combat");
 				//Debug.Log ("Timer reset");
 				m_Timer = EXIT_COMBAT_TIME;
 				m_IsInCombat = false;
 				m_State = States.Patrol;
-				Debug.Log ("");
+
 			}
 			else
 			{
