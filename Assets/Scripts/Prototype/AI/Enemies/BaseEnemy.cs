@@ -25,10 +25,10 @@ public abstract class BaseEnemy : MonoBehaviour, Observer
 	public GameObject m_Ragdoll;
 
 	GameObject[] m_Players;
-	Transform m_Target;
+	protected Transform m_Target;
 
 	public const float EXIT_COMBAT_TIME = 3.0f;
-	float m_Timer = EXIT_COMBAT_TIME;
+	private float m_Timer = EXIT_COMBAT_TIME;
 
 	protected EnemyPathfinding m_EnemyPathfinding;
 
@@ -80,13 +80,19 @@ public abstract class BaseEnemy : MonoBehaviour, Observer
 	/// <summary>
 	/// Reset variables back to a default state for spawning
 	/// </summary>
-	public void reset()
+	public void Reset()
 	{
 		m_IsInCombat = false;
 		m_IsEnabled = true;
 		m_Target = null;
 		m_Timer = EXIT_COMBAT_TIME;
 		m_State = States.Default;
+
+		reset ();
+	}
+
+	protected virtual void reset()
+	{
 	}
 
 	// Update is called once per frame
@@ -156,11 +162,15 @@ public abstract class BaseEnemy : MonoBehaviour, Observer
 				{
 					// if yes go to fight state and Reset exit combat timer and return
 					m_State = States.Fight;
+					//Debug.Log ("Fight");
+					//Debug.Log ("Timer reset");
 					m_Timer = EXIT_COMBAT_TIME;
 					return;
 				}
 				//if yes go to follow state and Reset exit combat timer and return
 				m_State = States.Follow;
+				//Debug.Log ("Timer reset");
+				//Debug.Log ("Follow");
 				m_Timer = EXIT_COMBAT_TIME;
 				return;
 			}
@@ -169,59 +179,61 @@ public abstract class BaseEnemy : MonoBehaviour, Observer
 			{
 				if(m_Players[i] != m_Target)
 				{
-					m_EnemyPathfinding.setTarget(m_Players[i].gameObject);
-					m_Target = m_EnemyPathfinding.getTarget();
+					float distance2 = Vector3.Distance(gameObject.transform.position, m_Players[i].transform.position );
+
+					if(distance > distance2)
+					{
+						m_EnemyPathfinding.setTarget(m_Players[i].gameObject);
+						m_Target = m_EnemyPathfinding.getTarget();
+
+						distance = Vector3.Distance(gameObject.transform.position, m_Target.transform.position );
+
+						//is the target in aggro range
+						if(distance <= m_AggroRange)
+						{
+							if(distance <= m_CombatRange)
+							{
+								// if yes go to fight state and Reset exit combat timer and return
+								m_State = States.Fight;
+								//Debug.Log ("Timer reset");
+								//Debug.Log ("Fight");
+								m_Timer = EXIT_COMBAT_TIME;
+								return;
+							}
+							//if yes go to follow state and Reset exit combat timer and return
+							m_State = States.Follow;
+							//Debug.Log ("Timer reset");
+							//Debug.Log ("Follow");
+							m_Timer = EXIT_COMBAT_TIME;
+							return;
+						}
+					}
 				}
 			}
 
-			distance = Vector3.Distance(gameObject.transform.position, m_Target.transform.position );
-			//is the target in aggro range
-			if(distance <= m_AggroRange)
+			if(distance <= m_AggroRange || distance <= m_CombatRange)
 			{
-				if(distance <= m_CombatRange)
-				{
-					// if yes go to fight state and Reset exit combat timer and return
-					m_State = States.Fight;
-					m_Timer = EXIT_COMBAT_TIME;
-					return;
-				}
-				//if yes go to follow state and Reset exit combat timer and return
-				m_State = States.Follow;
-				m_Timer = EXIT_COMBAT_TIME;
-				return;
+				Debug.Log ("shit broken dawg");
 			}
 
-			for(int i =0; i < m_Players.Length; i++)
-			{
-				if(m_Players[i] != m_Target)
-				{
-					m_EnemyPathfinding.setTarget(m_Players[i].gameObject);
-					m_Target = m_EnemyPathfinding.getTarget();
-				}
-			}
-
-			distance = Vector3.Distance(gameObject.transform.position, m_Target.transform.position );
-			if(distance <= m_AggroRange)
-			{
-				//if yes go to follow state and Reset exit combat timer and return
-				m_State = States.Follow;
-				m_Timer = EXIT_COMBAT_TIME;
-				return;
-			}
 			//is the other player in aggro range
 			//if yes change target and go to follow state and Reset exit combat timer and return
 			if(m_Timer <= 0)
 			{
+				//Debug.Log("Exit Combat");
+				//Debug.Log ("Timer reset");
 				m_Timer = EXIT_COMBAT_TIME;
 				m_IsInCombat = false;
 				m_State = States.Patrol;
+				Debug.Log ("");
 			}
 			else
 			{
+				//Debug.Log("tick");
+
 				m_Timer -= Time.deltaTime;
 				m_State = States.Follow;
 			}
-
 		}
 
 		//not in combat so check if a player is in aggro range

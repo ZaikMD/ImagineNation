@@ -15,6 +15,9 @@ public class EnemySpawnManager : MonoBehaviour
 		{
 			m_EnemySpawn.Add(spawners[i].GetComponent<EnemySpawn>());
 		}
+
+		//Testing purposes
+		respawnAll ();
 	}
 
 	/// <summary>

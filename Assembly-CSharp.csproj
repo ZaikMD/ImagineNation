@@ -89,6 +89,8 @@
      <Compile Include="Assets\Scripts\Prototype\Items\BasePrimaryItem.cs" />
      <Compile Include="Assets\Scripts\Prototype\Items\BoxingGloves.cs" />
      <Compile Include="Assets\Scripts\Prototype\Items\Cape.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Items\Collectable.cs" />
+     <Compile Include="Assets\Scripts\Prototype\Items\CollectableInventory.cs" />
      <Compile Include="Assets\Scripts\Prototype\Items\DerekProjectile.cs" />
      <Compile Include="Assets\Scripts\Prototype\Items\NerfGun.cs" />
      <Compile Include="Assets\Scripts\Prototype\Items\NerfGunProjectile.cs" />

@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FurbullsProjectile : MonoBehaviour {
+public class FurbullsProjectile : MonoBehaviour 
+{
 	
 	public float m_Speed = 10.0f;
 	public float m_ProjectileRange = 2.0f;
@@ -39,5 +40,4 @@ public class FurbullsProjectile : MonoBehaviour {
 			Destroy (this.gameObject);
 		}
 	}
-
 }

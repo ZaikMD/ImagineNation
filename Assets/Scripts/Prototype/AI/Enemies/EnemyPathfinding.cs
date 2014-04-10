@@ -37,32 +37,34 @@ public class EnemyPathfinding : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		switch(m_State)
+		if(m_Agent.enabled == true)
 		{
-			case EnemyPathfindingStates.Pursue:
+			switch(m_State)
 			{
-				Pursue();
-			}
-			break;
+				case EnemyPathfindingStates.Pursue:
+				{
+					Pursue();
+				}
+				break;
 
-			case EnemyPathfindingStates.Combat:
-			{
-				Combat();
-			}
-			break;
+				case EnemyPathfindingStates.Combat:
+				{
+					Combat();
+				}
+				break;
 
-			case EnemyPathfindingStates.Patrol:
-			{
-				Patrol();
-			}
-			break;
+				case EnemyPathfindingStates.Patrol:
+				{
+					Patrol();
+				}
+				break;
 
-			case EnemyPathfindingStates.Unknown:
-			{
+				case EnemyPathfindingStates.Unknown:
+				{
+				}
+				break;
 			}
-			break;
 		}
-	
 	}
 
 	/// <summary>
