@@ -7,6 +7,7 @@ public class NerfGun : BasePrimaryItem
 {
 
 	public GameObject m_Alex;
+	public GameObject m_NerfGun;
 
 	//Current number of bullets in the clip
 	int m_NumberOfBullets;
@@ -27,6 +28,7 @@ public class NerfGun : BasePrimaryItem
 	{
 		//Full ammo
 		m_NumberOfBullets = maxBullets;
+		m_NerfGun.SetActive (false);
 	}
 	
 	void Update () 
@@ -54,7 +56,7 @@ public class NerfGun : BasePrimaryItem
 		//As long as the clip isn't empty
 		if(m_NumberOfBullets > 0)                                
 		{
-
+			m_NerfGun.SetActive(true);
 			Transform tempbullet;
 			//Play animation/sounds
 			SoundManager.Instance.playSound(Sounds.NerfGunBullet, this.transform.position);
@@ -68,6 +70,11 @@ public class NerfGun : BasePrimaryItem
 
 			m_NumberOfBullets--;
 		}
+
+		else
+		{
+			m_NerfGun.SetActive(false);
+		}
 	}
 		
 	public override void aimFire()
@@ -76,7 +83,13 @@ public class NerfGun : BasePrimaryItem
 		//with the new target
 		if(m_NumberOfBullets > 0)
 		{
+			m_NerfGun.SetActive(true);
 			fire();
+		}
+
+		else
+		{
+			m_NerfGun.SetActive(false);
 		}
 	}
 }
