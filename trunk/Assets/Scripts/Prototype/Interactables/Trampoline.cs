@@ -31,21 +31,24 @@ public class Trampoline : MonoBehaviour
 	{
 		if  (other.tag == "Player")
 		{
-			SoundManager.Instance.playSound(Sounds.Trampoline, this.transform.position);
-			m_Player = other.gameObject;
-			// Check if we want to double jump
-			if (m_DoubleJump)
-				m_CurrentMoveSpeed = m_DoubleMoveSpeed;
-			
-			else
+			if(other.name != "Alex")
 			{
-				m_CurrentMoveSpeed = m_MoveSpeed;
+				SoundManager.Instance.playSound(Sounds.Trampoline, this.transform.position);
+				m_Player = other.gameObject;
+				// Check if we want to double jump
+				if (m_DoubleJump)
+					m_CurrentMoveSpeed = m_DoubleMoveSpeed;
+				
+				else
+				{
+					m_CurrentMoveSpeed = m_MoveSpeed;
+				}
+
+
+				m_Player.GetComponent<PlayerMovement>().LaunchJump(m_CurrentMoveSpeed);
+				//reset double jump flag
+				m_DoubleJump = false;
 			}
-
-
-			m_Player.GetComponent<PlayerMovement>().LaunchJump(m_CurrentMoveSpeed);
-			//reset double jump flag
-			m_DoubleJump = false;
 					
 		}
 	}
