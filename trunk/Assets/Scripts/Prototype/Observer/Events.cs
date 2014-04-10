@@ -5,8 +5,12 @@ public enum ObeserverEvents
 	StartGame,
 	PauseGame,
 	Used,
-	PickUpIsAtDropZone,
 	DialogueBegin,
-	DialogueEnd
+	DialogueEnd,
+	PickUpIsAtDropZone,
+	HaveSecondItem,
+	SpokenToArmyMen,
+	HaveFoundPrivateRyan,
+	CanEnterTemple
 }
 

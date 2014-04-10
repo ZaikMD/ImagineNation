@@ -1,4 +1,13 @@
-﻿using UnityEngine;
+﻿/// <summary>
+/// 
+/// ALL THE CHECKPOINTS NEED TO BE NAMED
+/// CHECKPOINT1, CHECKPOINT2, CHECKPOINT3 ETC.
+/// THE START NEEDS TO BE CALLED STARTPOINT.
+/// 
+/// Checkpoint.
+/// </summary>
+
+using UnityEngine;
 using System.Collections;
 
 public class Checkpoint : MonoBehaviour 
@@ -20,9 +29,11 @@ public class Checkpoint : MonoBehaviour
 
 	void OnTriggerEnter(Collider other)
 	{
-		if (other.tag == "Character")
+		if (other.tag == "Player")
 		{
+			CheckpointManager.m_Instance.m_CurrentCheckPoint = this;
 			//m_CheckpointManager.setCurrentCheckPoint (this, other.gameObject.GetComponent<PlayerScript>());
+			PlayerPrefs.SetString("CurrentCheckPoint", this.gameObject.name);
 		}
 	}
 }

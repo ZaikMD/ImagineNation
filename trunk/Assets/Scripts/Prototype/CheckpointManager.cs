@@ -6,13 +6,13 @@ using System.Collections;
 public class CheckpointManager : MonoBehaviour 
 {
 
-	Checkpoint m_CurrentCheckPoint;
+	public Checkpoint m_CurrentCheckPoint;
 	
 	bool m_DoesAlexHaveSecondItem;
 	bool m_DoesDerekHaveSecondItem;
 	bool m_DoesZoeyHaveSecondItem;
 
-	GameObject m_CurrentPlayer;
+	public GameObject m_CurrentPlayer;
 	
 	//bool m_CollectiblesFound[amount of collectibles in level];
 	
@@ -54,7 +54,7 @@ public class CheckpointManager : MonoBehaviour
 //		//m_DoesAlexHaveSecondItem = playerScript.m_HaveSecondItem;
 //	}
 	
-//	public void RespawnPlayer(GameObject player)
+	//public void RespawnPlayer(GameObject player)
 //	{
 //		PlayerScript playerScript = player.GetComponent(PlayerScript);
 //		
@@ -72,16 +72,17 @@ public class CheckpointManager : MonoBehaviour
 //		}
 //
 //		//check to see if player one;
-//		if (player->isPlayerOne)
+//		if(m_CurrentPlayer.GetComponent<PlayerState>().m_IsActive)
 //		{
-//			player->transform.position = m_CurrentCheckPoint.transform.position;
+//			m_CurrentPlayer.transform.position = m_CurrentCheckPoint.transform.position;
+//			//m_CurrentPlayer..GetComponent<PlayerState>().m
+//
 //		}
 //		else
-//		{
-//			//if not player one spawn them slightly over so they don't spawn in the same spot.
+//		{			//if not player one spawn them slightly over so they don't spawn in the same spot.
 //			player->transform.position = m_CurrentCheckPoint.transform.position + vec3(0.5, 0, 0);
 //		}
-//		
+////		
 //	}
 
 }
