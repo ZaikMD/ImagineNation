@@ -1113,6 +1113,9 @@ public class PauseMenu : MonoBehaviour , Observer
         PlayerPrefs.SetInt("PlayerTwo" + slot, (int)m_PlayerTwo);
         PlayerPrefs.SetString("PlayerNameOne" + slot, m_PlayerOneSelected);
         PlayerPrefs.SetString("PlayerNameTwo" + slot, m_PlayerTwoSelected); 
+		PlayerPrefs.SetString("Checkpoint" + slot, PlayerPrefs.GetString("CurrentCheckpoint"));
+		//TODO add save stage, 
+		PlayerPrefs.SetString ("LevelStage" + slot, PlayerPrefs.GetString ("CurrentLevelStage"));
     }
 
 	/// <summary>

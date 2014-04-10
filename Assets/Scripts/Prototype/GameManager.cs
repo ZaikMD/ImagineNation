@@ -11,6 +11,16 @@ public class GameManager : Subject
 
 	bool m_IsPaused = false;
 
+	public enum Stage
+	{
+		StageOne,
+		StageTwo,
+		StageThree,
+		StageFour
+	}
+
+	public Stage m_CurrentStage;
+
 
 	void Awake()
 	{
@@ -43,6 +53,11 @@ public class GameManager : Subject
 			}
 			m_IsPaused = !m_IsPaused;
 		}
+
+
+
+
+
 	}
 
 
@@ -56,5 +71,53 @@ public class GameManager : Subject
 			m_IsPaused = false;
 		}
 		sendEvent(ObeserverEvents.StartGame);
+
+
+
 	}
+
+	public void levelState()
+	{
+		switch(m_CurrentStage)
+		{
+			case Stage.StageOne:
+			{
+				sendEvent(ObeserverEvents.HaveSecondItem);
+				break;
+			}
+
+			case Stage.StageTwo:
+			{
+				sendEvent(ObeserverEvents.SpokenToArmyMen);
+				sendEvent(ObeserverEvents.HaveSecondItem);
+				break;
+			}
+
+			case Stage.StageThree:
+			{
+				sendEvent(ObeserverEvents.HaveFoundPrivateRyan);
+				sendEvent(ObeserverEvents.SpokenToArmyMen);
+				sendEvent(ObeserverEvents.HaveSecondItem);
+				break;
+			}
+
+			case Stage.StageFour:
+			{
+				sendEvent(ObeserverEvents.CanEnterTemple);
+				sendEvent(ObeserverEvents.HaveFoundPrivateRyan);
+				sendEvent(ObeserverEvents.SpokenToArmyMen);
+				sendEvent(ObeserverEvents.HaveSecondItem);
+				break;
+			}
+		}
+	}
+
+	public void nextLevelState()
+	{
+		m_CurrentStage += 1;
+		levelState ();
+	}
+
+
+
 }

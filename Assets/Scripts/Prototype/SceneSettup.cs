@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class SceneSettup : MonoBehaviour 
 {
@@ -10,16 +11,27 @@ public class SceneSettup : MonoBehaviour
     public Camera m_DerekCamera;
     public GameObject m_Zoey;
     public Camera m_ZoeyCamera;
-
+	List<GameObject> m_Checkpoints;
 
 	Player m_PlayerOne;
 	Player m_PlayerTwo;
+
+
+
+	GameObject m_StartPoint;
 
 	void Awake()
 	{
 		m_PlayerOne = (Player)PlayerPrefs.GetInt ("CurrentPlayerOne");
 		m_PlayerTwo = (Player)PlayerPrefs.GetInt ("CurrentPlayerTwo");
 		activatePlayers ();
+
+		m_StartPoint = GameObject.Find (PlayerPrefs.GetString ("CurrentCheckPoint"));
+
+		CheckpointManager.m_Instance.m_CurrentCheckPoint = m_StartPoint.GetComponent<Checkpoint> ();
+
+//		GameManager.Instance.m_CurrentStage = (Stage)PlayerPrefs.GetInt ("CurrentLevelStage");
+			
 	}
 
     void activatePlayers()
@@ -37,6 +49,9 @@ public class SceneSettup : MonoBehaviour
 					destroyCamera(m_DerekCamera);
 					destroyCamera(m_ZoeyCamera);
 					m_Alex.GetComponentInChildren<CameraController>().enabled = true;
+
+		//TODO			m_Alex.transform.position = m_Checkpoint.transform.position;
+
                     break;
                 }
 
@@ -47,12 +62,13 @@ public class SceneSettup : MonoBehaviour
 					m_Derek.GetComponent<PlayerAIStateMachine>().m_IsActive = false;
                 	destroyCamera(m_AlexCamera);
 					destroyCamera(m_ZoeyCamera);
-					
 					m_Alex.GetComponent<PlayerMovement>().m_CameraTransform = m_DerekCamera.transform;
 					m_Zoey.GetComponent<PlayerMovement>().m_CameraTransform = m_DerekCamera.transform;
+					m_Derek.GetComponentInChildren<CameraController>().enabled = true;
+                    
+			//TODO			m_Derek.transform.position = m_Checkpoint.transform.position;
 
-			        m_Derek.GetComponentInChildren<CameraController>().enabled = true;
-                    break;
+					break;
                 }
 
             case Player.Zoey:
@@ -62,12 +78,13 @@ public class SceneSettup : MonoBehaviour
 					m_Zoey.GetComponent<PlayerAIStateMachine>().m_IsActive = false;
                    	destroyCamera(m_DerekCamera);
 					destroyCamera(m_AlexCamera);
-					
 					m_Derek.GetComponent<PlayerMovement>().m_CameraTransform = m_ZoeyCamera.transform;
 					m_Alex.GetComponent<PlayerMovement>().m_CameraTransform = m_ZoeyCamera.transform;
-					
-                    m_Zoey.GetComponentInChildren<CameraController>().enabled = true;
-                    break;
+					m_Zoey.GetComponentInChildren<CameraController>().enabled = true;
+                    
+			//TODO			m_Zoey.transform.position = m_Checkpoint.transform.position;
+							
+					break;
                 }
        
         }
@@ -89,7 +106,12 @@ public class SceneSettup : MonoBehaviour
 						
                     m_Alex.GetComponent<AlexPlayerState>().m_IsActive = false;
                     m_Alex.GetComponent<PlayerAIStateMachine>().m_IsActive = true;
-                   // m_AlexCamera.enabled = false;
+                   
+
+				//	Vector3 position = new Vector3(m_Checkpoint.transform.position.x - 5, m_Checkpoint.transform.position.y, m_Checkpoint.transform.position.z);
+			//TODO			m_Alex.transform.position = position;
+
+
 					break;
                 }
 
@@ -108,6 +130,12 @@ public class SceneSettup : MonoBehaviour
                     m_Derek.GetComponent<DerekPlayerState>().m_IsActive = false;
                     m_DerekCamera.enabled = false;
                     m_Derek.GetComponent<PlayerAIStateMachine>().m_IsActive = true;
+
+
+			//	Vector3 position = new Vector3(m_Checkpoint.transform.position.x - 5, m_Checkpoint.transform.position.y, m_Checkpoint.transform.position.z);
+			//TODO		m_Derek.transform.position = position;
+
+
                     break;
                 }
 
@@ -126,10 +154,17 @@ public class SceneSettup : MonoBehaviour
                     m_Zoey.GetComponent<ZoeyPlayerState>().m_IsActive = false; 
                     m_ZoeyCamera.enabled = false;
                     m_Zoey.GetComponent<PlayerAIStateMachine>().m_IsActive = true;
+
+			//	Vector3 position = new Vector3(m_Checkpoint.transform.position.x - 5, m_Checkpoint.transform.position.y, m_Checkpoint.transform.position.z);
+			//TODO		m_Derek.transform.position = position;
+
+
                     break;
                 }
 
         }
+
+
     }
 
 
