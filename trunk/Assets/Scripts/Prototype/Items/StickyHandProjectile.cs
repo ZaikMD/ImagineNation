@@ -155,14 +155,14 @@ public class StickyHandProjectile : MonoBehaviour {
 	void updateStickyLine()
 	{
 		//Set lines position to between Zoey and this projectile
-		m_ProjectileLine.transform.position = Vector3.Lerp (m_Zoey.transform.position, transform.position, 0.5f);
+		m_ProjectileLine.transform.position = Vector3.Lerp (m_Zoey.transform.position + m_Zoey.transform.right / 2.0f, transform.position, 0.5f);
 
 		//Angle it properly
 		m_ProjectileLine.transform.LookAt (transform.position);
 		m_ProjectileLine.transform.Rotate (new Vector3 (90,0,0));
 
 		//Resize length
-		m_ProjectileLine.transform.localScale = new Vector3 (m_ProjectileLine.transform.localScale.x, Vector3.Distance (m_Zoey.transform.position, transform.position) / 2.0f, m_ProjectileLine.transform.localScale.z);
+		m_ProjectileLine.transform.localScale = new Vector3 (m_ProjectileLine.transform.localScale.x, Vector3.Distance (m_Zoey.transform.position + m_Zoey.transform.right / 2.0f, transform.position) / 2.0f, m_ProjectileLine.transform.localScale.z);
 	}
 
 	/// <summary>
