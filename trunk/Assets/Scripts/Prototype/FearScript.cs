@@ -17,16 +17,23 @@
 /// if you add another object that needs to ignore fear zones, call the 
 /// appropriate ignore fear zones or ignoreFears for all.
 /// 
+/// 
+/// 
+/// 4/9/2014
+/// 	Changed darkness to a list.
+/// 	When the light is triggered, now removes darkness from the list, instead of having zoey ignore the darkness.
+/// 
 /// </summary>
 
 
 
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class FearScript : MonoBehaviour {
 
-    GameObject[] m_DarkFear;
+    List<GameObject> m_DarkFear = new List<GameObject>();
     GameObject[] m_ClaustrophobiaFear;
     GameObject[] m_HeightFear;
     GameObject[] m_Players;
@@ -219,7 +226,7 @@ public class FearScript : MonoBehaviour {
     {
 		m_Players = GameObject.FindGameObjectsWithTag("Player");
 		m_NerfDarts = GameObject.FindGameObjectsWithTag("NerfDart");
-		m_DarkFear = GameObject.FindGameObjectsWithTag("Darkness");
+		m_DarkFear.AddRange (GameObject.FindGameObjectsWithTag("Darkness"));
 		m_ClaustrophobiaFear = GameObject.FindGameObjectsWithTag("Claustrophobia");
 		m_HeightFear = GameObject.FindGameObjectsWithTag("Height");
 		m_Enemys = GameObject.FindGameObjectsWithTag("Enemy");		
@@ -228,5 +235,13 @@ public class FearScript : MonoBehaviour {
         setNerfDartIgnore();
         setEnemyIgnore();
     }
+
+	/// <summary>
+	/// Removes the provided darkness fear gameObject.
+	/// </summary>
+	public void removeDarknessFear(GameObject darkness)
+	{
+		m_DarkFear.Remove(darkness);
+	}
 
 }
