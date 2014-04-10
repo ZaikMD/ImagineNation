@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Lever : InteractableBaseClass 
+public class Lever : InteractableBaseClass
 {
 	//Bools
 	private bool m_IsOn; 
@@ -21,6 +21,7 @@ public class Lever : InteractableBaseClass
 	public void toggleIsOn()
 	{
 		sendEvent (ObeserverEvents.Used); //Sends an event saying the switch was used
+		sendEvent (ObeserverEvents.DestroyObject); //Sends and event saying to destroy an object
 	}
 
 	void OnTriggerEnter(Collider obj)

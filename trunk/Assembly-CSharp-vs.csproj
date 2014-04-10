@@ -113,6 +113,7 @@
      <Compile Include="Assets\Scripts\Prototype\Players\DerekPlayerState.cs" />
      <Compile Include="Assets\Scripts\Prototype\Players\PlayerState.cs" />
      <Compile Include="Assets\Scripts\Prototype\Players\ZoeyPlayerState.cs" />
+     <Compile Include="Assets\Scripts\Prototype\RemoveCollider.cs" />
      <Compile Include="Assets\Scripts\Prototype\Reticle.cs" />
      <Compile Include="Assets\Scripts\Prototype\SceneSettup.cs" />
      <Compile Include="Assets\Scripts\Prototype\Setting.cs" />
