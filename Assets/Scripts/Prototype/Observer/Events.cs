@@ -5,6 +5,8 @@ public enum ObeserverEvents
 	StartGame,
 	PauseGame,
 	Used,
-	PickUpIsAtDropZone
+	PickUpIsAtDropZone,
+	DialogueBegin,
+	DialogueEnd
 }
 
