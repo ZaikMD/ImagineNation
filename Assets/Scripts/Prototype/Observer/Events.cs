@@ -11,6 +11,7 @@ public enum ObeserverEvents
 	HaveSecondItem,
 	SpokenToArmyMen,
 	HaveFoundPrivateRyan,
-	CanEnterTemple
+	CanEnterTemple,
+	DestroyObject
 }
 
