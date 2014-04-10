@@ -10,7 +10,9 @@ public class EnemySpawn : MonoBehaviour
 		Count
 	}
 
-	public BaseEnemy m_Enemy;
+	public GameObject m_Prefab;
+
+	BaseEnemy m_Enemy;
 	EnemyTypes m_EnemyType;
 
 	/// <summary>
@@ -20,17 +22,20 @@ public class EnemySpawn : MonoBehaviour
 	{
 		if(m_Enemy != null)
 		{
-			m_Enemy.reset();
+			m_Enemy.Reset();
 		}
-//		else
-//		{
-//			switch(m_EnemyType)
-//			{
-//				case(Furbull)
-//				{
-//
-//				}
-//			}
-//		}
+		else
+		{
+			switch(m_EnemyType)
+			{
+				case  EnemyTypes.Furbull:
+				{
+					GameObject enemy = (GameObject)Instantiate(m_Prefab, this.transform.position, this.transform.rotation);
+							
+					m_Enemy = enemy.GetComponent<BaseEnemy>();
+					break;
+				}
+			}
+		}
 	}
 }
