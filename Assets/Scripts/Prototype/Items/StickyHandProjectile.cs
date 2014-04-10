@@ -115,6 +115,12 @@ public class StickyHandProjectile : MonoBehaviour {
 			m_State = States.Retracting;
 		}
 		//Hit while retracting does nothing
+
+		if(other.gameObject.tag == "NerfTarget")
+		{
+			Targets target = other.gameObject.GetComponent<Targets>();
+			target.m_Active = false;
+		}
 	}
 
 	//Retract
