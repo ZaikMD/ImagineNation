@@ -92,6 +92,16 @@ public class NPC : InteractableBaseClass {
 	{
 		m_Player = obj;
 		m_ShowText = show;
+
+		//dialog begin/end
+		if (m_ShowText)
+		{
+			sendEvent(ObeserverEvents.DialogueBegin);
+		}
+		else
+		{
+			sendEvent(ObeserverEvents.DialogueEnd);
+		}
 	}
 
 	//Adds the next letter to the speech
