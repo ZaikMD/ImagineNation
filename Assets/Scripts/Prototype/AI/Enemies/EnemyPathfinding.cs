@@ -97,6 +97,7 @@ public class EnemyPathfinding : MonoBehaviour
 	/// </summary>
 	void Patrol()
 	{
+		//Debug.Log ("Patrol State");
 		m_Agent.stoppingDistance = 0;
 
 		if(m_Target == null)
