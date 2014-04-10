@@ -20,6 +20,9 @@ ModelImporter:
     4300000: Line034
     4300002: Box387
     4300004: Rectangle015
+    6400000: Box387
+    6400002: Line034
+    6400004: Rectangle015
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -41,7 +44,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: .00999999978
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
