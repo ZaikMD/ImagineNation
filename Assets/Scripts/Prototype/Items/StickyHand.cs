@@ -44,10 +44,10 @@ public class StickyHand : BasePrimaryItem {
 	{
 		if (!m_Projectile.activeInHierarchy)
 		{
-			m_Projectile.transform.position = this.transform.position + this.transform.forward;
+			m_Projectile.transform.position = transform.position + transform.forward + transform.right / 2.0f;
 			m_ProjectileComponent.activate(getTargetDirection());
 
-			SoundManager.Instance.playSound(Sounds.StickyHandShot, this.transform.position);
+			SoundManager.Instance.playSound(Sounds.StickyHandShot, transform.position);
 		}
 	}
 
