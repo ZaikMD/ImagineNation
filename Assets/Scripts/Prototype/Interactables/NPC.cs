@@ -4,7 +4,9 @@ TO USE:
 
 Attach script to NPC.
 
-Set text in unity.
+Add trigger collider to object.
+
+Set the text to draw, and the number of lines to break the text into.
 
 
 
@@ -18,6 +20,7 @@ Created by Jason Hein
 
 4/9/2014
 	Now delays text and punctuation.
+	Added chat bubble.
 */
 
 
@@ -29,6 +32,7 @@ public class NPC : InteractableBaseClass {
 
 	//Text to show
 	public string m_Text = " ";
+	public int m_Lines = 1;
 	string m_ShownText = "";
 
 	//Is interacted with
@@ -43,6 +47,7 @@ public class NPC : InteractableBaseClass {
 	//Variables for designers
 	public Vector2 m_NormalizedTextPos = new Vector2(0.45f, 0.5f);
 	Rect m_Rectangle;
+	Rect m_ChatRect;
 
 	//Font size
 	public float m_FontSize = 20.0f;
@@ -53,6 +58,7 @@ public class NPC : InteractableBaseClass {
 	//Index of letter
 	int m_Index = 0;
 
+	//Texture
 	Texture2D m_SpeechBubble;
 
 
@@ -63,11 +69,12 @@ public class NPC : InteractableBaseClass {
 		m_IsExitable = false;
 		m_Type = InteractableType.NPC;
 
-		m_SpeechBubble = (Texture2D)Resources.Load("CrossHair_HighlitedState");
+		m_SpeechBubble = (Texture2D)Resources.Load("ChatBox");
 
 		//Where to draw the text
 		m_Rectangle = new Rect (m_NormalizedTextPos.x * Screen.width - m_FontSize, m_NormalizedTextPos.y * Screen.height - m_FontSize,
-		                        m_FontSize * m_Text.Length * 0.55f, m_FontSize * 1.25f);
+		                        m_FontSize * m_Text.Length / m_Lines * 0.55f, m_FontSize * 1.5f * m_Lines);
+		m_ChatRect = new Rect (m_Rectangle.x - m_FontSize / 2.0f, m_Rectangle.y - m_FontSize / 2.0f, m_Rectangle.width + m_FontSize / 2.0f, m_Rectangle.height + m_FontSize / 2.0f);
 	}
 
 	// On tick
@@ -149,7 +156,7 @@ public class NPC : InteractableBaseClass {
 		{
 			//Add font size and color
 
-			GUI.DrawTexture(m_Rectangle, m_SpeechBubble);
+			GUI.DrawTexture(m_ChatRect, m_SpeechBubble);
 			string text = "<color=black><size=" + m_FontSize + ">" + m_ShownText + "</size></color>";
 			GUI.Label(m_Rectangle, text);
 		}
