@@ -146,8 +146,12 @@ public class NerfGunProjectile : MonoBehaviour
 	
 	void CollidedWithEnemy(GameObject enemy)
 	{
-		Destroy (this.gameObject);              
-		//enemy.applyDamage();
+
+		BaseEnemy baseEnemy = enemy.gameObject.GetComponent<BaseEnemy>();
+		
+		baseEnemy.applyDamage(10);
+
+		Destroy (this.gameObject);            
 	}
 	
 	void CollidedWithNerfWall(GameObject nerfWall)
