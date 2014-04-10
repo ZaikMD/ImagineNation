@@ -1,26 +1,61 @@
-﻿using UnityEngine;
+﻿/*
+TO USE:
+
+
+Attach script to NPC.
+
+Set text in unity.
+
+
+
+
+
+
+Created by Jason Hein
+
+
+
+
+4/9/2014
+	Now delays text and punctuation.
+*/
+
+
+
+using UnityEngine;
 using System.Collections;
 
 public class NPC : InteractableBaseClass {
 
 	//Text to show
 	public string m_Text = " ";
+	string m_ShownText = "";
 
 	//Is interacted with
 	bool m_ShowText = false;
 
-	//Timer for how long to keep text on screen
-	float m_Timer = 0.0f;
-	public float m_TimerLength = 5.0f;
+	//Letter timer
+	float m_LetterTimer = 0.0f;
+	const float DEFAULT_SPEECH_SPEED = 0.04f;
+	const float PERIOD_SPEECH_DELAY = 0.7f;
+	const float END_SPEECH_DELAY = 2.0f;
 
 	//Variables for designers
-	public Vector2 m_NormalizedTextPos = new Vector2(0.5f, 0.5f);
+	public Vector2 m_NormalizedTextPos = new Vector2(0.45f, 0.5f);
 	Rect m_Rectangle;
 
 	//Font size
 	public float m_FontSize = 20.0f;
 
+	//Player to renable movmeent
 	GameObject m_Player = null;
+
+	//Index of letter
+	int m_Index = 0;
+
+	Texture2D m_SpeechBubble;
+
+
 
 	// Initialization
 	void Start ()
@@ -28,26 +63,20 @@ public class NPC : InteractableBaseClass {
 		m_IsExitable = false;
 		m_Type = InteractableType.NPC;
 
+		m_SpeechBubble = (Texture2D)Resources.Load("CrossHair_HighlitedState");
+
 		//Where to draw the text
 		m_Rectangle = new Rect (m_NormalizedTextPos.x * Screen.width - m_FontSize, m_NormalizedTextPos.y * Screen.height - m_FontSize,
-		                        m_NormalizedTextPos.x * Screen.width + m_FontSize, m_NormalizedTextPos.y * Screen.height + m_FontSize);
-
-		//Add text size and color
-		m_Text = "<color=black><size=" + m_FontSize + ">" + m_Text + "</size></color>";
+		                        m_FontSize * m_Text.Length * 0.55f, m_FontSize * 1.25f);
 	}
 
 	// On tick
 	void Update ()
 	{
-		if (m_Timer > 0.0f)
+		//Add text to talk bubble
+		if (m_ShowText)
 		{
-			m_Timer -= Time.deltaTime;
-
-			if (m_Timer <= 0.0f)
-			{
-				m_Player.GetComponent<PlayerState>().exitInteracting();
-				setShowText(false, null);
-			}
+			addToTalk();
 		}
 	}
 
@@ -55,15 +84,43 @@ public class NPC : InteractableBaseClass {
 	public void setShowText(bool show, GameObject obj)
 	{
 		m_Player = obj;
-
 		m_ShowText = show;
-		if (m_ShowText == true)
+	}
+
+	//Adds the next letter to the speech
+	void addToTalk()
+	{
+		if (m_LetterTimer <= 0.0f && m_Index < m_Text.Length)
 		{
-			m_Timer = m_TimerLength;
+			//Delay at sentence pauses
+			if (m_Text[m_Index] == '.' || m_Text[m_Index] == ',' || m_Text[m_Index] == '!' || m_Text[m_Index] == '?')
+			{
+				m_LetterTimer = PERIOD_SPEECH_DELAY;
+			}
+			else if (m_Index == m_Text.Length)
+			{
+				m_LetterTimer = END_SPEECH_DELAY;
+			}
+			else
+			{
+				m_LetterTimer = DEFAULT_SPEECH_SPEED;
+			}
 
-
-			//GREG PLAY SOUNG HERE <-------------------------------------------------------------
-
+			//Add text
+			m_ShownText += m_Text[m_Index];
+			m_Index++;
+		}
+		else if (m_LetterTimer > 0.0f)
+		{
+			m_LetterTimer -= Time.deltaTime;
+		}
+		else
+		{
+			m_Player.GetComponent<PlayerState>().exitInteracting();
+			setShowText(false, null);
+			
+			m_ShownText = " ";
+			m_Index = 0;
 		}
 	}
 
@@ -90,7 +147,11 @@ public class NPC : InteractableBaseClass {
 	{
 		if (m_ShowText)
 		{
-			GUI.Label(m_Rectangle, m_Text);
+			//Add font size and color
+
+			GUI.DrawTexture(m_Rectangle, m_SpeechBubble);
+			string text = "<color=black><size=" + m_FontSize + ">" + m_ShownText + "</size></color>";
+			GUI.Label(m_Rectangle, text);
 		}
 	}
 
