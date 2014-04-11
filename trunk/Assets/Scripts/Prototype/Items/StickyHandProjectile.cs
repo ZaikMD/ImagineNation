@@ -104,7 +104,7 @@ public class StickyHandProjectile : MonoBehaviour {
 			}
 			//Fix projectile not hitting player
 			rigidbody.velocity = Vector3.zero;
-			(collider as CapsuleCollider).radius = 4.0f;
+			(collider as CapsuleCollider).radius = 10.0f;
 
 			//You cannot move while launching
 			m_Movement.setCanMove(false);
@@ -198,7 +198,7 @@ public class StickyHandProjectile : MonoBehaviour {
 		{
 			m_Movement = (PlayerMovement)m_Zoey.GetComponent<PlayerMovement>();
 		}
-		(collider as CapsuleCollider).radius = 2.0f;
+		(collider as CapsuleCollider).radius = 7.0f;
 
 		//Save position for accurate distance calculations
 		m_OriginalPosition = transform.position;
