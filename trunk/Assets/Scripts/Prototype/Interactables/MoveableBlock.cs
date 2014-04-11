@@ -29,6 +29,7 @@ public class MoveableBlock : InteractableBaseClass
 	Vector3 m_SavedLocalPos;
 	Quaternion m_SavedLocalRotation;
 	bool m_InUse = false;
+	
 
 	void Start()
 	{

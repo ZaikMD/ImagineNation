@@ -47,6 +47,8 @@ public abstract class PlayerState : MonoBehaviour, Observer
 
 	public CameraController m_CameraController;
 
+
+
     void Awake()
     {
 	
