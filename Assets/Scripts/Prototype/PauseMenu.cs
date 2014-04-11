@@ -1113,12 +1113,9 @@ public class PauseMenu : MonoBehaviour , Observer
 	/// <param name="slot">this is the Slot that is being saved to.</param>
     void saveGame(int slot)
     {
-        PlayerPrefs.SetInt("PlayerOne" + slot, (int)m_PlayerOne);
+		PlayerPrefs.SetInt("PlayerOne" + slot, (int)m_PlayerOne);
         PlayerPrefs.SetInt("PlayerTwo" + slot, (int)m_PlayerTwo);
-        PlayerPrefs.SetString("PlayerNameOne" + slot, m_PlayerOneSelected);
-        PlayerPrefs.SetString("PlayerNameTwo" + slot, m_PlayerTwoSelected); 
-		PlayerPrefs.SetString("Checkpoint" + slot, PlayerPrefs.GetString("CurrentCheckpoint"));
-		//TODO add save stage, 
+   		PlayerPrefs.SetString("Level" + slot, PlayerPrefs.GetString("CurrentLevel"));
 		PlayerPrefs.SetString ("LevelStage" + slot, PlayerPrefs.GetString ("CurrentLevelStage"));
     }
 
