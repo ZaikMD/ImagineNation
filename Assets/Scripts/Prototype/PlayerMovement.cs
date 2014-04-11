@@ -306,4 +306,13 @@ public class PlayerMovement : MonoBehaviour
 
 		m_Controller.Move (move * PUSHING_BLOCK_SPEED * Time.deltaTime);
 	}
+
+	/// <summary>
+	/// Calls regular Move function
+	/// </summary>
+	/// <param name="movement">Movement.</param>
+	public void Move(Vector3 movement)
+	{
+		m_Controller.Move (movement);
+	}
 }
