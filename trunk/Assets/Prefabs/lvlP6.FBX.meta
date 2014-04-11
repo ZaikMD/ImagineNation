@@ -370,6 +370,77 @@ ModelImporter:
     4300136: Cylinder366
     4300138: Cylinder071
     4300140: Cylinder072
+    6400000: Box133
+    6400002: Box134
+    6400004: Box135
+    6400006: Box136
+    6400008: Box137
+    6400010: Box138
+    6400012: Box139
+    6400014: Box140
+    6400016: Box141
+    6400018: Box142
+    6400020: Box143
+    6400022: Box144
+    6400024: Box145
+    6400026: Box146
+    6400028: Box148
+    6400030: Box149
+    6400032: Box151
+    6400034: Box152
+    6400036: Box153
+    6400038: Box154
+    6400040: Box155
+    6400042: Box156
+    6400044: Box157
+    6400046: Box159
+    6400048: Box161
+    6400050: Box162
+    6400052: Box164
+    6400054: Box169
+    6400056: Box177
+    6400058: Box179
+    6400060: Box180
+    6400062: Box188
+    6400064: Box189
+    6400066: Box232
+    6400068: Box233
+    6400070: Box234
+    6400072: Box235
+    6400074: Box236
+    6400076: Box312
+    6400078: Box408
+    6400080: Box409
+    6400082: Box410
+    6400084: Box493
+    6400086: Box494
+    6400088: Box495
+    6400090: Cylinder062
+    6400092: Cylinder063
+    6400094: Cylinder064
+    6400096: Cylinder065
+    6400098: Cylinder066
+    6400100: Cylinder067
+    6400102: Cylinder068
+    6400104: Cylinder069
+    6400106: Cylinder070
+    6400108: Cylinder071
+    6400110: Cylinder072
+    6400112: Cylinder073
+    6400114: Cylinder074
+    6400116: Cylinder075
+    6400118: Cylinder077
+    6400120: Cylinder078
+    6400122: Cylinder079
+    6400124: Cylinder080
+    6400126: Cylinder108
+    6400128: Cylinder111
+    6400130: Cylinder366
+    6400132: Rectangle004
+    6400134: Rectangle005
+    6400136: Sphere003
+    6400138: Sphere004
+    6400140: Text008
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -391,7 +462,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: .00999999978
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
