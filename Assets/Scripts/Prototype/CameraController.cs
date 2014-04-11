@@ -100,7 +100,6 @@ public class CameraController : MonoBehaviour
 	float m_CollisionTimer = 0.0f;
 	float m_Zoom_Collision = 0.0f;
 	bool m_CollisionZoom = false;
-	float COLLISION_MAX_THINNESS_OF_OBJECT = 3.0f;
 
 	//Reticle
 	Reticle m_Reticle;
@@ -117,6 +116,7 @@ public class CameraController : MonoBehaviour
 	const float COLLISION_ZOOM_SPEED = 0.15f;
 	const float COLLISION_CHECK_RANGE = 2.0f;
 	const float COLLISION_TURN_AMOUNT = 2.0f;
+	float COLLISION_MAX_THINNESS_OF_OBJECT = 2.0f;
 
 
 
