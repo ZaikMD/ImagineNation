@@ -8,7 +8,7 @@ script wasnt compileing
 
 /*
 
-3/29/2014 - Jason
+3/29/2014 - Jason "The Casual" Hein
 	Now has a load function inheriting classes can call in their start functions
 	Now is enabled by default
 

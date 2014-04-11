@@ -11,7 +11,7 @@ Created by Kris
 
 
 
-4/9/2014 - Jason
+4/9/2014 - Jason "The Casual" Hein
 	Now removes the darkness in the fear script
 	Added comments
 */

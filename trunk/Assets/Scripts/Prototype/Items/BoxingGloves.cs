@@ -1,6 +1,6 @@
 ﻿/*
 
-3/29/2014 - Jason
+3/29/2014 - Jason "The Casual" Hein
 	Now properly overrides base primary item's fire functions
 
 

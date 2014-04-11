@@ -9,7 +9,7 @@ Zoey must be tagged according to the script (currently "Zoey")
 All the projectile is, is a prefab with a rigid body.
 
 3/23/2014
-	Created by Jason Hein
+	Created by Jason "The Casual" Hein
 3/25/2014
 	Disabled movement while firing.
 	Currently buggy if movement is enabled while firing

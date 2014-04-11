@@ -10,7 +10,7 @@ Collectable inventory script must exist as a singleton.
 
 
 
-Created by Jason Hein
+Created by Jason "The Casual" Hein
 
 */
 

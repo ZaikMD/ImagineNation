@@ -10,7 +10,7 @@ Set this camera's local position to where you'd like it in relation to the objec
 
 
 
-Created by Jason Hein on 3/1/2014
+Created by Jason "The Casual" Hein on 3/1/2014
 
 
 3/2/2014
