@@ -594,6 +594,7 @@ public class Menu : MonoBehaviour {
 							PlayerPrefs.SetString("CurrentCheckpoint", "StartPoint");
 							setPlayer();
 
+
                         }
 
                         //Back
