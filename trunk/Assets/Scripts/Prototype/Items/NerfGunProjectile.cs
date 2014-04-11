@@ -38,6 +38,7 @@ public class NerfGunProjectile : MonoBehaviour
 		m_State = NerfGunProjectileState.Default;
 		transform.Rotate(new Vector3(m_StartRotation, 0.0f, 0.0f));
 
+
 	}
 	
 	// Update is called once per frame
@@ -115,6 +116,7 @@ public class NerfGunProjectile : MonoBehaviour
 			
 		case "NerfWall" :
 				CollidedWithNerfWall(other.gameObject);
+				
 			break;
 			
 		case "NerfTarget" :
@@ -127,13 +129,6 @@ public class NerfGunProjectile : MonoBehaviour
 			{
 				Destroy (this.gameObject);
 				break;
-			}
-			else
-			{
-				if(other.gameObject.name == "Alex")
-				{
-					Destroy (this.gameObject);
-				}
 			}
 			break;
 		}
