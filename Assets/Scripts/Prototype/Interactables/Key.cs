@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Key : Subject 
 {
-	void OnCollisionEnter(Collider other)
+	void OnTriggerEnter(Collider other)
 	{
 		if(other.gameObject.tag == "Player")
 		{
