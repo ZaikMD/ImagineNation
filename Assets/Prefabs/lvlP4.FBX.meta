@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 66015b49dea81714fb007d68b66bc113
+guid: 673e63a5a93519a4cadf5c890c27873a
 ModelImporter:
   serializedVersion: 15
   fileIDToRecycleName:
@@ -79,8 +79,7 @@ ModelImporter:
     100146: Rectangle005
     100148: Sphere003
     100150: Sphere004
-    100152: Text008
-    100154: walls
+    100152: walls
     400000: Box133
     400002: Box134
     400004: Box135
@@ -157,8 +156,7 @@ ModelImporter:
     400146: Rectangle005
     400148: Sphere003
     400150: Sphere004
-    400152: Text008
-    400154: walls
+    400152: walls
     2300000: Box133
     2300002: Box134
     2300004: Box135
@@ -228,7 +226,6 @@ ModelImporter:
     2300132: Rectangle005
     2300134: Sphere003
     2300136: Sphere004
-    2300138: Text008
     3300000: Box133
     3300002: Box134
     3300004: Box135
@@ -298,7 +295,6 @@ ModelImporter:
     3300132: Rectangle005
     3300134: Sphere003
     3300136: Sphere004
-    3300138: Text008
     4300000: Cylinder366
     4300002: Cylinder068
     4300004: Box159
@@ -338,37 +334,36 @@ ModelImporter:
     4300072: Box153
     4300074: Cylinder108
     4300076: Box155
-    4300078: Text008
-    4300080: Box161
-    4300082: Box162
-    4300084: Box135
-    4300086: Sphere003
-    4300088: Box133
-    4300090: Rectangle005
-    4300092: Cylinder062
-    4300094: Box136
-    4300096: Cylinder063
-    4300098: Box137
-    4300100: Cylinder064
-    4300102: Box138
-    4300104: Box139
-    4300106: Box140
-    4300108: Box141
-    4300110: Box142
-    4300112: Box143
-    4300114: Box144
-    4300116: Box145
-    4300118: Box146
-    4300120: Cylinder078
-    4300122: Box232
-    4300124: Box233
-    4300126: Box234
-    4300128: Box235
-    4300130: Box236
-    4300132: Cylinder079
-    4300134: Cylinder075
-    4300136: Box148
-    4300138: Cylinder080
+    4300078: Box161
+    4300080: Box162
+    4300082: Box135
+    4300084: Sphere003
+    4300086: Box133
+    4300088: Rectangle005
+    4300090: Cylinder062
+    4300092: Box136
+    4300094: Cylinder063
+    4300096: Box137
+    4300098: Cylinder064
+    4300100: Box138
+    4300102: Box139
+    4300104: Box140
+    4300106: Box141
+    4300108: Box142
+    4300110: Box143
+    4300112: Box144
+    4300114: Box145
+    4300116: Box146
+    4300118: Cylinder078
+    4300120: Box232
+    4300122: Box233
+    4300124: Box234
+    4300126: Box235
+    4300128: Box236
+    4300130: Cylinder079
+    4300132: Cylinder075
+    4300134: Box148
+    4300136: Cylinder080
     6400000: Box133
     6400002: Box134
     6400004: Box135
@@ -438,10 +433,9 @@ ModelImporter:
     6400132: Rectangle005
     6400134: Sphere003
     6400136: Sphere004
-    6400138: Text008
     9500000: //RootNode
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 1
   animations:
@@ -476,7 +470,7 @@ ModelImporter:
     splitTangentsAcrossUV: 1
     normalImportMode: 0
     tangentImportMode: 1
-  importAnimation: 0
+  importAnimation: 1
   copyAvatar: 0
   humanDescription:
     human: []
@@ -490,5 +484,5 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   userData: 
