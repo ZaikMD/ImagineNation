@@ -48,7 +48,6 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	public CameraController m_CameraController;
 
 
-
     void Awake()
     {
 	
@@ -673,6 +672,11 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	//used by interactions to tell the player statemachine that they are in range
 	public void interactionInRange(InteractableBaseClass Interaction)
 	{
+		for (int i = 0; i < m_InteractionsInRange.Count; i++)
+		{
+			if (m_InteractionsInRange[i] == Interaction)
+				return;
+		}
 		m_InteractionsInRange.Add(Interaction);
 	}
 
