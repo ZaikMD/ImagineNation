@@ -6,7 +6,7 @@ Do nothing. It is instantiated by the camera script.
 
 
 
-Created by Jason Hein on 3/31/2014
+Created by Jason "The Casual" Hein on 3/31/2014
 
 */
 

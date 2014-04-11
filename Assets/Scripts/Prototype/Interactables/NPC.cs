@@ -13,7 +13,7 @@ Set the text to draw, and the number of lines to break the text into.
 
 
 
-Created by Jason Hein
+Created by Jason "The Casual" Hein
 
 
 

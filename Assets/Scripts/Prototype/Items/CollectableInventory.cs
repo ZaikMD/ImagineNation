@@ -6,7 +6,7 @@ Attach this script to singletons gameobject.
 
 
 
-Created by Jason Hein
+Created by Jason "The Casual" Hein
 
 */
 
