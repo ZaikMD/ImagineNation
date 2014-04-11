@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 5f302866cab36694bbdccb99ca15961f
 ModelImporter:
-  serializedVersion: 15
+  serializedVersion: 16
   fileIDToRecycleName:
     100000: Cylinder095
     100002: Cylinder096
@@ -151,4 +151,5 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 0
+  additionalBone: 0
   userData: 

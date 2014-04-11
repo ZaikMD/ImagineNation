@@ -121,7 +121,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 
 		    	if(m_PlayerState == PlayerStates.Default)
 		    	{
-					Debug.Log ("Default");
+				//	Debug.Log ("Default");
 					Default();
 		    	}
 
@@ -129,27 +129,27 @@ public abstract class PlayerState : MonoBehaviour, Observer
 		        {
 
 		        case PlayerStates.Interacting:
-					Debug.Log ("Interacting");
+				//	Debug.Log ("Interacting");
 			        Interaction();	
 		        	break;
 
 		        case PlayerStates.Idle:	
-					Debug.Log ("Idle");
+				//	Debug.Log ("Idle");
 			        IdleFunction();
 			        break;
 
 			    case PlayerStates.Moving:
-					Debug.Log ("Moving");
+				//	Debug.Log ("Moving");
 				    MovingFunction();
 				    break;
 			
 		        case PlayerStates.TakingDamage:
-					Debug.Log ("TakingDamage");
+				//	Debug.Log ("TakingDamage");
 			        TakeDamage();
 			        break;
 
 			    case PlayerStates.Dead:
-					Debug.Log ("Dead");
+				//	Debug.Log ("Dead");
 				    Dead();
 				    break;
 		            
