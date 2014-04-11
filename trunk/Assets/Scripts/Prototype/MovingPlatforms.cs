@@ -46,6 +46,9 @@ public class MovingPlatforms : MonoBehaviour , Observer
 	//Subject
 	public Subject m_Sender;
 
+	// Platforms Movement Vector
+	Vector3 m_Movement;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -96,7 +99,8 @@ public class MovingPlatforms : MonoBehaviour , Observer
 						} 
 						else if (m_HasMoved == false) //Check to see if it's moved already
 						{
-							transform.Translate (m_XMovePercent, m_YMovePercent, m_ZMovePercent); //Move the platforms by the move percentage
+							m_Movement = new Vector3(m_XMovePercent, m_YMovePercent, m_ZMovePercent);
+							transform.Translate(m_Movement); ; //Move the platforms by the move percentage
 							m_MoveTimeInSeconds -= Time.deltaTime; //Count down move time
 							if(m_Player != null)
 							{
@@ -112,7 +116,8 @@ public class MovingPlatforms : MonoBehaviour , Observer
 						} 
 						else if (m_HasMoved == true && m_MovesOnce == false)  //Check to see if it needs to go back
 						{
-							transform.Translate (-1 * m_XMovePercent, -1 * m_YMovePercent, -1 * m_ZMovePercent); //Move the platform
+							m_Movement = new Vector3(-1 * m_XMovePercent, -1 * m_YMovePercent, -1 * m_ZMovePercent);
+							transform.Translate (m_Movement); //Move the platform
 							m_MoveTimeInSeconds -= Time.deltaTime;
 
 							if(m_Player != null)
@@ -132,24 +137,12 @@ public class MovingPlatforms : MonoBehaviour , Observer
 		}
 	}
 
-	void OnTriggerEnter(Collider obj)
+
+	void OnTriggerStay(Collider obj)
 	{
-		if(obj.tag == "Player")
+		if (obj.tag == "Player") 
 		{
-			m_Player = obj.gameObject;
-			//m_Player.transform.parent = this.transform;
-		}
-
-	}
-
-	void OnTriggerExit(Collider obj)
-	{
-		if(obj.tag == "Player")
-		{
-
-			//m_PlayerPos = m_Player.transform.position;
-			m_Player = null;
-			//obj.transform.parent = null; //Delete the parent child relation
+			obj.GetComponent<PlayerMovement>().Move(m_Movement);
 		}
 	}
 
