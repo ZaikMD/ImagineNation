@@ -93,35 +93,32 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 	/// </summary>
 	void Update () 
 	{
-		if(m_IsActive)
+		if(m_IsActive && !m_IsPaused)
 		{
-			if(!m_IsPaused)
+			if(m_State == PlayerAIState.Default)
 			{
-				if(m_State == PlayerAIState.Default)
+				Default();  
+			}
+
+			switch(m_State)
+			{
+				case PlayerAIState.InPuzzle:
 				{
-					Default();  
+					InPuzzle();
 				}
+					break;
 
-				switch(m_State)
+				case PlayerAIState.Following:
 				{
-					case PlayerAIState.InPuzzle:
-					{
-						InPuzzle();
-					}
-						break;
-
-					case PlayerAIState.Following:
-					{
-						Following();
-					}
-						break;
-
-					case PlayerAIState.Combat:
-					{
-						Combat();
-					}
-						break;
+					Following();
 				}
+					break;
+
+				case PlayerAIState.Combat:
+				{
+					Combat();
+				}
+					break;
 			}
 		}
 	}
@@ -284,15 +281,15 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 		
 		if(ButterZone(m_CombatTarget))
 		{
-			Attack (true);
 			m_PathFinding.Combat(m_CombatTarget.transform,m_IdealAttackRange);
+			Attack ();
 			m_CombatState = PlayerAICombatState.Default;
 			m_State = PlayerAIState.Default;
 		}
 		
 		else
 		{
-			Attack (false);
+			Attack ();
 			m_PathFinding.Combat(m_CombatTarget.transform,m_IdealAttackRange);
 			m_CombatState = PlayerAICombatState.Default;
 			m_State = PlayerAIState.Default;
@@ -330,18 +327,18 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 	/// <summary>
 	///Applying damage to the desired enemy then setting the AI back to its default state 
 	/// </summary>
-	void Attack(bool inButterZone) 
+	void Attack() 
 	{ 
+		//Raycast forward, if enemy is hit, fire
+		BasePrimaryItem weapon = gameObject.GetComponent<BasePrimaryItem> ();
+
+		RaycastHit hit;
+		Physics.Raycast (transform.position, transform.forward, out hit, weapon.getRange ());
+		                //inButterZone
 		// TODO Attack
-		if (inButterZone)
+		if (hit.transform != null && hit.transform.gameObject == m_CombatTarget)
 		{
-			//More Damage
-			
-		}
-		
-		else
-		{
-			
+			weapon.fire();
 		}
 		m_CombatState = PlayerAICombatState.Default;
 	} 

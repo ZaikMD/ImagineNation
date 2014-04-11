@@ -8,11 +8,13 @@ public abstract class BasePrimaryItem : MonoBehaviour
 	protected float m_Range;
 	
     CameraController m_Camera;
+	PlayerAIStateMachine m_AIStateMachine;
 	
 	//Load Reticle
 	void Awake()
 	{
 		Invoke ("Load", 0.001f);
+		m_AIStateMachine = gameObject.GetComponent<PlayerAIStateMachine> ();
 	}
 
 	//Fire weapon
@@ -40,6 +42,10 @@ public abstract class BasePrimaryItem : MonoBehaviour
 	/// </summary>
 	protected Vector3 getTargetDirection()
 	{
+		if (m_AIStateMachine.m_IsActive)
+		{
+			return transform.forward;
+		}
 		return (m_Reticle.getTargetPosition() - transform.position).normalized;
 	}
 
