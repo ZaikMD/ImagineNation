@@ -19,7 +19,7 @@ public class RCCar : SecondairyBase
 
 	bool m_HasBegun = false;
 
-	Vector3 m_StartingOffset = new Vector3(4,1,0);
+	Vector3 m_StartingOffset = new Vector3(4,0,0);
 
 	bool m_Interacting;
     List<InteractableBaseClass> m_InteractionsInRange = new List<InteractableBaseClass>();
