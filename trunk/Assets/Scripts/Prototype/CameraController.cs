@@ -211,7 +211,6 @@ public class CameraController : MonoBehaviour
 		{
 			//We follow the object's position, but not their rotation
 			transform.parent.position = m_CameraFollow.position;
-			//transform.parent.Rotate (PlayerMovement.getControllerProjection() - transform.parent.rotation.eulerAngles);
 		}
 		else if ( m_State == CameraState.Aiming )
 		{

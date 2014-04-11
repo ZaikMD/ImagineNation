@@ -1,81 +1,87 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class LeverRotation : MonoBehaviour, Observer {
 	
-	//public GameObject m_RotationDummy = null;
-
+	//Trigger
 	public Subject m_Subject;
-	public float m_RotationSpeed = 0.1f;
-
-	//public Transform m_StartPos;
-	//public Transform m_EndPos;
-
-	public Vector3 m_RotationValue = Vector3.zero;
-	//private Vector3 m_OriginalRotation = Vector3.zero;
-
-	//public Quaternion m_Rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-
-	bool m_TriggerActivated = false;
+	
+	//Rotation Value
+	Vector3 m_RotationValue = new Vector3 (0,60,0);
+	
+	//State Values
 	bool m_IsPaused = false;
-	bool m_isUntouched = true;
-
-
+	bool m_ToggledOn = true;
+	
+	//Timer
+	float m_RotateTimer = 0.0f;
+	const float ROTATION_SPEED = 0.5f;
+	
+	
 	// Use this for initialization
 	void Start () 
 	{
-	
-	
-		//m_OriginalRotation = this.transform.rotation;
+		// Adds to the list
 		GameManager.Instance.addObserver (this);
-		m_Subject.addObserver (this);// adds to the list
+		m_Subject.addObserver (this);
 
-
+		//Set value to rotate each frame
+		m_RotationValue /= ROTATION_SPEED;
 	}
 	
-	// Update is called once per frame
+	// Rotate once per frame
 	void Update () 
 	{
-		if(!m_isUntouched)
+		//If we are rotatin update rotation
+		if (m_RotateTimer > 0.0f)
 		{
-			if(!m_IsPaused )
+			m_RotateTimer -= Time.deltaTime;
+
+			if (m_RotateTimer < ROTATION_SPEED)
 			{
-				if(m_TriggerActivated)
+				if (m_ToggledOn)
 				{
-
-					this.gameObject.transform.eulerAngles = new Vector3(transform.eulerAngles.x + m_RotationValue.x, transform.eulerAngles.y + m_RotationValue.y, transform.eulerAngles.z + m_RotationValue.z);
-					m_isUntouched = true;
-					m_TriggerActivated = false;
-
+					gameObject.transform.Rotate(m_RotationValue * Time.deltaTime);
+				}
+				else
+				{
+					gameObject.transform.Rotate(-m_RotationValue * Time.deltaTime);
 				}
 			}
 		}
-		else if(m_isUntouched)
-		{
-			if(!m_IsPaused )
-			{
-				if(m_TriggerActivated)
-				{
-					m_isUntouched = false;
-					m_TriggerActivated = false;
-					this.gameObject.transform.eulerAngles = new Vector3(transform.eulerAngles.x - m_RotationValue.x, transform.eulerAngles.y - m_RotationValue.y, transform.eulerAngles.z - m_RotationValue.z);
-
-				}
-			}
-		}
-		
 	}
 
+	// Get events
 	public void recieveEvent(Subject sender, ObeserverEvents recievedEvent)
 	{
+		// Pause
 		if(recievedEvent == ObeserverEvents.PauseGame ||recievedEvent == ObeserverEvents.StartGame)
 		{
 			m_IsPaused = !m_IsPaused; //toggles if you paused
 		}
 
+		//Toggle Lever Rotation
 		if(recievedEvent == ObeserverEvents.Used)
 		{
-			m_TriggerActivated = !m_TriggerActivated; //Activate the rotation
+			if (m_ToggledOn && !m_IsPaused)
+			{
+				m_ToggledOn = false;
+			}
+			else if(!m_IsPaused)
+			{
+				m_ToggledOn = true;
+			}
+
+			//Fix rotation timer using lever mid toggle
+			if (m_RotateTimer > 0.0f)
+			{
+				m_RotateTimer = ROTATION_SPEED - m_RotateTimer;
+			}
+			else
+			{
+				m_RotateTimer = ROTATION_SPEED;
+			}
 		}
 	}
 }
