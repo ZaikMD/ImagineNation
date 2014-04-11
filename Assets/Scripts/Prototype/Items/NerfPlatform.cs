@@ -2,12 +2,11 @@
 using System.Collections;
 
 public class NerfPlatform : MonoBehaviour {
-
-	//const float m_PlatformLifeSpan = 30.0f;
+	
 	float m_PlatformTimer = 30.0f;
 	float m_OriginalPlatformTimer;
 	float m_PlatformPercentage;
-
+	
 	string m_CollidedTag;
 
 	// Use this for initialization
@@ -15,6 +14,8 @@ public class NerfPlatform : MonoBehaviour {
 	{
 		m_OriginalPlatformTimer = m_PlatformTimer;
 		SoundManager.Instance.playSound(Sounds.NerfGunPlatform, this.transform.position);
+		//Physics.IgnoreCollision(this.gameObject.collider, 
+
 	}
 	
 	// Update is called once per frame
@@ -29,13 +30,11 @@ public class NerfPlatform : MonoBehaviour {
 			Destroy (this.gameObject);
 	}
 
-	void OnCollisionEnter(Collision other)
+	void OnTriggerEnter(Collider other)
 	{
-		m_CollidedTag = other.gameObject.tag;
-		if(m_CollidedTag != "Player")
+		if(other.gameObject.name == "Alex")
 		{
 			Destroy(this.gameObject);
 		}
-
 	}
 }
