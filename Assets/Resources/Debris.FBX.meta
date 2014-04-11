@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: a9e105f8f3e26b844b9c0fb19ae5010e
 ModelImporter:
-  serializedVersion: 16
+  serializedVersion: 15
   fileIDToRecycleName:
     100000: Box385
     100002: Box386
@@ -1140,6 +1140,223 @@ ModelImporter:
     4300428: Cylinder328
     4300430: Cylinder329
     4300432: Cylinder330
+    6400000: Box385
+    6400002: Box386
+    6400004: Box387
+    6400006: Box388
+    6400008: Box389
+    6400010: Box390
+    6400012: Box392
+    6400014: Box394
+    6400016: Box395
+    6400018: Box396
+    6400020: Box397
+    6400022: Box398
+    6400024: Box399
+    6400026: Box401
+    6400028: Box402
+    6400030: Box404
+    6400032: Box405
+    6400034: Box406
+    6400036: Box407
+    6400038: Box408
+    6400040: Box409
+    6400042: Box411
+    6400044: Box412
+    6400046: Box413
+    6400048: Box414
+    6400050: Cylinder123
+    6400052: Cylinder124
+    6400054: Cylinder125
+    6400056: Cylinder126
+    6400058: Cylinder127
+    6400060: Cylinder128
+    6400062: Cylinder129
+    6400064: Cylinder130
+    6400066: Cylinder131
+    6400068: Cylinder132
+    6400070: Cylinder133
+    6400072: Cylinder134
+    6400074: Cylinder135
+    6400076: Cylinder136
+    6400078: Cylinder137
+    6400080: Cylinder138
+    6400082: Cylinder139
+    6400084: Cylinder140
+    6400086: Cylinder141
+    6400088: Cylinder142
+    6400090: Cylinder143
+    6400092: Cylinder144
+    6400094: Cylinder145
+    6400096: Cylinder146
+    6400098: Cylinder147
+    6400100: Cylinder148
+    6400102: Cylinder149
+    6400104: Cylinder150
+    6400106: Cylinder151
+    6400108: Cylinder152
+    6400110: Cylinder153
+    6400112: Cylinder154
+    6400114: Cylinder155
+    6400116: Cylinder156
+    6400118: Cylinder157
+    6400120: Cylinder158
+    6400122: Cylinder159
+    6400124: Cylinder160
+    6400126: Cylinder161
+    6400128: Cylinder162
+    6400130: Cylinder163
+    6400132: Cylinder164
+    6400134: Cylinder165
+    6400136: Cylinder166
+    6400138: Cylinder167
+    6400140: Cylinder168
+    6400142: Cylinder169
+    6400144: Cylinder174
+    6400146: Cylinder175
+    6400148: Cylinder176
+    6400150: Cylinder177
+    6400152: Cylinder178
+    6400154: Cylinder179
+    6400156: Cylinder180
+    6400158: Cylinder181
+    6400160: Cylinder182
+    6400162: Cylinder183
+    6400164: Cylinder184
+    6400166: Cylinder185
+    6400168: Cylinder186
+    6400170: Cylinder187
+    6400172: Cylinder188
+    6400174: Cylinder189
+    6400176: Cylinder190
+    6400178: Cylinder191
+    6400180: Cylinder192
+    6400182: Cylinder193
+    6400184: Cylinder194
+    6400186: Cylinder195
+    6400188: Cylinder196
+    6400190: Cylinder197
+    6400192: Cylinder198
+    6400194: Cylinder199
+    6400196: Cylinder200
+    6400198: Cylinder201
+    6400200: Cylinder202
+    6400202: Cylinder203
+    6400204: Cylinder204
+    6400206: Cylinder205
+    6400208: Cylinder206
+    6400210: Cylinder207
+    6400212: Cylinder208
+    6400214: Cylinder209
+    6400216: Cylinder210
+    6400218: Cylinder211
+    6400220: Cylinder212
+    6400222: Cylinder213
+    6400224: Cylinder214
+    6400226: Cylinder215
+    6400228: Cylinder216
+    6400230: Cylinder217
+    6400232: Cylinder218
+    6400234: Cylinder219
+    6400236: Cylinder220
+    6400238: Cylinder221
+    6400240: Cylinder222
+    6400242: Cylinder223
+    6400244: Cylinder224
+    6400246: Cylinder225
+    6400248: Cylinder226
+    6400250: Cylinder227
+    6400252: Cylinder228
+    6400254: Cylinder229
+    6400256: Cylinder230
+    6400258: Cylinder231
+    6400260: Cylinder232
+    6400262: Cylinder233
+    6400264: Cylinder234
+    6400266: Cylinder235
+    6400268: Cylinder236
+    6400270: Cylinder237
+    6400272: Cylinder238
+    6400274: Cylinder239
+    6400276: Cylinder240
+    6400278: Cylinder241
+    6400280: Cylinder242
+    6400282: Cylinder247
+    6400284: Cylinder248
+    6400286: Cylinder249
+    6400288: Cylinder250
+    6400290: Cylinder251
+    6400292: Cylinder252
+    6400294: Cylinder253
+    6400296: Cylinder254
+    6400298: Cylinder255
+    6400300: Cylinder256
+    6400302: Cylinder257
+    6400304: Cylinder258
+    6400306: Cylinder259
+    6400308: Cylinder260
+    6400310: Cylinder261
+    6400312: Cylinder262
+    6400314: Cylinder263
+    6400316: Cylinder264
+    6400318: Cylinder265
+    6400320: Cylinder266
+    6400322: Cylinder267
+    6400324: Cylinder268
+    6400326: Cylinder269
+    6400328: Cylinder270
+    6400330: Cylinder271
+    6400332: Cylinder272
+    6400334: Cylinder273
+    6400336: Cylinder274
+    6400338: Cylinder275
+    6400340: Cylinder276
+    6400342: Cylinder277
+    6400344: Cylinder278
+    6400346: Cylinder279
+    6400348: Cylinder280
+    6400350: Cylinder281
+    6400352: Cylinder282
+    6400354: Cylinder283
+    6400356: Cylinder284
+    6400358: Cylinder285
+    6400360: Cylinder286
+    6400362: Cylinder287
+    6400364: Cylinder288
+    6400366: Cylinder289
+    6400368: Cylinder290
+    6400370: Cylinder299
+    6400372: Cylinder300
+    6400374: Cylinder301
+    6400376: Cylinder302
+    6400378: Cylinder303
+    6400380: Cylinder304
+    6400382: Cylinder305
+    6400384: Cylinder306
+    6400386: Cylinder307
+    6400388: Cylinder308
+    6400390: Cylinder309
+    6400392: Cylinder310
+    6400394: Cylinder311
+    6400396: Cylinder312
+    6400398: Cylinder313
+    6400400: Cylinder314
+    6400402: Cylinder315
+    6400404: Cylinder316
+    6400406: Cylinder317
+    6400408: Cylinder318
+    6400410: Cylinder319
+    6400412: Cylinder320
+    6400414: Cylinder321
+    6400416: Cylinder322
+    6400418: Cylinder323
+    6400420: Cylinder324
+    6400422: Cylinder325
+    6400424: Cylinder326
+    6400426: Cylinder327
+    6400428: Cylinder328
+    6400430: Cylinder329
+    6400432: Cylinder330
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -1161,7 +1378,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: .00999999978
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
@@ -1192,5 +1409,4 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
-  additionalBone: 0
   userData: 
