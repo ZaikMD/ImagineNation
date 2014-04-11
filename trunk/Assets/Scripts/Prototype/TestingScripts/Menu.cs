@@ -1,8 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Menu : MonoBehaviour {
 
+
+public enum Level
+	{
+		LevelOneStart,
+		LevelOnePartTwo,
+		LevelOnePartThree,
+		LevelOnePartFour,
+		LevelOnePartFive,
+		LevelOnePartSix,
+		LevelOnePartSeven
+	}
+
+public class Menu : MonoBehaviour {
+/*
     public enum MenuState
     { 
         MainMenu,
@@ -15,19 +28,23 @@ public class Menu : MonoBehaviour {
 		SelectLevelSelectPlayerTwo,
         Options,
         ExitGame,
-        Credit,  
+        Credit  
     }
+*/
+    //setting variables
+    Resolution m_Resolution = Resolution.Res720p;
+    Quality m_QualityText = Quality.High;
+    QualityLevel m_Quality = QualityLevel.Good;
+    Refresh m_Refresh = Refresh.Refresh60;
+    bool m_FullScreen = true;
+    float m_Volume;
+    int m_WidthRes = Screen.width;
+    int m_HeightRes = Screen.height;
+    int m_RefreshRate = 60;
 
-	public enum Level
-	{
-		LevelOnePartOne,
-		LevelOnePartTwo,
-		LevelOnePartThree,
-		LevelOnePartFour,
-		LevelOnePartFive,
-		LevelOnePartSix,
-		LevelOnePartSeven
-	}
+
+
+
 
 	public Level m_CurrentLevel;
     public MenuState m_MenuState;
@@ -36,11 +53,14 @@ public class Menu : MonoBehaviour {
     public Player m_PlayerTwo;
     string m_PlayerOneSelected = null;
     string m_PlayerTwoSelected = null;
-    
+    Stage m_StartingStage;
 
 	bool firstTimePlayerTwoSelect;
 
-
+    /// <summary>
+    /// menu is mainly done in on gui as all the buttons and text require they be inside the function.
+    /// helper functions are at the bottom.
+    /// </summary>
     void OnGUI()
     {
         if (m_MainMenu)
@@ -106,7 +126,7 @@ public class Menu : MonoBehaviour {
 						buttonText = "Level One";
 						if (GUI.Button(NewGamebuttonPosition, buttonText))
 						{
-							m_CurrentLevel = Level.LevelOnePartOne;
+						//	m_CurrentLevel = Level.LevelOneStart;
 						//	m_MenuState = MenuState.SelectLevelSelectPlayerOne;
 							m_MenuState = MenuState.SelectCheckPoint;
 						}
@@ -161,24 +181,24 @@ public class Menu : MonoBehaviour {
 
 
 					}
-
+//TODO add stage change in menu.
 			case MenuState.SelectCheckPoint:
 			{
 
 
 					//New Game Button
-					Rect NewGamebuttonPosition = new Rect(Screen.width / 2 - Screen.width / 4, 0, Screen.width / 2, Screen.height / 6);
+					Rect NewGamebuttonPosition = new Rect(Screen.width / 2 - Screen.width / 4, 0, Screen.width / 2, Screen.height / 8);
 					buttonText = "Start Point";
 					if (GUI.Button(NewGamebuttonPosition, buttonText))
 					{
-						m_CurrentLevel = Level.LevelOnePartOne;
+						m_CurrentLevel = Level.LevelOneStart;
 						//	m_MenuState = MenuState.SelectLevelSelectPlayerOne;
 						m_MenuState = MenuState.SelectLevelSelectPlayerOne;
 					}
 					//Load Game Button
 					buttonText = "CheckPoint One";
 
-					Rect CheckAButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, Screen.height / 6, Screen.width / 2, Screen.height / 6);
+					Rect CheckAButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, Screen.height / 8, Screen.width / 2, Screen.height / 8);
 					if (GUI.Button(CheckAButtonPosition, buttonText))
 					{
 						m_CurrentLevel = Level.LevelOnePartTwo;
@@ -186,7 +206,7 @@ public class Menu : MonoBehaviour {
 					}
 					
 					buttonText = "CheckPoint Two";
-					Rect CheckBButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, Screen.height /6* 2, Screen.width / 2, Screen.height / 6);
+					Rect CheckBButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, Screen.height /8* 2, Screen.width / 2, Screen.height / 8);
 					if (GUI.Button(CheckBButtonPosition, buttonText))
 					{
 						m_CurrentLevel = Level.LevelOnePartThree;
@@ -195,7 +215,7 @@ public class Menu : MonoBehaviour {
 					}
 					
 					//Options button
-					Rect CheckCButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, Screen.height / 6*3, Screen.width / 2, Screen.height / 6);
+                    Rect CheckCButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, Screen.height / 8 * 3, Screen.width / 2, Screen.height / 8);
 					buttonText = "CheckPoint Three";
 					if (GUI.Button(CheckCButtonPosition, buttonText))
 					{
@@ -204,7 +224,7 @@ public class Menu : MonoBehaviour {
 					}
 					
 					//Exit Game Button
-					Rect CheckDButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 6 * 4), Screen.width / 2, Screen.height / 6);
+					Rect CheckDButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 8 * 4), Screen.width / 2, Screen.height / 8);
 					buttonText = "CheckPoint Four";
 					if (GUI.Button(CheckDButtonPosition, buttonText))
 					{
@@ -214,7 +234,7 @@ public class Menu : MonoBehaviour {
 					
 
 					buttonText = "CheckPoint Five";
-					Rect CheckEButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, Screen.height /6* 2, Screen.width / 2, Screen.height / 6);
+					Rect CheckEButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, Screen.height / 8 * 5, Screen.width / 2, Screen.height / 8);
 				if (GUI.Button(CheckEButtonPosition, buttonText))
 					{
 						m_CurrentLevel = Level.LevelOnePartSix;
@@ -223,7 +243,7 @@ public class Menu : MonoBehaviour {
 					}
 					
 					//Options button
-					Rect CheckFButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, Screen.height / 6*3, Screen.width / 2, Screen.height / 6);
+					Rect CheckFButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, Screen.height / 8 * 6, Screen.width / 2, Screen.height / 8);
 					buttonText = "CheckPoint Six";
 					if (GUI.Button(CheckFButtonPosition, buttonText))
 					{
@@ -232,7 +252,7 @@ public class Menu : MonoBehaviour {
 					}
 					
 					//Exit Game Button
-					Rect BackButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 6 * 4), Screen.width / 2, Screen.height / 6);
+					Rect BackButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 8 * 7), Screen.width / 2, Screen.height / 8);
 					buttonText = "Back";
 					if (GUI.Button(BackButtonPosition, buttonText))
 					{
@@ -310,7 +330,7 @@ public class Menu : MonoBehaviour {
 				buttonText = "Back";
 				if (GUI.Button(BackButtonPosition, buttonText))
 				{
-					m_MenuState = MenuState.SelectLevel;
+					m_MenuState = MenuState.SelectCheckPoint;
 				}
 				
 				break;
@@ -569,7 +589,8 @@ public class Menu : MonoBehaviour {
                         {
                             firstTimePlayerTwoSelect = true;
                     		Screen.showCursor = false;
-							m_CurrentLevel = Level.LevelOnePartOne;
+							m_CurrentLevel = Level.LevelOneStart;
+                            m_StartingStage = Stage.StartStage;
 							PlayerPrefs.SetString("CurrentCheckpoint", "StartPoint");
 							setPlayer();
 
@@ -589,15 +610,383 @@ public class Menu : MonoBehaviour {
                 case MenuState.Options:
                     {
                         //TODO: Add Options
+                        Rect VolumeSliderPosition = new Rect(Screen.width / 3, Screen.height / 8, Screen.width / 3, Screen.height / 6);
+                        m_Volume = GUI.HorizontalSlider(VolumeSliderPosition, m_Volume, 0, 100);
 
-                        Rect CreditsButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 5 * 3), Screen.width / 2, Screen.height / 5);
+                        Rect VolumePosition = new Rect(Screen.width / 3, 0, Screen.width / 3, Screen.height / 6);
+                        buttonText = "Volume";
+                        GUI.TextArea(VolumePosition, buttonText);
+
+                        Rect WindowButtonPosition = new Rect(0, 0, Screen.width / 3, Screen.height / 6);
+                        buttonText = "Window: " + m_FullScreen;
+                        if (GUI.Button(WindowButtonPosition, buttonText))
+                        {
+                            m_FullScreen = !m_FullScreen;
+                        }
+
+                        Rect ControlButtonPosition = new Rect(Screen.width / 3 * 2, 0, Screen.width / 3, Screen.height / 6);
+                        buttonText = "Controls";
+                        if (GUI.Button(ControlButtonPosition, buttonText))
+                        {
+                            m_MenuState = MenuState.Controls;
+                        }
+
+
+                        //TODO: Add Options
+                        Rect RaiseResolutionButtonPosition = new Rect(Screen.width / 3 * 2, (Screen.height / 6 * 2), Screen.width / 3, Screen.height / 6);
+                        buttonText = "Raise";
+                        if (GUI.Button(RaiseResolutionButtonPosition, buttonText))
+                        {
+                            if (m_Resolution > 0)
+                            {
+                                m_Resolution -= 1;
+                            }
+
+                            switch (m_Resolution)
+                            {
+                                case Resolution.Res2160p:
+                                    {
+                                        m_WidthRes = 3840;
+                                        m_HeightRes = 2160;
+                                        break;
+                                    }
+
+                                case Resolution.Res1440p:
+                                    {
+                                        m_WidthRes = 2560;
+                                        m_HeightRes = 1440;
+                                        break;
+                                    }
+
+                                case Resolution.Res1080p:
+                                    {
+                                        m_WidthRes = 1920;
+                                        m_HeightRes = 1080;
+                                        break;
+                                    }
+
+                                case Resolution.Res720p:
+                                    {
+                                        m_WidthRes = 1280;
+                                        m_HeightRes = 720;
+                                        break;
+                                    }
+
+                                case Resolution.Res768p:
+                                    {
+                                        m_WidthRes = 1024;
+                                        m_HeightRes = 768;
+                                        break;
+                                    }
+
+                                case Resolution.Res480p:
+                                    {
+                                        m_WidthRes = 852;
+                                        m_HeightRes = 480;
+                                        break;
+                                    }
+
+                                case Resolution.Res360p:
+                                    {
+                                        m_WidthRes = 640;
+                                        m_HeightRes = 360;
+                                        break;
+                                    }
+
+
+                            }
+
+
+
+                        }
+
+                        Rect LowerResolutionButtonPosition = new Rect(0, (Screen.height / 6 * 2), Screen.width / 3, Screen.height / 6);
+                        buttonText = "Lower";
+                        if (GUI.Button(LowerResolutionButtonPosition, buttonText))
+                        {
+                            if (m_Resolution < Resolution.Res360p)
+                            {
+                                m_Resolution += 1;
+                            }
+
+
+                            switch (m_Resolution)
+                            {
+                                case Resolution.Res2160p:
+                                    {
+                                        m_WidthRes = 3840;
+                                        m_HeightRes = 2160;
+                                        break;
+                                    }
+
+                                case Resolution.Res1440p:
+                                    {
+                                        m_WidthRes = 2560;
+                                        m_HeightRes = 1440;
+                                        break;
+                                    }
+
+                                case Resolution.Res1080p:
+                                    {
+                                        m_WidthRes = 1920;
+                                        m_HeightRes = 1080;
+                                        break;
+                                    }
+
+                                case Resolution.Res720p:
+                                    {
+                                        m_WidthRes = 1280;
+                                        m_HeightRes = 720;
+                                        break;
+                                    }
+
+                                case Resolution.Res768p:
+                                    {
+                                        m_WidthRes = 1024;
+                                        m_HeightRes = 768;
+                                        break;
+                                    }
+
+                                case Resolution.Res480p:
+                                    {
+                                        m_WidthRes = 852;
+                                        m_HeightRes = 480;
+                                        break;
+                                    }
+
+                                case Resolution.Res360p:
+                                    {
+                                        m_WidthRes = 640;
+                                        m_HeightRes = 360;
+                                        break;
+                                    }
+
+
+                            }
+
+
+                        }
+
+                        Rect ResolutionPosition = new Rect(Screen.width / 3, (Screen.height / 6 * 2), Screen.width / 3, Screen.height / 6);
+                        buttonText = "Resolustion: \n\n" + m_WidthRes + " * " + m_HeightRes;
+                        GUI.TextArea(ResolutionPosition, buttonText);
+
+
+                        Rect RaiseRefreshRateButtonPosition = new Rect(Screen.width / 3 * 2, (Screen.height / 6), Screen.width / 3, Screen.height / 6);
+                        buttonText = "Raise Refresh Rate";
+                        if (GUI.Button(RaiseRefreshRateButtonPosition, buttonText))
+                        {
+                            if (m_Refresh > 0)
+                            {
+                                m_Refresh -= 1;
+                            }
+
+                            switch (m_Refresh)
+                            {
+                                case Refresh.Refresh120:
+                                    {
+                                        m_RefreshRate = 120;
+                                        break;
+                                    }
+
+                                case Refresh.Refresh90:
+                                    {
+                                        m_RefreshRate = 90;
+                                        break;
+                                    }
+
+                                case Refresh.Refresh60:
+                                    {
+                                        m_RefreshRate = 60;
+                                        break;
+                                    }
+
+                                case Refresh.Refresh45:
+                                    {
+                                        m_RefreshRate = 45;
+                                        break;
+                                    }
+
+                                case Refresh.Refresh30:
+                                    {
+                                        m_RefreshRate = 30;
+                                        break;
+                                    }
+
+
+                            }
+
+                        }
+
+
+                        Rect LowerRefreshRateButtonPosition = new Rect(0, (Screen.height / 6), Screen.width / 3, Screen.height / 6);
+                        buttonText = "Lower Refresh Rate";
+                        if (GUI.Button(LowerRefreshRateButtonPosition, buttonText))
+                        {
+                            if (m_Refresh < Refresh.Refresh30)
+                            {
+                                m_Refresh += 1;
+                            }
+
+                            switch (m_Refresh)
+                            {
+                                case Refresh.Refresh120:
+                                    {
+                                        m_RefreshRate = 120;
+                                        break;
+                                    }
+
+                                case Refresh.Refresh90:
+                                    {
+                                        m_RefreshRate = 90;
+                                        break;
+                                    }
+
+                                case Refresh.Refresh60:
+                                    {
+                                        m_RefreshRate = 60;
+                                        break;
+                                    }
+
+                                case Refresh.Refresh45:
+                                    {
+                                        m_RefreshRate = 45;
+                                        break;
+                                    }
+
+                                case Refresh.Refresh30:
+                                    {
+                                        m_RefreshRate = 30;
+                                        break;
+                                    }
+
+
+                            }
+
+                        }
+
+
+                        Rect RefreshPosition = new Rect(Screen.width / 3, (Screen.height / 6), Screen.width / 3, Screen.height / 6);
+                        buttonText = "Refresh: \n\n" + m_RefreshRate;
+                        GUI.TextArea(RefreshPosition, buttonText);
+
+
+                        Rect RaiseQualityButtonPosition = new Rect(Screen.width / 3 * 2, (Screen.height / 6 * 3), Screen.width / 3, Screen.height / 6);
+                        buttonText = "Raise";
+                        if (GUI.Button(RaiseQualityButtonPosition, buttonText))
+                        {
+                            if (m_QualityText > 0)
+                            {
+                                m_QualityText -= 1;
+                            }
+
+                            switch (m_QualityText)
+                            {
+                                case Quality.Ultra:
+                                    {
+                                        m_Quality = QualityLevel.Fantastic;
+                                        break;
+                                    }
+
+                                case Quality.High:
+                                    {
+                                        m_Quality = QualityLevel.Beautiful;
+                                        break;
+                                    }
+
+                                case Quality.Medium:
+                                    {
+                                        m_Quality = QualityLevel.Good;
+                                        break;
+                                    }
+
+                                case Quality.Low:
+                                    {
+                                        m_Quality = QualityLevel.Simple;
+                                        break;
+                                    }
+
+                                case Quality.ImUsingACalculator:
+                                    {
+                                        m_Quality = QualityLevel.Fastest;
+                                        break;
+                                    }
+
+
+                            }
+
+
+
+                        }
+
+                        Rect LowerQualityButtonPosition = new Rect(0, (Screen.height / 6 * 3), Screen.width / 3, Screen.height / 6);
+                        buttonText = "Lower";
+                        if (GUI.Button(LowerQualityButtonPosition, buttonText))
+                        {
+                            if (m_QualityText < Quality.ImUsingACalculator)
+                            {
+                                m_QualityText += 1;
+                            }
+
+                            switch (m_QualityText)
+                            {
+                                case Quality.Ultra:
+                                    {
+                                        m_Quality = QualityLevel.Fantastic;
+                                        break;
+                                    }
+
+                                case Quality.High:
+                                    {
+                                        m_Quality = QualityLevel.Beautiful;
+                                        break;
+                                    }
+
+                                case Quality.Medium:
+                                    {
+                                        m_Quality = QualityLevel.Good;
+                                        break;
+                                    }
+
+                                case Quality.Low:
+                                    {
+                                        m_Quality = QualityLevel.Simple;
+                                        break;
+                                    }
+
+                                case Quality.ImUsingACalculator:
+                                    {
+                                        m_Quality = QualityLevel.Fastest;
+                                        break;
+                                    }
+
+
+                            }
+
+                        }
+
+                        Rect QualityPosition = new Rect(Screen.width / 3, (Screen.height / 6 * 3), Screen.width / 3, Screen.height / 6);
+                        buttonText = "Quality: \n\n" + m_QualityText;
+                        GUI.TextArea(QualityPosition, buttonText);
+
+
+                        Rect ApplyButtonPosition = new Rect(Screen.width / 2, (Screen.height / 6 * 5), Screen.width / 2, Screen.height / 6);
+                        buttonText = "Apply Changes";
+                        if (GUI.Button(ApplyButtonPosition, buttonText))
+                        {
+                            applyChanges();
+                        }
+
+
+                        Rect CreditsButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 6 * 4), Screen.width / 2, Screen.height / 6);
                         buttonText = "Credits";
                         if (GUI.Button(CreditsButtonPosition, buttonText))
                         {
                             m_MenuState = MenuState.Credit;
                         }
+                        
 
-                        Rect BackButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 5 * 4), Screen.width / 2, Screen.height / 5);
+                        Rect BackButtonPosition = new Rect(0, (Screen.height / 6 * 5), Screen.width / 2, Screen.height / 6);
                         buttonText = "Back";
                         if (GUI.Button(BackButtonPosition, buttonText))
                         {
@@ -625,6 +1014,23 @@ public class Menu : MonoBehaviour {
                         }
                         break;
                     }
+                case MenuState.Controls:
+                    {
+                        Rect ControlTextPosition = new Rect(Screen.width / 3, 0, Screen.width / 3, Screen.height / 4 * 3);
+                        buttonText = "Movement:             WASD              -           Left Stick \nJump:                    Space               -           A\nCharacter Switch:   Tab                   -           Y\nInteract:                 F                      -           B\nCamera Control:    Hold Right Click  -           Right Stick\nUse Item / Attack:  Left Click           -           X\nAim:                      Shift                  -           Left Bumper\nPause:                   Escape             -           Start\n";
+                        GUI.TextArea(ControlTextPosition, buttonText);
+
+                        Rect BackButtonPosition = new Rect(Screen.width / 3, (Screen.height / 4 * 3), Screen.width / 3, Screen.height / 4);
+                        buttonText = "Back";
+                        if (GUI.Button(BackButtonPosition, buttonText))
+                        {
+                            m_MenuState = MenuState.Options;
+                        }
+
+
+                        break;
+                    }
+
                 case MenuState.LoadGame:
                     {
                         //TODO: call load game
@@ -697,7 +1103,14 @@ public class Menu : MonoBehaviour {
      }
 
 
+        void applyChanges()
+        {
+            Screen.SetResolution(m_WidthRes, m_HeightRes, m_FullScreen, m_RefreshRate);
+            QualitySettings.SetQualityLevel((int)m_Quality);
 
+            SoundManager.Instance.m_Volume = m_Volume;
+            //TODO access sound manager to change volume to setting.
+        }
 
 
 
@@ -708,7 +1121,8 @@ public class Menu : MonoBehaviour {
 		PlayerPrefs.SetInt("CurrentPlayerOne", (int)m_PlayerOne);
 		PlayerPrefs.SetInt("CurrentPlayerTwo", (int)m_PlayerTwo);
 		PlayerPrefs.SetInt("CurrentLevel", (int)m_CurrentLevel);
-		Application.LoadLevel("Level1-" + ((int)m_CurrentLevel + 1));
+        PlayerPrefs.SetInt("CurrentLevelStage", (int)m_StartingStage);
+		Application.LoadLevel("Level1-1");
 
 	}
 

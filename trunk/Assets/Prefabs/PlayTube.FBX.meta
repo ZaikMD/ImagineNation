@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 4e39a668efdcf6741b9f6bd3de7845c4
 ModelImporter:
-  serializedVersion: 15
+  serializedVersion: 16
   fileIDToRecycleName:
     100000: //RootNode
     100002: Torus002
@@ -152,4 +152,5 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 0
+  additionalBone: 0
   userData: 

@@ -1,6 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+/// <summary>
+/// the stage enum is used to keep track things like if a door is open or not,
+/// or if we have second item.
+/// </summary>
+	public enum Stage
+	{
+        StartStage,
+		StageOne,
+		StageTwo,
+		StageThree,
+		StageFour
+	}
+
+
 /// <summary>
 /// anything with an update should observe this for noe all it sends if events when the game is paused/ unpaused
 /// </summary>
@@ -11,13 +26,6 @@ public class GameManager : Subject
 
 	bool m_IsPaused = false;
 
-	public enum Stage
-	{
-		StageOne,
-		StageTwo,
-		StageThree,
-		StageFour
-	}
 
 	public Stage m_CurrentStage;
 

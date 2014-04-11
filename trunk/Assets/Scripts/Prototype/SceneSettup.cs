@@ -16,26 +16,31 @@ public class SceneSettup : MonoBehaviour
 	Player m_PlayerOne;
 	Player m_PlayerTwo;
 
-
+    Level m_StartingCheckpoint;
 
 	GameObject m_StartPoint;
 
 	void Awake()
 	{
-		m_PlayerOne = (Player)PlayerPrefs.GetInt ("CurrentPlayerOne");
-		m_PlayerTwo = (Player)PlayerPrefs.GetInt ("CurrentPlayerTwo");
+        Debug.Log("testing");
+        getCheckPoint(); 
 		activatePlayers ();
 
-		m_StartPoint = GameObject.Find (PlayerPrefs.GetString ("CurrentCheckPoint"));
-
-		CheckpointManager.m_Instance.m_CurrentCheckPoint = m_StartPoint.GetComponent<Checkpoint> ();
-
-//		GameManager.Instance.m_CurrentStage = (Stage)PlayerPrefs.GetInt ("CurrentLevelStage");
-			
+       // m_StartingCheckpoint = (Level)PlayerPrefs.GetInt("CurrentLevel");
+                    
+        CheckpointManager.m_Instance.m_CurrentCheckPoint = m_StartPoint.GetComponent<Checkpoint> ();
+//TODO add to get checkpoint. 
+        //GameManager.Instance.m_CurrentStage = (Stage)PlayerPrefs.GetInt ("CurrentLevelStage");
+       // Debug.Log(m_StartingCheckpoint.ToString());
+      //  Debug.Log(m_StartPoint.name);
 	}
 
     void activatePlayers()
     {
+        
+        m_PlayerOne = (Player)PlayerPrefs.GetInt ("CurrentPlayerOne");
+		m_PlayerTwo = (Player)PlayerPrefs.GetInt ("CurrentPlayerTwo");
+        
         switch (m_PlayerOne)
         {
 
@@ -51,6 +56,7 @@ public class SceneSettup : MonoBehaviour
 					m_Alex.GetComponentInChildren<CameraController>().enabled = true;
 
 		//TODO			m_Alex.transform.position = m_Checkpoint.transform.position;
+                    m_Alex.transform.position = m_StartPoint.transform.position;
 
                     break;
                 }
@@ -67,6 +73,7 @@ public class SceneSettup : MonoBehaviour
 					m_Derek.GetComponentInChildren<CameraController>().enabled = true;
                     
 			//TODO			m_Derek.transform.position = m_Checkpoint.transform.position;
+                    m_Derek.transform.position = m_StartPoint.transform.position;
 
 					break;
                 }
@@ -83,7 +90,8 @@ public class SceneSettup : MonoBehaviour
 					m_Zoey.GetComponentInChildren<CameraController>().enabled = true;
                     
 			//TODO			m_Zoey.transform.position = m_Checkpoint.transform.position;
-							
+
+                    m_Zoey.transform.position = m_StartPoint.transform.position;
 					break;
                 }
        
@@ -110,7 +118,7 @@ public class SceneSettup : MonoBehaviour
 
 				//	Vector3 position = new Vector3(m_Checkpoint.transform.position.x - 5, m_Checkpoint.transform.position.y, m_Checkpoint.transform.position.z);
 			//TODO			m_Alex.transform.position = position;
-
+                    m_Alex.transform.position = m_StartPoint.transform.position + new Vector3(2.0f, 0.0f, 0.0f);
 
 					break;
                 }
@@ -134,7 +142,7 @@ public class SceneSettup : MonoBehaviour
 
 			//	Vector3 position = new Vector3(m_Checkpoint.transform.position.x - 5, m_Checkpoint.transform.position.y, m_Checkpoint.transform.position.z);
 			//TODO		m_Derek.transform.position = position;
-
+                    m_Derek.transform.position = m_StartPoint.transform.position + new Vector3(2.0f, 0.0f, 0.0f);
 
                     break;
                 }
@@ -157,7 +165,7 @@ public class SceneSettup : MonoBehaviour
 
 			//	Vector3 position = new Vector3(m_Checkpoint.transform.position.x - 5, m_Checkpoint.transform.position.y, m_Checkpoint.transform.position.z);
 			//TODO		m_Derek.transform.position = position;
-
+                    m_Zoey.transform.position = m_StartPoint.transform.position + new Vector3(2.0f, 0.0f, 0.0f);
 
                     break;
                 }
@@ -175,7 +183,62 @@ public class SceneSettup : MonoBehaviour
         Destroy(camera);
     }
 
+    void movePlayersToCheckpoint()
+    { 
+        
+    
+    }
+    
+    void getCheckPoint()
+    {
+        m_StartingCheckpoint = (Level)PlayerPrefs.GetInt("CurrentLevel");
+        
+        switch (m_StartingCheckpoint)
+        {
 
-
-
+            case Level.LevelOneStart:
+                {
+                    m_StartPoint = GameObject.Find("StartPoint");
+                    Debug.Log("startPoint");
+                    break;
+                }
+            case Level.LevelOnePartTwo:
+                {
+                    m_StartPoint = GameObject.Find("CheckPoint1");
+                    Debug.Log("checkpoint1");
+                    break;
+                }
+            case Level.LevelOnePartThree:
+                {
+                    m_StartPoint = GameObject.Find("CheckPoint2");
+                    Debug.Log("checkpoint2");
+                    break;
+                }
+            case Level.LevelOnePartFour:
+                {
+                    m_StartPoint = GameObject.Find("CheckPoint3");
+                    Debug.Log("checkpoint3");
+                    break;
+                }
+            case Level.LevelOnePartFive:
+                {
+                    m_StartPoint = GameObject.Find("CheckPoint4");
+                    Debug.Log("checkpoint4");
+                    break;
+                }
+            case Level.LevelOnePartSix:
+                {
+                    m_StartPoint = GameObject.Find("CheckPoint5");
+                    Debug.Log("checkpoint5");
+                    break;
+                }
+            case Level.LevelOnePartSeven:
+                {
+                    m_StartPoint = GameObject.Find("CheckPoint6");
+                    Debug.Log("checkpoint6");
+                    break;
+                }
+        
+       }  
+    }
 }

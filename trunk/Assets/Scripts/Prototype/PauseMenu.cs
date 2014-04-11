@@ -46,6 +46,10 @@ public enum MenuState
     ExitGame,
     PauseMenu,
     SaveGame,
+    SelectLevel,
+    SelectCheckPoint,
+    SelectLevelSelectPlayerOne,
+    SelectLevelSelectPlayerTwo,
     Credit,
     Controls,
     PlayingGame
