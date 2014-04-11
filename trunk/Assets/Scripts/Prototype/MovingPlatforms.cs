@@ -27,7 +27,7 @@ public class MovingPlatforms : MonoBehaviour , Observer
 	private bool m_IsPaused = false;
 	//Bools
 	private bool m_HasMoved = false;
-	public  bool m_SwitchToggled = false;
+	public  bool m_SwitchToggled = true;
 
 	//Distances
 	private float m_XDistance;
@@ -39,7 +39,10 @@ public class MovingPlatforms : MonoBehaviour , Observer
 	private float m_YMovePercent;
 	private float m_ZMovePercent;
 
-
+	//Player variables
+	private Vector3 m_PlayerPos;
+	private Vector3 m_PLayerDestinationPos;
+	private GameObject m_Player;
 	//Subject
 	public Subject m_Sender;
 
@@ -76,9 +79,11 @@ public class MovingPlatforms : MonoBehaviour , Observer
 	{
 		if(!m_IsPaused)
 		{
+			if(m_Player != null)
+			{
 
-
-				if (m_NeedsSwitch == false) //If it doesn't need a switch
+			}
+				if (m_SwitchToggled == true) //If it doesn't need a switch
 				{
 					m_DelayTime -= Time.deltaTime; //Count down the delay timer
 
@@ -93,6 +98,11 @@ public class MovingPlatforms : MonoBehaviour , Observer
 						{
 							transform.Translate (m_XMovePercent, m_YMovePercent, m_ZMovePercent); //Move the platforms by the move percentage
 							m_MoveTimeInSeconds -= Time.deltaTime; //Count down move time
+							if(m_Player != null)
+							{
+								m_Player.transform.position = new Vector3(m_Player.transform.position.x + m_XMovePercent, m_Player.transform.position.y + m_YMovePercent, m_Player.transform.position.z + m_ZMovePercent);
+								//m_Player.transform.Translate( m_XMovePercent, m_YMovePercent,m_ZMovePercent);
+							}
 
 							if (m_MoveTimeInSeconds < 0) 
 							{
@@ -105,6 +115,12 @@ public class MovingPlatforms : MonoBehaviour , Observer
 							transform.Translate (-1 * m_XMovePercent, -1 * m_YMovePercent, -1 * m_ZMovePercent); //Move the platform
 							m_MoveTimeInSeconds -= Time.deltaTime;
 
+							if(m_Player != null)
+							{
+								m_Player.transform.position = new Vector3(m_Player.transform.position.x + (-1* m_XMovePercent), m_Player.transform.position.y + (-1*m_YMovePercent), m_Player.transform.position.z + (-1*m_ZMovePercent));
+								//m_Player.transform.Translate((-1* m_XMovePercent),(-1*m_YMovePercent),(-1*m_ZMovePercent));
+							}
+
 							if (m_MoveTimeInSeconds < 0) 
 							{
 							m_PauseTime = m_InitialPauseTime; //Reset pause time
@@ -113,63 +129,27 @@ public class MovingPlatforms : MonoBehaviour , Observer
 						}
 					}
 				}
-				else //Else it needs a switch
-				{
-					if(m_SwitchToggled == true) //Check to see if the switch is toggled
-					{
-						m_DelayTime -= Time.deltaTime; //Countdown delay timer
-						if(m_DelayTime < 0)
-						{
-
-							if (m_PauseTime >= 0) //Check pause timer
-							{
-								m_PauseTime -= Time.deltaTime; //Countdown pause timer
-								m_MoveTimeInSeconds = m_InitialMoveTime; //Set move time
-							} 
-							else if (m_HasMoved == false) 
-							{
-								transform.Translate (m_XMovePercent, m_YMovePercent, m_ZMovePercent); //Move platform by move percent
-								m_MoveTimeInSeconds -= Time.deltaTime; //countdown move time
-								
-								if (m_MoveTimeInSeconds < 0)  //Check move time
-								{
-									m_PauseTime = m_InitialPauseTime; //reset pause time
-									m_HasMoved = true; //Set has moved
-								} 
-							} 
-							else if (m_HasMoved == true && m_MovesOnce == false) //Check to see if it needs to move again, and if it has moved already
-							{
-								transform.Translate (-1 * m_XMovePercent, -1 * m_YMovePercent, -1 * m_ZMovePercent); //Move back to original position
-								m_MoveTimeInSeconds -= Time.deltaTime; //Countdown move time
-								
-								if (m_MoveTimeInSeconds < 0) 
-								{
-									m_PauseTime = m_InitialPauseTime; //reset pause time
-									m_HasMoved = false; //Has moved is now false
-								}
-							}
-
-					}
-				}
-			}
-
-
 		}
 	}
 
-	void OnTriggerStay(Collider obj)
+	void OnTriggerEnter(Collider obj)
 	{
 		if(obj.tag == "Player")
 		{
-			obj.transform.parent = this.transform; //Set the player as the child so it moves with the platform
+			m_Player = obj.gameObject;
+			//m_Player.transform.parent = this.transform;
 		}
+
 	}
 
 	void OnTriggerExit(Collider obj)
 	{
 		if(obj.tag == "Player")
 		{
-			obj.transform.parent = null; //Delete the parent child relation
+
+			//m_PlayerPos = m_Player.transform.position;
+			m_Player = null;
+			//obj.transform.parent = null; //Delete the parent child relation
 		}
 	}
 
