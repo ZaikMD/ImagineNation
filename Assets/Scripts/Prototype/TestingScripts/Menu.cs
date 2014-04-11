@@ -1088,7 +1088,7 @@ public class Menu : MonoBehaviour {
       
         m_PlayerTwo = (Player)PlayerPrefs.GetInt("PlayerTwo" + slot);
 
-		m_CurrentLevel = PlayerPrefs.GetString("Level" + slot);
+		m_CurrentLevel = (Level)PlayerPrefs.GetInt("Level" + slot);
 		m_StartingStage = (Stage)PlayerPrefs.GetInt("LevelStage" + slot);
 
 ///		PlayerPrefs.SetString("CurrentCheckpoint", PlayerPrefs.GetString("Checkpoint" + slot));
@@ -1121,7 +1121,7 @@ public class Menu : MonoBehaviour {
 		PlayerPrefs.SetInt("CurrentPlayerTwo", (int)m_PlayerTwo);
 		PlayerPrefs.SetInt("CurrentLevel", (int)m_CurrentLevel);
         PlayerPrefs.SetInt("CurrentLevelStage", (int)m_StartingStage);
-		Application.LoadLevel("Level1-1");
+		Application.LoadLevel("Level1-2");
 
 	}
 

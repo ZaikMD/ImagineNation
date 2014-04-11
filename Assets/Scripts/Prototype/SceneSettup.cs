@@ -25,14 +25,8 @@ public class SceneSettup : MonoBehaviour
         Debug.Log("testing");
         getCheckPoint(); 
 		activatePlayers ();
-
-       // m_StartingCheckpoint = (Level)PlayerPrefs.GetInt("CurrentLevel");
-                    
+                   
         CheckpointManager.m_Instance.m_CurrentCheckPoint = m_StartPoint.GetComponent<Checkpoint> ();
-//TODO add to get checkpoint. 
-        //GameManager.Instance.m_CurrentStage = (Stage)PlayerPrefs.GetInt ("CurrentLevelStage");
-       // Debug.Log(m_StartingCheckpoint.ToString());
-      //  Debug.Log(m_StartPoint.name);
 	}
 
     void activatePlayers()
