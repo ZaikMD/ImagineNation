@@ -38,6 +38,8 @@ Created by Jason Hein on 3/1/2014
 	Removed mouse cursor
 4/9/2014
 	Now ignores single thin objects
+4/11/2014
+	Reticle now turns red over interactables
 */
 
 
@@ -432,19 +434,19 @@ public class CameraController : MonoBehaviour
 
 			//Set if reticle is red or blue
 			if (hit.transform == null)
-			{
+			{ 
 				m_Reticle.SetIsOnSomething(false);
+			}
+			else if (hit.transform.gameObject.CompareTag("Enemy") || hit.transform.gameObject.GetComponent<InteractableBaseClass>() != null || 
+				    (m_CameraFollow.gameObject.name == "Zoey" && (hit.transform.gameObject.CompareTag("Glass"))) || 
+			        (m_CameraFollow.gameObject.name == "Derek" && (hit.transform.gameObject.CompareTag("VelcroWall") || hit.transform.gameObject.CompareTag("DestructibleWall"))) ||
+			        (m_CameraFollow.gameObject.name == "Alex" && (hit.transform.gameObject.CompareTag("NerfWall") || hit.transform.gameObject.CompareTag("NerfTarget"))))
+			{
+				m_Reticle.SetIsOnSomething(true);
 			}
 			else
 			{
-				if ( hit.transform.gameObject.CompareTag("Enemy"))
-				{
-					m_Reticle.SetIsOnSomething(true);
-				}
-				else
-				{
-					m_Reticle.SetIsOnSomething(false);
-				}
+				m_Reticle.SetIsOnSomething(false);
 			}
 		}
 
