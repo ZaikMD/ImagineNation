@@ -114,9 +114,9 @@ public class CameraController : MonoBehaviour
 	const float COLLISION_FIX_TIMER = 4.0f;
 	const float COLLISION_TURN_SPEED = 0.1f;
 	const float COLLISION_ZOOM_SPEED = 0.15f;
-	const float COLLISION_CHECK_RANGE = 2.0f;
+	const float COLLISION_CHECK_RANGE = 3.0f;
 	const float COLLISION_TURN_AMOUNT = 2.0f;
-	float COLLISION_MAX_THINNESS_OF_OBJECT = 2.0f;
+	const float COLLISION_MAX_THINNESS_OF_OBJECT = 2.0f;
 
 
 
