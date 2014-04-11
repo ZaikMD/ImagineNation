@@ -97,6 +97,12 @@ public class FearScript : MonoBehaviour {
 		{
 			setIgnoreFears(col);
 		}
+		Collider[] colliders2 = other.GetComponentsInChildren<Collider>();
+		foreach(Collider col in colliders2)
+		{
+			setIgnoreFears(col);
+		}
+
 	
 	}
 
