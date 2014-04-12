@@ -112,6 +112,13 @@ public class StickyHandProjectile : MonoBehaviour {
 		//Hit something other than glass while extending
 		else if (m_State == States.Extending)
 		{
+			if(other.gameObject.tag == "Enemy")
+			{
+				BaseEnemy enemy = other.gameObject.GetComponent<BaseEnemy>();
+				
+				enemy.applyDamage(10);				
+			}
+
 			m_State = States.Retracting;
 		}
 		//Hit while retracting does nothing
@@ -120,18 +127,6 @@ public class StickyHandProjectile : MonoBehaviour {
 		{
 			Targets target = other.gameObject.GetComponent<Targets>();
 			target.m_Active = false;
-		}
-
-		if(m_State == States.Extending)
-		{
-			if(other.gameObject.tag == "Enemy")
-			{
-				BaseEnemy enemy = other.gameObject.GetComponent<BaseEnemy>();
-
-				enemy.applyDamage(10);
-
-				m_State = States.Retracting;
-			}
 		}
 	}
 
