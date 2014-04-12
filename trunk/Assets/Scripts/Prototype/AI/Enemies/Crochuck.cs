@@ -93,9 +93,9 @@ public class Crochuck : BaseEnemy
         m_CrochuckTimer += Time.deltaTime;
         if (m_CrochuckTimer >= SAWN_DELAY)
         {
-            instantiateFurbull();
-
-            m_CrochuckTimer = 0.0f;
+			fire ();
+				
+			m_CrochuckTimer = 0.0f;
             m_CrochuckState = CrochuckCombatStates.Default;
 
             m_Agent.enabled = true;
@@ -110,8 +110,7 @@ public class Crochuck : BaseEnemy
         m_CrochuckTimer += Time.deltaTime;
         if (m_CrochuckTimer >= SPIN_SPAWN_DELAY)
         {
-            instantiateFurbull();
-
+			fire ();
             m_CrochuckTimer = 0.0f;
         }
 
@@ -128,8 +127,13 @@ public class Crochuck : BaseEnemy
         }
     }
 
-    void instantiateFurbull()
+	void fire ()
+	{
+		((FurbullProjectile)((GameObject)Instantiate(Resources.Load("FurbulProjectile"), m_SpawnPoint.transform.forward, m_SpawnPoint.transform.rotation)).GetComponent<FurbullProjectile>()).onUse(this);
+	}
+
+    public void instantiateFurbull(Vector3 spawnPosition)
     {
-        m_Furbulls.Add((GameObject)Instantiate(m_FurbullPrefab, m_SpawnPoint.transform.position, m_SpawnPoint.transform.rotation));
+		m_Furbulls.Add((GameObject)Instantiate(m_FurbullPrefab, spawnPosition, m_SpawnPoint.transform.rotation));
     }
 }
