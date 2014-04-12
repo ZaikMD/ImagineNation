@@ -76,6 +76,7 @@ public class Crochuck : BaseEnemy
 
     void combatDefault()
     {
+        m_Agent.enabled = false;
         int state = Random.Range(0, 10);
         if (state > 7)
         {
@@ -97,13 +98,14 @@ public class Crochuck : BaseEnemy
             m_CrochuckTimer = 0.0f;
             m_CrochuckState = CrochuckCombatStates.Default;
 
+            m_Agent.enabled = true;
             m_State = States.Default;
         }
     }
 
     void spin()
     {
-        //TODO: Spin
+        transform.Rotate(new Vector3(transform.rotation.x, transform.rotation.y + 5, transform.rotation.z));
 
         m_CrochuckTimer += Time.deltaTime;
         if (m_CrochuckTimer >= SPIN_SPAWN_DELAY)
@@ -121,12 +123,13 @@ public class Crochuck : BaseEnemy
 
             m_CrochuckState = CrochuckCombatStates.Default;
 
+            m_Agent.enabled = true;
             m_State = States.Default;
         }
     }
 
     void instantiateFurbull()
     {
-        //TODO: instantiate furbull spawn thing
+        m_Furbulls.Add((GameObject)Instantiate(m_FurbullPrefab, m_SpawnPoint.transform.position, m_SpawnPoint.transform.rotation));
     }
 }
