@@ -101,7 +101,7 @@ public class Furbulls : BaseEnemy
 
 				playerState.FlagDamage(10);
 
-				Debug.Log("Hit Player");
+				//Debug.Log("Hit Player");
 				return;
 			}
 		}

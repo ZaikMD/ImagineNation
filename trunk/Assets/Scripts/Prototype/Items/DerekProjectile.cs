@@ -30,7 +30,7 @@ public class DerekProjectile : MonoBehaviour
 	{
 		if(other.gameObject.tag == "Enemy")
 		{
-			BaseEnemy enemy = other.gameObject.GetComponent<BaseEnemy>();
+			Destructable enemy = (Destructable)other.gameObject.GetComponent(typeof(Destructable));
 			
 			enemy.applyDamage(10);
 			Destroy(this.gameObject);
