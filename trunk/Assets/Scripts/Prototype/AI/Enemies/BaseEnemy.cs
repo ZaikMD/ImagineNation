@@ -109,7 +109,6 @@ public abstract class BaseEnemy : MonoBehaviour, Observer
 			{
 				case States.Fight:
 				{
-					updateCombat();
 					fightState();
 					break;
 				}
@@ -127,14 +126,6 @@ public abstract class BaseEnemy : MonoBehaviour, Observer
 				}
 			}
 		}
-	}
-
-	/// <summary>
-	/// Used to do any specific combat update, able to be
-	/// overridden for inheriting classes
-	/// </summary>
-	protected virtual void updateCombat ()
-	{
 	}
 
 	/// <summary>
