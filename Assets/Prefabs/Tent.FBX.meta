@@ -1,24 +1,60 @@
 fileFormatVersion: 2
-guid: 4c5669122f8432145a6245e6efe7777d
+guid: 5460f211db240bf4f940f7e6b723e115
 ModelImporter:
   serializedVersion: 15
   fileIDToRecycleName:
-    100000: Bottem
-    100002: Box501
-    100004: Box505
-    100006: //RootNode
-    100008: Dummy008
-    400000: Bottem
-    400002: Box501
-    400004: Box505
-    400006: //RootNode
-    400008: Dummy008
-    2300000: Box501
-    2300002: Box505
-    3300000: Box501
-    3300002: Box505
-    4300000: Box505
-    4300002: Box501
+    100000: Box512
+    100002: Cylinder924
+    100004: Cylinder938
+    100006: Cylinder939
+    100008: Cylinder940
+    100010: Plane014
+    100012: Plane015
+    100014: Plane016
+    100016: Plane017
+    100018: Pyramid001
+    100020: //RootNode
+    400000: Box512
+    400002: Cylinder924
+    400004: Cylinder938
+    400006: Cylinder939
+    400008: Cylinder940
+    400010: Plane014
+    400012: Plane015
+    400014: Plane016
+    400016: Plane017
+    400018: Pyramid001
+    400020: //RootNode
+    2300000: Box512
+    2300002: Cylinder924
+    2300004: Cylinder938
+    2300006: Cylinder939
+    2300008: Cylinder940
+    2300010: Plane014
+    2300012: Plane015
+    2300014: Plane016
+    2300016: Plane017
+    2300018: Pyramid001
+    3300000: Box512
+    3300002: Cylinder924
+    3300004: Cylinder938
+    3300006: Cylinder939
+    3300008: Cylinder940
+    3300010: Plane014
+    3300012: Plane015
+    3300014: Plane016
+    3300016: Plane017
+    3300018: Pyramid001
+    4300000: Cylinder939
+    4300002: Cylinder940
+    4300004: Cylinder938
+    4300006: Cylinder924
+    4300008: Box512
+    4300010: Pyramid001
+    4300012: Plane015
+    4300014: Plane016
+    4300016: Plane014
+    4300018: Plane017
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -70,5 +106,5 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   userData: 

@@ -1,24 +1,70 @@
 fileFormatVersion: 2
-guid: 4c5669122f8432145a6245e6efe7777d
+guid: d05d258684273394b8dfb9c0f03864ed
 ModelImporter:
   serializedVersion: 15
   fileIDToRecycleName:
-    100000: Bottem
-    100002: Box501
-    100004: Box505
-    100006: //RootNode
-    100008: Dummy008
-    400000: Bottem
-    400002: Box501
-    400004: Box505
-    400006: //RootNode
-    400008: Dummy008
-    2300000: Box501
-    2300002: Box505
-    3300000: Box501
-    3300002: Box505
-    4300000: Box505
-    4300002: Box501
+    100000: //RootNode
+    100002: Box535
+    100004: Box537
+    100006: Box538
+    100008: Box539
+    100010: Box540
+    100012: Box541
+    100014: Box542
+    100016: Box543
+    100018: Box544
+    100020: Box545
+    100022: Box546
+    100024: Box547
+    400000: //RootNode
+    400002: Box535
+    400004: Box537
+    400006: Box538
+    400008: Box539
+    400010: Box540
+    400012: Box541
+    400014: Box542
+    400016: Box543
+    400018: Box544
+    400020: Box545
+    400022: Box546
+    400024: Box547
+    2300000: Box535
+    2300002: Box537
+    2300004: Box538
+    2300006: Box539
+    2300008: Box540
+    2300010: Box541
+    2300012: Box542
+    2300014: Box543
+    2300016: Box544
+    2300018: Box545
+    2300020: Box546
+    2300022: Box547
+    3300000: Box535
+    3300002: Box537
+    3300004: Box538
+    3300006: Box539
+    3300008: Box540
+    3300010: Box541
+    3300012: Box542
+    3300014: Box543
+    3300016: Box544
+    3300018: Box545
+    3300020: Box546
+    3300022: Box547
+    4300000: Box541
+    4300002: Box540
+    4300004: Box539
+    4300006: Box538
+    4300008: Box537
+    4300010: Box535
+    4300012: Box546
+    4300014: Box545
+    4300016: Box544
+    4300018: Box547
+    4300020: Box543
+    4300022: Box542
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -70,5 +116,5 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   userData: 
