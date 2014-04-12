@@ -1,24 +1,25 @@
 fileFormatVersion: 2
-guid: 4c5669122f8432145a6245e6efe7777d
+guid: a805f0aae9145a440ad29cfd193de509
 ModelImporter:
   serializedVersion: 15
   fileIDToRecycleName:
-    100000: Bottem
-    100002: Box501
-    100004: Box505
+    100000: ChamferCyl001
+    100002: Gengon001
+    100004: Hose001
     100006: //RootNode
-    100008: Dummy008
-    400000: Bottem
-    400002: Box501
-    400004: Box505
+    400000: ChamferCyl001
+    400002: Gengon001
+    400004: Hose001
     400006: //RootNode
-    400008: Dummy008
-    2300000: Box501
-    2300002: Box505
-    3300000: Box501
-    3300002: Box505
-    4300000: Box505
-    4300002: Box501
+    2300000: ChamferCyl001
+    2300002: Gengon001
+    2300004: Hose001
+    3300000: ChamferCyl001
+    3300002: Gengon001
+    3300004: Hose001
+    4300000: Hose001
+    4300002: ChamferCyl001
+    4300004: Gengon001
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -70,5 +71,5 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   userData: 
