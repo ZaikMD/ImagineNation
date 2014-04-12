@@ -18,7 +18,7 @@ public class RemoveCollider : MonoBehaviour , Observer
 
 	public void recieveEvent(Subject sender, ObeserverEvents recievedEvent)
 	{
-		if(recievedEvent == ObeserverEvents.DestroyObject)
+		if(recievedEvent == ObeserverEvents.Used)
 		{
 			Destroy(this.gameObject);
 		}
