@@ -84,7 +84,7 @@ public class MoveableBlock : InteractableBaseClass
 			//Move the block in front of the obj
 			Vector3 newPos = obj.transform.position;
 			newPos.y = transform.position.y;
-			transform.position = newPos + obj.transform.forward * obj.transform.localScale.x * 1.3f;
+			transform.position = newPos + obj.transform.forward * obj.transform.localScale.x * 1.35f;
 			m_SavedLocalPos = transform.localPosition;
 			m_SavedLocalRotation = transform.localRotation;
 			Physics.IgnoreCollision(collider, obj.collider);
@@ -108,7 +108,7 @@ public class MoveableBlock : InteractableBaseClass
 
 	bool isGrounded()
 	{
-		return Physics.Raycast(transform.position, -Vector3.up, 1.1f);
+		return Physics.Raycast(transform.position, -Vector3.up, 0.1f - rigidbody.velocity.y / 30.0f);
 	}
 
 	void OnTriggerEnter(Collider obj)

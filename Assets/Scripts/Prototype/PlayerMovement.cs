@@ -31,6 +31,9 @@ Created by Jason "The Casual" Hein 3/25/2014
 	Added gliding
 4/2/2014
 	Added maximum falling speed
+4/12/2014
+	Blocks now have different push and pull speed depending on their size. and the character pushing them
+	Moving blocks movement now always pushes directly forward or backwards
  */
 
 
@@ -57,7 +60,8 @@ public class PlayerMovement : MonoBehaviour
 	const float FALL_ACCLERATION = 40.0f;
 	public const float JUMP_SPEED = 15.0f;
 	const float AIR_HORIZONTAL_MOVE_SPEED = 6.0f;
-	const float PUSHING_BLOCK_SPEED = 5.0f;
+	const float PUSHING_BLOCK_SPEED = 6.5f;
+	const float SLOWED_PUSHING_SPEED = 4.0f;
 	const float AIMING_ROTATION_SPEED = 120.0f;
 	const float MAXIMUM_FALLING_SPEED = -21.0f;
 	const float GLIDING_FALL_SPEED = -1.35f;
@@ -275,10 +279,41 @@ public class PlayerMovement : MonoBehaviour
 			return;
 		}
 
-		//Smaller characters cannot move blocks too large to push
-		if ((blockSize == Size.Large && (gameObject.name == "Zoey" || gameObject.name == "Derek")) || (blockSize == Size.Medium && gameObject.name == "Zoey"))
+		//Smaller characters cannot move blocks too large to push, and may be slowed by slightly large boxes
+		float speed = PUSHING_BLOCK_SPEED;
+		if (blockSize == Size.Large)
 		{
-			return;
+			if (gameObject.name == "Zoey" || gameObject.name == "Derek")
+			{
+				return;
+			}
+			speed = SLOWED_PUSHING_SPEED;
+		}
+		else if (blockSize == Size.Medium)
+		{
+			if (gameObject.name == "Zoey")
+			{
+				return;
+			}
+			else if (gameObject.name == "Derek")
+			{
+				speed = SLOWED_PUSHING_SPEED;
+			}
+		}
+		else if (gameObject.name == "Zoey")
+		{
+			speed = SLOWED_PUSHING_SPEED;
+		}
+
+		//Move forward or backwards
+		if (Vector3.Dot (transform.forward, getControllerProjection ()) >= 0.0f)
+		{
+			m_Controller.Move (transform.forward * speed * Time.deltaTime);
+
+		}
+		else
+		{
+			m_Controller.Move (-transform.forward * speed * Time.deltaTime);
 		}
 
 		//Falling while holding the block
@@ -294,17 +329,6 @@ public class PlayerMovement : MonoBehaviour
 			m_Controller.Move (transform.up * m_VerticalVelocity * Time.deltaTime);
 			return;
 		}
-
-		//Push or Pull
-		Vector3 controls = getControllerProjection ();
-		Vector3 move = Vector3.zero;
-		move.x = (transform.forward.x / Mathf.Abs(transform.forward.x)) / (controls.x / Mathf.Abs(controls.x));
-		move.x *= transform.forward.x;
-
-		move.z = (transform.forward.z / Mathf.Abs(transform.forward.z)) / (controls.z / Mathf.Abs(controls.z));
-		move.z *= transform.forward.z;
-
-		m_Controller.Move (move * PUSHING_BLOCK_SPEED * Time.deltaTime);
 	}
 
 	/// <summary>
