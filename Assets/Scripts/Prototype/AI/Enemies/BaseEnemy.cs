@@ -95,6 +95,11 @@ public abstract class BaseEnemy : MonoBehaviour, Observer
 	{
 	}
 
+	public float getDistanceToTarget()
+	{
+		return Vector3.Distance (m_Target.position, transform.position);
+	}
+
 	// Update is called once per frame
 	void Update () 
 	{
