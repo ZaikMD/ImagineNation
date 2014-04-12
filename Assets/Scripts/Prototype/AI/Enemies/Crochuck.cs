@@ -1,35 +1,48 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 //Last updated 04/06/2014
 
 [RequireComponent(typeof(EnemyPathfinding))]
 public class Crochuck : BaseEnemy 
 {
+    enum CrochuckCombatStates
+    {
+        Default,
+        Spin,
+        Chuck,
+        Count
+    }
+
+    CrochuckCombatStates m_CrochuckState = CrochuckCombatStates.Default;
+
 	//Literally a furbull 
-	public Transform m_FurbullPrefab;
+	public GameObject m_FurbullPrefab;
 
-	public GameObject m_FurbullPrefabSpawnPoint;
+    public GameObject m_SpawnPoint;
 
-	public PlayerState m_Player;
+    List<GameObject> m_Furbulls = new List<GameObject>();
 
-	EnemyPathfinding m_EnemyPathfinding;
+    float m_CrochuckTimer = 0.0f;
+    const float SAWN_DELAY = 1.0f;
+    const float SPIN_SPAWN_DELAY = 0.2f;
 
-	float m_CurrentFurblowTimer = 0.0f;
-	const float m_FurblowTimer = 10.0f;
+    float m_SpinTimer = 0.0f;
+    const float SPIN_TIME = 2.0f;
 
-	float m_CurrentMeleeAttackCooldown = 0.0f;
-	const float m_MeleeAttackCooldown = 3.0f;
 
-	bool m_TimeToFurblow = false;
+    NavMeshAgent m_Agent;
+
 
 	// Use this for initialization
-	void Start () 
+	protected override void start () 
 	{
-		m_Health.m_MaxHealth = 10;
-		m_CombatRange = 1.0f;
-		m_Player = m_Player.GetComponent<PlayerState> ();
-		m_EnemyPathfinding = this.gameObject.GetComponent<EnemyPathfinding> ();
+        m_Health.resetHealth();
+
+        m_CombatRange = 10.0f;
+
+        m_Agent = this.gameObject.GetComponent<NavMeshAgent>();
 	}
 
 	protected override void die()
@@ -40,31 +53,80 @@ public class Crochuck : BaseEnemy
 
 	protected override void fightState()
 	{
-		if(m_CurrentFurblowTimer >= m_FurblowTimer)
-		{
-			//TODO:play attack animation and attack sounds
-			Transform tempFurbull;
-			tempFurbull = (Transform) Instantiate(m_FurbullPrefab,
-			                                      m_FurbullPrefabSpawnPoint.transform.position,
-			                                      Quaternion.identity);
+        if (m_CrochuckState == CrochuckCombatStates.Default)
+        {
+            combatDefault();
+        }
 
-			tempFurbull.transform.rotation = m_FurbullPrefabSpawnPoint.transform.rotation;
-			m_CurrentFurblowTimer = 0.0f;
-			m_CurrentMeleeAttackCooldown = 0.0f;
+        switch (m_CrochuckState)
+        {
+            case CrochuckCombatStates.Chuck:
+            {
+                chuck();
+                break;
+            }
 
-		}
-		else if(m_CurrentMeleeAttackCooldown >= m_MeleeAttackCooldown)
-		{
-			//TODO:play attack animation and attack sounds
-			//Switch the playerstate to taking damage
-			m_CurrentMeleeAttackCooldown = 0.0f;
-		}
+            case CrochuckCombatStates.Spin:
+            {
+                spin();
+                break;
+            }
+        }
 	}
-	
-	// Update is called once per frame
-	protected override void updateCombat () 
-	{
-		m_CurrentFurblowTimer += Time.deltaTime;
-		m_CurrentMeleeAttackCooldown += Time.deltaTime;
-	}
+
+    void combatDefault()
+    {
+        int state = Random.Range(0, 10);
+        if (state > 7)
+        {
+            m_CrochuckState = CrochuckCombatStates.Spin;
+        }
+        else
+        {
+            m_CrochuckState = CrochuckCombatStates.Chuck;
+        }
+    }
+
+    void chuck()
+    {
+        m_CrochuckTimer += Time.deltaTime;
+        if (m_CrochuckTimer >= SAWN_DELAY)
+        {
+            instantiateFurbull();
+
+            m_CrochuckTimer = 0.0f;
+            m_CrochuckState = CrochuckCombatStates.Default;
+
+            m_State = States.Default;
+        }
+    }
+
+    void spin()
+    {
+        //TODO: Spin
+
+        m_CrochuckTimer += Time.deltaTime;
+        if (m_CrochuckTimer >= SPIN_SPAWN_DELAY)
+        {
+            instantiateFurbull();
+
+            m_CrochuckTimer = 0.0f;
+        }
+
+        m_SpinTimer += Time.deltaTime;
+        if (m_SpinTimer >= SPIN_TIME)
+        {
+            m_SpinTimer = 0.0f;
+            m_CrochuckTimer = 0.0f;
+
+            m_CrochuckState = CrochuckCombatStates.Default;
+
+            m_State = States.Default;
+        }
+    }
+
+    void instantiateFurbull()
+    {
+        //TODO: instantiate furbull spawn thing
+    }
 }
