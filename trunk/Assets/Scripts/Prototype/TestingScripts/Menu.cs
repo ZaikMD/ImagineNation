@@ -1089,11 +1089,8 @@ public class Menu : MonoBehaviour {
       
         m_PlayerTwo = (Player)PlayerPrefs.GetInt("PlayerTwo" + slot);
 
-<<<<<<< .mine
 		m_CurrentLevel =  (Level)PlayerPrefs.GetInt("Level" + slot);
-=======
-		m_CurrentLevel = (Level)PlayerPrefs.GetInt("Level" + slot);
->>>>>>> .r350
+
 		m_StartingStage = (Stage)PlayerPrefs.GetInt("LevelStage" + slot);
 
 ///		PlayerPrefs.SetString("CurrentCheckpoint", PlayerPrefs.GetString("Checkpoint" + slot));
