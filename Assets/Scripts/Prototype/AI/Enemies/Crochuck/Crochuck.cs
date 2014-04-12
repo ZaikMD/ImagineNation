@@ -5,7 +5,7 @@ using System.Collections.Generic;
 //Last updated 04/06/2014
 
 [RequireComponent(typeof(EnemyPathfinding))]
-public class Crochuck : BaseEnemy 
+public class Crochuck : BaseEnemy, Observer 
 {
     enum CrochuckCombatStates
     {
@@ -34,6 +34,10 @@ public class Crochuck : BaseEnemy
 
     NavMeshAgent m_Agent;
 
+	int m_TotalTeeth;
+	int m_TeethDestroyed = 0;
+
+	public int m_MaxFurbulls = 5;
 
 	// Use this for initialization
 	protected override void start () 
@@ -43,6 +47,15 @@ public class Crochuck : BaseEnemy
         m_CombatRange = 10.0f;
 
         m_Agent = this.gameObject.GetComponent<NavMeshAgent>();
+
+		CrochuckTeeth[] teeth = gameObject.GetComponentsInChildren<CrochuckTeeth> ();
+
+		m_TotalTeeth = teeth.Length;
+
+		for(int i = 0; i< teeth.Length; i++)
+		{
+			teeth[i].addObserver(this);
+		}
 	}
 
 	protected override void die()
@@ -93,9 +106,9 @@ public class Crochuck : BaseEnemy
         m_CrochuckTimer += Time.deltaTime;
         if (m_CrochuckTimer >= SAWN_DELAY)
         {
-			fire ();
-				
-			m_CrochuckTimer = 0.0f;
+            instantiateFurbull();
+
+            m_CrochuckTimer = 0.0f;
             m_CrochuckState = CrochuckCombatStates.Default;
 
             m_Agent.enabled = true;
@@ -110,7 +123,8 @@ public class Crochuck : BaseEnemy
         m_CrochuckTimer += Time.deltaTime;
         if (m_CrochuckTimer >= SPIN_SPAWN_DELAY)
         {
-			fire ();
+            instantiateFurbull();
+
             m_CrochuckTimer = 0.0f;
         }
 
@@ -127,13 +141,40 @@ public class Crochuck : BaseEnemy
         }
     }
 
-	void fire ()
+    void instantiateFurbull()
+    {
+		int i = 0;
+		while(i < m_Furbulls.Count)
+		{
+			if(m_Furbulls[i] == null)
+			{
+				m_Furbulls.RemoveAt(i);
+				continue;
+			}
+			i++;
+		}
+
+		if(m_Furbulls.Count < m_MaxFurbulls)
+		{
+        	m_Furbulls.Add((GameObject)Instantiate(m_FurbullPrefab, m_SpawnPoint.transform.position, m_SpawnPoint.transform.rotation));
+		}
+    }
+
+	public override void applyDamage (int amount)
 	{
-		((FurbullProjectile)((GameObject)Instantiate(Resources.Load("FurbulProjectile"), m_SpawnPoint.transform.forward, m_SpawnPoint.transform.rotation)).GetComponent<FurbullProjectile>()).onUse(this);
 	}
 
-    public void instantiateFurbull(Vector3 spawnPosition)
-    {
-		m_Furbulls.Add((GameObject)Instantiate(m_FurbullPrefab, spawnPosition, m_SpawnPoint.transform.rotation));
-    }
+	public override void recieveEvent(Subject sender, ObeserverEvents recievedEvent)
+	{
+		base.recieveEvent(sender, recievedEvent);
+
+		if(recievedEvent == ObeserverEvents.Destroyed)
+		{
+			m_TeethDestroyed++;
+			if(m_TeethDestroyed >= m_TotalTeeth)
+			{
+				m_Health.m_Health = 0;
+			}
+		}
+	}
 }

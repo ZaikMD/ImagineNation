@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class BaseEnemy : MonoBehaviour, Observer
+public abstract class BaseEnemy : MonoBehaviour, Observer, Destructable
 {
 	protected enum States
 	{
@@ -59,7 +59,7 @@ public abstract class BaseEnemy : MonoBehaviour, Observer
 	/// </summary>
 	/// <param name="sender">Sender.</param>
 	/// <param name="recievedEvent">Recieved event.</param>
-	public void recieveEvent(Subject sender, ObeserverEvents recievedEvent)
+	public virtual void recieveEvent(Subject sender, ObeserverEvents recievedEvent)
 	{
 		if(recievedEvent == ObeserverEvents.PauseGame || recievedEvent == ObeserverEvents.StartGame)
 		{
@@ -72,7 +72,7 @@ public abstract class BaseEnemy : MonoBehaviour, Observer
 	/// amount.
 	/// </summary>
 	/// <param name="amount">Amount.</param>
-	public void applyDamage(int amount)
+	public virtual void applyDamage(int amount)
 	{
 		m_Health.takeDamage(amount);
 	}
@@ -216,7 +216,7 @@ public abstract class BaseEnemy : MonoBehaviour, Observer
 			//if yes change target and go to follow state and Reset exit combat timer and return
 			if(m_Timer <= 0)
 			{
-				Debug.Log("Exit Combat");
+				//Debug.Log("Exit Combat");
 				//Debug.Log ("Timer reset");
 				m_Timer = EXIT_COMBAT_TIME;
 				m_IsInCombat = false;

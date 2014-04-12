@@ -75,7 +75,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 
 		if(m_IsActive)
 		{
-			Debug.Log(this.gameObject.name + " is active");
+			//Debug.Log(this.gameObject.name + " is active");
 			GameObject.FindGameObjectWithTag("Camera").GetComponentInChildren<CameraController>().switchTo(this.gameObject.transform);
 		}
 
@@ -162,7 +162,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	//not implemented yet since no enemies
 	protected void Dead()
 	{
-		RespawnManager.Instance.playerDied (this.gameObject);
+		//RespawnManager.Instance.playerDied (this.gameObject);
 	   //     disable player.
 	   //     decrement m_DeadTimer;  
 	   //    if m_DeadTimer is less then 0, call reset player function.
@@ -721,11 +721,11 @@ public abstract class PlayerState : MonoBehaviour, Observer
 
 			gameObject.GetComponent<PlayerMovement>().setCanMove(m_IsActive);
 
-			Debug.Log(this.gameObject.name + " is " + m_IsActive);
+			//Debug.Log(this.gameObject.name + " is " + m_IsActive);
 
 			if(m_IsActive)
 			{
-				Debug.Log(this.gameObject.name + " is telling the camera to switch to it");
+				//Debug.Log(this.gameObject.name + " is telling the camera to switch to it");
 				GameObject.FindGameObjectWithTag("Camera").GetComponentInChildren<CameraController>().switchTo(this.gameObject.transform);
 			}
 
