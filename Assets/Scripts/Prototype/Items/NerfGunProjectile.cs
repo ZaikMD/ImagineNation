@@ -19,7 +19,7 @@ public class NerfGunProjectile : MonoBehaviour, Range
 
 	public Transform m_PlatformPrefab;
 
-	public const float m_ProjectileRange = 30;
+	public const float m_ProjectileRange = 20;
 
 	float m_BulletLifeSpan = 5.0f;
 	float m_PlatformLifeSpan = 60.0f;

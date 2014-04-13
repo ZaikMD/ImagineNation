@@ -248,10 +248,11 @@ public abstract class BaseEnemy : Subject, Observer, Destructable
 				m_State = States.Default;
 
 				//Add itself to the Player AIs list of combat enemies
-				if (m_Players[i].GetComponent<PlayerAIStateMachine>().m_IsActive)
+				for(int j = 0; j < m_Players.Length; j++)
 				{
-					m_Players[i].GetComponent<PlayerAIStateMachine>().AddCombatEnemy(this.gameObject);
+				m_Players[j].GetComponent<PlayerAIStateMachine>().AddCombatEnemy(this.gameObject);
 				}
+
 			}
 			else
 			{
@@ -298,10 +299,12 @@ public abstract class BaseEnemy : Subject, Observer, Destructable
 				m_State = States.Default;
 
 				//Add itself to the Player AIs list of combat enemies
-				if (m_Players[i].GetComponent<PlayerAIStateMachine>().m_IsActive)
+
+				for(int j = 0; j < m_Players.Length; j++)
 				{
-					m_Players[i].GetComponent<PlayerAIStateMachine>().AddCombatEnemy(this.gameObject);
+					m_Players[j].GetComponent<PlayerAIStateMachine>().AddCombatEnemy(this.gameObject);
 				}
+
 			}
 			else
 			{
