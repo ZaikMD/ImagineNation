@@ -34,6 +34,8 @@ Created by Jason "The Casual" Hein 3/25/2014
 4/12/2014
 	Blocks now have different push and pull speed depending on their size. and the character pushing them
 	Moving blocks movement now always pushes directly forward or backwards
+4/13/2014
+	Cape movement is now a toggle
  */
 
 
@@ -66,6 +68,7 @@ public class PlayerMovement : MonoBehaviour
 	const float MAXIMUM_FALLING_SPEED = -21.0f;
 	const float GLIDING_FALL_SPEED = -1.35f;
 	float m_VerticalVelocity = 0.0f;
+	float m_MaxFallSpeed = MAXIMUM_FALLING_SPEED;
 
 	void Start ()
 	{
@@ -196,24 +199,19 @@ public class PlayerMovement : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Glides the player. You must call setCanMove(true); from the cape class when you touch the ground or exit gliding.
+	/// Activates cape movement.
 	/// </summary>
-	public void Glide()
+	public void ActivateCape()
 	{
-		//Horizontal Movement
-		if (PlayerInput.Instance.getMovementInput() != Vector2.zero)
-		{
-			//Moves the player and looks where the player is going
-			transform.LookAt (transform.position + getControllerProjection());
-			m_Controller.Move (transform.forward * AIR_HORIZONTAL_MOVE_SPEED * Time.deltaTime);
-		}
+		m_MaxFallSpeed = GLIDING_FALL_SPEED;
+	}
 
-		//Falling
-		if (m_VerticalVelocity > GLIDING_FALL_SPEED)
-		{
-			m_VerticalVelocity -= Time.deltaTime * FALL_ACCLERATION;
-		}
-		m_Controller.Move (transform.up * m_VerticalVelocity * Time.deltaTime);
+	/// <summary>
+	/// Disables cape movement.
+	/// </summary>
+	public void DisableCape()
+	{
+		m_MaxFallSpeed = MAXIMUM_FALLING_SPEED;
 	}
 
 	/// <summary>
@@ -236,7 +234,7 @@ public class PlayerMovement : MonoBehaviour
 		//Falling
 
 		//There is a maximum falling speed
-		if (m_VerticalVelocity > MAXIMUM_FALLING_SPEED)
+		if (m_VerticalVelocity > m_MaxFallSpeed)
 		{
 			m_VerticalVelocity -= Time.deltaTime * FALL_ACCLERATION;
 		}
