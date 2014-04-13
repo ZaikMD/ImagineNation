@@ -101,7 +101,6 @@ public abstract class PlayerState : MonoBehaviour, Observer
 		}
 
 		m_Health = gameObject.GetComponent<Health> ();
-		m_Health.m_MaxHealth = 100;
 		m_Health.resetHealth ();
 
 		start ();
