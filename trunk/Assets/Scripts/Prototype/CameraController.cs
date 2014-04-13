@@ -88,7 +88,7 @@ public class CameraController : MonoBehaviour
 	const float BACK_ZOOM = 0.8f;
 	float m_Zoom_Return = DEFAULT_ZOOM;
 	const float TUNNEL_ZOOM = 0.25f;
-	const float ZOOM_RETURN_SPEED = 0.03f;
+	const float ZOOM_RETURN_SPEED = 0.02f;
 
 	//Aiming
 	public bool m_EnabledAiming = true;
@@ -115,9 +115,9 @@ public class CameraController : MonoBehaviour
 	//Collision
 	const float COLLISION_FIX_TIMER = 4.0f;
 	const float COLLISION_TURN_SPEED = 0.1f;
-	const float COLLISION_ZOOM_SPEED = 0.15f;
-	const float COLLISION_CHECK_RANGE = 3.0f;
-	const float COLLISION_TURN_AMOUNT = 2.0f;
+	const float COLLISION_ZOOM_SPEED = 0.1f;
+	const float COLLISION_CHECK_RANGE = 4.0f;
+	const float COLLISION_TURN_AMOUNT = 1.0f;
 	const float COLLISION_MAX_THINNESS_OF_OBJECT = 2.0f;
 
 
