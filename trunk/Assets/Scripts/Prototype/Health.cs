@@ -77,7 +77,6 @@ public class Health : MonoBehaviour {
 			m_CylinderResets[i] = new Vector3(gameObject.transform.position.x - m_CylinderPositions[i].x, 
 			                                  gameObject.transform.position.y - m_CylinderPositions[i].y,
 			                                  gameObject.transform.position.z - m_CylinderPositions[i].z);
-
 		}
 
 
@@ -90,12 +89,12 @@ public class Health : MonoBehaviour {
 		if (m_CanRegenerate && m_RegeneratationTimer >= 0.0f && m_Health > 0)
 		{
 			m_RegeneratationTimer += Time.deltaTime;
-			if (m_RegeneratationTimer >= 1.0f + REGENERATION_DELAY)
+			if (m_RegeneratationTimer >= 10.0f + REGENERATION_DELAY)
 			{
 				m_Health++;
 				m_RegeneratationTimer = 0.0f + REGENERATION_DELAY;
 
-				if (m_Health > m_MaxHealth)
+				if (m_Health >= m_MaxHealth)
 				{
 					m_RegeneratationTimer = -1.0f;
 				}
@@ -136,9 +135,6 @@ public class Health : MonoBehaviour {
 		//Update health
 		m_Health -= damage;
 
-		//Update the intensity of the health light
-		//m_Light.light.intensity = m_DefaultIntensity * ((float)m_Health / m_MaxHealth);
-
 		//Sets the regenration timer to start
 		m_RegeneratationTimer = 0.0f;
 	}
@@ -158,6 +154,5 @@ public class Health : MonoBehaviour {
 	public void resetHealth()
 	{
 		m_Health = m_MaxHealth;
-		//m_Light.light.intensity = m_DefaultIntensity;
 	}
 }
