@@ -141,6 +141,7 @@ public class RespawnManager : MonoBehaviour {
 		}
 		m_PlayerOneDead = m_PlayerTwoDead = false;
 		CharacterSwitch.Instance.setIfAbleToSwitch (true);
+		FearScript.Instance.setPlayerIgnore ();
 	}
 
 }
