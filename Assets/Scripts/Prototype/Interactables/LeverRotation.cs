@@ -6,8 +6,9 @@ public class LeverRotation : MonoBehaviour, Observer {
 	
 	//Trigger
 	public Subject m_Subject;
+
 	//Rotation Value
-	public Vector3 m_RotationValue;
+	public Vector3 m_RotationValue = new Vector3(0.0f,0.0f,60.0f);
 	
 	//State Values
 	bool m_IsPaused = false;
