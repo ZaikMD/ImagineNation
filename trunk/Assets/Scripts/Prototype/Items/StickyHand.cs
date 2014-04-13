@@ -23,7 +23,8 @@ Created by Jason "The Casual" Hein on 3/23/2014
 using UnityEngine;
 using System.Collections;
 
-public class StickyHand : BasePrimaryItem {
+public class StickyHand : BasePrimaryItem 
+{
 
 	GameObject m_Projectile;
 	StickyHandProjectile m_ProjectileComponent;
@@ -34,6 +35,8 @@ public class StickyHand : BasePrimaryItem {
 		m_Projectile = (GameObject)Instantiate(Resources.Load("StickyHandProjectile"), this.transform.position + this.transform.forward, Quaternion.identity);
 		m_ProjectileComponent = (StickyHandProjectile)(m_Projectile.GetComponent<StickyHandProjectile>());
 		m_Projectile.SetActive (false);
+
+		m_ProjectileRange = (Range) m_Projectile.GetComponent (typeof(Range));
 	}
 
 	/// <summary>
@@ -59,8 +62,8 @@ public class StickyHand : BasePrimaryItem {
 		}
 	}
 
-	public virtual float getRange()
+	public override float getRange()
 	{
-		return StickyHandProjectile.MAX_DISTANCE;
+		return m_ProjectileRange.getRange ();
 	}
 }

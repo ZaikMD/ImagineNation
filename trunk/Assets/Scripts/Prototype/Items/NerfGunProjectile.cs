@@ -12,12 +12,14 @@ enum NerfGunProjectileState
 	Unknown
 };
 
-public class NerfGunProjectile : MonoBehaviour 
+public class NerfGunProjectile : MonoBehaviour, Range 
 {
 
 	NerfGunProjectileState m_State;
 
 	public Transform m_PlatformPrefab;
+
+	public const float m_ProjectileRange = 30;
 
 	float m_BulletLifeSpan = 5.0f;
 	float m_PlatformLifeSpan = 60.0f;
@@ -191,5 +193,10 @@ public class NerfGunProjectile : MonoBehaviour
 	public bool getActive()
 	{
 		return m_Active;
+	}
+
+	public float getRange()
+	{
+		return m_ProjectileRange;
 	}
 }

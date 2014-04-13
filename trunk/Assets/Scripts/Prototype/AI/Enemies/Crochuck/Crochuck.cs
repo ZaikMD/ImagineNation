@@ -61,6 +61,10 @@ public class Crochuck : BaseEnemy, Observer
 	protected override void die()
 	{
 		//TODO:play death animation and instantiate ragdoll
+		for(int i = 0; i < m_Players.Length; i++)
+		{
+			m_Players[i].GetComponent<PlayerAIStateMachine>().RemoveEnemy(this.gameObject);
+		}
 		Destroy (this.gameObject);
 	}
 

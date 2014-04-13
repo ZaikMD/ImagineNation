@@ -27,6 +27,7 @@ public class NerfGun : BasePrimaryItem
 	void Start () 
 	{
 		//Full ammo
+		m_ProjectileRange = (Range)m_BulletPrefab.gameObject.GetComponent (typeof(Range));
 		m_NumberOfBullets = maxBullets;
 		m_NerfGun.SetActive (false);
 	}
@@ -91,5 +92,10 @@ public class NerfGun : BasePrimaryItem
 		{
 			m_NerfGun.SetActive(false);
 		}
+	}
+
+	public override float getRange()
+	{
+		return m_ProjectileRange.getRange ();
 	}
 }

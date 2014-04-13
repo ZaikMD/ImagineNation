@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DerekProjectile : MonoBehaviour 
+public class DerekProjectile : MonoBehaviour , Range
 {
 	public GameObject m_DebrisPrefab;
 	public float m_Speed = 10.0f;
-	public float m_ProjectileRange = 2.0f;
+	public const float m_ProjectileRange = 2.0f;
 	Vector3 m_InitialPosition;
 
 	Vector3 m_Direction;
@@ -51,7 +51,7 @@ public class DerekProjectile : MonoBehaviour
 		}
 	}
 
-	public float getProjectileRange()
+	public float getRange()
 	{
 		return m_ProjectileRange;
 	}
