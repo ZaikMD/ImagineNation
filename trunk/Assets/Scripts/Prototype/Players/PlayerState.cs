@@ -70,12 +70,12 @@ public abstract class PlayerState : MonoBehaviour, Observer
 
 		for(int i = 0; i < players.Length; i++)
 		{
-			Collider[] colliders1 = players[i].GetComponentsInChildren(typeof(Collider));
+			Collider[] colliders1 = (Collider[]) players[i].GetComponentsInChildren(typeof(Collider));
 			for(int c = 0; c < players.Length; c++)
 			{
 				if(i != c)
 				{
-					Collider[] colliders2 = players[c].GetComponentsInChildren(typeof(Collider));
+					Collider[] colliders2 = (Collider[])players[c].GetComponentsInChildren(typeof(Collider));
 					for(int x = 0; x < colliders1.Length; x++)
 					{
 						for(int y = 0; y < colliders2.Length; y++)
