@@ -31,7 +31,7 @@ public class Shield : MonoBehaviour
 
 		if(m_IsClone)
 		{
-			Destroy(m_ColliderTexture.GetComponent<Collider>());
+			turnIntoClone();
 		}
 	}
 	
@@ -49,5 +49,10 @@ public class Shield : MonoBehaviour
 		{
 			m_Children[i].SetActive(true);
 		}
+	}
+
+	public void turnIntoClone()
+	{
+		Destroy(m_ColliderTexture.GetComponent<Collider>());
 	}
 }

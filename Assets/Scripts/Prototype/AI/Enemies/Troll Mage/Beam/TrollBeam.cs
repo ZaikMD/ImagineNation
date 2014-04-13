@@ -7,7 +7,14 @@ public class TrollBeam : MonoBehaviour
 	public const float LIFE_SPAN = 20.0f;
 	float m_DeathTimer = 0;
 
-	 public GameObject m_Target;
+	public GameObject m_Target;
+
+	public bool m_IsClone = false;
+
+	void Start()
+	{
+		turnIntoClone ();
+	}
 
 	// Update is called once per frame
 	void FixedUpdate () 
@@ -20,6 +27,33 @@ public class TrollBeam : MonoBehaviour
 		if(m_DeathTimer >= LIFE_SPAN)
 		{
 			Destroy(this.gameObject);
+		}
+	}
+
+	void OnTriggerEnter(Collider other)
+	{
+		if(!m_IsClone)
+		{
+			if(other.tag == "Player")
+			{
+				other.gameObject.GetComponent<PlayerState>().FlagDamage(1);
+				Destroy(this.gameObject);
+			}
+		}
+	}
+
+	public void turnIntoClone()
+	{
+		if(m_IsClone)
+		{
+			Collider[] colliders = (Collider[])gameObject.GetComponentsInChildren<Collider>();
+			for(int i = 0; i < colliders.Length; i++)
+			{
+				if(colliders[i].isTrigger == false)
+				{
+					Destroy(colliders[i]);
+				}
+			}
 		}
 	}
 }

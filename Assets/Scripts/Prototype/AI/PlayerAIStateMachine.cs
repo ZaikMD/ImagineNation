@@ -85,7 +85,7 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 		}
 		else
 		{
-			m_Partner = players[1];
+			//m_Partner = players[1];
 		}
 
 		//------------------------------

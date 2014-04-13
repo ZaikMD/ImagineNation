@@ -66,6 +66,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	// Use this for initialization
 	void Start ()
     {
+		/*
 		GameObject[] players = GameObject.FindGameObjectsWithTag ("Player");
 
 		for(int i = 0; i < players.Length; i++)
@@ -85,7 +86,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 					}
 				}
 			}
-		}
+		}*/
 
         m_PlayerState = PlayerStates.Default;
 
