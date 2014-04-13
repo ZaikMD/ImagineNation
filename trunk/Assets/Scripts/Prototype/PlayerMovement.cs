@@ -49,7 +49,7 @@ Created by Jason "The Casual" Hein 3/25/2014
 using UnityEngine;
 using System.Collections;
 
-public class PlayerMovement : MonoBehaviour 
+public class PlayerMovement : MonoBehaviour , Observer
 {
 	public Transform m_CameraTransform;
 
@@ -75,6 +75,16 @@ public class PlayerMovement : MonoBehaviour
 		//Get character controller
 		m_Controller = gameObject.GetComponent<CharacterController>();
 		//gameObject.AddComponent ("EnvironmentInteraction");
+
+		CharacterSwitch.Instance.addObserver (this);
+	}
+
+	public void recieveEvent(Subject sender, ObeserverEvents recievedEvent)
+	{
+		if(recievedEvent == ObeserverEvents.CharacterSwitch)
+		{
+			m_VerticalVelocity = 5;
+		}
 	}
 
 	/// <summary>
