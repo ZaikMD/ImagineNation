@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a805f0aae9145a440ad29cfd193de509
+guid: c6bd7eb7d9d1848459680828e9601391
 ModelImporter:
   serializedVersion: 15
   fileIDToRecycleName:
@@ -17,9 +17,9 @@ ModelImporter:
     3300000: ChamferCyl001
     3300002: Gengon001
     3300004: Hose001
-    4300000: Hose001
+    4300000: Gengon001
     4300002: ChamferCyl001
-    4300004: Gengon001
+    4300004: Hose001
     9500000: //RootNode
   materials:
     importMaterials: 1
