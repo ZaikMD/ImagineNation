@@ -66,6 +66,27 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	// Use this for initialization
 	void Start ()
     {
+		GameObject[] players = GameObject.FindGameObjectsWithTag ("Player");
+
+		for(int i = 0; i < players.Length; i++)
+		{
+			Collider[] colliders1 = players[i].GetComponentsInChildren(typeof(Collider));
+			for(int c = 0; c < players.Length; c++)
+			{
+				if(i != c)
+				{
+					Collider[] colliders2 = players[c].GetComponentsInChildren(typeof(Collider));
+					for(int x = 0; x < colliders1.Length; x++)
+					{
+						for(int y = 0; y < colliders2.Length; y++)
+						{
+							Physics.IgnoreCollision(colliders1[x],colliders2[y]);
+						}
+					}
+				}
+			}
+		}
+
         m_PlayerState = PlayerStates.Default;
 
         m_HaveSecondItem = true;
