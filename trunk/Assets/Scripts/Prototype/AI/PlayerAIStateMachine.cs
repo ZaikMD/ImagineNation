@@ -50,19 +50,23 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 	bool m_EnterCombatFlag;
 	bool m_EnterPuzzle;
 
-	public const int m_IdealAttackRange = 10;
-	public const int m_MaxAttackRange = 15;
+	float m_IdealAttackRange;
+	float m_MaxAttackRange;
 
 	bool m_IsPaused = false;
 	public bool m_IsActive;
 
 	NavMeshAgent m_NavAgent;
 
+	BasePrimaryItem m_Weapon;
+
 	//METHODS
 
 	// Use this for initialization
 	void Start () 
 	{
+		m_Weapon = gameObject.GetComponent<BasePrimaryItem> ();
+
 		m_playerStateMachine = this.gameObject.GetComponent<PlayerState>();
 		m_PathFinding = this.gameObject.GetComponent<PlayerPathfinding>();
 
@@ -85,6 +89,9 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 		m_NavAgent = gameObject.GetComponent<NavMeshAgent> ();
 
 		m_NavAgent.enabled = m_IsActive;
+
+		m_MaxAttackRange = m_Weapon.getRange ();
+		m_IdealAttackRange = m_Weapon.getRange () - 2;
 	}
 
 
@@ -281,8 +288,9 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 		
 		if(ButterZone(m_CombatTarget))
 		{
-			m_PathFinding.Combat(m_CombatTarget.transform,m_IdealAttackRange);
+
 			Attack ();
+			m_PathFinding.Combat(m_CombatTarget.transform,m_IdealAttackRange);
 			m_CombatState = PlayerAICombatState.Default;
 			m_State = PlayerAIState.Default;
 		}
@@ -329,16 +337,17 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 	/// </summary>
 	void Attack() 
 	{ 
+		transform.rotation = Quaternion.LookRotation(m_CombatTarget.transform.position, Vector3.up);
+
 		//Raycast forward, if enemy is hit, fire
-		BasePrimaryItem weapon = gameObject.GetComponent<BasePrimaryItem> ();
 
 		RaycastHit hit;
-		Physics.Raycast (transform.position, transform.forward, out hit, weapon.getRange ());
+		Physics.Raycast (transform.position, transform.forward, out hit, m_Weapon.getRange ());
 		                //inButterZone
 		// TODO Attack
 		if (hit.transform != null && hit.transform.gameObject == m_CombatTarget)
 		{
-			weapon.fire();
+			m_Weapon.fire();
 		}
 		m_CombatState = PlayerAICombatState.Default;
 	} 
