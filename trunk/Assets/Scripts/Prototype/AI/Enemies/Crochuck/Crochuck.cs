@@ -147,36 +147,20 @@ public class Crochuck : BaseEnemy, Observer
 
     public void instantiateFurbull(Vector3 position)
     {
-		int i = 0;
-		while(i < m_Furbulls.Count)
-		{
-			if(m_Furbulls[i] == null)
-			{
-				m_Furbulls.RemoveAt(i);
-				continue;
-			}
-			i++;
-		}
-
 		if(m_Furbulls.Count < m_MaxFurbulls)
 		{
-			m_Furbulls.Add((GameObject)Instantiate(m_FurbullPrefab, position, m_SpawnPoint.transform.rotation));
+			GameObject furbullObj = ((GameObject)Instantiate(m_FurbullPrefab, position, m_SpawnPoint.transform.rotation));
+
+			m_Furbulls.Add(furbullObj);
+
+			Furbulls furbull = furbullObj.GetComponentInChildren<Furbulls>();
+			furbull.addObserver(this);
+
 		}
     }
 
 	void fire ()
-	{
-		int i = 0;
-		while(i < m_Furbulls.Count)
-		{
-			if(m_Furbulls[i] == null)
-			{
-				m_Furbulls.RemoveAt(i);
-				continue;
-			}
-			i++;
-		}
-		
+	{		
 		if(m_Furbulls.Count < m_MaxFurbulls)
 		{
 			GameObject obj = ((GameObject)Instantiate(Resources.Load("FurbulProjectile"), m_SpawnPoint.transform.position, m_SpawnPoint.transform.rotation));
@@ -193,13 +177,20 @@ public class Crochuck : BaseEnemy, Observer
 	{
 		base.recieveEvent(sender, recievedEvent);
 
-		if(recievedEvent == ObeserverEvents.Destroyed)
+		if(recievedEvent == ObeserverEvents.Destroyed && sender.gameObject.GetComponent<CrochuckTeeth>() != null)
 		{
 			m_TeethDestroyed++;
 			if(m_TeethDestroyed >= m_TotalTeeth)
 			{
 				m_Health.m_Health = 0;
 			}
+		}
+
+
+		Furbulls furbull = sender.gameObject.GetComponent<Furbulls>();
+		if(recievedEvent == ObeserverEvents.Destroyed && furbull != null)
+		{
+			m_Furbulls.Remove(sender.gameObject.transform.parent.gameObject);
 		}
 	}
 }

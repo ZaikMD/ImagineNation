@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class BaseEnemy : MonoBehaviour, Observer, Destructable
+public abstract class BaseEnemy : Subject, Observer, Destructable
 {
 	protected enum States
 	{
