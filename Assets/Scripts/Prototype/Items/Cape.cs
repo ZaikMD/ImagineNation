@@ -1,19 +1,35 @@
-﻿using UnityEngine;
+﻿/*
+
+
+4/13/2014
+	Now has a cape object in game
+	Cape flows in the wind
+*/ 
+
+
+using UnityEngine;
 using System.Collections;
 
 public class Cape : SecondairyBase 
 {
 	public Transform m_Cape;
-	Vector3 m_Rotation = new Vector3(40,0.0f,0.0f);
+	Vector3 m_Rotation = new Vector3(40.0f,0.0f,0.0f);
 	
 	void Update ( )
 	{
-		//Cape flows in the wind
-		m_Cape.Rotate (Mathf.Sin(Time.realtimeSinceStartup) * 0.005f * m_Rotation);
-
 		//Ground
 		if ( m_PlayerMovement.IsGrounded() )
 		{
+			//Cape flows in the wind
+			if (m_PlayerMovement.getControllerProjection() != Vector3.zero)
+			{
+				m_Cape.Rotate (Mathf.Sin(Time.realtimeSinceStartup * 8.0f) * 0.03f * m_Rotation);
+			}
+			else
+			{
+				m_Cape.Rotate (Mathf.Sin(Time.realtimeSinceStartup) * 0.005f * m_Rotation);
+			}
+
 			if ( m_Enabled )
 			{
 				m_Enabled = false;    //If you are on the ground disable the cape
@@ -28,6 +44,9 @@ public class Cape : SecondairyBase
 		//Airborne
 		if ( m_Enabled )
 		{
+			//Cape flows in the wind
+			m_Cape.Rotate (Mathf.Sin(Time.realtimeSinceStartup * 10.0f) * 0.025f * m_Rotation);
+
 			//Turn cape off
 			if ( PlayerInput.Instance.getJumpHeld() == false )
 			{
