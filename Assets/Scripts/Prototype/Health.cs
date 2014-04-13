@@ -36,7 +36,7 @@ public class Health : MonoBehaviour {
 	float m_DefaultIntensity;
 
 	//GlowStick object
-	public GameObject[] m_Cylinders;
+	public GameObject[] m_Cylinders = new GameObject[3];
 
 	Vector3[] m_CylinderPositions = new Vector3[3];
 	Vector3[] m_CylinderResets = new Vector3[3];
@@ -121,6 +121,42 @@ public class Health : MonoBehaviour {
 				{
 					Rigidbody rigid = m_Cylinders[i].AddComponent<Rigidbody>();
 					rigid.useGravity = true;
+				}
+			}
+		}
+		for(int i = 0; i < m_Cylinders.Length; i++)
+		{
+			Rigidbody rigidTest = m_Cylinders[i].GetComponent<Rigidbody>();
+			if(rigidTest != null)
+			{
+
+				switch(i)
+				{
+				case 2:
+					if(m_Cylinders[0].renderer.material.color != Color.red)
+					{
+						m_Cylinders[0].renderer.material.color = Color.yellow;
+						m_Cylinders[1].renderer.material.color = Color.yellow;
+					}
+						break;
+				case 1:
+					m_Cylinders[0].renderer.material.color = Color.red;
+					break;
+				}
+			}
+
+			else
+			{
+				if(i == 2)
+				{
+					m_Cylinders[0].renderer.material.color = Color.green;
+					m_Cylinders[1].renderer.material.color = Color.green;
+					m_Cylinders[2].renderer.material.color = Color.green;
+				}
+
+				if(i == 1)
+				{
+					m_Cylinders[0].renderer.material.color = Color.yellow;
 				}
 			}
 		}
