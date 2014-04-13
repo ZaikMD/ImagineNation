@@ -117,12 +117,14 @@ public class CrawlSpaces : InteractableBaseClass
 					if (m_Player.CompareTag("Player"))
 					{
 						m_Player.GetComponent<PlayerState>().exitInteracting();
+						FearScript.Instance.setPlayerIgnore();
 					}
 
 					if (m_Player.CompareTag("RCCar"))
 					{
 						m_Player.gameObject.GetComponent<RCCarMovement>().m_CanMove = true;
 						m_Player.gameObject.GetComponent<RCCarMovement>().m_RCCarManager.ExitInteraction();
+						FearScript.Instance.setIgnoreFears(m_Player);
 					}
 				}
 			}
