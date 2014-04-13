@@ -1,4 +1,16 @@
-﻿using UnityEngine;
+﻿/*
+
+
+Created by some douche
+
+
+4/13/2014
+	Fixed falling through platform
+*/ 
+
+
+
+using UnityEngine;
 using System.Collections;
 
 public class MovingPlatforms : MonoBehaviour , Observer
@@ -82,58 +94,52 @@ public class MovingPlatforms : MonoBehaviour , Observer
 	{
 		if(!m_IsPaused)
 		{
-			if(m_Player != null)
+			if (m_SwitchToggled == true) //If it doesn't need a switch
 			{
+				m_DelayTime -= Time.deltaTime; //Count down the delay timer
 
-			}
-				if (m_SwitchToggled == true) //If it doesn't need a switch
+				if(m_DelayTime <= 0)
 				{
-					m_DelayTime -= Time.deltaTime; //Count down the delay timer
-
-					if(m_DelayTime <= 0)
+					if (m_PauseTime >= 0) //Check the pause timers
 					{
-						if (m_PauseTime >= 0) //Check the pause timers
+						m_PauseTime -= Time.deltaTime; //Count down pause timer and set the move time
+						m_MoveTimeInSeconds = m_InitialMoveTime;
+					} 
+					else if (m_HasMoved == false) //Check to see if it's moved already
+					{
+						m_Movement = new Vector3(m_XMovePercent, m_YMovePercent, m_ZMovePercent);
+						transform.Translate(m_Movement); ; //Move the platforms by the move percentage
+						m_MoveTimeInSeconds -= Time.deltaTime; //Count down move time
+						if(m_Player != null)
 						{
-							m_PauseTime -= Time.deltaTime; //Count down pause timer and set the move time
-							m_MoveTimeInSeconds = m_InitialMoveTime;
-						} 
-						else if (m_HasMoved == false) //Check to see if it's moved already
+
+						}
+
+						if (m_MoveTimeInSeconds < 0) 
 						{
-							m_Movement = new Vector3(m_XMovePercent, m_YMovePercent, m_ZMovePercent);
-							transform.Translate(m_Movement); ; //Move the platforms by the move percentage
-							m_MoveTimeInSeconds -= Time.deltaTime; //Count down move time
-							if(m_Player != null)
-							{
-								m_Player.transform.position = new Vector3(m_Player.transform.position.x + m_XMovePercent, m_Player.transform.position.y + m_YMovePercent, m_Player.transform.position.z + m_ZMovePercent);
-								//m_Player.transform.Translate( m_XMovePercent, m_YMovePercent,m_ZMovePercent);
-							}
-
-							if (m_MoveTimeInSeconds < 0) 
-							{
-								m_PauseTime = m_InitialPauseTime; //Reset pause time
-								m_HasMoved = true;
-							} 
-						} 
-						else if (m_HasMoved == true && m_MovesOnce == false)  //Check to see if it needs to go back
-						{
-							m_Movement = new Vector3(-1 * m_XMovePercent, -1 * m_YMovePercent, -1 * m_ZMovePercent);
-							transform.Translate (m_Movement); //Move the platform
-							m_MoveTimeInSeconds -= Time.deltaTime;
-
-							if(m_Player != null)
-							{
-								m_Player.transform.position = new Vector3(m_Player.transform.position.x + (-1* m_XMovePercent), m_Player.transform.position.y + (-1*m_YMovePercent), m_Player.transform.position.z + (-1*m_ZMovePercent));
-								//m_Player.transform.Translate((-1* m_XMovePercent),(-1*m_YMovePercent),(-1*m_ZMovePercent));
-							}
-
-							if (m_MoveTimeInSeconds < 0) 
-							{
 							m_PauseTime = m_InitialPauseTime; //Reset pause time
-							m_HasMoved = false; // Has moved is now false
-							}
+							m_HasMoved = true;
+						} 
+					} 
+					else if (m_HasMoved == true && m_MovesOnce == false)  //Check to see if it needs to go back
+					{
+						m_Movement = new Vector3(-1 * m_XMovePercent, -1 * m_YMovePercent, -1 * m_ZMovePercent);
+						transform.Translate (m_Movement); //Move the platform
+						m_MoveTimeInSeconds -= Time.deltaTime;
+
+						if(m_Player != null)
+						{
+							//m_Player.transform.Translate((-1* m_XMovePercent),(-1*m_YMovePercent),(-1*m_ZMovePercent));
+						}
+
+						if (m_MoveTimeInSeconds < 0) 
+						{
+						m_PauseTime = m_InitialPauseTime; //Reset pause time
+						m_HasMoved = false; // Has moved is now false
 						}
 					}
 				}
+			}
 		}
 	}
 
@@ -142,7 +148,7 @@ public class MovingPlatforms : MonoBehaviour , Observer
 	{
 		if (obj.tag == "Player") 
 		{
-			obj.GetComponent<PlayerMovement>().Move(m_Movement);
+			obj.GetComponent<PlayerMovement>().Move(m_Movement + transform.up * 0.01f);
 		}
 	}
 
