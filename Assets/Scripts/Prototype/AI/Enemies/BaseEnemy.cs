@@ -24,7 +24,7 @@ public abstract class BaseEnemy : MonoBehaviour, Observer, Destructable
 
 	public GameObject m_Ragdoll;
 
-	GameObject[] m_Players;
+	protected GameObject[] m_Players;
 	protected Transform m_Target;
 
 	public const float EXIT_COMBAT_TIME = 3.0f;
@@ -222,6 +222,10 @@ public abstract class BaseEnemy : MonoBehaviour, Observer, Destructable
 				m_IsInCombat = false;
 				m_State = States.Patrol;
 
+				for(int i = 0; i < m_Players.Length; i++)
+				{
+					m_Players[i].GetComponent<PlayerAIStateMachine>().RemoveEnemy(this.gameObject);
+				}
 			}
 			else
 			{
@@ -242,6 +246,12 @@ public abstract class BaseEnemy : MonoBehaviour, Observer, Destructable
 				m_EnemyPathfinding.setTarget(m_Players[i].gameObject);
 				m_Target = m_EnemyPathfinding.getTarget();
 				m_State = States.Default;
+
+				//Add itself to the Player AIs list of combat enemies
+				if (m_Players[i].GetComponent<PlayerAIStateMachine>().m_IsActive)
+				{
+					m_Players[i].GetComponent<PlayerAIStateMachine>().AddCombatEnemy(this.gameObject);
+				}
 			}
 			else
 			{
@@ -286,6 +296,12 @@ public abstract class BaseEnemy : MonoBehaviour, Observer, Destructable
 				m_EnemyPathfinding.setTarget(m_Players[i].gameObject);
 				m_Target = m_EnemyPathfinding.getTarget();
 				m_State = States.Default;
+
+				//Add itself to the Player AIs list of combat enemies
+				if (m_Players[i].GetComponent<PlayerAIStateMachine>().m_IsActive)
+				{
+					m_Players[i].GetComponent<PlayerAIStateMachine>().AddCombatEnemy(this.gameObject);
+				}
 			}
 			else
 			{

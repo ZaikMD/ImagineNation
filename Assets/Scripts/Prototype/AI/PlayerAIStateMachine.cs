@@ -404,19 +404,28 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 
 	public void AddCombatEnemy(GameObject enemy) 		 
 	{ 
-		m_enemies.Add(enemy); 
-		m_EnterCombatFlag = true;
+		if (!m_enemies.Contains(enemy))
+		{
+			m_enemies.Add(enemy); 
+			m_EnterCombatFlag = true;
+		}
 	}
 	
 
 	public void RemoveEnemy(GameObject enemy)
 	{ 
 		//TODO if enemy dies is he removed from the list?
-		m_enemies.Remove(enemy); 
-		if(m_enemies.Count<=0)
+		if (m_enemies.Contains(enemy))
 		{
-			m_EnterCombatFlag = false;
+			m_enemies.Remove(enemy); 
+
+			if(m_enemies.Count<=0)
+			{
+				m_EnterCombatFlag = false;
+			}
 		}
+
+
 	} 
 
 

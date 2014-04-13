@@ -28,7 +28,8 @@ All the projectile is, is a prefab with a rigid body.
 using UnityEngine;
 using System.Collections;
 
-public class StickyHandProjectile : MonoBehaviour {
+public class StickyHandProjectile : MonoBehaviour, Range
+{
 
 	//States
 	enum States
@@ -41,7 +42,7 @@ public class StickyHandProjectile : MonoBehaviour {
 	
 	//Speed and max distance to retract
 	const float m_Speed = 0.75f; 
-	public const float MAX_DISTANCE = 20.0f; 
+	public const float m_ProjectileRange = 20.0f; 
 	float m_OriginalScale;
 
 	//Target to fire at
@@ -54,6 +55,7 @@ public class StickyHandProjectile : MonoBehaviour {
 
 	//Movement, so we can stop the player from moving while launching
 	PlayerMovement m_Movement;
+	
 
 	//On Tick
 	void Update() 
@@ -148,7 +150,7 @@ public class StickyHandProjectile : MonoBehaviour {
 	void extending() 
 	{ 
 		//If the projectile has gone too far, set it to retract
-		if(Vector3.Distance(m_OriginalPosition, transform.position) >= MAX_DISTANCE)
+		if(Vector3.Distance(m_OriginalPosition, transform.position) >= m_ProjectileRange)
 		{ 
 			m_State = States.Retracting;
 			return;
@@ -214,5 +216,10 @@ public class StickyHandProjectile : MonoBehaviour {
 			m_ProjectileLine = (GameObject)Instantiate(Resources.Load("StickyHandLine"), Vector3.Lerp (m_Zoey.transform.position, transform.position, 0.5f), Quaternion.identity);
 		}
 		updateStickyLine();
+	}
+
+	public float getRange()
+	{
+		return m_ProjectileRange;
 	}
 }

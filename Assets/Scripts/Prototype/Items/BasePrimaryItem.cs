@@ -5,11 +5,11 @@ public abstract class BasePrimaryItem : MonoBehaviour
 {
 	protected GameObject m_BaseProjectile;
 	protected Reticle m_Reticle;
-	protected float m_Range;
+	protected Range m_ProjectileRange;
 	
     CameraController m_Camera;
 	PlayerAIStateMachine m_AIStateMachine;
-	
+
 	//Load Reticle
 	void Awake()
 	{
@@ -49,8 +49,7 @@ public abstract class BasePrimaryItem : MonoBehaviour
 		return (m_Reticle.getTargetPosition() - transform.position).normalized;
 	}
 
-	public virtual float getRange()
-	{
-		return m_Range;
-	}
+	public abstract float getRange();
+
+
 }
