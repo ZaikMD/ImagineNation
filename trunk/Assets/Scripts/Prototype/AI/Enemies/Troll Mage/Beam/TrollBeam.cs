@@ -4,7 +4,7 @@ using System.Collections;
 public class TrollBeam : MonoBehaviour 
 {
 	public float m_Speed = 0.05f;
-	public const float LIFE_SPAN = 10.0f;
+	public const float LIFE_SPAN = 20.0f;
 	float m_DeathTimer = 0;
 
 	 public GameObject m_Target;

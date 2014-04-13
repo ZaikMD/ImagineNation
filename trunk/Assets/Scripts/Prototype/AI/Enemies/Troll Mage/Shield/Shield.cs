@@ -9,6 +9,8 @@ public class Shield : MonoBehaviour
 
 	public GameObject m_ColliderTexture;
 
+	public bool m_IsClone = false;
+
 	public void setRadius(float radius)
 	{
 		m_ColliderTexture.gameObject.transform.localScale = new Vector3(radius * 2, radius * 2, radius * 2);
@@ -26,6 +28,11 @@ public class Shield : MonoBehaviour
 		}
 
 		setRadius(m_ColliderTexture.transform.localScale.x / 2.0f);
+
+		if(m_IsClone)
+		{
+			Destroy(m_ColliderTexture.GetComponent<Collider>());
+		}
 	}
 	
 	public void deActivate()

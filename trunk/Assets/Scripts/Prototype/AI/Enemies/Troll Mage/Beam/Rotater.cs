@@ -9,21 +9,36 @@ public class Rotater : MonoBehaviour
 	
 	float m_Timer = 0.0f;
 
-	// Use this for initialization
-	void Start () 
+	float m_SpawnTimer = 0.0f;
+	const float SPAWN_DELAY = 0.2f;
+
+	public bool m_IsClone = false;
+
+	void Start()
 	{
+		if(m_IsClone)
+		{
+			Destroy(gameObject.GetComponent<Collider>());
+		}
 	}
-	
+
 	// Update is called once per frame
 	void Update () 
 	{
+
 		m_Timer += Time.deltaTime;
 
 		transform.position = transform.parent.position + new Vector3 (getSinY (m_Timer), getCosY (m_Timer), 0.0f);
 
-		GameObject newGameObject = (GameObject)Instantiate (this.gameObject, transform.position, transform.rotation);
-		Destroy (newGameObject.GetComponent<Rotater> ());
-
+		m_SpawnTimer += Time.deltaTime;
+		if(m_SpawnTimer >= SPAWN_DELAY)
+		{
+			m_SpawnTimer = 0.0f;
+			GameObject newGameObject = (GameObject)Instantiate (this.gameObject, transform.position, transform.rotation);
+			Destroy (newGameObject.GetComponent<Rotater> ());
+			Destroy (newGameObject.GetComponent<SphereCollider>());
+			newGameObject.AddComponent<RotaterDelete>();
+		}
 	}
 
 	float getSinY(float x)
