@@ -31,7 +31,7 @@ public class ZoeyPlayerState : PlayerState {
 
 	protected override void  useSecondItem()
     {
-		m_Cape.StartGliding ();
+		//Nothing
     }
 
 	protected override bool ableToEnterSecondItem()
@@ -47,6 +47,6 @@ public class ZoeyPlayerState : PlayerState {
 
 	protected override void	enterSecond()
 	{
-
+		m_Cape.StartGliding ();
 	}
 }
