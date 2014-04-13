@@ -13,7 +13,7 @@ public abstract class BaseEnemy : Subject, Observer, Destructable
 
 	protected States m_State = States.Default;
 
-	bool m_IsInCombat = false;
+	protected bool m_IsInCombat = false;
 
 	bool m_IsEnabled = true;
 

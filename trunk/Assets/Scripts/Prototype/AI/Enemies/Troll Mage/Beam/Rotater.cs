@@ -12,14 +12,8 @@ public class Rotater : MonoBehaviour
 	float m_SpawnTimer = 0.0f;
 	const float SPAWN_DELAY = 0.2f;
 
-	public bool m_IsClone = false;
-
 	void Start()
 	{
-		if(m_IsClone)
-		{
-			Destroy(gameObject.GetComponent<Collider>());
-		}
 	}
 
 	// Update is called once per frame

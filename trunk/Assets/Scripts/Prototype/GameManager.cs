@@ -61,11 +61,6 @@ public class GameManager : Subject
 			}
 			m_IsPaused = !m_IsPaused;
 		}
-
-
-
-
-
 	}
 
 
