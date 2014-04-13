@@ -50,7 +50,7 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 	bool m_EnterCombatFlag;
 	bool m_EnterPuzzle;
 
-	float m_IdealAttackRange;
+	float m_MinimumAttackRange;
 	float m_MaxAttackRange;
 
 	bool m_IsPaused = false;
@@ -59,6 +59,9 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 	NavMeshAgent m_NavAgent;
 
 	BasePrimaryItem m_Weapon;
+
+	float m_AttackTimer = 0;
+	const float m_AttackTime = 2f;
 
 	//METHODS
 
@@ -90,8 +93,26 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 
 		m_NavAgent.enabled = m_IsActive;
 
+		if (this.gameObject.name == "Alex")
+		{
 		m_MaxAttackRange = m_Weapon.getRange ();
-		m_IdealAttackRange = m_Weapon.getRange () - 2;
+		m_MinimumAttackRange = m_Weapon.getRange () - 15;
+			return;
+		}
+
+		if (this.gameObject.name == "Derek")
+		{
+			m_MaxAttackRange = m_Weapon.getRange ();
+			m_MinimumAttackRange = m_Weapon.getRange () - 2;
+			return;
+		}
+
+		if (this.gameObject.name == "Zoey")
+		{
+			m_MaxAttackRange = m_Weapon.getRange ();
+			m_MinimumAttackRange = m_Weapon.getRange () - 16;
+			return;
+		}
 	}
 
 
@@ -285,23 +306,23 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 	void CombatInRange()	
 	{
 		m_CombatTarget = FindClosestEnemy();
-		
-		if(ButterZone(m_CombatTarget))
-		{
 
-			Attack ();
-			m_PathFinding.Combat(m_CombatTarget.transform,m_IdealAttackRange);
-			m_CombatState = PlayerAICombatState.Default;
-			m_State = PlayerAIState.Default;
-		}
-		
-		else
+		if (m_AttackTimer <= 0) 
 		{
+			m_NavAgent.enabled = false;
+			int miss = Random.Range(0,2);
+			transform.LookAt(m_CombatTarget.transform.position + new Vector3(miss,0,miss));
 			Attack ();
-			m_PathFinding.Combat(m_CombatTarget.transform,m_IdealAttackRange);
-			m_CombatState = PlayerAICombatState.Default;
-			m_State = PlayerAIState.Default;
-		}
+			m_NavAgent.enabled = true;
+			return;
+		}	
+		m_PathFinding.Combat(m_CombatTarget.transform,m_MaxAttackRange);
+
+		m_CombatState = PlayerAICombatState.Default;
+		m_State = PlayerAIState.Default;
+
+		m_AttackTimer -= Time.deltaTime;
+
 	}
 
 	
@@ -316,39 +337,15 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 		m_CombatState = PlayerAICombatState.Default;
 		m_State = PlayerAIState.Default;
 	}
-	
-	/// <summary>
-	/// Checks to see if plaayer is in the ideal range
-	/// </summary>
-	bool ButterZone(GameObject enemy) 
-		//This function checks if the playerAI is in the preferred position to attack the enemy target 
-	{ 
-		//Check if player is in Ideal range
-		if (Vector3.Distance(this.transform.position, enemy.transform.position) == m_IdealAttackRange)
-		{
-			return true;
-		}
-		
-		return false;		
-	}
-	
+
 	/// <summary>
 	///Applying damage to the desired enemy then setting the AI back to its default state 
 	/// </summary>
 	void Attack() 
 	{ 
-		transform.rotation = Quaternion.LookRotation(m_CombatTarget.transform.position, Vector3.up);
-
-		//Raycast forward, if enemy is hit, fire
-
-		RaycastHit hit;
-		Physics.Raycast (transform.position, transform.forward, out hit, m_Weapon.getRange ());
-		                //inButterZone
-		// TODO Attack
-		if (hit.transform != null && hit.transform.gameObject == m_CombatTarget)
-		{
 			m_Weapon.fire();
-		}
+			m_AttackTimer = m_AttackTime;
+
 		m_CombatState = PlayerAICombatState.Default;
 	} 
 
@@ -423,7 +420,6 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 
 	public void RemoveEnemy(GameObject enemy)
 	{ 
-		//TODO if enemy dies is he removed from the list?
 		if (m_enemies.Contains(enemy))
 		{
 			m_enemies.Remove(enemy); 

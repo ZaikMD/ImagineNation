@@ -8,6 +8,7 @@ public class NerfGun : BasePrimaryItem
 
 	public GameObject m_Alex;
 	public GameObject m_NerfGun;
+	public GameObject m_FirePoint;
 
 	//Current number of bullets in the clip
 	int m_NumberOfBullets;
@@ -63,7 +64,7 @@ public class NerfGun : BasePrimaryItem
 			SoundManager.Instance.playSound(Sounds.NerfGunBullet, this.transform.position);
 
 			tempbullet = (Transform) Instantiate(m_BulletPrefab,
-			                                     transform.position,
+			                                     m_FirePoint.transform.position,
 			                                     Quaternion.identity);
 
 			tempbullet.transform.rotation = transform.rotation;
