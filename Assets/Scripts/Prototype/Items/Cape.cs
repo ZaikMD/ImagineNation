@@ -3,9 +3,14 @@ using System.Collections;
 
 public class Cape : SecondairyBase 
 {
+	public Transform m_Cape;
+	Vector3 m_Rotation = new Vector3(40,0.0f,0.0f);
 	
 	void Update ( )
 	{
+		//Cape flows in the wind
+		m_Cape.Rotate (Mathf.Sin(Time.realtimeSinceStartup) * 0.005f * m_Rotation);
+
 		//Ground
 		if ( m_PlayerMovement.IsGrounded() )
 		{
@@ -13,6 +18,7 @@ public class Cape : SecondairyBase
 			{
 				m_Enabled = false;    //If you are on the ground disable the cape
 				m_PlayerMovement.DisableCape();
+				m_Cape.Rotate (-m_Rotation);
 				gameObject.GetComponent<ZoeyPlayerState>().setExitingSecond(true);
 			}
 			return;
@@ -27,10 +33,10 @@ public class Cape : SecondairyBase
 			{
 				m_Enabled = false;
 				m_PlayerMovement.DisableCape();
+				m_Cape.Rotate (-m_Rotation);
 				gameObject.GetComponent<ZoeyPlayerState>().setExitingSecond(true);
 			}
 		}
-
 	}
 
 	/// <summary>
@@ -65,6 +71,7 @@ public class Cape : SecondairyBase
 		m_Enabled = true;
 		m_PlayerMovement.ActivateCape ();
 		m_PlayerMovement.setCanMove (true);
+		m_Cape.Rotate (m_Rotation);
 	}
 
 }
