@@ -106,7 +106,7 @@ public class Crochuck : BaseEnemy, Observer
         m_CrochuckTimer += Time.deltaTime;
         if (m_CrochuckTimer >= SAWN_DELAY)
         {
-            instantiateFurbull();
+			fire ();
 
             m_CrochuckTimer = 0.0f;
             m_CrochuckState = CrochuckCombatStates.Default;
@@ -123,7 +123,7 @@ public class Crochuck : BaseEnemy, Observer
         m_CrochuckTimer += Time.deltaTime;
         if (m_CrochuckTimer >= SPIN_SPAWN_DELAY)
         {
-            instantiateFurbull();
+			fire ();
 
             m_CrochuckTimer = 0.0f;
         }
@@ -141,7 +141,7 @@ public class Crochuck : BaseEnemy, Observer
         }
     }
 
-    void instantiateFurbull()
+    public void instantiateFurbull(Vector3 position)
     {
 		int i = 0;
 		while(i < m_Furbulls.Count)
@@ -156,9 +156,30 @@ public class Crochuck : BaseEnemy, Observer
 
 		if(m_Furbulls.Count < m_MaxFurbulls)
 		{
-        	m_Furbulls.Add((GameObject)Instantiate(m_FurbullPrefab, m_SpawnPoint.transform.position, m_SpawnPoint.transform.rotation));
+			m_Furbulls.Add((GameObject)Instantiate(m_FurbullPrefab, position, m_SpawnPoint.transform.rotation));
 		}
     }
+
+	void fire ()
+	{
+		int i = 0;
+		while(i < m_Furbulls.Count)
+		{
+			if(m_Furbulls[i] == null)
+			{
+				m_Furbulls.RemoveAt(i);
+				continue;
+			}
+			i++;
+		}
+		
+		if(m_Furbulls.Count < m_MaxFurbulls)
+		{
+			GameObject obj = ((GameObject)Instantiate(Resources.Load("FurbulProjectile"), m_SpawnPoint.transform.position, m_SpawnPoint.transform.rotation));
+			FurbullProjectile projectile = obj.GetComponent<FurbullProjectile>();
+			projectile.onUse(this);
+		}
+	}
 
 	public override void applyDamage (int amount)
 	{
