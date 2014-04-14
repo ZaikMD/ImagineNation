@@ -56,7 +56,7 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 	bool m_IsPaused = false;
 	public bool m_IsActive;
 
-	NavMeshAgent m_NavAgent;
+	public NavMeshAgent m_NavAgent;
 
 	BasePrimaryItem m_Weapon;
 
@@ -83,7 +83,7 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 		//------------------------------
 		m_NavAgent = gameObject.GetComponent<NavMeshAgent> ();
 
-		m_NavAgent.enabled = m_IsActive;
+	  //	m_NavAgent.enabled = m_IsActive;
 
 		if (this.gameObject.name == "Alex")
 		{
