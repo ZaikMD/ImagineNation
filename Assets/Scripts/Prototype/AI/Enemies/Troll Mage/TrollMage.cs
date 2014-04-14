@@ -11,7 +11,7 @@ public class TrollMage : BaseEnemy
 	float m_CloneTimer = 0.0f;
 	public const float CLONE_DELAY = 2.0f;
 	float m_FireTimer = 0.0f;
-	public const float FIRE_DELAY = 0.75f;
+	public const float FIRE_DELAY = 4.0f;
 
 	NavMeshAgent m_Agent;
 
@@ -19,7 +19,7 @@ public class TrollMage : BaseEnemy
 
 	public Shield m_Shield;
 
-	public const int MAX_CLONES = 3;
+	public const int MAX_CLONES = 2;
 
 	GameObject[] m_Clones = new GameObject[MAX_CLONES];
 	bool [] m_ActiveClones = new bool[MAX_CLONES];
@@ -33,12 +33,20 @@ public class TrollMage : BaseEnemy
 		
 		m_Agent = this.gameObject.GetComponent<NavMeshAgent>();
 
-		for( int i = 0; i < m_Clones.Length; i++)
+		Invoke ("load", 0.5f);
+	}
+
+	void load()
+	{
+		if(!m_IsClone)
 		{
-			m_Clones[i] = (GameObject)(Instantiate(m_TrollMagePrefab, transform.position, transform.rotation));
-			m_Clones[i].GetComponentInChildren<TrollMage>().turnIntoClone();
-			m_Clones[i].SetActive(false);
-			m_ActiveClones[i] = false;
+			for( int i = 0; i < m_Clones.Length; i++)
+			{
+				m_Clones[i] = (GameObject)(Instantiate(m_TrollMagePrefab, transform.position, transform.rotation));
+				m_Clones[i].GetComponentInChildren<TrollMage>().turnIntoClone();
+				m_Clones[i].SetActive(false);
+				m_ActiveClones[i] = false;
+			}
 		}
 	}
 
@@ -113,8 +121,12 @@ public class TrollMage : BaseEnemy
 	{
 		for(int i = 0; i < m_Clones.Length; i++)
 		{
-			m_Clones[i].SetActive(false);
-			m_ActiveClones[i] = false;
+			if(m_Clones[i] != null)
+			{
+				m_Clones[i].SetActive(false);
+			
+				m_ActiveClones[i] = false;
+			}
 		}
 	}
 
