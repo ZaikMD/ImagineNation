@@ -1002,16 +1002,16 @@ public class Menu : MonoBehaviour {
 
                         GUI.skin.label.fontSize = 124;
 
-                        Rect CreditsButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 5), Screen.width / 2, Screen.height - (Screen.height / 5 * 2));
+						Rect CreditsButtonPosition = new Rect(Screen.width / 3, 0, Screen.width / 3, Screen.height / 4 * 3);
                         buttonText = "Project Manager: Sean Donnely \n\nLead Designer: Adam Holloway \n\nLead Artist: Justin Lamoureux \nArtist: Luc Pitre \n\nLead Programmer: Kristoffer 'Kris' Matis \nProgrammer: Matthew WhitLaw \nProgrammer: Joe Burchill \nProgrammer: Zach Dubuc \nProgrammer: Kole Tackney \nProgrammer: Matt Elias \nProgrammer: Greg Fortier \nProgrammer: Jason Hein \n\nWith special thanks to Nick McNielly";
                         GUI.TextArea(CreditsButtonPosition, buttonText);
 
 
-                        Rect BackButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 5 * 4), Screen.width / 2, Screen.height / 5);
+                        Rect BackButtonPosition = new Rect(Screen.width / 3, (Screen.height / 4 * 3), Screen.width / 3, Screen.height / 4);
                         buttonText = "Back";
                         if (GUI.Button(BackButtonPosition, buttonText))
                         {
-                            m_MenuState = MenuState.MainMenu;
+                            m_MenuState = MenuState.Options;
                         }
                         break;
                     }
@@ -1123,7 +1123,7 @@ public class Menu : MonoBehaviour {
 		PlayerPrefs.SetInt("CurrentPlayerTwo", (int)m_PlayerTwo);
 		PlayerPrefs.SetInt("CurrentLevel", (int)m_CurrentLevel);
         PlayerPrefs.SetInt("CurrentLevelStage", (int)m_StartingStage);
-		Application.LoadLevel("Level1-2");
+		Application.LoadLevel("FullDemoLevel");
 
 	}
 

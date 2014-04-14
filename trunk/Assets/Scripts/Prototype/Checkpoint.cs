@@ -34,6 +34,7 @@ public class Checkpoint : MonoBehaviour
 			CheckpointManager.m_Instance.m_CurrentCheckPoint = this;
 			//m_CheckpointManager.setCurrentCheckPoint (this, other.gameObject.GetComponent<PlayerScript>());
 			PlayerPrefs.SetString("CurrentCheckPoint", this.gameObject.name);
+			Debug.Log(this.name);
 		}
 	}
 }

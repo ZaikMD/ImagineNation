@@ -38,7 +38,7 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 	PlayerAICombatState m_CombatState;
 		
 	//An m_Player GameObject for pathfinding purposes 
-	GameObject m_Partner; // TODO set to current player
+	public GameObject m_Partner; // TODO set to current player
 	PlayerPathfinding m_PathFinding;
 	
 	//A list of GameObject enemies to determine which enemies the AI is interacting with in combat 
@@ -77,16 +77,8 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 		CharacterSwitch.Instance.addObserver (this);
 
 
-		GameObject[] players = GameObject.FindGameObjectsWithTag ("Player");
+//		GameObject[] players = GameObject.FindGameObjectsWithTag ("Player");
 
-		if(players[0] != this.gameObject )
-		{
-			m_Partner = players[0];
-		}
-		else
-		{
-			//m_Partner = players[1];
-		}
 
 		//------------------------------
 		m_NavAgent = gameObject.GetComponent<NavMeshAgent> ();
