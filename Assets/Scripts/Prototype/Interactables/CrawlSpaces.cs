@@ -87,8 +87,7 @@ public class CrawlSpaces : InteractableBaseClass
 					m_Player.transform.LookAt(m_Player.transform.position + m_OtherCrawlSpace.transform.forward);
 
 					//Move the player a little ahead of the crawl space
-					m_Player.transform.position = m_OtherCrawlSpace.transform.position - m_OtherCrawlSpace.transform.right * (m_OtherCrawlSpace.transform.localScale.x + m_Player.transform.localScale.x)
-					+ m_OtherCrawlSpace.transform.up * m_OtherCrawlSpace.transform.localScale.y;
+					m_Player.transform.position = m_OtherCrawlSpace.transform.position + m_OtherCrawlSpace.transform.forward;
 
 				}
 			}
