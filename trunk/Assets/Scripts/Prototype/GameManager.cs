@@ -52,12 +52,18 @@ public class GameManager : Subject , Observer
 	{
 		GameObject sender;
 		sender = GameObject.FindGameObjectWithTag ("quiggs");
-		sender.GetComponent<NPC> ().addObserver (this);
-		m_StageUpdaters.Add (sender);
+		if(sender!= null)
+		{
+			sender.GetComponent<NPC> ().addObserver (this);
+			m_StageUpdaters.Add (sender);
+		}
 
 		sender = GameObject.FindGameObjectWithTag ("Brian");
-		sender.GetComponent<NPC> ().addObserver (this);
-		m_StageUpdaters.Add (sender);
+		if(sender!= null)
+		{
+			sender.GetComponent<NPC> ().addObserver (this);
+			m_StageUpdaters.Add (sender);
+		}
 
 		//TODO: add aditional stage updaters
 

@@ -24,11 +24,15 @@ public class CirclingOject : MonoBehaviour
 
 	void Start()
 	{
-		m_ParentTransform = gameObject.transform.parent.transform;
+		m_ParentTransform = transform.parent;
 	}
 
 	public void update () 
 	{
+		if(transform.parent == null)
+		{
+			Debug.Log("Error");
+		}
 		m_RealDestination = m_ParentTransform.position + m_Destination;
 
 		if(Vector3.Distance(gameObject.transform.position, m_RealDestination) < 0.5f)
