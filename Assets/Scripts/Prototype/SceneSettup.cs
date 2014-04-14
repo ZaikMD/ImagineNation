@@ -52,10 +52,10 @@ public class SceneSettup : MonoBehaviour
 					RespawnManager.Instance.PlayerOne = m_Alex;
 				
 		//TODO			m_Alex.transform.position = m_Checkpoint.transform.position;
-                    m_Alex.transform.position = m_StartPoint.transform.position;
-
-                    break;
-                }
+			m_Alex.transform.position = m_StartPoint.transform.position + new Vector3(0, 3, 0);;
+			
+			break;
+		}
 
             case Player.Derek:
                 {
@@ -71,10 +71,10 @@ public class SceneSettup : MonoBehaviour
 
 
 			//TODO			m_Derek.transform.position = m_Checkpoint.transform.position;
-                    m_Derek.transform.position = m_StartPoint.transform.position;
-
-					break;
-                }
+			m_Derek.transform.position = m_StartPoint.transform.position+ new Vector3(0, 3, 0);;
+			
+			break;
+		}
 
             case Player.Zoey:
                 {
@@ -91,7 +91,7 @@ public class SceneSettup : MonoBehaviour
 
 			//TODO			m_Zoey.transform.position = m_Checkpoint.transform.position;
 
-                    m_Zoey.transform.position = m_StartPoint.transform.position;
+                    m_Zoey.transform.position = m_StartPoint.transform.position + new Vector3(0, 3, 0);
 					break;
                 }
        
@@ -105,15 +105,25 @@ public class SceneSettup : MonoBehaviour
                     m_Alex.SetActive(true);
 					if(m_PlayerOne == Player.Zoey)
 					{
-						m_Derek.SetActive(false);
+						Destroy(m_Derek);
+						destroyCamera(m_DerekCamera);
+						m_Zoey.GetComponent<PlayerAIStateMachine>().m_Partner = m_Alex;
+						m_Alex.GetComponent<PlayerAIStateMachine>().m_Partner = m_Zoey;
+						//m_Derek.SetActive(false);
 					}
 					if(m_PlayerOne == Player.Derek)
 					{
-						m_Zoey.SetActive(false);
+						Destroy(m_Zoey);
+						destroyCamera(m_ZoeyCamera);
+						m_Derek.GetComponent<PlayerAIStateMachine>().m_Partner = m_Zoey;
+						m_Zoey.GetComponent<PlayerAIStateMachine>().m_Partner = m_Derek;
+						//m_Zoey.SetActive(false);
 					}	
 						
                     m_Alex.GetComponent<AlexPlayerState>().m_IsActive = false;
                     m_Alex.GetComponent<PlayerAIStateMachine>().m_IsActive = true;
+				///	m_Alex.GetComponent<PlayerAIStateMachine>().m_Partner = 
+					destroyCamera(m_AlexCamera);
 				RespawnManager.Instance.PlayerTwo = m_Alex;
 			
 			//	Vector3 position = new Vector3(m_Checkpoint.transform.position.x - 5, m_Checkpoint.transform.position.y, m_Checkpoint.transform.position.z);
@@ -127,16 +137,26 @@ public class SceneSettup : MonoBehaviour
                 {
 					if(m_PlayerOne == Player.Zoey)
 					{
-						m_Alex.SetActive(false);
+						Destroy(m_Alex);
+						destroyCamera(m_AlexCamera);
+						m_Derek.GetComponent<PlayerAIStateMachine>().m_Partner = m_Zoey;
+						m_Zoey.GetComponent<PlayerAIStateMachine>().m_Partner = m_Derek;
+						//m_Alex.SetActive(false);
 					}
 					if(m_PlayerOne == Player.Alex)
 					{
+						m_Zoey.SetActive(false);
+						Destroy(m_Zoey);
+						destroyCamera(m_ZoeyCamera);
+						m_Derek.GetComponent<PlayerAIStateMachine>().m_Partner = m_Alex;
+						m_Alex.GetComponent<PlayerAIStateMachine>().m_Partner = m_Derek;
 						m_Zoey.SetActive(false);
 					}	
 
                     m_Derek.SetActive(true);
                     m_Derek.GetComponent<DerekPlayerState>().m_IsActive = false;
                     m_DerekCamera.enabled = false;
+					destroyCamera(m_DerekCamera);
                     m_Derek.GetComponent<PlayerAIStateMachine>().m_IsActive = true;
 					RespawnManager.Instance.PlayerTwo = m_Derek;
 
@@ -151,16 +171,25 @@ public class SceneSettup : MonoBehaviour
                 {
 					if(m_PlayerOne == Player.Alex)
 					{
+						Destroy(m_Derek);
+						destroyCamera(m_DerekCamera);
+						m_Zoey.GetComponent<PlayerAIStateMachine>().m_Partner = m_Alex;
+						m_Alex.GetComponent<PlayerAIStateMachine>().m_Partner = m_Zoey;
 						m_Derek.SetActive(false);
 					}
 					if(m_PlayerOne == Player.Derek)
 					{
+						m_Derek.GetComponent<PlayerAIStateMachine>().m_Partner = m_Zoey;
+						m_Zoey.GetComponent<PlayerAIStateMachine>().m_Partner = m_Derek;
+						destroyCamera(m_AlexCamera);
+						Destroy(m_Alex);
 						m_Alex.SetActive(false);
 					}	
 
                     m_Zoey.SetActive(true);
                     m_Zoey.GetComponent<ZoeyPlayerState>().m_IsActive = false; 
                     m_ZoeyCamera.enabled = false;
+					destroyCamera(m_ZoeyCamera);
                     m_Zoey.GetComponent<PlayerAIStateMachine>().m_IsActive = true;
 					RespawnManager.Instance.PlayerTwo = m_Zoey;		
 
