@@ -51,7 +51,7 @@ public class SceneSettup : MonoBehaviour
 					destroyCamera(m_ZoeyCamera);
 					m_Alex.GetComponentInChildren<CameraController>().enabled = true;
 							
-					CutSceneManager.Instance.MainCamera = m_AlexCamera;
+			//		CutSceneManager.Instance.MainCamera = m_AlexCamera;
 					RespawnManager.Instance.PlayerOne = m_Alex;
 				
 		//TODO			m_Alex.transform.position = m_Checkpoint.transform.position;
@@ -74,7 +74,7 @@ public class SceneSettup : MonoBehaviour
 					m_Derek.GetComponentInChildren<CameraController>().enabled = true;
             		RespawnManager.Instance.PlayerOne = m_Derek;     
 
-					CutSceneManager.Instance.MainCamera = m_DerekCamera;
+		//			CutSceneManager.Instance.MainCamera = m_DerekCamera;
 
 
 			//TODO			m_Derek.transform.position = m_Checkpoint.transform.position;
@@ -90,14 +90,17 @@ public class SceneSettup : MonoBehaviour
 					m_Zoey.GetComponent<PlayerAIStateMachine>().m_IsActive = false;
                    	destroyCamera(m_DerekCamera);
 					destroyCamera(m_AlexCamera);
+				
+				//Camera stuff
 					m_Derek.GetComponent<PlayerMovement>().m_CameraTransform = m_ZoeyCamera.transform;
 					m_Alex.GetComponent<PlayerMovement>().m_CameraTransform = m_ZoeyCamera.transform;
-			m_Alex.GetComponent<PlayerState>().m_CameraController = m_ZoeyCamera.GetComponent<CameraController>();
-			m_Derek.GetComponent<PlayerState>().m_CameraController = m_ZoeyCamera.GetComponent<CameraController>();
+					m_Alex.GetComponent<PlayerState>().m_CameraController = m_ZoeyCamera.GetComponent<CameraController>();
+					m_Derek.GetComponent<PlayerState>().m_CameraController = m_ZoeyCamera.GetComponent<CameraController>();
 					m_Zoey.GetComponentInChildren<CameraController>().enabled = true;
-            		RespawnManager.Instance.PlayerOne = m_Zoey;        
+            		
+			        RespawnManager.Instance.PlayerOne = m_Zoey;        
 
-					CutSceneManager.Instance.MainCamera = m_ZoeyCamera;
+			//		CutSceneManager.Instance.MainCamera = m_ZoeyCamera;
 			//TODO			m_Zoey.transform.position = m_Checkpoint.transform.position;
 
                     m_Zoey.transform.position = m_StartPoint.transform.position + new Vector3(0, 3, 0);
@@ -118,14 +121,16 @@ public class SceneSettup : MonoBehaviour
 						destroyCamera(m_DerekCamera);
 						m_Zoey.GetComponent<PlayerAIStateMachine>().m_Partner = m_Alex;
 						m_Alex.GetComponent<PlayerAIStateMachine>().m_Partner = m_Zoey;
-						//m_Derek.SetActive(false);
+					CharacterSwitch.Instance.removeObserver(m_Derek.GetComponent<PlayerState>());
+				//m_Derek.SetActive(false);
 					}
 					if(m_PlayerOne == Player.Derek)
 					{
 						Destroy(m_Zoey);
 						destroyCamera(m_ZoeyCamera);
-						m_Derek.GetComponent<PlayerAIStateMachine>().m_Partner = m_Zoey;
-						m_Zoey.GetComponent<PlayerAIStateMachine>().m_Partner = m_Derek;
+						m_Derek.GetComponent<PlayerAIStateMachine>().m_Partner = m_Alex;
+						m_Alex.GetComponent<PlayerAIStateMachine>().m_Partner = m_Derek;
+						CharacterSwitch.Instance.removeObserver(m_Zoey.GetComponent<PlayerState>());
 						//m_Zoey.SetActive(false);
 					}	
 						
@@ -133,7 +138,7 @@ public class SceneSettup : MonoBehaviour
                     m_Alex.GetComponent<PlayerAIStateMachine>().m_IsActive = true;
 				///	m_Alex.GetComponent<PlayerAIStateMachine>().m_Partner = 
 					destroyCamera(m_AlexCamera);
-				RespawnManager.Instance.PlayerTwo = m_Alex;
+			    	RespawnManager.Instance.PlayerTwo = m_Alex;
 			
 			//	Vector3 position = new Vector3(m_Checkpoint.transform.position.x - 5, m_Checkpoint.transform.position.y, m_Checkpoint.transform.position.z);
 			//TODO			m_Alex.transform.position = position;
@@ -150,16 +155,18 @@ public class SceneSettup : MonoBehaviour
 						destroyCamera(m_AlexCamera);
 						m_Derek.GetComponent<PlayerAIStateMachine>().m_Partner = m_Zoey;
 						m_Zoey.GetComponent<PlayerAIStateMachine>().m_Partner = m_Derek;
+						CharacterSwitch.Instance.removeObserver(m_Alex.GetComponent<PlayerState>());
 						//m_Alex.SetActive(false);
 					}
 					if(m_PlayerOne == Player.Alex)
 					{
-						m_Zoey.SetActive(false);
+						//m_Zoey.SetActive(false);
 						Destroy(m_Zoey);
 						destroyCamera(m_ZoeyCamera);
 						m_Derek.GetComponent<PlayerAIStateMachine>().m_Partner = m_Alex;
 						m_Alex.GetComponent<PlayerAIStateMachine>().m_Partner = m_Derek;
 						m_Zoey.SetActive(false);
+						CharacterSwitch.Instance.removeObserver(m_Zoey.GetComponent<PlayerState>());
 					}	
 
                     m_Derek.SetActive(true);
@@ -184,6 +191,7 @@ public class SceneSettup : MonoBehaviour
 						destroyCamera(m_DerekCamera);
 						m_Zoey.GetComponent<PlayerAIStateMachine>().m_Partner = m_Alex;
 						m_Alex.GetComponent<PlayerAIStateMachine>().m_Partner = m_Zoey;
+						CharacterSwitch.Instance.removeObserver(m_Derek.GetComponent<PlayerState>());
 						m_Derek.SetActive(false);
 					}
 					if(m_PlayerOne == Player.Derek)
@@ -192,6 +200,7 @@ public class SceneSettup : MonoBehaviour
 						m_Zoey.GetComponent<PlayerAIStateMachine>().m_Partner = m_Derek;
 						destroyCamera(m_AlexCamera);
 						Destroy(m_Alex);
+						CharacterSwitch.Instance.removeObserver(m_Alex.GetComponent<PlayerState>());
 						m_Alex.SetActive(false);
 					}	
 

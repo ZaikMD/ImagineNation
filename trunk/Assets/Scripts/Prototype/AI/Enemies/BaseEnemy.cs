@@ -41,13 +41,18 @@ public abstract class BaseEnemy : Subject, Observer, Destructable
 
 		GameManager.Instance.addObserver(this);
 
-		m_Players = GameObject.FindGameObjectsWithTag("Player");
-
 		if(m_AggroRange <= m_CombatRange)
 		{
 			m_CombatRange = m_AggroRange;
 		}
 		start ();
+
+
+	}
+
+	public void load()
+	{
+		m_Players = GameObject.FindGameObjectsWithTag("Player");
 	}
 
 	protected virtual void start()
@@ -103,6 +108,11 @@ public abstract class BaseEnemy : Subject, Observer, Destructable
 	// Update is called once per frame
 	void Update () 
 	{
+		if(m_Players == null)
+		{
+			load();
+		}
+
 		if(m_IsEnabled)
 		{
 			if(m_State == States.Default)
@@ -288,29 +298,32 @@ public abstract class BaseEnemy : Subject, Observer, Destructable
 	/// </summary>
 	protected virtual void patrolState()
 	{
-		for(int i = 0; i < m_Players.Length; i++)
+		if(m_Players != null)
 		{
-			float distance = Vector3.Distance(transform.position, m_Players[i].transform.position);
-			if(distance <= m_AggroRange)
+			for(int i = 0; i < m_Players.Length; i++)
 			{
-				m_IsInCombat = true;
-				m_EnemyPathfinding.setTarget(m_Players[i].gameObject);
-				m_Target = m_EnemyPathfinding.getTarget();
-				m_State = States.Default;
-
-				//Add itself to the Player AIs list of combat enemies
-
-				for(int j = 0; j < m_Players.Length; j++)
+				float distance = Vector3.Distance(transform.position, m_Players[i].transform.position);
+				if(distance <= m_AggroRange)
 				{
-					m_Players[j].GetComponent<PlayerAIStateMachine>().AddCombatEnemy(this.gameObject);
+					m_IsInCombat = true;
+					m_EnemyPathfinding.setTarget(m_Players[i].gameObject);
+					m_Target = m_EnemyPathfinding.getTarget();
+					m_State = States.Default;
+			
+					//Add itself to the Player AIs list of combat enemies
+			
+					for(int j = 0; j < m_Players.Length; j++)
+					{
+						m_Players[j].GetComponent<PlayerAIStateMachine>().AddCombatEnemy(this.gameObject);
+					}
+			
 				}
-
+				else
+				{
+					m_EnemyPathfinding.SetState (EnemyPathfindingStates.Patrol);
+				}
+			  }
 			}
-			else
-			{
-				m_EnemyPathfinding.SetState (EnemyPathfindingStates.Patrol);
-			}
-		}
 		m_State = States.Default;
 	}
 }
