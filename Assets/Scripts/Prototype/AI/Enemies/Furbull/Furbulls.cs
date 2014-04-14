@@ -104,7 +104,7 @@ public class Furbulls : BaseEnemy
 			{
 				PlayerState playerState = other.gameObject.GetComponent<PlayerState>();
 
-				playerState.FlagDamage(10);
+				playerState.FlagDamage(1);
 
 				//Debug.Log("Hit Player");
 				return;
