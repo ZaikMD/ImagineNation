@@ -20,7 +20,7 @@ public abstract class BaseEnemy : Subject, Observer, Destructable
 	public float m_AggroRange = 20.0f;
 	protected float m_CombatRange;
 
-	protected Health m_Health;
+	protected EnemyHealth m_Health;
 
 	public GameObject m_Ragdoll;
 
@@ -35,7 +35,7 @@ public abstract class BaseEnemy : Subject, Observer, Destructable
 	// Use this for initialization
 	void Start () 
 	{
-		m_Health = gameObject.GetComponent<Health>();
+		m_Health = gameObject.GetComponent<EnemyHealth>();
 
 		m_EnemyPathfinding = gameObject.GetComponent<EnemyPathfinding>();
 
