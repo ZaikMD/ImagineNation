@@ -10,6 +10,9 @@ public class CharacterSwitch : Subject
 	public static CharacterSwitch Instance{ get; private set; }
 	// Use this for initialization
 
+	//player ai needs to activly set this
+	bool m_AbleToSwitch = true;
+
 	void Awake()
 	{
 		//if theres another instance (there shouldnt be) destroy it... there can be only one
@@ -38,8 +41,7 @@ public class CharacterSwitch : Subject
 	}
 
 
-	//player ai needs to activly set this
-	bool m_AbleToSwitch = true;
+
 
 	public void switchCharacters()
 	{
