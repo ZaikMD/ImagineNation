@@ -15,6 +15,8 @@ Created by Zach
 4/8/2014
 	Fixed block teleporting
 	Fixed blocks colliding with projectiles
+4/14/2014
+	Block now moves a set distance in front of player and has it's local pos only effect distance (not y pos)
 */
 
 
@@ -29,6 +31,7 @@ public class MoveableBlock : InteractableBaseClass
 	Vector3 m_SavedLocalPos;
 	Quaternion m_SavedLocalRotation;
 	bool m_InUse = false;
+	const float PUSH_DISTANCE = 1.85f;
 	
 
 	void Start()
@@ -47,7 +50,7 @@ public class MoveableBlock : InteractableBaseClass
 	{
 		if (m_InUse)
 		{
-			transform.localPosition = m_SavedLocalPos;
+			transform.localPosition = new Vector3 (m_SavedLocalPos.x, transform.localPosition.y, m_SavedLocalPos.z);
 			transform.localRotation = m_SavedLocalRotation;
 		}
 
@@ -86,6 +89,11 @@ public class MoveableBlock : InteractableBaseClass
 			newPos.y = transform.position.y;
 			transform.position = newPos + obj.transform.forward * obj.transform.localScale.x * 1.35f;
 			m_SavedLocalPos = transform.localPosition;
+
+			Vector3 pos = m_SavedLocalPos;
+			pos.y = 0.0f;
+			m_SavedLocalPos = PUSH_DISTANCE * pos.normalized;
+
 			m_SavedLocalRotation = transform.localRotation;
 			Physics.IgnoreCollision(collider, obj.collider);
 
@@ -104,6 +112,12 @@ public class MoveableBlock : InteractableBaseClass
 		Physics.IgnoreCollision(collider, transform.parent.collider, false);
 		transform.parent = null;
 		m_InUse = false;
+
+		if (!isGrounded())
+		{
+			//Back to normal
+			rigidbody.isKinematic = false;
+		}
 	}
 
 	bool isGrounded()

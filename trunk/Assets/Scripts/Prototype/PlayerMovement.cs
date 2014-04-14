@@ -335,7 +335,6 @@ public class PlayerMovement : MonoBehaviour , Observer
 			
 			//Fall
 			m_Controller.Move (transform.up * m_VerticalVelocity * Time.deltaTime);
-			return;
 		}
 	}
 
