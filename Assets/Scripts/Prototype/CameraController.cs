@@ -125,16 +125,6 @@ public class CameraController : MonoBehaviour
 	// Initialization
 	void Start ()
 	{
-		//Limit Zoom
-		if (m_Zoom < m_CloseLimit)
-		{
-			m_Zoom = m_CloseLimit;
-		}
-		else if (m_Zoom > 1)
-		{
-			m_Zoom = 1;
-		}
-
 		//Remove mouse cursor
 		Screen.showCursor = false;
 
