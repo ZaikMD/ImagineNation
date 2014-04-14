@@ -57,16 +57,18 @@ public abstract class PlayerState : MonoBehaviour, Observer
                 
         m_PlayerState = PlayerStates.Default; 
 		
-		GameManager.Instance.addObserver (this);
 
-  		CharacterSwitch.Instance.addObserver (this);
 
     }
 
 	// Use this for initialization
 	void Start ()
     {
-		/*
+		GameManager.Instance.addObserver (this);
+		
+		CharacterSwitch.Instance.addObserver (this);
+
+
 		GameObject[] players = GameObject.FindGameObjectsWithTag ("Player");
 
 		for(int i = 0; i < players.Length; i++)
@@ -86,7 +88,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 					}
 				}
 			}
-		}*/
+		}
 
         m_PlayerState = PlayerStates.Default;
 
