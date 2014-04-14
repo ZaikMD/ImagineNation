@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+using System.Collections.Generic;
 
 /// <summary>
 /// the stage enum is used to keep track things like if a door is open or not,
@@ -19,7 +20,7 @@ using System.Collections;
 /// <summary>
 /// anything with an update should observe this for noe all it sends if events when the game is paused/ unpaused
 /// </summary>
-public class GameManager : Subject 
+public class GameManager : Subject , Observer
 {
 
 	public static GameManager Instance{ get; private set; }
@@ -27,8 +28,9 @@ public class GameManager : Subject
 	bool m_IsPaused = false;
 
 
-	public Stage m_CurrentStage;
+	public Stage m_CurrentStage = Stage.StageOne;
 
+	List <GameObject> m_StageUpdaters = new List<GameObject>();
 
 	void Awake()
 	{
@@ -44,6 +46,22 @@ public class GameManager : Subject
 		
 		//prevents this object being destroyed between scene loads
 		DontDestroyOnLoad(gameObject);
+	}
+
+	void Start()
+	{
+		GameObject sender;
+		sender = GameObject.FindGameObjectWithTag ("quiggs");
+		sender.GetComponent<NPC> ().addObserver (this);
+		m_StageUpdaters.Add (sender);
+
+		sender = GameObject.FindGameObjectWithTag ("Brian");
+		sender.GetComponent<NPC> ().addObserver (this);
+		m_StageUpdaters.Add (sender);
+
+		//TODO: add aditional stage updaters
+
+		m_CurrentStage = Stage.StageTwo;
 	}
 
 	// Update is called once per frame
@@ -74,9 +92,6 @@ public class GameManager : Subject
 			m_IsPaused = false;
 		}
 		sendEvent(ObeserverEvents.StartGame);
-
-
-
 	}
 
 	public void levelState()
@@ -121,6 +136,16 @@ public class GameManager : Subject
 		levelState ();
 	}
 
-
-
+	public void recieveEvent(Subject sender, ObeserverEvents recievedEvent)
+	{
+		for(int i = 0; i < m_StageUpdaters.Count; i++)
+		{
+			if(sender.gameObject == m_StageUpdaters[i])
+			{
+				nextLevelState();
+				m_StageUpdaters.RemoveAt(i);
+				break;
+			}
+		}
+	}
 }

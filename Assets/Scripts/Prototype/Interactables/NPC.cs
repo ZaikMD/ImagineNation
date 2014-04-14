@@ -28,7 +28,8 @@ Created by Jason "The Casual" Hein
 using UnityEngine;
 using System.Collections;
 
-public class NPC : InteractableBaseClass {
+public class NPC : InteractableBaseClass 
+{
 
 	//Text to show
 	public string m_Text = " ";

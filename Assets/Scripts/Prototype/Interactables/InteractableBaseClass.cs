@@ -15,8 +15,6 @@ public enum InteractableType
 
 public abstract class InteractableBaseClass : Subject 
 {
-
-
 	protected InteractableType m_Type;
 
 	protected bool m_IsExitable;
