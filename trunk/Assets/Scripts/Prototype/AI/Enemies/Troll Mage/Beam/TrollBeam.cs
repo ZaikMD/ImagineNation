@@ -13,7 +13,7 @@ public class TrollBeam : MonoBehaviour
 
 	void Start()
 	{
-		turnIntoClone ();
+		//turnIntoClone ();
 	}
 
 	// Update is called once per frame
