@@ -20,6 +20,12 @@ public class RemoveCollider : MonoBehaviour , Observer
 	{
 		if(recievedEvent == ObeserverEvents.Used)
 		{
+			if (this.tag == "PuzzleArea")
+			{
+				this.gameObject.transform.position =  new Vector3(-10000,-10000,-10000);
+				return;
+			}
+
 			Destroy(this.gameObject);
 		}
 	}
