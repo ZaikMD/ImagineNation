@@ -1096,11 +1096,12 @@ public class Menu : MonoBehaviour {
 ///		PlayerPrefs.SetString("CurrentCheckpoint", PlayerPrefs.GetString("Checkpoint" + slot));
 //		PlayerPrefs.SetString ("CurrentLevelStage", PlayerPrefs.GetString ("LevelStage" + slot));
 
+		setPlayer ();
 
-        if (m_PlayerOneSelected != null)
-        {
-            setPlayer();
-        }
+     //   if (m_PlayerOneSelected != null)
+       // {
+       //     setPlayer();
+        //s}
      }
 
 

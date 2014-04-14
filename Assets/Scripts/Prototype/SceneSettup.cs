@@ -50,7 +50,7 @@ public class SceneSettup : MonoBehaviour
 					destroyCamera(m_DerekCamera);
 					destroyCamera(m_ZoeyCamera);
 					m_Alex.GetComponentInChildren<CameraController>().enabled = true;
-							
+					m_Alex.GetComponent<NavMeshAgent>().enabled = false;
 			//		CutSceneManager.Instance.MainCamera = m_AlexCamera;
 					RespawnManager.Instance.PlayerOne = m_Alex;
 				
@@ -73,7 +73,7 @@ public class SceneSettup : MonoBehaviour
 			m_Zoey.GetComponent<PlayerState>().m_CameraController = m_DerekCamera.GetComponent<CameraController>();
 					m_Derek.GetComponentInChildren<CameraController>().enabled = true;
             		RespawnManager.Instance.PlayerOne = m_Derek;     
-
+					m_Derek.GetComponent<NavMeshAgent>().enabled = false;
 		//			CutSceneManager.Instance.MainCamera = m_DerekCamera;
 
 
@@ -99,7 +99,7 @@ public class SceneSettup : MonoBehaviour
 					m_Zoey.GetComponentInChildren<CameraController>().enabled = true;
             		
 			        RespawnManager.Instance.PlayerOne = m_Zoey;        
-
+			m_Zoey.GetComponent<NavMeshAgent>().enabled = false;
 			//		CutSceneManager.Instance.MainCamera = m_ZoeyCamera;
 			//TODO			m_Zoey.transform.position = m_Checkpoint.transform.position;
 
