@@ -50,7 +50,7 @@ public class CollectableInventory : MonoBehaviour {
 
 		m_Icon = (Texture2D)Resources.Load("LightBrightCounter");
 		m_WhereToDraw = new Rect (Screen.width * 0.80f, Screen.height * 0.1f, 120, 80);
-		m_TextRect = new Rect (Screen.width * 0.897f, Screen.height * 0.19f, 100, 60);
+		m_TextRect = new Rect (Screen.width * 0.876f, Screen.height * 0.175f, 100, 60);
 		
 		//prevents this object being destroyed between scene loads
 	}
@@ -83,7 +83,7 @@ public class CollectableInventory : MonoBehaviour {
 		if (m_Draw)
 		{
 			GUI.DrawTexture(m_WhereToDraw, m_Icon);
-			string text = "<color=black><size=" + FONT_SIZE + ">" + m_Collectables.ToString() + "</size></color>";
+			string text = "<color=white><size=" + FONT_SIZE + ">" + m_Collectables.ToString() + "</size></color>";
 			GUI.Label(m_TextRect , text);
 		}
 	}
