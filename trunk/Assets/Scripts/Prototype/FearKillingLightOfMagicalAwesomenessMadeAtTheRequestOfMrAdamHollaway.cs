@@ -33,8 +33,8 @@ public class FearKillingLightOfMagicalAwesomenessMadeAtTheRequestOfMrAdamHollawa
 	// Start
 	void Start () 
 	{
-		// So we do not delete non darkness or access null by accident
-		if(m_Darkness.tag != "Darkness")
+		// So we do not delete non darkness
+		if(m_Darkness != null && m_Darkness.tag != "Darkness")
 		{
 			Destroy(this.gameObject);
 		}
@@ -53,8 +53,12 @@ public class FearKillingLightOfMagicalAwesomenessMadeAtTheRequestOfMrAdamHollawa
 			light.enabled = true;
 			
 			//Stop reference
-			FearScript.Instance.removeDarknessFear(m_Darkness);
-			GameObject.Destroy(m_Darkness);
+
+			if (m_Darkness != null)
+			{
+				FearScript.Instance.removeDarknessFear(m_Darkness);
+				GameObject.Destroy(m_Darkness);
+			}
 
 			//Delete reference
 			Destroy(this);
