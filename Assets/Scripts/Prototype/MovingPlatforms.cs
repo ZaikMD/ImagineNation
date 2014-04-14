@@ -35,7 +35,7 @@ public class MovingPlatforms : MonoBehaviour , Observer
 
 	//Positions
 	private Vector3 m_DestinationPosition;
-	private Vector3 m_InitialPosition;
+
 	private bool m_IsPaused = false;
 	//Bools
 	private bool m_HasMoved = false;
@@ -51,10 +51,6 @@ public class MovingPlatforms : MonoBehaviour , Observer
 	private float m_YMovePercent;
 	private float m_ZMovePercent;
 
-	//Player variables
-	private Vector3 m_PlayerPos;
-	private Vector3 m_PLayerDestinationPos;
-	private GameObject m_Player;
 	//Subject
 	public Subject m_Sender;
 
@@ -67,7 +63,6 @@ public class MovingPlatforms : MonoBehaviour , Observer
 		//Initialize everything, calculate the move percentages and movement time
 		m_InitialPauseTime = m_PauseTime;
 		m_InitialMoveTime = m_MoveTimeInSeconds;
-		m_InitialPosition = transform.position;
 		m_MoveTimeInMilliseconds = m_MoveTimeInSeconds * 60.0f;
 
 		m_XDistance = m_Destination.transform.position.x - transform.position.x;
@@ -110,10 +105,6 @@ public class MovingPlatforms : MonoBehaviour , Observer
 						m_Movement = new Vector3(m_XMovePercent, m_YMovePercent, m_ZMovePercent);
 						transform.Translate(m_Movement); ; //Move the platforms by the move percentage
 						m_MoveTimeInSeconds -= Time.deltaTime; //Count down move time
-						if(m_Player != null)
-						{
-
-						}
 
 						if (m_MoveTimeInSeconds < 0) 
 						{
@@ -126,11 +117,7 @@ public class MovingPlatforms : MonoBehaviour , Observer
 						m_Movement = new Vector3(-1 * m_XMovePercent, -1 * m_YMovePercent, -1 * m_ZMovePercent);
 						transform.Translate (m_Movement); //Move the platform
 						m_MoveTimeInSeconds -= Time.deltaTime;
-
-						if(m_Player != null)
-						{
-							//m_Player.transform.Translate((-1* m_XMovePercent),(-1*m_YMovePercent),(-1*m_ZMovePercent));
-						}
+			
 
 						if (m_MoveTimeInSeconds < 0) 
 						{
