@@ -4,7 +4,7 @@ using System.Collections;
 public class TrollBeam : MonoBehaviour 
 {
 	public float m_Speed = 0.05f;
-	public const float LIFE_SPAN = 20.0f;
+	public const float LIFE_SPAN = 5.0f;
 	float m_DeathTimer = 0;
 
 	public GameObject m_Target;
@@ -32,28 +32,27 @@ public class TrollBeam : MonoBehaviour
 
 	void OnTriggerEnter(Collider other)
 	{
-		if(!m_IsClone)
+		if(other.tag == "Player")
 		{
-			if(other.tag == "Player")
+			if(!m_IsClone)
 			{
 				other.gameObject.GetComponent<PlayerState>().FlagDamage(1);
-				Destroy(this.gameObject);
 			}
+			Destroy(this.gameObject);
 		}
 	}
 
 	public void turnIntoClone()
 	{
-		if(m_IsClone)
+		m_IsClone = true;
+		Collider[] colliders = (Collider[])gameObject.GetComponentsInChildren<Collider>();
+		for(int i = 0; i < colliders.Length; i++)
 		{
-			Collider[] colliders = (Collider[])gameObject.GetComponentsInChildren<Collider>();
-			for(int i = 0; i < colliders.Length; i++)
+			if(colliders[i].isTrigger == false)
 			{
-				if(colliders[i].isTrigger == false)
-				{
-					Destroy(colliders[i]);
-				}
+				Destroy(colliders[i]);
 			}
 		}
+
 	}
 }

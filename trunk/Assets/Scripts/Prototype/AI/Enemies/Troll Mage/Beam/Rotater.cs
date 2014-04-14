@@ -10,7 +10,7 @@ public class Rotater : MonoBehaviour
 	float m_Timer = 0.0f;
 
 	float m_SpawnTimer = 0.0f;
-	const float SPAWN_DELAY = 0.2f;
+	const float SPAWN_DELAY = 1.0f;
 
 	void Start()
 	{
