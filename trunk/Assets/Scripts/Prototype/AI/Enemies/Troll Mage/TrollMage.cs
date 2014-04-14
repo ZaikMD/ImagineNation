@@ -15,13 +15,14 @@ public class TrollMage : BaseEnemy
 
 	NavMeshAgent m_Agent;
 
-	List <TrollMage> m_Clones = new List<TrollMage>();
-
 	bool m_IsClone = false; 
 
 	public Shield m_Shield;
 
-	public int m_MaxClones = 3;
+	public const int MAX_CLONES = 3;
+
+	GameObject[] m_Clones = new GameObject[MAX_CLONES];
+	bool [] m_ActiveClones = new bool[MAX_CLONES];
 
 	// Use this for initialization
 	protected override void start () 
@@ -31,6 +32,14 @@ public class TrollMage : BaseEnemy
 		m_CombatRange = 30.0f;
 		
 		m_Agent = this.gameObject.GetComponent<NavMeshAgent>();
+
+		for( int i = 0; i < m_Clones.Length; i++)
+		{
+			m_Clones[i] = (GameObject)(Instantiate(m_TrollMagePrefab, transform.position, transform.rotation));
+			m_Clones[i].GetComponentInChildren<TrollMage>().turnIntoClone();
+			m_Clones[i].SetActive(false);
+			m_ActiveClones[i] = false;
+		}
 	}
 
 	protected override void die()
@@ -50,15 +59,20 @@ public class TrollMage : BaseEnemy
 			{
 				m_CloneTimer = 0.0f;
 
-				if(m_Clones.Count <= m_MaxClones)
+				for( int i = 0; i < m_Clones.Length; i++)
 				{
-					Vector3 offset = Random.insideUnitSphere;
-					offset.y = 0;
-					offset.Normalize();
+					if(m_ActiveClones[i] != true)
+					{
+						Vector3 offset = Random.insideUnitSphere;
+						offset.y = 0;
+						offset.Normalize();
 
-					GameObject troll = (GameObject)(Instantiate(m_TrollMagePrefab, transform.position + (offset * 20), transform.rotation));
-					troll.GetComponentInChildren<TrollMage>().turnIntoClone();
-					m_Clones.Add(troll.GetComponentInChildren<TrollMage>());
+						m_ActiveClones[i] = true;
+						m_Clones[i].SetActive(true);
+
+						m_Clones[i].transform.position = transform.position + offset;
+						break;
+					}
 				}
 			}
 		}
@@ -97,12 +111,11 @@ public class TrollMage : BaseEnemy
 
 	public void deleteClones()
 	{
-		for(int i = 0; i < m_Clones.Count; i++)
+		for(int i = 0; i < m_Clones.Length; i++)
 		{
-			Destroy(m_Clones[i].gameObject);
+			m_Clones[i].SetActive(false);
+			m_ActiveClones[i] = false;
 		}
-
-		m_Clones.Clear ();
 	}
 
 	protected override void followState()

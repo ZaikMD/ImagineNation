@@ -9,9 +9,6 @@ public class Rotater : MonoBehaviour
 	
 	float m_Timer = 0.0f;
 
-	float m_SpawnTimer = 0.0f;
-	const float SPAWN_DELAY = 1.0f;
-
 	void Start()
 	{
 	}
@@ -23,16 +20,6 @@ public class Rotater : MonoBehaviour
 		m_Timer += Time.deltaTime;
 
 		transform.position = transform.parent.position + new Vector3 (getSinY (m_Timer), getCosY (m_Timer), 0.0f);
-
-		m_SpawnTimer += Time.deltaTime;
-		if(m_SpawnTimer >= SPAWN_DELAY)
-		{
-			m_SpawnTimer = 0.0f;
-			GameObject newGameObject = (GameObject)Instantiate (this.gameObject, transform.position, transform.rotation);
-			Destroy (newGameObject.GetComponent<Rotater> ());
-			Destroy (newGameObject.GetComponent<SphereCollider>());
-			newGameObject.AddComponent<RotaterDelete>();
-		}
 	}
 
 	float getSinY(float x)
