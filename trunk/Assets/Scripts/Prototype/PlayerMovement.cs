@@ -66,7 +66,7 @@ public class PlayerMovement : MonoBehaviour , Observer
 	const float SLOWED_PUSHING_SPEED = 4.0f;
 	const float AIMING_ROTATION_SPEED = 120.0f;
 	const float MAXIMUM_FALLING_SPEED = -21.0f;
-	const float GLIDING_FALL_SPEED = -1.35f;
+	const float GLIDING_FALL_SPEED = -1.45f;
 	float m_VerticalVelocity = 0.0f;
 	float m_MaxFallSpeed = MAXIMUM_FALLING_SPEED;
 
