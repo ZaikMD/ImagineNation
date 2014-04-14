@@ -4,7 +4,7 @@ using System.Collections;
 public class DivingBoard : InteractableBaseClass 
 {
 
-	public SeeSaw seeSaw; //The seesaw it's attached too
+	public SeeSaw m_SeeSaw; //The seesaw it's attached too
 	public bool m_NeedsBlock; //If it takes a block
 
 	public GameObject m_Block;
@@ -19,7 +19,7 @@ public class DivingBoard : InteractableBaseClass
 	public void notifySeeSaw(GameObject obj)
 	{
 		//Notify the SeeSaw of the player interaction
-		seeSaw.playerJumping (obj.gameObject);
+		m_SeeSaw.playerJumping (obj.gameObject);
 
 	}
 
@@ -34,7 +34,7 @@ public class DivingBoard : InteractableBaseClass
 		{
 			if(obj.tag == m_Block.tag)
 			{
-				seeSaw.playerJumping(m_Block); //Pass the block to the seesaw to start it
+				m_SeeSaw.playerJumping(m_Block); //Pass the block to the seesaw to start it
 			}
 		}
 	}
