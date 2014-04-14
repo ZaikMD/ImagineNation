@@ -3,7 +3,9 @@ using System.Collections;
 
 public class RespawnManager : MonoBehaviour {
 
-
+	public GameObject m_AlexDeadPrefab;
+	public GameObject m_DerekDeadPrefab;
+	public GameObject m_ZoeyDeadPrefab;
 
 	const float RespawnTime = 5;
 	const float ResetTime = 5;
@@ -100,6 +102,19 @@ public class RespawnManager : MonoBehaviour {
 		//		PlayerTwo.GetComponent<PlayerState>().m_IsActive = false;
 		//		PlayerTwo.GetComponent<PlayerAIStateMachine>().m_IsActive = true;
 				//TODO Call Switch character 
+				if(player.name == "Zoey")
+				{
+					Instantiate(m_ZoeyDeadPrefab, player.transform.position, player.transform.rotation);
+				}
+				else if (player.name == "Derek")
+				{
+					Instantiate(m_DerekDeadPrefab, player.transform.position, player.transform.rotation);
+				}
+				else if (player.name == "Alex")
+				{
+					Instantiate(m_AlexDeadPrefab, player.transform.position, player.transform.rotation);
+				}
+
 				CharacterSwitch.Instance.switchCharacters();
 				CharacterSwitch.Instance.setIfAbleToSwitch(false);
 			}
@@ -117,6 +132,18 @@ public class RespawnManager : MonoBehaviour {
 			//	PlayerOne.GetComponent<PlayerState>().m_IsActive = false;
 			//	PlayerOne.GetComponent<PlayerAIStateMachine>().m_IsActive = true;
 				//TODO Call Switch character 
+				if(player.name == "Zoey")
+				{
+					Instantiate(m_ZoeyDeadPrefab, player.transform.position, player.transform.rotation);
+				}
+				else if (player.name == "Derek")
+				{
+					Instantiate(m_DerekDeadPrefab, player.transform.position, player.transform.rotation);
+				}
+				else if (player.name == "Alex")
+				{
+					Instantiate(m_AlexDeadPrefab, player.transform.position, player.transform.rotation);
+				}
 				CharacterSwitch.Instance.switchCharacters();
 				CharacterSwitch.Instance.setIfAbleToSwitch(false);
 			}
@@ -131,6 +158,7 @@ public class RespawnManager : MonoBehaviour {
 			PlayerOne.SetActive(true);
 			PlayerOne.GetComponent<PlayerState>().m_PlayerState = PlayerState.PlayerStates.Default;
 			PlayerOne.GetComponent<Health>().resetHealth();
+			PlayerOne.transform.position = PlayerTwo.transform.position + new Vector3(2, 0, 0);
 
 		}
 		else if(m_PlayerTwoDead)
@@ -138,6 +166,7 @@ public class RespawnManager : MonoBehaviour {
 			PlayerTwo.SetActive(true);
 			PlayerTwo.GetComponent<PlayerState>().m_PlayerState = PlayerState.PlayerStates.Default;
 			PlayerTwo.GetComponent<Health>().resetHealth();
+			PlayerTwo.transform.position = PlayerOne.transform.position + new Vector3(2, 0, 0);
 		}
 		m_PlayerOneDead = m_PlayerTwoDead = false;
 		CharacterSwitch.Instance.setIfAbleToSwitch (true);

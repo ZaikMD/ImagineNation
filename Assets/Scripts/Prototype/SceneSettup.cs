@@ -45,10 +45,13 @@ public class SceneSettup : MonoBehaviour
 					m_Alex.GetComponent<PlayerAIStateMachine>().m_IsActive = false;
 					m_Derek.GetComponent<PlayerMovement>().m_CameraTransform = m_AlexCamera.transform;
 					m_Zoey.GetComponent<PlayerMovement>().m_CameraTransform = m_AlexCamera.transform;
+					m_Derek.GetComponent<PlayerState>().m_CameraController = m_AlexCamera.GetComponent<CameraController>();
+					m_Zoey.GetComponent<PlayerState>().m_CameraController = m_AlexCamera.GetComponent<CameraController>();
 					destroyCamera(m_DerekCamera);
 					destroyCamera(m_ZoeyCamera);
 					m_Alex.GetComponentInChildren<CameraController>().enabled = true;
-					
+							
+					CutSceneManager.Instance.MainCamera = m_AlexCamera;
 					RespawnManager.Instance.PlayerOne = m_Alex;
 				
 		//TODO			m_Alex.transform.position = m_Checkpoint.transform.position;
@@ -66,8 +69,12 @@ public class SceneSettup : MonoBehaviour
 					destroyCamera(m_ZoeyCamera);
 					m_Alex.GetComponent<PlayerMovement>().m_CameraTransform = m_DerekCamera.transform;
 					m_Zoey.GetComponent<PlayerMovement>().m_CameraTransform = m_DerekCamera.transform;
+			m_Alex.GetComponent<PlayerState>().m_CameraController = m_DerekCamera.GetComponent<CameraController>();
+			m_Zoey.GetComponent<PlayerState>().m_CameraController = m_DerekCamera.GetComponent<CameraController>();
 					m_Derek.GetComponentInChildren<CameraController>().enabled = true;
-            		RespawnManager.Instance.PlayerOne = m_Derek;        
+            		RespawnManager.Instance.PlayerOne = m_Derek;     
+
+					CutSceneManager.Instance.MainCamera = m_DerekCamera;
 
 
 			//TODO			m_Derek.transform.position = m_Checkpoint.transform.position;
@@ -85,10 +92,12 @@ public class SceneSettup : MonoBehaviour
 					destroyCamera(m_AlexCamera);
 					m_Derek.GetComponent<PlayerMovement>().m_CameraTransform = m_ZoeyCamera.transform;
 					m_Alex.GetComponent<PlayerMovement>().m_CameraTransform = m_ZoeyCamera.transform;
+			m_Alex.GetComponent<PlayerState>().m_CameraController = m_ZoeyCamera.GetComponent<CameraController>();
+			m_Derek.GetComponent<PlayerState>().m_CameraController = m_ZoeyCamera.GetComponent<CameraController>();
 					m_Zoey.GetComponentInChildren<CameraController>().enabled = true;
             		RespawnManager.Instance.PlayerOne = m_Zoey;        
 
-
+					CutSceneManager.Instance.MainCamera = m_ZoeyCamera;
 			//TODO			m_Zoey.transform.position = m_Checkpoint.transform.position;
 
                     m_Zoey.transform.position = m_StartPoint.transform.position + new Vector3(0, 3, 0);
