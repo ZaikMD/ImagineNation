@@ -144,6 +144,8 @@ public class SceneSettup : MonoBehaviour
 			//TODO			m_Alex.transform.position = position;
                     m_Alex.transform.position = m_StartPoint.transform.position + new Vector3(2.0f, 0.0f, 0.0f);
 
+					m_Alex.GetComponent<NavMeshAgent>().enabled = true;
+				
 					break;
                 }
 
@@ -180,6 +182,8 @@ public class SceneSettup : MonoBehaviour
 			//TODO		m_Derek.transform.position = position;
                     m_Derek.transform.position = m_StartPoint.transform.position + new Vector3(2.0f, 0.0f, 0.0f);
 
+					m_Derek.GetComponent<NavMeshAgent>().enabled = true;
+
                     break;
                 }
 
@@ -214,8 +218,10 @@ public class SceneSettup : MonoBehaviour
 			//	Vector3 position = new Vector3(m_Checkpoint.transform.position.x - 5, m_Checkpoint.transform.position.y, m_Checkpoint.transform.position.z);
 			//TODO		m_Derek.transform.position = position;
                     m_Zoey.transform.position = m_StartPoint.transform.position + new Vector3(2.0f, 0.0f, 0.0f);
-
-                    break;
+					
+					m_Zoey.GetComponent<NavMeshAgent>().enabled = true;
+					
+                    break;	
                 }
 
         }
