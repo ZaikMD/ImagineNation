@@ -24,6 +24,13 @@ public class FurbullProjectile : MonoBehaviour {
 			return;
 		}
 
+		if(collision.gameObject.tag == "Player")
+		{
+			collision.gameObject.GetComponent<PlayerState>().FlagDamage(1);
+			GameObject.Destroy(this.gameObject);
+			Destroy(this);
+		}
+
 		m_Spawner.instantiateFurbull(transform.position);
 		GameObject.Destroy (this.gameObject);
 		Destroy (this);

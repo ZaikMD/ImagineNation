@@ -17,6 +17,8 @@ public class Crochuck : BaseEnemy, Observer
 
     CrochuckCombatStates m_CrochuckState = CrochuckCombatStates.Default;
 
+	public GameObject m_CrochuckBite;
+
 	//Literally a furbull 
 	public GameObject m_FurbullPrefab;
 
@@ -38,6 +40,10 @@ public class Crochuck : BaseEnemy, Observer
 	int m_TeethDestroyed = 0;
 
 	public int m_MaxFurbulls = 5;
+
+	float m_BiteTimer = 0.0f;
+	public const float BITE_DELAY = 1.0f;
+
 
 	// Use this for initialization
 	protected override void start () 
@@ -93,7 +99,17 @@ public class Crochuck : BaseEnemy, Observer
 
     void combatDefault()
     {
-        m_Agent.enabled = false;
+		m_Agent.enabled = false;
+		m_BiteTimer += Time.deltaTime;
+		if(Vector3.Distance(m_Target.transform.position, this.gameObject.transform.position) < 7)
+		{
+			transform.forward = Vector3.RotateTowards (transform.forward, m_Target.transform.position - transform.position, 0.05f, 0.05f);
+
+			crochuckBite();
+			return;
+		}
+
+        
         int state = Random.Range(0, 10);
         if (state > 7)
         {
@@ -110,7 +126,7 @@ public class Crochuck : BaseEnemy, Observer
         m_CrochuckTimer += Time.deltaTime;
         if (m_CrochuckTimer >= SAWN_DELAY)
         {
-			fire ();
+			//fire ();
 
             m_CrochuckTimer = 0.0f;
             m_CrochuckState = CrochuckCombatStates.Default;
@@ -127,7 +143,7 @@ public class Crochuck : BaseEnemy, Observer
         m_CrochuckTimer += Time.deltaTime;
         if (m_CrochuckTimer >= SPIN_SPAWN_DELAY)
         {
-			fire ();
+			//fire ();
 
             m_CrochuckTimer = 0.0f;
         }
@@ -149,19 +165,19 @@ public class Crochuck : BaseEnemy, Observer
     {
 		if(m_Furbulls.Count < m_MaxFurbulls)
 		{
+
 			GameObject furbullObj = ((GameObject)Instantiate(m_FurbullPrefab, position, m_SpawnPoint.transform.rotation));
 
 			m_Furbulls.Add(furbullObj);
 
 			Furbulls furbull = furbullObj.GetComponentInChildren<Furbulls>();
 			furbull.addObserver(this);
-
 		}
     }
 
 	void fire ()
 	{		
-		if(m_Furbulls.Count < m_MaxFurbulls)
+		//if(m_Furbulls.Count < m_MaxFurbulls)
 		{
 			GameObject obj = ((GameObject)Instantiate(Resources.Load("FurbulProjectile"), m_SpawnPoint.transform.position, m_SpawnPoint.transform.rotation));
 			FurbullProjectile projectile = obj.GetComponent<FurbullProjectile>();
@@ -191,6 +207,17 @@ public class Crochuck : BaseEnemy, Observer
 		if(recievedEvent == ObeserverEvents.Destroyed && furbull != null)
 		{
 			m_Furbulls.Remove(sender.gameObject.transform.parent.gameObject);
+		}
+	}
+
+	void crochuckBite()
+	{
+		if(m_BiteTimer >= BITE_DELAY)
+		{
+			m_BiteTimer = 0.0f;
+			Instantiate (m_CrochuckBite, this.gameObject.transform.position, this.gameObject.transform.rotation);
+			m_Agent.enabled = true;
+			m_State = States.Default;
 		}
 	}
 }
