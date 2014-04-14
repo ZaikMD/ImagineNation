@@ -1123,7 +1123,7 @@ public class Menu : MonoBehaviour {
 		PlayerPrefs.SetInt("CurrentPlayerTwo", (int)m_PlayerTwo);
 		PlayerPrefs.SetInt("CurrentLevel", (int)m_CurrentLevel);
         PlayerPrefs.SetInt("CurrentLevelStage", (int)m_StartingStage);
-		Application.LoadLevel("FullDemoLevel 1");
+		Application.LoadLevel("FullDemoLevel");
 
 	}
 
