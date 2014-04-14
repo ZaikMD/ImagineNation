@@ -9,9 +9,9 @@ public class TrollMage : BaseEnemy
 	public GameObject m_TrollBeamPrefab;
 
 	float m_CloneTimer = 0.0f;
-	public const float CLONE_DELAY = 3.0f;
+	public const float CLONE_DELAY = 2.0f;
 	float m_FireTimer = 0.0f;
-	public const float FIRE_DELAY = 0.5f;
+	public const float FIRE_DELAY = 0.75f;
 
 	NavMeshAgent m_Agent;
 
@@ -19,7 +19,9 @@ public class TrollMage : BaseEnemy
 
 	bool m_IsClone = false; 
 
-	 public Shield m_Shield;
+	public Shield m_Shield;
+
+	public int m_MaxClones = 3;
 
 	// Use this for initialization
 	protected override void start () 
@@ -48,18 +50,36 @@ public class TrollMage : BaseEnemy
 			{
 				m_CloneTimer = 0.0f;
 
-				Vector3 offset = Random.insideUnitSphere;
-				offset.y = 0;
-				offset.Normalize();
+				if(m_Clones.Count <= m_MaxClones)
+				{
+					Vector3 offset = Random.insideUnitSphere;
+					offset.y = 0;
+					offset.Normalize();
 
-				GameObject troll = (GameObject)(Instantiate(m_TrollMagePrefab, transform.position + (offset * 20), transform.rotation));
-				troll.GetComponentInChildren<TrollMage>().turnIntoClone();
-				m_Clones.Add(troll.GetComponentInChildren<TrollMage>());
+					GameObject troll = (GameObject)(Instantiate(m_TrollMagePrefab, transform.position + (offset * 20), transform.rotation));
+					troll.GetComponentInChildren<TrollMage>().turnIntoClone();
+					m_Clones.Add(troll.GetComponentInChildren<TrollMage>());
+				}
 			}
 		}
 
+		if(m_FireTimer >= FIRE_DELAY)
+		{
+			m_FireTimer = 0.0f;
 
-		m_State = States.Default;
+			GameObject beamObj = (GameObject)(Instantiate(m_TrollBeamPrefab, transform.position, transform.rotation));
+			TrollBeam beam = beamObj.GetComponent<TrollBeam>();
+			beam.m_Target = m_Target.gameObject;
+			if(m_IsClone)
+			{
+				beam.turnIntoClone();
+			}
+		}
+
+		if(!m_IsClone)
+		{
+			m_State = States.Default;
+		}
 	}
 
 	public override void applyDamage (int amount)
