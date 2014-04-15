@@ -55,6 +55,49 @@ public class Menu : MonoBehaviour {
     string m_PlayerTwoSelected = null;
     Stage m_StartingStage;
 
+
+
+
+
+//Textures for menu
+
+//Checkpoint textures
+	public Texture2D CheckPointBack;
+	public Texture2D CheckPoints;
+
+//Credits and controls
+	public Texture2D CreditsBack;
+	public Texture2D Background;
+
+//Free Play
+	public Texture2D FreePlayBack;
+	public Texture2D FreePlayLevel;
+
+//Main Menu
+	public Texture2D Characters;
+	public Texture2D Continue;
+	public Texture2D Exit;
+	public Texture2D GameStuff;
+	public Texture2D Options;
+	public Texture2D Hover;
+
+//Options
+	public Texture2D ApplyChanges;
+	public Texture2D Back;
+	public Texture2D Between;
+	public Texture2D Controls;
+	public Texture2D Credits;
+	public Texture2D Lower;
+	public Texture2D Raise;
+	public Texture2D WindowModeImportSetting;
+
+//Save / Load
+	public Texture2D SaveBack;
+	public Texture2D Slots;
+
+	public GUIContent m_Content;
+
+
 	bool firstTimePlayerTwoSelect;
 
     /// <summary>
@@ -63,10 +106,18 @@ public class Menu : MonoBehaviour {
     /// </summary>
     void OnGUI()
     {
+		m_Content.image = GameStuff;
+
+		GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+		GUI.skin.label.fontSize = 500;
+		GUI.skin.button.hover.background = Hover;
+		GUI.skin.button.active.background = Hover;
+		GUI.skin.button.focused.background = Hover;
+
         if (m_MainMenu)
         {
 
-            GUI.skin.label.fontSize = 64;
+			GUI.skin.button.fontSize = 80;
 
             string buttonText = "NewGame";
 
@@ -79,13 +130,15 @@ public class Menu : MonoBehaviour {
 
                         //New Game Button
                         Rect NewGamebuttonPosition = new Rect(Screen.width / 2 - Screen.width / 4, 0, Screen.width / 2, Screen.height / 5);
-                        buttonText = "New Game";
+						m_Content.image = GameStuff;
+						buttonText = "New Game";
+						GUI.skin.button.normal.background = (Texture2D)m_Content.image;
                         if (GUI.Button(NewGamebuttonPosition, buttonText))
                         {
                             m_MenuState = MenuState.SelectPlayerOne;
                         }
                         //Load Game Button
-                        buttonText = "Load Game";
+						buttonText = "Load Game";
                         Rect LoadButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, Screen.height / 5, Screen.width / 2, Screen.height / 5);
                         if (GUI.Button(LoadButtonPosition, buttonText))
                         {
@@ -102,16 +155,20 @@ public class Menu : MonoBehaviour {
 
                         //Options button
                         Rect OptionButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, Screen.height / 5*3, Screen.width / 2, Screen.height / 5);
-                        buttonText = "Options";
-                        if (GUI.Button(OptionButtonPosition, buttonText))
+                     	m_Content.image = Options;
+						GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+						buttonText = "Options";
+						if (GUI.Button(OptionButtonPosition, buttonText))
                         {
                             m_MenuState = MenuState.Options;
                         }
 
                         //Exit Game Button
                         Rect ExitButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 5 * 4), Screen.width / 2, Screen.height / 5);
-                        buttonText = "Exit Game";
-                        if (GUI.Button(ExitButtonPosition, buttonText))
+						m_Content.image = Exit;
+						GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+						buttonText = "Exit Game";
+						if (GUI.Button(ExitButtonPosition, buttonText))
                         {
                             m_MenuState = MenuState.ExitGame;
                         }
@@ -124,7 +181,9 @@ public class Menu : MonoBehaviour {
 						//New Game Button
 						Rect NewGamebuttonPosition = new Rect(Screen.width / 2 - Screen.width / 4, 0, Screen.width / 2, Screen.height / 6);
 						buttonText = "Level One";
-						if (GUI.Button(NewGamebuttonPosition, buttonText))
+						m_Content.image = FreePlayLevel;
+						GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+				if (GUI.Button(NewGamebuttonPosition,buttonText ))
 						{
 						//	m_CurrentLevel = Level.LevelOneStart;
 						//	m_MenuState = MenuState.SelectLevelSelectPlayerOne;
@@ -166,8 +225,8 @@ public class Menu : MonoBehaviour {
 							m_MenuState = MenuState.SelectLevelSelectPlayerOne;
 						}
 								
-	*/				
-						
+	*/					m_Content.image = Back;
+						GUI.skin.button.normal.background = (Texture2D)m_Content.image;
 						//Exit Game Button
 						Rect ExitButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 6 * 5), Screen.width / 2, Screen.height / 6);
 						buttonText = "Back";
@@ -185,7 +244,9 @@ public class Menu : MonoBehaviour {
 			case MenuState.SelectCheckPoint:
 			{
 
-
+					m_Content.image = CheckPoints;
+					GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+					
 					//New Game Button
 					Rect NewGamebuttonPosition = new Rect(Screen.width / 2 - Screen.width / 4, 0, Screen.width / 2, Screen.height / 8);
 					buttonText = "Start Point";
@@ -194,6 +255,7 @@ public class Menu : MonoBehaviour {
 						m_CurrentLevel = Level.LevelOneStart;
 						//	m_MenuState = MenuState.SelectLevelSelectPlayerOne;
 						m_MenuState = MenuState.SelectLevelSelectPlayerOne;
+					m_StartingStage = Stage.StartStage;
 					}
 					//Load Game Button
 					buttonText = "CheckPoint One";
@@ -239,7 +301,7 @@ public class Menu : MonoBehaviour {
 					{
 						m_CurrentLevel = Level.LevelOnePartSix;
 						m_MenuState = MenuState.SelectLevelSelectPlayerOne;
-						
+						m_StartingStage = Stage.StartStage;
 					}
 					
 					//Options button
@@ -249,8 +311,13 @@ public class Menu : MonoBehaviour {
 					{
 						m_CurrentLevel = Level.LevelOnePartSeven;
 						m_MenuState = MenuState.SelectLevelSelectPlayerOne;
+						m_StartingStage = Stage.StageFour;
 					}
 					
+					m_Content.image = CheckPointBack;
+					GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+
+
 					//Exit Game Button
 					Rect BackButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 8 * 7), Screen.width / 2, Screen.height / 8);
 					buttonText = "Back";
