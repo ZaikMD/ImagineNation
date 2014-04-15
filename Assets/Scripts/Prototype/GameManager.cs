@@ -50,7 +50,7 @@ public class GameManager : Subject , Observer
 
 	void Start()
 	{
-		GameObject sender;
+	/*	GameObject sender;
 		sender = GameObject.FindGameObjectWithTag ("quiggs");
 		if(sender!= null)
 		{
@@ -68,6 +68,7 @@ public class GameManager : Subject , Observer
 		//TODO: add aditional stage updaters
 
 		m_CurrentStage = Stage.StageTwo;
+	*/
 	}
 
 	// Update is called once per frame
@@ -87,6 +88,50 @@ public class GameManager : Subject , Observer
 		}
 	}
 
+
+	public void setUpSenders(int numberOfSetup)
+	{	
+		GameObject sender;
+
+		switch(numberOfSetup)
+		{
+			case 1:
+			{	
+				sender = GameObject.FindGameObjectWithTag ("quiggs");
+				if(sender!= null)
+				{
+					sender.GetComponent<NPC> ().addObserver (this);
+					m_StageUpdaters.Add (sender);
+				}
+			break;
+			}
+
+			case 2:
+			{
+				sender = GameObject.FindGameObjectWithTag ("quiggs");
+				if(sender!= null)
+				{
+					sender.GetComponent<NPC> ().addObserver (this);
+					m_StageUpdaters.Add (sender);
+				}
+
+				sender = GameObject.FindGameObjectWithTag ("Brian");
+				if(sender!= null)
+				{
+					sender.GetComponent<NPC> ().addObserver (this);
+					m_StageUpdaters.Add (sender);
+				}
+				break;
+			}
+
+			default:
+			{
+				break;
+			}
+		}
+
+	
+	}
 
 	/// <summary>
 	/// Dont call this unless told to
@@ -133,6 +178,7 @@ public class GameManager : Subject , Observer
 				sendEvent(ObeserverEvents.HaveSecondItem);
 				break;
 			}
+
 		}
 	}
 
