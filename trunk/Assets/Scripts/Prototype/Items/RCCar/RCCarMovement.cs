@@ -74,8 +74,8 @@ public class RCCarMovement : MonoBehaviour
 			EngineRPM = (FrontLeftWheel.rpm + FrontRightWheel.rpm) / 2 * GearRatio [CurrentGear - 1];
 			
 			ShiftGear ();
-			FrontLeftWheel.motorTorque = EngineTorque / GearRatio [CurrentGear - 1] * -PlayerInput.Instance.getMovementInput ().y/3;
-			FrontRightWheel.motorTorque = EngineTorque / GearRatio [CurrentGear - 1] * -PlayerInput.Instance.getMovementInput ().y/3;
+			FrontLeftWheel.motorTorque = EngineTorque / GearRatio [CurrentGear - 1] * -PlayerInput.Instance.getMovementInput ().y/2.2f;
+			FrontRightWheel.motorTorque = EngineTorque / GearRatio [CurrentGear - 1] * -PlayerInput.Instance.getMovementInput ().y/2.2f;
 
 			FrontLeftWheel.steerAngle = 5 * PlayerInput.Instance.getMovementInput ().x;
 			FrontRightWheel.steerAngle = 5 * PlayerInput.Instance.getMovementInput ().x;
