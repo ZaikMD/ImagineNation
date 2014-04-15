@@ -51,7 +51,6 @@ public class NPC : InteractableBaseClass
 	Rect m_ChatRect;
 
 	//Font size
-	public float m_FontSize = 20.0f;
 
 	//Player to renable movmeent
 	GameObject m_Player = null;
@@ -73,9 +72,9 @@ public class NPC : InteractableBaseClass
 		m_SpeechBubble = (Texture2D)Resources.Load("ChatBox");
 
 		//Where to draw the text
-		m_Rectangle = new Rect (m_NormalizedTextPos.x * Screen.width - m_FontSize, m_NormalizedTextPos.y * Screen.height - m_FontSize,
-		                        m_FontSize * m_Text.Length / m_Lines * 0.55f, m_FontSize * 1.5f * m_Lines);
-		m_ChatRect = new Rect (m_Rectangle.x - m_FontSize / 2.0f, m_Rectangle.y - m_FontSize / 2.0f, m_Rectangle.width + m_FontSize / 2.0f, m_Rectangle.height + m_FontSize / 2.0f);
+		m_Rectangle = new Rect (m_NormalizedTextPos.x * Screen.width, m_NormalizedTextPos.y * Screen.height,
+		                       m_Text.Length * 10.0f / m_Lines, 10.0f + 70.0f * m_Lines);
+		m_ChatRect = new Rect (m_Rectangle.x + 10.0f, m_Rectangle.y - 20.0f, m_Rectangle.width - 2.0f, m_Rectangle.height * 2.0f);
 	}
 
 	// On tick
@@ -167,9 +166,9 @@ public class NPC : InteractableBaseClass
 		{
 			//Add font size and color
 
-			GUI.DrawTexture(m_ChatRect, m_SpeechBubble);
-			string text = "<color=black><size=" + m_FontSize + ">" + m_ShownText + "</size></color>";
-			GUI.Label(m_Rectangle, text);
+			GUI.DrawTexture(m_Rectangle, m_SpeechBubble);
+			string text = "<color=black><size=20>" + m_ShownText + "</size></color>";
+			GUI.Label(m_ChatRect, text);
 		}
 	}
 
