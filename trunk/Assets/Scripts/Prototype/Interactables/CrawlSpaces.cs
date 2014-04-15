@@ -84,7 +84,7 @@ public class CrawlSpaces : InteractableBaseClass
 					m_Player.SetActive (false);
 
 					//Move the player a little ahead of the crawl space
-					m_Player.transform.position = m_OtherCrawlSpace.transform.position + m_OtherCrawlSpace.transform.forward * 1.3f + m_OtherCrawlSpace.transform.up * 0.15f;
+					m_Player.transform.position = m_OtherCrawlSpace.transform.position + m_OtherCrawlSpace.transform.forward * 1.35f + m_OtherCrawlSpace.transform.up * 0.3f;
 
 					//Rotate to face out of exiting crawl space
 					m_Player.transform.LookAt(m_Player.transform.position + m_OtherCrawlSpace.transform.forward);
