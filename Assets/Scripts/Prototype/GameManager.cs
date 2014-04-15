@@ -50,26 +50,43 @@ public class GameManager : Subject , Observer
 
 	void Start()
 	{
-	/*	GameObject sender;
-		sender = GameObject.FindGameObjectWithTag ("quiggs");
-		if(sender!= null)
-		{
-			sender.GetComponent<NPC> ().addObserver (this);
-			m_StageUpdaters.Add (sender);
-		}
 
-		sender = GameObject.FindGameObjectWithTag ("Brian");
-		if(sender!= null)
-		{
-			sender.GetComponent<NPC> ().addObserver (this);
-			m_StageUpdaters.Add (sender);
-		}
 
+		GameObject sender;
+
+			sender = GameObject.FindGameObjectWithTag ("quiggs");
+			if(sender!= null)
+			{
+				sender.GetComponent<NPC> ().addObserver (this);
+				m_StageUpdaters.Add (sender);
+				ArmyMenTalkedTo.Instance.addAsObsever();
+			}
+
+			
+			sender = GameObject.FindGameObjectWithTag ("Brian");
+			if(sender!= null)
+			{
+				sender.GetComponent<NPC> ().addObserver (this);
+				m_StageUpdaters.Add (sender);
+				BrianTalkedTo.Instance.addAsObsever();
+			}
+		
 		//TODO: add aditional stage updaters
 
-		m_CurrentStage = Stage.StageTwo;
-	*/
-	}
+		m_CurrentStage = (Stage)PlayerPrefs.GetInt("CurrentLevelStage");
+		//levelState ();
+
+		if (m_CurrentStage == Stage.StageThree)
+		{
+			Invoke ("spoken", 3);	
+		}
+
+		if(m_CurrentStage == Stage.StageFour)
+		{
+			Invoke("foundBrian", 3);
+			Invoke ("spoken", 3);	
+		}
+  }
 
 	// Update is called once per frame
 	void Update () 
@@ -97,12 +114,13 @@ public class GameManager : Subject , Observer
 		{
 			case 1:
 			{	
-				sender = GameObject.FindGameObjectWithTag ("quiggs");
-				if(sender!= null)
-				{
-					sender.GetComponent<NPC> ().addObserver (this);
-					m_StageUpdaters.Add (sender);
-				}
+			sender = GameObject.FindGameObjectWithTag ("Brian");
+			if(sender!= null)
+			{
+				sender.GetComponent<NPC> ().addObserver (this);
+				m_StageUpdaters.Add (sender);
+			}
+		
 			break;
 			}
 
@@ -199,5 +217,14 @@ public class GameManager : Subject , Observer
 				break;
 			}
 		}
+	}
+
+	public void spoken()
+	{
+		sendEvent (ObeserverEvents.SpokenToArmyMen);
+	}
+	public void foundBrian()
+	{
+		sendEvent(ObeserverEvents.HaveFoundPrivateRyan);
 	}
 }

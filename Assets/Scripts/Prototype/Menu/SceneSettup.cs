@@ -24,10 +24,12 @@ public class SceneSettup : MonoBehaviour
 	{
         Debug.Log("testing");
         getCheckPoint(); 
-		setStage ();
+	//	setStage ();
 		activatePlayers ();
-                   
+   
         CheckpointManager.m_Instance.m_CurrentCheckPoint = m_StartPoint.GetComponent<Checkpoint> ();
+
+	//	Invoke ("setStage", 0.5f);
 	}
 
     void activatePlayers()
@@ -300,14 +302,20 @@ public class SceneSettup : MonoBehaviour
 
 	void setStage ()
 	{
-		Stage currentStage = (Stage)PlayerPrefs.GetInt ("CurrentLevelStage");
+		//GameManager.Instance.levelState();
 
+
+		Stage currentStage = (Stage)PlayerPrefs.GetInt ("CurrentLevelStage");
+		print(currentStage);
 		switch(currentStage)
 		{
+
+
 			case Stage.StartStage:
 			{
 				GameManager.Instance.m_CurrentStage = Stage.StartStage;
 				GameManager.Instance.setUpSenders (2);
+		ArmyMenTalkedTo.Instance.addAsObsever ();
 			break;
 			}
 			case Stage.StageOne:
@@ -319,13 +327,13 @@ public class SceneSettup : MonoBehaviour
 			case Stage.StageTwo:
 			{
 				GameManager.Instance.m_CurrentStage = Stage.StageTwo;
-				GameManager.Instance.setUpSenders (1);
+				GameManager.Instance.setUpSenders (2);
 				break;
 			}
 			case Stage.StageThree:
 			{
 				GameManager.Instance.m_CurrentStage = Stage.StageThree;
-				GameManager.Instance.setUpSenders (1);
+			//	GameManager.Instance.setUpSenders (1);
 				break;
 			}
 
@@ -337,8 +345,10 @@ public class SceneSettup : MonoBehaviour
 			}
 
 		}
+		ArmyMenTalkedTo.Instance.addAsObsever ();
+	//	GameManager.Instance.levelState ();
 
-		GameManager.Instance.levelState ();
+
 
 	}
 
