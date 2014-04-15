@@ -255,7 +255,7 @@ public class Menu : MonoBehaviour {
 						m_CurrentLevel = Level.LevelOneStart;
 						//	m_MenuState = MenuState.SelectLevelSelectPlayerOne;
 						m_MenuState = MenuState.SelectLevelSelectPlayerOne;
-					m_StartingStage = Stage.StartStage;
+					m_StartingStage = Stage.StageTwo;
 					}
 					//Load Game Button
 					buttonText = "CheckPoint One";
@@ -265,7 +265,7 @@ public class Menu : MonoBehaviour {
 					{
 						m_CurrentLevel = Level.LevelOnePartTwo;
 						m_MenuState = MenuState.SelectLevelSelectPlayerOne;
-						m_StartingStage = Stage.StageOne;
+						m_StartingStage = Stage.StageTwo;
 					}
 					
 					buttonText = "CheckPoint Two";
@@ -274,7 +274,7 @@ public class Menu : MonoBehaviour {
 					{
 						m_CurrentLevel = Level.LevelOnePartThree;
 						m_MenuState = MenuState.SelectLevelSelectPlayerOne;
-						m_StartingStage = Stage.StageOne;
+						m_StartingStage = Stage.StageTwo;
 					}
 					
 					//Options button
@@ -284,7 +284,7 @@ public class Menu : MonoBehaviour {
 					{
 						m_CurrentLevel = Level.LevelOnePartFour;
 						m_MenuState = MenuState.SelectLevelSelectPlayerOne;
-						m_StartingStage = Stage.StageTwo;
+						m_StartingStage = Stage.StageThree;
 					}
 					
 					//Exit Game Button
@@ -294,7 +294,7 @@ public class Menu : MonoBehaviour {
 					{
 						m_CurrentLevel = Level.LevelOnePartFive;
 						m_MenuState = MenuState.SelectLevelSelectPlayerOne;
-						m_StartingStage = Stage.StageThree;
+						m_StartingStage = Stage.StageFour;
 					}
 					
 
@@ -304,7 +304,7 @@ public class Menu : MonoBehaviour {
 					{
 						m_CurrentLevel = Level.LevelOnePartSix;
 						m_MenuState = MenuState.SelectLevelSelectPlayerOne;
-						m_StartingStage = Stage.StageThree;
+						m_StartingStage = Stage.StageFour;
 					}
 					
 					//Options button

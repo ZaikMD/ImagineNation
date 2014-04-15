@@ -21,7 +21,11 @@ public class BrianTalkedTo : Subject, Observer
 		//prevents this object being destroyed between scene loads
 		DontDestroyOnLoad(gameObject);
 	}
-	
+	public void addAsObsever()
+	{
+		
+		//GameManager.Instance.addObserver (this);
+	}
 	public void Start()
 	{
 		GameManager.Instance.addObserver (this);

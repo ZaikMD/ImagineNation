@@ -23,7 +23,13 @@ public class ArmyMenTalkedTo : Subject, Observer
 
 	public void Start()
 	{
-		GameManager.Instance.addObserver (this);
+	GameManager.Instance.addObserver (this);
+	}
+
+	public void addAsObsever()
+	{
+
+	//	GameManager.Instance.addObserver (this);
 	}
 
 	public void recieveEvent(Subject sender, ObeserverEvents recievedEvent)
