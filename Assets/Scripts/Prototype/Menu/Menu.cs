@@ -710,7 +710,7 @@ public class Menu : MonoBehaviour {
                             
                     		Screen.showCursor = false;
 							m_CurrentLevel = Level.LevelOneStart;
-                            m_StartingStage = Stage.StartStage;
+                            m_StartingStage = Stage.StageTwo;
 							PlayerPrefs.SetString("CurrentCheckpoint", "StartPoint");
 							setPlayer();
 
