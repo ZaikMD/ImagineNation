@@ -132,6 +132,30 @@ public class PauseMenu : MonoBehaviour , Observer
 	bool firstTimePlayerTwoSelect;
 	
 
+	public Texture2D Characters;
+	public Texture2D Continue;
+	public Texture2D Exit;
+	public Texture2D GameStuff;
+	public Texture2D Options;
+	public Texture2D Hover;
+
+	//Options
+	public Texture2D ApplyChanges;
+	public Texture2D Back;
+	public Texture2D Between;
+	public Texture2D Controls;
+	public Texture2D Credits;
+	public Texture2D Lower;
+	public Texture2D Raise;
+	public Texture2D WindowModeImportSetting;
+	
+	//Save / Load
+	public Texture2D SaveBack;
+	public Texture2D Slots;
+
+	public GUIContent m_Content;
+
+
 	/// <summary>
 	/// handles some singleton logic
 	/// </summary>
@@ -161,6 +185,8 @@ public class PauseMenu : MonoBehaviour , Observer
 		firstTimePlayerTwoSelect = true;
 		GameManager.Instance.addObserver (this);
       
+
+
 
         player1 = GameObject.Find("PlayerOnePrefab");
         player2 = GameObject.Find("PlayerTwoPrefab");
@@ -226,174 +252,8 @@ public class PauseMenu : MonoBehaviour , Observer
 					
 					break;
                 }
-            case MenuState.SelectPlayerOne:
-                {   
-                    
-                    Rect PlayerSelection = new Rect(0, 0, Screen.width / 4, Screen.height);
-                    string playerselect = "PlayerOne:\n" ;
-                    switch(m_PlayerOne)
-                    {
-                        case Player.Alex:
-                            {
-                                m_PlayerOneSelected = "Alex";
-                                break;
-                            }
-                        case Player.Derek:
-                            {
-                                m_PlayerOneSelected = "Derek";
-                                break;
-                            }
-                        case Player.Zoey:
-                            {
-                                m_PlayerOneSelected = "Zoey";
-                                break;
-                            }
-
-                    }
-                    
-                    GUI.TextArea(PlayerSelection, playerselect + m_PlayerOneSelected);
-
-                    //in here we select the characters for the level ahead.
-
-                    //Alex
-                    Rect AlexButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, 0, Screen.width / 2, Screen.height / 5);
-                    buttonText = "Alex";
-                    if (GUI.Button(AlexButtonPosition, buttonText))
-                    {
-                        
-                        m_PlayerOne = Player.Alex;
-                    }
-
-                    //Derek
-                    Rect DerekButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, Screen.height / 5, Screen.width / 2, Screen.height / 5);
-                    buttonText = "Derek";
-                    if (GUI.Button(DerekButtonPosition, buttonText))
-                    {
-                        m_PlayerOne = Player.Derek;
-                    }
-
-                    //Zoey
-                    Rect ZoeyButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 5 * 2), Screen.width / 2, Screen.height / 5);
-                    buttonText = "Zoey";
-                    if (GUI.Button(ZoeyButtonPosition, buttonText))
-                    {
-                        m_PlayerOne = Player.Zoey;
-                    }
-
-                    //Continue
-                    Rect PlayButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 5 * 3), Screen.width / 2, Screen.height / 5);
-                    buttonText = "Continue";
-                    if (GUI.Button(PlayButtonPosition, buttonText))
-                    {
-                        m_MenuState = MenuState.SelectPlayerTwo;
-                    }
-
-                    //Back
-                    Rect BackButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 5 * 4), Screen.width / 2, Screen.height / 5);
-                    buttonText = "Back";
-                    if (GUI.Button(BackButtonPosition, buttonText))
-                    {
-                        m_MenuState = MenuState.MainMenu;
-                    }
-
-                    break;
-                    
-                }
-
-            case MenuState.SelectPlayerTwo:
-                {
-					if(firstTimePlayerTwoSelect)
-					{
-						if(m_PlayerOne == Player.Alex)
-						{
-							m_PlayerTwo = Player.Derek;
-						}
-						else
-						{
-							m_PlayerTwo = Player.Alex;
-						}
-					firstTimePlayerTwoSelect = false;
-					}
-
-
-                    Rect PlayerSelection = new Rect(0, 0, Screen.width / 4, Screen.height);
-                    string playerSelectOne = "Player One:\n";
-                    string PlayerSelectTwo = "\n Player Two: \n";
-                    switch (m_PlayerTwo)
-                    {
-                        case Player.Alex:
-                            {
-                                m_PlayerTwoSelected = "Alex";
-                                break;
-                            }
-                        case Player.Derek:
-                            {
-                                m_PlayerTwoSelected = "Derek";
-                                break;
-                            }
-                        case Player.Zoey:
-                            {
-                                m_PlayerTwoSelected = "Zoey";
-                                break;
-                            }
-
-                    }
-
-                    GUI.TextArea(PlayerSelection, playerSelectOne + m_PlayerOneSelected + PlayerSelectTwo + m_PlayerTwoSelected);
-
-
-
-                    //Alex
-                    Rect AlexButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, 0, Screen.width / 2, Screen.height / 5);
-                    buttonText = "Alex";
-                    if (GUI.Button(AlexButtonPosition, buttonText))
-                    {
-                        if (m_PlayerOne != Player.Alex)
-                        {
-                            m_PlayerTwo = Player.Alex;
-                        }
-                    }
-
-                    //Derek
-                    Rect DerekButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, Screen.height / 5, Screen.width / 2, Screen.height / 5);
-                    buttonText = "Derek";
-                    if (GUI.Button(DerekButtonPosition, buttonText))
-                    {
-                        if(m_PlayerOne != Player.Derek)
-                        m_PlayerTwo = Player.Derek;
-                    }
-
-                    //Zoey
-                    Rect ZoeyButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 5 * 2), Screen.width / 2, Screen.height / 5);
-                    buttonText = "Zoey";
-                    if (GUI.Button(ZoeyButtonPosition, buttonText))
-                    {
-                        if (m_PlayerOne != Player.Zoey)
-                        m_PlayerTwo = Player.Zoey;
-                    }
-
-                    //Play
-                    Rect PlayButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 5 * 3), Screen.width / 2, Screen.height / 5);
-                    buttonText = "Play";
-                    if (GUI.Button(PlayButtonPosition, buttonText))
-                    {
-                        m_MenuState = MenuState.PlayingGame;
-						firstTimePlayerTwoSelect = true;
-						setPlayer();
-                       
-                    }
-
-                    //Back
-                    Rect BackButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 5 * 4), Screen.width / 2, Screen.height / 5);
-                    buttonText = "Back";
-                    if (GUI.Button(BackButtonPosition, buttonText))
-                    {
-                        m_MenuState = MenuState.SelectPlayerOne;
-						firstTimePlayerTwoSelect = true;
-                    }
-
-                    break;
-                }
+           
+            
            case MenuState.Options:
                 {
                     Rect VolumeSliderPosition = new Rect(Screen.width / 3, Screen.height / 8, Screen.width / 3, Screen.height / 6);
@@ -402,6 +262,10 @@ public class PauseMenu : MonoBehaviour , Observer
                     Rect VolumePosition = new Rect(Screen.width / 3,0, Screen.width / 3, Screen.height / 6);
                     buttonText = "Volume";
                     GUI.TextArea(VolumePosition, buttonText);
+					
+					m_Content.image = WindowModeImportSetting;
+					GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+
 
                     Rect WindowButtonPosition = new Rect(0, 0, Screen.width / 3, Screen.height / 6);
                     buttonText = "Window: " + m_FullScreen;
@@ -410,6 +274,10 @@ public class PauseMenu : MonoBehaviour , Observer
                        m_FullScreen = !m_FullScreen;
                     }
 
+					m_Content.image = Controls;
+					GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+
+
                     Rect ControlButtonPosition = new Rect(Screen.width/3 * 2, 0, Screen.width / 3, Screen.height / 6);
                     buttonText = "Controls";
                     if (GUI.Button(ControlButtonPosition, buttonText))
@@ -417,7 +285,10 @@ public class PauseMenu : MonoBehaviour , Observer
                         m_MenuState = MenuState.Controls;
                     }
 
-                  
+					m_Content.image = Raise;
+					GUI.skin.button.normal.background = (Texture2D)m_Content.image;      
+
+
                     //TODO: Add Options
                     Rect RaiseResolutionButtonPosition = new Rect(Screen.width / 3 * 2, (Screen.height / 6 * 2), Screen.width / 3, Screen.height / 6);
                     buttonText = "Raise";
@@ -485,6 +356,10 @@ public class PauseMenu : MonoBehaviour , Observer
 
 
                     }
+
+					m_Content.image = Lower;
+					GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+
 
                     Rect LowerResolutionButtonPosition = new Rect(0, (Screen.height / 6 * 2), Screen.width / 3, Screen.height / 6);
                     buttonText = "Lower";
@@ -556,10 +431,11 @@ public class PauseMenu : MonoBehaviour , Observer
                     Rect ResolutionPosition = new Rect(Screen.width / 3, (Screen.height / 6 * 2), Screen.width / 3, Screen.height / 6);
                     buttonText = "Resolustion: \n\n" + m_WidthRes + " * " + m_HeightRes;
                     GUI.TextArea(ResolutionPosition, buttonText);
-
-
+					m_Content.image = Raise;
+					GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+					
                     Rect RaiseRefreshRateButtonPosition = new Rect(Screen.width / 3 * 2, (Screen.height / 6), Screen.width / 3, Screen.height / 6);
-                    buttonText = "Raise Refresh Rate";
+                    buttonText = "Raise";
                     if (GUI.Button(RaiseRefreshRateButtonPosition, buttonText))
                     {
                         if (m_Refresh > 0)
@@ -603,6 +479,9 @@ public class PauseMenu : MonoBehaviour , Observer
                         }
 
                     }
+
+					m_Content.image = Lower;
+					GUI.skin.button.normal.background = (Texture2D)m_Content.image;		
 
 
                     Rect LowerRefreshRateButtonPosition = new Rect(0, (Screen.height / 6), Screen.width / 3, Screen.height / 6);
@@ -656,7 +535,9 @@ public class PauseMenu : MonoBehaviour , Observer
                     buttonText = "Refresh: \n\n" + m_RefreshRate;
                     GUI.TextArea(RefreshPosition, buttonText);
 
-					
+					m_Content.image = Raise;
+					GUI.skin.button.normal.background = (Texture2D)m_Content.image;		
+
 					Rect RaiseQualityButtonPosition = new Rect(Screen.width /3 * 2 , (Screen.height / 6 * 3), Screen.width / 3, Screen.height / 6);
 					buttonText = "Raise";
 					if (GUI.Button(RaiseQualityButtonPosition, buttonText))
@@ -704,6 +585,9 @@ public class PauseMenu : MonoBehaviour , Observer
 
 						              
 					}	
+
+					m_Content.image = Lower;
+					GUI.skin.button.normal.background = (Texture2D)m_Content.image;	
                                                  
 					Rect LowerQualityButtonPosition = new Rect(0 , (Screen.height / 6 * 3), Screen.width / 3, Screen.height / 6);
 					buttonText = "Lower";
@@ -754,7 +638,9 @@ public class PauseMenu : MonoBehaviour , Observer
 					Rect QualityPosition = new Rect(Screen.width / 3 , (Screen.height / 6 * 3), Screen.width / 3, Screen.height / 6);
 					buttonText = "Quality: \n\n" + m_QualityText ;
 					GUI.TextArea(QualityPosition, buttonText);
-			
+					
+					m_Content.image = ApplyChanges;
+					GUI.skin.button.normal.background = (Texture2D)m_Content.image;
 
 					Rect ApplyButtonPosition = new Rect(Screen.width / 2, (Screen.height / 6 * 5), Screen.width / 2, Screen.height / 6);
                     buttonText = "Apply Changes";
@@ -762,7 +648,9 @@ public class PauseMenu : MonoBehaviour , Observer
                     {
                         applyChanges();                    
                     }		
-
+					
+					m_Content.image = Credits;
+					GUI.skin.button.normal.background = (Texture2D)m_Content.image;
 
                     Rect CreditsButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 6 * 4), Screen.width / 2, Screen.height / 6);
                     buttonText = "Credits";
@@ -771,6 +659,9 @@ public class PauseMenu : MonoBehaviour , Observer
                         m_MenuState = MenuState.Credit;                    
                     }
 
+					m_Content.image = Back;
+					GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+				
                     Rect BackButtonPosition = new Rect(0, (Screen.height / 6 * 5), Screen.width / 2, Screen.height / 6);
                     buttonText = "Back";
                     if (GUI.Button(BackButtonPosition, buttonText))
@@ -792,13 +683,16 @@ public class PauseMenu : MonoBehaviour , Observer
 
             case MenuState.Credit:
                 {
-
+					
                     GUI.skin.label.fontSize = 124;
 
-                    Rect CreditsButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 5), Screen.width / 2, Screen.height - (Screen.height / 5 * 2));
+                    Rect CreditsButtonPosition = new Rect(Screen.width / 4, (Screen.height / 4 *3), Screen.width / 2, Screen.height - (Screen.height / 4 * 3));
                     buttonText = "Project Manager: Sean Donnely \n\nLead Designer: Adam Holloway \n\nLead Artist: Justin Lamoureux \nArtist: Luc Pitre \n\nLead Programmer: Kristoffer 'Kris' Matis \nProgrammer: Matthew WhitLaw \nProgrammer: Joe Burchill \nProgrammer: Zach Dubuc \nProgrammer: Kole Tackney \nProgrammer: Matt Elias \nProgrammer: Greg Fortier \nProgrammer: Jason Hein \n\nWith special thanks to Nick McNielly";
                     GUI.TextArea(CreditsButtonPosition, buttonText);
-                   
+            
+					m_Content.image = Back;
+					GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+
 
                     Rect BackButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 5 * 4), Screen.width / 2, Screen.height / 5);
                     buttonText = "Back";
@@ -882,8 +776,10 @@ public class PauseMenu : MonoBehaviour , Observer
             case MenuState.PauseMenu:
                 {
                     //TODO: tell gamemager to pause game
-
-
+					
+		//			GUI.skin.button.normal.background = 
+					m_Content.image = ApplyChanges;
+					GUI.skin.button.normal.background = (Texture2D)m_Content.image;
                     //Resume Game Button
                     Rect ResumeGamebuttonPosition = new Rect(Screen.width / 2 - Screen.width / 4, 0, Screen.width / 2, Screen.height / 4);
                     buttonText = "Resume Game";
@@ -894,6 +790,9 @@ public class PauseMenu : MonoBehaviour , Observer
 						GameManager.Instance.startGame();
                     }
 
+					m_Content.image = GameStuff;
+					GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+
                     //Save Game Button
                     Rect NewGamebuttonPosition = new Rect(Screen.width / 2 - Screen.width / 4,  Screen.height / 4, Screen.width / 2, Screen.height / 4);
                     buttonText = "Save Game";
@@ -902,6 +801,8 @@ public class PauseMenu : MonoBehaviour , Observer
                         m_MenuState = MenuState.SaveGame;
                     }
                    
+					m_Content.image = Options;
+					GUI.skin.button.normal.background = (Texture2D)m_Content.image;
 
                     //Options button
                     Rect OptionButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, Screen.height / 4 * 2, Screen.width / 2, Screen.height / 4);
@@ -913,6 +814,9 @@ public class PauseMenu : MonoBehaviour , Observer
                        
                     }
 
+					m_Content.image = Exit;
+					GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+					
                     //Exit Game Button
                     Rect ExitButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 4 * 3), Screen.width / 2, Screen.height / 4);
                     buttonText = "Exit Game";
@@ -925,6 +829,9 @@ public class PauseMenu : MonoBehaviour , Observer
             case MenuState.SaveGame:
                 {
                     //TODO: call save game
+					m_Content.image = Slots;
+					GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+				
 
                     //add save slots
                     Rect SaveButtonOnePosition = new Rect(Screen.width / 2 - Screen.width / 4, 0, Screen.width / 2, Screen.height / 4);
@@ -949,6 +856,9 @@ public class PauseMenu : MonoBehaviour , Observer
                         saveGame(3);
                     }
 
+					m_Content.image = Back;
+					GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+
                     Rect BackButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 4 * 3), Screen.width / 2, Screen.height / 4);
                     buttonText = "Back";
                     if (GUI.Button(BackButtonPosition, buttonText))
@@ -960,11 +870,14 @@ public class PauseMenu : MonoBehaviour , Observer
 
             case MenuState.Controls:
                 {
-                    Rect ControlTextPosition = new Rect(Screen.width/3, 0, Screen.width / 3, Screen.height/4 * 3);
+                    Rect ControlTextPosition = new Rect(Screen.width/4, 0, Screen.width / 2, Screen.height/4 * 3);
                     buttonText = "Movement:             WASD              -           Left Stick \nJump:                    Space               -           A\nCharacter Switch:   Tab                   -           Y\nInteract:                 F                      -           B\nCamera Control:    Hold Right Click  -           Right Stick\nUse Item / Attack:  Left Click           -           X\nAim:                      Shift                  -           Left Bumper\nPause:                   Escape             -           Start\n";
                     GUI.TextArea(ControlTextPosition, buttonText);
 
-                    Rect BackButtonPosition = new Rect(Screen.width / 3, (Screen.height / 4 * 3), Screen.width / 3, Screen.height / 4);
+					m_Content.image = Back;
+					GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+
+                    Rect BackButtonPosition = new Rect(Screen.width / 4, (Screen.height / 4 * 3), Screen.width / 2, Screen.height / 4);
                     buttonText = "Back";
                     if (GUI.Button(BackButtonPosition, buttonText))
                     {
