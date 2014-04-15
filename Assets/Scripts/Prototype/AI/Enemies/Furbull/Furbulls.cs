@@ -60,6 +60,7 @@ public class Furbulls : BaseEnemy
 
 			Vector3 direction = m_Target.position - transform.position;
 
+			direction.y = 0.0f;
 			direction.Normalize ();
 
 			direction *= m_ChargeDistance;
@@ -75,6 +76,7 @@ public class Furbulls : BaseEnemy
 
 		if(!m_HasReachedTarget)
 		{
+			transform.forward = Vector3.RotateTowards(transform.forward, m_ChargeTarget.transform.position - transform.position, 0.05f, 0.05f);
 			transform.position = Vector3.MoveTowards(transform.position, m_ChargeTarget.transform.position, m_ChargeSpeed * Time.deltaTime);
 		}
 		else
