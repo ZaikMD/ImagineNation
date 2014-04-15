@@ -1113,10 +1113,20 @@ public class PauseMenu : MonoBehaviour , Observer
 	/// <param name="slot">this is the Slot that is being saved to.</param>
     void saveGame(int slot)
     {
-		PlayerPrefs.SetInt("PlayerOne" + slot, (int)m_PlayerOne);
-        PlayerPrefs.SetInt("PlayerTwo" + slot, (int)m_PlayerTwo);
-   		PlayerPrefs.SetString("Level" + slot, PlayerPrefs.GetString("CurrentLevel"));
-		PlayerPrefs.SetString ("LevelStage" + slot, PlayerPrefs.GetString ("CurrentLevelStage"));
+		int Test1 = 0;
+		int Test2 = 0;
+		PlayerPrefs.SetInt ("PlayerOne" + slot, PlayerPrefs.GetInt("CurrentPlayerOne"));
+		Test1 = PlayerPrefs.GetInt("PlayerOne" + slot);
+		PlayerPrefs.SetInt ("PlayerTwo" + slot, PlayerPrefs.GetInt("CurrentPlayerTwo"));
+		Test2 = PlayerPrefs.GetInt("PlayerTwo" + slot);
+   		PlayerPrefs.SetInt ("Level" + slot, PlayerPrefs.GetInt("CurrentLevel"));
+		Debug.Log (PlayerPrefs.GetInt("CurrentLevel" + slot).ToString());
+		PlayerPrefs.SetInt ("LevelStage" + slot, PlayerPrefs.GetInt ("CurrentLevelStage"));
+		Debug.Log (PlayerPrefs.GetInt("CurrentLevelStage" + slot).ToString());
+		print (Test1);
+		print (Test2);
+		print (5);
+
     }
 
 	/// <summary>

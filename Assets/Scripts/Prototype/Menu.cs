@@ -428,7 +428,7 @@ public class Menu : MonoBehaviour {
 				buttonText = "Back";
 				if (GUI.Button(BackButtonPosition, buttonText))
 				{
-					m_MenuState = MenuState.SelectLevelSelectPlayerTwo;
+					m_MenuState = MenuState.SelectLevelSelectPlayerOne;
 					firstTimePlayerTwoSelect = true;
 				}
 				
@@ -587,7 +587,7 @@ public class Menu : MonoBehaviour {
                         buttonText = "Play";
                         if (GUI.Button(PlayButtonPosition, buttonText))
                         {
-                            firstTimePlayerTwoSelect = true;
+                            
                     		Screen.showCursor = false;
 							m_CurrentLevel = Level.LevelOneStart;
                             m_StartingStage = Stage.StartStage;
@@ -1086,12 +1086,21 @@ public class Menu : MonoBehaviour {
         void loadGame(int slot)
     {
         m_PlayerOne = (Player)PlayerPrefs.GetInt("PlayerOne" + slot);
-      
+		print (m_PlayerOne);
+	//	PlayerPrefs.SetInt("CurrentPlayerOne", PlayerPrefs.GetInt("PlayerOne" + slot));
+
         m_PlayerTwo = (Player)PlayerPrefs.GetInt("PlayerTwo" + slot);
+		print (m_PlayerTwo);
+	//	PlayerPrefs.SetInt("CurrentPlayerTwo", PlayerPrefs.GetInt("PlayerTwo" + slot));
 
 		m_CurrentLevel =  (Level)PlayerPrefs.GetInt("Level" + slot);
 
+		print (m_CurrentLevel);
+
 		m_StartingStage = (Stage)PlayerPrefs.GetInt("LevelStage" + slot);
+
+		print (m_StartingStage);
+	
 
 ///		PlayerPrefs.SetString("CurrentCheckpoint", PlayerPrefs.GetString("Checkpoint" + slot));
 //		PlayerPrefs.SetString ("CurrentLevelStage", PlayerPrefs.GetString ("LevelStage" + slot));
@@ -1125,6 +1134,7 @@ public class Menu : MonoBehaviour {
 		PlayerPrefs.SetInt("CurrentLevel", (int)m_CurrentLevel);
         PlayerPrefs.SetInt("CurrentLevelStage", (int)m_StartingStage);
 		Application.LoadLevel("FullDemoLevel");
+		firstTimePlayerTwoSelect = true;
 
 	}
 
