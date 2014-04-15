@@ -3,7 +3,7 @@ using System.Collections;
 
 public class NerfPlatform : MonoBehaviour {
 	
-	float m_PlatformTimer = 30.0f;
+	float m_PlatformTimer = 60.0f;
 	float m_OriginalPlatformTimer;
 	float m_PlatformPercentage;
 	
