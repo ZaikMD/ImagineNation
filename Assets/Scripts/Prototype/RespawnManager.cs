@@ -20,8 +20,24 @@ public class RespawnManager : MonoBehaviour {
 
 
 
+	public bool getPlayerOneDead()
+	{
+		return m_PlayerOneDead;
+	}
 
+	public bool getPlayerTwoDead()
+	{
+		return m_PlayerTwoDead;
+	}
 
+	public bool getIsAnyPlayerDead()
+	{
+		if(getPlayerOneDead() || getPlayerTwoDead())
+		{
+			return true;
+		}
+		return false;
+	}
 
 	/// <summary>
 	/// Gets the instance.
