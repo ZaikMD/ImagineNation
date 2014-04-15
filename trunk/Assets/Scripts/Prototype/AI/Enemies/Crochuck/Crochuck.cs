@@ -42,7 +42,7 @@ public class Crochuck : BaseEnemy, Observer
 	public int m_MaxFurbulls = 5;
 
 	float m_BiteTimer = 0.0f;
-	public const float BITE_DELAY = 1.0f;
+	public const float BITE_DELAY = 1.75f;
 
 	int m_Bullets = 0;
 
