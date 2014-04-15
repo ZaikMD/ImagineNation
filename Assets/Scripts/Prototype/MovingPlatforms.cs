@@ -35,7 +35,6 @@ public class MovingPlatforms : MonoBehaviour , Observer
 
 	//Positions
 	private Vector3 m_DestinationPosition;
-
 	private bool m_IsPaused = false;
 	//Bools
 	private bool m_HasMoved = false;
@@ -56,6 +55,8 @@ public class MovingPlatforms : MonoBehaviour , Observer
 
 	// Platforms Movement Vector
 	Vector3 m_Movement;
+
+	GameObject m_Player;
 
 	// Use this for initialization
 	void Start () 
@@ -103,6 +104,11 @@ public class MovingPlatforms : MonoBehaviour , Observer
 					else if (m_HasMoved == false) //Check to see if it's moved already
 					{
 						m_Movement = new Vector3(m_XMovePercent, m_YMovePercent, m_ZMovePercent);
+						if(m_Player != null)
+						{
+							m_Player.GetComponent<PlayerMovement>().Move(m_Movement + transform.up * 0.01f);
+							m_Player.GetComponent<PlayerMovement>().Move(transform.up * -0.02f);
+						}
 						transform.Translate(m_Movement); ; //Move the platforms by the move percentage
 						m_MoveTimeInSeconds -= Time.deltaTime; //Count down move time
 
@@ -115,14 +121,19 @@ public class MovingPlatforms : MonoBehaviour , Observer
 					else if (m_HasMoved == true && m_MovesOnce == false)  //Check to see if it needs to go back
 					{
 						m_Movement = new Vector3(-1 * m_XMovePercent, -1 * m_YMovePercent, -1 * m_ZMovePercent);
+						if(m_Player != null)
+						{
+							m_Player.GetComponent<PlayerMovement>().Move(m_Movement + transform.up * 0.01f);
+							m_Player.GetComponent<PlayerMovement>().Move(transform.up * -0.02f);
+						}
 						transform.Translate (m_Movement); //Move the platform
 						m_MoveTimeInSeconds -= Time.deltaTime;
 			
 
 						if (m_MoveTimeInSeconds < 0) 
 						{
-						m_PauseTime = m_InitialPauseTime; //Reset pause time
-						m_HasMoved = false; // Has moved is now false
+							m_PauseTime = m_InitialPauseTime; //Reset pause time
+							m_HasMoved = false; // Has moved is now false
 						}
 					}
 				}
@@ -135,7 +146,18 @@ public class MovingPlatforms : MonoBehaviour , Observer
 	{
 		if (obj.tag == "Player") 
 		{
-			obj.GetComponent<PlayerMovement>().Move(m_Movement + transform.up * 0.01f);
+			m_Player = obj.gameObject;
+		}
+	}
+
+	void OnTriggerExit(Collider obj)
+	{
+		if (obj.tag == "Player") 
+		{
+			if(m_Player != null)
+			{
+				m_Player = null;
+			}
 		}
 	}
 
