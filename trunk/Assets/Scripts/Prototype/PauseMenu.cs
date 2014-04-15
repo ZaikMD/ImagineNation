@@ -885,7 +885,7 @@ public class PauseMenu : MonoBehaviour , Observer
 
 
                     //Resume Game Button
-                    Rect ResumeGamebuttonPosition = new Rect(Screen.width / 2 - Screen.width / 4, 0, Screen.width / 2, Screen.height / 5);
+                    Rect ResumeGamebuttonPosition = new Rect(Screen.width / 2 - Screen.width / 4, 0, Screen.width / 2, Screen.height / 4);
                     buttonText = "Resume Game";
                     if (GUI.Button(ResumeGamebuttonPosition, buttonText))
                     {
@@ -895,23 +895,16 @@ public class PauseMenu : MonoBehaviour , Observer
                     }
 
                     //Save Game Button
-                    Rect NewGamebuttonPosition = new Rect(Screen.width / 2 - Screen.width / 4,  Screen.height / 5, Screen.width / 2, Screen.height / 5);
+                    Rect NewGamebuttonPosition = new Rect(Screen.width / 2 - Screen.width / 4,  Screen.height / 4, Screen.width / 2, Screen.height / 4);
                     buttonText = "Save Game";
                     if (GUI.Button(NewGamebuttonPosition, buttonText))
                     {
                         m_MenuState = MenuState.SaveGame;
                     }
-                    //Load Game Button
-                    buttonText = "Load Game";
-                    Rect LoadButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, Screen.height / 5 * 2, Screen.width / 2, Screen.height / 5);
-                    if (GUI.Button(LoadButtonPosition, buttonText))
-                    {
-                        m_MenuState = MenuState.LoadGame;
-                    }
-
+                   
 
                     //Options button
-                    Rect OptionButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, Screen.height / 5 * 3, Screen.width / 2, Screen.height / 5);
+                    Rect OptionButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, Screen.height / 4 * 2, Screen.width / 2, Screen.height / 4);
                     buttonText = "Options";
                     if (GUI.Button(OptionButtonPosition, buttonText))
                     {
@@ -921,7 +914,7 @@ public class PauseMenu : MonoBehaviour , Observer
                     }
 
                     //Exit Game Button
-                    Rect ExitButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 5 * 4), Screen.width / 2, Screen.height / 5);
+                    Rect ExitButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 4 * 3), Screen.width / 2, Screen.height / 4);
                     buttonText = "Exit Game";
                     if (GUI.Button(ExitButtonPosition, buttonText))
                     {
