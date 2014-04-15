@@ -25,6 +25,7 @@ public enum Sounds
 public enum Songs
 {
 	BackgroundSong = 0,
+	Music2 = 1,
 	Count
 };
 
@@ -83,6 +84,7 @@ public class SoundManager : MonoBehaviour {
 
 		//Load Music here. Have same order as enum!
 		m_Songs [0] = Resources.Load<AudioClip> ("Sound Effects/BackgroundSong"); 
+		m_Songs [1] = Resources.Load<AudioClip> ("Sound Effects/Music2");
 
 		audio.clip = m_Songs [m_CurrentSong];
 		audio.Play ();
@@ -96,13 +98,15 @@ public class SoundManager : MonoBehaviour {
 		//makes sure there is background music player
 		if(audio.isPlaying == false)
 		{
+			m_CurrentSong++;
 			audio.clip = m_Songs[m_CurrentSong];
 			audio.Play();
+
 		}
 
-		if(m_CurrentSong > m_SongPosition)
+		if(m_CurrentSong >= 1)
 		{
-			m_CurrentSong = m_SongPosition;
+			m_CurrentSong = -1;
 		}
 	}
 	 //Call This from any fucntion with the appropriate sound name
