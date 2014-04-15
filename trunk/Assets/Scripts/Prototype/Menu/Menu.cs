@@ -100,6 +100,14 @@ public class Menu : MonoBehaviour {
 
 	bool firstTimePlayerTwoSelect;
 
+	void Start()
+	{
+			
+		firstTimePlayerTwoSelect = true;
+	
+	}
+
+
     /// <summary>
     /// menu is mainly done in on gui as all the buttons and text require they be inside the function.
     /// helper functions are at the bottom.
