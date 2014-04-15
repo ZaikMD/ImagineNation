@@ -40,14 +40,14 @@ public class CharacterSwitch : Subject
 			{
 				m_AbleToSwitch = true;
 			}
-			else
-			{
-				if(m_AbleToSwitch)
-				{
-					Debug.Log(1/0);
-				}
-			}
+
 		}
+
+		if(RespawnManager.Instance.getIsAnyPlayerDead())
+		{
+			m_AbleToSwitch = false;
+		}
+
 	}
 
 

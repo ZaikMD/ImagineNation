@@ -44,6 +44,7 @@ public class Crochuck : BaseEnemy, Observer
 	float m_BiteTimer = 0.0f;
 	public const float BITE_DELAY = 1.0f;
 
+	int m_Bullets = 0;
 
 	// Use this for initialization
 	protected override void start () 
@@ -101,7 +102,7 @@ public class Crochuck : BaseEnemy, Observer
     {
 		m_Agent.enabled = false;
 		m_BiteTimer += Time.deltaTime;
-		if(Vector3.Distance(m_Target.transform.position, this.gameObject.transform.position) < 7)
+		if(Vector3.Distance(m_Target.transform.position, this.gameObject.transform.position) < 7 || m_Furbulls.Count >= m_MaxFurbulls)
 		{
 			transform.forward = Vector3.RotateTowards (transform.forward, m_Target.transform.position - transform.position, 0.05f, 0.05f);
 
@@ -165,7 +166,7 @@ public class Crochuck : BaseEnemy, Observer
     {
 		if(m_Furbulls.Count < m_MaxFurbulls)
 		{
-
+			m_Bullets--;
 			GameObject furbullObj = ((GameObject)Instantiate(m_FurbullPrefab, position, m_SpawnPoint.transform.rotation));
 
 			m_Furbulls.Add(furbullObj);
@@ -177,8 +178,9 @@ public class Crochuck : BaseEnemy, Observer
 
 	void fire ()
 	{		
-		//if(m_Furbulls.Count < m_MaxFurbulls)
+		if(m_Furbulls.Count + m_Bullets < m_MaxFurbulls)
 		{
+			m_Bullets++;
 			GameObject obj = ((GameObject)Instantiate(Resources.Load("FurbulProjectile"), m_SpawnPoint.transform.position, m_SpawnPoint.transform.rotation));
 			FurbullProjectile projectile = obj.GetComponent<FurbullProjectile>();
 			projectile.onUse(this);

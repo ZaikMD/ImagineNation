@@ -5,8 +5,8 @@ public class CrochuckBite : MonoBehaviour {
 
 	public float m_Speed = 0.5f;
 
-	public const float LIFE_SPAN = 0.3f;
-	public float m_Timer = 0.0f;
+	public float LIFE_SPAN = 0.3f;
+	float m_Timer = 0.0f;
 
 	// Update is called once per frame
 	void Update () 
