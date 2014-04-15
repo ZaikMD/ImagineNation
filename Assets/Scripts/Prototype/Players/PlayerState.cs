@@ -185,8 +185,9 @@ public abstract class PlayerState : MonoBehaviour, Observer
 	//not implemented yet since no enemies
 	protected void Dead()
 	{
-		RespawnManager.Instance.playerDied (this.gameObject);
 		CharacterSwitch.Instance.switchCharacters();
+		RespawnManager.Instance.playerDied (this.gameObject);
+	
 	   //     disable player.
 	   //     decrement m_DeadTimer;  
 	   //    if m_DeadTimer is less then 0, call reset player function.
