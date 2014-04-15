@@ -141,6 +141,11 @@ public class SeeSaw : InteractableBaseClass, Observer
 					//Set the obj's position to m_SitPoint's position
 					m_SittingPlayer.transform.position = m_SitPointPos;
 				}
+
+				else
+				{
+					obj.GetComponent<PlayerState>().exitInteracting();
+				}
 			}
 		} 
 
