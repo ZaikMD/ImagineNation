@@ -25,8 +25,8 @@ public class CrochuckBite : MonoBehaviour {
 		if(other.gameObject.tag == "Player")
 		{
 			other.gameObject.GetComponent<PlayerState>().FlagDamage(1);
-			Destroy(this.gameObject);
-			Destroy(this);
+			//Destroy(this.gameObject);
+			//Destroy(this);
 		}
 	}
 }
