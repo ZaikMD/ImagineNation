@@ -75,6 +75,9 @@ public class Menu : MonoBehaviour {
 
 //Main Menu
 	public Texture2D Characters;
+	public Texture2D Alex;
+	public Texture2D Derek;
+	public Texture2D Zoey;
 	public Texture2D Continue;
 	public Texture2D Exit;
 	public Texture2D GameStuff;
@@ -347,8 +350,7 @@ public class Menu : MonoBehaviour {
 
 			case MenuState.SelectLevelSelectPlayerOne:
 			{
-				m_Content.image = Characters;
-				GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+
 
 
 				Rect PlayerSelection = new Rect(0, 0, Screen.width / 4, Screen.height);
@@ -358,25 +360,35 @@ public class Menu : MonoBehaviour {
 				case Player.Alex:
 				{
 					m_PlayerOneSelected = "Alex";
+					m_Content.image = Alex;
 					break;
 				}
 				case Player.Derek:
 				{
 					m_PlayerOneSelected = "Derek";
+					m_Content.image = Derek;
 					break;
 				}
 				case Player.Zoey:
 				{
 					m_PlayerOneSelected = "Zoey";
+					m_Content.image = Zoey;
 					break;
 				}
 					
 				}
-				
+				GUI.skin.textArea.normal.background = (Texture2D)m_Content.image;
+				GUI.skin.textArea.hover.background = (Texture2D)m_Content.image;
 				GUI.TextArea(PlayerSelection, playerselect + m_PlayerOneSelected);
-				
+
+				m_Content.image = Characters;
+				GUI.skin.textArea.normal.background = (Texture2D)m_Content.image;
+				GUI.skin.textArea.hover.background = (Texture2D)m_Content.image;
 				//in here we select the characters for the level ahead.
-				
+
+				m_Content.image = Characters;
+				GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+
 				//Alex
 				Rect AlexButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, 0, Screen.width / 2, Screen.height / 5);
 				buttonText = "Alex";
@@ -451,34 +463,65 @@ public class Menu : MonoBehaviour {
 					firstTimePlayerTwoSelect = false;
 				}
 				
-				
-				Rect PlayerSelection = new Rect(0, 0, Screen.width / 4, Screen.height);
+				switch(m_PlayerOne)
+				{
+					case Player.Alex:
+					{
+						m_Content.image = Alex;
+						break;
+					}
+					case Player.Derek:
+					{
+						m_Content.image = Derek;
+						break;
+					}
+
+					case Player.Zoey:
+					{
+						m_Content.image = Zoey;
+						break;
+					}
+
+				}
+				Rect PlayerOneSelection = new Rect(0, 0, Screen.width / 4, Screen.height);
+
+				GUI.skin.textArea.normal.background = (Texture2D)m_Content.image;
+				GUI.skin.textArea.hover.background = (Texture2D)m_Content.image;
+				GUI.TextArea(PlayerOneSelection, " Player One: " + m_PlayerOneSelected);
+
+
+				Rect PlayerSelection = new Rect(Screen.width/4 * 3, 0, Screen.width / 4, Screen.height);
 				string playerSelectOne = "Player One:\n";
-				string PlayerSelectTwo = "\n Player Two: \n";
+				string PlayerSelectTwo = "\n Player Two: ";
 				switch (m_PlayerTwo)
 				{
 				case Player.Alex:
 				{
 					m_PlayerTwoSelected = "Alex";
-					
+					m_Content.image = Alex;
 					break;
 				}
 				case Player.Derek:
 				{
 					m_PlayerTwoSelected = "Derek";
+					m_Content.image = Derek;
 					break;
 				}
 				case Player.Zoey:
 				{
-					m_PlayerTwoSelected = "Zoey";
+					m_PlayerTwoSelected = "Zoe";
+					m_Content.image = Zoey;
 					break;
 				}
 					
 				}
+
+				GUI.skin.textArea.normal.background = (Texture2D)m_Content.image;
+				GUI.skin.textArea.hover.background = (Texture2D)m_Content.image;
+				GUI.TextArea(PlayerSelection, PlayerSelectTwo + m_PlayerTwoSelected);
 				
-				GUI.TextArea(PlayerSelection, playerSelectOne + m_PlayerOneSelected + PlayerSelectTwo + m_PlayerTwoSelected);
-				
-				
+				m_Content.image = Characters;
+				GUI.skin.button.normal.background = (Texture2D)m_Content.image;
 				
 				//Alex
 				Rect AlexButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, 0, Screen.width / 2, Screen.height / 5);
@@ -545,27 +588,32 @@ public class Menu : MonoBehaviour {
 				GUI.skin.button.normal.background = (Texture2D)m_Content.image;
 
                         Rect PlayerSelection = new Rect(0, 0, Screen.width / 4, Screen.height);
-                        string playerselect = "PlayerOne:\n";
+                        string playerselect = "PlayerOne: ";
                         switch (m_PlayerOne)
                         {
                             case Player.Alex:
                                 {
                                     m_PlayerOneSelected = "Alex";
+									m_Content.image = Alex;
                                     break;
                                 }
                             case Player.Derek:
                                 {
                                     m_PlayerOneSelected = "Derek";
-                                    break;
+                                    m_Content.image = Derek;
+									break;
                                 }
                             case Player.Zoey:
                                 {
                                     m_PlayerOneSelected = "Zoey";
+									m_Content.image = Zoey;
                                     break;
                                 }
 
                         }
-
+						
+						GUI.skin.textArea.normal.background = (Texture2D)m_Content.image;
+						GUI.skin.textArea.hover.background = (Texture2D)m_Content.image;
                         GUI.TextArea(PlayerSelection, playerselect + m_PlayerOneSelected);
 
                         //in here we select the characters for the level ahead.
@@ -639,33 +687,64 @@ public class Menu : MonoBehaviour {
                             }
                             firstTimePlayerTwoSelect = false;
                         }
+								
+						switch(m_PlayerOne)
+						{
+						case Player.Alex:
+						{
+							m_Content.image = Alex;
+							break;
+						}
+						case Player.Derek:
+						{
+							m_Content.image = Derek;
+							break;
+						}
+							
+						case Player.Zoey:
+						{
+							m_Content.image = Zoey;
+							break;
+						}
+							
+						}
+						Rect PlayerOneSelection = new Rect(0, 0, Screen.width / 4, Screen.height);
+						
+						GUI.skin.textArea.normal.background = (Texture2D)m_Content.image;
+						GUI.skin.textArea.hover.background = (Texture2D)m_Content.image;
+						GUI.TextArea(PlayerOneSelection, " Player One: " + m_PlayerOneSelected);
 
 
-                        Rect PlayerSelection = new Rect(0, 0, Screen.width / 4, Screen.height);
-                        string playerSelectOne = "Player One:\n";
-                        string PlayerSelectTwo = "\n Player Two: \n";
+
+                        Rect PlayerSelection = new Rect(Screen.width / 4 * 3, 0, Screen.width / 4, Screen.height);
+                        string playerSelectOne = "Player One: ";
+                        string PlayerSelectTwo = "Player Two: ";
                         switch (m_PlayerTwo)
                         {
                             case Player.Alex:
                                 {
                                     m_PlayerTwoSelected = "Alex";
-
+									m_Content.image = Alex;
                                     break;
                                 }
                             case Player.Derek:
                                 {
                                     m_PlayerTwoSelected = "Derek";
+									m_Content.image = Derek;
                                     break;
                                 }
                             case Player.Zoey:
                                 {
                                     m_PlayerTwoSelected = "Zoey";
+									m_Content.image = Zoey;
                                     break;
                                 }
 
                         }
-
-                        GUI.TextArea(PlayerSelection, playerSelectOne + m_PlayerOneSelected + PlayerSelectTwo + m_PlayerTwoSelected);
+						
+						GUI.skin.textArea.normal.background = (Texture2D)m_Content.image;
+						GUI.skin.textArea.hover.background = (Texture2D)m_Content.image;
+                        GUI.TextArea(PlayerSelection, PlayerSelectTwo + m_PlayerTwoSelected);
 
 
 
