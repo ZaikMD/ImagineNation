@@ -47,6 +47,8 @@ public abstract class PlayerState : MonoBehaviour, Observer
 
 	public CameraController m_CameraController;
 
+	GameObject[] m_AllPlayers;
+
 
     void Awake()
     {
@@ -68,27 +70,7 @@ public abstract class PlayerState : MonoBehaviour, Observer
 		
 		CharacterSwitch.Instance.addObserver (this);
 
-
-		GameObject[] players = GameObject.FindGameObjectsWithTag ("Player");
-
-		for(int i = 0; i < players.Length; i++)
-		{
-			Collider[] colliders1 = (Collider[]) players[i].GetComponentsInChildren<Collider>();
-			for(int c = 0; c < players.Length; c++)
-			{
-				if(i != c)
-				{
-					Collider[] colliders2 = (Collider[])players[c].GetComponentsInChildren<Collider>();
-					for(int x = 0; x < colliders1.Length; x++)
-					{
-						for(int y = 0; y < colliders2.Length; y++)
-						{
-							Physics.IgnoreCollision(colliders1[x],colliders2[y]);
-						}
-					}
-				}
-			}
-		}
+		m_AllPlayers = GameObject.FindGameObjectsWithTag ("Player");
 
         m_PlayerState = PlayerStates.Default;
 
@@ -107,6 +89,28 @@ public abstract class PlayerState : MonoBehaviour, Observer
 		m_Health.resetHealth ();
 
 		start ();
+	}
+
+	public void ignoreAllPlayers()
+	{
+		for(int i = 0; i < m_AllPlayers.Length; i++)
+		{
+			Collider[] colliders1 = (Collider[]) m_AllPlayers[i].GetComponentsInChildren<Collider>();
+			for(int c = 0; c < m_AllPlayers.Length; c++)
+			{
+				if(i != c)
+				{
+					Collider[] colliders2 = (Collider[])m_AllPlayers[c].GetComponentsInChildren<Collider>();
+					for(int x = 0; x < colliders1.Length; x++)
+					{
+						for(int y = 0; y < colliders2.Length; y++)
+						{
+							Physics.IgnoreCollision(colliders1[x],colliders2[y]);
+						}
+					}
+				}
+			}
+		}
 	}
 
     public void SetUp()
