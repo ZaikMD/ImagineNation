@@ -202,8 +202,8 @@ public class GameManager : Subject , Observer
 
 	public void nextLevelState()
 	{
-		m_CurrentStage += 1;
 		levelState ();
+		m_CurrentStage += 1;
 	}
 
 	public void recieveEvent(Subject sender, ObeserverEvents recievedEvent)
