@@ -73,8 +73,8 @@ public class NPC : InteractableBaseClass
 
 		//Where to draw the text
 		m_Rectangle = new Rect (m_NormalizedTextPos.x * Screen.width, m_NormalizedTextPos.y * Screen.height,
-		                       m_Text.Length * 10.0f / m_Lines, 10.0f + 70.0f * m_Lines);
-		m_ChatRect = new Rect (m_Rectangle.x + 10.0f, m_Rectangle.y - 20.0f, m_Rectangle.width - 2.0f, m_Rectangle.height * 2.0f);
+		                       m_Text.Length * 11.0f / m_Lines, 10.0f + 72.0f * m_Lines);
+		m_ChatRect = new Rect (m_Rectangle.x + 10.0f, m_Rectangle.y - 17.0f, m_Rectangle.width - 2.0f, m_Rectangle.height * 2.0f);
 	}
 
 	// On tick
