@@ -389,7 +389,15 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 	GameObject FindClosestEnemy()
 	{
 		float closestEnemyDistance = 0;
-		GameObject closestEnemy = m_enemies[0];
+		GameObject closestEnemy;
+		if(m_enemies.Count > 0)
+		{
+			closestEnemy = m_enemies[0];
+		}
+		else
+		{
+			return m_CombatTarget;
+		}
 		float currentEnemyDistance = 0;
 		foreach (GameObject enemy in m_enemies)
 		{		
