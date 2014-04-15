@@ -36,7 +36,10 @@ public class CharacterSwitch : Subject
 	{
 		if(GameObject.FindGameObjectWithTag ("Camera").GetComponentInChildren<CameraController> ().isAbleToSwitch())
 		{
-			m_AbleToSwitch = true;
+			if(!RespawnManager.Instance.getIsAnyPlayerDead())
+			{
+				m_AbleToSwitch = true;
+			}
 		}
 	}
 
@@ -48,7 +51,7 @@ public class CharacterSwitch : Subject
 		if(m_AbleToSwitch)
 		{
 			m_AbleToSwitch = false;
-	//		SoundManager.Instance.playSound(Sounds.CharacterSwitch, this.transform.position);
+			SoundManager.Instance.playSound(Sounds.CharacterSwitch, this.transform.position);
 			sendEvent(ObeserverEvents.CharacterSwitch);
 		}
 	}
