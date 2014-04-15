@@ -405,6 +405,11 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 		return closestEnemy;
 	}
 
+	public void ClearEnemies()
+	{
+		m_enemies.Clear ();
+	}
+
 
 	/// <summary>
 	/// Gets the interacting.
