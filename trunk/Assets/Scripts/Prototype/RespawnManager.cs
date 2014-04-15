@@ -159,7 +159,7 @@ public class RespawnManager : MonoBehaviour {
 			PlayerOne.GetComponent<PlayerState>().m_PlayerState = PlayerState.PlayerStates.Default;
 			PlayerOne.GetComponent<Health>().resetHealth();
 			PlayerOne.transform.position = PlayerTwo.transform.position + new Vector3(2, 0, 0);
-
+			PlayerOne.GetComponent<PlayerAIStateMachine>().ClearEnemies();
 
 		}
 		else if(m_PlayerTwoDead)
@@ -168,6 +168,7 @@ public class RespawnManager : MonoBehaviour {
 			PlayerTwo.GetComponent<PlayerState>().m_PlayerState = PlayerState.PlayerStates.Default;
 			PlayerTwo.GetComponent<Health>().resetHealth();
 			PlayerTwo.transform.position = PlayerOne.transform.position + new Vector3(2, 0, 0);
+			PlayerTwo.GetComponent<PlayerAIStateMachine>().ClearEnemies();
 		}
 		m_PlayerOneDead = m_PlayerTwoDead = false;
 		CharacterSwitch.Instance.setIfAbleToSwitch (true);
