@@ -104,7 +104,15 @@ public class Crochuck : BaseEnemy, Observer
 		m_BiteTimer += Time.deltaTime;
 		if(Vector3.Distance(m_Target.transform.position, this.gameObject.transform.position) < 7 || m_Furbulls.Count >= m_MaxFurbulls)
 		{
-			transform.forward = Vector3.RotateTowards (transform.forward, m_Target.transform.position - transform.position, 0.05f, 0.05f);
+
+			Vector3 target  = m_Target.transform.position;
+
+			if(target.y != transform.position.y)
+			{
+				target.y = transform.position.y;
+			}
+
+			transform.forward = Vector3.RotateTowards (transform.forward, target - transform.position, 0.05f, 0.05f);
 
 			crochuckBite();
 			return;
