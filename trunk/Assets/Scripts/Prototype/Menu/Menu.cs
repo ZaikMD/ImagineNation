@@ -37,7 +37,7 @@ public class Menu : MonoBehaviour {
     QualityLevel m_Quality = QualityLevel.Good;
     Refresh m_Refresh = Refresh.Refresh60;
     bool m_FullScreen = true;
-    float m_Volume;
+    float m_Volume = 50;
     int m_WidthRes = Screen.width;
     int m_HeightRes = Screen.height;
     int m_RefreshRate = 60;
@@ -113,11 +113,15 @@ public class Menu : MonoBehaviour {
 		GUI.skin.button.hover.background = Hover;
 		GUI.skin.button.active.background = Hover;
 		GUI.skin.button.focused.background = Hover;
+		GUI.skin.textArea.hover.background = Between;
+		GUI.skin.textArea.active.background = Between;
+		GUI.skin.textArea.fontSize = 20;
+		GUI.skin.textArea.normal.background = Between;
 
         if (m_MainMenu)
         {
 
-			GUI.skin.button.fontSize = 80;
+			GUI.skin.button.fontSize = 60;
 
             string buttonText = "NewGame";
 
@@ -335,7 +339,10 @@ public class Menu : MonoBehaviour {
 
 			case MenuState.SelectLevelSelectPlayerOne:
 			{
-				
+				m_Content.image = Characters;
+				GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+
+
 				Rect PlayerSelection = new Rect(0, 0, Screen.width / 4, Screen.height);
 				string playerselect = "PlayerOne:\n";
 				switch (m_PlayerOne)
@@ -386,7 +393,10 @@ public class Menu : MonoBehaviour {
 				{
 					m_PlayerOne = Player.Zoey;
 				}
-				
+
+				m_Content.image = Continue;
+				GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+
 				//Continue
 				Rect PlayButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 5 * 3), Screen.width / 2, Screen.height / 5);
 				buttonText = "Continue";
@@ -394,7 +404,10 @@ public class Menu : MonoBehaviour {
 				{
 					m_MenuState = MenuState.SelectLevelSelectPlayerTwo;
 				}
-				
+
+				m_Content.image = Back;
+				GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+
 				//Back
 				Rect BackButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 5 * 4), Screen.width / 2, Screen.height / 5);
 				buttonText = "Back";
@@ -409,8 +422,14 @@ public class Menu : MonoBehaviour {
 
 
 
+
 			case MenuState.SelectLevelSelectPlayerTwo:
 			{
+
+				m_Content.image = Characters;
+				GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+
+
 				if (firstTimePlayerTwoSelect)
 				{
 					if (m_PlayerOne == Player.Alex)
@@ -481,7 +500,10 @@ public class Menu : MonoBehaviour {
 					if (m_PlayerOne != Player.Zoey)
 						m_PlayerTwo = Player.Zoey;
 				}
-				
+
+				m_Content.image = Continue;
+				GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+
 				//Play
 				Rect PlayButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 5 * 3), Screen.width / 2, Screen.height / 5);
 				buttonText = "Play";
@@ -492,7 +514,10 @@ public class Menu : MonoBehaviour {
 					setPlayer();
 					
 				}
-				
+
+				m_Content.image = Back;
+				GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+
 				//Back
 				Rect BackButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 5 * 4), Screen.width / 2, Screen.height / 5);
 				buttonText = "Back";
@@ -507,6 +532,9 @@ public class Menu : MonoBehaviour {
 
                 case MenuState.SelectPlayerOne:
                     {
+						
+				m_Content.image = Characters;
+				GUI.skin.button.normal.background = (Texture2D)m_Content.image;
 
                         Rect PlayerSelection = new Rect(0, 0, Screen.width / 4, Screen.height);
                         string playerselect = "PlayerOne:\n";
@@ -558,7 +586,10 @@ public class Menu : MonoBehaviour {
                         {
                             m_PlayerOne = Player.Zoey;
                         }
-
+							
+						
+						m_Content.image = Continue;
+						GUI.skin.button.normal.background = (Texture2D)m_Content.image;
                         //Continue
                         Rect PlayButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 5 * 3), Screen.width / 2, Screen.height / 5);
                         buttonText = "Continue";
@@ -566,6 +597,9 @@ public class Menu : MonoBehaviour {
                         {
                             m_MenuState = MenuState.SelectPlayerTwo;
                         }
+
+						m_Content.image = Back;
+						GUI.skin.button.normal.background = (Texture2D)m_Content.image;
 
                         //Back
                         Rect BackButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 5 * 4), Screen.width / 2, Screen.height / 5);
@@ -581,6 +615,10 @@ public class Menu : MonoBehaviour {
 
                 case MenuState.SelectPlayerTwo:
                     {
+
+						m_Content.image = Characters;
+						GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+
                         if (firstTimePlayerTwoSelect)
                         {
                             if (m_PlayerOne == Player.Alex)
@@ -651,6 +689,10 @@ public class Menu : MonoBehaviour {
                             if (m_PlayerOne != Player.Zoey)
                                 m_PlayerTwo = Player.Zoey;
                         }
+						
+
+						m_Content.image = Continue;
+						GUI.skin.button.normal.background = (Texture2D)m_Content.image;
 
                         //Play
                         Rect PlayButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 5 * 3), Screen.width / 2, Screen.height / 5);
@@ -666,6 +708,9 @@ public class Menu : MonoBehaviour {
 
 
                         }
+						
+						m_Content.image = Back;
+						GUI.skin.button.normal.background = (Texture2D)m_Content.image;
 
                         //Back
                         Rect BackButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 5 * 4), Screen.width / 2, Screen.height / 5);
@@ -680,14 +725,25 @@ public class Menu : MonoBehaviour {
                     }
                 case MenuState.Options:
                     {
+
+
+
+
                         //TODO: Add Options
-                        Rect VolumeSliderPosition = new Rect(Screen.width / 3, Screen.height / 8, Screen.width / 3, Screen.height / 6);
-                        m_Volume = GUI.HorizontalSlider(VolumeSliderPosition, m_Volume, 0, 100);
+                       	Rect BehindVolumeSliderPosition = new Rect(Screen.width / 3, Screen.height / 8, Screen.width / 3, Screen.height / 6);
+                        m_Volume = GUI.HorizontalSlider(BehindVolumeSliderPosition, m_Volume, 0, 100);
 
                         Rect VolumePosition = new Rect(Screen.width / 3, 0, Screen.width / 3, Screen.height / 6);
                         buttonText = "Volume";
                         GUI.TextArea(VolumePosition, buttonText);
+						
+						Rect VolumeSliderPosition = new Rect(Screen.width / 3, Screen.height / 8, Screen.width / 3, Screen.height / 6);
+						m_Volume = GUI.HorizontalSlider(VolumeSliderPosition, m_Volume, 0, 100);
 
+
+						m_Content.image = WindowModeImportSetting;
+						GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+						
                         Rect WindowButtonPosition = new Rect(0, 0, Screen.width / 3, Screen.height / 6);
                         buttonText = "Window: " + m_FullScreen;
                         if (GUI.Button(WindowButtonPosition, buttonText))
@@ -695,6 +751,9 @@ public class Menu : MonoBehaviour {
                             m_FullScreen = !m_FullScreen;
                         }
 
+						m_Content.image = Controls;
+						GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+						
                         Rect ControlButtonPosition = new Rect(Screen.width / 3 * 2, 0, Screen.width / 3, Screen.height / 6);
                         buttonText = "Controls";
                         if (GUI.Button(ControlButtonPosition, buttonText))
@@ -702,7 +761,8 @@ public class Menu : MonoBehaviour {
                             m_MenuState = MenuState.Controls;
                         }
 
-
+						m_Content.image = Raise;
+						GUI.skin.button.normal.background = (Texture2D)m_Content.image;
                         //TODO: Add Options
                         Rect RaiseResolutionButtonPosition = new Rect(Screen.width / 3 * 2, (Screen.height / 6 * 2), Screen.width / 3, Screen.height / 6);
                         buttonText = "Raise";
@@ -770,6 +830,9 @@ public class Menu : MonoBehaviour {
 
 
                         }
+						
+						m_Content.image = Lower;
+						GUI.skin.button.normal.background = (Texture2D)m_Content.image;
 
                         Rect LowerResolutionButtonPosition = new Rect(0, (Screen.height / 6 * 2), Screen.width / 3, Screen.height / 6);
                         buttonText = "Lower";
@@ -838,13 +901,18 @@ public class Menu : MonoBehaviour {
 
                         }
 
+						m_Content.image = Between;
+						GUI.skin.textArea.normal.background = (Texture2D)m_Content.image;
+
+
                         Rect ResolutionPosition = new Rect(Screen.width / 3, (Screen.height / 6 * 2), Screen.width / 3, Screen.height / 6);
                         buttonText = "Resolustion: \n\n" + m_WidthRes + " * " + m_HeightRes;
                         GUI.TextArea(ResolutionPosition, buttonText);
-
-
+						m_Content.image = Raise;
+						GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+					
                         Rect RaiseRefreshRateButtonPosition = new Rect(Screen.width / 3 * 2, (Screen.height / 6), Screen.width / 3, Screen.height / 6);
-                        buttonText = "Raise Refresh Rate";
+                        buttonText = "Raise";
                         if (GUI.Button(RaiseRefreshRateButtonPosition, buttonText))
                         {
                             if (m_Refresh > 0)
@@ -888,10 +956,12 @@ public class Menu : MonoBehaviour {
                             }
 
                         }
-
-
+						
+						m_Content.image = Lower;
+						GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+						
                         Rect LowerRefreshRateButtonPosition = new Rect(0, (Screen.height / 6), Screen.width / 3, Screen.height / 6);
-                        buttonText = "Lower Refresh Rate";
+                        buttonText = "Lower";
                         if (GUI.Button(LowerRefreshRateButtonPosition, buttonText))
                         {
                             if (m_Refresh < Refresh.Refresh30)
@@ -936,11 +1006,13 @@ public class Menu : MonoBehaviour {
 
                         }
 
-
+						
                         Rect RefreshPosition = new Rect(Screen.width / 3, (Screen.height / 6), Screen.width / 3, Screen.height / 6);
                         buttonText = "Refresh: \n\n" + m_RefreshRate;
                         GUI.TextArea(RefreshPosition, buttonText);
 
+						m_Content.image = Raise;
+						GUI.skin.button.normal.background = (Texture2D)m_Content.image;			
 
                         Rect RaiseQualityButtonPosition = new Rect(Screen.width / 3 * 2, (Screen.height / 6 * 3), Screen.width / 3, Screen.height / 6);
                         buttonText = "Raise";
@@ -989,7 +1061,10 @@ public class Menu : MonoBehaviour {
 
 
                         }
-
+						
+						m_Content.image = Lower;
+						GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+					
                         Rect LowerQualityButtonPosition = new Rect(0, (Screen.height / 6 * 3), Screen.width / 3, Screen.height / 6);
                         buttonText = "Lower";
                         if (GUI.Button(LowerQualityButtonPosition, buttonText))
@@ -1040,6 +1115,8 @@ public class Menu : MonoBehaviour {
                         buttonText = "Quality: \n\n" + m_QualityText;
                         GUI.TextArea(QualityPosition, buttonText);
 
+						m_Content.image = ApplyChanges;
+						GUI.skin.button.normal.background = (Texture2D)m_Content.image;		
 
                         Rect ApplyButtonPosition = new Rect(Screen.width / 2, (Screen.height / 6 * 5), Screen.width / 2, Screen.height / 6);
                         buttonText = "Apply Changes";
@@ -1047,6 +1124,9 @@ public class Menu : MonoBehaviour {
                         {
                             applyChanges();
                         }
+
+						m_Content.image = Credits;
+						GUI.skin.button.normal.background = (Texture2D)m_Content.image;		
 
 
                         Rect CreditsButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 6 * 4), Screen.width / 2, Screen.height / 6);
@@ -1056,6 +1136,9 @@ public class Menu : MonoBehaviour {
                             m_MenuState = MenuState.Credit;
                         }
                         
+						m_Content.image = Back;
+						GUI.skin.button.normal.background = (Texture2D)m_Content.image;
+					
 
                         Rect BackButtonPosition = new Rect(0, (Screen.height / 6 * 5), Screen.width / 2, Screen.height / 6);
                         buttonText = "Back";
@@ -1087,11 +1170,11 @@ public class Menu : MonoBehaviour {
                     }
                 case MenuState.Controls:
                     {
-                        Rect ControlTextPosition = new Rect(Screen.width / 3, 0, Screen.width / 3, Screen.height / 4 * 3);
+                        Rect ControlTextPosition = new Rect(Screen.width / 4, 0, Screen.width / 2, Screen.height / 4 * 3);
                         buttonText = "Movement:             WASD              -           Left Stick \nJump:                    Space               -           A\nCharacter Switch:   Tab                   -           Y\nInteract:                 F                      -           B\nCamera Control:    Hold Right Click  -           Right Stick\nUse Item / Attack:  Left Click           -           X\nAim:                      Shift                  -           Left Bumper\nPause:                   Escape             -           Start\n";
                         GUI.TextArea(ControlTextPosition, buttonText);
 
-                        Rect BackButtonPosition = new Rect(Screen.width / 3, (Screen.height / 4 * 3), Screen.width / 3, Screen.height / 4);
+                        Rect BackButtonPosition = new Rect(Screen.width / 4, (Screen.height / 4 * 3), Screen.width / 2, Screen.height / 4);
                         buttonText = "Back";
                         if (GUI.Button(BackButtonPosition, buttonText))
                         {
@@ -1105,7 +1188,8 @@ public class Menu : MonoBehaviour {
                 case MenuState.LoadGame:
                     {
                         //TODO: call load game
-
+						m_Content.image = Slots;
+						GUI.skin.button.normal.background = (Texture2D)m_Content.image;	
                         //save slot one
                         Rect SaveButtonOnePosition = new Rect(Screen.width / 2 - Screen.width / 4, 0, Screen.width / 2, Screen.height / 4);
                         buttonText = "Slot One";
@@ -1131,7 +1215,9 @@ public class Menu : MonoBehaviour {
                             //load game to Slot Three
                             loadGame(3);
                         }
-
+						
+						m_Content.image = SaveBack;
+						GUI.skin.button.normal.background = (Texture2D)m_Content.image;	
                         //back to previous menu
                         Rect BackButtonPosition = new Rect(Screen.width / 2 - Screen.width / 4, (Screen.height / 4 * 3), Screen.width / 2, Screen.height / 4);
                         buttonText = "Back";
