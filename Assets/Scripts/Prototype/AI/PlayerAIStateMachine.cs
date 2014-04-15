@@ -58,10 +58,15 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 
 	public NavMeshAgent m_NavAgent;
 
+	Health m_Health;
+
 	BasePrimaryItem m_Weapon;
 
 	float m_AttackTimer = 0;
 	const float m_AttackTime = 2f;
+
+	float m_DamageTimer = 0;
+	const float m_DamageTime = 1.0f;
 
 	//METHODS
 
@@ -75,6 +80,9 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 
 		GameManager.Instance.addObserver (this);
 		CharacterSwitch.Instance.addObserver (this);
+
+		m_Health = gameObject.GetComponent<Health> ();
+		m_Health.resetHealth ();
 
 
 //		GameObject[] players = GameObject.FindGameObjectsWithTag ("Player");
@@ -219,6 +227,7 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 			CombatDefault();
 		}
 		
+		m_DamageTimer -= Time.deltaTime;
 		switch(m_CombatState)
 		{
 		case PlayerAICombatState.Unable:
@@ -340,6 +349,21 @@ public class PlayerAIStateMachine : MonoBehaviour, Observer
 
 		m_CombatState = PlayerAICombatState.Default;
 	} 
+
+	public void ApplyDamage(int amount)
+	{
+		if (m_DamageTimer <=0)
+		{
+			m_Health.takeDamage(amount);
+			m_DamageTimer = m_DamageTime;
+
+			if (m_Health.m_Health <=0)
+			{
+				RespawnManager.Instance.playerDied(this.gameObject);
+			}
+		}
+		
+	}
 
 	/// <summary>
 	/// Checks to see if any enemies are in range  		

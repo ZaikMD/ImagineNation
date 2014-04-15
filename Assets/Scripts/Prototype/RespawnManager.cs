@@ -160,6 +160,7 @@ public class RespawnManager : MonoBehaviour {
 			PlayerOne.GetComponent<Health>().resetHealth();
 			PlayerOne.transform.position = PlayerTwo.transform.position + new Vector3(2, 0, 0);
 
+
 		}
 		else if(m_PlayerTwoDead)
 		{
