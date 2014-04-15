@@ -103,8 +103,15 @@ public class Furbulls : BaseEnemy
 			if(!m_HasReachedTarget)
 			{
 				PlayerState playerState = other.gameObject.GetComponent<PlayerState>();
+				if (playerState.m_IsActive)
+				{
+					playerState.FlagDamage(1);
+				}
 
-				playerState.FlagDamage(1);
+				else 
+				{
+					other.gameObject.GetComponent<PlayerAIStateMachine>().ApplyDamage(1);
+				}
 
 				//Debug.Log("Hit Player");
 				return;
