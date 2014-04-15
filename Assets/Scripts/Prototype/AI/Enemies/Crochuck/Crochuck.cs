@@ -177,7 +177,7 @@ public class Crochuck : BaseEnemy, Observer
 
 	void fire ()
 	{		
-		if(m_Furbulls.Count < m_MaxFurbulls)
+		//if(m_Furbulls.Count < m_MaxFurbulls)
 		{
 			GameObject obj = ((GameObject)Instantiate(Resources.Load("FurbulProjectile"), m_SpawnPoint.transform.position, m_SpawnPoint.transform.rotation));
 			FurbullProjectile projectile = obj.GetComponent<FurbullProjectile>();
