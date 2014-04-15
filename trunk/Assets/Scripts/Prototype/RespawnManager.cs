@@ -131,7 +131,11 @@ public class RespawnManager : MonoBehaviour {
 					Instantiate(m_AlexDeadPrefab, player.transform.position, player.transform.rotation);
 				}
 
-				CharacterSwitch.Instance.switchCharacters();
+				if(PlayerTwo.gameObject.GetComponent<PlayerAIStateMachine>().m_IsActive == false)
+				{
+					CharacterSwitch.Instance.setIfAbleToSwitch(true);
+					CharacterSwitch.Instance.switchCharacters();
+				}
 				CharacterSwitch.Instance.setIfAbleToSwitch(false);
 			}
 		}
@@ -143,7 +147,7 @@ public class RespawnManager : MonoBehaviour {
 			m_PlayerOneDead = true;
 			PlayerOne.SetActive(false);
 			//TODO instantiate a ragdoll.
-			if(!m_PlayerOneDead)
+			if(!m_PlayerTwoDead)
 			{
 			//	PlayerOne.GetComponent<PlayerState>().m_IsActive = false;
 			//	PlayerOne.GetComponent<PlayerAIStateMachine>().m_IsActive = true;
@@ -160,7 +164,14 @@ public class RespawnManager : MonoBehaviour {
 				{
 					Instantiate(m_AlexDeadPrefab, player.transform.position, player.transform.rotation);
 				}
-				CharacterSwitch.Instance.switchCharacters();
+
+
+
+				if(PlayerOne.gameObject.GetComponent<PlayerAIStateMachine>().m_IsActive == false)
+				{
+					CharacterSwitch.Instance.setIfAbleToSwitch(true);
+					CharacterSwitch.Instance.switchCharacters();
+				}
 				CharacterSwitch.Instance.setIfAbleToSwitch(false);
 			}
 
