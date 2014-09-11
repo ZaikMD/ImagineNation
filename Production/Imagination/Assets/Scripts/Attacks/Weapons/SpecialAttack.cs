@@ -4,10 +4,15 @@ using System.Collections;
 public class SpecialAttack : BaseAttack
 {
 
+	float m_NumberOfProjectiles = 8;
+	float m_Angle = 45;  //360/number of projectiles
+
+	Quaternion m_Rotation;
+
 	// Use this for initialization
 	void Start ()
 	{
-	
+		
 	}
 	
 	// Update is called once per frame
@@ -18,6 +23,13 @@ public class SpecialAttack : BaseAttack
 
 	public override void createProjectile ()
 	{
-		Instantiate (m_Projectile, m_InitialPosition, transform.rotation);
+
+		for(int i = 0; i < m_NumberOfProjectiles; i++)
+		{
+			m_Rotation = Quaternion.Euler(m_InitialRotation.x, m_InitialRotation.y + (i * m_Angle), m_InitialRotation.z);
+			Instantiate (m_Projectile, m_InitialPosition, m_Rotation);
+		}
+
+
 	}
 }

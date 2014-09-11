@@ -10,6 +10,7 @@ using System.Collections;
 public class CombatItem : MonoBehaviour 
 {
 
+	public GameObject m_ProjectilePrefab;
 	BaseAttack[] m_BaseAttacks = new BaseAttack[3]; //Array of the attacks. Combo's are 3 attacks.
 
 	int m_CurrentAttack = 0; //The current Attack
@@ -24,13 +25,19 @@ public class CombatItem : MonoBehaviour
 
 		for(int i = 0; i < m_BaseAttacks.Length; i++)
 		{
-			m_BaseAttacks[i].loadPrefab();
+			m_BaseAttacks[i].loadPrefab(m_ProjectilePrefab);
+			m_BaseAttacks.Initialize();
 		}
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
+		if(m_CurrentAttack >= m_BaseAttacks.Length) //If the currentAttack is the last one in the array, reset it
+		{
+			m_CurrentAttack = 0;
+		}
+
 		if(Input.GetKeyDown(KeyCode.A))
 		{
 
@@ -43,17 +50,9 @@ public class CombatItem : MonoBehaviour
 
 			else
 			{
-				if(m_CurrentAttack >= m_BaseAttacks.Length) //If the currentAttack is the last one in the array, reset it
-				{
-					m_CurrentAttack = 0;
-						m_BaseAttacks[m_CurrentAttack].startAttack(transform.position, transform.rotation); //Call the start attack function
-				}
-			
-				else
-				{
-					m_CurrentAttack++;	//Increment the current attack	
-						m_BaseAttacks[m_CurrentAttack].startAttack(transform.position, transform.rotation); //Call attack function
-				}
+				m_BaseAttacks[m_CurrentAttack].startAttack(transform.position, transform.rotation); //Call attack function
+
+				m_CurrentAttack++;//Increment the current attack	
 			}
 		}
 		}

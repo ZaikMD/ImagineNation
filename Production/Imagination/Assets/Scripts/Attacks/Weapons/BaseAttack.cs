@@ -8,7 +8,7 @@ public class BaseAttack : MonoBehaviour
 {
 	protected GameObject m_Projectile;
 
-	float m_AttackTimer; //The animation Timer (Hopefully)
+	float m_AttackTimer = 1.5f; //The animation Timer (Hopefully)
 	float m_GraceTimer = 1.0f; //How long the player will have to combo the attack, starts .5 seconds before m_AttackTime ends
 
 	bool m_AnimationDone; //Bool for if the animation is done or not
@@ -19,31 +19,31 @@ public class BaseAttack : MonoBehaviour
 	protected float m_SaveGraceTimer;
 
 	protected Vector3 m_InitialPosition;
-	protected Quaternion m_initialRotation;
+	protected Quaternion m_InitialRotation;
 
 	// Use this for initialization
 	void Start () 
 	{
-
+		
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		if(m_Attacking)
-		{
-			m_AttackTimer -= Time.deltaTime;
-		}
+
+		m_AttackTimer -= Time.deltaTime;
 
 		if(m_AttackTimer <= 0.5f)
 		{
 			m_GraceTimer -= Time.deltaTime;
 		}
+
+		Debug.Log (m_AttackTimer);
 	}
 
-	public void loadPrefab()
+	public void loadPrefab( GameObject prefab)
 	{
-		m_Projectile = (GameObject)Resources.Load("Prefab_PlayerProjectile", typeof (GameObject));
+		m_Projectile = prefab;
 	}
 
 	public void startAttack(Vector3 pos, Quaternion rotation)
@@ -55,7 +55,7 @@ public class BaseAttack : MonoBehaviour
 		m_GraceTimer = m_SaveGraceTimer;
 
 		m_InitialPosition = pos;
-		m_initialRotation = rotation;
+		m_InitialRotation = rotation;
 		//Start Animation
 		//TODO Animation
 
@@ -74,6 +74,7 @@ public class BaseAttack : MonoBehaviour
 
 	public virtual void createProjectile()
 	{
-		Instantiate (m_Projectile,m_InitialPosition, transform.rotation);
+
+		Instantiate (m_Projectile,m_InitialPosition, m_InitialRotation);
 	}
 }

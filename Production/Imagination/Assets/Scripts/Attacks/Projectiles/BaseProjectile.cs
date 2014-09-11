@@ -35,7 +35,7 @@ public class BaseProjectile : MonoBehaviour
 
 		if(distance > m_Range)
 		{
-			Destroy(gameObject);
+			Destroy(this.gameObject);
 		}
 	}
 
