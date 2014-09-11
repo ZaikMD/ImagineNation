@@ -33,19 +33,16 @@ public class CombatItem : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		if(m_CurrentAttack >= m_BaseAttacks.Length) //If the currentAttack is the last one in the array, reset it
-		{
-			m_CurrentAttack = 0;
-		}
 
-		if(Input.GetKeyDown(KeyCode.A))
+
+		if(InputManager.getAttackDown())
 		{
 
-		if(m_BaseAttacks[m_CurrentAttack].getAttackTimer() <= 0.0f) //Check if the character is attacking
+		if(!m_BaseAttacks[m_CurrentAttack].getAttacking()) //Check if the character is attacking
 		{
 			if(m_BaseAttacks[m_CurrentAttack].getGraceTimer() <= 0.0f) //Check if the grace timer is over
 			{
-				m_CurrentAttack = 0; //If so, the combo get's reset
+				m_CurrentAttack = 0; //If so, the combo gets reset
 			}
 
 			else
@@ -53,8 +50,25 @@ public class CombatItem : MonoBehaviour
 				m_BaseAttacks[m_CurrentAttack].startAttack(transform.position, transform.rotation); //Call attack function
 
 				m_CurrentAttack++;//Increment the current attack	
+					Debug.Log(m_CurrentAttack);
+
+				if(m_CurrentAttack >= m_BaseAttacks.Length) //If the currentAttack is the last one in the array, reset it
+				{
+					m_CurrentAttack = 0;
+				}
 			}
 		}
+		}
+
+
+		if(m_BaseAttacks[m_CurrentAttack].getGraceTimer() <= 0.0f) //Check if the grace timer is over
+		{
+			m_CurrentAttack = 0; //If so, the combo gets reset
+		}
+
+		for(int i = 0; i < m_BaseAttacks.Length; i++)
+		{
+			m_BaseAttacks[i].Update();
 		}
 
 	}

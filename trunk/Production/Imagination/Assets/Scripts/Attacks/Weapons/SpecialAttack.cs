@@ -9,17 +9,6 @@ public class SpecialAttack : BaseAttack
 
 	Quaternion m_Rotation;
 
-	// Use this for initialization
-	void Start ()
-	{
-		
-	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-		
-	}
 
 	public override void createProjectile ()
 	{
