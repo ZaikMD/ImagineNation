@@ -3,9 +3,9 @@ using System.Collections;
 
 using GamepadInput;
 
-public class InputManager
+public static class InputManager
 {
-    public bool getJump()
+    public static bool getJump()
     {
         if (Input.GetKey(KeyCode.Space) || GamePad.GetButton(GamePad.Button.A, GamePad.Index.Any))
         {
@@ -14,7 +14,7 @@ public class InputManager
         return false;
     }
 
-    public bool getJumpDown()
+    public static bool getJumpDown()
     {
         if (Input.GetKeyDown(KeyCode.Space) || GamePad.GetButtonDown(GamePad.Button.A, GamePad.Index.Any))
         {
@@ -23,7 +23,7 @@ public class InputManager
         return false;
     }
 
-    public bool getJumpUp()
+    public static bool getJumpUp()
     {
         if (Input.GetKeyUp(KeyCode.Space) || GamePad.GetButtonUp(GamePad.Button.A, GamePad.Index.Any))
         {
@@ -34,17 +34,17 @@ public class InputManager
 
     //=====================================================================================================
 
-    public bool getJump(GamePad.Index index)
+    public static bool getJump(GamePad.Index index)
     {
         return GamePad.GetButton(GamePad.Button.A, index);
     }
 
-    public bool getJumpDown(GamePad.Index index)
+    public static bool getJumpDown(GamePad.Index index)
     {
         return GamePad.GetButtonDown(GamePad.Button.A, index);
     }
 
-    public bool getJumpUp(GamePad.Index index)
+    public static bool getJumpUp(GamePad.Index index)
     {
         return GamePad.GetButtonUp(GamePad.Button.A, index);
     }
@@ -52,7 +52,7 @@ public class InputManager
     //=====================================================================================================
     //=====================================================================================================
 
-    public bool getAttack()
+    public static bool getAttack()
     {
         if (Input.GetMouseButton(0) || GamePad.GetButton(GamePad.Button.X, GamePad.Index.Any))
         {
@@ -61,7 +61,7 @@ public class InputManager
         return false;
     }
 
-    public bool getAttackDown()
+    public static bool getAttackDown()
     {
         if (Input.GetMouseButtonDown(0) || GamePad.GetButtonDown(GamePad.Button.X, GamePad.Index.Any))
         {
@@ -70,7 +70,7 @@ public class InputManager
         return false;
     }
 
-    public bool getAttackUp()
+    public static bool getAttackUp()
     {
         if (Input.GetMouseButtonUp(0) || GamePad.GetButtonUp(GamePad.Button.X, GamePad.Index.Any))
         {
@@ -81,17 +81,17 @@ public class InputManager
 
     //=====================================================================================================
 
-    public bool getAttack(GamePad.Index index)
+    public static bool getAttack(GamePad.Index index)
     {
         return GamePad.GetButton(GamePad.Button.X, index);
     }
 
-    public bool getAttackDown(GamePad.Index index)
+    public static bool getAttackDown(GamePad.Index index)
     {
         return GamePad.GetButtonDown(GamePad.Button.X, index);
     }
 
-    public bool getAttackUp(GamePad.Index index)
+    public static bool getAttackUp(GamePad.Index index)
     {
         return GamePad.GetButtonUp(GamePad.Button.X, index);
     }
@@ -99,7 +99,7 @@ public class InputManager
     //=====================================================================================================
     //=====================================================================================================
 
-    public bool getCharacterSwitch()
+    public static bool getCharacterSwitch()
     {
         if (Input.GetKey(KeyCode.Tab) || GamePad.GetButton(GamePad.Button.Y, GamePad.Index.Any))
         {
@@ -108,7 +108,7 @@ public class InputManager
         return false;
     }
 
-    public bool getCharacterSwitchDown()
+    public static bool getCharacterSwitchDown()
     {
         if (Input.GetKeyDown(KeyCode.Tab) || GamePad.GetButtonDown(GamePad.Button.Y, GamePad.Index.Any))
         {
@@ -117,7 +117,7 @@ public class InputManager
         return false;
     }
 
-    public bool getCharacterSwitchUp()
+    public static bool getCharacterSwitchUp()
     {
         if (Input.GetKeyUp(KeyCode.Tab) || GamePad.GetButtonUp(GamePad.Button.Y, GamePad.Index.Any))
         {
@@ -128,17 +128,17 @@ public class InputManager
 
     //=====================================================================================================
 
-    public bool getCharacterSwitch(GamePad.Index index)
+    public static bool getCharacterSwitch(GamePad.Index index)
     {
         return GamePad.GetButton(GamePad.Button.Y, index);
     }
 
-    public bool getCharacterSwitchDown(GamePad.Index index)
+    public static bool getCharacterSwitchDown(GamePad.Index index)
     {
         return GamePad.GetButtonDown(GamePad.Button.Y, index);
     }
 
-    public bool getCharacterSwitchUp(GamePad.Index index)
+    public static bool getCharacterSwitchUp(GamePad.Index index)
     {
         return GamePad.GetButtonUp(GamePad.Button.Y, index);
     }
@@ -146,7 +146,7 @@ public class InputManager
     //=====================================================================================================
     //=====================================================================================================
 
-    public bool getShowHud()
+    public static bool getShowHud()
     {
         if (Input.GetKey(KeyCode.F) || GamePad.GetButton(GamePad.Button.B, GamePad.Index.Any))
         {
@@ -155,7 +155,7 @@ public class InputManager
         return false;
     }
 
-    public bool getShowHudDown()
+    public static bool getShowHudDown()
     {
         if (Input.GetKeyDown(KeyCode.F) || GamePad.GetButtonDown(GamePad.Button.B, GamePad.Index.Any))
         {
@@ -164,7 +164,7 @@ public class InputManager
         return false;
     }
 
-    public bool getShowHudUp()
+    public static bool getShowHudUp()
     {
         if (Input.GetKeyUp(KeyCode.F) || GamePad.GetButtonUp(GamePad.Button.B, GamePad.Index.Any))
         {
@@ -175,17 +175,17 @@ public class InputManager
 
     //=====================================================================================================
 
-    public bool getShowHud(GamePad.Index index)
+    public static bool getShowHud(GamePad.Index index)
     {
         return GamePad.GetButton(GamePad.Button.B, index);
     }
 
-    public bool getShowHudDown(GamePad.Index index)
+    public static bool getShowHudDown(GamePad.Index index)
     {
         return GamePad.GetButtonDown(GamePad.Button.B, index);
     }
 
-    public bool getShowHudUp(GamePad.Index index)
+    public static bool getShowHudUp(GamePad.Index index)
     {
         return GamePad.GetButtonUp(GamePad.Button.B, index);
     }
@@ -193,7 +193,7 @@ public class InputManager
     //=====================================================================================================
     //=====================================================================================================
 
-    public bool getPause()
+    public static bool getPause()
     {
         if (Input.GetKey(KeyCode.Escape) || GamePad.GetButton(GamePad.Button.Start, GamePad.Index.Any))
         {
@@ -202,7 +202,7 @@ public class InputManager
         return false;
     }
 
-    public bool getPauseDown()
+    public static bool getPauseDown()
     {
         if (Input.GetKeyDown(KeyCode.Escape) || GamePad.GetButtonDown(GamePad.Button.Start, GamePad.Index.Any))
         {
@@ -211,7 +211,7 @@ public class InputManager
         return false;
     }
 
-    public bool getPauseUp()
+    public static bool getPauseUp()
     {
         if (Input.GetKeyUp(KeyCode.Escape) || GamePad.GetButtonUp(GamePad.Button.Start, GamePad.Index.Any))
         {
@@ -222,17 +222,17 @@ public class InputManager
 
     //=====================================================================================================
 
-    public bool getPause(GamePad.Index index)
+    public static bool getPause(GamePad.Index index)
     {
         return GamePad.GetButton(GamePad.Button.Start, index);
     }
 
-    public bool getPauseDown(GamePad.Index index)
+    public static bool getPauseDown(GamePad.Index index)
     {
         return GamePad.GetButtonDown(GamePad.Button.Start, index);
     }
 
-    public bool getPauseUp(GamePad.Index index)
+    public static bool getPauseUp(GamePad.Index index)
     {
         return GamePad.GetButtonUp(GamePad.Button.Start, index);
     }
@@ -240,13 +240,13 @@ public class InputManager
     //=====================================================================================================
     //=====================================================================================================
 
-    public Vector2 getMove()
+    public static Vector2 getMove()
     {
         //TODO: figure out how to convert buttons into an axis and compare the two axises
         return GamePad.GetAxis(GamePad.Axis.LeftStick, GamePad.Index.Any);
     }
 
-    public Vector2 getMove(GamePad.Index index)
+    public static Vector2 getMove(GamePad.Index index)
     {
         return GamePad.GetAxis(GamePad.Axis.LeftStick, index);
     }
