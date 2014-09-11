@@ -1,15 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SpecialAttack : MonoBehaviour {
+public class SpecialAttack : BaseAttack
+{
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
 	
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void Update () 
+	{
+		
+	}
+
+	public override void createProjectile ()
+	{
+		Instantiate (m_Projectile, m_InitialPosition, transform.rotation);
 	}
 }

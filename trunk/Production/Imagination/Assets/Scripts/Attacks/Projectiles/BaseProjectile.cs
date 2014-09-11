@@ -10,7 +10,7 @@ using System.Collections;
 public class BaseProjectile : MonoBehaviour 
 {
 
-	public GameObject m_Projectile;
+
 	Vector3 m_InitialPosition;
 
 
