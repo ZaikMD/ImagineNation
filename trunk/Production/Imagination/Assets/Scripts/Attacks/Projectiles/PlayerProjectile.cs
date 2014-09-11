@@ -7,15 +7,7 @@ using System.Collections;
 /// 
 /// Makes it typeof PlayerProjectile
 /// </summary>
-public class PlayerProjectile : BaseProjectile {
+public class PlayerProjectile : BaseProjectile 
+{
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }
