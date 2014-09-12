@@ -23,12 +23,12 @@ public class Destructable : MonoBehaviour, Attackable
         }
 	}
 
-    public override  void OnHit(PlayerProjectile proj)
+    public virtual void OnHit(PlayerProjectile proj)
     {        
         m_Health -= 1;        
     }
 
-    public override void OnHit(EnemyProjectile proj)
+    public virtual void OnHit(EnemyProjectile proj)
     {
         
     }
