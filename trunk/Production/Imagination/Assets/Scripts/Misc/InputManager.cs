@@ -34,20 +34,74 @@ public static class InputManager
 
     //=====================================================================================================
 
-    public static bool getJump(GamePad.Index index)
-    {
-        return GamePad.GetButton(GamePad.Button.A, index);
-    }
+	public static bool getJump(Enums.PlayerInput inputToRead)
+	{
+		switch(inputToRead)
+		{
+		case Enums.PlayerInput.Keyboard:
+			return Input.GetKey(KeyCode.Space);
+			break;
+		case Enums.PlayerInput.GamePadOne:
+			return GamePad.GetButton(GamePad.Button.A, GamePad.Index.One);
+			break;
+		case Enums.PlayerInput.GamePadTwo:
+			return GamePad.GetButton(GamePad.Button.A, GamePad.Index.Two);
+			break;
+		case Enums.PlayerInput.GamePadThree:
+			return GamePad.GetButton(GamePad.Button.A, GamePad.Index.Three);
+			break;
+		case Enums.PlayerInput.GamePadFour:
+			return GamePad.GetButton(GamePad.Button.A, GamePad.Index.Four);
+			break;
+		}
+		return false;
+	}
 
-    public static bool getJumpDown(GamePad.Index index)
-    {
-        return GamePad.GetButtonDown(GamePad.Button.A, index);
-    }
+	public static bool getJumpDown(Enums.PlayerInput inputToRead)
+	{
+		switch(inputToRead)
+		{
+		case Enums.PlayerInput.Keyboard:
+			return Input.GetKeyDown(KeyCode.Space);
+			break;
+		case Enums.PlayerInput.GamePadOne:
+			return GamePad.GetButtonDown(GamePad.Button.A, GamePad.Index.One);
+			break;
+		case Enums.PlayerInput.GamePadTwo:
+			return GamePad.GetButtonDown(GamePad.Button.A, GamePad.Index.Two);
+			break;
+		case Enums.PlayerInput.GamePadThree:
+			return GamePad.GetButtonDown(GamePad.Button.A, GamePad.Index.Three);
+			break;
+		case Enums.PlayerInput.GamePadFour:
+			return GamePad.GetButtonDown(GamePad.Button.A, GamePad.Index.Four);
+			break;
+		}
+		return false;
+	}
 
-    public static bool getJumpUp(GamePad.Index index)
-    {
-        return GamePad.GetButtonUp(GamePad.Button.A, index);
-    }
+	public static bool getJumpUp(Enums.PlayerInput inputToRead)
+	{
+		switch(inputToRead)
+		{
+		case Enums.PlayerInput.Keyboard:
+			return Input.GetKeyUp(KeyCode.Space);
+			break;
+		case Enums.PlayerInput.GamePadOne:
+			return GamePad.GetButtonUp(GamePad.Button.A, GamePad.Index.One);
+			break;
+		case Enums.PlayerInput.GamePadTwo:
+			return GamePad.GetButtonUp(GamePad.Button.A, GamePad.Index.Two);
+			break;
+		case Enums.PlayerInput.GamePadThree:
+			return GamePad.GetButtonUp(GamePad.Button.A, GamePad.Index.Three);
+			break;
+		case Enums.PlayerInput.GamePadFour:
+			return GamePad.GetButtonUp(GamePad.Button.A, GamePad.Index.Four);
+			break;
+		}
+		return false;
+	}
 
     //=====================================================================================================
     //=====================================================================================================
@@ -81,20 +135,74 @@ public static class InputManager
 
     //=====================================================================================================
 
-    public static bool getAttack(GamePad.Index index)
-    {
-        return GamePad.GetButton(GamePad.Button.X, index);
-    }
-
-    public static bool getAttackDown(GamePad.Index index)
-    {
-        return GamePad.GetButtonDown(GamePad.Button.X, index);
-    }
-
-    public static bool getAttackUp(GamePad.Index index)
-    {
-        return GamePad.GetButtonUp(GamePad.Button.X, index);
-    }
+	public static bool getAttack(Enums.PlayerInput inputToRead)
+	{
+		switch(inputToRead)
+		{
+		case Enums.PlayerInput.Keyboard:
+			return Input.GetMouseButton(0);
+			break;
+		case Enums.PlayerInput.GamePadOne:
+			return GamePad.GetButton(GamePad.Button.X, GamePad.Index.One);
+			break;
+		case Enums.PlayerInput.GamePadTwo:
+			return GamePad.GetButton(GamePad.Button.X, GamePad.Index.Two);
+			break;
+		case Enums.PlayerInput.GamePadThree:
+			return GamePad.GetButton(GamePad.Button.X, GamePad.Index.Three);
+			break;
+		case Enums.PlayerInput.GamePadFour:
+			return GamePad.GetButton(GamePad.Button.X, GamePad.Index.Four);
+			break;
+		}
+		return false;
+	}
+	
+	public static bool getAttackDown(Enums.PlayerInput inputToRead)
+	{
+		switch(inputToRead)
+		{
+		case Enums.PlayerInput.Keyboard:
+			return Input.GetMouseButtonDown(0);
+			break;
+		case Enums.PlayerInput.GamePadOne:
+			return GamePad.GetButtonDown(GamePad.Button.X, GamePad.Index.One);
+			break;
+		case Enums.PlayerInput.GamePadTwo:			
+			return GamePad.GetButtonDown(GamePad.Button.X, GamePad.Index.Two);
+			break;
+		case Enums.PlayerInput.GamePadThree:
+			return GamePad.GetButtonDown(GamePad.Button.X, GamePad.Index.Three);
+			break;
+		case Enums.PlayerInput.GamePadFour:
+			return GamePad.GetButtonDown(GamePad.Button.X, GamePad.Index.Four);
+			break;
+		}
+		return false;
+	}
+	
+	public static bool getAttackUp(Enums.PlayerInput inputToRead)
+	{
+		switch(inputToRead)
+		{
+		case Enums.PlayerInput.Keyboard:
+			return Input.GetMouseButtonUp(0);
+			break;
+		case Enums.PlayerInput.GamePadOne:
+			return GamePad.GetButtonUp(GamePad.Button.X, GamePad.Index.One);
+			break;
+		case Enums.PlayerInput.GamePadTwo:
+			return GamePad.GetButtonUp(GamePad.Button.X, GamePad.Index.Two);
+			break;
+		case Enums.PlayerInput.GamePadThree:
+			return GamePad.GetButtonUp(GamePad.Button.X, GamePad.Index.Three);
+			break;
+		case Enums.PlayerInput.GamePadFour:
+			return GamePad.GetButtonUp(GamePad.Button.X, GamePad.Index.Four);
+			break;
+		}
+		return false;
+	}
 
     //=====================================================================================================
     //=====================================================================================================
@@ -128,20 +236,74 @@ public static class InputManager
 
     //=====================================================================================================
 
-    public static bool getCharacterSwitch(GamePad.Index index)
-    {
-        return GamePad.GetButton(GamePad.Button.Y, index);
-    }
-
-    public static bool getCharacterSwitchDown(GamePad.Index index)
-    {
-        return GamePad.GetButtonDown(GamePad.Button.Y, index);
-    }
-
-    public static bool getCharacterSwitchUp(GamePad.Index index)
-    {
-        return GamePad.GetButtonUp(GamePad.Button.Y, index);
-    }
+	public static bool getCharacterSwitch(Enums.PlayerInput inputToRead)
+	{
+		switch(inputToRead)
+		{
+		case Enums.PlayerInput.Keyboard:
+			return Input.GetKey(KeyCode.Tab);
+			break;
+		case Enums.PlayerInput.GamePadOne:
+			return GamePad.GetButton(GamePad.Button.Y, GamePad.Index.One);
+			break;
+		case Enums.PlayerInput.GamePadTwo:
+			return GamePad.GetButton(GamePad.Button.Y, GamePad.Index.Two);
+			break;
+		case Enums.PlayerInput.GamePadThree:
+			return GamePad.GetButton(GamePad.Button.Y, GamePad.Index.Three);
+			break;
+		case Enums.PlayerInput.GamePadFour:
+			return GamePad.GetButton(GamePad.Button.Y, GamePad.Index.Four);
+			break;
+		}
+		return false;
+	}
+	
+	public static bool getCharacterSwitchDown(Enums.PlayerInput inputToRead)
+	{
+		switch(inputToRead)
+		{
+		case Enums.PlayerInput.Keyboard:
+			return Input.GetKeyDown(KeyCode.Tab);
+			break;
+		case Enums.PlayerInput.GamePadOne:
+			return GamePad.GetButtonDown(GamePad.Button.Y, GamePad.Index.One);
+			break;
+		case Enums.PlayerInput.GamePadTwo:
+			return GamePad.GetButtonDown(GamePad.Button.Y, GamePad.Index.Two);
+			break;
+		case Enums.PlayerInput.GamePadThree:
+			return GamePad.GetButtonDown(GamePad.Button.Y, GamePad.Index.Three);
+			break;
+		case Enums.PlayerInput.GamePadFour:
+			return GamePad.GetButtonDown(GamePad.Button.Y, GamePad.Index.Four);
+			break;
+		}
+		return false;
+	}
+	
+	public static bool getCharacterSwitchUp(Enums.PlayerInput inputToRead)
+	{
+		switch(inputToRead)
+		{
+		case Enums.PlayerInput.Keyboard:
+			return Input.GetKeyUp(KeyCode.Tab);
+			break;
+		case Enums.PlayerInput.GamePadOne:
+			return GamePad.GetButtonUp(GamePad.Button.Y, GamePad.Index.One);
+			break;
+		case Enums.PlayerInput.GamePadTwo:
+			return GamePad.GetButtonUp(GamePad.Button.Y, GamePad.Index.Two);
+			break;
+		case Enums.PlayerInput.GamePadThree:
+			return GamePad.GetButtonUp(GamePad.Button.Y, GamePad.Index.Three);
+			break;
+		case Enums.PlayerInput.GamePadFour:
+			return GamePad.GetButtonUp(GamePad.Button.Y, GamePad.Index.Four);
+			break;
+		}
+		return false;
+	}
 
     //=====================================================================================================
     //=====================================================================================================
@@ -175,20 +337,74 @@ public static class InputManager
 
     //=====================================================================================================
 
-    public static bool getShowHud(GamePad.Index index)
-    {
-        return GamePad.GetButton(GamePad.Button.B, index);
-    }
-
-    public static bool getShowHudDown(GamePad.Index index)
-    {
-        return GamePad.GetButtonDown(GamePad.Button.B, index);
-    }
-
-    public static bool getShowHudUp(GamePad.Index index)
-    {
-        return GamePad.GetButtonUp(GamePad.Button.B, index);
-    }
+	public static bool getShowHud(Enums.PlayerInput inputToRead)
+	{
+		switch(inputToRead)
+		{
+		case Enums.PlayerInput.Keyboard:
+			return Input.GetKey(KeyCode.F);
+			break;
+		case Enums.PlayerInput.GamePadOne:
+			return GamePad.GetButton(GamePad.Button.B, GamePad.Index.One);
+			break;
+		case Enums.PlayerInput.GamePadTwo:
+			return GamePad.GetButton(GamePad.Button.B, GamePad.Index.Two);
+			break;
+		case Enums.PlayerInput.GamePadThree:
+			return GamePad.GetButton(GamePad.Button.B, GamePad.Index.Three);
+			break;
+		case Enums.PlayerInput.GamePadFour:
+			return GamePad.GetButton(GamePad.Button.B, GamePad.Index.Four);
+			break;
+		}
+		return false;
+	}
+	
+	public static bool getShowHudDown(Enums.PlayerInput inputToRead)
+	{
+		switch(inputToRead)
+		{
+		case Enums.PlayerInput.Keyboard:
+			return Input.GetKeyDown(KeyCode.F);
+			break;
+		case Enums.PlayerInput.GamePadOne:
+			return GamePad.GetButtonDown(GamePad.Button.B, GamePad.Index.One);
+			break;
+		case Enums.PlayerInput.GamePadTwo:
+			return GamePad.GetButtonDown(GamePad.Button.B, GamePad.Index.Two);
+			break;
+		case Enums.PlayerInput.GamePadThree:
+			return GamePad.GetButtonDown(GamePad.Button.B, GamePad.Index.Three);
+			break;
+		case Enums.PlayerInput.GamePadFour:
+			return GamePad.GetButtonDown(GamePad.Button.B, GamePad.Index.Four);
+			break;
+		}
+		return false;
+	}
+	
+	public static bool getShowHudUp(Enums.PlayerInput inputToRead)
+	{
+		switch(inputToRead)
+		{
+		case Enums.PlayerInput.Keyboard:
+			return Input.GetKeyUp(KeyCode.F);
+			break;
+		case Enums.PlayerInput.GamePadOne:
+			return GamePad.GetButtonUp(GamePad.Button.B, GamePad.Index.One);
+			break;
+		case Enums.PlayerInput.GamePadTwo:
+			return GamePad.GetButtonUp(GamePad.Button.B, GamePad.Index.Two);
+			break;
+		case Enums.PlayerInput.GamePadThree:
+			return GamePad.GetButtonUp(GamePad.Button.B, GamePad.Index.Three);
+			break;
+		case Enums.PlayerInput.GamePadFour:
+			return GamePad.GetButtonUp(GamePad.Button.B, GamePad.Index.Four);
+			break;
+		}
+		return false;
+	}
 
     //=====================================================================================================
     //=====================================================================================================
@@ -222,20 +438,74 @@ public static class InputManager
 
     //=====================================================================================================
 
-    public static bool getPause(GamePad.Index index)
-    {
-        return GamePad.GetButton(GamePad.Button.Start, index);
-    }
-
-    public static bool getPauseDown(GamePad.Index index)
-    {
-        return GamePad.GetButtonDown(GamePad.Button.Start, index);
-    }
-
-    public static bool getPauseUp(GamePad.Index index)
-    {
-        return GamePad.GetButtonUp(GamePad.Button.Start, index);
-    }
+	public static bool getPause(Enums.PlayerInput inputToRead)
+	{
+		switch(inputToRead)
+		{
+		case Enums.PlayerInput.Keyboard:
+			return Input.GetKey(KeyCode.Escape);
+			break;
+		case Enums.PlayerInput.GamePadOne:
+			return GamePad.GetButton(GamePad.Button.Start, GamePad.Index.One);
+			break;
+		case Enums.PlayerInput.GamePadTwo:
+			return GamePad.GetButton(GamePad.Button.Start, GamePad.Index.Two);
+			break;
+		case Enums.PlayerInput.GamePadThree:
+			return GamePad.GetButton(GamePad.Button.Start, GamePad.Index.Three);
+			break;
+		case Enums.PlayerInput.GamePadFour:
+			return GamePad.GetButton(GamePad.Button.Start, GamePad.Index.Four);
+			break;
+		}
+		return false;
+	}
+	
+	public static bool getPauseDown(Enums.PlayerInput inputToRead)
+	{
+		switch(inputToRead)
+		{
+		case Enums.PlayerInput.Keyboard:
+			return Input.GetKeyDown(KeyCode.Escape);
+			break;
+		case Enums.PlayerInput.GamePadOne:
+			return GamePad.GetButtonDown(GamePad.Button.Start, GamePad.Index.One);
+			break;
+		case Enums.PlayerInput.GamePadTwo:
+			return GamePad.GetButtonDown(GamePad.Button.Start, GamePad.Index.Two);
+			break;
+		case Enums.PlayerInput.GamePadThree:
+			return GamePad.GetButtonDown(GamePad.Button.Start, GamePad.Index.Three);
+			break;
+		case Enums.PlayerInput.GamePadFour:
+			return GamePad.GetButtonDown(GamePad.Button.Start, GamePad.Index.Four);
+			break;
+		}
+		return false;
+	}
+	
+	public static bool getPauseUp(Enums.PlayerInput inputToRead)
+	{
+		switch(inputToRead)
+		{
+		case Enums.PlayerInput.Keyboard:
+			return Input.GetKeyUp(KeyCode.Escape);
+			break;
+		case Enums.PlayerInput.GamePadOne:
+			return GamePad.GetButtonUp(GamePad.Button.Start, GamePad.Index.One);
+			break;
+		case Enums.PlayerInput.GamePadTwo:
+			return GamePad.GetButtonUp(GamePad.Button.Start, GamePad.Index.Two);
+			break;
+		case Enums.PlayerInput.GamePadThree:
+			return GamePad.GetButtonUp(GamePad.Button.Start, GamePad.Index.Three);
+			break;
+		case Enums.PlayerInput.GamePadFour:
+			return GamePad.GetButtonUp(GamePad.Button.Start, GamePad.Index.Four);
+			break;
+		}
+		return false;
+	}
 
     //=====================================================================================================
     //=====================================================================================================
@@ -250,4 +520,28 @@ public static class InputManager
     {
         return GamePad.GetAxis(GamePad.Axis.LeftStick, index);
     }
+
+	public static Vector2 getMove(Enums.PlayerInput inputToRead)
+	{
+		switch(inputToRead)
+		{
+		//case Enums.PlayerInput.Keyboard:
+			//Vector2 input = new Vector2(Input.GetKey(KeyCode.A) - Input.GetKey(KeyCode.D));
+			//return 
+			//break;
+		case Enums.PlayerInput.GamePadOne:
+			return GamePad.GetAxis(GamePad.Axis.LeftStick, GamePad.Index.One);
+			break;
+		case Enums.PlayerInput.GamePadTwo:
+			return GamePad.GetAxis(GamePad.Axis.LeftStick, GamePad.Index.Two);
+			break;
+		case Enums.PlayerInput.GamePadThree:
+			return GamePad.GetAxis(GamePad.Axis.LeftStick, GamePad.Index.Three);
+			break;
+		case Enums.PlayerInput.GamePadFour:
+			return GamePad.GetAxis(GamePad.Axis.LeftStick, GamePad.Index.Four);
+			break;
+		}
+		return new Vector2 (0, 0);
+	}
 }
