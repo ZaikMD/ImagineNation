@@ -14,9 +14,9 @@ public class BaseProjectile : MonoBehaviour
 	Vector3 m_InitialPosition;
 
 
-	float m_MoveSpeed = 10;
+	public float m_MoveSpeed = 10;
 	
-	float m_Range = 2;
+	public float m_Range = 2;
 
 
 
