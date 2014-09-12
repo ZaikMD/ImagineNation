@@ -2,14 +2,15 @@
 using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(AcceptInputFrom))]
 
 public class PlayerMovement : MonoBehaviour {
 
     //Component pointers
     private CharacterController m_Controller;
     private Transform m_Camera;
-
-    public GamepadInput.GamePad.Index m_Index;
+    private AcceptInputFrom m_Accepted;
+    
     public float m_Speed;
     
 	// Use this for initialization
@@ -18,21 +19,19 @@ public class PlayerMovement : MonoBehaviour {
 
         m_Controller = GetComponent<CharacterController>();
         m_Camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
-
+        m_Accepted = GetComponent<AcceptInputFrom>();
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
         Movement();   
- 
-        print(InputManager.getMove(m_Index));
-	}
+    }
 
     Vector3 GetProjection()
     {
-        Vector3 projection = m_Camera.forward * InputManager.getMove(m_Index).y;
-        projection += m_Camera.right * InputManager.getMove(m_Index).x;
+        Vector3 projection = m_Camera.forward * InputManager.getMove(m_Accepted.ReadInputFrom).y;
+        projection += m_Camera.right * InputManager.getMove(m_Accepted.ReadInputFrom).x;
 
         projection.y = 0;
         return projection.normalized;        
@@ -43,7 +42,7 @@ public class PlayerMovement : MonoBehaviour {
         Vector3 move = Vector3.zero;
         m_Controller.SimpleMove(move);
 
-        if (InputManager.getMove(m_Index) == Vector2.zero)
+        if (InputManager.getMove(m_Accepted.ReadInputFrom) == Vector2.zero)
          {
            return;
          }
