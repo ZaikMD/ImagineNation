@@ -14,6 +14,7 @@ public class CombatItem : MonoBehaviour
 	BaseAttack[] m_BaseAttacks = new BaseAttack[3]; //Array of the attacks. Combo's are 3 attacks.
 
 	int m_CurrentAttack = 0; //The current Attack
+	int m_PreviousAttack = 0;
 
 
 	// Use this for initialization
@@ -35,36 +36,48 @@ public class CombatItem : MonoBehaviour
 	{
 
 
-		if(InputManager.getAttackDown())
-		{
 
-		if(!m_BaseAttacks[m_CurrentAttack].getAttacking()) //Check if the character is attacking
+		/*if(!m_BaseAttacks[m_PreviousAttack].getAttacking())
 		{
-			if(m_BaseAttacks[m_CurrentAttack].getGraceTimer() <= 0.0f) //Check if the grace timer is over
+			if(m_BaseAttacks[m_PreviousAttack].getGraceTimer() <= 0.0f) //Check if the grace timer is over
 			{
 				m_CurrentAttack = 0; //If so, the combo gets reset
 			}
+		} */
 
-			else
+
+
+		if(InputManager.getAttackDown())
+		{
+
+			if(!m_BaseAttacks[m_PreviousAttack].getAttacking()) //Check if the character is attacking
 			{
-				m_BaseAttacks[m_CurrentAttack].startAttack(transform.position, transform.rotation); //Call attack function
-
-				m_CurrentAttack++;//Increment the current attack	
-					Debug.Log(m_CurrentAttack);
-
-				if(m_CurrentAttack >= m_BaseAttacks.Length) //If the currentAttack is the last one in the array, reset it
+				if(m_BaseAttacks[m_PreviousAttack].getGraceTimer() <= 0.0f) //Check if the grace timer is over
 				{
-					m_CurrentAttack = 0;
+					m_CurrentAttack = 0; //If so, the combo gets reset
+				}
+
+				else
+				{
+					m_BaseAttacks[m_CurrentAttack].startAttack(transform.position, transform.rotation); //Call attack function
+
+					m_PreviousAttack = m_CurrentAttack;//Set the previous attack to the current attack, then increment the current attack
+					m_CurrentAttack++;
+					Debug.Log(m_CurrentAttack);
+						
+
+					if(m_CurrentAttack >= m_BaseAttacks.Length) //If the currentAttack is the last one in the array, reset it
+					{
+						m_CurrentAttack = 0;
+					}
 				}
 			}
 		}
-		}
 
 
-		if(m_BaseAttacks[m_CurrentAttack].getGraceTimer() <= 0.0f) //Check if the grace timer is over
-		{
-			m_CurrentAttack = 0; //If so, the combo gets reset
-		}
+
+
+
 
 		for(int i = 0; i < m_BaseAttacks.Length; i++)
 		{
