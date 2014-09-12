@@ -7,21 +7,22 @@ public abstract class BaseMovementAbility : MonoBehaviour
 {
 	public CharacterController m_CharacterController;
 	protected float m_VerticalVelocity;
-	protected const float JUMP_SPEED = 30.0f;
-	protected const float MAX_FALL_SPEED = -30.0f;
-	protected const float FALL_ACCELERATION = -20.0f;
-	protected const float HELD_FALL_ACCELERATION = -10.0f;
+	protected const float JUMP_SPEED = 15.0f;
+	protected const float MAX_FALL_SPEED = -15.0f;
+	protected const float FALL_ACCELERATION = 20.0f;
+	protected const float HELD_FALL_ACCELERATION = 10.0f;
 	private bool m_CurrentlyJumping;
 
 	protected AcceptInputFrom m_AcceptInputFrom;
 
-	void Start () 
+	protected void Start () 
 	{
 		m_CharacterController = GetComponent<CharacterController> ();
 		m_VerticalVelocity = 0.0f;
 		m_CurrentlyJumping = false;
 
 		m_AcceptInputFrom = gameObject.GetComponent<AcceptInputFrom> ();
+		Debug.Log (m_AcceptInputFrom);
 	}
 
 	protected void Update () 
