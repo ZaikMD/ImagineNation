@@ -8,16 +8,16 @@ public class BaseAttack : MonoBehaviour
 {
 	protected GameObject m_Projectile;
 
-	float m_AttackTimer = 2.0f; //The animation Timer (Hopefully)
-	float m_GraceTimer = 1.0f; //How long the player will have to combo the attack, starts .5 seconds before m_AttackTimer ends
+	float m_AttackTimer = 0.5f; //The animation Timer (Hopefully)
+	float m_GraceTimer = 0.8f; //How long the player will have to combo the attack, starts .2 seconds before m_AttackTimer ends
 
 	bool m_AnimationDone; //Bool for if the animation is done or not
 	bool m_Attacking = false;
 	bool m_GraceCountdown = false;
 
 
-	protected float m_SaveAttackTimer = 2.0f;
-	protected float m_SaveGraceTimer = 1.0f;
+	protected float m_SaveAttackTimer = 0.5f;
+	protected float m_SaveGraceTimer = 0.8f;
 
 	protected Vector3 m_InitialPosition;
 	protected Quaternion m_InitialRotation;
@@ -36,14 +36,14 @@ public class BaseAttack : MonoBehaviour
 			m_AttackTimer -= Time.deltaTime; //If the player is attacking, decrement the attack timer
 		}
 
-		if(m_AttackTimer <= 0.5f)
+		if(m_AttackTimer <= 0.2f)
 		{
-			m_GraceCountdown = true; // IF the attack timer is less than 0.5, the grace timer can start decrementing
+			m_GraceCountdown = true; // IF the attack timer is less than 0.2, the grace timer can start decrementing
 		}
 		if(m_AttackTimer <= 0.0f)
 		{
 			m_Attacking = false; // If the attack timer is less that zero, the player is done attacking
-			m_AttackTimer = m_SaveAttackTimer;
+			//m_AttackTimer = m_SaveAttackTimer;
 		}
 
 		if(m_GraceCountdown)
@@ -54,11 +54,11 @@ public class BaseAttack : MonoBehaviour
 		if(m_GraceTimer <= 0.0f)
 		{
 			m_GraceCountdown = false; //If the grace timer is less than zero, then it is no longer decrementing, and it resets
-			m_GraceTimer = m_SaveGraceTimer;
+			//m_GraceTimer = m_SaveGraceTimer;
 
 		}
 
-		Debug.Log (m_GraceTimer);
+		//Debug.Log (m_GraceTimer);
 
 	}
 
@@ -71,7 +71,7 @@ public class BaseAttack : MonoBehaviour
 	{
 		//Reset Timers
 		m_AttackTimer = m_SaveAttackTimer;
-		//m_GraceTimer = m_SaveGraceTimer;
+		m_GraceTimer = m_SaveGraceTimer;
 
 
 		m_InitialPosition = pos;
@@ -93,10 +93,20 @@ public class BaseAttack : MonoBehaviour
 		return m_GraceTimer;
 	}
 
+    public void resetGraceTimer()
+    {
+        m_GraceTimer = m_SaveGraceTimer;
+    }
+
 	public bool getAttacking()
 	{
 		return m_Attacking;
 	}
+
+    public bool getGraceCountdown()
+    {
+        return m_GraceCountdown;
+    }
 
 	public virtual void createProjectile()
 	{
