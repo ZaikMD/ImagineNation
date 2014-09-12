@@ -16,7 +16,7 @@ public class CombatItem : MonoBehaviour
 	int m_CurrentAttack = 0; //The current Attack
 	int m_PreviousAttack = 0;
 
-
+    AcceptInputFrom m_ReadInput;
 	// Use this for initialization
 	void Start () 
 	{
@@ -29,51 +29,55 @@ public class CombatItem : MonoBehaviour
 			m_BaseAttacks[i].loadPrefab(m_ProjectilePrefab);
 			m_BaseAttacks.Initialize();
 		}
+
+        m_ReadInput = gameObject.GetComponent<AcceptInputFrom>();
+        
+
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
 
+        if (InputManager.getAttackDown(m_ReadInput.ReadInputFrom))
+        {
+
+            if (!m_BaseAttacks[m_PreviousAttack].getAttacking()) //Check if the character is attacking
+            {
+                if (m_BaseAttacks[m_PreviousAttack].getGraceTimer() <= 0.0f) //Check if the grace timer is over
+                {
+                    m_CurrentAttack = 0; //If so, the combo gets reset
+                    m_BaseAttacks[m_PreviousAttack].resetGraceTimer();
+                }
+
+                else
+                {
+                    m_BaseAttacks[m_CurrentAttack].startAttack(transform.position, transform.rotation); //Call attack function
+
+                    m_PreviousAttack = m_CurrentAttack;//Set the previous attack to the current attack, then increment the current attack
+                    m_CurrentAttack++;
+                    Debug.Log(m_CurrentAttack);
 
 
-		/*if(!m_BaseAttacks[m_PreviousAttack].getAttacking())
-		{
-			if(m_BaseAttacks[m_PreviousAttack].getGraceTimer() <= 0.0f) //Check if the grace timer is over
-			{
-				m_CurrentAttack = 0; //If so, the combo gets reset
-			}
-		} */
+                    if (m_CurrentAttack >= m_BaseAttacks.Length) //If the currentAttack is the last one in the array, reset it
+                    {
+                        m_CurrentAttack = 0;
+                    }
+                }
+            }
+        }
 
-
-
-		if(InputManager.getAttackDown())
-		{
-
-			if(!m_BaseAttacks[m_PreviousAttack].getAttacking()) //Check if the character is attacking
-			{
-				if(m_BaseAttacks[m_PreviousAttack].getGraceTimer() <= 0.0f) //Check if the grace timer is over
-				{
-					m_CurrentAttack = 0; //If so, the combo gets reset
-				}
-
-				else
-				{
-					m_BaseAttacks[m_CurrentAttack].startAttack(transform.position, transform.rotation); //Call attack function
-
-					m_PreviousAttack = m_CurrentAttack;//Set the previous attack to the current attack, then increment the current attack
-					m_CurrentAttack++;
-					Debug.Log(m_CurrentAttack);
-						
-
-					if(m_CurrentAttack >= m_BaseAttacks.Length) //If the currentAttack is the last one in the array, reset it
-					{
-						m_CurrentAttack = 0;
-					}
-				}
-			}
-		}
-
+        else
+        {
+            if (!m_BaseAttacks[m_PreviousAttack].getAttacking()) //Check to see if the player is still attacking
+            {
+                if (!m_BaseAttacks[m_PreviousAttack].getGraceCountdown()) //Check if the grace timer is over
+                {
+                    m_CurrentAttack = 0; //If so, the combo gets reset
+                    m_BaseAttacks[m_PreviousAttack].resetGraceTimer();
+                }
+            }
+        }
 
 
 
