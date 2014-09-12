@@ -26,7 +26,7 @@ public class CombatItem : MonoBehaviour
 
 		for(int i = 0; i < m_BaseAttacks.Length; i++)
 		{
-			m_BaseAttacks[i].loadPrefab(m_ProjectilePrefab);
+			m_BaseAttacks[i].loadPrefab(m_ProjectilePrefab); //Loads the prefab for the projectiles
 			m_BaseAttacks.Initialize();
 		}
 
@@ -56,7 +56,7 @@ public class CombatItem : MonoBehaviour
 
                     m_PreviousAttack = m_CurrentAttack;//Set the previous attack to the current attack, then increment the current attack
                     m_CurrentAttack++;
-                    Debug.Log(m_CurrentAttack);
+                   
 
 
                     if (m_CurrentAttack >= m_BaseAttacks.Length) //If the currentAttack is the last one in the array, reset it
