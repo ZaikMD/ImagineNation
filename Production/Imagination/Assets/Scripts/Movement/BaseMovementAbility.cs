@@ -2,14 +2,16 @@
 using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
-public class BaseMovementAbility : MonoBehaviour 
+public abstract class BaseMovementAbility : MonoBehaviour 
 {
 	public CharacterController m_CharacterController;
 	protected float m_VerticalVelocity;
-	protected const float JUMP_SPEED = 15.0f;
-	protected const float MAX_FALL_SPEED = 15.0f;
-	protected const float FALL_ACCELERATION = 2.0f;
+	protected const float JUMP_SPEED = 30.0f;
+	protected const float MAX_FALL_SPEED = -30.0f;
+	protected const float FALL_ACCELERATION = -20.0f;
+	protected const float HELD_FALL_ACCELERATION = -10.0f;
 	private bool m_CurrentlyJumping;
+
 
 	void Start () 
 	{
@@ -20,17 +22,18 @@ public class BaseMovementAbility : MonoBehaviour
 
 	void Update () 
 	{
-		if(InputManager.getJumpUp)
+		if(InputManager.getJumpUp())
 		{
 			m_CurrentlyJumping = false;
 		}
 
 		if(GetIsGrounded())
 		{
-			if(InputManager.getJumpDown)
+			if(InputManager.getJumpDown())
 			{
 				Jump();
 				m_CurrentlyJumping = true;
+				AirMovement();
 			}
 			else
 			{
@@ -39,29 +42,39 @@ public class BaseMovementAbility : MonoBehaviour
 		}
 		else
 		{
-			if(InputManager.getJump && m_CurrentlyJumping == true)
+			if(InputManager.getJump() && m_CurrentlyJumping == true)
 			{
-				AirMovement();
+				HeldAirMovement();
 			}
 			else
 			{
-				m_VerticalVelocity = 0.0f;
+				AirMovement();
 			}
 		}
 	}
 
-	protected abstract void Jump()
+	protected virtual void Jump()
 	{
 		m_VerticalVelocity = JUMP_SPEED;
 	}
 
-	protected abstract void AirMovement()
+	protected virtual void AirMovement()
 	{
 		if(m_VerticalVelocity > MAX_FALL_SPEED)
 		{
 			m_VerticalVelocity -= Time.deltaTime * FALL_ACCELERATION;
 		}
 
+		m_CharacterController.Move (transform.up * m_VerticalVelocity * Time.deltaTime);
+	}
+
+	protected virtual void HeldAirMovement()
+	{
+		if(m_VerticalVelocity > MAX_FALL_SPEED)
+		{
+			m_VerticalVelocity -= Time.deltaTime * HELD_FALL_ACCELERATION;
+		}
+		
 		m_CharacterController.Move (transform.up * m_VerticalVelocity * Time.deltaTime);
 	}
 
