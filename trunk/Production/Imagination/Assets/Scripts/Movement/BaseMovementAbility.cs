@@ -2,6 +2,7 @@
 using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(AcceptInputFrom))]
 public abstract class BaseMovementAbility : MonoBehaviour 
 {
 	public CharacterController m_CharacterController;
@@ -12,24 +13,27 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	protected const float HELD_FALL_ACCELERATION = -10.0f;
 	private bool m_CurrentlyJumping;
 
+	protected AcceptInputFrom m_AcceptInputFrom;
 
 	void Start () 
 	{
 		m_CharacterController = GetComponent<CharacterController> ();
 		m_VerticalVelocity = 0.0f;
 		m_CurrentlyJumping = false;
+
+		m_AcceptInputFrom = gameObject.GetComponent<AcceptInputFrom> ();
 	}
 
-	void Update () 
+	protected void Update () 
 	{
-		if(InputManager.getJumpUp())
+		if(InputManager.getJumpUp(m_AcceptInputFrom.ReadInputFrom))
 		{
 			m_CurrentlyJumping = false;
 		}
 
 		if(GetIsGrounded())
 		{
-			if(InputManager.getJumpDown())
+			if(InputManager.getJumpDown(m_AcceptInputFrom.ReadInputFrom))
 			{
 				Jump();
 				m_CurrentlyJumping = true;
@@ -42,7 +46,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		}
 		else
 		{
-			if(InputManager.getJump() && m_CurrentlyJumping == true)
+			if(InputManager.getJump(m_AcceptInputFrom.ReadInputFrom) && m_CurrentlyJumping == true)
 			{
 				HeldAirMovement();
 			}
