@@ -594,7 +594,7 @@ public static class InputManager
 
 		if(Input.GetKey (KeyCode.S))
 		{
-			input.x -= 1.0f;
+			input.y -= 1.0f;
 		}
 		return input;
     }
