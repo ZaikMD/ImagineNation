@@ -5,6 +5,17 @@ using GamepadInput;
 
 public static class InputManager
 {
+	//each input follows the following format
+
+	//Generic functions that read all input for get, down, and up
+	//=====================================================================================================
+	//specific functions that read a single input for get, down, and up
+
+	//=====================================================================================================
+	//=====================================================================================================
+
+	#region Jump
+	#region Generic Inputs
     public static bool getJump()
     {
         if (Input.GetKey(KeyCode.Space) || GamePad.GetButton(GamePad.Button.A, GamePad.Index.Any))
@@ -31,9 +42,11 @@ public static class InputManager
         }
         return false;
     }
-
+	#endregion generic Generic
     //=====================================================================================================
 
+
+	#region Specific Inputs
 	public static bool getJump(Enums.PlayerInput inputToRead)
 	{
 		switch(inputToRead)
@@ -102,10 +115,13 @@ public static class InputManager
 		}
 		return false;
 	}
-
+	#endregion
     //=====================================================================================================
     //=====================================================================================================
+	#endregion
 
+    #region Attack
+    #region Generic Inputs
     public static bool getAttack()
     {
         if (Input.GetMouseButton(0) || GamePad.GetButton(GamePad.Button.X, GamePad.Index.Any))
@@ -132,10 +148,10 @@ public static class InputManager
         }
         return false;
     }
-
+    #endregion
     //=====================================================================================================
-
-	public static bool getAttack(Enums.PlayerInput inputToRead)
+    #region Specific Input
+    public static bool getAttack(Enums.PlayerInput inputToRead)
 	{
 		switch(inputToRead)
 		{
@@ -203,10 +219,13 @@ public static class InputManager
 		}
 		return false;
 	}
-
+    #endregion
     //=====================================================================================================
     //=====================================================================================================
+    #endregion
 
+    #region Character Switch
+    #region Generic Inputs
     public static bool getCharacterSwitch()
     {
         if (Input.GetKey(KeyCode.Tab) || GamePad.GetButton(GamePad.Button.Y, GamePad.Index.Any))
@@ -233,10 +252,11 @@ public static class InputManager
         }
         return false;
     }
+    #endregion
 
     //=====================================================================================================
-
-	public static bool getCharacterSwitch(Enums.PlayerInput inputToRead)
+    #region Specific Input
+    public static bool getCharacterSwitch(Enums.PlayerInput inputToRead)
 	{
 		switch(inputToRead)
 		{
@@ -304,10 +324,13 @@ public static class InputManager
 		}
 		return false;
 	}
-
+    #endregion
     //=====================================================================================================
     //=====================================================================================================
+    #endregion
 
+    #region Show Hud
+    #region
     public static bool getShowHud()
     {
         if (Input.GetKey(KeyCode.F) || GamePad.GetButton(GamePad.Button.B, GamePad.Index.Any))
@@ -334,10 +357,10 @@ public static class InputManager
         }
         return false;
     }
-
+    #endregion
     //=====================================================================================================
-
-	public static bool getShowHud(Enums.PlayerInput inputToRead)
+    #region Specific Input
+    public static bool getShowHud(Enums.PlayerInput inputToRead)
 	{
 		switch(inputToRead)
 		{
@@ -405,10 +428,13 @@ public static class InputManager
 		}
 		return false;
 	}
-
+    #endregion
     //=====================================================================================================
     //=====================================================================================================
+    #endregion
 
+    #region Pause
+    #region  Generic Inputs
     public static bool getPause()
     {
         if (Input.GetKey(KeyCode.Escape) || GamePad.GetButton(GamePad.Button.Start, GamePad.Index.Any))
@@ -435,10 +461,11 @@ public static class InputManager
         }
         return false;
     }
+    #endregion
 
     //=====================================================================================================
-
-	public static bool getPause(Enums.PlayerInput inputToRead)
+    #region Specific Input
+    public static bool getPause(Enums.PlayerInput inputToRead)
 	{
 		switch(inputToRead)
 		{
@@ -506,10 +533,14 @@ public static class InputManager
 		}
 		return false;
 	}
-
+    #endregion
+    
     //=====================================================================================================
     //=====================================================================================================
+    #endregion
 
+    #region Move
+    #region Generic Inputs
     public static Vector2 getMove()
     {
 		Vector2 input = turnWASDIntoVector2 ();
@@ -519,13 +550,10 @@ public static class InputManager
 		}
 		return input;
     }
-
-    public static Vector2 getMove(GamePad.Index index)
-    {
-        return GamePad.GetAxis(GamePad.Axis.LeftStick, index);
-    }
-
-	public static Vector2 getMove(Enums.PlayerInput inputToRead)
+    #endregion
+    //==========================================================================================
+    #region Specific Inputs
+    public static Vector2 getMove(Enums.PlayerInput inputToRead)
 	{
 		switch(inputToRead)
 		{
@@ -546,7 +574,7 @@ public static class InputManager
 		return new Vector2 (0, 0);
 	}
 
-	static Vector2 turnWASDIntoVector2 ()
+    static Vector2 turnWASDIntoVector2 ()
 	{
 		Vector2 input = new Vector2 (0.0f, 0.0f);
 		if(Input.GetKey (KeyCode.D))
@@ -569,5 +597,7 @@ public static class InputManager
 			input.x -= 1.0f;
 		}
 		return input;
-	}
+    }
+    #endregion
+    #endregion
 }
