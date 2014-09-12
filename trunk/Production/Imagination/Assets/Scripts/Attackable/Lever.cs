@@ -18,4 +18,14 @@ public class Lever : MonoBehaviour, Attackable
     {
 	
 	}
+
+    public void OnHit(PlayerProjectile proj)
+    {
+
+    }
+
+    public void OnHit(EnemyProjectile proj)
+    {
+
+    }
 }
