@@ -11,7 +11,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	protected const float MAX_FALL_SPEED = -15.0f;
 	protected const float FALL_ACCELERATION = 20.0f;
 	protected const float HELD_FALL_ACCELERATION = 10.0f;
-	private bool m_CurrentlyJumping;
+	protected bool m_CurrentlyJumping;
 
 	protected AcceptInputFrom m_AcceptInputFrom;
 
