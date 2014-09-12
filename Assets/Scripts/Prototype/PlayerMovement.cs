@@ -138,7 +138,7 @@ public class PlayerMovement : MonoBehaviour , Observer
 				{
 					m_VerticalVelocity = 0;
 				}
-				GroundMovement();
+				Movement();
 			}
 		}
 		else
@@ -157,7 +157,7 @@ public class PlayerMovement : MonoBehaviour , Observer
 	/// <summary>
 	/// Basic walking movement
 	/// </summary>
-	public void GroundMovement()
+	public void Movement()
 	{
 		if (!m_CanMove || PlayerInput.Instance.getMovementInput() == Vector2.zero)
 		{
