@@ -16,19 +16,28 @@
          #pragma vertex vert 
          #pragma fragment frag
          
+         #include "UnityCG.cginc"
+         
+         struct vertexData
+		{
+			float4 pos:POSITION0;
+			float4 col:COLOR0;
+		};
+         
          
          //uniforms
          float4 u_Colour;
          
  
-         float4 vert(float4 vertexPosition : POSITION) : SV_POSITION 
+         vertexData vert(vertexData vertexdata)
          {
-            return mul(UNITY_MATRIX_MVP, vertexPosition);
+         	vertexdata.pos = mul(UNITY_MATRIX_MVP, vertexdata.pos);
+            return vertexdata;
          }
- 
-         float4 frag(void) : COLOR
+         
+  		 float4 frag(vertexData vertexdata) : COLOR
          {
-            return u_Colour;
+            return vertexdata.col;
                // the fourth component (alpha) is important: 
                // this is semitransparent green
          }
