@@ -3,8 +3,8 @@ using System.Collections;
 
 public class ButtonPickCharacter : MenuButton 
 {		
-	public Enums.Players PlayerToSet = Enums.Players.PlayerOne;
-	public Enums.Characters CharacterBeingPicked = Enums.Characters.Zoey;
+	public Players PlayerToSet = Players.PlayerOne;
+	public Characters CharacterBeingPicked = Characters.Zoey;
 
 	protected override void start ()
 	{
@@ -12,7 +12,7 @@ public class ButtonPickCharacter : MenuButton
 
 	protected override void update ()
 	{
-		if(PlayerToSet == Enums.Players.PlayerOne)
+		if(PlayerToSet == Players.PlayerOne)
 		{
 			if(CharacterBeingPicked == GameData.Instance.PlayerOneCharacter)
 			{
@@ -23,7 +23,7 @@ public class ButtonPickCharacter : MenuButton
 				ButtonState = ButtonStates.Default;
 			}
 		}
-		else if(PlayerToSet == Enums.Players.PlayerTwo)
+		else if(PlayerToSet == Players.PlayerTwo)
 		{
 			if(CharacterBeingPicked == GameData.Instance.PlayerTwoCharacter)
 			{
@@ -50,11 +50,11 @@ public class ButtonPickCharacter : MenuButton
 
 	public override void use ()
 	{
-		if(PlayerToSet == Enums.Players.PlayerOne)
+		if(PlayerToSet == Players.PlayerOne)
 		{
 			GameData.Instance.PlayerOneCharacter = CharacterBeingPicked;
 		}
-		else if(PlayerToSet == Enums.Players.PlayerTwo)
+		else if(PlayerToSet == Players.PlayerTwo)
 		{
 			GameData.Instance.PlayerTwoCharacter = CharacterBeingPicked;
 		}
