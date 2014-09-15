@@ -76,9 +76,6 @@ public class PlayerMovement : MonoBehaviour {
    
     void Movement()
     {
-        //We are doing a simple move on every update to apply character controller physics
-        Vector3 move = Vector3.zero;
-        m_Controller.Move(move);
 
         //if we do not have any values, no need to continue
         if (InputManager.getMove(m_Accepted.ReadInputFrom) == Vector2.zero)
@@ -86,8 +83,6 @@ public class PlayerMovement : MonoBehaviour {
            return;
          }
         
-        
-
         //First we look at the direction from GetProjection, our forward is now that direction, so we move forward. 
         transform.LookAt(transform.position + GetProjection());
         m_Controller.Move(transform.forward * m_Speed * Time.deltaTime);
