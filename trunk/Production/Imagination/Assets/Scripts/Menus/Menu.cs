@@ -17,7 +17,7 @@ public class Menu : MonoBehaviour
 
 	public GameObject CameraPos;
 
-	public Enums.PlayerInput AcceptInputFrom = Enums.PlayerInput.All;
+	public PlayerInput AcceptInputFrom = PlayerInput.All;
 
 	// Use this for initialization
 	void Start () 
@@ -45,7 +45,7 @@ public class Menu : MonoBehaviour
 		{
 			useButton();
 		}
-		else if (InputManager.getShowHudDown(AcceptInputFrom))
+		else if (InputManager.getShowHudDown())
 		{
 			if(m_LastMenu != null)
 			{

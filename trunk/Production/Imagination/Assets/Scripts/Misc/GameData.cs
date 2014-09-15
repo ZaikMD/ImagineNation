@@ -23,30 +23,30 @@ public class GameData : MonoBehaviour
 	}
 	//================================================================================ 
 
-	Enums.Characters m_PlayerOneCharacter = Enums.Characters.Zoey;
-	public Enums.Characters PlayerOneCharacter
+ 	Characters m_PlayerOneCharacter = Characters.Zoey;
+	public Characters PlayerOneCharacter
 	{
 		get{ return m_PlayerOneCharacter; }
 		set
 		{ 
 			switch(value)
 			{
-			case Enums.Characters.Alex:
+			case Characters.Alex:
 				if (m_PlayerTwoCharacter == value)
 				{
-					m_PlayerTwoCharacter = Enums.Characters.Derek;
+					m_PlayerTwoCharacter = Characters.Derek;
 				}
 				break;
-			case Enums.Characters.Derek:
+			case Characters.Derek:
 				if (m_PlayerTwoCharacter == value)
 				{
-					m_PlayerTwoCharacter = Enums.Characters.Zoey;
+					m_PlayerTwoCharacter = Characters.Zoey;
 				}
 				break;
-			case Enums.Characters.Zoey:
+			case Characters.Zoey:
 				if (m_PlayerTwoCharacter == value)
 				{
-					m_PlayerTwoCharacter = Enums.Characters.Alex;
+					m_PlayerTwoCharacter = Characters.Alex;
 				}
 				break;
 			}
@@ -54,8 +54,8 @@ public class GameData : MonoBehaviour
 		}
 	}
 
-	Enums.Characters m_PlayerTwoCharacter = Enums.Characters.Alex;
-	public Enums.Characters PlayerTwoCharacter
+	Characters m_PlayerTwoCharacter = Characters.Alex;
+	public Characters PlayerTwoCharacter
 	{
 		get{ return m_PlayerTwoCharacter; }
 		set
@@ -68,6 +68,43 @@ public class GameData : MonoBehaviour
 	}
 
 	public bool m_GameIsRunnging = false;
+
+	Levels m_CurrentLevel = Levels.Level_1;
+	Sections m_CurrentSection = Sections.Sections_1;
+	CheckPoints m_CurrentCheckPoint = CheckPoints.CheckPoint_1;
+
+	public Levels CurrentLevel
+	{
+		get {return m_CurrentLevel;}
+		set 
+		{
+			m_CurrentLevel = value;
+			m_CurrentSection = Sections.Sections_1;
+			m_CurrentCheckPoint = CheckPoints.CheckPoint_1;
+		}
+	}
+
+	public Sections CurrentSection
+	{
+		get { return m_CurrentSection;}
+		set
+		{
+			m_CurrentSection = value;
+			m_CurrentCheckPoint = CheckPoints.CheckPoint_1;
+		}
+	}
+
+	public CheckPoints CurrentCheckPoint
+	{
+		get { return m_CurrentCheckPoint; }
+		set 
+		{
+			if(value > m_CurrentCheckPoint)
+			{
+				m_CurrentCheckPoint = value;
+			}
+		}
+	}
 
 	void OnLevelWasLoaded(int level)
 	{
