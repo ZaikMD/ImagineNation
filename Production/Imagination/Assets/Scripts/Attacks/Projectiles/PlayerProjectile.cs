@@ -9,5 +9,13 @@ using System.Collections;
 /// </summary>
 public class PlayerProjectile : BaseProjectile 
 {
-
+	void OnTriggerEnter( Collider obj)
+	{
+		if(obj.gameObject.GetComponent(typeof(Attackable)) as Attackable != null)
+		{
+			Attackable attackable = obj.gameObject.GetComponent(typeof(Attackable)) as Attackable;
+			
+			attackable.OnHit(this);
+		} 
+	}
 }

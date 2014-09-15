@@ -29,22 +29,15 @@ public class BaseProjectile : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		transform.position += transform.forward * m_MoveSpeed * Time.deltaTime;
+		transform.position += transform.forward * m_MoveSpeed * Time.deltaTime; //Move the projectile
 
-		float distance = Vector3.Distance (m_InitialPosition, transform.position);
+		float distance = Vector3.Distance (m_InitialPosition, transform.position); //Get the distanace it's travelled
 
 		if(distance > m_Range)
 		{
-			Destroy(this.gameObject);
+			Destroy(this.gameObject); //Check the range, if it the distance travelled is greater than it's range, destroy it
 		}
 	}
 
-	void OnCollisionEnter( Collision obj)
-	{
-		/*
-		if(obj.gameObject.GetComponents<typeof>Attackable())
-		{
-			//TODO call OnHit() from the gameobject
-		} */
-	}
+
 }
