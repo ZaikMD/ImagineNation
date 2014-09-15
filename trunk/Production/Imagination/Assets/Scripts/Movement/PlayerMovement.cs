@@ -13,6 +13,10 @@
  * NOTE: the AcceptedInputFrom script will need its GamePad set in the unity editor.
  * 
  * 
+ * 
+ * 15/9/2014 - Jason H.
+ * 			Switched simple move to move, to fix a gravity issue
+ * 
  */
 
 using UnityEngine;
@@ -74,7 +78,7 @@ public class PlayerMovement : MonoBehaviour {
     {
         //We are doing a simple move on every update to apply character controller physics
         Vector3 move = Vector3.zero;
-        m_Controller.SimpleMove(move);
+        m_Controller.Move(move);
 
         //if we do not have any values, no need to continue
         if (InputManager.getMove(m_Accepted.ReadInputFrom) == Vector2.zero)
