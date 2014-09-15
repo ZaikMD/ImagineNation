@@ -46,24 +46,26 @@ public class MenuManager : MonoBehaviour
 		GameObject[] menus = GameObject.FindGameObjectsWithTag("Menu");
 		if(menus.Length != 0)
 		{
+			Menu[] Menus;
+			Menus = new Menu[menus.Length];
 			int i = 0;
 			do
 			{
 				//get the menu object
-				menus[i] = (Menu) menus[i].GetComponent(typeof(Menu));//.GetComponentInChildren(typeof(Menu));
-				if(menus[i].gameObject.name.CompareTo("Splash Screen") == 0)
+				Menus[i] = (Menu) menus[i].GetComponent(typeof(Menu));//.GetComponentInChildren(typeof(Menu));
+				if(Menus[i].gameObject.name.CompareTo("Splash Screen") == 0)
 				{
 					//if we found the slash screen set it as the current menu
-					m_CurrentMenu = menus[i];
+					m_CurrentMenu = Menus[i];
 					m_RotatingMenu = ((SplashScreen)m_CurrentMenu).IsRotatingMenu;
 					break;
 				}
-				else if (i == menus.Length - 1)
+				else if (i == Menus.Length - 1)
 				{
 					Debug.LogError("No Splash Screen Found");
 				}
 				i++;
-			}while(i < menus.Length);
+			}while(i < Menus.Length);
 		}
 		else
 		{
