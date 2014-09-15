@@ -81,8 +81,6 @@ public class ZoeMovementWings : BaseMovementAbility {
 	//A function for the specific type of air movement for when Zoe is gliding
 	void GlidingAirMovement()
 	{
-		//m_VerticalVelocity -= Time.deltaTime * GLIDE_FALL_ACCELERATION;
-		
 		m_CharacterController.Move (transform.up * m_VerticalVelocity * Time.deltaTime);
 	}
 
