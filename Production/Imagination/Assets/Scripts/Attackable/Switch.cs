@@ -52,14 +52,19 @@ public class Switch : MonoBehaviour, Attackable
 		m_Timer = m_SaveTimer;
 	}
 
-    public void OnHit(PlayerProjectile proj)
+    public void onHit(PlayerProjectile proj)
     {
 		m_Active = true;
 		Debug.Log (m_Active);
     }
 
-    public void OnHit(EnemyProjectile proj)
+    public void onHit(EnemyProjectile proj)
     {
 		return;
     }
+
+	protected virtual void onUse()
+	{
+
+	}
 }

@@ -15,7 +15,7 @@ public class PlayerProjectile : BaseProjectile
 		{
 			Attackable attackable = obj.gameObject.GetComponent(typeof(Attackable)) as Attackable;
 			
-			attackable.OnHit(this);
+			attackable.onHit(this);
 		} 
 	}
 }
