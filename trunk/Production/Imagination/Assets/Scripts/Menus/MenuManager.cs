@@ -111,7 +111,7 @@ public class MenuManager : MonoBehaviour
 		if(m_CurrentMenu.CameraPos != null)
 		{
 			MainCamera.transform.position = Vector3.Lerp(MainCamera.transform.position, m_CurrentMenu.CameraPos.transform.position, CameraMoveSpeed * Time.deltaTime);
-			MainCamera.transform.rotation = Quaternion.RotateTowards(MainCamera.transform.rotation, m_CurrentMenu.CameraPos.transform.rotation, CameraRotationSpeed * Time.deltaTime);
+			MainCamera.transform.rotation = Quaternion.Lerp(MainCamera.transform.rotation, m_CurrentMenu.CameraPos.transform.rotation, CameraRotationSpeed * Time.deltaTime);
 		}
 		else
 		{
@@ -125,7 +125,7 @@ public class MenuManager : MonoBehaviour
 		if(m_CurrentMenu.CameraPos != null)
 		{
 			//MainCamera.transform.parent.transform.position = Vector3.Lerp(MainCamera.transform.position, m_CurrentMenu.CameraPos.transform.position, CameraMoveSpeed * Time.deltaTime);
-			MainCamera.transform.parent.transform.rotation = Quaternion.RotateTowards(MainCamera.transform.parent.transform.rotation, m_CurrentMenu.CameraPos.transform.rotation, CameraRotationSpeed * Time.deltaTime);
+			MainCamera.transform.parent.transform.rotation = Quaternion.Lerp(MainCamera.transform.parent.transform.rotation, m_CurrentMenu.CameraPos.transform.rotation, CameraRotationSpeed * Time.deltaTime);
 		}
 		else
 		{
