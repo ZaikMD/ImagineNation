@@ -9,20 +9,27 @@ public class Trampoline : MonoBehaviour {
 	Vector3 m_LaunchDirection = Vector3.zero;
 	//Vector3 m_JumpPosition = Vector3.zero;
 
+	float m_VerticalVelocity;
+
+
 	// Use this for initialization
 	void Start () {
 
-		m_TrampolinePosition = gameObject.transform.position;
-		Debug.Log (m_TrampolinePosition);
-		//m_JumpGameObject.transform.position; //gameObject.transform.position;
-		Debug.Log (m_JumpGameObject.transform.position);
+		if (m_JumpGameObject != null)
+		{
+			
+		
+			m_TrampolinePosition = gameObject.transform.position;
+			Debug.Log (m_TrampolinePosition);
+			//m_JumpGameObject.transform.position; //gameObject.transform.position;
+			Debug.Log (m_JumpGameObject.transform.position);
 
-		Vector3 m_LaunchDirection = new Vector3 ((m_JumpGameObject.transform.position.x - m_TrampolinePosition.x), (m_JumpGameObject.transform.position.y - m_TrampolinePosition.y), 
-		                                         (m_JumpGameObject.transform.position.z - m_TrampolinePosition.z));
+			//Vector3 m_LaunchDirection = new Vector3 ((m_JumpGameObject.transform.position.x - m_TrampolinePosition.x), (m_JumpGameObject.transform.position.y - m_TrampolinePosition.y), 
+			//                                         (m_JumpGameObject.transform.position.z - m_TrampolinePosition.z));
 
-		 m_LaunchDirection =  m_JumpGameObject.transform.position - gameObject.transform.position;
-		Debug.Log (m_LaunchDirection);
-	
+			 m_LaunchDirection =  m_JumpGameObject.transform.position - m_TrampolinePosition;
+			Debug.Log (m_LaunchDirection);
+		}
 	}
 	
 	// Update is called once per frame
@@ -35,8 +42,15 @@ public class Trampoline : MonoBehaviour {
 
 	}
 
-	void onTriggerEnter(Collider other)
+	void OnTriggerEnter(Collider other)
 	{
+		if (m_JumpGameObject != null)
+		{
+			if (other.tag == "Player")
+			{
+
+			}
+		}
 
 	}
 }
