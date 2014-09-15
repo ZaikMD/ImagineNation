@@ -9,6 +9,20 @@ public class Enums
 		GamePadOne,
 		GamePadTwo,
 		GamePadThree,
-		GamePadFour
+		GamePadFour,
+		All
+	}
+
+	public enum Characters
+	{
+		Zoey,
+		Derek,
+		Alex
+	}
+
+	public enum Players
+	{
+		PlayerOne,
+		PlayerTwo
 	}
 }

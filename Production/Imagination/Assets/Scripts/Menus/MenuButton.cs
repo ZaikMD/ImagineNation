@@ -17,7 +17,8 @@ public abstract class MenuButton : MonoBehaviour
 	public enum ButtonStates
 	{
 		Default = 0,
-		Highlightled
+		Highlightled,
+		Disabled
 	};
 
 	protected ButtonStates m_ButtonState;
@@ -26,48 +27,72 @@ public abstract class MenuButton : MonoBehaviour
 		get{ return m_ButtonState; }
 		set
 		{ 
-			m_ButtonState = value; 
 			switch(value)
 			{
 			case ButtonStates.Default:
 			{
-				if(Disabled != null)
+				if(m_ButtonState != ButtonStates.Disabled)
 				{
-					Disabled.SetActive(false);
-				}
+					if(Disabled != null)
+					{
+						Disabled.SetActive(false);
+					}
 
-				if(Highlighted != null)
-				{
-					Highlighted.SetActive(false);
-				}
+					if(Highlighted != null)
+					{
+						Highlighted.SetActive(false);
+					}
 
-				if(Default != null)
-				{
-					Default.SetActive(true);
+					if(Default != null)
+					{
+						Default.SetActive(true);
+					}
 				}
-
 				break;
 			}
 			case ButtonStates.Highlightled:
 			{
+				if(m_ButtonState != ButtonStates.Disabled)
+				{
+					if(Default != null)
+					{
+						Default.SetActive(false);
+					}
+				
+					if(Disabled != null)
+					{
+						Disabled.SetActive(false);
+					}
+
+					if(Highlighted != null)
+					{
+						Highlighted.SetActive(true);
+					}
+				}
+				break;
+			}
+
+			case ButtonStates.Disabled:
+			{
+				if(Disabled != null)
+				{
+					Disabled.SetActive(true);
+				}
+				
+				if(Highlighted != null)
+				{
+					Highlighted.SetActive(false);
+				}
+				
 				if(Default != null)
 				{
 					Default.SetActive(false);
 				}
-			
-				if(Disabled != null)
-				{
-					Disabled.SetActive(false);
-				}
-
-				if(Highlighted != null)
-				{
-					Highlighted.SetActive(true);
-				}
-
+				
 				break;
 			}
 			}
+			m_ButtonState = value; 
 		}
 	}
 
@@ -96,6 +121,11 @@ public abstract class MenuButton : MonoBehaviour
 				highlightedState();
 				break;
 			}
+			case ButtonStates.Disabled:
+			{
+				disabledState();
+				break;
+			}
 		}
 		update();
 	}
@@ -109,6 +139,10 @@ public abstract class MenuButton : MonoBehaviour
 	}
 
 	protected virtual void highlightedState()
+	{
+	}
+
+	protected virtual void disabledState()
 	{
 	}
 

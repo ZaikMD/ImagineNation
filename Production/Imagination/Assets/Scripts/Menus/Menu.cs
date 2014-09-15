@@ -17,6 +17,8 @@ public class Menu : MonoBehaviour
 
 	public GameObject CameraPos;
 
+	public Enums.PlayerInput AcceptInputFrom = Enums.PlayerInput.All;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -39,11 +41,11 @@ public class Menu : MonoBehaviour
 			changeSelection();
 		}
 
-		if (InputManager.getJumpDown())
+		if (InputManager.getJumpDown(AcceptInputFrom))
 		{
 			useButton();
 		}
-		else if (InputManager.getShowHudDown())
+		else if (InputManager.getShowHudDown(AcceptInputFrom))
 		{
 			if(m_LastMenu != null)
 			{
@@ -51,6 +53,8 @@ public class Menu : MonoBehaviour
 				m_LastMenu = null;
 			}
 		}
+
+		setSelection(CurrentSelection);
 	}
 
 	protected virtual void useButton()
@@ -60,7 +64,7 @@ public class Menu : MonoBehaviour
 
 	protected virtual void changeSelection()
 	{
-		Vector2 selectionInput = InputManager.getMove();
+		Vector2 selectionInput = InputManager.getMove(AcceptInputFrom);
 		
 		if( selectionInput.x != 0.0f || selectionInput.y != 0.0f)
 		{

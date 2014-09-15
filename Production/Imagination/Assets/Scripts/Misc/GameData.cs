@@ -23,6 +23,50 @@ public class GameData : MonoBehaviour
 	}
 	//================================================================================ 
 
+	Enums.Characters m_PlayerOneCharacter = Enums.Characters.Zoey;
+	public Enums.Characters PlayerOneCharacter
+	{
+		get{ return m_PlayerOneCharacter; }
+		set
+		{ 
+			switch(value)
+			{
+			case Enums.Characters.Alex:
+				if (m_PlayerTwoCharacter == value)
+				{
+					m_PlayerTwoCharacter = Enums.Characters.Derek;
+				}
+				break;
+			case Enums.Characters.Derek:
+				if (m_PlayerTwoCharacter == value)
+				{
+					m_PlayerTwoCharacter = Enums.Characters.Zoey;
+				}
+				break;
+			case Enums.Characters.Zoey:
+				if (m_PlayerTwoCharacter == value)
+				{
+					m_PlayerTwoCharacter = Enums.Characters.Alex;
+				}
+				break;
+			}
+			m_PlayerOneCharacter = value;
+		}
+	}
+
+	Enums.Characters m_PlayerTwoCharacter = Enums.Characters.Alex;
+	public Enums.Characters PlayerTwoCharacter
+	{
+		get{ return m_PlayerTwoCharacter; }
+		set
+		{ 
+			if (m_PlayerOneCharacter != value)
+			{
+				m_PlayerTwoCharacter = value;
+			}
+		}
+	}
+
 	public bool m_GameIsRunnging = false;
 
 	void OnLevelWasLoaded(int level)
