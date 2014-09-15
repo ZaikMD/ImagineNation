@@ -27,7 +27,9 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	protected const float MAX_FALL_SPEED = -15.0f;
 	protected const float FALL_ACCELERATION = 20.0f;
 	protected const float HELD_FALL_ACCELERATION = 10.0f;
+	protected const float GRAVITY = -10.0f;
 	protected bool m_CurrentlyJumping;
+	private bool m_StartRayCasting;
 
 	protected AcceptInputFrom m_AcceptInputFrom;
 
@@ -36,6 +38,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		m_CharacterController = GetComponent<CharacterController> ();
 		m_VerticalVelocity = 0.0f;
 		m_CurrentlyJumping = false;
+		m_StartRayCasting = true;
 
 		m_AcceptInputFrom = gameObject.GetComponent<AcceptInputFrom> ();
 		Debug.Log (m_AcceptInputFrom);
@@ -51,23 +54,43 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			m_CurrentlyJumping = false;
 		}
 
-		//When the player is on the ground
-		//if(GetIsGrounded())
-		if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), 1.0f))
+		//If the player is grounded based on the character controller's
+		//IsGrounded then start raycasting
+		if(GetIsGrounded())
 		{
-			//and the jump input is pressed then set the vertical velocity
-			//and call air movement to move the character
-			if(InputManager.getJumpDown(m_AcceptInputFrom.ReadInputFrom))
-			{
-				Jump();
-				m_CurrentlyJumping = true;
-				AirMovement();
+			m_StartRayCasting = true;
+		}
+
+
+		//If the player should start raycasting
+		if(m_StartRayCasting)
+		{
+			//Raycast downward for a collision with any object. This is essentially a second grounded check
+			//however is avoids using the character controller's built in raycasting
+			if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), 2.0f))
+			{	
+				//If the jump input is pressed then set the vertical velocity,
+				//call air movement to move the character, and stop raycasting
+				if(InputManager.getJumpDown(m_AcceptInputFrom.ReadInputFrom))
+				{
+					Jump();
+					m_CurrentlyJumping = true;
+					AirMovement();
+					m_StartRayCasting = false;
+				}
+				else
+				{
+					//If the character is raycasting, they must be on the ground and if the jump input hasnt been 
+					//pressed then ensure that the vertical velocity is zero.
+					m_VerticalVelocity = 0.0f;
+				}
+				//We need to apply some sort of gravity because if the raycast returns true
+				//and the jump wasnt pressed then we still need to move the character downward.
+				Gravity();
 			}
 			else
 			{
-				//If the character is on the ground and the jump input hasnt been 
-				//pressed then ensure that the vertical velocity is zero.
-				m_VerticalVelocity = 0.0f;
+				AirMovement();
 			}
 		}
 		else
@@ -124,4 +147,10 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	{
 		return m_CharacterController.isGrounded;
 	}
+
+	private void Gravity()
+	{
+		m_CharacterController.Move (transform.up * GRAVITY * Time.deltaTime);
+	}
+	
 }
