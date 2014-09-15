@@ -1,8 +1,8 @@
-﻿Shader "Lighting_MultipleSides" {
+﻿Shader "Cg two-sided per-pixel lighting" {
    Properties {
-      _Color ("Front Material Diffuse Color", Color) = (1,1,1,1) 
-      _SpecColor ("Front Material Specular Color", Color) = (1,1,1,1) 
-      _Shininess ("Front Material Shininess", Float) = 10
+      _Color ("Diffuse Material Color", Color) = (1,1,1,1) 
+      _SpecColor ("Specular Material Color", Color) = (1,1,1,1) 
+      _Shininess ("Shininess", Float) = 10
       _BackColor ("Back Material Diffuse Color", Color) = (1,1,1,1) 
       _BackSpecColor ("Back Material Specular Color", Color) 
          = (1,1,1,1) 
@@ -11,7 +11,7 @@
    SubShader {
       Pass {    
          Tags { "LightMode" = "ForwardBase" } 
-            // pass for ambient light and first light source 
+            // pass for ambient light and first light source
          Cull Back // render only front faces
  
          CGPROGRAM
@@ -37,7 +37,8 @@
          };
          struct vertexOutput {
             float4 pos : SV_POSITION;
-            float4 col : COLOR;
+            float4 posWorld : TEXCOORD0;
+            float3 normalDir : TEXCOORD1;
          };
  
          vertexOutput vert(vertexInput input) 
@@ -49,27 +50,43 @@
                // multiplication with unity_Scale.w is unnecessary 
                // because we normalize transformed vectors
  
-            float3 normalDirection = normalize(mul(float4(input.normal, 0.0), modelMatrixInverse).xyz);
-            float3 viewDirection = normalize((float4(_WorldSpaceCameraPos, 1.0) - mul(modelMatrix, input.vertex))).xyz;
+            output.posWorld = mul(modelMatrix, input.vertex);
+            output.normalDir = normalize(float3(
+               mul(float4(input.normal, 0.0), modelMatrixInverse).xyz));
+            output.pos = mul(UNITY_MATRIX_MVP, input.vertex);
+            return output;
+         }
+ 
+         float4 frag(vertexOutput input) : COLOR
+         {
+            float3 normalDirection = normalize(input.normalDir);
+ 
+            float3 viewDirection = normalize(
+               _WorldSpaceCameraPos - float3(input.posWorld.xyz));
             float3 lightDirection;
             float attenuation;
  
             if (0.0 == _WorldSpaceLightPos0.w) // directional light?
             {
                attenuation = 1.0; // no attenuation
-               lightDirection = normalize(_WorldSpaceLightPos0.xyz);
+               lightDirection = 
+                  normalize(float3(_WorldSpaceLightPos0.xyz));
             } 
             else // point or spot light
             {
-               float3 vertexToLightSource = (_WorldSpaceLightPos0 - mul(modelMatrix, input.vertex).xyz);
+               float3 vertexToLightSource = 
+                  float3(_WorldSpaceLightPos0.xyz - input.posWorld.xyz);
                float distance = length(vertexToLightSource);
                attenuation = 1.0 / distance; // linear attenuation 
                lightDirection = normalize(vertexToLightSource);
             }
  
-            float3 ambientLighting = UNITY_LIGHTMODEL_AMBIENT.xyz * _Color.xyz;
+            float3 ambientLighting = 
+               float3(UNITY_LIGHTMODEL_AMBIENT.xyz) * float3(_Color.xyz);
  
-            float3 diffuseReflection = attenuation * _LightColor0.xyz * _Color.xyz * max(0.0, dot(normalDirection, lightDirection));
+            float3 diffuseReflection = 
+               attenuation * float3(_LightColor0.xyz) * float3(_Color.xyz)
+               * max(0.0, dot(normalDirection, lightDirection));
  
             float3 specularReflection;
             if (dot(normalDirection, lightDirection) < 0.0) 
@@ -80,17 +97,14 @@
             }
             else // light source on the right side
             {
-               specularReflection = attenuation * _LightColor0.xyz * (_SpecColor).xyz * pow(max(0.0, dot(reflect(-lightDirection, normalDirection), viewDirection)), _Shininess);
+               specularReflection = attenuation * float3(_LightColor0.xyz) 
+                  * float3(_SpecColor.xyz) * pow(max(0.0, dot(
+                  reflect(-lightDirection, normalDirection), 
+                  viewDirection)), _Shininess);
             }
  
-            output.col = float4(ambientLighting + diffuseReflection  + specularReflection, 1.0);
-            output.pos = mul(UNITY_MATRIX_MVP, input.vertex);
-            return output;
-         }
- 
-         float4 frag(vertexOutput input) : COLOR
-         {
-            return input.col;
+            return float4(ambientLighting + diffuseReflection 
+               + specularReflection, 1.0);
          }
  
          ENDCG
@@ -111,7 +125,7 @@
          uniform float4 _LightColor0; 
             // color of light source (from "Lighting.cginc")
  
-        // User-specified properties
+         // User-specified properties
          uniform float4 _Color; 
          uniform float4 _SpecColor; 
          uniform float _Shininess;
@@ -125,7 +139,8 @@
          };
          struct vertexOutput {
             float4 pos : SV_POSITION;
-            float4 col : COLOR;
+            float4 posWorld : TEXCOORD0;
+            float3 normalDir : TEXCOORD1;
          };
  
          vertexOutput vert(vertexInput input) 
@@ -137,9 +152,19 @@
                // multiplication with unity_Scale.w is unnecessary 
                // because we normalize transformed vectors
  
-            float3 normalDirection = normalize((
-               mul(float4(input.normal, 0.0), modelMatrixInverse)).xyz);
-            float3 viewDirection = normalize((float4(_WorldSpaceCameraPos, 1.0) - mul(modelMatrix, input.vertex)).xyz);
+            output.posWorld = mul(modelMatrix, input.vertex);
+            output.normalDir = normalize(float3(
+               mul(float4(input.normal, 0.0), modelMatrixInverse).xyz));
+            output.pos = mul(UNITY_MATRIX_MVP, input.vertex);
+            return output;
+         }
+ 
+         float4 frag(vertexOutput input) : COLOR
+         {
+            float3 normalDirection = normalize(input.normalDir);
+ 
+            float3 viewDirection = normalize(
+               _WorldSpaceCameraPos - float3(input.posWorld.xyz));
             float3 lightDirection;
             float attenuation;
  
@@ -147,18 +172,20 @@
             {
                attenuation = 1.0; // no attenuation
                lightDirection = 
-                  normalize((_WorldSpaceLightPos0).xyz);
+                  normalize(float3(_WorldSpaceLightPos0.xyz));
             } 
             else // point or spot light
             {
-               float3 vertexToLightSource = (_WorldSpaceLightPos0 - mul(modelMatrix, input.vertex)).xyz;
+               float3 vertexToLightSource = 
+                  float3(_WorldSpaceLightPos0.xyz - input.posWorld.xyz);
                float distance = length(vertexToLightSource);
                attenuation = 1.0 / distance; // linear attenuation 
                lightDirection = normalize(vertexToLightSource);
             }
  
             float3 diffuseReflection = 
-               attenuation * (_LightColor0).xyz * (_Color).xyz * max(0.0, dot(normalDirection, lightDirection));
+               attenuation * float3(_LightColor0.xyz) * float3(_Color.xyz)
+               * max(0.0, dot(normalDirection, lightDirection));
  
             float3 specularReflection;
             if (dot(normalDirection, lightDirection) < 0.0) 
@@ -169,19 +196,15 @@
             }
             else // light source on the right side
             {
-               specularReflection = attenuation * (_LightColor0).xyz * (_SpecColor).xyz * pow(max(0.0, dot( reflect(-lightDirection, normalDirection), viewDirection)), _Shininess);
+               specularReflection = attenuation * float3(_LightColor0.xyz) 
+                  * float3(_SpecColor.xyz) * pow(max(0.0, dot(
+                  reflect(-lightDirection, normalDirection), 
+                  viewDirection)), _Shininess);
             }
  
-            output.col = float4(diffuseReflection 
+            return float4(diffuseReflection 
                + specularReflection, 1.0);
-               // no ambient contribution in this pass
-            output.pos = mul(UNITY_MATRIX_MVP, input.vertex);
-            return output;
-         }
- 
-         float4 frag(vertexOutput input) : COLOR
-         {
-            return input.col;
+               // no ambient lighting in this pass
          }
  
          ENDCG
@@ -189,8 +212,8 @@
  
       Pass {    
          Tags { "LightMode" = "ForwardBase" } 
-            // pass for ambient light and first light source 
-         Cull Front// render only back faces
+            // pass for ambient light and first light source
+         Cull Front // render only back faces
  
          CGPROGRAM
  
@@ -215,7 +238,8 @@
          };
          struct vertexOutput {
             float4 pos : SV_POSITION;
-            float4 col : COLOR;
+            float4 posWorld : TEXCOORD0;
+            float3 normalDir : TEXCOORD1;
          };
  
          vertexOutput vert(vertexInput input) 
@@ -227,10 +251,20 @@
                // multiplication with unity_Scale.w is unnecessary 
                // because we normalize transformed vectors
  
-            float3 normalDirection = normalize((
-               mul(float4(-input.normal, 0.0), modelMatrixInverse)).xyz);
+            output.posWorld = mul(modelMatrix, input.vertex);
+            output.normalDir = normalize(float3(
+               mul(float4(-input.normal, 0.0), modelMatrixInverse).xyz));
                // negate input.normal for the back faces
-            float3 viewDirection = normalize((float4(_WorldSpaceCameraPos, 1.0) - mul(modelMatrix, input.vertex)).xyz);
+            output.pos = mul(UNITY_MATRIX_MVP, input.vertex);
+            return output;
+         }
+ 
+         float4 frag(vertexOutput input) : COLOR
+         {
+            float3 normalDirection = normalize(input.normalDir.xyz);
+ 
+            float3 viewDirection = normalize(
+               _WorldSpaceCameraPos - float3(input.posWorld.xyz));
             float3 lightDirection;
             float attenuation;
  
@@ -238,20 +272,22 @@
             {
                attenuation = 1.0; // no attenuation
                lightDirection = 
-                  normalize((_WorldSpaceLightPos0).xyz);
+                  normalize(float3(_WorldSpaceLightPos0.xyz));
             } 
             else // point or spot light
             {
-               float3 vertexToLightSource = (_WorldSpaceLightPos0 - mul(modelMatrix, input.vertex)).xyz;
+               float3 vertexToLightSource = 
+                  float3(_WorldSpaceLightPos0.xyz - input.posWorld.xyz);
                float distance = length(vertexToLightSource);
                attenuation = 1.0 / distance; // linear attenuation 
                lightDirection = normalize(vertexToLightSource);
             }
  
-            float3 ambientLighting = (UNITY_LIGHTMODEL_AMBIENT).xyz * (_BackColor).xyz;
+            float3 ambientLighting = 
+               float3(UNITY_LIGHTMODEL_AMBIENT.xyz) * float3(_BackColor.xyz);
  
             float3 diffuseReflection = 
-               attenuation * (_LightColor0).xyz * (_BackColor).xyz
+               attenuation * float3(_LightColor0.xyz) * float3(_BackColor.xyz)
                * max(0.0, dot(normalDirection, lightDirection));
  
             float3 specularReflection;
@@ -263,18 +299,14 @@
             }
             else // light source on the right side
             {
-               specularReflection = attenuation * (_LightColor0).xyz * (_BackSpecColor).xyz * pow(max(0.0, dot( reflect(-lightDirection, normalDirection), viewDirection)), _BackShininess);
+               specularReflection = attenuation * float3(_LightColor0.xyz) 
+                  * float3(_BackSpecColor.xyz) * pow(max(0.0, dot(
+                  reflect(-lightDirection, normalDirection), 
+                  viewDirection)), _BackShininess);
             }
  
-            output.col = float4(ambientLighting + diffuseReflection 
+            return float4(ambientLighting + diffuseReflection 
                + specularReflection, 1.0);
-            output.pos = mul(UNITY_MATRIX_MVP, input.vertex);
-            return output;
-         }
- 
-         float4 frag(vertexOutput input) : COLOR
-         {
-            return input.col;
          }
  
          ENDCG
@@ -295,7 +327,7 @@
          uniform float4 _LightColor0; 
             // color of light source (from "Lighting.cginc")
  
-        // User-specified properties
+         // User-specified properties
          uniform float4 _Color; 
          uniform float4 _SpecColor; 
          uniform float _Shininess;
@@ -309,7 +341,8 @@
          };
          struct vertexOutput {
             float4 pos : SV_POSITION;
-            float4 col : COLOR;
+            float4 posWorld : TEXCOORD0;
+            float3 normalDir : TEXCOORD1;
          };
  
          vertexOutput vert(vertexInput input) 
@@ -321,10 +354,20 @@
                // multiplication with unity_Scale.w is unnecessary 
                // because we normalize transformed vectors
  
-            float3 normalDirection = normalize((
-               mul(float4(-input.normal, 0.0), modelMatrixInverse)).xyz);
-              // negate input.normal for the back faces
-            float3 viewDirection = normalize((float4(_WorldSpaceCameraPos, 1.0)  - mul(modelMatrix, input.vertex)).xyz);
+            output.posWorld = mul(modelMatrix, input.vertex);
+            output.normalDir = normalize(float3(
+               mul(float4(-input.normal, 0.0), modelMatrixInverse).xyz));
+               // negate input.normal for the back faces
+            output.pos = mul(UNITY_MATRIX_MVP, input.vertex);
+            return output;
+         }
+ 
+         float4 frag(vertexOutput input) : COLOR
+         {
+            float3 normalDirection = normalize(input.normalDir);
+ 
+            float3 viewDirection = normalize(
+               _WorldSpaceCameraPos - float3(input.posWorld.xyz));
             float3 lightDirection;
             float attenuation;
  
@@ -332,17 +375,20 @@
             {
                attenuation = 1.0; // no attenuation
                lightDirection = 
-                  normalize((_WorldSpaceLightPos0).xyz);
+                  normalize(float3(_WorldSpaceLightPos0.xyz));
             } 
             else // point or spot light
             {
-               float3 vertexToLightSource = (_WorldSpaceLightPos0 - mul(modelMatrix, input.vertex)).xyz;
+               float3 vertexToLightSource = 
+                  float3(_WorldSpaceLightPos0.xyz - input.posWorld.xyz);
                float distance = length(vertexToLightSource);
                attenuation = 1.0 / distance; // linear attenuation 
                lightDirection = normalize(vertexToLightSource);
             }
  
-            float3 diffuseReflection = attenuation * (_LightColor0).xyz * (_BackColor).xyz * max(0.0, dot(normalDirection, lightDirection));
+            float3 diffuseReflection = 
+               attenuation * float3(_LightColor0.xyz) * float3(_BackColor.xyz)
+               * max(0.0, dot(normalDirection, lightDirection));
  
             float3 specularReflection;
             if (dot(normalDirection, lightDirection) < 0.0) 
@@ -353,22 +399,15 @@
             }
             else // light source on the right side
             {
-               specularReflection = attenuation * (_LightColor0).xyz 
-                  * (_BackSpecColor).xyz * pow(max(0.0, dot(
+               specularReflection = attenuation * float3(_LightColor0.xyz) 
+                  * float3(_BackSpecColor.xyz) * pow(max(0.0, dot(
                   reflect(-lightDirection, normalDirection), 
                   viewDirection)), _BackShininess);
             }
  
-            output.col = float4(diffuseReflection 
+            return float4(diffuseReflection 
                + specularReflection, 1.0);
-               // no ambient contribution in this pass
-            output.pos = mul(UNITY_MATRIX_MVP, input.vertex);
-            return output;
-         }
- 
-         float4 frag(vertexOutput input) : COLOR
-         {
-            return input.col;
+               // no ambient lighting in this pass
          }
  
          ENDCG
