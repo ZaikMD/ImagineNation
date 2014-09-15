@@ -49,6 +49,7 @@
             float3 normalDirection = normalize(input.normal);
             float3 viewDirection = normalize(input.viewDir);
             
+            //Faces that are away from the camera will be more apoque
             float newOpacity = min(1.0, _Color.a / abs(dot(viewDirection, normalDirection)));
             return float4(_Color.xyz, newOpacity);
          }

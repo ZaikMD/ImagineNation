@@ -50,7 +50,7 @@
             else // point or spot light
             {
                lightDirection = normalize(_WorldSpaceLightPos0 - mul(modelMatrix, input.vertex).xyz);
-               attenuation = 1.0 / length(lightDirection);
+               attenuation = 1.0 / length(lightDirection * lightDirection);
             }
  
  
@@ -115,7 +115,7 @@
             else // point or spot light
             {
                lightDirection = normalize(_WorldSpaceLightPos0 - mul(modelMatrix, input.vertex).xyz);
-               attenuation = 1.0 / length(lightDirection);
+               attenuation = 1.0 / length(lightDirection * lightDirection);
             }
  
             float3 diffuseReflection = (_LightColor0.xyz * attenuation) * _Color.xyz * max(0.0, dot(normalDirection, lightDirection));
