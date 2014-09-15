@@ -3,8 +3,8 @@ using System.Collections;
 
 public class ButtonPickCharacter : MenuButton 
 {		
-	//public Characters CharacterBeingPicked;
-	public string SceneToLoad = "";
+	public Enums.Players PlayerToSet = Enums.Players.PlayerOne;
+	public Enums.Characters CharacterBeingPicked = Enums.Characters.Zoey;
 
 	protected override void start ()
 	{
@@ -12,30 +12,51 @@ public class ButtonPickCharacter : MenuButton
 
 	protected override void update ()
 	{
-
+		if(PlayerToSet == Enums.Players.PlayerOne)
+		{
+			if(CharacterBeingPicked == GameData.Instance.PlayerOneCharacter)
+			{
+				ButtonState = ButtonStates.Disabled;
+			}
+			else
+			{
+				ButtonState = ButtonStates.Default;
+			}
+		}
+		else if(PlayerToSet == Enums.Players.PlayerTwo)
+		{
+			if(CharacterBeingPicked == GameData.Instance.PlayerTwoCharacter)
+			{
+				ButtonState = ButtonStates.Disabled;
+			}
+			else
+			{
+				ButtonState = ButtonStates.Default;
+			}
+		}
 	}
 
 	protected override void highlightedState ()
 	{
-
 	}
 
 	protected override void defaultState ()
 	{
+	}
 
+	protected override void disabledState()
+	{
 	}
 
 	public override void use ()
 	{
-		//GameData.Instance.SelectedCharacter = CharacterBeingPicked;
-
-		if(SceneToLoad != "")
+		if(PlayerToSet == Enums.Players.PlayerOne)
 		{
-			Application.LoadLevel(SceneToLoad);
+			GameData.Instance.PlayerOneCharacter = CharacterBeingPicked;
 		}
-		else
+		else if(PlayerToSet == Enums.Players.PlayerTwo)
 		{
-			Debug.Log("No Scene Set to Load");
+			GameData.Instance.PlayerTwoCharacter = CharacterBeingPicked;
 		}
 	}
 }
