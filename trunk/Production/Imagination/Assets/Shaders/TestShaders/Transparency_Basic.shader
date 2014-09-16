@@ -1,4 +1,4 @@
-﻿Shader "Transparency_Basic" {
+﻿Shader "Transparency/Basic" {
    Properties {
       u_Colour ("Colour and Alpha of the material", Color) = (0.5, 0.0, 0.0, 1.0)
    }

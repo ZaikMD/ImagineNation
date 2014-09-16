@@ -1,4 +1,4 @@
-﻿Shader "Messing with Sillouettes" {
+﻿Shader "Transparency/FuzzySillouette" {
    Properties {
       _Color ("Color", Color) = (1, 1, 1, 0.5) 
          // user-specified RGBA color including opacity
@@ -54,7 +54,7 @@
             float3 viewDirection = normalize(input.viewDir);
  
  			//Faces that are away from the camera will be more transparent
-            float newOpacity = min(1.0, (abs(dot(viewDirection, normalDirection) * 0.75f)) / _Color.a);
+            float newOpacity = min(1.0, (abs(dot(viewDirection, normalDirection) * 0.5f)) / _Color.a);
             return float4(_Color.xyz, newOpacity);
          }
  
@@ -110,7 +110,7 @@
             float3 viewDirection = normalize(input.viewDir);
  
  			//Faces that are away from the camera will be more transparent
-            float newOpacity = min(1.0, (abs(dot(viewDirection, normalDirection) * 0.75f)) / _Color.a);
+            float newOpacity = min(1.0, (abs(dot(viewDirection, normalDirection) * 0.5f)) / _Color.a);
             return float4(_Color.xyz, newOpacity);
          }
  
