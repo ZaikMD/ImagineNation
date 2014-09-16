@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour {
         //We Call the Movment function.
         Movement();
 
-    
+    	
 
         //Animation Stuff
         PlayAnimation();
@@ -70,7 +70,7 @@ public class PlayerMovement : MonoBehaviour {
         projection += m_Camera.right * InputManager.getMove(m_Accepted.ReadInputFrom).x;
 
         projection.y = 0;
-        return projection.normalized;        
+        return projection.normalized;
     }
 
    
@@ -86,8 +86,9 @@ public class PlayerMovement : MonoBehaviour {
         //First we look at the direction from GetProjection, our forward is now that direction, so we move forward. 
         transform.LookAt(transform.position + GetProjection());
         m_Controller.Move(transform.forward * m_Speed * Time.deltaTime);
-       
     }
+
+
 
     void PlayAnimation()
     {
