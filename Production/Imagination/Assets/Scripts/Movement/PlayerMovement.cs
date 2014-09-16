@@ -37,6 +37,7 @@ public class PlayerMovement : MonoBehaviour {
     private Transform m_Camera;
     private AcceptInputFrom m_Accepted;
     private Animation m_Anim;
+    private SFXManager m_SFX;
 
     //Set Speed in unity editor
     public float m_Speed;
@@ -49,6 +50,7 @@ public class PlayerMovement : MonoBehaviour {
         m_Camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
         m_Accepted = GetComponent<AcceptInputFrom>();
         m_Anim = GetComponent<Animation>();
+        m_SFX = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SFXManager>();
 	}
 	
 	// Update is called once per frame
@@ -95,6 +97,7 @@ public class PlayerMovement : MonoBehaviour {
         if (InputManager.getMove(m_Accepted.ReadInputFrom) == Vector2.zero)
         {
             m_Anim.Play("Idle");
+            m_SFX.playSound(this.gameObject, Sounds.Jump);
             return;
         }
 
@@ -105,11 +108,12 @@ public class PlayerMovement : MonoBehaviour {
         {
 
             m_Anim.Play("Walk");
+            m_SFX.playSound(this.gameObject, Sounds.Walk);
             return;
         }
 
         m_Anim.Play("Run");
-       
+        m_SFX.playSound(this.gameObject, Sounds.Run);
     
     }
 

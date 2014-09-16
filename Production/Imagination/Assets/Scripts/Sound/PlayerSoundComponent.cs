@@ -18,4 +18,13 @@ public class PlayerSoundComponent : MonoBehaviour
     {
 	
 	}
+
+    public void PlayJumpSound()
+    { 
+    
+        
+    
+    }
+
+
 }
