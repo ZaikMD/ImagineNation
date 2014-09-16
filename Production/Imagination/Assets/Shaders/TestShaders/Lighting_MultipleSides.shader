@@ -1,4 +1,4 @@
-﻿Shader "Cg two-sided per-pixel lighting" {
+﻿Shader "Lighting/Multiple_Sides" {
    Properties {
       _Color ("Diffuse Material Color", Color) = (1,1,1,1) 
       _SpecColor ("Specular Material Color", Color) = (1,1,1,1) 

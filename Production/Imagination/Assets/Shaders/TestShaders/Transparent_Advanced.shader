@@ -1,4 +1,4 @@
-﻿Shader "Silhouette enhancement" {
+﻿Shader "Transparency/Silhouettes" {
    Properties {
       _Color ("Color", Color) = (1, 1, 1, 0.5) 
          // user-specified RGBA color including opacity

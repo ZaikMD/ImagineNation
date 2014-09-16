@@ -1,4 +1,4 @@
-﻿Shader "Cg per-vertex diffuse lighting" {
+﻿Shader "Lighting/Start" {
    Properties {
       _Color ("Diffuse Material Color", Color) = (1,1,1,1) 
    }

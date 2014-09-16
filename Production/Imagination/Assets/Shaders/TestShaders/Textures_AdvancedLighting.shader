@@ -1,11 +1,12 @@
-﻿Shader "Lighting_SmoothSpecularHighlights" {
+﻿Shader "Textured/Advanced_Lighting" {
    Properties {
+      _MainTex ("RGBA Texture For Material Color", 2D) = "white" {} 
       _Color ("Diffuse Material Color", Color) = (1,1,1,1) 
       _SpecColor ("Specular Material Color", Color) = (1,1,1,1) 
       _Shininess ("Shininess", Float) = 10
    }
    SubShader {
-      Pass {	
+      Pass {    
          Tags { "LightMode" = "ForwardBase" } 
             // pass for ambient light and first light source
  
@@ -19,6 +20,7 @@
             // color of light source (from "Lighting.cginc")
  
          // User-specified properties
+         uniform sampler2D _MainTex;    
          uniform float4 _Color; 
          uniform float4 _SpecColor; 
          uniform float _Shininess;
@@ -26,12 +28,14 @@
          struct vertexInput {
             float4 vertex : POSITION;
             float3 normal : NORMAL;
-         };
+            float4 texcoord : TEXCOORD0;
+        };
          struct vertexOutput {
             float4 pos : SV_POSITION;
             float4 posWorld : TEXCOORD0;
             float3 normalDir : TEXCOORD1;
-         };
+            float4 tex : TEXCOORD2;
+        };
  
          vertexOutput vert(vertexInput input) 
          {
@@ -43,8 +47,9 @@
                // because we normalize transformed vectors
  
             output.posWorld = mul(modelMatrix, input.vertex);
-            output.normalDir = normalize(float3(
-               mul(float4(input.normal, 0.0), modelMatrixInverse).xyz));
+            output.normalDir = normalize(
+               mul(float4(input.normal, 0.0), modelMatrixInverse).xyz);
+            output.tex = input.texcoord;
             output.pos = mul(UNITY_MATRIX_MVP, input.vertex);
             return output;
          }
@@ -57,6 +62,8 @@
                _WorldSpaceCameraPos - float3(input.posWorld.xyz));
             float3 lightDirection;
             float attenuation;
+ 
+            float4 textureColor = tex2D(_MainTex, float2(input.tex.xy));
  
             if (0.0 == _WorldSpaceLightPos0.w) // directional light?
             {
@@ -73,10 +80,10 @@
                lightDirection = normalize(vertexToLightSource);
             }
  
-            float3 ambientLighting = 
+            float3 ambientLighting = float3(textureColor.xyz) * 
                float3(UNITY_LIGHTMODEL_AMBIENT.xyz) * float3(_Color.xyz);
  
-            float3 diffuseReflection = 
+            float3 diffuseReflection = float3(textureColor.xyz) * 
                attenuation * float3(_LightColor0.xyz) * float3(_Color.xyz)
                * max(0.0, dot(normalDirection, lightDirection));
  
@@ -90,7 +97,9 @@
             else // light source on the right side
             {
                specularReflection = attenuation * float3(_LightColor0.xyz) 
-                  * float3(_SpecColor.xyz) * pow(max(0.0, dot(
+                  * float3(_SpecColor.xyz) * (1.0 - textureColor.a) 
+                     // for usual gloss maps: "... * textureColor.a" 
+                  * pow(max(0.0, dot(
                   reflect(-lightDirection, normalDirection), 
                   viewDirection)), _Shininess);
             }
@@ -102,12 +111,12 @@
          ENDCG
       }
  
-      Pass {	
+      Pass {    
          Tags { "LightMode" = "ForwardAdd" } 
             // pass for additional light sources
          Blend One One // additive blending 
  
-         CGPROGRAM
+          CGPROGRAM
  
          #pragma vertex vert  
          #pragma fragment frag 
@@ -117,19 +126,22 @@
             // color of light source (from "Lighting.cginc")
  
          // User-specified properties
+         uniform sampler2D _MainTex;    
          uniform float4 _Color; 
          uniform float4 _SpecColor; 
          uniform float _Shininess;
  
-         struct vertexInput {
+        struct vertexInput {
             float4 vertex : POSITION;
             float3 normal : NORMAL;
-         };
+            float4 texcoord : TEXCOORD0;
+        };
          struct vertexOutput {
             float4 pos : SV_POSITION;
             float4 posWorld : TEXCOORD0;
             float3 normalDir : TEXCOORD1;
-         };
+            float4 tex : TEXCOORD2;
+        };
  
          vertexOutput vert(vertexInput input) 
          {
@@ -141,8 +153,9 @@
                // because we normalize transformed vectors
  
             output.posWorld = mul(modelMatrix, input.vertex);
-            output.normalDir = normalize(float3(
-               mul(float4(input.normal, 0.0), modelMatrixInverse).xyz));
+            output.normalDir = normalize(
+               mul(float4(input.normal, 0.0), modelMatrixInverse).xyz);
+            output.tex = input.texcoord;
             output.pos = mul(UNITY_MATRIX_MVP, input.vertex);
             return output;
          }
@@ -155,6 +168,8 @@
                _WorldSpaceCameraPos - float3(input.posWorld.xyz));
             float3 lightDirection;
             float attenuation;
+ 
+            float4 textureColor = tex2D(_MainTex, float2(input.tex.xy));
  
             if (0.0 == _WorldSpaceLightPos0.w) // directional light?
             {
@@ -171,7 +186,7 @@
                lightDirection = normalize(vertexToLightSource);
             }
  
-            float3 diffuseReflection = 
+            float3 diffuseReflection = float3(textureColor.xyz) *
                attenuation * float3(_LightColor0.xyz) * float3(_Color.xyz)
                * max(0.0, dot(normalDirection, lightDirection));
  
@@ -185,7 +200,9 @@
             else // light source on the right side
             {
                specularReflection = attenuation * float3(_LightColor0.xyz) 
-                  * float3(_SpecColor.xyz) * pow(max(0.0, dot(
+                  * float3(_SpecColor.xyz) * (1.0 - textureColor.a) 
+                     // for usual gloss maps: "... * textureColor.a" 
+                  * pow(max(0.0, dot(
                   reflect(-lightDirection, normalDirection), 
                   viewDirection)), _Shininess);
             }

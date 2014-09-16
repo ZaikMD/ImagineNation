@@ -1,4 +1,4 @@
-﻿Shader "Cg per-pixel lighting with vertex lights" {
+﻿Shader "Lighting/Multiple_Lights" {
    Properties {
       _Color ("Diffuse Material Color", Color) = (1,1,1,1) 
       _SpecColor ("Specular Material Color", Color) = (1,1,1,1) 
