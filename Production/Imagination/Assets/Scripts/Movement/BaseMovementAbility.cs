@@ -55,6 +55,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	protected void Update () 
 	{
 		Movement ();
+        PlayAnimation();
 
 		//If at any point the jump button is released the player is
 		//no longer currently jumping
@@ -185,5 +186,28 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	{
 		m_CharacterController.Move (transform.up * GRAVITY * Time.deltaTime);
 	}
+
+    void PlayAnimation()
+    {
+        if (InputManager.getMove(m_AcceptInputFrom.ReadInputFrom) == Vector2.zero)
+        {
+            m_Anim.Play("Idle");
+            return;
+        }
+
+        if (InputManager.getMove(m_AcceptInputFrom.ReadInputFrom).x < 0.3f
+            && InputManager.getMove(m_AcceptInputFrom.ReadInputFrom).x > -0.3f
+            && InputManager.getMove(m_AcceptInputFrom.ReadInputFrom).y < 0.3f
+            && InputManager.getMove(m_AcceptInputFrom.ReadInputFrom).y > -0.3f)
+        {
+
+            m_Anim.Play("Walk");
+            return;
+        }
+
+        m_Anim.Play("Run");
+
+
+    }
 	
 }

@@ -131,6 +131,8 @@ ModelImporter:
     400122: MarineRDigit42
     400124: MarineRDigit43
     400126: MarineRToe
+    2300000: Character_Generic
+    3300000: Character_Generic
     4300000: Character_Generic
     7400000: Walk
     7400002: Run
