@@ -133,7 +133,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		m_CharacterController.Move(transform.forward * m_Speed * Time.deltaTime);
 	}
 
-	//This function get a vector3 for the direction we should be facing based of off the camera.
+	//This function gets a vector3 for the direction we should be facing based of off the camera.
 	Vector3 GetProjection()
 	{
 		Vector3 projection = m_Camera.forward * InputManager.getMove(m_AcceptInputFrom.ReadInputFrom).y;
