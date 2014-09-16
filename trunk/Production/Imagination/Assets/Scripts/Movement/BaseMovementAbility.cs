@@ -25,6 +25,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	public float m_Speed;
 	private Transform m_Camera;
 	private Animation m_Anim;
+    private SFXManager m_SFX;
 
 	protected float m_VerticalVelocity;
 	protected const float JUMP_SPEED = 15.0f;
@@ -42,6 +43,8 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		m_CharacterController = GetComponent<CharacterController> ();
 		m_Camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
 		m_Anim = GetComponent<Animation>();
+
+        m_SFX = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SFXManager>();
 
 		m_AcceptInputFrom = gameObject.GetComponent<AcceptInputFrom> ();
 
@@ -192,7 +195,11 @@ public abstract class BaseMovementAbility : MonoBehaviour
         if (InputManager.getMove(m_AcceptInputFrom.ReadInputFrom) == Vector2.zero)
         {
             m_Anim.Play("Idle");
-            return;
+            if (m_SFX != null)
+            {
+                m_SFX.playSound(this.gameObject, Sounds.Jump);
+            }
+                return;
         }
 
         if (InputManager.getMove(m_AcceptInputFrom.ReadInputFrom).x < 0.3f
@@ -202,12 +209,18 @@ public abstract class BaseMovementAbility : MonoBehaviour
         {
 
             m_Anim.Play("Walk");
-            return;
+            if (m_SFX != null)
+            {
+                m_SFX.playSound(this.gameObject, Sounds.Walk);
+            }
+                return;
         }
 
         m_Anim.Play("Run");
-
-
+        if (m_SFX != null)
+        {
+            m_SFX.playSound(this.gameObject, Sounds.Run);
+        }
     }
 	
 }

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//Created For testing purposes - Kole Tackney
+
 public class CameraFollow : MonoBehaviour {
 
     public Transform m_Player;
