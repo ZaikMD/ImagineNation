@@ -67,6 +67,7 @@ public class ZoeMovementWings : BaseMovementAbility {
 		//When gliding is true and the button is being held call the overriden heldAirMovement
 		if(m_IsGliding && InputManager.getJump(m_AcceptInputFrom.ReadInputFrom) && m_Timer < MAX_GLIDE_TIME)
 		{
+			base.Movement();
 			m_Timer += Time.deltaTime;
 			m_VerticalVelocity = GLIDE_MAX_FALL_SPEED;
 			GlidingAirMovement();

@@ -1,5 +1,5 @@
 ﻿//
-//BaseMovementAbility
+//BaseMovement
 //
 //Responsible for basic vertical movement and it is to be 
 //inherited by the specific movement abilities for each character
@@ -13,7 +13,7 @@
 using UnityEngine;
 using System.Collections;
 
-//BaseMovementAbility will require a character controller in order to
+//BaseMovement will require a character controller in order to
 //move the player accordingly, and it will require AcceptInputFrom, a class
 //that will determine from where the input is being recieved, either keyboard
 //or one of the four possible gamepads.
@@ -22,6 +22,10 @@ using System.Collections;
 public abstract class BaseMovementAbility : MonoBehaviour 
 {
 	public CharacterController m_CharacterController;
+	public float m_Speed;
+	private Transform m_Camera;
+	private Animation m_Anim;
+
 	protected float m_VerticalVelocity;
 	protected const float JUMP_SPEED = 15.0f;
 	protected const float MAX_FALL_SPEED = -15.0f;
@@ -36,17 +40,22 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	protected void Start () 
 	{
 		m_CharacterController = GetComponent<CharacterController> ();
+		m_Camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
+		m_Anim = GetComponent<Animation>();
+
+		m_AcceptInputFrom = gameObject.GetComponent<AcceptInputFrom> ();
+
 		m_VerticalVelocity = 0.0f;
 		m_CurrentlyJumping = false;
 		m_StartRayCasting = true;
 
-		m_AcceptInputFrom = gameObject.GetComponent<AcceptInputFrom> ();
-		Debug.Log (m_AcceptInputFrom);
 	}
 
 	//The default update all jumpining characters should use
 	protected void Update () 
 	{
+		Movement ();
+
 		//If at any point the jump button is released the player is
 		//no longer currently jumping
 		if(InputManager.getJumpUp(m_AcceptInputFrom.ReadInputFrom))
@@ -107,6 +116,30 @@ public abstract class BaseMovementAbility : MonoBehaviour
 				AirMovement();
 			}
 		}
+	}
+
+	protected void Movement()
+	{
+		
+		//if we do not have any values, no need to continue
+		if (InputManager.getMove(m_AcceptInputFrom.ReadInputFrom) == Vector2.zero)
+		{
+			return;
+		}
+		
+		//First we look at the direction from GetProjection, our forward is now that direction, so we move forward. 
+		transform.LookAt(transform.position + GetProjection());
+		m_CharacterController.Move(transform.forward * m_Speed * Time.deltaTime);
+	}
+
+	//This function get a vector3 for the direction we should be facing based of off the camera.
+	Vector3 GetProjection()
+	{
+		Vector3 projection = m_Camera.forward * InputManager.getMove(m_AcceptInputFrom.ReadInputFrom).y;
+		projection += m_Camera.right * InputManager.getMove(m_AcceptInputFrom.ReadInputFrom).x;
+		
+		projection.y = 0;
+		return projection.normalized;
 	}
 
 	//Simply setting the vertical velocity to a pre-determined speed
