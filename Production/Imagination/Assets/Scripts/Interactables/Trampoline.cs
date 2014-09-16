@@ -7,9 +7,17 @@ public class Trampoline : MonoBehaviour {
 
 	Vector3 m_TrampolinePosition = Vector3.zero;
 	Vector3 m_LaunchDirection = Vector3.zero;
-	//Vector3 m_JumpPosition = Vector3.zero;
 
-	float m_VerticalVelocity;
+	float m_TrampolineJump = 5.0f;
+	float m_VerticalVelocity = 15.0f;
+
+	protected const float MAX_FALL_SPEED = -15.0f;
+	protected const float FALL_ACCELERATION = 20.0f;
+
+	bool m_TrampolineJumpNow = false;
+
+	CharacterController m_PlayerController;
+
 
 
 	// Use this for initialization
@@ -37,10 +45,19 @@ public class Trampoline : MonoBehaviour {
 	
 		if (m_JumpGameObject != null)
 		{
-
+			if (m_TrampolineJumpNow == true)
+			{
+				Launch();
+			}
 		}
 
+
+		//	m_TrampolineJumpNow = false;
+
 	}
+
+
+
 
 	void OnTriggerEnter(Collider other)
 	{
@@ -48,9 +65,35 @@ public class Trampoline : MonoBehaviour {
 		{
 			if (other.tag == "Player")
 			{
+				Debug.Log("JUMP");
+				m_TrampolineJumpNow = true;
+				m_PlayerController = (CharacterController)other.GetComponent(typeof (CharacterController));
+
+
+				//Launch();
+
+
+				//other.transform.position = (m_JumpGameObject.transform.position);
 
 			}
+
+
 		}
 
 	}
+
+	void Launch ()
+	{
+		if(m_VerticalVelocity > MAX_FALL_SPEED)
+		{
+			
+			m_VerticalVelocity -= Time.deltaTime * FALL_ACCELERATION;
+		}
+
+		m_PlayerController.Move (m_LaunchDirection * (m_VerticalVelocity * m_TrampolineJump) * Time.deltaTime);
+
+
+	}
+	
+
 }
