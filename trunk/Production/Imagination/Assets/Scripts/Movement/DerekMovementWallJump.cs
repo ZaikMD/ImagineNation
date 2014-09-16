@@ -19,12 +19,15 @@ public class DerekMovementWallJump : BaseMovementAbility
 	private const float WALL_MAX_FALL_SPEED = -5.0f;
 	private const float WALL_JUMP_SPEED_VERTICAL = 25.0f;
     private const float WALL_FALL_SPEED = -0.5f;
+    private const float CAN_BE_ON_WALL_MAX = 2.0f;
 
     //Timer to limit the player hanging onto the wall for too long
 	private float m_WallHangTimer = 0.0f;
+    private float m_CanBeOnWallTimer = 0.0f;
 
     //Boolean to tell if the player is on the wall or not
 	private bool m_OnWall = false;
+    private bool m_CanBeOnWall = true;
 
     //Vector3 to track the vector that the wall raycast sends out
     Vector3 m_WallJumpDirection = Vector3.zero;
@@ -39,36 +42,53 @@ public class DerekMovementWallJump : BaseMovementAbility
 	// Update is called once per frame
 	void Update () 
 	{
-        //Check if we are on the wall
-		if(m_OnWall)
-		{
-            //if we are update the timer by time
-			m_WallHangTimer += Time.deltaTime;
-            //Call our overriden function for Air movement
- 			WallAirMovement();
-            //Check the timer against our max time on the wall
-			if(m_WallHangTimer >= MAX_WALL_HANG)
-			{
-                //if true we set timer back to 0 and set the boolean to false
-				m_WallHangTimer = 0.0f;
-				m_OnWall = false;
-			}
-			else
-			{
-                //Check if the player hit the jump button
-				if(InputManager.getJumpDown(m_AcceptInputFrom.ReadInputFrom))
-				{
-                    //Run function to have the player jump off the wall
-					JumpOffWall ();
-                    //Set boolean to false, as we are off the wall now
-					m_OnWall = false;
-				}
-			}
-		}
-		else
-		{
+        if (m_CanBeOnWall)
+        {
+            //Check if we are on the wall
+            if (m_OnWall)
+            {
+                //if we are update the timer by time
+                m_WallHangTimer += Time.deltaTime;
+                //Call our overriden function for Air movement
+                WallAirMovement();
+                //Check the timer against our max time on the wall
+                if (m_WallHangTimer >= MAX_WALL_HANG)
+                {
+                    m_CanBeOnWall = false;
+                    //if true we set timer back to 0 and set the boolean to false
+                    m_WallHangTimer = 0.0f;
+                    m_OnWall = false;
+                }
+                else
+                {
+                    //Check if the player hit the jump button
+                    if (InputManager.getJumpDown(m_AcceptInputFrom.ReadInputFrom))
+                    {
+                        //Run function to have the player jump off the wall
+                        JumpOffWall();
+                        //Set boolean to false, as we are off the wall now
+                        m_OnWall = false;
+                        m_CanBeOnWall = false;
+                    }
+                }
+            }
+            else
+            {
+                m_CanBeOnWall = true;
+                base.Update();
+            }
+        }
+        else
+        {
+            m_CanBeOnWallTimer += Time.deltaTime;
+            if (m_CanBeOnWallTimer >= CAN_BE_ON_WALL_MAX)
+            {
+                m_CanBeOnWall = true;
+                m_CanBeOnWallTimer = 0.0f;
+            }
+
             base.Update();
-		}
+        }
 	}
 
 	void WallAirMovement()
