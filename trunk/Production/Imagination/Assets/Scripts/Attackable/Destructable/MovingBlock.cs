@@ -12,6 +12,8 @@ public class MovingBlock : Destructable
 
 	public Material[] m_Materials;
 
+	public float m_Speed;
+
 	int m_CurrentMaterial = 0;
 
 	Vector3 m_Destination;
@@ -20,6 +22,10 @@ public class MovingBlock : Destructable
 	bool m_Moving = false;
 
 	protected int m_SaveHealth;
+
+	float m_HitTimer = 1.0f;
+
+	protected float m_SaveHitTimer;
 
 
 	// Use this for initialization
@@ -33,30 +39,42 @@ public class MovingBlock : Destructable
 
 		m_Destination = transform.position;
 
+		m_SaveHitTimer = m_HitTimer;
+
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		if(!m_Moving)
-		{
-			m_Hit = false;
-		}
-
-
 		if(m_Health <= 0)
 		{
 			respawn();
 		}
 
-		transform.position = m_Destination;
+
+		CharacterController controller = GetComponent<CharacterController>();
+
+		Vector3 direction = m_Destination - transform.position;
+		Debug.Log (direction);
+		controller.Move(direction * m_Speed* Time.deltaTime);
+
+		if(m_Hit)
+		{
+			m_HitTimer -= Time.deltaTime;
+
+		}
+		if(m_HitTimer <= 0.0f)
+		{
+			m_Hit = false;
+			m_HitTimer = m_SaveHitTimer;
+		}
 	}
 
 	void respawn()
 	{
 		m_CurrentMaterial = 0;
 		transform.position = m_Respawn;
-
+		m_Destination = m_Respawn;
 		gameObject.renderer.material = m_Materials [m_CurrentMaterial];
 		m_Health = m_SaveHealth;
 	}
@@ -84,11 +102,13 @@ public class MovingBlock : Destructable
 
 	void OnTriggerEnter(Collider obj)
 	{
-
-		if(obj.gameObject.tag == "PlayerProjectile")
+		if(!m_Hit)
 		{
-			GameObject newObj = obj.gameObject;
-			setDestination (obj.gameObject);
+			if(obj.gameObject.tag == "PlayerProjectile")
+			{
+				GameObject newObj = obj.gameObject;
+				setDestination (obj.gameObject);
+			}
 		}
 	}
 
@@ -114,27 +134,26 @@ public class MovingBlock : Destructable
 		if(normal == rayHit.transform.right)
 		{
 			//Hit right side of bock
-			m_Destination = new Vector3(transform.position.x - 1, transform.position.y, transform.position.z);
+			m_Destination = new Vector3(transform.position.x - m_Distance, transform.position.y, transform.position.z);
 		}
 
 		if(normal == -rayHit.transform.right)
 		{
 			//hit left side
-			m_Destination = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z);
+			m_Destination = new Vector3(transform.position.x + m_Distance, transform.position.y, transform.position.z);
 		}
 
 		if(normal == rayHit.transform.forward)
 		{
-			//hit left side
-			m_Destination = new Vector3(transform.position.x , transform.position.y, transform.position.z - 1);
+			//hit front side
+			m_Destination = new Vector3(transform.position.x , transform.position.y, transform.position.z - m_Distance);
 		}
 
 		if(normal == -rayHit.transform.forward)
 		{
-			//hit left side
-			m_Destination = new Vector3(transform.position.x , transform.position.y, transform.position.z + 1);
+			//hit beack side
+			m_Destination = new Vector3(transform.position.x , transform.position.y, transform.position.z + m_Distance);
 		}
-
 
 	}
 
