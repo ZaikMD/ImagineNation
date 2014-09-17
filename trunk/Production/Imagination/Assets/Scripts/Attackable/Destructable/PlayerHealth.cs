@@ -7,11 +7,16 @@ public class PlayerHealth : Destructable
 {
 	public Texture[] textures;
 
+	GUITexture m_GUITexture;
+
 	public float HealthRegenTime = 5.0f;
 	float m_HealthRegenTimer;
 
 	public float StopHealthRegenTime = 20.0f;
 	float m_StopHealthRegenTimer;
+
+	public float InvulnerabilityTimer = 1.5f;
+	float m_InvulnerabilityTimer;
 
 	int m_TotalHealth;
 
@@ -20,12 +25,21 @@ public class PlayerHealth : Destructable
 	{
 		m_HealthRegenTimer = HealthRegenTime;
 		m_StopHealthRegenTimer = StopHealthRegenTime;
+		m_InvulnerabilityTimer = InvulnerabilityTimer;
 		m_TotalHealth = m_Health;
+
+		m_GUITexture = gameObject.GetComponent<GUITexture> ();
+		m_GUITexture.texture = textures [m_Health - 1];
 	}
 	
 	// Update is called once per frame
 	protected void Update () 
 	{
+		if(m_InvulnerabilityTimer > 0)
+		{
+			m_InvulnerabilityTimer -= Time.deltaTime;
+		}
+
 		if (m_Health <= 0)
 		{
 			Instantiate(m_Ragdoll, transform.position, transform.rotation);
@@ -34,6 +48,11 @@ public class PlayerHealth : Destructable
 		}
 		else
 		{
+			if(m_StopHealthRegenTimer > 0)
+			{
+				m_StopHealthRegenTimer -= Time.deltaTime;
+			}
+
 			if(m_Health < m_TotalHealth)
 			{
 				if(m_StopHealthRegenTimer < 0)
@@ -49,11 +68,6 @@ public class PlayerHealth : Destructable
 					}
 				}
 			}
-
-			if(m_StopHealthRegenTimer > 0)
-			{
-				m_StopHealthRegenTimer -= Time.deltaTime;
-			}
 		}
 	}
 
@@ -64,7 +78,11 @@ public class PlayerHealth : Destructable
 	
 	public virtual void onHit(EnemyProjectile proj)
 	{
-		m_Health -= 1;  
-		m_StopHealthRegenTimer = StopHealthRegenTime;
+		if(m_InvulnerabilityTimer < 0)
+		{
+			m_Health -= 1;  
+			m_StopHealthRegenTimer = StopHealthRegenTime;
+			m_InvulnerabilityTimer = InvulnerabilityTimer;
+		}
 	}
 }
