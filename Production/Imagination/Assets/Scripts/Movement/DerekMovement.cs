@@ -62,8 +62,6 @@ public class DerekMovement : BaseMovementAbility
                 //Check if the player hit the jump button
                 if (InputManager.getJumpDown(m_AcceptInputFrom.ReadInputFrom))
                 {
-                    //Rotates the player 180 degrees in the y
-                    transform.Rotate(0, 180, 0);
                     //Run function to have the player jump off the wall
                     JumpOffWall();
                     //Set boolean to false, as we are off the wall now
@@ -114,6 +112,7 @@ public class DerekMovement : BaseMovementAbility
 	{
         //Sets our vertical velocity to launch the player up
 		m_VerticalVelocity = WALL_JUMP_SPEED_VERTICAL;
+        transform.Rotate(0, 180, 0);
 		//transform.TransformDirection(m_WallJumpDirection);
 	}
 
