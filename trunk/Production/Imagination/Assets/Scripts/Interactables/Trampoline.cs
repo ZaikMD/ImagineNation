@@ -9,11 +9,13 @@ public class Trampoline : MonoBehaviour {
 	Vector3 m_LaunchDirection = Vector3.zero;
 
 	float m_TrampolineJump = 5.0f;
-	float m_VerticalVelocity = 0.0f;
-	const float JUMP_SPEED = 15.0f;
+	float m_VerticalVelocity = 1.0f;
+
+
+	public float JUMP_SPEED = 15.0f;
 
 	protected const float MAX_FALL_SPEED = -15.0f;
-	protected const float FALL_ACCELERATION = 20.0f;
+	public float FALL_ACCELERATION = 1.0f;
 
 	bool m_TrampolineJumpNow = false;
 
@@ -22,45 +24,45 @@ public class Trampoline : MonoBehaviour {
 
 
 	// Use this for initialization
-	void Start () {
-
+	void Start () 
+	{
 		if (m_JumpGameObject != null)
-		{
-			
-		
+		{	
 			m_TrampolinePosition = gameObject.transform.position;
-			Debug.Log (m_TrampolinePosition);
+			//Debug.Log (m_TrampolinePosition);
 			//m_JumpGameObject.transform.position; //gameObject.transform.position;
-			Debug.Log (m_JumpGameObject.transform.position);
+			//Debug.Log (m_JumpGameObject.transform.position);
 
 			//Vector3 m_LaunchDirection = new Vector3 ((m_JumpGameObject.transform.position.x - m_TrampolinePosition.x), (m_JumpGameObject.transform.position.y - m_TrampolinePosition.y), 
 			//                                         (m_JumpGameObject.transform.position.z - m_TrampolinePosition.z));
 
-			 m_LaunchDirection =  m_JumpGameObject.transform.position - m_TrampolinePosition;
-			Debug.Log (m_LaunchDirection);
+			m_LaunchDirection =  m_JumpGameObject.transform.position - m_TrampolinePosition;
+			m_LaunchDirection.Normalize();
+			m_LaunchDirection *= JUMP_SPEED;
+
+			//Debug.Log (m_LaunchDirection);
 		}
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void Update () 
+	{	
 		if (m_JumpGameObject != null)
 		{
 			if (m_TrampolineJumpNow == true)
 			{
-
 				Launch();
 			}
 		}
 
 		if(m_PlayerController != null)
 		{
-			if (m_PlayerController.isGrounded)
+			if (m_PlayerController.isGrounded)//TODO: this is broken
 			{
 				if (m_TrampolineJumpNow == true)
 				{
 					m_TrampolineJumpNow = false;
-					Debug.Log("Landed");
+					//Debug.Log("Landed");
 					m_PlayerController = null;
 				}
 			}
@@ -81,7 +83,7 @@ public class Trampoline : MonoBehaviour {
 		{
 			if (other.tag == "Player")
 			{
-				Debug.Log("JUMP");
+				//Debug.Log("JUMP");
 				m_PlayerController = (CharacterController)other.GetComponent(typeof (CharacterController));
 				m_TrampolineJumpNow = true;
 				Jump();
@@ -101,7 +103,7 @@ public class Trampoline : MonoBehaviour {
 
 	void Jump()
 	{
-		m_VerticalVelocity = JUMP_SPEED;
+		m_VerticalVelocity = 1.0f;
 	}
 
 	void Launch ()
@@ -114,14 +116,14 @@ public class Trampoline : MonoBehaviour {
 
 		if (m_VerticalVelocity >= 0)
 		{
-		m_PlayerController.Move (m_LaunchDirection * (m_VerticalVelocity) * Time.deltaTime);
+			m_PlayerController.Move (m_LaunchDirection * (m_VerticalVelocity));
 		}
 		else 
 		{
-			m_PlayerController.Move (transform.up * m_VerticalVelocity * Time.deltaTime);
+			//m_PlayerController.Move (transform.up * m_VerticalVelocity * Time.deltaTime);
 		}
 
-		Debug.Log ("JUMP");
+		//Debug.Log ("JUMP");
 
 
 	}
