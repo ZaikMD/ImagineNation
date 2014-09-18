@@ -25,6 +25,12 @@ public enum Sounds
     Run
 }
 
+public struct AudioInfo
+{
+    public AudioClip m_AudioClip;
+    public bool OneShot;    
+}
+
 public class SFXManager : MonoBehaviour
 {
     //Varibles to hold Audio clips needing to be loaded.
@@ -37,7 +43,9 @@ public class SFXManager : MonoBehaviour
     { 
     
         //Load all sounds
-        //m_JumpSFX = Resources.Load("Jump_Sound");
+        m_JumpSFX = (AudioClip)Resources.Load("Sounds/Alex_Jump");
+        m_WalkSFX = (AudioClip)Resources.Load("Sounds/Jump_Pad");
+        m_RunSFX = (AudioClip)Resources.Load("Sounds/footsteps_carpet_edit");
     }
 
 
@@ -45,7 +53,9 @@ public class SFXManager : MonoBehaviour
     // Use this for initialization
 	void Start ()
     {
-	
+        m_JumpSFX = (AudioClip)Resources.Load("Sounds/Alex_Jump");
+        m_WalkSFX = (AudioClip)Resources.Load("Sounds/Jump_Pad");
+        m_RunSFX = (AudioClip)Resources.Load("Sounds/footsteps_carpet_edit");
 
 
 	}
@@ -61,15 +71,16 @@ public class SFXManager : MonoBehaviour
 
     public void playSound(GameObject objectPlayingTheSound, Sounds sound)
     {
-        AudioClip tempSound = getClipFromList(sound);
+        AudioInfo tempSoundInfo = getClipFromList(sound);
         AudioSource tempSource = objectPlayingTheSound.gameObject.GetComponent<AudioSource>();
 
-        print(tempSound);
-        if (tempSound == null)
+        print(tempSoundInfo.m_AudioClip);
+        if (tempSoundInfo.m_AudioClip == null)
         {
             print("no Sound matching that name");
             return;
         }
+
 
         if (tempSource == null)
         {
@@ -77,31 +88,67 @@ public class SFXManager : MonoBehaviour
             return;
         }
 
-        tempSource.PlayOneShot(tempSound);
+        tempSource.clip = tempSoundInfo.m_AudioClip;
+
+        if (tempSoundInfo.OneShot)
+        {
+            tempSource.PlayOneShot(tempSoundInfo.m_AudioClip);
+        }
+        else
+        {
+            if(!tempSource.isPlaying)
+                tempSource.Play();
+        }
 
     }
 
 
+    public void stopSound(GameObject objectPlayingTheSound)
+    {
+       // AudioInfo tempSoundInfo = getClipFromList(sound);
+        AudioSource tempSource = objectPlayingTheSound.gameObject.GetComponent<AudioSource>();
+
+        if (tempSource == null || !tempSource.isPlaying)
+        {
+            return;
+        }
+
+        tempSource.Stop();  
+
+ 
+    }
+
     //Checks the name of the sound(enum) and returns the proper sounds.
-    AudioClip getClipFromList(Sounds sound)
-    { 
+    AudioInfo getClipFromList(Sounds sound)
+    {
+        AudioInfo tempAudioInfo = new AudioInfo();
+        tempAudioInfo.m_AudioClip = null;
+        tempAudioInfo.OneShot = false;
+
         switch(sound)
         {
             case Sounds.Jump:
                
-            return m_JumpSFX;
+            tempAudioInfo.m_AudioClip = m_JumpSFX;
+            tempAudioInfo.OneShot = false;
+            return tempAudioInfo;
             break;
 
             case Sounds.Walk:
-            return m_WalkSFX;
+            tempAudioInfo.m_AudioClip = m_WalkSFX;;
+            tempAudioInfo.OneShot = false;
+            return tempAudioInfo;
             break;
 
             case Sounds.Run:
-            return m_RunSFX;
+            tempAudioInfo.m_AudioClip = m_RunSFX;;
+            tempAudioInfo.OneShot = false;
+            return tempAudioInfo;
             break;
 
             default:
-            return m_JumpSFX;
+            Debug.LogError("No regonized sound passed in");
+            return tempAudioInfo;
             
             break;
         }

@@ -19,6 +19,7 @@ using System.Collections;
 //or one of the four possible gamepads.
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(AcceptInputFrom))]
+[RequireComponent(typeof(AudioSource))]
 public abstract class BaseMovementAbility : MonoBehaviour 
 {
 	public CharacterController m_CharacterController;
@@ -197,7 +198,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
             m_Anim.Play("Idle");
             if (m_SFX != null)
             {
-                m_SFX.playSound(this.gameObject, Sounds.Jump);
+                m_SFX.stopSound(this.gameObject);
             }
                 return;
         }
