@@ -9,7 +9,8 @@ public class Trampoline : MonoBehaviour {
 	Vector3 m_LaunchDirection = Vector3.zero;
 
 	float m_TrampolineJump = 5.0f;
-	float m_VerticalVelocity = 15.0f;
+	float m_VerticalVelocity = 0.0f;
+	const float JUMP_SPEED = 15.0f;
 
 	protected const float MAX_FALL_SPEED = -15.0f;
 	protected const float FALL_ACCELERATION = 20.0f;
@@ -47,9 +48,24 @@ public class Trampoline : MonoBehaviour {
 		{
 			if (m_TrampolineJumpNow == true)
 			{
+
 				Launch();
 			}
 		}
+
+		if(m_PlayerController != null)
+		{
+			if (m_PlayerController.isGrounded)
+			{
+				if (m_TrampolineJumpNow == true)
+				{
+					m_TrampolineJumpNow = false;
+					Debug.Log("Landed");
+					m_PlayerController = null;
+				}
+			}
+		}
+
 
 
 		//	m_TrampolineJumpNow = false;
@@ -66,8 +82,9 @@ public class Trampoline : MonoBehaviour {
 			if (other.tag == "Player")
 			{
 				Debug.Log("JUMP");
-				m_TrampolineJumpNow = true;
 				m_PlayerController = (CharacterController)other.GetComponent(typeof (CharacterController));
+				m_TrampolineJumpNow = true;
+				Jump();
 
 
 				//Launch();
@@ -82,6 +99,11 @@ public class Trampoline : MonoBehaviour {
 
 	}
 
+	void Jump()
+	{
+		m_VerticalVelocity = JUMP_SPEED;
+	}
+
 	void Launch ()
 	{
 		if(m_VerticalVelocity > MAX_FALL_SPEED)
@@ -90,7 +112,16 @@ public class Trampoline : MonoBehaviour {
 			m_VerticalVelocity -= Time.deltaTime * FALL_ACCELERATION;
 		}
 
-		m_PlayerController.Move (m_LaunchDirection * (m_VerticalVelocity * m_TrampolineJump) * Time.deltaTime);
+		if (m_VerticalVelocity >= 0)
+		{
+		m_PlayerController.Move (m_LaunchDirection * (m_VerticalVelocity) * Time.deltaTime);
+		}
+		else 
+		{
+			m_PlayerController.Move (transform.up * m_VerticalVelocity * Time.deltaTime);
+		}
+
+		Debug.Log ("JUMP");
 
 
 	}
