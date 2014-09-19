@@ -42,6 +42,12 @@ public class DerekMovement : BaseMovementAbility
 	// Update is called once per frame
 	void Update () 
 	{
+
+		if(!m_CanMove)
+		{
+			return;
+		}
+
         //Check if we are on the wall
         if (m_OnWall)
         {

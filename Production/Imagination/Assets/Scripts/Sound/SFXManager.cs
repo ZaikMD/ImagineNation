@@ -86,10 +86,10 @@ public class SFXManager : MonoBehaviour
         AudioInfo tempSoundInfo = getClipFromList(sound);
         AudioSource tempSource = objectPlayingTheSound.gameObject.GetComponent<AudioSource>();
 
-        print(tempSoundInfo.m_AudioClip);
+    //    print(tempSoundInfo.m_AudioClip);
         if (tempSoundInfo.m_AudioClip == null)
         {
-            print("no Sound matching that name");
+        //    print("no Sound matching that name");
             return;
         }
 

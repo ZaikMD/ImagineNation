@@ -34,6 +34,10 @@ public class ZoeMovement : BaseMovementAbility {
 	// Update is called once per frame
 	void Update () 
 	{  
+		if(!m_CanMove)
+		{
+			return;
+		}
 		//When grounded ensure that the variables CanGlide,
 		//NumberOfJumps, and IsGliding are set appropriately
 		if(GetIsGrounded())
