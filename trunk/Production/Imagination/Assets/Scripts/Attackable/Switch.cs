@@ -67,4 +67,9 @@ public class Switch : MonoBehaviour, Attackable
 	{
 
 	}
+
+	public bool getActive()
+	{
+		return m_Active;
+	}
 }
