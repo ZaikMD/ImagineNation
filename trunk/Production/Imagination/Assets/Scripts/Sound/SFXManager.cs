@@ -25,12 +25,18 @@ public enum Sounds
     Run
 }
 
+//this struct holds all the info needed to determine how to play are sounds
 public struct AudioInfo
 {
     public AudioClip m_AudioClip;
     public bool OneShot;    
 }
 
+/// <summary>
+/// the SFX manager class plays all SFX for our game,
+/// other classes that will use this class will have a
+/// reference to it and call the PlaySound() Function.
+/// </summary>
 public class SFXManager : MonoBehaviour
 {
     //Varibles to hold Audio clips needing to be loaded.
@@ -38,7 +44,10 @@ public class SFXManager : MonoBehaviour
     AudioClip m_WalkSFX;
     AudioClip m_RunSFX;
 
-
+	/// <summary>
+	/// Raises the level load event.
+	/// Loads in all the sounds from resources folder
+	/// </summary>
     void OnLevelLoad()
     { 
     
@@ -50,27 +59,30 @@ public class SFXManager : MonoBehaviour
 
 
 
-    // Use this for initialization
+    /// <summary>
+    /// Start this instance.
+	/// using Start to load for testing, OnLevelLoad in future
+    /// </summary>
 	void Start ()
     {
+		//This is used when not loading a new level, needed for testing,
         m_JumpSFX = (AudioClip)Resources.Load("Sounds/Alex_Jump");
         m_WalkSFX = (AudioClip)Resources.Load("Sounds/Jump_Pad");
         m_RunSFX = (AudioClip)Resources.Load("Sounds/footsteps_carpet_edit");
 
+	
 
 	}
 	
-	// Update is called once per frame
-	void Update ()
-    {
-	
-
-
-    }
-
-
+	/// <summary>
+	/// This function plays a sound where you want it to play.
+	/// </summary>
+	/// <param name="objectPlayingTheSound">Object playing the sound. pass in this.gameObject to have it originate from the object the script is attached</param>
+	/// <param name="sound">The sound that is played, it is an enum, to select a sound, Type Sounds.insertSoundNameHere</param>
     public void playSound(GameObject objectPlayingTheSound, Sounds sound)
     {
+
+		//this class takes the enum passed in and passes it to anouther function to get all data it needs.
         AudioInfo tempSoundInfo = getClipFromList(sound);
         AudioSource tempSource = objectPlayingTheSound.gameObject.GetComponent<AudioSource>();
 
@@ -84,8 +96,9 @@ public class SFXManager : MonoBehaviour
 
         if (tempSource == null)
         {
-            print("no Source found on that gameObject.");
-            return;
+
+			tempSource = objectPlayingTheSound.AddComponent<AudioSource>();
+			print("no Source found on that gameObject.");
         }
 
         tempSource.clip = tempSoundInfo.m_AudioClip;
@@ -101,12 +114,59 @@ public class SFXManager : MonoBehaviour
         }
 
     }
+	/// <summary>
+	/// Plaies the sound.
+	/// </summary>
+	/// <param name="Location">Pass in a vector3 for the location of the sound to play from don't use if it needs to move with them.</param>
+	/// <param name="The sound that is played, it is an enum, to select a sound, Type Sounds.insertSoundNameHere">.</param>
+	public void playSound(Vector3 Location, Sounds sound)
+	{
+
+		//Creates game object and places at location desired, then adds a Audio source to them;
+		GameObject SoundEmitter = new GameObject ();
+		SoundEmitter.transform.position = Location;
+		SoundEmitter.AddComponent<AudioSource> ();
+		AudioSource tempSource = SoundEmitter.gameObject.GetComponent<AudioSource>();
 
 
-    public void stopSound(GameObject objectPlayingTheSound)
-    {
-       // AudioInfo tempSoundInfo = getClipFromList(sound);
-        AudioSource tempSource = objectPlayingTheSound.gameObject.GetComponent<AudioSource>();
+		//this class takes the enum passed in and passes it to anouther function to get all data it needs.
+		AudioInfo tempSoundInfo = getClipFromList(sound);
+
+
+		
+		print(tempSoundInfo.m_AudioClip);
+		if (tempSoundInfo.m_AudioClip == null)
+		{
+			print("no Sound matching that name");
+			return;
+		}
+		
+		
+		if (tempSource == null)
+		{
+			print("no Source found on that gameObject.");
+			return;
+		}
+		
+		tempSource.clip = tempSoundInfo.m_AudioClip;
+		
+		if (tempSoundInfo.OneShot)
+		{
+			tempSource.PlayOneShot(tempSoundInfo.m_AudioClip);
+		}
+		else
+		{
+			if(!tempSource.isPlaying)
+				tempSource.Play();
+		}
+		
+	}
+	
+	
+	public void stopSound(GameObject objectPlayingTheSound)
+	{
+		// AudioInfo tempSoundInfo = getClipFromList(sound);
+		AudioSource tempSource = objectPlayingTheSound.gameObject.GetComponent<AudioSource>();
 
         if (tempSource == null || !tempSource.isPlaying)
         {
@@ -118,12 +178,18 @@ public class SFXManager : MonoBehaviour
  
     }
 
-    //Checks the name of the sound(enum) and returns the proper sounds.
+	/// <summary>
+	/// Checks sent in enum, returns apropriote data 
+	/// such as if it is a one shot and the AudioClip
+	/// </summary>
+	/// <returns>The clip from list.</returns>
+	/// <param name="sound"> An enum of the Sound. Put Sounds.NameOfSound</param>
     AudioInfo getClipFromList(Sounds sound)
     {
         AudioInfo tempAudioInfo = new AudioInfo();
         tempAudioInfo.m_AudioClip = null;
         tempAudioInfo.OneShot = false;
+
 
         switch(sound)
         {
