@@ -12,7 +12,7 @@ public abstract class BaseGoal : MonoBehaviour {
 
 	void Start()
 	{
-		m_Speed = GameObject.FindGameObjectWithTag ("Player").GetComponent<BaseMovementAbility> ().m_Speed * Time.deltaTime;
+		m_Speed = GameObject.FindGameObjectWithTag ("Player").GetComponent<BaseMovementAbility> ().m_GroundSpeed * Time.deltaTime;
 	}
 
 	void Update()
@@ -49,15 +49,9 @@ public abstract class BaseGoal : MonoBehaviour {
 
 			BaseMovementAbility tempPlayerMovement = player.GetComponent<BaseMovementAbility>();
 
-			tempPlayerMovement.m_CanMove = false;
-			tempPlayerMovement.m_Anim.Play("Run");
-
-			if(!tempPlayerMovement.GetIsGrounded())
-			{
-				tempPlayerMovement.Gravity();
-			}
-
-						//temp.SimpleMove(vect3);
+			//tempPlayerMovement.m_Anim.Play("Run");
+            
+            temp.SimpleMove(vect3);
 			temp.Move( player.transform.forward * m_Speed);
 
 			float distToFin = Vector3.Distance(player.transform.position, m_LevelEnd.position);

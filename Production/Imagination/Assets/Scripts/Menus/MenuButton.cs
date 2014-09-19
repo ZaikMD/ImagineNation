@@ -98,7 +98,7 @@ public abstract class MenuButton : MonoBehaviour
 
 	void Start()
 	{
-		m_ParentMenu = (Menu)gameObject.GetComponentInParent(typeof(Menu));
+	//	m_ParentMenu = (Menu)gameObject.GetComponentInParent(typeof(Menu));
 
 		start();
 	}

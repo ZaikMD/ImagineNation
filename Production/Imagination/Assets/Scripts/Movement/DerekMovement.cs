@@ -45,11 +45,7 @@ public class DerekMovement : BaseMovementAbility
 	void Update () 
 	{
 
-		if(!m_CanMove)
-		{
-			return;
-		}
-
+		
         //Check if we are on the wall
         if (m_OnWall)
         {
