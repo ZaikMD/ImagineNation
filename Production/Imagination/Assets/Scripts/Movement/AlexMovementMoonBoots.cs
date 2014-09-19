@@ -25,37 +25,10 @@ public class AlexMovementMoonBoots : BaseMovementAbility {
 	void Start () {
 		base.Start ();
 	}
-	
-<<<<<<< .mine
 	// Just calls the base update
 	void Update ()
 	{
-=======
-	// Update is called once per frame
-	void Update () {
-
-
-		if(!m_CanMove)
-		{
-			return;
-		}
-
-
-		//If The player releases the jump key then isSuperJump will turn to false
-		if(InputManager.getJumpUp(m_AcceptInputFrom.ReadInputFrom))
-		{ 
-			isSuperJump = false;
-		}
-		else 
-		{
-			//If the player did not release the jump key, it will check if the button is being held down. If yes then isSuperJump is true
-			if(InputManager.getJump(m_AcceptInputFrom.ReadInputFrom) && m_CurrentlyJumping == true)
-			{
-				isSuperJump = true;
-			}
-		}
 		//then calls base Update script from BaseMovementAbility
->>>>>>> .r585
 		base.Update ();
 	
 	}
