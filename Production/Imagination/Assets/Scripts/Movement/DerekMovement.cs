@@ -7,6 +7,8 @@
  * then forces them off the wall if they have jumped again while on
  * the wall. This is used with base movement and ray casting. 
  * 
+ * 
+ * 19/9/2014 - Changed to currectly use the new base class functionality - Jason Hein
  */
 
 using UnityEngine;
@@ -118,7 +120,12 @@ public class DerekMovement : BaseMovementAbility
 	{
         //Sets our vertical velocity to launch the player up
 		m_VerticalVelocity = WALL_JUMP_SPEED_VERTICAL;
-        transform.Rotate(0, 180, 0);
+        //transform.Rotate(0, 180, 0);
+
+		//Call launch jump
+		//LaunchJump(INSERT VECTOR3);
+
+
 		//transform.TransformDirection(m_WallJumpDirection);
 	}
 

@@ -1,93 +1,120 @@
-﻿//
+//
 //ZoeMovement
 //
-//Responsible for the unique aspects of Zoe's vertical movement
+//Allows the player to glide while airborne with a second and held jump, by reducing the maximum speed that you can fall.
+//
 //
 //Created by: Matthew Whitlaw
 //
 //15/09/14 Edit: Fully Commented - Matthew Whitlaw.
 //
-//
+//19/9/2014 - Changed to currectly use the new base class functionality - Jason Hein
 
 using UnityEngine;
 using System.Collections;
 
+//Adds the ability to fall slower while airborne with some player input
 public class ZoeMovement : BaseMovementAbility {
 
+	//After exiting glide, we enter a cannot glide state
 	private bool m_CanGlide;
-	private bool m_IsGliding;
+
+	//Int to keep track if we are entering or exiting glide based off of jump input
 	private int m_NumberOfJumps;
+
+	//Timer for how long we can glide
 	private float m_Timer;
-	private const float GLIDE_MAX_FALL_SPEED = -1.5f;
 	private const float MAX_GLIDE_TIME = 4.0f;
+
+	//Gliding fall speed
+	private const float GLIDE_MAX_FALL_SPEED = -1.5f;
+
 
 	// Call the base start function and initialize all variables
 	void Start () 
 	{
 		base.Start ();
 		m_CanGlide = true;
-		m_IsGliding = false;
 		m_NumberOfJumps = 0;
-		m_Timer = 0.0f;
+		m_Timer = -2.0f;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{  
+<<<<<<< .mine
+		//When grounded ensure that the variables CanGlide, NumberOfJumps, and IsGliding are set appropriately
+=======
 		if(!m_CanMove)
 		{
 			return;
 		}
 		//When grounded ensure that the variables CanGlide,
 		//NumberOfJumps, and IsGliding are set appropriately
+>>>>>>> .r585
 		if(GetIsGrounded())
 		{
+			if (m_Timer > 0.0f)
+			{
+				stopGlidingWhileAirborne();
+			}
 			m_CanGlide = true;
-			m_NumberOfJumps = 0;
-			m_IsGliding = false;
-			m_Timer = 0.0f;
 		}
 
-		//When the jump input is pressed increment the number of jumps
-		//and check how many jumps have been recieved
+		//When the jump input is pressed increment the number of jumps and check how many jumps have been recieved
 		if(InputManager.getJumpDown(m_AcceptInputFrom.ReadInputFrom))
 		{
 			m_NumberOfJumps++;
+
+			//Only on the second jump input recieved can Zoe use gliding
 			if(m_NumberOfJumps == 2 && m_CanGlide == true)
 			{
-				//Only on the second jump input recieved can Zoe use gliding
-				m_IsGliding = true;
+				m_MaxFallSpeed = GLIDE_MAX_FALL_SPEED;
+				m_Timer = MAX_GLIDE_TIME;
 			}
+
+			//On the third jump we exit gliding
 			else if(m_NumberOfJumps >= 3)
 			{
-				//If the number of jump exceeds two and
-				//Zoe is still off the ground disable the
-				//ability to glide
-				m_CanGlide = false;
-				m_IsGliding = false;
+				stopGlidingWhileAirborne();
 			}
 		}
-
-		//When gliding is true and the button is being held call the overriden heldAirMovement
-		if(m_IsGliding && InputManager.getJump(m_AcceptInputFrom.ReadInputFrom) && m_Timer < MAX_GLIDE_TIME)
+		//If we are gliding
+		if (m_Timer > 0)
 		{
-			base.Movement();
-			m_Timer += Time.deltaTime;
-			m_VerticalVelocity = GLIDE_MAX_FALL_SPEED;
-			GlidingAirMovement();
+			//If we are not holding down the button, exit gliding
+			if(!InputManager.getJump(m_AcceptInputFrom.ReadInputFrom))
+			{
+				stopGlidingWhileAirborne();
+			}
+			//Otherwise set gliding based falling variables
+			else
+			{
+				m_Timer -= Time.deltaTime;
+				m_VerticalVelocity = m_MaxFallSpeed;
+			}
+
+			//Glide through the air
+			AirMovement();
 		}
+		//If we have just exited glidings max timer
+		else if (m_Timer > -1.0f)
+		{
+			stopGlidingWhileAirborne();
+			base.Update ();
+		}
+		//Otherwise we are not gliding, and we should move normally
 		else
 		{
-			//Otherwise just call the base update
-     		base.Update ();
+			base.Update ();
 		}
 	}
 
-	//A function for the specific type of air movement for when Zoe is gliding
-	void GlidingAirMovement()
+	//Set all gliding variables to a standard airborne state
+	void stopGlidingWhileAirborne()
 	{
-		m_CharacterController.Move (transform.up * m_VerticalVelocity * Time.deltaTime);
+		m_Timer = -2.0f;
+		m_CanGlide = false;
+		m_MaxFallSpeed = BASE_MAX_FALL_SPEED;
 	}
-
-
 }
