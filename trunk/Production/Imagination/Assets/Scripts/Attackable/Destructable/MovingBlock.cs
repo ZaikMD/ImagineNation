@@ -17,6 +17,7 @@ public class MovingBlock : Destructable
 	int m_CurrentMaterial = 0;
 
 	Vector3 m_Destination;
+	Vector3 m_ZeroVector = Vector3.zero;
 
 	bool m_Hit = false;
 	bool m_Moving = false;
@@ -55,8 +56,12 @@ public class MovingBlock : Destructable
 		CharacterController controller = GetComponent<CharacterController>();
 
 		Vector3 direction = m_Destination - transform.position;
-		Debug.Log (direction);
-		controller.Move(direction * m_Speed* Time.deltaTime);
+
+
+		if(direction !=  m_ZeroVector)
+		{
+			controller.Move(direction * m_Speed* Time.deltaTime);
+		} 
 
 		if(m_Hit)
 		{
@@ -67,6 +72,7 @@ public class MovingBlock : Destructable
 		{
 			m_Hit = false;
 			m_HitTimer = m_SaveHitTimer;
+
 		}
 	}
 
@@ -83,15 +89,7 @@ public class MovingBlock : Destructable
 	{
 		if(!m_Hit)
 		{
-			m_Health --;
-			m_CurrentMaterial ++;
 
-			if(m_CurrentMaterial >= m_Materials.Length)
-			{
-				m_CurrentMaterial = 0;
-			}
-			gameObject.renderer.material = m_Materials [m_CurrentMaterial];
-			m_Hit = true;
 		}
 	}
 	
@@ -135,25 +133,45 @@ public class MovingBlock : Destructable
 		{
 			//Hit right side of bock
 			m_Destination = new Vector3(transform.position.x - m_Distance, transform.position.y, transform.position.z);
+			m_Health --;
+			m_CurrentMaterial ++;
 		}
 
 		if(normal == -rayHit.transform.right)
 		{
 			//hit left side
 			m_Destination = new Vector3(transform.position.x + m_Distance, transform.position.y, transform.position.z);
+			m_Health --;
+			m_CurrentMaterial ++;
 		}
 
 		if(normal == rayHit.transform.forward)
 		{
 			//hit front side
 			m_Destination = new Vector3(transform.position.x , transform.position.y, transform.position.z - m_Distance);
+			m_Health --;
+			m_CurrentMaterial ++;
 		}
 
 		if(normal == -rayHit.transform.forward)
 		{
 			//hit beack side
 			m_Destination = new Vector3(transform.position.x , transform.position.y, transform.position.z + m_Distance);
+			m_Health --;
+			m_CurrentMaterial ++;
 		}
+
+
+
+		
+		
+		
+		if(m_CurrentMaterial >= m_Materials.Length)
+		{
+			m_CurrentMaterial = 0;
+		}
+		gameObject.renderer.material = m_Materials [m_CurrentMaterial];
+		m_Hit = true;
 
 	}
 
