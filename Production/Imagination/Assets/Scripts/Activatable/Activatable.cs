@@ -1,4 +1,14 @@
-﻿using UnityEngine;
+﻿/// 
+/// Activatable.
+/// Created By: Matthew Whitlaw
+/// 
+/// This is a base class for all activatable objects, it will act as a built-in switch manager
+/// for inheriting classes. Designers can set whether the switch is activated on enemy deaths
+/// or on actual switches, and whether or not only one switch is needed.
+/// 
+/// 
+
+using UnityEngine;
 using System.Collections;
 
 public class Activatable : MonoBehaviour 
@@ -20,13 +30,19 @@ public class Activatable : MonoBehaviour
 	{
 
 	}
-	
+
+	//This is the main function that inheriting classes will call.
+	//If this function returns true then those classes can use
+	//their activatable functionality.
 	protected bool CheckSwitches() 
 	{
+		//Is this object activated on enemy deaths
 		if(!m_ActivatesOnEnemiesDeath)
 		{
+			//Is only one switch required
 			if(m_OnlyOneSwitchNeeded)
 			{
+				//Check to see if atleast one switch is true
 				for(int i = 0; i < m_Switches.Length; i++)
 				{
 					if(m_Switches[i].getActive() == true)
@@ -37,6 +53,7 @@ public class Activatable : MonoBehaviour
 			}
 			else
 			{
+				//Check to see if ALL switches are active
 				for(int i = 0; i < m_Switches.Length; i++)
 				{
 					if(m_Switches[i].getActive() != true)
@@ -49,6 +66,7 @@ public class Activatable : MonoBehaviour
 		}
 		else
 		{
+			//Check the enemy spawners
 			if(CheckSpawners())
 			{
 				return true;
@@ -60,7 +78,9 @@ public class Activatable : MonoBehaviour
 		}
 		return false;
 	}
-	
+
+	//An additional function that will check enemy spawners
+	//if the activatable is triggered by enemy deaths
 	bool CheckSpawners() 
 	{
 		/*

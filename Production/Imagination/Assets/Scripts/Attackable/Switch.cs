@@ -9,6 +9,9 @@ using System.Collections;
 /// and determining whether or not it will on a timer. The lever will switch on and off based on the OnHit
  /// function from Attackable and the timer will be set in the unity editor if one is needed.
 /// </summary>
+/// 
+/// 19/09/14 Matthew Whitlaw EDIT: Added a getActive function
+/// 
 public class Switch : MonoBehaviour, Attackable
 {
 
