@@ -19,6 +19,13 @@ public class AlexMovementMoonBoots : BaseMovementAbility {
 	// Update is called once per frame
 	void Update () {
 
+
+		if(!m_CanMove)
+		{
+			return;
+		}
+
+
 		//If The player releases the jump key then isSuperJump will turn to false
 		if(InputManager.getJumpUp(m_AcceptInputFrom.ReadInputFrom))
 		{ 

@@ -24,8 +24,9 @@ public abstract class BaseMovementAbility : MonoBehaviour
 {
 	public CharacterController m_CharacterController;
 	public float m_Speed;
+	public bool m_CanMove = true;
 	private Transform m_Camera;
-	private Animation m_Anim;
+	public Animation m_Anim;
     private SFXManager m_SFX;
 
 	protected float m_VerticalVelocity;
@@ -36,6 +37,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	protected const float GRAVITY = -10.0f;
 	protected bool m_CurrentlyJumping;
 	private bool m_StartRayCasting;
+
 
 	protected AcceptInputFrom m_AcceptInputFrom;
 
@@ -52,12 +54,17 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		m_VerticalVelocity = 0.0f;
 		m_CurrentlyJumping = false;
 		m_StartRayCasting = true;
-
+		m_CanMove = true;
 	}
 
 	//The default update all jumpining characters should use
 	protected void Update () 
 	{
+		if(m_CanMove == false)
+		{
+			return;
+		}
+
 		Movement ();
         PlayAnimation();
 
@@ -186,7 +193,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		return m_CharacterController.isGrounded;
 	}
 
-	private void Gravity()
+	public void Gravity()
 	{
 		m_CharacterController.Move (transform.up * GRAVITY * Time.deltaTime);
 	}
