@@ -1,118 +1,86 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CrawlSpace : MonoBehaviour {
-	
-	private float m_CrawlDelay = 3.0f;
-	private float m_CrawlDelayTwo = 3.0f;
+public class CrawlSpace : MonoBehaviour 
+{
+	public float Delay = 3.0f;
+	float[] m_CrawlDelay = new float[2];
 
 	public GameObject m_OtherCrawlSpace;
 	public GameObject m_TemporaryHidingSpot;
 
-	CharacterController m_PlayerOne;
-	CharacterController m_PlayerTwo;
+	CharacterController[] m_Players = new CharacterController[2];
 
-	bool m_EnteredCrawlSpace;
-	bool m_EnteredCrawlSpaceTwo;
-
-	bool m_isPlayerOne;
-	bool m_isPlayerTwo;
+	bool[] m_EnteredCrawlSpace = new bool[2];
 
 
 	// Use this for initialization
-	void Start () {
-	
-		m_EnteredCrawlSpace = false;
-		m_isPlayerOne = false;
-		m_isPlayerTwo = false;
-
+	void Start () 
+	{
+		for(int i = 0; i < m_EnteredCrawlSpace.Length; i++)
+		{
+			m_EnteredCrawlSpace[i] = false;
+			m_CrawlDelay[i] = 0.0f;
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		if(m_isPlayerOne == true)
+		if(m_OtherCrawlSpace != null && m_TemporaryHidingSpot != null)
 		{
-			CrawlSpaceTravel (m_PlayerOne);
-			if (m_PlayerOne.transform.position  == m_OtherCrawlSpace.transform.position)
+			for(int i = 0; i < m_EnteredCrawlSpace.Length; i++)
 			{
-				m_isPlayerOne = false;
-			}
+				if(m_EnteredCrawlSpace[i] == true)
+				{
+					m_Players[i].transform.position = m_TemporaryHidingSpot.transform.position;
+					
+					if(m_CrawlDelay[i] > 0)
+					{
+						m_CrawlDelay[i] -= Time.deltaTime;
+						continue;
+					}
 
-		}
-
-		if(m_isPlayerTwo == true)
-		{
-			CrawlSpaceTravel(m_PlayerTwo);
-			if (m_PlayerTwo.transform.position == m_OtherCrawlSpace.transform.position)
-			{
-				m_isPlayerTwo = false;
+					m_EnteredCrawlSpace[i] = false;
+					m_Players[i].transform.position =  m_OtherCrawlSpace.transform.position;
+					m_Players[i] = null;
+				}
 			}
 		}
 	}
-
-	void CrawlSpaceTravel(CharacterController player)
-	{
-		if(m_OtherCrawlSpace && m_TemporaryHidingSpot != null)
-		{
-			
-			if (m_EnteredCrawlSpace || m_EnteredCrawlSpaceTwo)
-			{	
-				player.transform.position = m_TemporaryHidingSpot.transform.position;
-				
-				if(m_CrawlDelay >0)
-				{
-					m_CrawlDelay -= Time.deltaTime;
-				}
-				
-				else if(m_CrawlDelay <= 0)
-				{
-					m_EnteredCrawlSpace = false;
-					player.transform.position =  m_OtherCrawlSpace.transform.position;
-
-				}
-
-				if (m_CrawlDelayTwo >0)
-				{
-					m_CrawlDelayTwo -= Time.deltaTime;
-				}
-
-				else if (m_CrawlDelayTwo <= 0)
-				{
-					m_EnteredCrawlSpaceTwo = false;
-					player.transform.position =  m_OtherCrawlSpace.transform.position;
-
-				}
-			}
-			
-		}
-	}
-
 
 	void OnTriggerEnter (Collider other)
 	{
 		if (other.tag == "Player")
 		{
-			if (m_isPlayerOne == false && m_isPlayerTwo == false)
+			if (m_Players[0] == null)
 			{
-				m_CrawlDelay = 3.0f;
-				m_PlayerOne = (CharacterController)other.GetComponent(typeof (CharacterController));
-				m_isPlayerOne = true;
-				m_EnteredCrawlSpace = true;
+				if(m_CrawlDelay[1] > 2.5f)
+				{
+					m_CrawlDelay[0] = Delay + 0.5f;
+				}
+				else
+				{
+					m_CrawlDelay[0] = Delay;
+				}
 
-				//return;
-			}
-		else if (m_isPlayerOne == true && m_isPlayerTwo == false)
+				m_Players[0] = (CharacterController)other.GetComponent(typeof (CharacterController));
+				m_EnteredCrawlSpace[0] = true;
+			}		
+			else 
 			{
-				m_CrawlDelayTwo = 3.0f;
-				m_PlayerTwo = (CharacterController)other.GetComponent(typeof (CharacterController));
-				m_isPlayerTwo = true;
-				m_EnteredCrawlSpaceTwo = true;
+				if(m_CrawlDelay[0] > 2.5f)
+				{
+					m_CrawlDelay[1] = Delay + 0.5f;
+				}
+				else
+				{
+					m_CrawlDelay[1] = Delay;
+				}
 
-				//return;
+				m_Players[1] = (CharacterController)other.GetComponent(typeof (CharacterController));
+				m_EnteredCrawlSpace[1] = true;
 			}
-					
-
 		}
 	}
 }
