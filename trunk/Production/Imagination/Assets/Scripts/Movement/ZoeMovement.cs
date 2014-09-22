@@ -17,13 +17,13 @@ using System.Collections;
 public class ZoeMovement : BaseMovementAbility {
 
 	//After exiting glide, we enter a cannot glide state
-	private bool m_CanGlide;
+	public bool m_CanGlide;
 
 	//Int to keep track if we are entering or exiting glide based off of jump input
 	private int m_NumberOfJumps;
 
 	//Timer for how long we can glide
-	private float m_Timer;
+	public float m_Timer;
 	private const float MAX_GLIDE_TIME = 4.0f;
 
 	//Gliding fall speed
@@ -48,9 +48,12 @@ public class ZoeMovement : BaseMovementAbility {
 		{
 			if (m_Timer > 0.0f)
 			{
-				stopGlidingWhileAirborne();
+				//Allow the player to glide again
+				m_Timer = -2.0f;
+				m_MaxFallSpeed = BASE_MAX_FALL_SPEED;
 			}
 			m_CanGlide = true;
+			m_NumberOfJumps = 0;
 		}
 
 		//When the jump input is pressed increment the number of jumps and check how many jumps have been recieved
