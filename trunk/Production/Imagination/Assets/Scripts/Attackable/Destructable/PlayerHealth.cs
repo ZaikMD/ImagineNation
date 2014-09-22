@@ -63,31 +63,33 @@ public class PlayerHealth : Destructable
 		{
 			m_InvulnerabilityTimer -= Time.deltaTime;
 		}
-
-		if (false)//(m_Health <= 0)
+		if(!m_IsDead)
 		{
-			onDeath();
-		}
-		else
-		{
-			if(m_StopHealthRegenTimer > 0)
+			if (m_Health <= 0)
 			{
-				m_StopHealthRegenTimer -= Time.deltaTime;
+				onDeath();
 			}
-
-			if(m_Health < m_TotalHealth)
+			else
 			{
-				if(m_StopHealthRegenTimer <= 0)
+				if(m_StopHealthRegenTimer > 0)
 				{
-					if(m_HealthRegenTimer <= 0)
+					m_StopHealthRegenTimer -= Time.deltaTime;
+				}
+
+				if(m_Health < m_TotalHealth)
+				{
+					if(m_StopHealthRegenTimer <= 0)
 					{
-						m_Health++;
-						m_HealthRegenTimer = HealthRegenTime;
-						m_GUITexture.texture = textures[m_Health];
-					}
-					else
-					{
-						m_HealthRegenTimer-= Time.deltaTime;
+						if(m_HealthRegenTimer <= 0)
+						{
+							m_Health++;
+							m_HealthRegenTimer = HealthRegenTime;
+							m_GUITexture.texture = textures[m_Health];
+						}
+						else
+						{
+							m_HealthRegenTimer-= Time.deltaTime;
+						}
 					}
 				}
 			}
