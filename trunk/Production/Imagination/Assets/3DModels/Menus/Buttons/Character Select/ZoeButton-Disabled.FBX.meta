@@ -1,25 +1,30 @@
 fileFormatVersion: 2
-guid: 6192f628a2cd9ad40a8cb5ca1b8fe1f4
+guid: 0eae24b31f19817449eb742fdc777600
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: Box040
-    100004: Part 2 - Text
-    100006: Select - Left
-    400000: //RootNode
-    400002: Box040
-    400004: Part 2 - Text
-    400006: Select - Left
+    100000: Box040
+    100002: Part 2 - Text
+    100004: Select - Left
+    100006: Select - Right
+    100008: //RootNode
+    400000: Box040
+    400002: Part 2 - Text
+    400004: Select - Left
+    400006: Select - Right
+    400008: //RootNode
     2300000: Box040
     2300002: Part 2 - Text
     2300004: Select - Left
+    2300006: Select - Right
     3300000: Box040
     3300002: Part 2 - Text
     3300004: Select - Left
+    3300006: Select - Right
     4300000: Part 2 - Text
     4300002: Box040
     4300004: Select - Left
+    4300006: Select - Right
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -72,6 +77,6 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   additionalBone: 0
   userData: 
