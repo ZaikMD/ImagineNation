@@ -22,7 +22,7 @@ public class CheckPoint : MonoBehaviour {
 	{
 		if(obj.tag == "Player")
 		{
-			GameData.Instance.CurrentCheckPoint = this;
+			//GameData.Instance.CurrentCheckPoint = this;
 		}
 	}
 
