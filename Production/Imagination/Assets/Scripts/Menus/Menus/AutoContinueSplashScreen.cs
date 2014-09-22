@@ -3,6 +3,9 @@ using System.Collections;
 
 public class AutoContinueSplashScreen : Menu 
 {
+    //this is literally just a starting point for a menu flow
+    //you cannot go back to this menu
+
 	public Menu StartMenu;
 	// Use this for initialization
 	protected override void start ()

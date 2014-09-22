@@ -13,7 +13,7 @@ public class ButtonChangeMenu : MenuButton
 		}
 		else
 		{
-			//Debug.Log("No Scene Set to Load");
+			Debug.Log("No Menu set");
 		}
 	}
 }

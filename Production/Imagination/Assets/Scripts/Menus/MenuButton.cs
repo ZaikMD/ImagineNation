@@ -3,16 +3,10 @@ using System.Collections;
 
 public abstract class MenuButton : MonoBehaviour 
 {
+    //the game objects displayed for each state
 	public GameObject Default;
 	public GameObject Disabled;
 	public GameObject Highlighted;
-
-	protected Menu m_ParentMenu;
-	public Menu ParentMenu
-	{
-		get{ return m_ParentMenu; }
-		set{ m_ParentMenu = value; }
-	}
 
 	public enum ButtonStates
 	{
@@ -27,6 +21,7 @@ public abstract class MenuButton : MonoBehaviour
 		get{ return m_ButtonState; }
 		set
 		{ 
+            //set the current state's gameobject to active and disable the others
 			switch(value)
 			{
 			case ButtonStates.Default:
@@ -98,13 +93,12 @@ public abstract class MenuButton : MonoBehaviour
 
 	void Start()
 	{
-	//	m_ParentMenu = (Menu)gameObject.GetComponentInParent(typeof(Menu));
-
 		start();
 	}
 
 	protected virtual void start()
 	{
+        //used for inheritance
 	}
 
 	void Update()
@@ -132,20 +126,25 @@ public abstract class MenuButton : MonoBehaviour
 
 	protected virtual void update()
 	{
+        //used for inheritance
 	}
 
 	protected virtual void defaultState()
-	{
+    {
+        //used for inheritance
 	}
 
 	protected virtual void highlightedState()
-	{
+    {
+        //used for inheritance
 	}
 
 	protected virtual void disabledState()
-	{
+    {
+        //used for inheritance
 	}
 
+    //the neighboring buttons  (in the same menu)
 	public MenuButton TopLeftNeighbor = null;
 	public MenuButton TopMiddleNeighbor = null;
 	public MenuButton TopRightNeighbor = null;
@@ -158,7 +157,9 @@ public abstract class MenuButton : MonoBehaviour
 	public MenuButton BottomRightNeighbor = null;
 
 	//---------------------------------------------------
-	public MenuButton getTopLeftNeighbor()
+    //top row of buttons
+
+    public MenuButton getTopLeftNeighbor()
 	{
 		return TopLeftNeighbor;
 	}
@@ -174,7 +175,8 @@ public abstract class MenuButton : MonoBehaviour
 	}
 
 	//---------------------------------------------------
-	public MenuButton getCentreLeftNeighbor()
+	//centre row of buttons
+    public MenuButton getCentreLeftNeighbor()
 	{
 		return CentreLeftNeighbor;
 	}
@@ -185,7 +187,8 @@ public abstract class MenuButton : MonoBehaviour
 	}
 
 	//---------------------------------------------------
-	public MenuButton getBottomLeftNeighbor()
+	//bottom row of buttons
+    public MenuButton getBottomLeftNeighbor()
 	{
 		return BottomLeftNeighbor;
 	}
@@ -200,5 +203,7 @@ public abstract class MenuButton : MonoBehaviour
 		return BottomRightNeighbor;
 	}
 
+    //--------------------------------------------------
+    //the function that 
 	public abstract void use();
 }

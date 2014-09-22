@@ -19,7 +19,7 @@ public class SplashScreen : Menu
 	// Update is called once per frame
 	public override void update () 
 	{
-		base.update();
+		//base.update();
 
 		if(InputManager.getJumpDown() || InputManager.getPauseDown())
 		{

@@ -12,8 +12,10 @@ public class ButtonPickCharacter : MenuButton
 
 	protected override void update ()
 	{
+        //checks whitch player to set
 		if(PlayerToSet == Players.PlayerOne)
 		{
+            //if the character is selected already set it to default
 			if(CharacterBeingPicked == GameData.Instance.PlayerOneCharacter)
 			{
 				ButtonState = ButtonStates.Disabled;
@@ -25,6 +27,7 @@ public class ButtonPickCharacter : MenuButton
 		}
 		else if(PlayerToSet == Players.PlayerTwo)
 		{
+            //if the character is selected already set it to default
 			if(CharacterBeingPicked == GameData.Instance.PlayerTwoCharacter)
 			{
 				ButtonState = ButtonStates.Disabled;
