@@ -29,6 +29,7 @@ public class MovingBlock : Destructable
 	protected float m_SaveHitTimer;
 
 
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -61,12 +62,12 @@ public class MovingBlock : Destructable
 		if(direction !=  m_ZeroVector)
 		{
 			controller.Move(direction * m_Speed* Time.deltaTime);
+			Debug.Log(direction);
 		} 
 
 		if(m_Hit)
 		{
 			m_HitTimer -= Time.deltaTime;
-
 		}
 		if(m_HitTimer <= 0.0f)
 		{
@@ -160,11 +161,6 @@ public class MovingBlock : Destructable
 			m_Health --;
 			m_CurrentMaterial ++;
 		}
-
-
-
-		
-		
 		
 		if(m_CurrentMaterial >= m_Materials.Length)
 		{
@@ -173,6 +169,11 @@ public class MovingBlock : Destructable
 		gameObject.renderer.material = m_Materials [m_CurrentMaterial];
 		m_Hit = true;
 
+	}
+
+	public void setPressurePlateDestination(Vector3 destination)
+	{
+		m_Destination = destination;
 	}
 
 }
