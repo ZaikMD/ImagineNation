@@ -17,6 +17,7 @@ using System.Collections;
 //move the player accordingly, and it will require AcceptInputFrom, a class
 //that will determine from where the input is being recieved, either keyboard
 //or one of the four possible gamepads.
+
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(AcceptInputFrom))]
 [RequireComponent(typeof(AudioSource))]
@@ -34,8 +35,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	public float m_AirHorizontalAcceleration = 5.0f;
 
 	//Current velocity
-    protected Vector2 m_HorizontalAirVelocity = Vector2.zero;
-    protected Vector3 m_AirHorizontalMovement = Vector3.zero;
+	protected Vector2 m_HorizontalAirVelocity = Vector2.zero;
 	protected float m_VerticalVelocity;
 	protected Vector2 m_CurrentHorizontalAirVelocity;
 
@@ -163,6 +163,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		m_CurrentlyJumping = true;
 		transform.LookAt(transform.position + jump.normalized);
 		m_HorizontalAirVelocity = new Vector2(jump.x, jump.z);
+
 	}
 
 	//Moves the player in all three directions
@@ -175,15 +176,16 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//Then we move the player
 	protected virtual void AirMovement()
 	{
-		Vector3 Movement = Vector3.zero;
+		Vector3 Movement = new Vector3(m_HorizontalAirVelocity.x, 0, m_HorizontalAirVelocity.y);
 		if (InputManager.getMove(m_AcceptInputFrom.ReadInputFrom) != Vector2.zero)
 		{
 			//Calc new velocity based on input
-			m_HorizontalAirVelocity = new Vector2(m_HorizontalAirVelocity.x + (GetProjection().x * m_AirHorizontalAcceleration * Time.deltaTime), 
-			                                      m_HorizontalAirVelocity.y + (GetProjection().z * m_AirHorizontalAcceleration * Time.deltaTime));
+			Movement = new Vector3(Movement.x + (GetProjection().x * m_AirHorizontalAcceleration * Time.deltaTime),
+			                       0,
+			                       Movement.z + (GetProjection().z * m_AirHorizontalAcceleration * Time.deltaTime));
 		
 			//Calc the direction to look and move
-			Movement = new Vector3(m_HorizontalAirVelocity.x, 0, m_HorizontalAirVelocity.y);
+			m_HorizontalAirVelocity = new Vector2(Movement.x, Movement.z);
 			transform.LookAt(transform.position + GetProjection());
 			
 			//Cap the horizontal movement speed
