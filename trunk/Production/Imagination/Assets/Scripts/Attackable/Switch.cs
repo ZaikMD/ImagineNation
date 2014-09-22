@@ -11,6 +11,7 @@ using System.Collections;
 /// </summary>
 /// 
 /// 19/09/14 Matthew Whitlaw EDIT: Added a getActive function
+/// 22/09/14 Zach Dubuc EDIT: Added a material when the switch is active/inactive
 /// 
 public class Switch : MonoBehaviour, Attackable
 {
@@ -19,6 +20,9 @@ public class Switch : MonoBehaviour, Attackable
     public float m_Timer;
 
 	protected float m_SaveTimer;
+
+	public Material m_ActiveMaterial;
+	public Material m_InactiveMaterial;
 
 
 	bool m_Active = false;
@@ -39,6 +43,7 @@ public class Switch : MonoBehaviour, Attackable
 				{
 					resetLever();
 					Debug.Log(m_Active);
+
 				}
 
 				else
@@ -46,6 +51,12 @@ public class Switch : MonoBehaviour, Attackable
 					m_Timer -= Time.deltaTime;
 				}
 			}
+			gameObject.renderer.material = m_ActiveMaterial;
+		}
+
+		else
+		{
+			gameObject.renderer.material = m_InactiveMaterial;
 		}
 	}
 
@@ -58,6 +69,7 @@ public class Switch : MonoBehaviour, Attackable
     public void onHit(PlayerProjectile proj)
     {
 		m_Active = true;
+
 		Debug.Log (m_Active);
     }
 
