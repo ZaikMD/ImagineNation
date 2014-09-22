@@ -24,29 +24,30 @@ public abstract class BaseMovementAbility : MonoBehaviour
 {
 	//Other objects this class needs
 	private Transform m_Camera;
-	private Animation m_Anim;
+	public Animation m_Anim;
     private SFXManager m_SFX;
 	protected CharacterController m_CharacterController;
 	protected AcceptInputFrom m_AcceptInputFrom;
 
 	//Speed can be set by designers
 	public float m_GroundSpeed = 5.0f;
-	public float m_AirHorizontalAcceleration = 10.0f;
+	public float m_AirHorizontalAcceleration = 5.0f;
 
 	//Current velocity
     protected Vector2 m_HorizontalAirVelocity = Vector2.zero;
     protected Vector3 m_AirHorizontalMovement = Vector3.zero;
 	protected float m_VerticalVelocity;
+	protected Vector2 m_CurrentHorizontalAirVelocity;
 
 	//Maximum speeds
-	protected const float MAX_HORIZONTAL_AIR_SPEED = 10.0f;
+	protected const float MAX_HORIZONTAL_AIR_SPEED = 5.0f;
 	protected const float BASE_MAX_FALL_SPEED = -15.0f;
 	protected float m_MaxFallSpeed = BASE_MAX_FALL_SPEED;
 
 	//Acceleration
-	protected const float JUMP_SPEED = 10.0f;
+	protected const float JUMP_SPEED = 7.5f;
 	protected const float FALL_ACCELERATION = 20.0f;
-	protected const float HELD_FALL_ACCELERATION = 10.0f;
+	protected const float HELD_FALL_ACCELERATION = 15.0f;
 
 	//States
 	protected bool m_CurrentlyJumping;
