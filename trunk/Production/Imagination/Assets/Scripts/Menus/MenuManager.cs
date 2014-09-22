@@ -86,6 +86,7 @@ public class MenuManager : MonoBehaviour
 		{
 			if(!GameData.Instance.m_GameIsRunnging)
 			{
+                //we update the camera differently if were using a rotating menu (like the view master)
 				if(m_RotatingMenu)
 				{
 					updateViewRotating();
