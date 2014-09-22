@@ -7,6 +7,7 @@ public class PressurePlates : MonoBehaviour
 	bool m_Activated = false;
 
 	ArrayList m_List;
+	public GameObject m_MovingBoxStopPoint;
 
 	// Use this for initialization
 	void Start () 
@@ -31,11 +32,15 @@ public class PressurePlates : MonoBehaviour
 		if(obj.gameObject.tag == "Player")
 		{
 			m_List.Add(obj.gameObject);
+
 		}
 
 		if(obj.gameObject.tag == "MovingBlock")
 		{
 			m_List.Add(obj.gameObject);
+			MovingBlock block = obj.gameObject.GetComponent(typeof(MovingBlock)) as MovingBlock;
+			
+			block.setPressurePlateDestination(m_MovingBoxStopPoint.transform.position);
 		}
 	}
 
