@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(GUITexture))]
-
 public class PlayerHealth : Destructable 
 {
 	public Texture[] textures;
