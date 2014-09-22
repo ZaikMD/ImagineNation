@@ -18,8 +18,7 @@ public class Destructable : MonoBehaviour, Attackable
     {
         if (m_Health <= 0)
         {
-            Instantiate(m_Ragdoll, transform.position, transform.rotation);
-            Destroy(this.gameObject);
+			onDeath();
         }
 	}
 
@@ -32,4 +31,16 @@ public class Destructable : MonoBehaviour, Attackable
     {
         
     }
+
+	public virtual void instantKill()
+	{
+		m_Health = 0;
+		onDeath ();
+	}
+
+	protected virtual void onDeath()
+	{
+		Instantiate(m_Ragdoll, transform.position, transform.rotation);
+		Destroy(this.gameObject);
+	}
 }
