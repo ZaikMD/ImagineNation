@@ -19,7 +19,7 @@ public class DerekMovement : BaseMovementAbility
     //Const that affect the speed of the player when on the wall
 	private const float MAX_WALL_HANG = 2.0f;
 	//private const float WALL_MAX_FALL_SPEED = -5.0f;
-	private const float WALL_JUMP_SPEED_VERTICAL = 15.0f;
+	private const float WALL_JUMP_SPEED_VERTICAL = 10.0f;
     private const float WALL_FALL_SPEED = -0.5f;
     private const float CAN_BE_ON_WALL_MAX = 0.75f;
 
@@ -44,8 +44,6 @@ public class DerekMovement : BaseMovementAbility
 	// Update is called once per frame
 	void Update () 
 	{
-
-		
         //Check if we are on the wall
         if (m_OnWall)
         {
@@ -53,13 +51,14 @@ public class DerekMovement : BaseMovementAbility
             m_WallHangTimer += Time.deltaTime;
             //Call our overriden function for Air movement
             WallAirMovement();
+			m_WallJumpDirection = RayCastReturn();
             //Check the timer against our max time on the wall
             if (m_WallHangTimer >= MAX_WALL_HANG)
             {
                 //if true we set timer back to 0 and set the boolean to false
                 m_WallHangTimer = 0.0f;
                 m_OnWall = false;
-                
+				LaunchJump(m_WallJumpDirection * 0.1f);
             }
             else
             {
@@ -81,26 +80,9 @@ public class DerekMovement : BaseMovementAbility
 
 	void WallAirMovement()
 	{
-        ////Checks if our vertical velocity is greater than our max fall speed
-		//if(m_VerticalVelocity > WALL_MAX_FALL_SPEED)
-		//{
-        //    //Decreases our vertical velocity by Time and a const value
-		//	m_VerticalVelocity -= Time.deltaTime * HELD_FALL_ACCELERATION;
-		//}
-		////CharacterController move in the up direction by our vertical velocity
-		//m_CharacterController.Move (transform.up * m_VerticalVelocity * Time.deltaTime);
-
-
         m_VerticalVelocity = WALL_FALL_SPEED;
         m_CharacterController.Move(transform.up * m_VerticalVelocity * Time.deltaTime);
 	}
-
-    protected override void Jump()
-    {
-        //Runs our raycasting when the player jumps and is off the wall
-        RayCastReturn(m_WallJumpDirection);
-        base.Jump();
-    }
 
     private void OnControllerColliderHit(ControllerColliderHit other)
 	{
@@ -114,18 +96,14 @@ public class DerekMovement : BaseMovementAbility
 
 	private void JumpOffWall()
 	{
-        //Sets our vertical velocity to launch the player up
+		LaunchJump (m_WallJumpDirection * 10.0f);
+		
+		//Sets our vertical velocity to launch the player up
 		m_VerticalVelocity = WALL_JUMP_SPEED_VERTICAL;
-        //transform.Rotate(0, 180, 0);
-
-		//Call launch jump
-		//LaunchJump(INSERT VECTOR3);
-
-
-		//transform.TransformDirection(m_WallJumpDirection);
+		m_CharacterController.Move(transform.up * m_VerticalVelocity * Time.deltaTime);
 	}
 
-    private void RayCastReturn(Vector3 reflectVector)
+    private Vector3 RayCastReturn()
     {
         RaycastHit rayHit;
         Vector3 rayOrigin = gameObject.transform.TransformDirection(Vector3.forward);
@@ -134,8 +112,10 @@ public class DerekMovement : BaseMovementAbility
             if (rayHit.collider.CompareTag("Wall"))
             {
                 Vector3 rayVector = rayHit.point - gameObject.transform.position;
-                reflectVector = Vector3.Reflect(rayVector, rayHit.normal);
+				Vector3 reflectVector = Vector3.Reflect(rayVector, rayHit.normal);
+				return reflectVector;
             }
         }
+		return Vector3.zero;
     }
 }

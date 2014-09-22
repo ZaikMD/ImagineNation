@@ -224,7 +224,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//If we are supposed to still be grounded but aren't according to our character controller, we are still considered grounded due to a raycast downwards
 	public bool GetIsGrounded()
 	{
-		if (m_CharacterController.isGrounded || (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), 1.25f) && m_VerticalVelocity == 0.0f))
+		if (m_CharacterController.isGrounded || (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), 0.1f) && m_VerticalVelocity == 0.0f))
 		{
 			return true;
 		}
