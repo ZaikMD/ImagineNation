@@ -6,15 +6,25 @@ ModelImporter:
     100000: Box077
     100002: Options - Banner
     100004: //RootNode
+    100006: Box080
+    100008: Credits - Banner
     400000: Box077
     400002: Options - Banner
     400004: //RootNode
+    400006: Box080
+    400008: Credits - Banner
     2300000: Box077
     2300002: Options - Banner
+    2300004: Box080
+    2300006: Credits - Banner
     3300000: Box077
     3300002: Options - Banner
+    3300004: Box080
+    3300006: Credits - Banner
     4300000: Options - Banner
     4300002: Box077
+    4300004: Credits - Banner
+    4300006: Box080
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -67,6 +77,6 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   additionalBone: 0
   userData: 
