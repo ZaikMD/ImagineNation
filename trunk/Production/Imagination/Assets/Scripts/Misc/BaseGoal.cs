@@ -1,30 +1,46 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class BaseGoal : MonoBehaviour {
+public class BaseGoal : MonoBehaviour {
 
 	public Transform m_LevelEnd;
 	public string m_NextScene;
+	public GameObject m_TemporaryHidingSpot;
+
 	//public GameObject m_Zipper;
-	protected bool m_AtEnd = false;
-	protected bool m_MovingToEnd = false;
+	protected bool[] m_AtEnd = new bool[2];
+	protected bool[] m_MovingToEnd = new bool[2];
 	protected float m_Speed;
+
+	CharacterController[] m_Players = new CharacterController[2];
+
+
 
 	void Start()
 	{
-		m_Speed = GameObject.FindGameObjectWithTag ("Player").GetComponent<BaseMovementAbility> ().m_GroundSpeed * Time.deltaTime;
+		for(int i = 0; i < m_Players.Length; i++)
+		{
+			m_AtEnd[i] = false;
+			m_MovingToEnd[i] = false;
+		}
+
+	m_Speed = GameObject.FindGameObjectWithTag ("Player").GetComponent<BaseMovementAbility> ().m_GroundSpeed * Time.deltaTime;
+	
 	}
 
 	void Update()
 	{
 	
-		if(m_MovingToEnd)
+	for(int i = 0; i < m_Players.Length; i++)
+	{
+		if(m_MovingToEnd [i])
 		{
 			MoveToEnd();
 		}
+	}
 		
 		
-		if (m_AtEnd)
+		if (m_AtEnd[1])
 		{
 			LoadNext();
 			return;
@@ -35,50 +51,72 @@ public abstract class BaseGoal : MonoBehaviour {
 
 	public void MoveToEnd()
 	{
+		//Goatse.bz is the shit
 
 
 
+		//GameObject[] players = GameObject.FindGameObjectsWithTag ("Player");
 
-		GameObject[] players = GameObject.FindGameObjectsWithTag ("Player");
+		//foreach(GameObject player in players)
+		//{
 
-		foreach(GameObject player in players)
+		//must create player prefabs that have animations set to them and move the actual player hidden from the camera
+		for (int i = 0; i < m_Players.Length; i++)
 		{
-			player.transform.LookAt(m_LevelEnd);
-			CharacterController temp = player.GetComponent<CharacterController>();
-			Vector3 vect3 = new Vector3(0, 0, 0);
-
-			BaseMovementAbility tempPlayerMovement = player.GetComponent<BaseMovementAbility>();
-
-			//tempPlayerMovement.m_Anim.Play("Run");
-            
-            temp.SimpleMove(vect3);
-			temp.Move( player.transform.forward * m_Speed);
-
-			float distToFin = Vector3.Distance(player.transform.position, m_LevelEnd.position);
-		
-			if(distToFin < 0.01)
+			if (m_Players[i] != null)
 			{
-				m_AtEnd = true;
+			
+				m_Players[i].transform.LookAt(m_LevelEnd);
+				Vector3 vect3 = new Vector3(0, 0, 0);
+
+
+				BaseMovementAbility tempPlayerMovement = m_Players[i].GetComponent<BaseMovementAbility>();
+
+				//tempPlayerMovement.m_Anim.Play("Run");
+	            
+
+	            m_Players[i].SimpleMove(vect3);
+				m_Players[i].Move( m_Players[i].transform.forward * m_Speed);
+
+				float distToFin = Vector3.Distance(m_Players[i].transform.position, m_LevelEnd.position);
+			
+				if(distToFin < 1.0)
+				{
+					m_AtEnd[i] = true;
+				}
+			}
+		}
+
+		//}
+
+	}
+
+	void OnTriggerEnter(Collider other)
+	{
+		if(other.tag == "Player")
+		{
+			if (m_Players[0] == null)
+			{
+				m_Players[0] = (CharacterController)other.GetComponent(typeof (CharacterController));
+				m_MovingToEnd[0] = true;
 			}
 
+			else 
+			{
+				m_Players[1] = (CharacterController)other.GetComponent(typeof (CharacterController));
+				m_MovingToEnd[1] = true;
+			}
 		}
 
 
 
 	}
 
-	void OnTriggerEnter(Collider Other)
+	public void LoadNext()
 	{
-		if(Other.tag != "Player")
-		{
-
-		}
-		m_MovingToEnd = true;
-
-		Debug.Log("Yeah");
+		//Tell Game Data Stuff
+		Application.LoadLevel (m_NextScene);
 	}
-
-	public abstract void LoadNext();
 
 
 }
