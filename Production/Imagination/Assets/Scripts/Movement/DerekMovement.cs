@@ -56,9 +56,9 @@ public class DerekMovement : BaseMovementAbility
             if (m_WallHangTimer >= MAX_WALL_HANG)
             {
                 //if true we set timer back to 0 and set the boolean to false
-                m_WallHangTimer = 0.0f;
-                m_OnWall = false;
 				LaunchJump(m_WallJumpDirection * 0.1f);
+				//m_WallHangTimer = 0.0f;
+				m_OnWall = false;
             }
             else
             {
@@ -75,6 +75,7 @@ public class DerekMovement : BaseMovementAbility
         else
         {
             base.Update();
+			m_WallHangTimer = 0.0f;
         }
 	}
 
