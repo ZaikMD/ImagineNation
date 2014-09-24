@@ -18,12 +18,15 @@ public class DeadPlayerManager : MonoBehaviour
 		Instance = this;
 		
 		//prevents this object being destroyed between scene loads
-		DontDestroyOnLoad(this.gameObject);
+		//DontDestroyOnLoad(this.gameObject);
 	}
 
 
 	bool m_OnePlayerDead;
 	bool m_TwoPlayersDead;
+
+	bool m_PlayerOneDead;
+	bool m_PlayerTwoDead;
 	
 
 	GameObject m_PlayerOne;
@@ -92,7 +95,7 @@ public class DeadPlayerManager : MonoBehaviour
 		checkPlayersAlive ();
 
 
-		if(m_OnePlayerDead)
+		if(m_OnePlayerDead && m_TwoPlayersDead != true)
 		{
 			m_RespawnTimer -= Time.deltaTime;
 			Debug.Log(m_RespawnTimer);
@@ -107,17 +110,18 @@ public class DeadPlayerManager : MonoBehaviour
 					if(finder.GetRespawnLayerFound())
 					{
 						m_PlayerOneHealth.resetHealth();
-						m_PlayerOne.transform.position = m_PlayerTwo.transform.position;
+						m_PlayerOneHealth.gameObject.transform.position = m_PlayerTwoHealth.gameObject.transform.position;
 
 						finder.SetSearchForRespawnLayer(false);
 
 						m_RespawnTimer = RESPAWN_TIMER;
 
 						m_OnePlayerDead = false;
+						m_PlayerOneDead = false;
 					}
 				}
-				/*
-				if(m_PlayerOneHealth.IsDead)
+
+				if(m_PlayerTwoHealth.IsDead)
 				{
 					PlayerRespawnLayerFinder finder = m_PlayerOne.GetComponentInChildren(typeof(PlayerRespawnLayerFinder)) as PlayerRespawnLayerFinder;
 					finder.SetSearchForRespawnLayer(true);
@@ -125,21 +129,22 @@ public class DeadPlayerManager : MonoBehaviour
 					if(finder.GetRespawnLayerFound())
 					{
 						m_PlayerTwoHealth.resetHealth();
-						m_PlayerTwo.transform.position = m_PlayerOne.transform.position;
+						m_PlayerTwoHealth.gameObject.transform.position = m_PlayerOneHealth.gameObject.transform.position;
 						
 						finder.SetSearchForRespawnLayer(false);
 						m_OnePlayerDead = false;
 
 						m_RespawnTimer = RESPAWN_TIMER;
+						m_PlayerTwoDead = false;
 					}
-				}*/
+				}
 			}
 		}
 
 
 		if(m_TwoPlayersDead)
 		{
-			Application.LoadLevel(Application.loadedLevelName);
+			Application.LoadLevel(Application.loadedLevelName); 
 		}
 	}
 
@@ -150,25 +155,35 @@ public class DeadPlayerManager : MonoBehaviour
 		{
 			if(!m_OnePlayerDead)
 			{
-				m_OnePlayerDead = true;
-			}
+				m_PlayerOneDead = true;
+				if(!m_OnePlayerDead)
+				{
+					m_OnePlayerDead = true;
+					return;
+				}
 
-			else
-			{
-				m_TwoPlayersDead = true;
+				else
+				{
+					m_TwoPlayersDead = true;
+				}
 			}
 		}
 		
 		if(m_PlayerTwoHealth.IsDead)
 		{
-			if(!m_OnePlayerDead)
+			if(!m_PlayerTwoDead)
 			{
-				m_OnePlayerDead = true;
-			}
+				m_PlayerTwoDead = true;
+				if(!m_OnePlayerDead)
+				{
+					m_OnePlayerDead = true;
+					return;
+				}
 
-			else
-			{
-				m_TwoPlayersDead = true;
+				else
+				{
+					m_TwoPlayersDead = true;
+				}
 			}
 		}
 	}
