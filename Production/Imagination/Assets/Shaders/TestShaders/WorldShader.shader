@@ -13,8 +13,8 @@ Shader "Production/WorldShader"
 	Properties
    {
       _Texture ("Texture", 2D) = "white" {} 
-      _SpecColor ("Specular Light Color", Color) = (1.0,1.0,1.0,1.0) 
-      _Shininess ("Shininess", Float) = 10.0
+      _SpecColor ("Specular Light Color", Color) = (0.6,0.6,0.6,1.0) 
+      _Shininess ("Shininess", Float) = 20.0
    }
 	SubShader
 	{
@@ -211,7 +211,7 @@ Shader "Production/WorldShader"
             	//If we are facing the light, so calculate specular lighting
             	if (dot(normalDirection, lightDirection) > 0.0)
             	{
-            		specularReflection = _LightColor0.xyz * _SpecColor.xyz * distShading * (1.0 - textureColor.a) *
+            		specularReflection = _LightColor0.xyz * _SpecColor.xyz * distShading * textureColor.a *
             		pow(max(0.0, dot(reflect(-lightDirection, normalDirection), viewDirection)), _Shininess);
             	}
             	
