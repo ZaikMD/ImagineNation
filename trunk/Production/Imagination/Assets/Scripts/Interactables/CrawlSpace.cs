@@ -12,6 +12,7 @@ public class CrawlSpace : MonoBehaviour
 	CharacterController[] m_Players = new CharacterController[2];
 
 	bool[] m_EnteredCrawlSpace = new bool[2];
+	bool[] m_MovingPlayer = new bool[2];
 
 
 	// Use this for initialization
@@ -19,6 +20,7 @@ public class CrawlSpace : MonoBehaviour
 	{
 		for(int i = 0; i < m_EnteredCrawlSpace.Length; i++)
 		{
+			m_MovingPlayer[i] = false;
 			m_EnteredCrawlSpace[i] = false;
 			m_CrawlDelay[i] = 0.0f;
 		}
@@ -34,6 +36,7 @@ public class CrawlSpace : MonoBehaviour
 				if(m_EnteredCrawlSpace[i] == true)
 				{
 					m_Players[i].transform.position = m_TemporaryHidingSpot.transform.position;
+					m_MovingPlayer[i] = true;
 					
 					if(m_CrawlDelay[i] > 0)
 					{
@@ -42,6 +45,7 @@ public class CrawlSpace : MonoBehaviour
 					}
 
 					m_EnteredCrawlSpace[i] = false;
+
 					m_Players[i].transform.position =  m_OtherCrawlSpace.transform.position;
 					m_Players[i] = null;
 				}
@@ -51,35 +55,52 @@ public class CrawlSpace : MonoBehaviour
 
 	void OnTriggerEnter (Collider other)
 	{
-		if (other.tag == "Player")
+
+			if (other.tag == "Player")
+			{
+				if (m_Players[0] == null)
+				{
+					if(m_CrawlDelay[1] > 2.5f)
+					{
+						m_CrawlDelay[0] = Delay + 0.5f;
+					}
+					else
+					{
+						m_CrawlDelay[0] = Delay;
+					}
+				if (m_MovingPlayer[0] == false)
+				{
+					m_Players[0] = (CharacterController)other.GetComponent(typeof (CharacterController));
+					m_EnteredCrawlSpace[0] = true;
+				}
+				}		
+				else 
+				{
+					if(m_CrawlDelay[0] > 2.5f)
+					{
+						m_CrawlDelay[1] = Delay + 0.5f;
+					}
+					else
+					{
+						m_CrawlDelay[1] = Delay;
+					}
+
+				if (m_MovingPlayer[1] == false)
+				{
+					m_Players[1] = (CharacterController)other.GetComponent(typeof (CharacterController));
+					m_EnteredCrawlSpace[1] = true;
+				}
+				}
+			}
+	}
+
+	void OnTriggerExit(Collider other)
+	{
+		for(int i = 0; i < m_MovingPlayer.Length; i++)
 		{
-			if (m_Players[0] == null)
+			if (m_MovingPlayer[i] == true)
 			{
-				if(m_CrawlDelay[1] > 2.5f)
-				{
-					m_CrawlDelay[0] = Delay + 0.5f;
-				}
-				else
-				{
-					m_CrawlDelay[0] = Delay;
-				}
-
-				m_Players[0] = (CharacterController)other.GetComponent(typeof (CharacterController));
-				m_EnteredCrawlSpace[0] = true;
-			}		
-			else 
-			{
-				if(m_CrawlDelay[0] > 2.5f)
-				{
-					m_CrawlDelay[1] = Delay + 0.5f;
-				}
-				else
-				{
-					m_CrawlDelay[1] = Delay;
-				}
-
-				m_Players[1] = (CharacterController)other.GetComponent(typeof (CharacterController));
-				m_EnteredCrawlSpace[1] = true;
+				m_MovingPlayer[i] = false;
 			}
 		}
 	}
