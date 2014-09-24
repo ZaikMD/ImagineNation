@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CheckPoint : MonoBehaviour {
+public class CheckPoint : MonoBehaviour 
+{
 
-	public int m_CheckPointNumber;
+	public CheckPoints m_Value;
 
 	// Use this for initialization
 	void Start ()
@@ -14,7 +15,7 @@ public class CheckPoint : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-
+		
 	
 	}
 
@@ -22,12 +23,7 @@ public class CheckPoint : MonoBehaviour {
 	{
 		if(obj.tag == "Player")
 		{
-			//GameData.Instance.CurrentCheckPoint = this;
+			GameData.Instance.CurrentCheckPoint = m_Value;
 		}
-	}
-
-	public int getCheckPointNumber()
-	{
-		return m_CheckPointNumber;
 	}
 }

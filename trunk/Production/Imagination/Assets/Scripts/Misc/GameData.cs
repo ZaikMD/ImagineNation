@@ -102,6 +102,7 @@ public class GameData : MonoBehaviour
 			if(value > m_CurrentCheckPoint)
 			{
 				m_CurrentCheckPoint = value;
+				Debug.Log(m_CurrentCheckPoint);
 			}
 		}
 	}
