@@ -45,17 +45,23 @@ public class PlayerSpawner : MonoBehaviour
 			break;
 		}
 
+
 		GameObject spawnPoint = currentCheckPoint.transform.FindChild ("PlayerOneSpawnPoint").gameObject;
+		GameObject character;
+
 		switch(GameData.Instance.PlayerOneCharacter)
 		{
 		case Characters.Zoey:
-			GameObject.Instantiate (ZoeyPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
+			character = (GameObject) GameObject.Instantiate (ZoeyPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
+			character.name = "Zoe";
 			break;
 		case Characters.Derek:
-			GameObject.Instantiate (DerekPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
+			character =  (GameObject) GameObject.Instantiate (DerekPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
+			character.name = "Derek";
 			break;
 		case Characters.Alex:
-			GameObject.Instantiate (AlexPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
+			character =  (GameObject) GameObject.Instantiate (AlexPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
+			character.name = "Alex";
 			break;
 		}
 
@@ -63,13 +69,16 @@ public class PlayerSpawner : MonoBehaviour
 		switch(GameData.Instance.PlayerTwoCharacter)
 		{
 		case Characters.Zoey:
-			GameObject.Instantiate (ZoeyPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
+			character =  (GameObject) GameObject.Instantiate (ZoeyPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
+			character.name = "Zoe";
 			break;
 		case Characters.Derek:
-			GameObject.Instantiate (DerekPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
+			character =  (GameObject) GameObject.Instantiate (DerekPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
+			character.name = "Derek";
 			break;
 		case Characters.Alex:
-			GameObject.Instantiate (AlexPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
+			character =  (GameObject) GameObject.Instantiate (AlexPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
+			character.name = "Alex";
 			break;
 		}
 
