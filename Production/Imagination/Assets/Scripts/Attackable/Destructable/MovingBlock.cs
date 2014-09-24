@@ -28,12 +28,14 @@ public class MovingBlock : Destructable
 
 	protected float m_SaveHitTimer;
 
+	public GameObject m_BoxPrefab;
+
 
 
 	// Use this for initialization
 	void Start () 
 	{
-		//gameObject.renderer.material = m_Materials [m_CurrentMaterial];
+		m_BoxPrefab.renderer.material = m_Materials [m_CurrentMaterial];
 
 		m_Respawn = transform.position;
 
@@ -82,16 +84,13 @@ public class MovingBlock : Destructable
 		m_CurrentMaterial = 0;
 		transform.position = m_Respawn;
 		m_Destination = m_Respawn;
-		gameObject.renderer.material = m_Materials [m_CurrentMaterial];
+		m_BoxPrefab.renderer.material = m_Materials [m_CurrentMaterial];
 		m_Health = m_SaveHealth;
 	}
 
 	public override void onHit(PlayerProjectile proj)
 	{
-		if(!m_Hit)
-		{
-
-		}
+		return;
 	}
 	
 	public override void onHit(EnemyProjectile proj)
@@ -132,7 +131,7 @@ public class MovingBlock : Destructable
 
 		if(normal == rayHit.transform.right)
 		{
-			//Hit right side of bock
+			//Hit right side of block
 			m_Destination = new Vector3(transform.position.x - m_Distance, transform.position.y, transform.position.z);
 			m_Health --;
 			m_CurrentMaterial ++;
@@ -156,7 +155,7 @@ public class MovingBlock : Destructable
 
 		if(normal == -rayHit.transform.forward)
 		{
-			//hit beack side
+			//hit back side
 			m_Destination = new Vector3(transform.position.x , transform.position.y, transform.position.z + m_Distance);
 			m_Health --;
 			m_CurrentMaterial ++;
@@ -166,7 +165,7 @@ public class MovingBlock : Destructable
 		{
 			m_CurrentMaterial = 0;
 		}
-		gameObject.renderer.material = m_Materials [m_CurrentMaterial];
+		m_BoxPrefab.renderer.material = m_Materials [m_CurrentMaterial];
 		m_Hit = true;
 
 	}
