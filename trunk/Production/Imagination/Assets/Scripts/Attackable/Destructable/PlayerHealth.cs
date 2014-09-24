@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerHealth : Destructable 
 {
@@ -38,6 +39,44 @@ public class PlayerHealth : Destructable
 	// Use this for initialization
 	void Start () 
 	{
+		//this block zeros out the parent game object and the health bar GUITexture so health displays properly
+		List<Transform> childrenOfParent = new List<Transform> ();
+
+		//this loop gets all the children of the parent
+		for(int i = 0; i < transform.parent.transform.childCount; i++)
+		{
+			Transform child = gameObject.transform.parent.transform.GetChild(i);
+
+			if(child != null)
+			{
+				childrenOfParent.Add(child);
+			}
+		}
+
+		//this stores all of the original positions
+		Vector3[] originalPositions = new Vector3[childrenOfParent.Count];
+
+		//storeing all the positions
+		for(int i = 0; i < childrenOfParent.Count; i++)
+		{
+			originalPositions[i] = new Vector3(childrenOfParent[i].position.x, childrenOfParent[i].position.y, childrenOfParent[i].position.z);
+		}
+
+		//zero out the parent
+		this.gameObject.transform.parent.transform.position = Vector3.zero;
+		//xero out the healthbar GUITexture
+		m_GUITexture.gameObject.gameObject.transform.position = Vector3.zero;
+
+		//move all the children back if they are not the GUITexture
+		for(int i = 0; i < childrenOfParent.Count; i++)
+		{
+			if(childrenOfParent[i].gameObject != m_GUITexture.gameObject)
+			{
+				childrenOfParent[i].position = originalPositions[i];
+			}
+		}
+
+
         //setting initial values for the timers
 		m_HealthRegenTimer = HealthRegenTime;
 		m_StopHealthRegenTimer = 0.0f;
