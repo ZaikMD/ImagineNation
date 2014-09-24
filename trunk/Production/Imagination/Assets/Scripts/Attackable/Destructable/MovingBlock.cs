@@ -33,7 +33,7 @@ public class MovingBlock : Destructable
 	// Use this for initialization
 	void Start () 
 	{
-		gameObject.renderer.material = m_Materials [m_CurrentMaterial];
+		//gameObject.renderer.material = m_Materials [m_CurrentMaterial];
 
 		m_Respawn = transform.position;
 

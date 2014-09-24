@@ -7,12 +7,6 @@ public class Destructable : MonoBehaviour, Attackable
     public int m_Health;
     public GameObject m_Ragdoll;
 
-	// Use this for initialization
-	void Start () 
-    {
-	
-	}
-	
 	// Update is called once per frame
 	protected void Update () 
     {

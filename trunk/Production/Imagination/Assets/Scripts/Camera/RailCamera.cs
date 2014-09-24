@@ -6,6 +6,7 @@ using System.Collections;
 // TODO: optimise the update function (remove the 2 for loops that check every point
 // TODO: smooth out the movement and turnning
 // TODO: Add a function to check if a player is heading off screen
+// TODO: Locking certain axis to stop rotation jerking
 // TODO: Track two players at once
 
 public class RailCamera : MonoBehaviour 
