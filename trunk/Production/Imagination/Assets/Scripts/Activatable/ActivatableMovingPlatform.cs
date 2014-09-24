@@ -3,17 +3,17 @@ using System.Collections;
 
 public class ActivatableMovingPlatform : Activatable 
 {
-	bool m_CanBeActivated;
 	bool m_IsActive;
 
 	bool m_AtFinalDestination;
 	bool m_AtDestination;
 	bool m_IsReversing;
+	//public bool m_CanReverse;
 
 	float m_AtDestinationTimer;
-	public float m_TimerLimit;
+	float m_TimerLimit;
 
-	public float m_PlatformSpeed;
+	float m_PlatformSpeed;
 	float m_DistanceToNextPlatform;
 
 	public GameObject[] m_Destinations;
@@ -21,12 +21,13 @@ public class ActivatableMovingPlatform : Activatable
 	GameObject m_NextDestination;
 	int m_DestinationCounter;
 
+	Vector3 m_AmountToMovePlayer;
+
 	void Start () 
 	{
 		m_PlatformSpeed = 3.0f;
 		m_TimerLimit = 3.0f;
 		m_DestinationCounter = 0;
-		m_CanBeActivated = true;
 		m_IsActive = true;
 	}
 
@@ -45,6 +46,7 @@ public class ActivatableMovingPlatform : Activatable
 				{
 					//Check if the current destination is at the last element,
 					//if it is start reversing.
+
 					if(m_DestinationCounter == (m_Destinations.Length -1))
 					{
 						m_IsReversing = true;
@@ -65,6 +67,8 @@ public class ActivatableMovingPlatform : Activatable
 			{
 				//Increment the timer while at the destination
 				m_AtDestinationTimer += Time.deltaTime;
+
+				m_AmountToMovePlayer = Vector3.zero;
 
 				//If the timer reached the limit
 				if(m_AtDestinationTimer >= m_TimerLimit)
@@ -105,6 +109,13 @@ public class ActivatableMovingPlatform : Activatable
 
 		//Move the platform along that direction over time.
 		transform.position += destinationDirection.normalized * m_PlatformSpeed * Time.deltaTime;
+		m_AmountToMovePlayer = destinationDirection.normalized * m_PlatformSpeed * Time.deltaTime;
+
+	}
+
+	public Vector3 GetAmountToMovePlayer()
+	{
+		return m_AmountToMovePlayer;
 	}
 
 }

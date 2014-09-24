@@ -8,7 +8,8 @@
 //
 //15/09/14 Edit: Fully Commented - Matthew Whitlaw.
 //
-//
+//24/09/14 Edit: Added PlatformMovement and Additional functionality
+// to IsGrounded - Matthew Whitlaw
 
 using UnityEngine;
 using System.Collections;
@@ -29,6 +30,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
     private SFXManager m_SFX;
 	protected CharacterController m_CharacterController;
 	protected AcceptInputFrom m_AcceptInputFrom;
+	protected ActivatableMovingPlatform m_Platform;
 
 	//Speed can be set by designers
 	public float m_GroundSpeed = 5.0f;
@@ -51,6 +53,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 
 	//States
 	protected bool m_CurrentlyJumping;
+	protected bool m_IsOnMovingPlatform;
 
 	//Called at the start of the program
 	protected void Start () 
@@ -65,6 +68,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 
 		m_VerticalVelocity = -1.0f;
 		m_CurrentlyJumping = false;
+		m_IsOnMovingPlatform = false;
 	}
 
 	//The default update all characters should use
@@ -95,6 +99,10 @@ public abstract class BaseMovementAbility : MonoBehaviour
 				m_VerticalVelocity = 0.0f;
                 m_HorizontalAirVelocity = Vector2.zero;
 				GroundMovement();
+
+				if(m_IsOnMovingPlatform){
+					PlatformMovement();}
+
 			}
 
 
@@ -224,11 +232,32 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//If we are supposed to still be grounded but aren't according to our character controller, we are still considered grounded due to a raycast downwards
 	public bool GetIsGrounded()
 	{
-		if (m_CharacterController.isGrounded || (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), 0.1f) && m_VerticalVelocity == 0.0f))
+		RaycastHit hit;
+
+		Debug.DrawRay (transform.position, transform.TransformDirection (Vector3.down), Color.magenta);
+
+		if ((Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 0.1f) && m_VerticalVelocity == 0.0f) || m_CharacterController.isGrounded)
 		{
+			if(hit.transform != null)
+			{
+				if(hit.collider.gameObject.tag == "MovingPlatform")
+				{
+					m_IsOnMovingPlatform = true;
+					m_Platform = hit.transform.gameObject.GetComponent<ActivatableMovingPlatform>();
+				}
+				else
+				{
+					m_IsOnMovingPlatform = false;
+				}
+			}
 			return true;
 		}
 		return false;
+	}
+
+	void PlatformMovement()
+	{
+		transform.position += m_Platform.GetAmountToMovePlayer ();
 	}
 
 	//Plays a walking animation
