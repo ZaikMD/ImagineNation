@@ -6,22 +6,27 @@ public class CrawlSpace : MonoBehaviour
 	public float Delay = 3.0f;
 	float[] m_CrawlDelay = new float[2];
 
-	public GameObject m_OtherCrawlSpace;
+	public CrawlSpace m_OtherCrawlSpace;
 	public GameObject m_TemporaryHidingSpot;
 
 	CharacterController[] m_Players = new CharacterController[2];
+	
+	//bool[] m_MovingPlayer = new bool[2];
+	//bool[] m_IncomingPlayer = new bool[2];
 
-	bool[] m_EnteredCrawlSpace = new bool[2];
-	bool[] m_MovingPlayer = new bool[2];
+	int m_InComingPlayers = 0;
 
+	public void addIncomingPlayer()
+	{
+		m_InComingPlayers++;
+		//Debug.Log (gameObject.name + "    " + m_InComingPlayers);
+	}
 
 	// Use this for initialization
 	void Start () 
 	{
-		for(int i = 0; i < m_EnteredCrawlSpace.Length; i++)
+		for(int i = 0; i < m_Players.Length; i++)
 		{
-			m_MovingPlayer[i] = false;
-			m_EnteredCrawlSpace[i] = false;
 			m_CrawlDelay[i] = 0.0f;
 		}
 	}
@@ -31,22 +36,19 @@ public class CrawlSpace : MonoBehaviour
 	{
 		if(m_OtherCrawlSpace != null && m_TemporaryHidingSpot != null)
 		{
-			for(int i = 0; i < m_EnteredCrawlSpace.Length; i++)
+			for(int i = 0; i < m_Players.Length; i++)
 			{
-				if(m_EnteredCrawlSpace[i] == true)
+				if(m_Players[i] != null)
 				{
 					m_Players[i].transform.position = m_TemporaryHidingSpot.transform.position;
-					m_MovingPlayer[i] = true;
+				
 					
 					if(m_CrawlDelay[i] > 0)
 					{
 						m_CrawlDelay[i] -= Time.deltaTime;
 						continue;
 					}
-
-					m_EnteredCrawlSpace[i] = false;
-
-					m_Players[i].transform.position =  m_OtherCrawlSpace.transform.position;
+					m_Players[i].transform.position =  m_OtherCrawlSpace.gameObject.transform.position;
 					m_Players[i] = null;
 				}
 			}
@@ -55,7 +57,8 @@ public class CrawlSpace : MonoBehaviour
 
 	void OnTriggerEnter (Collider other)
 	{
-
+		if(m_InComingPlayers == 0)
+		{
 			if (other.tag == "Player")
 			{
 				if (m_Players[0] == null)
@@ -68,13 +71,11 @@ public class CrawlSpace : MonoBehaviour
 					{
 						m_CrawlDelay[0] = Delay;
 					}
-				if (m_MovingPlayer[0] == false)
-				{
+
 					m_Players[0] = (CharacterController)other.GetComponent(typeof (CharacterController));
-					m_EnteredCrawlSpace[0] = true;
-				}
+					m_OtherCrawlSpace.addIncomingPlayer();
 				}		
-				else 
+				else
 				{
 					if(m_CrawlDelay[0] > 2.5f)
 					{
@@ -84,23 +85,24 @@ public class CrawlSpace : MonoBehaviour
 					{
 						m_CrawlDelay[1] = Delay;
 					}
-
-				if (m_MovingPlayer[1] == false)
-				{
 					m_Players[1] = (CharacterController)other.GetComponent(typeof (CharacterController));
-					m_EnteredCrawlSpace[1] = true;
-				}
+					m_OtherCrawlSpace.addIncomingPlayer();
 				}
 			}
+		}
 	}
 
 	void OnTriggerExit(Collider other)
 	{
-		for(int i = 0; i < m_MovingPlayer.Length; i++)
+		if(m_Players[0] == null && m_Players[1] ==null)
 		{
-			if (m_MovingPlayer[i] == true)
+			if(other.gameObject.tag == "Player")
 			{
-				m_MovingPlayer[i] = false;
+				if(m_InComingPlayers > 0)
+				{
+					m_InComingPlayers--;
+					//Debug.Log(gameObject.name + "    " + m_InComingPlayers);
+				}
 			}
 		}
 	}

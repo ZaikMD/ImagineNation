@@ -7,6 +7,11 @@ public class BaseGoal : MonoBehaviour {
 	public string m_NextScene;
 	public GameObject m_TemporaryHidingSpot;
 
+	public Rigidbody m_AlexPrefab;
+	public Rigidbody m_ZoePrefab;
+	public Rigidbody m_DerekPrefab;
+
+
 	//public GameObject m_Zipper;
 	protected bool[] m_AtEnd = new bool[2];
 	protected bool[] m_MovingToEnd = new bool[2];
@@ -14,10 +19,19 @@ public class BaseGoal : MonoBehaviour {
 
 	CharacterController[] m_Players = new CharacterController[2];
 
+	private bool[] m_PlayerID = new bool[3];
+
+	Vector3[] m_PlayerPositionHolder = new Vector3[2];
+
 
 
 	void Start()
 	{
+		for(int i = 0; i < m_Players.Length; i++)
+		{
+			m_PlayerID[i] = false;
+		}
+
 		for(int i = 0; i < m_Players.Length; i++)
 		{
 			m_AtEnd[i] = false;
@@ -35,6 +49,7 @@ public class BaseGoal : MonoBehaviour {
 	{
 		if(m_MovingToEnd [i])
 		{
+			
 			MoveToEnd();
 		}
 	}
@@ -50,11 +65,8 @@ public class BaseGoal : MonoBehaviour {
 
 
 	public void MoveToEnd()
-	{
-		//Goatse.bz is the shit
-
-
-
+	{  
+	
 		//GameObject[] players = GameObject.FindGameObjectsWithTag ("Player");
 
 		//foreach(GameObject player in players)
@@ -76,7 +88,17 @@ public class BaseGoal : MonoBehaviour {
 	            
 
 	            m_Players[i].SimpleMove(vect3);
-				m_Players[i].Move( m_Players[i].transform.forward * m_Speed);
+				//m_Players[i].Move( m_Players[i].transform.forward * m_Speed);
+
+				m_Players[i].transform.position = m_TemporaryHidingSpot.transform.position;
+
+				if(m_PlayerID[0] == true)
+				{
+
+					//Rigidbody m_firstCharacter = <GameObject>Instantiate(m_AlexPrefab, m_PlayerPositionHolder[i],Quaternion.identity);
+					//m_firstCharacter.velocity = transform.TransformDirection(m_LevelEnd.forward);
+
+				}
 
 				float distToFin = Vector3.Distance(m_Players[i].transform.position, m_LevelEnd.position);
 			
@@ -99,17 +121,36 @@ public class BaseGoal : MonoBehaviour {
 			{
 				m_Players[0] = (CharacterController)other.GetComponent(typeof (CharacterController));
 				m_MovingToEnd[0] = true;
+				m_PlayerPositionHolder[0] = m_Players[0].transform.position;
+
 			}
 
 			else 
 			{
 				m_Players[1] = (CharacterController)other.GetComponent(typeof (CharacterController));
 				m_MovingToEnd[1] = true;
+				m_PlayerPositionHolder[1] = m_Players[1].transform.position;
 			}
+
+			//Alex is ID number 0
+			if(other.name == "Alex")
+			{
+				m_PlayerID[0] = true; // is Alex
+			}
+
+			//Zoe is ID number 1
+			if (other.name == "Zoe")
+			{
+				m_PlayerID[1] = true; // is Zoe
+			}
+
+			//Derek is ID number 2
+			else 
+			{
+				m_PlayerID[2] = true; // is Derek
+			}
+
 		}
-
-
-
 	}
 
 	public void LoadNext()
