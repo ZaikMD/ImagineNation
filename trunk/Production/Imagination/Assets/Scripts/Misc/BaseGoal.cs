@@ -3,39 +3,39 @@ using System.Collections;
 
 public class BaseGoal : MonoBehaviour {
 
+	//KEEP COMMENTED CODE, WILL BE USED WHEN ANIMATIONS ARE IMPLEMENTED
+
 	public Transform m_LevelEnd;
 	public string m_NextScene;
-	public GameObject m_TemporaryHidingSpot;
+	//public GameObject m_TemporaryHidingSpot;
 
-	public Rigidbody m_AlexPrefab;
-	public Rigidbody m_ZoePrefab;
-	public Rigidbody m_DerekPrefab;
+	//public Rigidbody m_AlexPrefab;
+	//public Rigidbody m_ZoePrefab;
+	//public Rigidbody m_DerekPrefab;
 
 
 	//public GameObject m_Zipper;
 	protected bool[] m_AtEnd = new bool[2];
-	protected bool[] m_MovingToEnd = new bool[2];
 	protected float m_Speed;
 
 	CharacterController[] m_Players = new CharacterController[2];
 
-	private bool[] m_PlayerID = new bool[3];
+	//private bool[] m_PlayerID = new bool[3];
 
 	Vector3[] m_PlayerPositionHolder = new Vector3[2];
+
+	int m_PlayerWaitingToExit = 0;
 
 
 
 	void Start()
 	{
-		for(int i = 0; i < m_Players.Length; i++)
-		{
-			m_PlayerID[i] = false;
-		}
+
+		m_PlayerWaitingToExit = 0;
 
 		for(int i = 0; i < m_Players.Length; i++)
 		{
 			m_AtEnd[i] = false;
-			m_MovingToEnd[i] = false;
 		}
 
 	m_Speed = GameObject.FindGameObjectWithTag ("Player").GetComponent<BaseMovementAbility> ().m_GroundSpeed * Time.deltaTime;
@@ -47,9 +47,8 @@ public class BaseGoal : MonoBehaviour {
 	
 	for(int i = 0; i < m_Players.Length; i++)
 	{
-		if(m_MovingToEnd [i])
+		if(m_PlayerWaitingToExit == 2)
 		{
-			
 			MoveToEnd();
 		}
 	}
@@ -66,11 +65,6 @@ public class BaseGoal : MonoBehaviour {
 
 	public void MoveToEnd()
 	{  
-	
-		//GameObject[] players = GameObject.FindGameObjectsWithTag ("Player");
-
-		//foreach(GameObject player in players)
-		//{
 
 		//must create player prefabs that have animations set to them and move the actual player hidden from the camera
 		for (int i = 0; i < m_Players.Length; i++)
@@ -91,13 +85,6 @@ public class BaseGoal : MonoBehaviour {
 
 				//m_Players[i].transform.position = m_TemporaryHidingSpot.transform.position;
 
-				//if(m_PlayerID[0] == true)
-				//{
-
-					//Rigidbody m_firstCharacter = <GameObject>Instantiate(m_AlexPrefab, m_PlayerPositionHolder[i],Quaternion.identity);
-					//m_firstCharacter.velocity = transform.TransformDirection(m_LevelEnd.forward);
-
-				//}
 
 				float distToFin = Vector3.Distance(m_Players[i].transform.position, m_LevelEnd.position);
 
@@ -125,7 +112,8 @@ public class BaseGoal : MonoBehaviour {
 			if (m_Players[0] == null)
 			{
 				m_Players[0] = (CharacterController)other.GetComponent(typeof (CharacterController));
-				m_MovingToEnd[0] = true;
+				AddWaitingPlayer();
+				Debug.Log(m_PlayerWaitingToExit);
 				m_PlayerPositionHolder[0] = m_Players[0].transform.position;
 
 			}
@@ -133,7 +121,8 @@ public class BaseGoal : MonoBehaviour {
 			else 
 			{
 				m_Players[1] = (CharacterController)other.GetComponent(typeof (CharacterController));
-				m_MovingToEnd[1] = true;
+				AddWaitingPlayer();
+				Debug.Log(m_PlayerWaitingToExit);
 				m_PlayerPositionHolder[1] = m_Players[1].transform.position;
 			}
 
@@ -158,10 +147,21 @@ public class BaseGoal : MonoBehaviour {
 		}
 	}
 
+	void OnTriggerExit(Collider other)
+	{
+		m_PlayerWaitingToExit--;
+		Debug.Log (m_PlayerWaitingToExit);
+	}
+
 	public void LoadNext()
 	{
-		//Tell Game Data Stuff
+		//Tell Game Data to load next level
 		Application.LoadLevel (m_NextScene);
+	}
+
+	public void AddWaitingPlayer()
+	{
+		m_PlayerWaitingToExit++;
 	}
 
 
