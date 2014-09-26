@@ -39,6 +39,8 @@ public class DeadPlayerManager : MonoBehaviour
 
 	protected float RESPAWN_TIMER;
 
+	Vector3 m_RespawnLocation;
+
 
 
 	// Use this for initialization
@@ -109,15 +111,18 @@ public class DeadPlayerManager : MonoBehaviour
 
 					if(finder.GetRespawnLayerFound())
 					{
-						m_PlayerOneHealth.resetHealth();
-						m_PlayerOneHealth.gameObject.transform.position = m_PlayerTwoHealth.gameObject.transform.position;
 
-						finder.SetSearchForRespawnLayer(false);
+						if(getPlayerRespawnLocation(m_PlayerTwoHealth.gameObject))
+						{
+							m_PlayerOneHealth.resetHealth();
+							m_PlayerOneHealth.gameObject.transform.position = m_RespawnLocation;
+							finder.SetSearchForRespawnLayer(false);
 
-						m_RespawnTimer = RESPAWN_TIMER;
+							m_RespawnTimer = RESPAWN_TIMER;
 
-						m_OnePlayerDead = false;
-						m_PlayerOneDead = false;
+							m_OnePlayerDead = false;
+							m_PlayerOneDead = false;
+						}
 					}
 				}
 
@@ -128,14 +133,18 @@ public class DeadPlayerManager : MonoBehaviour
 					
 					if(finder.GetRespawnLayerFound())
 					{
-						m_PlayerTwoHealth.resetHealth();
-						m_PlayerTwoHealth.gameObject.transform.position = m_PlayerOneHealth.gameObject.transform.position;
-						
-						finder.SetSearchForRespawnLayer(false);
-						m_OnePlayerDead = false;
 
-						m_RespawnTimer = RESPAWN_TIMER;
-						m_PlayerTwoDead = false;
+						if(getPlayerRespawnLocation(m_PlayerOneHealth.gameObject))
+						{
+							m_PlayerTwoHealth.resetHealth();
+							m_PlayerTwoHealth.gameObject.transform.position = m_RespawnLocation;
+							
+							finder.SetSearchForRespawnLayer(false);
+							m_OnePlayerDead = false;
+
+							m_RespawnTimer = RESPAWN_TIMER;
+							m_PlayerTwoDead = false;
+						}
 					}
 				}
 			}
@@ -160,9 +169,9 @@ public class DeadPlayerManager : MonoBehaviour
 				{
 					m_OnePlayerDead = true;
 
-					m_PlayerOneHealth.gameObject.transform.position = transform.position;
+					m_PlayerOneHealth.gameObject.transform.position = gameObject.transform.position;
 				}
-
+ 
 				else
 				{
 					m_TwoPlayersDead = true;
@@ -178,7 +187,7 @@ public class DeadPlayerManager : MonoBehaviour
 				if(!m_OnePlayerDead)
 				{
 					m_OnePlayerDead = true;
-					m_PlayerTwoHealth.gameObject.transform.position = transform.position;
+					m_PlayerTwoHealth.gameObject.transform.position = gameObject.transform.position;
 
 				}
 
@@ -188,6 +197,41 @@ public class DeadPlayerManager : MonoBehaviour
 				}
 			}
 		}
+	}
+
+
+	bool getPlayerRespawnLocation(GameObject livingPlayer)
+	{
+		Vector3 rayDirection = livingPlayer.transform.position - livingPlayer.transform.right;
+		
+		Ray ray = new Ray(livingPlayer.transform.position, rayDirection);
+		
+		RaycastHit rayHit;
+		
+		
+		Physics.Raycast (ray, out rayHit, 3.0f);
+
+		if(rayHit.transform == null)
+		{
+			m_RespawnLocation = livingPlayer.gameObject.transform.right + livingPlayer.gameObject.transform.position;
+			return true;
+		}
+
+		rayDirection = livingPlayer.transform.position -  -livingPlayer.transform.right;
+		ray = new Ray (livingPlayer.transform.position, rayDirection);
+		Physics.Raycast (ray, out rayHit, 3.0f);
+	
+		if(rayHit.transform == null)
+		{
+			m_RespawnLocation = -livingPlayer.gameObject.transform.right + livingPlayer.gameObject.transform.position;
+			return true;
+		}
+
+		else
+		{
+			return false;
+		}
+
 	}
 
 }
