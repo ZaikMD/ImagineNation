@@ -5,7 +5,9 @@
 /// This class inherits from activatable and simply toggles a light
 /// on and off based on a switch or switches becoming active
 /// 
+/// IMPORTANT: Ensure that the light's original intensity is set to 0 in the editor.
 /// 
+/// EDIT: 26/09/14 - Added functionality to toggle Darkness' activity - Matthew Whitlaw
 
 using UnityEngine;
 using System.Collections;
@@ -13,6 +15,7 @@ using System.Collections;
 
 public class ActivatableLight : Activatable 
 {
+	public GameObject m_Darkness;
 	bool m_IsActive;
 	Light m_Light;
 	float m_OriginalIntensity;
@@ -37,6 +40,7 @@ public class ActivatableLight : Activatable
 			{
 				TurnOnLight();
 				m_IsActive = true;
+				m_Darkness.SetActive(false);
 			}
 		}
 		else
@@ -50,6 +54,7 @@ public class ActivatableLight : Activatable
 				{
 					ResetLight();
 					m_IsActive = false;
+					m_Darkness.SetActive(true);
 				}
 			}
 		}
