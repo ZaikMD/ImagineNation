@@ -7,20 +7,24 @@ using System.Collections;
 // TODO: smooth out the movement and turnning
 // TODO: Add a function to check if a player is heading off screen
 // TODO: Locking certain axis to stop rotation jerking
-// TODO: Track two players at once
+
 
 public class RailCamera : MonoBehaviour 
 {
     BezierSpline m_Rail;
 
-	public GameObject m_Player;
+	public GameObject[] m_Player;
 
 	private float m_CurrentProgress;
 
 	private Vector3[] m_Locations;
 	private int m_CurrentLocation;
 	private int m_GoalLocation;
+
 	private Vector3 m_GoalPos;
+	private Vector3 m_LookPos;
+
+	private float m_CameraSpeed = 10.0f;
 
 	// Use this for initialization
 	void Start () 
@@ -47,6 +51,17 @@ public class RailCamera : MonoBehaviour
 
 		}
 
+		// Calculate the lookpos which should be midway between both characters
+		Vector3 point1 = m_Player [0].transform.position;
+		Vector3 point2 = m_Player [1].transform.position;
+		
+		Vector3 point3 = point2 - point1;
+		point3 = point3 / 2;
+		point3 += point1;
+		
+		m_LookPos = point3;
+
+
 
 	}
 	
@@ -54,6 +69,18 @@ public class RailCamera : MonoBehaviour
 	void Update () 
 	{
 
+		// Calculate the lookpos which should be midway between both characters
+		Vector3 point1 = m_Player [0].transform.position;
+		Vector3 point2 = m_Player [1].transform.position;
+		
+		Vector3 point3 = point2 - point1;
+		point3 = point3 / 2;
+		point3 += point1;
+		
+		m_LookPos = point3;
+
+
+		// Find out where we are on the rail
 		float prevCamDist = float.MaxValue;
 		float dist = 0;
 
@@ -61,27 +88,24 @@ public class RailCamera : MonoBehaviour
 		{
 			dist = Vector3.Distance(transform.position, m_Locations[i]);
 			if ( dist < prevCamDist)
-	  		   {
-				prevCamDist = dist;
-				m_CurrentLocation = i;
+	  		   	{
+					prevCamDist = dist;
+					m_CurrentLocation = i;
      			}
 		}
 
 
-		float curDist = Vector3.Distance (transform.position, m_Player.transform.position);
+		// Decided where the closest point to the player is
+		float curDist = Vector3.Distance (transform.position,m_LookPos);
 		
 		float nextLoc = 0;
 
 		for(int i = 0; i < m_Locations.Length; i++)
 		{
-			nextLoc = Vector3.Distance(m_Locations[i], m_Player.transform.position);
+			nextLoc = Vector3.Distance(m_Locations[i], m_LookPos);
 			if ( nextLoc < curDist)
 			{
-				if (i > 2)
-				{
-					m_GoalPos = m_Locations[i-2];
-				}
-				else 
+				if (nextLoc < 100f);
 				{
 					m_GoalPos = m_Locations[i];
 				}
@@ -91,18 +115,35 @@ public class RailCamera : MonoBehaviour
 		}
 
 		Move ();
-		transform.LookAt (m_Player.transform.position);
+
+		Quaternion targetRotation = Quaternion.LookRotation(m_LookPos - transform.position, Vector3.up);
+		transform.rotation = Quaternion.Slerp (transform.rotation, targetRotation, Time.deltaTime * 2f);
+		//transform.LookAt (m_LookPos, Vector3.up);
 	}
 
+	/// <summary>
+	/// Moves the camera
+	/// </summary>
 	private void Move()
 	{
+		//Are we at our destination
+
 		if (transform.position != m_GoalPos)
 		{
+			// Do we have to move forward or backwards
 			if (m_GoalLocation > m_CurrentLocation)
-			transform.position = Vector3.Lerp (transform.position, m_Locations[m_CurrentLocation+1], 0.2f);
+			{
+			//transform.position = Vector3.Lerp (transform.position, m_Locations[m_CurrentLocation+1], 0.2f);
 
+			Vector3 MoveDir = m_Locations[m_CurrentLocation+1] - transform.position;
+			transform.position += MoveDir.normalized * m_CameraSpeed * Time.deltaTime;
+			}
 			else if (m_GoalLocation < m_CurrentLocation)
-			transform.position = Vector3.Lerp (transform.position, m_Locations[m_CurrentLocation-1], 0.2f);
+			{
+			//transform.position = Vector3.Lerp (transform.position, m_Locations[m_CurrentLocation-1], 0.2f);
+			Vector3 MoveDir = m_Locations[m_CurrentLocation-1] - transform.position;
+			transform.position += MoveDir.normalized * m_CameraSpeed * Time.deltaTime;
+			}
 		}
 	}
 	
