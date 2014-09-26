@@ -93,6 +93,8 @@ public class ActivatableMovingPlatform : Activatable
 				}
 			}
 		}
+		else if(m_IsActive)
+		m_AmountToMovePlayer = Vector3.zero;
 	}
 
 	void MoveToDestination()
