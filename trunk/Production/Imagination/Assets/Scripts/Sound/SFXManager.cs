@@ -26,6 +26,7 @@ public enum Sounds
     Run,
 	Collectable,
 	WeaponWoosh,
+	JumpPad,
 	AlexHitOne,
 	AlexHitTwo,
 	AlexHitThree,
@@ -54,6 +55,7 @@ public class SFXManager : MonoBehaviour
     AudioClip m_RunSFX;
 	AudioClip m_Collectable;
 	AudioClip m_WeaponWoosh;
+	AudioClip m_JumpPad;
 	AudioClip m_AlexHitOne;
 	AudioClip m_AlexHitTwo;
 	AudioClip m_AlexHitThree;
@@ -77,6 +79,7 @@ public class SFXManager : MonoBehaviour
 		m_RunSFX = (AudioClip)Resources.Load("Sounds/Common/footsteps_carpet_edit2");
 		m_WeaponWoosh = (AudioClip)Resources.Load("Sounds/Common/Woosh");
 		m_Collectable = (AudioClip)Resources.Load("Sounds/Common/Collectable");
+		m_JumpPad = (AudioClip)Resources.Load("Sounds/Common/Jump_Pad");
 
 		//Alex Sounds
 		m_AlexHitOne = (AudioClip)Resources.Load("Sounds/Alex/First_Weapon_hit_Alex");
@@ -109,6 +112,7 @@ public class SFXManager : MonoBehaviour
 		m_RunSFX = (AudioClip)Resources.Load("Sounds/Common/footsteps_carpet_edit2");
 		m_WeaponWoosh = (AudioClip)Resources.Load("Sounds/Common/Woosh");
 		m_Collectable = (AudioClip)Resources.Load("Sounds/Common/Collectable");
+		m_JumpPad = (AudioClip)Resources.Load("Sounds/Common/Jump_Pad");
 		
 		//Alex Sounds
 		m_AlexHitOne = (AudioClip)Resources.Load("Sounds/Alex/First_Weapon_hit_Alex");
@@ -275,7 +279,13 @@ public class SFXManager : MonoBehaviour
 			tempAudioInfo.OneShot = true;
 			return tempAudioInfo;
 			break;
-			
+
+			case Sounds.JumpPad:
+			tempAudioInfo.m_AudioClip = m_JumpPad;
+			tempAudioInfo.OneShot = true;
+			return tempAudioInfo;
+			break;
+
 			case Sounds.AlexHitOne:
 			tempAudioInfo.m_AudioClip = m_AlexHitOne;
 			tempAudioInfo.OneShot = true;
