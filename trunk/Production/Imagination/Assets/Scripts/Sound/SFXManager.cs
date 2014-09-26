@@ -4,9 +4,10 @@ using System.Collections;
 /*
  * Created By: Kole
  *  
- * This Script will hold all the sound effects.
+ * This Script loads all sound effects and tells the audio sources to play
+ * a passed in sound.
  * 
- * Do Play a sound effect add a point from the class with the logic, or animation manager
+ * To Play a sound effect add a point from the class with the logic, or animation manager
  * call the Play Sound function and pass in this.Gameobject for the first argument.
  * for the second argument, pass in a sound as an enum of Sound( Sounds.nameOfSound )
  * 
@@ -22,7 +23,15 @@ public enum Sounds
 {
     Jump,
     Walk,
-    Run
+    Run,
+	Collectable,
+	WeaponWoosh,
+	AlexHitOne,
+	AlexHitTwo,
+	AlexHitThree,
+	AlexHurt,
+	DerekHitOne,
+	DerekHurt
 }
 
 //this struct holds all the info needed to determine how to play are sounds
@@ -43,6 +52,15 @@ public class SFXManager : MonoBehaviour
     AudioClip m_JumpSFX;
     AudioClip m_WalkSFX;
     AudioClip m_RunSFX;
+	AudioClip m_Collectable;
+	AudioClip m_WeaponWoosh;
+	AudioClip m_AlexHitOne;
+	AudioClip m_AlexHitTwo;
+	AudioClip m_AlexHitThree;
+	AudioClip m_AlexHurt;
+	AudioClip m_DerekHitOne;
+	AudioClip m_DerekHurt;
+
 
 	/// <summary>
 	/// Raises the level load event.
@@ -52,9 +70,27 @@ public class SFXManager : MonoBehaviour
     { 
     
         //Load all sounds
-        m_JumpSFX = (AudioClip)Resources.Load("Sounds/Alex_Jump");
-        m_WalkSFX = (AudioClip)Resources.Load("Sounds/Jump_Pad");
-        m_RunSFX = (AudioClip)Resources.Load("Sounds/footsteps_carpet_edit");
+        
+		//Common Sounds
+		m_JumpSFX = (AudioClip)Resources.Load("Sounds/Alex/Alex_Jump");
+        m_WalkSFX = (AudioClip)Resources.Load("Sounds/Common/Jump_Pad");
+		m_RunSFX = (AudioClip)Resources.Load("Sounds/Common/footsteps_carpet_edit2");
+		m_WeaponWoosh = (AudioClip)Resources.Load("Sounds/Common/Woosh");
+		m_Collectable = (AudioClip)Resources.Load("Sounds/Common/Collectable");
+
+		//Alex Sounds
+		m_AlexHitOne = (AudioClip)Resources.Load("Sounds/Alex/First_Weapon_hit_Alex");
+		m_AlexHitTwo = (AudioClip)Resources.Load("Sounds/Alex/Second_Weapon_Hit_Alex");
+		m_AlexHitThree = (AudioClip)Resources.Load("Sounds/Alex/Final_Weapon_hit_Alex");
+		m_AlexHurt = (AudioClip)Resources.Load ("Sounds/Alex/painful_grunts_boy");
+
+		//Derek Sounds
+		m_DerekHitOne = (AudioClip)Resources.Load ("Sounds/Derek/Realistic_Punch");
+		m_DerekHurt = (AudioClip)Resources.Load ("Sounds/Alex/painful_grunts_boy");
+
+
+		//Zoey Sounds
+
     }
 
 
@@ -66,12 +102,28 @@ public class SFXManager : MonoBehaviour
 	void Start ()
     {
 		//This is used when not loading a new level, needed for testing,
-        m_JumpSFX = (AudioClip)Resources.Load("Sounds/Alex_Jump");
-        m_WalkSFX = (AudioClip)Resources.Load("Sounds/Jump_Pad");
-        m_RunSFX = (AudioClip)Resources.Load("Sounds/footsteps_carpet_edit");
 
-	
+		//Common Sounds
+		m_JumpSFX = (AudioClip)Resources.Load("Sounds/Alex/Alex_Jump");
+		m_WalkSFX = (AudioClip)Resources.Load("Sounds/Common/Jump_Pad");
+		m_RunSFX = (AudioClip)Resources.Load("Sounds/Common/footsteps_carpet_edit2");
+		m_WeaponWoosh = (AudioClip)Resources.Load("Sounds/Common/Woosh");
+		m_Collectable = (AudioClip)Resources.Load("Sounds/Common/Collectable");
+		
+		//Alex Sounds
+		m_AlexHitOne = (AudioClip)Resources.Load("Sounds/Alex/First_Weapon_hit_Alex");
+		m_AlexHitTwo = (AudioClip)Resources.Load("Sounds/Alex/Second_Weapon_Hit_Alex");
+		m_AlexHitThree = (AudioClip)Resources.Load("Sounds/Alex/Final_Weapon_hit_Alex");
+		m_AlexHurt = (AudioClip)Resources.Load ("Sounds/Alex/painful_grunts_boy");
+		
+		//Derek Sounds
+		m_DerekHitOne = (AudioClip)Resources.Load ("Sounds/Derek/Realistic_Punch");
+		m_DerekHurt = (AudioClip)Resources.Load ("Sounds/Alex/painful_grunts_boy");
+		
+		
+		//Zoey Sounds
 
+		
 	}
 	
 	/// <summary>
@@ -201,19 +253,70 @@ public class SFXManager : MonoBehaviour
             break;
 
             case Sounds.Walk:
-            tempAudioInfo.m_AudioClip = m_WalkSFX;;
+            tempAudioInfo.m_AudioClip = m_WalkSFX;
             tempAudioInfo.OneShot = false;
             return tempAudioInfo;
             break;
 
             case Sounds.Run:
-            tempAudioInfo.m_AudioClip = m_RunSFX;;
+            tempAudioInfo.m_AudioClip = m_RunSFX;
             tempAudioInfo.OneShot = false;
             return tempAudioInfo;
             break;
 
-            default:
-            Debug.LogError("No regonized sound passed in");
+			case Sounds.Collectable:
+            tempAudioInfo.m_AudioClip = m_Collectable;
+            tempAudioInfo.OneShot = true;
+            return tempAudioInfo;
+            break;
+
+			case Sounds.WeaponWoosh:
+			tempAudioInfo.m_AudioClip = m_WeaponWoosh;
+			tempAudioInfo.OneShot = true;
+			return tempAudioInfo;
+			break;
+			
+			case Sounds.AlexHitOne:
+			tempAudioInfo.m_AudioClip = m_AlexHitOne;
+			tempAudioInfo.OneShot = true;
+			return tempAudioInfo;
+			break;
+
+			case Sounds.AlexHitTwo:
+			tempAudioInfo.m_AudioClip = m_AlexHitTwo;
+			tempAudioInfo.OneShot = true;
+			return tempAudioInfo;
+			break;
+
+			case Sounds.AlexHitThree:
+			tempAudioInfo.m_AudioClip = m_AlexHitThree;
+			tempAudioInfo.OneShot = true;
+			return tempAudioInfo;
+			break;
+
+			case Sounds.AlexHurt:
+			tempAudioInfo.m_AudioClip = m_AlexHurt;
+			tempAudioInfo.OneShot = true;
+			return tempAudioInfo;
+			break;
+
+			case Sounds.DerekHitOne:
+			tempAudioInfo.m_AudioClip = m_DerekHitOne;
+			tempAudioInfo.OneShot = true;
+			return tempAudioInfo;
+			break;
+		
+
+			case Sounds.DerekHurt:
+			tempAudioInfo.m_AudioClip = m_AlexHurt;
+			tempAudioInfo.OneShot = true;
+			return tempAudioInfo;
+			break;
+			
+
+			
+		default:
+			Debug.LogError("No regonized sound passed in");
             return tempAudioInfo;
             
             break;
