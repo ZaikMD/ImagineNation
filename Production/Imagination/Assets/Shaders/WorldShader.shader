@@ -104,11 +104,11 @@ Shader "Production/WorldShader"
             	
             	//Calculate the base colour of the fragment with lighting
             	
-            	//Texture colour x light colour x shade based off of a dot product between the surface normal and the light direction (at least being 0).
-            	float3 fragmentColour = textureColor.xyz * _LightColor0.xyz * max(0.0, dot(normalDirection, lightDirection));
+            	//Ambient colour + texture colour x light colour x shade based off of a dot product between the surface normal and the light direction (at least being 0).
+            	float3 fragmentColour = ambientLight + textureColor.xyz * _LightColor0.xyz * max(0.0, dot(normalDirection, lightDirection));
 
          		//Return the final colour of the fragment
-         		return float4(fragmentColour + ambientLight, 1.0);
+         		return float4(fragmentColour, 1.0);
          	}
          	
          	

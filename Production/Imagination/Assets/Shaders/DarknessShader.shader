@@ -116,7 +116,7 @@ Shader "Production/DarknessShader"
 			Cull off
 			ZWrite Off
 			
-			//Our blend equation is multiplicative
+			//Our blend equation is additive
          	Blend SrcAlpha One
          	
          	CGPROGRAM
