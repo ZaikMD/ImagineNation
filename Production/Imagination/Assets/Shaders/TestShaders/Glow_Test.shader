@@ -43,8 +43,10 @@ Shader "Production/DarknessShader"
          	
          	
          	//Public Uniforms
+         	sampler2D _MainTex;
          	float4 _FogTint;
          	float _OffsetSpeed;
+         	float4 _MainTex_ST; 
          	
          	
          	//What the vertex shader will recieve
@@ -52,6 +54,7 @@ Shader "Production/DarknessShader"
          	{
          		float4 vertex : POSITION;
          		float3 normal : NORMAL;
+            	float4 texcoord : TEXCOORD0;
          	};
          	
          	//What the fragment shader willl recieve
@@ -60,6 +63,7 @@ Shader "Production/DarknessShader"
          		float4 pos : SV_POSITION;
             	float3 normal : TEXCOORD0;
             	float3 viewDir : TEXCOORD1;
+            	half2 tex : TEXCOORD2;
          	};
          	
          	//Vertex Shader
@@ -76,6 +80,11 @@ Shader "Production/DarknessShader"
          		
          		//Calculate view direction, for dot calculations in the fragment shader
          		output.viewDir = normalize(_WorldSpaceCameraPos - mul(_Object2World, input.vertex).xyz);
+         		
+         		//Give output the texture's UV
+         		output.tex = input.texcoord * _MainTex_ST.xy + _MainTex_ST.zw + _Time.x * _OffsetSpeed;
+         		output.tex += _Time.x * _OffsetSpeed;
+         		
          		
          		//Return our output
          		return output;
@@ -96,9 +105,12 @@ Shader "Production/DarknessShader"
             		discard;
             	}
             	
+            	//Base colour of this fragment
+            	float4 textureColor = tex2D(_MainTex, output.tex);
+            	
             	
             	//Calculate the colour of this fragment
-            	float4 fragmentColour = float4 (_FogTint.xyz, newOpacity);
+            	float4 fragmentColour = float4 (textureColor.xyz * _FogTint.xyz, newOpacity);
             	
             	
             	//Return the colour of the first pass's fragment
