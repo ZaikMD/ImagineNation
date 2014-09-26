@@ -10,12 +10,15 @@
 
 Shader "Production/WorldShader"
 {
+	//Properties that can be set by designers
 	Properties
-   {
-      _Texture ("Texture", 2D) = "white" {} 
-      _SpecColor ("Specular Light Color", Color) = (0.6,0.6,0.6,1.0) 
-      _Shininess ("Shininess", Float) = 20.0
-   }
+    {
+    	_MainTex ("Texture", 2D) = "white" {} 
+    	_SpecColor ("Specular Light Color", Color) = (0.6,0.6,0.6,1.0) 
+    	_Shininess ("Shininess", Float) = 20.0
+    }
+    
+    //Shader
 	SubShader
 	{
 		//Pass for ambience and directional light
@@ -37,7 +40,7 @@ Shader "Production/WorldShader"
          	float4 _LightColor0;
          	
          	//Public Uniforms
-         	sampler2D _Texture;
+         	sampler2D _MainTex;
          	
          	
          	//What the vertex shader will recieve
@@ -87,13 +90,13 @@ Shader "Production/WorldShader"
          		
          		//Re-normalize direction values so they are correct
          		float3 normalDirection = normalize(output.normalDir);
-            	float3 viewDirection = normalize(_WorldSpaceCameraPos - float3(output.posWorld.xyz));
+            	float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - output.posWorld.xyz);
             	
             	//Direction of our light, for dot product calculations
             	float3 lightDirection = normalize(_WorldSpaceLightPos0.xyz);
  				
  				//Base colour of this fragment
-            	float4 textureColor = tex2D(_Texture, float2(output.tex.xy));
+            	float4 textureColor = tex2D(_MainTex, output.tex.xy);
             	
             	//Calculate ambient light
             	float3 ambientLight = textureColor.xyz * UNITY_LIGHTMODEL_AMBIENT.xyz;
@@ -134,7 +137,7 @@ Shader "Production/WorldShader"
          	float4 _LightColor0;
          	
          	//Public Uniforms
-         	sampler2D _Texture;
+         	sampler2D _MainTex;
          	float4 _SpecColor;
          	float _Shininess;
          	
@@ -192,7 +195,7 @@ Shader "Production/WorldShader"
             	float3 lightDirection = normalize(_WorldSpaceLightPos0.xyz - output.posWorld.xyz);
  				
  				//Base colour of this fragment
-            	float4 textureColor = tex2D(_Texture, float2(output.tex.xy));
+            	float4 textureColor = tex2D(_MainTex, output.tex.xy);
             	
             	//Calculate shading based off our distance from the lights
             	float3 distShading = 1.0 / length(_WorldSpaceLightPos0.xyz - output.posWorld.xyz);
