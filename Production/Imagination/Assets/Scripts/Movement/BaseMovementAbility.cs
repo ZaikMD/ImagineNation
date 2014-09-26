@@ -268,7 +268,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
             m_Anim.Play("Idle");
             if (m_SFX != null)
             {
-                m_SFX.stopSound(this.gameObject);
+               m_SFX.stopSound(this.gameObject);
             }
                 return;
         }
