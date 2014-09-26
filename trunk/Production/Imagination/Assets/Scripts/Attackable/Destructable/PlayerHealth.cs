@@ -161,7 +161,10 @@ public class PlayerHealth : Destructable
 		if(m_InvulnerabilityTimer <= 0)
 		{
             //not invulnerable so take damage
-			m_Health -= 1;  
+			if(m_Health > 0)
+			{
+				m_Health -= 1;  
+			}
 			m_StopHealthRegenTimer = StopHealthRegenTime;
 			m_InvulnerabilityTimer = InvulnerabilityTimer;
             //update health bar

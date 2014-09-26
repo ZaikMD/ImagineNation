@@ -98,7 +98,7 @@ public class DeadPlayerManager : MonoBehaviour
 		if(m_OnePlayerDead && m_TwoPlayersDead != true)
 		{
 			m_RespawnTimer -= Time.deltaTime;
-			Debug.Log(m_RespawnTimer);
+			//Debug.Log(m_RespawnTimer);
 
 			if(m_RespawnTimer <= 0.0f)
 			{
@@ -159,7 +159,8 @@ public class DeadPlayerManager : MonoBehaviour
 				if(!m_OnePlayerDead)
 				{
 					m_OnePlayerDead = true;
-					return;
+
+					m_PlayerOneHealth.gameObject.transform.position = transform.position;
 				}
 
 				else
@@ -177,7 +178,8 @@ public class DeadPlayerManager : MonoBehaviour
 				if(!m_OnePlayerDead)
 				{
 					m_OnePlayerDead = true;
-					return;
+					m_PlayerTwoHealth.gameObject.transform.position = transform.position;
+
 				}
 
 				else
