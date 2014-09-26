@@ -82,25 +82,30 @@ public class BaseGoal : MonoBehaviour {
 				Vector3 vect3 = new Vector3(0, 0, 0);
 
 
-				BaseMovementAbility tempPlayerMovement = m_Players[i].GetComponent<BaseMovementAbility>();
+				//BaseMovementAbility tempPlayerMovement = m_Players[i].GetComponent<BaseMovementAbility>();
 
 				//tempPlayerMovement.m_Anim.Play("Run");
 	            
 
 	            m_Players[i].SimpleMove(vect3);
-				//m_Players[i].Move( m_Players[i].transform.forward * m_Speed);
 
-				m_Players[i].transform.position = m_TemporaryHidingSpot.transform.position;
+				//m_Players[i].transform.position = m_TemporaryHidingSpot.transform.position;
 
-				if(m_PlayerID[0] == true)
-				{
+				//if(m_PlayerID[0] == true)
+				//{
 
 					//Rigidbody m_firstCharacter = <GameObject>Instantiate(m_AlexPrefab, m_PlayerPositionHolder[i],Quaternion.identity);
 					//m_firstCharacter.velocity = transform.TransformDirection(m_LevelEnd.forward);
 
-				}
+				//}
 
 				float distToFin = Vector3.Distance(m_Players[i].transform.position, m_LevelEnd.position);
+
+				if( distToFin > 1.0)
+				{
+					m_Players[i].Move( m_Players[i].transform.forward * m_Speed);
+				}
+
 			
 				if(distToFin < 1.0)
 				{
@@ -133,22 +138,22 @@ public class BaseGoal : MonoBehaviour {
 			}
 
 			//Alex is ID number 0
-			if(other.name == "Alex")
-			{
-				m_PlayerID[0] = true; // is Alex
-			}
+			//if(other.name == "Alex")
+			//{
+			//	m_PlayerID[0] = true; // is Alex
+			//}
 
 			//Zoe is ID number 1
-			if (other.name == "Zoe")
-			{
-				m_PlayerID[1] = true; // is Zoe
-			}
+			//if (other.name == "Zoe")
+			//{
+			//	m_PlayerID[1] = true; // is Zoe
+			//}
 
 			//Derek is ID number 2
-			else 
-			{
-				m_PlayerID[2] = true; // is Derek
-			}
+			//else 
+			//{
+			//	m_PlayerID[2] = true; // is Derek
+			//}
 
 		}
 	}
