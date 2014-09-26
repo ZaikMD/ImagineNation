@@ -36,6 +36,7 @@ public class AlexMovementMoonBoots : BaseMovementAbility {
 	//Jump higher than normal
 	protected override void Jump()
 	{
+		m_SFX.playSound (this.gameObject, Sounds.Jump);
 		base.Jump ();
 		m_VerticalVelocity = MOON_BOOTS_JUMP;
 	}

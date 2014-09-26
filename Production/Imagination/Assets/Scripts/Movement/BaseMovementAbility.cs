@@ -27,7 +27,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//Other objects this class needs
 	private Transform m_Camera;
 	public Animation m_Anim;
-    private SFXManager m_SFX;
+    protected SFXManager m_SFX;
 	protected CharacterController m_CharacterController;
 	protected AcceptInputFrom m_AcceptInputFrom;
 	protected ActivatableMovingPlatform m_Platform;
@@ -268,7 +268,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
             m_Anim.Play("Idle");
             if (m_SFX != null)
             {
-               m_SFX.stopSound(this.gameObject);
+              // m_SFX.stopSound(this.gameObject);
             }
                 return;
         }
