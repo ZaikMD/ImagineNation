@@ -107,7 +107,7 @@ public abstract class BaseEnemy : MonoBehaviour, Attackable
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
 		if (m_Health <= 0.0f)
         {
