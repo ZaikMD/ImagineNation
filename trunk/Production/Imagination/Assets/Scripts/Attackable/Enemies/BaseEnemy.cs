@@ -275,7 +275,7 @@ public abstract class BaseEnemy : MonoBehaviour, Attackable
                 m_Target = m_PathNodes[m_NodeCount].transform;
             }
 
-            if (GetDistanceToTarget() <= 1.0f)
+            if (GetDistanceToTarget() <= 5.0f)
             {
                 m_ReachedNode = true;
             }
