@@ -62,7 +62,7 @@ public class Trampoline : MonoBehaviour {
 				if (m_TrampolineJumpNow == true)
 				{
 					m_TrampolineJumpNow = false;
-					//Debug.Log("Landed");
+					Debug.Log("Landed");
 					m_PlayerController = null;
 				}
 			}
@@ -85,9 +85,10 @@ public class Trampoline : MonoBehaviour {
 			{
 				//Debug.Log("JUMP");
 				m_PlayerController = (CharacterController)other.GetComponent(typeof (CharacterController));
+				Jump();
 				m_TrampolineJumpNow = true;
 				GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SFXManager>().playSound(this.gameObject, Sounds.JumpPad);
-				Jump();
+
 
 
 				//Launch();

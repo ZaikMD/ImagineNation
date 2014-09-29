@@ -25,7 +25,7 @@ using System.Collections;
 public abstract class BaseMovementAbility : MonoBehaviour 
 {
 	//Other objects this class needs
-	private Transform m_Camera;
+	public Transform m_Camera;
 	public Animation m_Anim;
     protected SFXManager m_SFX;
 	protected CharacterController m_CharacterController;
@@ -59,7 +59,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	protected void Start () 
 	{
 		m_CharacterController = GetComponent<CharacterController> ();
-		m_Camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
+		//m_Camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
 		m_Anim = GetComponent<Animation>();
 
         m_SFX = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SFXManager>();
