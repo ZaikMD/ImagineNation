@@ -633,4 +633,44 @@ public static class InputManager
     }
     #endregion
     #endregion
+
+    #region Camera
+    #region Generic Inputs
+    public static Vector2 getCamera()
+    {
+        Vector2 input = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+        if (input.magnitude == 0)
+        {
+            return GamePad.GetAxis(GamePad.Axis.LeftStick, GamePad.Index.Any);
+        }
+        return input;
+    }
+    #endregion
+    //==========================================================================================
+    #region Specific Inputs
+    public static Vector2 getCamera(PlayerInput inputToRead)
+    {
+        switch (inputToRead)
+        {
+            case PlayerInput.Keyboard:
+                return new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+            case PlayerInput.GamePadOne:
+                return GamePad.GetAxis(GamePad.Axis.RightStick, GamePad.Index.One);
+
+            case PlayerInput.GamePadTwo:
+                return GamePad.GetAxis(GamePad.Axis.RightStick, GamePad.Index.Two);
+
+            case PlayerInput.GamePadThree:
+                return GamePad.GetAxis(GamePad.Axis.RightStick, GamePad.Index.Three);
+
+            case PlayerInput.GamePadFour:
+                return GamePad.GetAxis(GamePad.Axis.RightStick, GamePad.Index.Four);
+
+            case PlayerInput.All:
+                return getCamera();
+        }
+        return new Vector2(0, 0);
+    }
+    #endregion
+    #endregion
 }
