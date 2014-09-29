@@ -41,7 +41,7 @@ public abstract class BaseEnemy : MonoBehaviour, Attackable
     protected float m_IdlingTime = MAX_IDLE_TIME;
 
     //Const for how long the enemy takes to get out of combat
-    private const float EXIT_COMBAT_TIME = 3.0f;
+    private const float EXIT_COMBAT_TIME = 1.0f;
     //Timer to track when the enemy leaves the player alone
     protected float m_CombatTimer = EXIT_COMBAT_TIME;
 
@@ -153,20 +153,6 @@ public abstract class BaseEnemy : MonoBehaviour, Attackable
     {
         if (m_InCombat)
         {
-            if (GetDistanceToTarget() <= m_AggroRange)
-            {
-                if (GetDistanceToTarget() <= m_CombatRange)
-                {
-                    m_State = State.Fight;
-                    m_CombatTimer = EXIT_COMBAT_TIME;
-                    return;
-                }
-
-                m_State = State.Chase;
-                m_CombatTimer = EXIT_COMBAT_TIME;
-                return;
-            }
-
             for (int i = 0; i < m_Players.Length; i++)
             {
                 if (m_Players[i] != m_Target)
@@ -204,7 +190,7 @@ public abstract class BaseEnemy : MonoBehaviour, Attackable
             else
             {
                 m_CombatTimer -= Time.deltaTime;
-                m_State = State.Chase;
+                m_State = State.Default;
             }
 
         }
@@ -224,10 +210,12 @@ public abstract class BaseEnemy : MonoBehaviour, Attackable
                 if (idleRandom == 1)
                 {
                     m_Idling = true;
+					m_Target = null;
                     m_State = State.Idle;
                 }
                 else
                 {
+					m_Target = null;
                     m_State = State.Patrol;
                 }
             }
@@ -237,8 +225,13 @@ public abstract class BaseEnemy : MonoBehaviour, Attackable
     //Idle state for when the enemy is standing still
     protected virtual void Idle()
     {
-        m_Target = m_IdleNode;
+		if(m_Target == null)
+		{
+        	m_Target = m_IdleNode;
+		}
+
         m_Agent.SetDestination(m_Target.position);
+
         if (m_IdlingTime <= 0)
         {
             m_IdlingTime = MAX_IDLE_TIME;
@@ -248,6 +241,17 @@ public abstract class BaseEnemy : MonoBehaviour, Attackable
         else
         {
             m_IdlingTime -= Time.deltaTime;
+			for (int i = 0; i < m_Players.Length; i++)
+			{
+				float distance = Vector3.Distance(transform.position, m_Players[i].transform.position);
+				if (distance <= m_AggroRange)
+				{
+					m_InCombat = true;
+					m_Target = m_Players[i].gameObject.transform;
+					m_State = State.Default;
+				}
+			}
+
         }
     }
 
