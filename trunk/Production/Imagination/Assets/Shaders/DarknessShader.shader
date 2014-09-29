@@ -1,7 +1,8 @@
 ﻿// TO USE
 //
 // 1. Create a darkness material (unless one has been made)
-// 2. Drag a texture to the "_Texture" box
+// 2. Apply the material to the object
+// 3. Drag a texture to the "_Texture" box
 // 3. You are done
 //
 // Created by Jason Hein
@@ -15,7 +16,8 @@ Shader "Production/DarknessShader"
 	{
 		_MainTex ("Texture", 2D) = "white" {}
 		_FogTint("Fog Tint", Color) = (1.0, 1.0, 0.0, 1.0)
-		_OffsetSpeed ("Fog Move Speed", Float) = 0.1
+		_OffsetSpeed ("Fog Move Speed", Float) = 1
+		_TransparencyGrow("Transprency Growing", Float) = 1.1
 	}
 	
 	//Shader
@@ -45,6 +47,7 @@ Shader "Production/DarknessShader"
          	//Public Uniforms
          	float4 _FogTint;
          	float _OffsetSpeed;
+         	float _TransparencyGrow;
          	
          	
          	//What the vertex shader will recieve
@@ -89,7 +92,7 @@ Shader "Production/DarknessShader"
             	float3 viewDirection = normalize(output.viewDir);
  
  				//Calculate a new opacity for faces that are facing away from the camera
-            	float newOpacity = min(1.0, (abs(dot(viewDirection, normalDirection) * 1.1)) * _FogTint.a);
+            	float newOpacity = pow(min(1.0, (abs(dot(viewDirection, normalDirection))) * _FogTint.a), _TransparencyGrow);
             	
             	if (newOpacity < 0.05)
             	{
@@ -133,6 +136,7 @@ Shader "Production/DarknessShader"
          	float4 _FogTint;
          	float _OffsetSpeed;
          	float4 _MainTex_ST;
+         	float _TransparencyGrow;
          	
          	
          	//What the vertex shader will recieve
@@ -183,7 +187,7 @@ Shader "Production/DarknessShader"
             	float3 viewDirection = normalize(output.viewDir);
  
  				//Calculate a new opacity for faces that are facing away from the camera
-            	float newOpacity = min(1.0, (abs(dot(viewDirection, normalDirection) * 1.1)) * _FogTint.a);
+            	float newOpacity = pow(min(1.0, (abs(dot(viewDirection, normalDirection))) * _FogTint.a), _TransparencyGrow);
             	
             	if (newOpacity < 0.05)
             	{

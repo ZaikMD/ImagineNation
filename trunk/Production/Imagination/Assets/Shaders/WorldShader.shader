@@ -2,8 +2,9 @@
 //
 // 1. Make sure you have set the ambient lighting. Edit -> Render Settings -> Ambient Lighting
 // 2. Create a material
-// 3. Drag a texture to the "_Texture" box.
-// 4. You are done, but you can set how shiny the world is, and the color of shinyness that is applied.
+// 3. Place the material on the object
+// 4. Drag a texture to the "_Texture" box
+// 5. You are done.
 //
 // Created by Jason Hein
 
@@ -14,8 +15,8 @@ Shader "Production/WorldShader"
 	Properties
     {
     	_MainTex ("Texture", 2D) = "white" {} 
-    	_SpecColor ("Specular Light Color", Color) = (0.6,0.6,0.6,1.0) 
-    	_Shininess ("Shininess", Float) = 20.0
+    	_SpecColor ("Specular Light Color", Color) = (0.4,0.4,0.4,1.0) 
+    	_Shininess ("Shininess", Float) = 10.0
     }
     
     //Shader
