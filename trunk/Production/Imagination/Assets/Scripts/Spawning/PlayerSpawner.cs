@@ -55,6 +55,7 @@ public class PlayerSpawner : MonoBehaviour
 		{
 		case Characters.Zoey:
 			character = (GameObject) GameObject.Instantiate (ZoeyPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
+
 			character.name = "Zoe";
 			break;
 		case Characters.Derek:
@@ -67,7 +68,7 @@ public class PlayerSpawner : MonoBehaviour
 			break;
 		}
 		GameObject player = character.GetComponentInChildren (typeof(PlayerHealth)).gameObject;
-		
+
 		player.transform.position = spawnPoint.transform.position;
 
 
