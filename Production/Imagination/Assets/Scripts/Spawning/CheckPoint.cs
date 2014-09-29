@@ -15,7 +15,7 @@ public class CheckPoint : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		
+		Debug.Log(GameData.Instance.CurrentCheckPoint);
 	
 	}
 
