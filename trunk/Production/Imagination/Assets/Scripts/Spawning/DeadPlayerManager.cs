@@ -210,7 +210,7 @@ public class DeadPlayerManager : MonoBehaviour
 		
 
 		Physics.Raycast (ray, out rayHit, 3.0f);
-		Debug.DrawRay (livingPlayer.transform.position, rayDirection, Color.magenta);
+
 
 		if(rayHit.transform == null)
 		{
@@ -225,7 +225,6 @@ public class DeadPlayerManager : MonoBehaviour
 
 
 		Physics.Raycast (ray, out rayHit, 3.0f);
-		Debug.DrawRay (livingPlayer.transform.position, rayDirection, Color.magenta);
 	
 		if(rayHit.transform == null)
 		{

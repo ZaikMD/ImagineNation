@@ -30,6 +30,8 @@ public class MovingBlock : Destructable
 
 	public GameObject m_BoxPrefab;
 
+	float m_Gravity = -10.0f;
+
 
 
 	// Use this for initialization
@@ -77,6 +79,8 @@ public class MovingBlock : Destructable
 			m_HitTimer = m_SaveHitTimer;
 
 		}
+
+		fall ();
 	}
 
 	void respawn()
@@ -173,6 +177,25 @@ public class MovingBlock : Destructable
 	public void setPressurePlateDestination(Vector3 destination)
 	{
 		m_Destination = destination;
+	}
+
+	void fall()
+	{
+		Vector3 rayDirection = -transform.up;
+		
+		Ray ray = new Ray (transform.position, rayDirection);
+		
+		RaycastHit rayHit;
+		
+		Physics.Raycast (ray, out rayHit, 10.0f);
+
+		if(rayHit.point != null)
+		{
+			m_Destination.y = rayHit.point.y;
+		}
+
+
+
 	}
 
 }
