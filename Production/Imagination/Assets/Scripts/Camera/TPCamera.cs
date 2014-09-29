@@ -74,6 +74,24 @@ public class TPCamera : MonoBehaviour
 
             //rotate the camera up and down since were spinning inb the y this needs to be done in local space
             m_Containing.RotationPoint.transform.Rotate(rotationInput.y * m_Containing.RotationScale.y, 0.0f, 0.0f, Space.Self);
+
+            //get the current euler angles
+            Vector3 eulerangles = m_Containing.RotationPoint.transform.rotation.eulerAngles;
+
+            //since the we need the angle to stay between 0 - 75 and 295-360 we need two different clamps
+            if(eulerangles.x <= 180)
+            {
+                eulerangles.x = Mathf.Clamp(eulerangles.x, 0.0f, 75.0f);
+            }
+            else
+            {
+                eulerangles.x = Mathf.Clamp(eulerangles.x, 295.0f, 360.0f);
+            }
+            //the z axis slowly collects tiny amounts of rotation (might be rounding) but we reset it to 0.0 since were never rotating in the z
+            eulerangles.z = 0.0f;
+
+            //reset the rotation with the clamped values
+            m_Containing.RotationPoint.transform.rotation = Quaternion.Euler(eulerangles);
         }
     }
 
