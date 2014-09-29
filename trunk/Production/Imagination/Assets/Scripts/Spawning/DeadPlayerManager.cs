@@ -202,28 +202,34 @@ public class DeadPlayerManager : MonoBehaviour
 
 	bool getPlayerRespawnLocation(GameObject livingPlayer)
 	{
-		Vector3 rayDirection = livingPlayer.transform.position - livingPlayer.transform.right;
+		Vector3 rayDirection = livingPlayer.transform.right;
 		
 		Ray ray = new Ray(livingPlayer.transform.position, rayDirection);
 		
 		RaycastHit rayHit;
 		
-		
+
 		Physics.Raycast (ray, out rayHit, 3.0f);
+		Debug.DrawRay (livingPlayer.transform.position, rayDirection, Color.magenta);
 
 		if(rayHit.transform == null)
 		{
-			m_RespawnLocation = livingPlayer.gameObject.transform.right + livingPlayer.gameObject.transform.position;
+			m_RespawnLocation = livingPlayer.gameObject.transform.position + livingPlayer.gameObject.transform.right;
 			return true;
 		}
+		//////////////
 
-		rayDirection = livingPlayer.transform.position -  -livingPlayer.transform.right;
-		ray = new Ray (livingPlayer.transform.position, rayDirection);
+		rayDirection = -(livingPlayer.transform.right);
+
+		ray = new Ray(livingPlayer.transform.position, rayDirection);
+
+
 		Physics.Raycast (ray, out rayHit, 3.0f);
+		Debug.DrawRay (livingPlayer.transform.position, rayDirection, Color.magenta);
 	
 		if(rayHit.transform == null)
 		{
-			m_RespawnLocation = -livingPlayer.gameObject.transform.right + livingPlayer.gameObject.transform.position;
+			m_RespawnLocation = livingPlayer.gameObject.transform.position - (livingPlayer.gameObject.transform.right);
 			return true;
 		}
 

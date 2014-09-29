@@ -213,7 +213,7 @@ public class PlayerHealth : Destructable
         //reset everything
 		m_IsDead = false;
 		m_Health = m_TotalHealth;
-		InvulnerabilityTimer = m_InvulnerabilityTimer;
+		m_InvulnerabilityTimer = InvulnerabilityTimer;
 		StopHealthRegenTime = 0.0f;
 		m_GUITexture.texture = textures[m_Health];
 	}
