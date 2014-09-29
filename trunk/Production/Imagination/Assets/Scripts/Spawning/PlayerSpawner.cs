@@ -47,7 +47,9 @@ public class PlayerSpawner : MonoBehaviour
 
 
 		GameObject spawnPoint = currentCheckPoint.transform.FindChild ("PlayerOneSpawnPoint").gameObject;
-		GameObject character;
+		GameObject character = this.gameObject;
+
+
 
 		switch(GameData.Instance.PlayerOneCharacter)
 		{
@@ -64,6 +66,10 @@ public class PlayerSpawner : MonoBehaviour
 			character.name = "Alex";
 			break;
 		}
+		GameObject player = character.GetComponentInChildren (typeof(PlayerHealth)).gameObject;
+		
+		player.transform.position = spawnPoint.transform.position;
+
 
 		spawnPoint = currentCheckPoint.transform.FindChild ("PlayerTwoSpawnPoint").gameObject;
 		switch(GameData.Instance.PlayerTwoCharacter)
@@ -81,6 +87,10 @@ public class PlayerSpawner : MonoBehaviour
 			character.name = "Alex";
 			break;
 		}
+
+		player = character.GetComponentInChildren (typeof(PlayerHealth)).gameObject;
+		
+		player.transform.position = spawnPoint.transform.position;
 
 		Destroy (this.gameObject);
 	}
