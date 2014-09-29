@@ -19,7 +19,7 @@ using System.Collections;
 public class AlexMovementMoonBoots : BaseMovementAbility {
 	
 	//Super moon boot jump speed
-	private const float MOON_BOOTS_JUMP = 15.0f;
+	private const float MOON_BOOTS_JUMP = 10.0f;
 
 	// Initialization
 	void Start () {
