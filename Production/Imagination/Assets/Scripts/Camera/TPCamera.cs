@@ -20,9 +20,40 @@ public class TPCamera : MonoBehaviour
     public bool DrawRays = false;
     public Vector2 RaycastOffset;
 
+    Camera m_Camera;
+
 	// Use this for initialization
 	void Start ()
     {
+        m_Camera = gameObject.GetComponent<Camera>();
+
+        Characters currentCharacter;
+        switch (transform.parent.name)
+        {
+            case "Alex":
+                currentCharacter = Characters.Alex;
+                break;
+            case "Derek":
+                currentCharacter = Characters.Derek;
+                break;
+            case "Zoe":
+                currentCharacter = Characters.Zoey;
+                break;
+            default:
+                Debug.LogError("parent is named wrong");
+                currentCharacter = Characters.Zoey;
+                break;
+        }
+
+        if (GameData.Instance.PlayerOneCharacter == currentCharacter)
+        {
+           m_Camera.rect = new Rect(0.0f, 0.5f, 1.0f, 0.5f);
+        }
+        else
+        {
+            m_Camera.rect = new Rect(0.0f, 0.0f, 1.0f, 0.5f);
+        }
+
         m_AcceptInputFrom = gameObject.GetComponent<AcceptInputFrom>();
 
         m_Behaviours.Add(new Rotation(this));
