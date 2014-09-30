@@ -22,7 +22,7 @@ Shader "Production/WorldShader"
     //Shader
 	SubShader
 	{
-		//Pass for ambience and directional light
+		//Pass for directional and ambient lighting
 		Pass 
 		{
 			Tags { "LightMode" = "ForwardBase" } 

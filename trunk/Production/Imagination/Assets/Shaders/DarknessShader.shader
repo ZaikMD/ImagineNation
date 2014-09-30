@@ -15,6 +15,7 @@ Shader "Production/DarknessShader"
 	Properties
 	{
 		_MainTex ("Texture", 2D) = "white" {}
+		_MistTint("Mist Tint", Color) = (1.0, 1.0, 0.0, 1.0)
 		_FogTint("Fog Tint", Color) = (1.0, 1.0, 0.0, 1.0)
 		_OffsetSpeed ("Fog Move Speed", Float) = 1
 		_TransparencyGrow("Transprency Growing", Float) = 1.1
@@ -25,15 +26,15 @@ Shader "Production/DarknessShader"
 	{
 		Tags { "Queue" = "Transparent" } 
 		
-		//Pass for background enviroment
+		//Pass for shading the surfaces inside the darkness
 		Pass
 		{
 			//Do not remove the colours behind the object
-			Cull off
+			Cull back
 			ZWrite Off
 			
 			//Our blend equation is multiplicative
-         	Blend Zero OneMinusSrcAlpha
+         	Blend SrcAlpha DstColor
          	
          	CGPROGRAM
          	
@@ -48,6 +49,7 @@ Shader "Production/DarknessShader"
          	float4 _FogTint;
          	float _OffsetSpeed;
          	float _TransparencyGrow;
+         	float4 _MistTint;
          	
          	
          	//What the vertex shader will recieve
@@ -92,16 +94,16 @@ Shader "Production/DarknessShader"
             	float3 viewDirection = normalize(output.viewDir);
  
  				//Calculate a new opacity for faces that are facing away from the camera
-            	float newOpacity = pow(min(1.0, (abs(dot(viewDirection, normalDirection))) * _FogTint.a), _TransparencyGrow);
+            	float newOpacity = pow(min(1.0, (abs(dot(viewDirection, normalDirection))) * _MistTint.a), _TransparencyGrow );
             	
-            	if (newOpacity < 0.05)
+            	if (newOpacity < 0.03)
             	{
             		discard;
             	}
             	
             	
             	//Calculate the colour of this fragment
-            	float4 fragmentColour = float4 (_FogTint.xyz, newOpacity);
+            	float4 fragmentColour = float4 (_MistTint.xyz, 1.0);
             	
             	
             	//Return the colour of the first pass's fragment
@@ -112,7 +114,95 @@ Shader "Production/DarknessShader"
          	ENDCG
 		}
 		
-		//Pass for drawing the darkness
+		//Pass for shading the background enviroment
+		Pass
+		{
+			//Do not remove the colours behind the object
+			Cull back
+			ZWrite Off
+			
+			//Our blend equation is multiplicative
+         	Blend One OneMinusSrcAlpha
+         	
+         	CGPROGRAM
+         	
+         	//Allows us to get offset and tiling
+			#include "UnityCG.cginc"
+ 
+         	#pragma vertex vertShader
+         	#pragma fragment fragShader
+         	
+         	
+         	//Public Uniforms
+         	float4 _FogTint;
+         	float _OffsetSpeed;
+         	float _TransparencyGrow;
+         	float4 _MistTint;
+         	
+         	
+         	//What the vertex shader will recieve
+         	struct vertexInput
+         	{
+         		float4 vertex : POSITION;
+         		float3 normal : NORMAL;
+         	};
+         	
+         	//What the fragment shader willl recieve
+         	struct vertexOutput
+         	{
+         		float4 pos : SV_POSITION;
+            	float3 normal : TEXCOORD0;
+            	float3 viewDir : TEXCOORD1;
+         	};
+         	
+         	//Vertex Shader
+         	vertexOutput vertShader(vertexInput input)
+         	{
+         		//A container for the vertexOutput
+         		vertexOutput output;
+         		
+         		//Calculate the vertex's position according to the camera
+         		output.pos = mul(UNITY_MATRIX_MVP, input.vertex);
+         		
+         		//Calculate the normal of the surface in object coordinates
+         		output.normal = normalize(mul(float4(input.normal, 0.0), _World2Object).xyz);
+         		
+         		//Calculate view direction, for dot calculations in the fragment shader
+         		output.viewDir = normalize(_WorldSpaceCameraPos - mul(_Object2World, input.vertex).xyz);
+         		
+         		//Return our output
+         		return output;
+         	}
+         	
+         	//Fragment Shader
+         	float4 fragShader (vertexOutput output) : COLOR
+         	{
+         		//Re-normalize some interpolated vertex output
+         		float3 normalDirection = normalize(output.normal);
+            	float3 viewDirection = normalize(output.viewDir);
+ 
+ 				//Calculate a new opacity for faces that are facing away from the camera
+            	float newOpacity = pow(min(1.0, (abs(dot(viewDirection, normalDirection))) * _MistTint.a), _TransparencyGrow);
+            	
+            	if (newOpacity < 0.03)
+            	{
+            		discard;
+            	}
+            	
+            	
+            	//Calculate the colour of this fragment
+            	float4 fragmentColour = float4 (_MistTint.xyz, newOpacity);
+            	
+            	
+            	//Return the colour of the first pass's fragment
+            	return fragmentColour;
+         	}
+         	
+         	
+         	ENDCG
+		}
+		
+		//Pass for drawing the fog within the darkness
 		Pass
 		{
 			//Do not remove the colours behind the object
@@ -189,7 +279,7 @@ Shader "Production/DarknessShader"
  				//Calculate a new opacity for faces that are facing away from the camera
             	float newOpacity = pow(min(1.0, (abs(dot(viewDirection, normalDirection))) * _FogTint.a), _TransparencyGrow);
             	
-            	if (newOpacity < 0.05)
+            	if (newOpacity < 0.03)
             	{
             		discard;
             	}
