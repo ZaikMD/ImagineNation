@@ -26,7 +26,7 @@ Shader "Production/DarknessShader"
 	{
 		Tags { "Queue" = "Transparent" } 
 		
-		//Pass for shading the surfaces inside the darkness
+		//Pass for shading the background enviroment
 		Pass
 		{
 			//Do not remove the colours behind the object
@@ -34,7 +34,7 @@ Shader "Production/DarknessShader"
 			ZWrite Off
 			
 			//Our blend equation is multiplicative
-         	Blend SrcAlpha DstColor
+         	Blend SrcAlpha OneMinusSrcAlpha
          	
          	CGPROGRAM
          	
@@ -103,7 +103,7 @@ Shader "Production/DarknessShader"
             	
             	
             	//Calculate the colour of this fragment
-            	float4 fragmentColour = float4 (_MistTint.xyz, 1.0);
+            	float4 fragmentColour = float4 (_MistTint.xyz, newOpacity);
             	
             	
             	//Return the colour of the first pass's fragment
@@ -114,7 +114,7 @@ Shader "Production/DarknessShader"
          	ENDCG
 		}
 		
-		//Pass for shading the background enviroment
+		//Pass for shading the background enviroment again
 		Pass
 		{
 			//Do not remove the colours behind the object
@@ -122,7 +122,7 @@ Shader "Production/DarknessShader"
 			ZWrite Off
 			
 			//Our blend equation is multiplicative
-         	Blend One OneMinusSrcAlpha
+         	Blend SrcAlpha OneMinusSrcAlpha
          	
          	CGPROGRAM
          	
