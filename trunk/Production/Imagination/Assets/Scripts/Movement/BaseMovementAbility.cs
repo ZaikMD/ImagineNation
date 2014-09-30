@@ -62,7 +62,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		//m_Camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
 		m_Anim = GetComponent<Animation>();
 
-        m_SFX = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SFXManager>();
+        m_SFX = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SFXManager>();
 
 		m_AcceptInputFrom = gameObject.GetComponent<AcceptInputFrom> ();
 
