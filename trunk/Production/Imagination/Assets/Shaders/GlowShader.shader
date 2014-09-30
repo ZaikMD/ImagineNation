@@ -18,14 +18,49 @@ Shader "Production/GlowShader"
 	//Properties that can be set by designers
 	Properties
 	{
-		_GlowTint("Glow Tint", Color) = (1.0, 1.0, 1.0, 1.0)
+		_GlowTint("Glow Tint", Color) = (-0.1, 1.0, 0.0, 1.0)
+		_GlowSize("Glow Size", Float) = 1.45
 	}
 	Subshader
 	{
+		//Pass for not drawing over the player
+		Pass
+		{
+			Tags { "Queue" = "Transparent" } 
+			
+			Cull off
+			ZWrite Off
+			Blend zero zero
+		
+			//This is a CG shader
+			CGPROGRAM
+ 			
+ 			//Define the shaders
+         	#pragma vertex vertShader
+         	#pragma fragment fragShader
+        	
+         	float4 vertShader(float4 vertexPos : POSITION) : POSITION
+         	{
+         		return mul(UNITY_MATRIX_MVP, vertexPos);
+         	}
+         	
+         	float4 fragShader() : COLOR
+         	{
+         		discard;
+         		return float4(0.0,0.0,0.0,0.0);
+         	}
+         	
+         	
+         	ENDCG
+        }
+         
 		//Pass for drawing the glow
 		Pass
 		{
+			Tags { "Queue" = "Transparent" } 
+			
 			//Do not remove the colours behind the object
+			ZTest Less
 			Cull off
 			ZWrite Off
 			
@@ -33,9 +68,6 @@ Shader "Production/GlowShader"
          	Blend SrcAlpha One
          	
          	CGPROGRAM
-         	
-         	//Allows us to get offset and tiling
-			#include "UnityCG.cginc"
  
          	#pragma vertex vertShader
          	#pragma fragment fragShader
@@ -43,6 +75,7 @@ Shader "Production/GlowShader"
          	
          	//Public Uniforms
          	float4 _GlowTint;
+         	float _GlowSize;
          	
          	
          	//What the vertex shader will recieve
@@ -67,11 +100,11 @@ Shader "Production/GlowShader"
          		vertexOutput output;
          		
          		//Calculate the objects distance from the camera
-         		float distanceModifier = 1.5 / pow(length(mul(UNITY_MATRIX_MVP, input.vertex).xyz), 0.2);
+         		float distanceModifier = _GlowSize / pow(length(mul(UNITY_MATRIX_MVP, input.vertex).xyz), 0.12);
          		
          		//Enlarge the glow
-         		input.vertex.xz *= 1.2f * distanceModifier;
-         		input.vertex.y *= 1.1f * distanceModifier;
+         		input.vertex.xz *= 1.1f * distanceModifier;
+         		input.vertex.y *= distanceModifier;
          		
          		//Calculate the vertex's position according to the camera
          		output.pos = mul(UNITY_MATRIX_MVP, input.vertex);
@@ -81,7 +114,6 @@ Shader "Production/GlowShader"
          		
          		//Calculate view direction, for dot calculations in the fragment shader
          		output.viewDir = normalize(_WorldSpaceCameraPos - mul(_Object2World, input.vertex).xyz);
-         		
          		
          		//Return our output
          		return output;
