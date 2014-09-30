@@ -22,6 +22,9 @@ public class TPCamera : MonoBehaviour
 
     Camera m_Camera;
 
+    const float AUTO_LERP_BASE_AMOUNT = 0.08f;
+    const float AUTO_LERP_DEAD_ZONE_ANGLE_DEGREEES = 40.0f;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -168,7 +171,18 @@ public class TPCamera : MonoBehaviour
 			{
 				if(InputManager.getMove(m_Containing.m_AcceptInputFrom.ReadInputFrom).magnitude != 0.0f)
 				{
-					m_Containing.RotationPoint.transform.rotation = Quaternion.Slerp(m_Containing.RotationPoint.transform.rotation, m_Containing.Player.transform.rotation, 0.05f);
+                    Vector3 currentEulerAngles = m_Containing.RotationPoint.transform.rotation.eulerAngles;
+                    Vector3 targetEulerAngles = m_Containing.Player.transform.rotation.eulerAngles;
+
+                    if (Mathf.Abs(currentEulerAngles.y - targetEulerAngles.y) > (180.0f - (AUTO_LERP_DEAD_ZONE_ANGLE_DEGREEES / 2.0f)))
+                    {
+                        return;
+                    }
+
+                    float percentLerp = 1.0f - (Mathf.Abs(currentEulerAngles.y - targetEulerAngles.y) / 180.0f);
+                    percentLerp *= percentLerp;
+
+                    m_Containing.RotationPoint.transform.rotation = Quaternion.Slerp(m_Containing.RotationPoint.transform.rotation, Quaternion.Euler(currentEulerAngles.x, targetEulerAngles.y, targetEulerAngles.z), AUTO_LERP_BASE_AMOUNT * percentLerp);
 				}
 			}
 		}

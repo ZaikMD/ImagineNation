@@ -17,7 +17,7 @@ using System.Collections;
 public class DerekMovement : BaseMovementAbility
 {
     //Const that affect the speed of the player when on the wall
-	private const float MAX_WALL_HANG = 2.0f;
+	private const float MAX_WALL_HANG = 0.5f;
 	//private const float WALL_MAX_FALL_SPEED = -5.0f;
 	private const float WALL_JUMP_SPEED_VERTICAL = 10.0f;
     private const float WALL_FALL_SPEED = -0.5f;
