@@ -56,7 +56,7 @@ public class TPCamera : MonoBehaviour
 
         m_AcceptInputFrom = gameObject.GetComponent<AcceptInputFrom>();
 
-        m_Behaviours.Add(new Rotation(this));
+        m_Behaviours.Add(new Rotation2(this));
         m_Behaviours.Add(new LerpToPosition(this));
         m_Behaviours.Add(new LookAt(this));
         m_Behaviours.Add(new Collision(this));
@@ -65,7 +65,7 @@ public class TPCamera : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        RotationPoint.transform.position = Player.transform.position;
+		RotationPoint.transform.position = Vector3.Lerp (RotationPoint.transform.position, Player.transform.position, LerpAmount);
         for (int i = 0; i < m_Behaviours.Count; i++)
         {
             m_Behaviours[i].behavior();
@@ -125,6 +125,54 @@ public class TPCamera : MonoBehaviour
             m_Containing.RotationPoint.transform.rotation = Quaternion.Euler(eulerangles);
         }
     }
+
+	protected class Rotation2 : Behaviour
+	{
+		public Rotation2(TPCamera containing)
+			: base(containing)
+		{
+		}
+		
+		public override void behavior()
+		{
+			//get the input for camera Rotation
+			Vector2 rotationInput = InputManager.getCamera(m_Containing.m_AcceptInputFrom.ReadInputFrom);
+
+			if(rotationInput.magnitude != 0.0f)
+			{
+				//rotate in the y to move the camera horizontally, since the camera needs to be on a set horizontal axis this is done in world space
+				m_Containing.RotationPoint.transform.Rotate(0.0f, -rotationInput.x * m_Containing.RotationScale.x, 0.0f, Space.World);
+				
+				//rotate the camera up and down since were spinning inb the y this needs to be done in local space
+				m_Containing.RotationPoint.transform.Rotate(rotationInput.y * m_Containing.RotationScale.y, 0.0f, 0.0f, Space.Self);
+				
+				//get the current euler angles
+				Vector3 eulerangles = m_Containing.RotationPoint.transform.rotation.eulerAngles;
+				
+				//since the we need the angle to stay between 0 - 75 and 295-360 we need two different clamps
+				if(eulerangles.x <= 180)
+				{
+					eulerangles.x = Mathf.Clamp(eulerangles.x, 0.0f, 75.0f);
+				}
+				else
+				{
+					eulerangles.x = Mathf.Clamp(eulerangles.x, 295.0f, 360.0f);
+				}
+				//the z axis slowly collects tiny amounts of rotation (might be rounding) but we reset it to 0.0 since were never rotating in the z
+				eulerangles.z = 0.0f;
+				
+				//reset the rotation with the clamped values
+				m_Containing.RotationPoint.transform.rotation = Quaternion.Euler(eulerangles);
+			}
+			else
+			{
+				if(InputManager.getMove(m_Containing.m_AcceptInputFrom.ReadInputFrom).magnitude != 0.0f)
+				{
+					m_Containing.RotationPoint.transform.rotation = Quaternion.Slerp(m_Containing.RotationPoint.transform.rotation, m_Containing.Player.transform.rotation, 0.05f);
+				}
+			}
+		}
+	}
 
     //=================================================================================================
 

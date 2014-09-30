@@ -38,7 +38,7 @@ public class SpinTop : BaseEnemy
 		base.Update ();
 	}
 
-	protected void Fight()
+	protected override void Fight()
 	{
 		switch(m_FightState)
 		{
@@ -54,7 +54,7 @@ public class SpinTop : BaseEnemy
 		}
 	}
 
-	protected void Die()
+	protected override void Die()
 	{
 		Instantiate (m_RagdollPrefab, transform.position, transform.rotation);
 	}
