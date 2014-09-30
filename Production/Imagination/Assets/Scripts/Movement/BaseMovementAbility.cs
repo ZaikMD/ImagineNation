@@ -51,6 +51,8 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	protected const float FALL_ACCELERATION = 20.0f;
 	protected const float HELD_FALL_ACCELERATION = 15.0f;
 
+	protected const float AIR_DECCELERATION_LERP_VALUE = 0.05f;
+
 	//States
 	protected bool m_CurrentlyJumping;
 	protected bool m_IsOnMovingPlatform;
@@ -203,6 +205,10 @@ public abstract class BaseMovementAbility : MonoBehaviour
 				Movement = Movement.normalized * MAX_HORIZONTAL_AIR_SPEED;
 				m_HorizontalAirVelocity = new Vector2(Movement.x, Movement.z);
 			}
+		}
+		else
+		{
+			m_HorizontalAirVelocity = Vector3.Lerp(m_HorizontalAirVelocity, Vector3.zero, AIR_DECCELERATION_LERP_VALUE);
 		}
 
 		//Cap the vertical fall speed
