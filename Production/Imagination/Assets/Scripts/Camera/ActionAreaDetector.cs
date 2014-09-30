@@ -1,15 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ActionAreaDetector : MonoBehaviour {
+public class ActionAreaDetector : MonoBehaviour 
+{
+    public ActionArea m_CurrentActionArea { get; private set; }
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public void enteredActionArea(ActionArea actionArea)
+    {
+        if (actionArea != null)
+        {
+            m_CurrentActionArea = actionArea;
+        }
+    }
+
+    public void exitedActionArea(ActionArea actionArea)
+    {
+        if (actionArea == m_CurrentActionArea)
+        {
+            m_CurrentActionArea = null;
+        }
+    }
 }

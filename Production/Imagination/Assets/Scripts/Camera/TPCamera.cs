@@ -25,6 +25,8 @@ public class TPCamera : MonoBehaviour
     const float AUTO_LERP_BASE_AMOUNT = 0.08f;
     const float AUTO_LERP_DEAD_ZONE_ANGLE_DEGREEES = 40.0f;
 
+    public ActionAreaDetector ActionAreaDetect;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -63,6 +65,7 @@ public class TPCamera : MonoBehaviour
         m_Behaviours.Add(new LerpToPosition(this));
         m_Behaviours.Add(new LookAt(this));
         m_Behaviours.Add(new Collision(this));
+		m_Behaviours.Add(new ActionArea (this));
 	}
 	
 	// Update is called once per frame
@@ -86,7 +89,28 @@ public class TPCamera : MonoBehaviour
         {
             m_Containing = containing;
         }
-        public abstract void behavior();
+        public virtual void behavior()
+        {
+        }        
+    }
+
+    //=================================================================================================
+
+    protected class ActionArea : Behaviour
+    {
+        public ActionArea(TPCamera containing)
+            : base(containing)
+        {
+        }
+
+        public override void behavior()
+        {
+			if(m_Containing.ActionAreaDetect.m_CurrentActionArea != null)
+			{
+                m_Containing.gameObject.transform.rotation = Quaternion.Euler(Vector3.Lerp(m_Containing.gameObject.transform.rotation.eulerAngles, m_Containing.ActionAreaDetect.m_CurrentActionArea.CameraMountPoint.transform.rotation.eulerAngles, 0.05f));
+	            m_Containing.gameObject.transform.position = Vector3.Lerp(m_Containing.transform.position, m_Containing.ActionAreaDetect.m_CurrentActionArea.CameraMountPoint.transform.position, m_Containing.LerpAmount);
+	        }
+		}
     }
 
     //=================================================================================================
@@ -100,6 +124,11 @@ public class TPCamera : MonoBehaviour
 
         public override void behavior()
         {
+			if (m_Containing.ActionAreaDetect.m_CurrentActionArea != null)
+			{
+				return;
+			}
+
             //get the input for camera Rotation
             Vector2 rotationInput = InputManager.getCamera(m_Containing.m_AcceptInputFrom.ReadInputFrom);
 
@@ -138,6 +167,11 @@ public class TPCamera : MonoBehaviour
 		
 		public override void behavior()
 		{
+			if (m_Containing.ActionAreaDetect.m_CurrentActionArea != null)
+			{
+				return;
+			}
+
 			//get the input for camera Rotation
 			Vector2 rotationInput = InputManager.getCamera(m_Containing.m_AcceptInputFrom.ReadInputFrom);
 
@@ -174,11 +208,6 @@ public class TPCamera : MonoBehaviour
                     Vector3 currentEulerAngles = m_Containing.RotationPoint.transform.rotation.eulerAngles;
                     Vector3 targetEulerAngles = m_Containing.Player.transform.rotation.eulerAngles;
 
-                    if (Mathf.Abs(currentEulerAngles.y - targetEulerAngles.y) > (180.0f - (AUTO_LERP_DEAD_ZONE_ANGLE_DEGREEES / 2.0f)))
-                    {
-                        return;
-                    }
-
                     float percentLerp = 1.0f - (Mathf.Abs(currentEulerAngles.y - targetEulerAngles.y) / 180.0f);
                     percentLerp *= percentLerp;
 
@@ -199,6 +228,10 @@ public class TPCamera : MonoBehaviour
 
         public override void behavior()
         {
+			if (m_Containing.ActionAreaDetect.m_CurrentActionArea != null)
+			{
+				return;
+			}
             //lerp to the target position
             m_Containing.gameObject.transform.position = Vector3.Lerp(m_Containing.transform.position, m_Containing.LerpTo.transform.position, m_Containing.LerpAmount);
         }
@@ -215,6 +248,11 @@ public class TPCamera : MonoBehaviour
 
         public override void behavior()
         {
+			if (m_Containing.ActionAreaDetect.m_CurrentActionArea != null)
+			{
+				return;
+			}
+
             //for now just look at the rotaion point
             m_Containing.transform.LookAt(m_Containing.RotationPoint.transform.position);
         }
@@ -231,6 +269,11 @@ public class TPCamera : MonoBehaviour
 
         public override void behavior()
         {
+			if (m_Containing.ActionAreaDetect.m_CurrentActionArea != null)
+			{
+				return;
+			}
+
             float minDist = float.MaxValue;
             minDist = raycast(minDist, m_Containing.transform.right *  m_Containing.RaycastOffset.x,  m_Containing.transform.up * m_Containing.RaycastOffset.y);
             minDist = raycast(minDist, m_Containing.transform.right * -m_Containing.RaycastOffset.x,  m_Containing.transform.up * m_Containing.RaycastOffset.y);
