@@ -87,7 +87,7 @@ public class Trampoline : MonoBehaviour {
 				m_PlayerController = (CharacterController)other.GetComponent(typeof (CharacterController));
 				Jump();
 				m_TrampolineJumpNow = true;
-				GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SFXManager>().playSound(this.gameObject, Sounds.JumpPad);
+				GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SFXManager>().playSound(this.gameObject, Sounds.JumpPad);
 
 
 
