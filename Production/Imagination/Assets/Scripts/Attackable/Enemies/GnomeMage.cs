@@ -12,12 +12,11 @@ public class GnomeMage : BaseEnemy
 
 	public GameObject m_ProjectilePrefab; 
 
+	private const int m_MaxHealth = 3;
 
 	private FightStates m_CurrentFightState;
 
 	//Shield Variables
-	private const int m_MaxShieldHealth = 2;
-	private int m_ShieldHealth;
 	private float m_ShieldRechargeTime;
 	private float m_ShieldTimer;
 
@@ -37,6 +36,9 @@ public class GnomeMage : BaseEnemy
 	private float m_ShotTimer;
 	private bool m_CanShoot;
 
+	//TEST
+	int dist = 7;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -45,7 +47,7 @@ public class GnomeMage : BaseEnemy
 		m_CurrentFightState = FightStates.Regular;
 
 
-		m_ShieldHealth = m_MaxShieldHealth;
+		m_Health = m_MaxHealth;
 		m_ShieldRechargeTime = 2.0f;
 	    m_ShieldTimer = 0.0f;
 
@@ -71,7 +73,7 @@ public class GnomeMage : BaseEnemy
 	{
 		base.Update ();
 
-		if (m_ShieldHealth <= 0)
+		if (m_Health ==1)
 		{
 			CreateClones();
 			m_CurrentFightState = FightStates.Cloned;
@@ -124,7 +126,7 @@ public class GnomeMage : BaseEnemy
 		m_ShieldTimer -= Time.deltaTime;
 		if (m_ShieldTimer <= 0)
 		{
-			m_ShieldHealth = m_MaxShieldHealth;
+			m_Health = m_MaxHealth;
 
 			foreach (GameObject clone in m_Clones)
 			{
@@ -140,6 +142,7 @@ public class GnomeMage : BaseEnemy
 
 	private void Shoot()
 	{
+		m_CanShoot = false;
 		if (m_CanShoot)
 		{
 			transform.LookAt(m_Target);
@@ -151,23 +154,21 @@ public class GnomeMage : BaseEnemy
 
 	private void MoveAway ()
 	{
-		if (m_Agent.enabled)
-			m_Agent.enabled = false;
 
-		transform.RotateAround (m_Target.transform.position, Vector3.up,m_RotSpeed * Time.deltaTime);
-		Vector3 dir = m_Target.transform.position - transform.position;
-		dir.y = 0;
-		
-		transform.position -= dir.normalized * m_BackSpeed * Time.deltaTime;
-		transform.LookAt (m_Target.transform.position);
-		
-		m_SwitchRotTimer -= Time.deltaTime;
-		if (m_SwitchRotTimer <= 0)
-		{
-			m_RotSpeed *= -1;
-			m_SwitchRotTimer = Random.Range(0.3f, 3);
-		}
+		//transform.RotateAround (m_Target.transform.position, Vector3.up,m_RotSpeed * Time.deltaTime);
 
+		Vector3 point = RotateAboutOrigin (transform.position, m_Target.transform.position, 90);
+		point += (transform.position - m_Target.transform.position).normalized * 7.0f;
+		m_Agent.SetDestination(point);
+
+
+		//float rotAngle = 90;
+		//m_SwitchRotTimer -= Time.deltaTime;
+		//if (m_SwitchRotTimer <= 0)
+		//{
+		//	
+		//	m_SwitchRotTimer = Random.Range(0.3f, 3);
+		//}
 	}
 
 	private void CreateClones()
@@ -208,4 +209,16 @@ public class GnomeMage : BaseEnemy
 	{
 		throw new System.NotImplementedException ();
 	}
+
+	
+	public Vector3 RotateAboutOrigin(Vector3 point, Vector3 origin, float angle)
+	{
+		angle = angle * (Mathf.PI / 180);
+
+		float rotatedX = Mathf.Cos (angle) * (point.x - origin.x) - Mathf.Sin (angle) * (point.z - origin.z) + origin.x;
+		float rotatedZ = Mathf.Sin (angle) * (point.x - origin.x) - Mathf.Cos (angle) * (point.z - origin.z) + origin.z;
+
+		return new Vector3(rotatedX, point.y, rotatedZ);
+	} 
+
 }
