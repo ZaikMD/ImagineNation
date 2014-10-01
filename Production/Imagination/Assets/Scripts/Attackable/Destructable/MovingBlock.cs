@@ -66,7 +66,7 @@ public class MovingBlock : Destructable
 		if(direction !=  m_ZeroVector)
 		{
 			controller.Move(direction * m_Speed* Time.deltaTime);
-			Debug.Log(direction);
+
 		} 
 
 		if(m_Hit)
