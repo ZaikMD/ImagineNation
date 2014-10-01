@@ -280,6 +280,61 @@ ModelImporter:
     4300104: Cylinder052
     4300106: Cylinder053
     4300108: Cylinder054
+    6400000: Cylinder019
+    6400002: Cylinder021
+    6400004: Cylinder022
+    6400006: Cylinder022 1
+    6400008: Cylinder023
+    6400010: Cylinder023 1
+    6400012: Cylinder024
+    6400014: Cylinder024 1
+    6400016: Cylinder025
+    6400018: Cylinder025 1
+    6400020: Cylinder026
+    6400022: Cylinder027
+    6400024: Cylinder028
+    6400026: Cylinder029
+    6400028: Cylinder030
+    6400030: Cylinder031
+    6400032: Cylinder032
+    6400034: Cylinder033
+    6400036: Cylinder034
+    6400038: Cylinder035
+    6400040: Cylinder036
+    6400042: Cylinder037
+    6400044: Cylinder038
+    6400046: Cylinder039
+    6400048: Cylinder050
+    6400050: Cylinder051
+    6400052: Cylinder052
+    6400054: Cylinder053
+    6400056: Cylinder054
+    6400058: Pad
+    6400060: Spring001
+    6400062: Spring002
+    6400064: Spring003
+    6400066: Spring004
+    6400068: Spring005
+    6400070: Spring006
+    6400072: Spring007
+    6400074: Spring008
+    6400076: Spring009
+    6400078: Spring010
+    6400080: Spring011
+    6400082: Spring012
+    6400084: Spring013
+    6400086: Spring014
+    6400088: Spring015
+    6400090: Spring016
+    6400092: Spring017
+    6400094: Spring018
+    6400096: Spring019
+    6400098: Spring020
+    6400100: Spring021
+    6400102: Spring022
+    6400104: Spring023
+    6400106: Spring024
+    6400108: Torus001
     9500000: //RootNode
   materials:
     importMaterials: 1
