@@ -15,6 +15,11 @@ using System.Collections;
  * this class will likely be setup on the main camera.
  * 
  * 
+ * 
+ * Oct, 1, 2014, 
+ * Updated the class to work with two cameras. to play a sound will be done the same way
+ * this now gets the player who is closest and gets a value based of off the distance to the player
+ * 
  */
 
 
@@ -49,6 +54,7 @@ public struct AudioInfo
 /// </summary>
 public class SFXManager : MonoBehaviour
 {
+
     //Varibles to hold Audio clips needing to be loaded.
     AudioClip m_JumpSFX;
     AudioClip m_WalkSFX;
@@ -63,6 +69,15 @@ public class SFXManager : MonoBehaviour
 	AudioClip m_DerekHitOne;
 	AudioClip m_DerekHurt;
 
+
+	//Variables for class
+	AudioSource m_Source;
+
+//TODO: load which players are one and two
+	public Transform m_PlayerOne;
+	public Transform m_PlayerTwo;
+
+	public Object m_SoundObject;
 
 	/// <summary>
 	/// Raises the level load event.
@@ -104,6 +119,13 @@ public class SFXManager : MonoBehaviour
     /// </summary>
 	void Start ()
     {
+		//Instantiate varibles
+		m_Source = this.gameObject.GetComponent<AudioSource> ();
+//TODO: load which players are player one and two
+
+		m_PlayerOne = getPlayerTransform (GameData.Instance.PlayerOneCharacter);
+		m_PlayerTwo = getPlayerTransform (GameData.Instance.PlayerTwoCharacter);
+
 		//This is used when not loading a new level, needed for testing,
 
 		//Common Sounds
@@ -129,6 +151,38 @@ public class SFXManager : MonoBehaviour
 
 		
 	}
+
+	/// <summary>
+	/// Gets the player transform by c
+	/// </summary>
+	/// <returns>The player transform.</returns>
+	/// <param name="charater">Charater.</param>
+	Transform getPlayerTransform(Characters charater)
+	{
+		switch(charater)
+		{
+			case Characters.Alex:
+			return GameObject.FindGameObjectWithTag("Alex").transform;
+			break;
+
+
+			case Characters.Derek:
+			return GameObject.FindGameObjectWithTag("Derek").transform;
+			break;
+
+			case Characters.Zoey:
+			return GameObject.FindGameObjectWithTag("Zoe").transform;
+			break;
+
+			default:
+			Debug.LogError("Enum is out of range");
+			return null;
+			break;
+		}
+	}
+
+
+
 	
 	/// <summary>
 	/// This function plays a sound where you want it to play.
@@ -140,33 +194,37 @@ public class SFXManager : MonoBehaviour
 
 		//this class takes the enum passed in and passes it to anouther function to get all data it needs.
         AudioInfo tempSoundInfo = getClipFromList(sound);
-        AudioSource tempSource = objectPlayingTheSound.gameObject.GetComponent<AudioSource>();
 
-    //    print(tempSoundInfo.m_AudioClip);
-        if (tempSoundInfo.m_AudioClip == null)
+		//Checks if there is a audio source on the player, if not adds one
+		if(objectPlayingTheSound.GetComponent<AudioSource> () == null)
+		{
+			objectPlayingTheSound.AddComponent<AudioSource>();
+		}
+
+		AudioSource tempAudioSource = objectPlayingTheSound.GetComponent<AudioSource> ();
+
+
+		//Safety check to make sure we have a sound
+		if (tempSoundInfo.m_AudioClip == null)
         {
-        //    print("no Sound matching that name");
+            Debug.LogError("no Sound matching that name");
             return;
         }
+		    
+
+		tempAudioSource.volume = getSoundVolume (objectPlayingTheSound.transform.position);
 
 
-        if (tempSource == null)
-        {
-
-			tempSource = objectPlayingTheSound.AddComponent<AudioSource>();
-			print("no Source found on that gameObject.");
-        }
-
-        tempSource.clip = tempSoundInfo.m_AudioClip;
+        tempAudioSource.clip = tempSoundInfo.m_AudioClip;
 
         if (tempSoundInfo.OneShot)
         {
-            tempSource.PlayOneShot(tempSoundInfo.m_AudioClip);
+			tempAudioSource.PlayOneShot(tempSoundInfo.m_AudioClip);
         }
         else
         {
-            if(!tempSource.isPlaying)
-                tempSource.Play();
+			if(!tempAudioSource.isPlaying)
+				tempAudioSource.Play();
         }
 
     }
@@ -178,47 +236,47 @@ public class SFXManager : MonoBehaviour
 	public void playSound(Vector3 Location, Sounds sound)
 	{
 
-		//Creates game object and places at location desired, then adds a Audio source to them;
-		GameObject SoundEmitter = new GameObject ();
-		SoundEmitter.transform.position = Location;
-		SoundEmitter.AddComponent<AudioSource> ();
-		AudioSource tempSource = SoundEmitter.gameObject.GetComponent<AudioSource>();
-
+		GameObject soundObject = (GameObject)Instantiate (m_SoundObject);
 
 		//this class takes the enum passed in and passes it to anouther function to get all data it needs.
 		AudioInfo tempSoundInfo = getClipFromList(sound);
+		AudioSource tempAudioSource = soundObject.GetComponent<AudioSource> ();
 
-
+				
 		
-		print(tempSoundInfo.m_AudioClip);
+		//Safety check to make sure we have a sound
 		if (tempSoundInfo.m_AudioClip == null)
 		{
-			print("no Sound matching that name");
+			Debug.LogError("no Sound matching that name");
 			return;
 		}
+
+		soundObject.GetComponent<AutoDestroy> ().timer = tempSoundInfo.m_AudioClip.length;
+
+
+		tempAudioSource.volume = getSoundVolume (Location);
 		
 		
-		if (tempSource == null)
-		{
-			print("no Source found on that gameObject.");
-			return;
-		}
-		
-		tempSource.clip = tempSoundInfo.m_AudioClip;
+		tempAudioSource.clip = tempSoundInfo.m_AudioClip;
 		
 		if (tempSoundInfo.OneShot)
 		{
-			tempSource.PlayOneShot(tempSoundInfo.m_AudioClip);
+			tempAudioSource.PlayOneShot(tempSoundInfo.m_AudioClip);
 		}
 		else
 		{
-			if(!tempSource.isPlaying)
-				tempSource.Play();
+			if(!tempAudioSource.isPlaying)
+				tempAudioSource.Play();
 		}
-		
+
+
 	}
 	
-	
+
+	/// <summary>
+	/// Stops the sound.
+	/// </summary>
+	/// <param name="objectPlayingTheSound">Object playing the sound.</param>
 	public void stopSound(GameObject objectPlayingTheSound)
 	{
 		// AudioInfo tempSoundInfo = getClipFromList(sound);
@@ -234,6 +292,33 @@ public class SFXManager : MonoBehaviour
  
     }
 
+
+	/// <summary>
+	/// Gets the sound volume in reference to the player distance;
+	/// </summary>
+	/// <returns>The sound volume.</returns>
+	private float getSoundVolume(Vector3 SoundLocation)
+	{
+		float DisToP1 = Vector3.Distance(m_PlayerOne.position, SoundLocation);
+		float DisToP2 = Vector3.Distance(m_PlayerTwo.position, SoundLocation);
+	
+		if(DisToP1 <= DisToP2)
+		{
+			//Player one is closer to the sound, base calculation of volume of there distance;
+			return (100 - DisToP1) / 100 ;
+		}
+		else
+		{
+			//Player Two is closer, use there distance;
+			return (100 - DisToP2) / 100;
+		}
+
+
+		return 1.0f;
+	}
+
+
+
 	/// <summary>
 	/// Checks sent in enum, returns apropriote data 
 	/// such as if it is a one shot and the AudioClip
@@ -246,6 +331,7 @@ public class SFXManager : MonoBehaviour
         tempAudioInfo.m_AudioClip = null;
         tempAudioInfo.OneShot = false;
 
+		Debug.Log("meh");
 
         switch(sound)
         {
