@@ -7,7 +7,8 @@
 // 5. You can now attach a second material to the object
 // 6. Put the material on the object
 // 7. Drag a texture to the "_Texture" box
-// 8. You are done
+// 8. Set the opacity of the "Glow Tint" to the maximum opacity of the glow
+// 9. You are done
 //
 // Created by Jason Hein
 
@@ -18,42 +19,12 @@ Shader "Production/GlowShader"
 	//Properties that can be set by designers
 	Properties
 	{
-		_GlowTint("Glow Tint", Color) = (-0.1, 1.0, 0.0, 1.0)
-		_GlowSize("Glow Size", Float) = 1.45
+		_GlowTint("Glow Tint", Color) = (0.1, 1.0, 0.0, 1.0)
+		_GlowSize("Glow Size", Float) = 1.1
+		_GlowShowsDistance("Distance that Glow Begins to Show", Float) = 5.0
 	}
 	Subshader
 	{
-		//Pass for not drawing over the player
-		Pass
-		{
-			Tags { "Queue" = "Transparent" } 
-			
-			Cull off
-			ZWrite Off
-			Blend zero zero
-		
-			//This is a CG shader
-			CGPROGRAM
- 			
- 			//Define the shaders
-         	#pragma vertex vertShader
-         	#pragma fragment fragShader
-        	
-         	float4 vertShader(float4 vertexPos : POSITION) : POSITION
-         	{
-         		return mul(UNITY_MATRIX_MVP, vertexPos);
-         	}
-         	
-         	float4 fragShader() : COLOR
-         	{
-         		discard;
-         		return float4(0.0,0.0,0.0,0.0);
-         	}
-         	
-         	
-         	ENDCG
-        }
-         
 		//Pass for drawing the glow
 		Pass
 		{
@@ -61,11 +32,11 @@ Shader "Production/GlowShader"
 			
 			//Do not remove the colours behind the object
 			ZTest Less
-			Cull off
+			Cull back
 			ZWrite Off
 			
 			//Our blend equation is multiplicative
-         	Blend SrcAlpha One
+         	Blend SrcAlpha OneMinusSrcAlpha
          	
          	CGPROGRAM
  
@@ -76,6 +47,7 @@ Shader "Production/GlowShader"
          	//Public Uniforms
          	float4 _GlowTint;
          	float _GlowSize;
+         	float _GlowShowsDistance;
          	
          	
          	//What the vertex shader will recieve
@@ -88,7 +60,8 @@ Shader "Production/GlowShader"
          	//What the fragment shader willl recieve
          	struct vertexOutput
          	{
-         		float4 pos : SV_POSITION;
+         		float4 pos : POSITION;
+         		float4 worldPos : POSITION1;
             	float3 normal : TEXCOORD0;
             	float3 viewDir : TEXCOORD1;
          	};
@@ -99,15 +72,15 @@ Shader "Production/GlowShader"
          		//A container for the vertexOutput
          		vertexOutput output;
          		
-         		//Calculate the objects distance from the camera
-         		float distanceModifier = _GlowSize / pow(length(mul(UNITY_MATRIX_MVP, input.vertex).xyz), 0.12);
-         		
          		//Enlarge the glow
-         		input.vertex.xz *= 1.1f * distanceModifier;
-         		input.vertex.y *= distanceModifier;
+         		input.vertex.xz *= _GlowSize * 1.1;
+         		input.vertex.y *= _GlowSize;
          		
          		//Calculate the vertex's position according to the camera
          		output.pos = mul(UNITY_MATRIX_MVP, input.vertex);
+         		
+         		//Calculate the vertex's position in world space
+         		output.worldPos = mul(_Object2World, input.vertex);
          		
          		//Calculate the normal of the surface in object coordinates
          		output.normal = normalize(mul(float4(input.normal, 0.0), _World2Object).xyz);
@@ -127,16 +100,15 @@ Shader "Production/GlowShader"
             	float3 viewDirection = normalize(output.viewDir);
  
  				//Calculate a new opacity for faces that are facing away from the camera
-            	float newOpacity = pow(min(1.0, (dot(viewDirection, normalDirection)) * _GlowTint.a), 2.0);
+            	float newOpacity = min(_GlowTint.a, pow(dot(viewDirection, normalDirection), _GlowSize) * _GlowTint.a * _GlowShowsDistance / distance(output.worldPos.xyz, _WorldSpaceCameraPos));
             	
-            	if (newOpacity < 0.05)
+            	if (newOpacity < 0.03)
             	{
             		discard;
             	}
             	
             	//Calculate the colour of this fragment
             	float4 fragmentColour = float4 (_GlowTint.xyz, newOpacity);
-            	
             	
             	//Return the colour of the first pass's fragment
             	return fragmentColour;
