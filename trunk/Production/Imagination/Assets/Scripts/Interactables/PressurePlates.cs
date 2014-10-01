@@ -23,7 +23,7 @@ public class PressurePlates : MonoBehaviour
 		if(m_List.Count > 0 )
 		{
 			m_Activated = true;
-			Debug.Log(m_Activated);
+
 		}
 	}
 

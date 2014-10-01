@@ -44,8 +44,6 @@ public class Switch : MonoBehaviour, Attackable
 				if(m_Timer <= 0)
 				{
 					resetLever();
-					Debug.Log(m_Active);
-
 				}
 
 				else
