@@ -24,7 +24,7 @@ public class ZoeMovement : BaseMovementAbility {
 
 	//Timer for how long we can glide
 	public float m_Timer;
-	private const float MAX_GLIDE_TIME = 4.0f;
+	private const float MAX_GLIDE_TIME = 2.0f;
 
 	//Gliding fall speed
 	private const float GLIDE_MAX_FALL_SPEED = -1.5f;

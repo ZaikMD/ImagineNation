@@ -53,6 +53,10 @@ public abstract class BaseMovementAbility : MonoBehaviour
 
 	protected const float AIR_DECCELERATION_LERP_VALUE = 0.05f;
 
+	protected const float NOT_GROUNDED_DELAY_TIMER = 0.07f;
+
+	float m_GroundedDelayTimer = 0.07f;
+
 	//States
 	protected bool m_CurrentlyJumping;
 	protected bool m_IsOnMovingPlatform;
@@ -86,7 +90,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			m_CurrentlyJumping = false;
 		}
 
-		//If the player is grounded
+		//If the player is grounded 
 		if(GetIsGrounded())
 		{
 			//Check if we should start jumping
@@ -98,23 +102,55 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			//Otherwise do normal ground movement, and reset our air movement
 			else
 			{
-				m_VerticalVelocity = 0.0f;
+
                 m_HorizontalAirVelocity = Vector2.zero;
 				GroundMovement();
 
-				if(m_IsOnMovingPlatform){
-					PlatformMovement();}
-
+				if(m_IsOnMovingPlatform)
+				{
+					PlatformMovement();
+				}
 			}
+
+			m_GroundedDelayTimer = NOT_GROUNDED_DELAY_TIMER;
 
 
 			//Gravity();
 		}
+
+
+		
 		//If we are not on the ground, we must be airborne, so do air movement
 		else
 		{
+			/*if(m_GroundedDelayTimer >= 0.0f)  //or if the grounded delay timer is less than zero, we can still jump
+			{
+				m_GroundedDelayTimer -= Time.deltaTime;
+				if(InputManager.getJumpDown(m_AcceptInputFrom.ReadInputFrom))
+				{
+					
+					Jump();
+					AirMovement();
+					m_GroundedDelayTimer = 0.0f;
+				}
+				else
+				{
+					m_VerticalVelocity = 0.0f;
+					m_HorizontalAirVelocity = Vector2.zero;
+					GroundMovement();
+					
+					if(m_IsOnMovingPlatform)
+					{
+						PlatformMovement();
+					}
+				}
+				
+			} */
+
 			AirMovement();
 		}
+
+
 	}
 
 	//Moves the player based on the facing angle of the camera and the players input
@@ -126,10 +162,27 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		{
 			return;
 		}
-		
+
+		//Cap the vertical fall speed
+		if(m_VerticalVelocity > m_MaxFallSpeed)
+		{
+			//Constantly decrease velocity based on time passed by an deceleration
+			if(InputManager.getJump(m_AcceptInputFrom.ReadInputFrom) && m_CurrentlyJumping == true)
+			{
+				m_VerticalVelocity -= Time.deltaTime * HELD_FALL_ACCELERATION;
+			}
+			else
+			{
+				m_VerticalVelocity -= Time.deltaTime * FALL_ACCELERATION;
+			}
+		}
+
+		Vector3 moveTo = transform.forward * m_GroundSpeed * Time.deltaTime;
+		moveTo.y = m_VerticalVelocity;
+
 		//First we look at the direction from GetProjection, our forward is now that direction, so we move forward. 
 		transform.LookAt(transform.position + GetProjection());
-		m_CharacterController.Move(transform.forward * m_GroundSpeed * Time.deltaTime);
+		m_CharacterController.Move(moveTo);
 	}
 
 	//Gets a vector3 for the direction we should be getting input based of off the cameras facing angle
@@ -244,6 +297,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 
 		if ((Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 0.1f) && m_VerticalVelocity == 0.0f) || m_CharacterController.isGrounded)
 		{
+			m_VerticalVelocity = 0.0f;
 			if(hit.transform != null)
 			{
 				if(hit.collider.gameObject.tag == "MovingPlatform")
@@ -255,7 +309,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 				{
 					m_IsOnMovingPlatform = false;
 				}
-			}
+			} 
 			return true;
 		}
 		return false;
