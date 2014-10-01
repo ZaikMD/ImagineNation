@@ -93,6 +93,7 @@ public abstract class MenuButton : MonoBehaviour
 
 	void Start()
 	{
+        ButtonState = m_ButtonState;
 		start();
 	}
 
