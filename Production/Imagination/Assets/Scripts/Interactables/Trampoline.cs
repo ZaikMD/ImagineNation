@@ -35,10 +35,12 @@ public class Trampoline : MonoBehaviour {
 
 			//Vector3 m_LaunchDirection = new Vector3 ((m_JumpGameObject.transform.position.x - m_TrampolinePosition.x), (m_JumpGameObject.transform.position.y - m_TrampolinePosition.y), 
 			//                                         (m_JumpGameObject.transform.position.z - m_TrampolinePosition.z));
-
+			//Debug.Log("empty game object: " + m_JumpGameObject.transform.position);
+			//Debug.Log("trampoline: " + m_TrampolinePosition);
 			m_LaunchDirection =  m_JumpGameObject.transform.position - m_TrampolinePosition;
 			m_LaunchDirection.Normalize();
 			m_LaunchDirection *= JUMP_SPEED;
+			//Debug.Log (" final: " + m_LaunchDirection);
 
 			//Debug.Log (m_LaunchDirection);
 		}
@@ -62,7 +64,7 @@ public class Trampoline : MonoBehaviour {
 				if (m_TrampolineJumpNow == true)
 				{
 					m_TrampolineJumpNow = false;
-					Debug.Log("Landed");
+					//Debug.Log("Landed");
 					m_PlayerController = null;
 				}
 			}
