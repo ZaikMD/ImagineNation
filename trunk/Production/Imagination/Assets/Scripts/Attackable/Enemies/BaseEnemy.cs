@@ -27,8 +27,8 @@ public abstract class BaseEnemy : MonoBehaviour, Attackable
     protected float m_Health = 1.0f;
     //Aggro range for distance when the enemy chases the player
     protected float m_AggroRange = 20.0f;
-    //Combat range for how close the enemy has to be to hit the player
-    protected float m_CombatRange = 0.0f;
+    //Combat range for how close the enemy has to be to hit the player, differs for enemies
+    protected float m_CombatRange;
     //Initial Stopping Distance of the NavMeshAgent
     protected float m_InitialStoppingDistance = 0.0f;
 
@@ -36,12 +36,12 @@ public abstract class BaseEnemy : MonoBehaviour, Attackable
     protected float m_AttackTimer;
 
     //const to cap how long the enemy idles
-    private const float MAX_IDLE_TIME = 10.0f;
+    private const float MAX_IDLE_TIME = 3.0f;
     //Idle Timer to make Enemies seem organic
     protected float m_IdlingTime = MAX_IDLE_TIME;
 
     //Const for how long the enemy takes to get out of combat
-    private const float EXIT_COMBAT_TIME = 1.0f;
+    private const float EXIT_COMBAT_TIME = 2.0f;
     //Timer to track when the enemy leaves the player alone
     protected float m_CombatTimer = EXIT_COMBAT_TIME;
 
@@ -49,13 +49,13 @@ public abstract class BaseEnemy : MonoBehaviour, Attackable
     protected GameObject[] m_Players;
 
     //Single node for idleing
-    public Transform m_IdleNode;
+    public Transform IdleNode;
     //Array of Transform Path Nodes
-    public Transform[] m_PathNodes;
+    public Transform[] PathNodes;
     //Ability to set Max number of nodes
-    public int m_MaxNodes = 3;
+    public int NodeCount = 3;
     //Count for Nodes to determine which node to go to	
-    protected int m_NodeCount = 0;
+    protected int m_NodeIndex = 0;
     //Transform for the movement of the enemies target
     protected Transform m_Target;
     //Check if the enemy has reached a node
@@ -65,6 +65,9 @@ public abstract class BaseEnemy : MonoBehaviour, Attackable
 
     //NavMeshAgent for AI
     protected NavMeshAgent m_Agent;
+
+    //Array of Enemies to handle Group functionality
+    public BaseEnemy[] GroupOfEnemies;
 
     // Use this for initialization
     protected void Start()
@@ -90,12 +93,6 @@ public abstract class BaseEnemy : MonoBehaviour, Attackable
 		//Set our current State for enemies
 		m_State = State.Default;		
 	}
-
-	//public void load()
-	//{
-	//	//Find both the players based off their tag
-	//	m_Players = GameObject.FindGameObjectsWithTag("Player");
-	//}
 	
 	public void Reset()
     {
@@ -227,38 +224,41 @@ public abstract class BaseEnemy : MonoBehaviour, Attackable
     {
 		if(m_Target == null)
 		{
-        	m_Target = m_IdleNode;
+        	m_Target = IdleNode;
 		}
 
         m_Agent.SetDestination(m_Target.position);
 
-        if (m_IdlingTime <= 0)
+        if (GetDistanceToTarget() <= 2.0f)
         {
-            m_IdlingTime = MAX_IDLE_TIME;
-            m_Idling = false;
-            m_State = State.Default;
-        }
-        else
-        {
-            m_IdlingTime -= Time.deltaTime;
-			for (int i = 0; i < m_Players.Length; i++)
-			{
-				float distance = Vector3.Distance(transform.position, m_Players[i].transform.position);
-				if (distance <= m_AggroRange)
-				{
-					m_InCombat = true;
-					m_Target = m_Players[i].gameObject.transform;
-					m_State = State.Default;
-				}
-			}
+            if (m_IdlingTime <= 0)
+            {
+                m_IdlingTime = MAX_IDLE_TIME;
+                m_Idling = false;
+                m_State = State.Default;
+            }
+            else
+            {
+                m_IdlingTime -= Time.deltaTime;
+                for (int i = 0; i < m_Players.Length; i++)
+                {
+                    float distance = Vector3.Distance(transform.position, m_Players[i].transform.position);
+                    if (distance <= m_AggroRange)
+                    {
+                        m_InCombat = true;
+                        m_Target = m_Players[i].gameObject.transform;
+                        m_State = State.Default;
+                    }
+                }
 
+            }
         }
     }
 
     //Enter Chase state for when the player aggros the enemy
     protected virtual void Chase()
     {
-		m_Agent.speed = 15.0f;
+		m_Agent.speed = 9.0f;
         m_Agent.stoppingDistance = m_InitialStoppingDistance;
         if (m_Target != null)
         {
@@ -276,7 +276,7 @@ public abstract class BaseEnemy : MonoBehaviour, Attackable
             m_Agent.stoppingDistance = 0;
             if (m_Target == null)
             {
-                m_Target = m_PathNodes[m_NodeCount].transform;
+                m_Target = PathNodes[m_NodeIndex].transform;
             }
 
             if (GetDistanceToTarget() <= 5.0f)
@@ -287,7 +287,7 @@ public abstract class BaseEnemy : MonoBehaviour, Attackable
             if (m_ReachedNode == true)
             {
                 m_MidNode = false;
-                m_NodeCount++;
+                m_NodeIndex++;
 
                 float randomSpeed = Random.Range(3.0f, 7.0f);
                 m_Agent.speed = randomSpeed;
@@ -307,12 +307,12 @@ public abstract class BaseEnemy : MonoBehaviour, Attackable
             }
             else
             {
-                if (m_NodeCount >= m_MaxNodes)
+                if (m_NodeIndex >= NodeCount)
                 {
-                    m_NodeCount = 0;
+                    m_NodeIndex = 0;
                 }
 
-                m_Target = m_PathNodes[m_NodeCount].transform;
+                m_Target = PathNodes[m_NodeIndex].transform;
                 m_MidNode = true;
                 m_ReachedNode = false;
             }
