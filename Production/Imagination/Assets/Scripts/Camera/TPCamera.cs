@@ -15,7 +15,7 @@ public class TPCamera : MonoBehaviour
     public Vector2 RotationScale;
 
     public GameObject LerpTo;
-    public float LerpAmount = 0.05f;
+    const float LERP_AMOUNT = 0.16f;
 
     public bool DrawRays = false;
     public Vector2 RaycastOffset;
@@ -71,7 +71,7 @@ public class TPCamera : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-		RotationPoint.transform.position = Vector3.Lerp (RotationPoint.transform.position, Player.transform.position, LerpAmount);
+        RotationPoint.transform.position = Vector3.Lerp(RotationPoint.transform.position, Player.transform.position, LERP_AMOUNT);
         for (int i = 0; i < m_Behaviours.Count; i++)
         {
             m_Behaviours[i].behavior();
@@ -107,10 +107,20 @@ public class TPCamera : MonoBehaviour
         {
 			if(m_Containing.ActionAreaDetect.m_CurrentActionArea != null)
 			{
-                m_Containing.gameObject.transform.rotation = Quaternion.Euler(Vector3.Lerp(m_Containing.gameObject.transform.rotation.eulerAngles, m_Containing.ActionAreaDetect.m_CurrentActionArea.CameraMountPoint.transform.rotation.eulerAngles, AUTO_LERP_BASE_AMOUNT*2.0f));
-	            m_Containing.gameObject.transform.position = Vector3.Lerp(m_Containing.transform.position, m_Containing.ActionAreaDetect.m_CurrentActionArea.CameraMountPoint.transform.position, m_Containing.LerpAmount/2.0f);
-	        }
+                m_Containing.transform.forward = Helpers.lerpVector3(m_Containing.transform.forward, m_Containing.ActionAreaDetect.m_CurrentActionArea.CameraMountPoint.transform.forward, AUTO_LERP_BASE_AMOUNT * 2.0f);
+
+                m_Containing.gameObject.transform.position = Helpers.lerpVector3(m_Containing.transform.position, m_Containing.ActionAreaDetect.m_CurrentActionArea.CameraMountPoint.transform.position, LERP_AMOUNT / 2.0f);
+            }
 		}
+
+        public static Vector3 lerpVector3(Vector3 from, Vector3 to, float amount)
+        {
+            Vector3 direction = new Vector3((to.x - from.x) * amount, (to.y - from.y) * amount, (to.z - from.z) * amount);
+
+            direction = Vector3.ClampMagnitude(direction * amount, (to - from).magnitude);
+
+            return from + direction;
+        }
     }
 
     //=================================================================================================
@@ -233,7 +243,7 @@ public class TPCamera : MonoBehaviour
 				return;
 			}
             //lerp to the target position
-            m_Containing.gameObject.transform.position = Vector3.Lerp(m_Containing.transform.position, m_Containing.LerpTo.transform.position, m_Containing.LerpAmount);
+            m_Containing.gameObject.transform.position = Vector3.Lerp(m_Containing.transform.position, m_Containing.LerpTo.transform.position, LERP_AMOUNT);
         }
     }
 
