@@ -24,6 +24,8 @@ public class Switch : MonoBehaviour, Attackable
 	public Material m_ActiveMaterial;
 	public Material m_InactiveMaterial;
 
+	public GameObject m_LeverChange;
+
 
 	bool m_Active = false;
 	// Use this for initialization
@@ -51,12 +53,12 @@ public class Switch : MonoBehaviour, Attackable
 					m_Timer -= Time.deltaTime;
 				}
 			}
-			gameObject.renderer.material = m_ActiveMaterial;
+			m_LeverChange.renderer.material = m_ActiveMaterial;
 		}
 
 		else
 		{
-			gameObject.renderer.material = m_InactiveMaterial;
+			m_LeverChange.renderer.material = m_InactiveMaterial;
 		}
 	}
 
