@@ -69,11 +69,6 @@ public class Trampoline : MonoBehaviour {
 				}
 			}
 		}
-
-
-
-		//	m_TrampolineJumpNow = false;
-
 	}
 
 
@@ -122,12 +117,8 @@ public class Trampoline : MonoBehaviour {
 		{
 			m_PlayerController.Move (m_LaunchDirection * (m_VerticalVelocity));
 		}
-		else 
-		{
 			//m_PlayerController.Move (transform.up * m_VerticalVelocity * Time.deltaTime);
-		}
 
-		//Debug.Log ("JUMP");
 
 
 	}
