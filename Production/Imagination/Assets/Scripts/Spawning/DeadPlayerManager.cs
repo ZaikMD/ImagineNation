@@ -21,24 +21,30 @@ public class DeadPlayerManager : MonoBehaviour
 		//DontDestroyOnLoad(this.gameObject);
 	}
 
-
+	//Bools for the players being dead, and for if one or two players are dead
 	bool m_OnePlayerDead;
 	bool m_TwoPlayersDead;
 
 	bool m_PlayerOneDead;
 	bool m_PlayerTwoDead;
 	
-
+	//Player GameObjects
 	GameObject m_PlayerOne;
 	GameObject m_PlayerTwo;
 
+	//PlayerHealth references
 	PlayerHealth m_PlayerOneHealth;
 	PlayerHealth m_PlayerTwoHealth;
 
+	PlayerHealth m_DeadPlayerHealth;
+	PlayerHealth m_AlivePlayerHealth;
+
+	//Respawn Timer
 	public float m_RespawnTimer = 3.0f;
 
 	protected float RESPAWN_TIMER;
 
+	//RespawnLocation
 	Vector3 m_RespawnLocation;
 
 
@@ -48,6 +54,8 @@ public class DeadPlayerManager : MonoBehaviour
 	{
 		RESPAWN_TIMER = m_RespawnTimer;
 
+
+		//Getting the players in the scene and their health
 		switch(GameData.Instance.PlayerOneCharacter)
 		{
 		case Characters.Alex:
@@ -94,115 +102,105 @@ public class DeadPlayerManager : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		checkPlayersAlive ();
+		checkPlayersAlive (); //See if players are alive or dead
 
+		respawnPlayer ();//Respawn the players
 
-		if(m_OnePlayerDead && m_TwoPlayersDead != true)
+		if(m_TwoPlayersDead)
 		{
-			m_RespawnTimer -= Time.deltaTime;
-			//Debug.Log(m_RespawnTimer);
+			Application.LoadLevel(Application.loadedLevelName); //If both players are dead, reset the scene
+		}
+	}
 
-			if(m_RespawnTimer <= 0.0f)
+
+	void checkPlayersAlive() //Function to check if the players are alive
+	{
+		if(m_PlayerOneHealth.IsDead) //If player one is dead
+		{
+			if(!m_OnePlayerDead) //And one player isn't already dead
 			{
-				if(m_PlayerOneHealth.IsDead)
-				{
-					PlayerRespawnLayerFinder finder = m_PlayerTwo.GetComponentInChildren(typeof(PlayerRespawnLayerFinder)) as PlayerRespawnLayerFinder;
-					finder.SetSearchForRespawnLayer(true);
+				m_PlayerOneDead = true; //PlayerOneDead is set to true
+				m_OnePlayerDead = true; //One player dead is set to true
+				m_DeadPlayerHealth = m_PlayerOneHealth; //Set the dead player
+				m_AlivePlayerHealth = m_PlayerTwoHealth; //Set the Alive Player
 
-					if(finder.GetRespawnLayerFound())
-					{
+				m_DeadPlayerHealth.gameObject.transform.position = gameObject.transform.position; //Put the player in the dead player box
 
-						if(getPlayerRespawnLocation(m_PlayerTwoHealth.gameObject))
-						{
-							m_PlayerOneHealth.resetHealth();
-							m_PlayerOneHealth.gameObject.transform.position = m_RespawnLocation;
-							finder.SetSearchForRespawnLayer(false);
 
-							m_RespawnTimer = RESPAWN_TIMER;
+			}
+ 
+			else
+			{
+				m_TwoPlayersDead = true; //Otherwise, if one player is already dead, then they are both dead
+			}
+		}
 
-							m_OnePlayerDead = false;
-							m_PlayerOneDead = false;
-						}
-					}
-				}
+		
+		if(m_PlayerTwoHealth.IsDead) //Do the same thing for the second player
+		{
+			if(!m_PlayerTwoDead)
+			{
+				m_PlayerTwoDead = true;
 
-				if(m_PlayerTwoHealth.IsDead)
-				{
-					PlayerRespawnLayerFinder finder = m_PlayerOne.GetComponentInChildren(typeof(PlayerRespawnLayerFinder)) as PlayerRespawnLayerFinder;
-					finder.SetSearchForRespawnLayer(true);
+				m_OnePlayerDead = true;
+				m_DeadPlayerHealth = m_PlayerOneHealth;
+				m_AlivePlayerHealth = m_PlayerOneHealth;
+				m_DeadPlayerHealth.gameObject.transform.position = gameObject.transform.position;
+
+
+			}
+			else
+			{
+				m_TwoPlayersDead = true;
+			}
+		}
+		
+	}
+
+	void respawnPlayer()
+	{
+		if(m_OnePlayerDead && m_TwoPlayersDead != true)//If one player is dead
+		{
+			m_RespawnTimer -= Time.deltaTime; //Decrement the Respawn Timer
+			
+			if(m_RespawnTimer <= 0.0f) //If the respawn timer is less than zero
+			{
+
+				PlayerRespawnLayerFinder finder = m_AlivePlayerHealth.GetComponentInChildren(typeof(PlayerRespawnLayerFinder)) as PlayerRespawnLayerFinder; //Get the finder component from the living player
+				finder.SetSearchForRespawnLayer(true);
 					
-					if(finder.GetRespawnLayerFound())
+				if(finder.GetRespawnLayerFound()) //Check to see if a respawn layer has been found
+				{
+						
+					if(getPlayerRespawnLocation(m_PlayerTwoHealth.gameObject)) //If so, check to see if the player is in a valid location to respawn beside
 					{
+						m_DeadPlayerHealth.resetHealth(); //Reset player health
+						m_DeadPlayerHealth.gameObject.transform.position = m_RespawnLocation; //Respawn player
+						finder.SetSearchForRespawnLayer(false); //Set looking for a respawn layer to false
 
-						if(getPlayerRespawnLocation(m_PlayerOneHealth.gameObject))
-						{
-							m_PlayerTwoHealth.resetHealth();
-							m_PlayerTwoHealth.gameObject.transform.position = m_RespawnLocation;
+						m_RespawnTimer = RESPAWN_TIMER; //Reset respawn timer
 							
-							finder.SetSearchForRespawnLayer(false);
-							m_OnePlayerDead = false;
+						m_OnePlayerDead = false; //Reset bools
+					
+						if(m_DeadPlayerHealth == m_OnePlayerDead)
+						{
+							m_PlayerOneDead = false;							
+						}
 
-							m_RespawnTimer = RESPAWN_TIMER;
+						else
+						{
 							m_PlayerTwoDead = false;
 						}
 					}
 				}
 			}
 		}
-
-
-		if(m_TwoPlayersDead)
-		{
-			Application.LoadLevel(Application.loadedLevelName); 
-		}
 	}
 
 
-	void checkPlayersAlive()
+	bool getPlayerRespawnLocation(GameObject livingPlayer) //This is to get the respawn position for the dead player
 	{
-		if(m_PlayerOneHealth.IsDead)
-		{
-			if(!m_OnePlayerDead)
-			{
-				m_PlayerOneDead = true;
-				if(!m_OnePlayerDead)
-				{
-					m_OnePlayerDead = true;
-
-					m_PlayerOneHealth.gameObject.transform.position = gameObject.transform.position;
-				}
- 
-				else
-				{
-					m_TwoPlayersDead = true;
-				}
-			}
-		}
-		
-		if(m_PlayerTwoHealth.IsDead)
-		{
-			if(!m_PlayerTwoDead)
-			{
-				m_PlayerTwoDead = true;
-				if(!m_OnePlayerDead)
-				{
-					m_OnePlayerDead = true;
-					m_PlayerTwoHealth.gameObject.transform.position = gameObject.transform.position;
-
-				}
-
-				else
-				{
-					m_TwoPlayersDead = true;
-				}
-			}
-		}
-	}
-
-
-	bool getPlayerRespawnLocation(GameObject livingPlayer)
-	{
-		Vector3 rayDirection = livingPlayer.transform.right;
+		Vector3 rayDirection = livingPlayer.transform.right; //Check the right side of the player first
 		
 		Ray ray = new Ray(livingPlayer.transform.position, rayDirection);
 		
@@ -212,12 +210,12 @@ public class DeadPlayerManager : MonoBehaviour
 		Physics.Raycast (ray, out rayHit, 3.0f);
 
 
-		if(rayHit.transform == null)
+		if(rayHit.transform == null) //If the ray didn't hit anything, set the respawn location to the right side of the player
 		{
 			m_RespawnLocation = livingPlayer.gameObject.transform.position + livingPlayer.gameObject.transform.right;
 			return true;
 		}
-		//////////////
+		//Checking the left side
 
 		rayDirection = -(livingPlayer.transform.right);
 
@@ -226,13 +224,13 @@ public class DeadPlayerManager : MonoBehaviour
 
 		Physics.Raycast (ray, out rayHit, 3.0f);
 	
-		if(rayHit.transform == null)
+		if(rayHit.transform == null) //If the ray didn't hit anything, set the respawn location to the left side of the player
 		{
 			m_RespawnLocation = livingPlayer.gameObject.transform.position - (livingPlayer.gameObject.transform.right);
 			return true;
 		}
 
-		else
+		else //Otherwise return false
 		{
 			return false;
 		}
