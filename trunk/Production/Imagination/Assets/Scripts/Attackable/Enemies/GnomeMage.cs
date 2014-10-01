@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GnomeMage : BaseEnemy 
 {
@@ -10,17 +11,21 @@ public class GnomeMage : BaseEnemy
 	}
 
 	public GameObject m_ProjectilePrefab; 
-	public GameObject m_ClonePrefab;
+
 
 	private FightStates m_CurrentFightState;
 
 	//Shield Variables
+	private const int m_MaxShieldHealth = 2;
 	private int m_ShieldHealth;
 	private float m_ShieldRechargeTime;
 	private float m_ShieldTimer;
 
-	private GameObject[] m_Clones;
+	//Clones
+	public GameObject m_ClonePrefab;
+	private List<GameObject> m_Clones;
 	private Vector3 m_CloneSpawnDistance;
+	private int m_NumberOfClones;
 
 	//MoveAway Variables
 	private float m_RotSpeed;
@@ -38,8 +43,9 @@ public class GnomeMage : BaseEnemy
 		base.Start ();
 
 		m_CurrentFightState = FightStates.Regular;
-		
-		m_ShieldHealth = 2;
+
+
+		m_ShieldHealth = m_MaxShieldHealth;
 		m_ShieldRechargeTime = 2.0f;
 	    m_ShieldTimer = 0.0f;
 
@@ -55,7 +61,9 @@ public class GnomeMage : BaseEnemy
 		m_AggroRange = 20.0f;
 		m_CombatRange = 10.0f;
 
-		m_Clones = new GameObject[2];
+		m_Clones = new List<GameObject>();
+		m_NumberOfClones = 2;
+		m_CloneSpawnDistance = new Vector3 (7, 0, 0);
 	}
 	
 	// Update is called once per frame
@@ -66,6 +74,7 @@ public class GnomeMage : BaseEnemy
 		if (m_ShieldHealth <= 0)
 		{
 			CreateClones();
+			m_CurrentFightState = FightStates.Cloned;
 		}
 
 		m_ShotTimer -= Time.deltaTime;
@@ -112,7 +121,21 @@ public class GnomeMage : BaseEnemy
 
 	private void Cloned()
 	{
+		m_ShieldTimer -= Time.deltaTime;
+		if (m_ShieldTimer <= 0)
+		{
+			m_ShieldHealth = m_MaxShieldHealth;
 
+			foreach (GameObject clone in m_Clones)
+			{
+				Destroy(clone);
+				m_Clones.Remove(clone);
+			}
+			m_CurrentFightState = FightStates.Regular;
+			return;
+		}
+
+		Shoot();
 	}
 
 	private void Shoot()
@@ -156,7 +179,7 @@ public class GnomeMage : BaseEnemy
 		Vector3 pos;
 		int range;
 
-		for (int i = 0; i < m_Clones.Length; i++)
+		for (int i = 0; i < m_NumberOfClones - 1; i++)
 		{
 			do 
 			{
@@ -165,7 +188,7 @@ public class GnomeMage : BaseEnemy
 			}
 			while (pos != Vector3.zero);
 		
-			m_Clones[i] =(GameObject) Instantiate(m_ClonePrefab, pos, Quaternion.identity);	
+			m_Clones.Add((GameObject) Instantiate(m_ClonePrefab, pos, Quaternion.identity));	
 			positions[range] = Vector3.zero;
 
 
