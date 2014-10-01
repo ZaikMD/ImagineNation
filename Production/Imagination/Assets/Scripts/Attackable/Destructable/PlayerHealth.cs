@@ -25,9 +25,6 @@ public class PlayerHealth : Destructable
     //used to reset the health
 	int m_TotalHealth;
 
-    //the character the script is running on (used to determin which players health is being kept track of)
-	Characters m_CurrentCharacter;
-
     //used to stop the script from executing and used so other scripts can tell the player is dead
 	bool m_IsDead = false;
     public bool IsDead
@@ -88,29 +85,12 @@ public class PlayerHealth : Destructable
         //setting the current texture
 		m_GUITexture.texture = textures [m_Health];
 
-        //figureing out what player the script is executing on
-		switch(gameObject.transform.parent.name)
-		{
-		case "Alex":
-			m_CurrentCharacter = Characters.Alex;
-			break;
-		case "Derek":
-			m_CurrentCharacter = Characters.Derek;
-			break;
-		case "Zoe":
-			m_CurrentCharacter = Characters.Zoey;
-			break;
-		default:
-			Debug.LogError("health is set up wrong");
-			break;
-		}
+		m_GUITexture.pixelInset = new Rect (0.0f, Screen.height / 2.0f - textures [m_Health].height, textures [m_Health].width, textures [m_Health].height);
 	}
 	
 	// Update is called once per frame
 	protected void Update () 
-	{
-		updateHealthBarPosition ();
-	
+	{	
         if(m_InvulnerabilityTimer > 0)
 		{
 			m_InvulnerabilityTimer -= Time.deltaTime;
@@ -169,23 +149,6 @@ public class PlayerHealth : Destructable
 			m_InvulnerabilityTimer = InvulnerabilityTimer;
             //update health bar
 			m_GUITexture.texture = textures[m_Health];
-		}
-	}
-
-	void updateHealthBarPosition()
-	{
-        //place the healthbar in a corner
-		if(GameData.Instance.PlayerOneCharacter == m_CurrentCharacter)
-		{
-			m_GUITexture.pixelInset = new Rect (0.0f, Screen.height - textures [m_Health].height, textures [m_Health].width, textures [m_Health].height);
-		}
-		else if( GameData.Instance.PlayerTwoCharacter == m_CurrentCharacter)
-		{
-			m_GUITexture.pixelInset = new Rect (Screen.width - textures [m_Health].width, Screen.height - textures [m_Health].height, textures [m_Health].width, textures [m_Health].height);
-		}
-		else
-		{
-			Debug.LogError("This is broken the set character shouldnt be in the scene");
 		}
 	}
 
