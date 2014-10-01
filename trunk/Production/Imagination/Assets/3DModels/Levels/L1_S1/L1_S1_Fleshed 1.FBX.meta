@@ -420,6 +420,89 @@ ModelImporter:
     4300160: Square Pillow 3
     4300162: Square Pillow 28
     4300164: Square Pillow 32
+    6400000: Bulb 2
+    6400002: Bulb 3
+    6400004: Bulb1
+    6400006: Cylindrical Pillow 0
+    6400008: Cylindrical Pillow 011
+    6400010: Cylindrical Pillow 012
+    6400012: Cylindrical Pillow 1
+    6400014: Cylindrical Pillow 10
+    6400016: Cylindrical Pillow 2
+    6400018: Cylindrical Pillow 3
+    6400020: Cylindrical Pillow 4
+    6400022: Cylindrical Pillow 5
+    6400024: Cylindrical Pillow 6
+    6400026: Cylindrical Pillow 7
+    6400028: Cylindrical Pillow 8
+    6400030: Cylindrical Pillow 9
+    6400032: Floor lamp
+    6400034: Plane Highest
+    6400036: Plane lowest
+    6400038: Plane Middle
+    6400040: Plane002
+    6400042: Plane003
+    6400044: Plane004
+    6400046: Plane005
+    6400048: Plane006
+    6400050: Plane007
+    6400052: Plane008
+    6400054: Plane009
+    6400056: Plane010
+    6400058: Square Pillow 0
+    6400060: Square Pillow 1
+    6400062: Square Pillow 10
+    6400064: Square Pillow 11
+    6400066: Square Pillow 12
+    6400068: Square Pillow 13
+    6400070: Square Pillow 14
+    6400072: Square Pillow 15
+    6400074: Square Pillow 16
+    6400076: Square Pillow 17
+    6400078: Square Pillow 18
+    6400080: Square Pillow 19
+    6400082: Square Pillow 2
+    6400084: Square Pillow 20
+    6400086: Square Pillow 21
+    6400088: Square Pillow 22
+    6400090: Square Pillow 23
+    6400092: Square Pillow 24
+    6400094: Square Pillow 25
+    6400096: Square Pillow 26
+    6400098: Square Pillow 27
+    6400100: Square Pillow 28
+    6400102: Square Pillow 29
+    6400104: Square Pillow 3
+    6400106: Square Pillow 30
+    6400108: Square Pillow 31
+    6400110: Square Pillow 32
+    6400112: Square Pillow 33
+    6400114: Square Pillow 34
+    6400116: Square Pillow 35
+    6400118: Square Pillow 36
+    6400120: Square Pillow 37
+    6400122: Square Pillow 38
+    6400124: Square Pillow 39
+    6400126: Square Pillow 4
+    6400128: Square Pillow 40
+    6400130: Square Pillow 41
+    6400132: Square Pillow 42
+    6400134: Square Pillow 43
+    6400136: Square Pillow 44
+    6400138: Square Pillow 45
+    6400140: Square Pillow 46
+    6400142: Square Pillow 47
+    6400144: Square Pillow 48
+    6400146: Square Pillow 49
+    6400148: Square Pillow 5
+    6400150: Square Pillow 50
+    6400152: Square Pillow 51
+    6400154: Square Pillow 52
+    6400156: Square Pillow 53
+    6400158: Square Pillow 6
+    6400160: Square Pillow 7
+    6400162: Square Pillow 8
+    6400164: Square Pillow 9
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -442,7 +525,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: .00999999978
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
