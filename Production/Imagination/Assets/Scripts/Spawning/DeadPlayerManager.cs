@@ -125,11 +125,9 @@ public class DeadPlayerManager : MonoBehaviour
 				m_AlivePlayerHealth = m_PlayerTwoHealth; //Set the Alive Player
 
 				m_DeadPlayerHealth.gameObject.transform.position = gameObject.transform.position; //Put the player in the dead player box
-
-
 			}
  
-			else
+			if(m_PlayerTwoDead)
 			{
 				m_TwoPlayersDead = true; //Otherwise, if one player is already dead, then they are both dead
 			}
@@ -141,15 +139,14 @@ public class DeadPlayerManager : MonoBehaviour
 			if(!m_PlayerTwoDead)
 			{
 				m_PlayerTwoDead = true;
-
 				m_OnePlayerDead = true;
-				m_DeadPlayerHealth = m_PlayerOneHealth;
+				m_DeadPlayerHealth = m_PlayerTwoHealth;
 				m_AlivePlayerHealth = m_PlayerOneHealth;
 				m_DeadPlayerHealth.gameObject.transform.position = gameObject.transform.position;
 
 
 			}
-			else
+			if(m_PlayerOneDead)
 			{
 				m_TwoPlayersDead = true;
 			}
@@ -172,7 +169,7 @@ public class DeadPlayerManager : MonoBehaviour
 				if(finder.GetRespawnLayerFound()) //Check to see if a respawn layer has been found
 				{
 						
-					if(getPlayerRespawnLocation(m_PlayerTwoHealth.gameObject)) //If so, check to see if the player is in a valid location to respawn beside
+					if(getPlayerRespawnLocation(m_AlivePlayerHealth.gameObject)) //If so, check to see if the player is in a valid location to respawn beside
 					{
 						m_DeadPlayerHealth.resetHealth(); //Reset player health
 						m_DeadPlayerHealth.gameObject.transform.position = m_RespawnLocation; //Respawn player
