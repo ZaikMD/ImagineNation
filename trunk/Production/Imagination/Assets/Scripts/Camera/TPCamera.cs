@@ -107,8 +107,8 @@ public class TPCamera : MonoBehaviour
         {
 			if(m_Containing.ActionAreaDetect.m_CurrentActionArea != null)
 			{
-                m_Containing.gameObject.transform.rotation = Quaternion.Euler(Vector3.Lerp(m_Containing.gameObject.transform.rotation.eulerAngles, m_Containing.ActionAreaDetect.m_CurrentActionArea.CameraMountPoint.transform.rotation.eulerAngles, 0.05f));
-	            m_Containing.gameObject.transform.position = Vector3.Lerp(m_Containing.transform.position, m_Containing.ActionAreaDetect.m_CurrentActionArea.CameraMountPoint.transform.position, m_Containing.LerpAmount);
+                m_Containing.gameObject.transform.rotation = Quaternion.Euler(Vector3.Lerp(m_Containing.gameObject.transform.rotation.eulerAngles, m_Containing.ActionAreaDetect.m_CurrentActionArea.CameraMountPoint.transform.rotation.eulerAngles, AUTO_LERP_BASE_AMOUNT*2.0f));
+	            m_Containing.gameObject.transform.position = Vector3.Lerp(m_Containing.transform.position, m_Containing.ActionAreaDetect.m_CurrentActionArea.CameraMountPoint.transform.position, m_Containing.LerpAmount/2.0f);
 	        }
 		}
     }
