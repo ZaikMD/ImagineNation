@@ -18,7 +18,7 @@ public class MenuManager : MonoBehaviour
 		Instance = this;
 		
 		//prevents this object being destroyed between scene loads
-		DontDestroyOnLoad(this.gameObject);
+		//DontDestroyOnLoad(this.gameObject);
 	}
 
 	//------------------------------------------------------------------------------
