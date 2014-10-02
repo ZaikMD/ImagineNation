@@ -20,6 +20,7 @@ public class Trampoline : MonoBehaviour {
 	bool m_TrampolineJumpNow = false;
 
 	CharacterController m_PlayerController;
+	BaseMovementAbility m_baseMove;
 
 
 
@@ -37,6 +38,7 @@ public class Trampoline : MonoBehaviour {
 			//                                         (m_JumpGameObject.transform.position.z - m_TrampolinePosition.z));
 			//Debug.Log("empty game object: " + m_JumpGameObject.transform.position);
 			//Debug.Log("trampoline: " + m_TrampolinePosition);
+
 			m_LaunchDirection =  m_JumpGameObject.transform.position - m_TrampolinePosition;
 			m_LaunchDirection.Normalize();
 			m_LaunchDirection *= JUMP_SPEED;
@@ -53,22 +55,29 @@ public class Trampoline : MonoBehaviour {
 		{
 			if (m_TrampolineJumpNow == true)
 			{
-				Launch();
-			}
-		}
-
-		if(m_PlayerController != null)
-		{
-			if (m_PlayerController.isGrounded)//TODO: this is broken
-			{
-				if (m_TrampolineJumpNow == true)
+				//if(!m_PlayerController.isGrounded)
+				if(!m_baseMove.GetIsGrounded())
+				{
+					//Launch();
+				}
+				else
 				{
 					m_TrampolineJumpNow = false;
-					//Debug.Log("Landed");
 					m_PlayerController = null;
+
 				}
 			}
 		}
+
+		//if(m_PlayerController != null)
+		//{
+			//if (m_PlayerController.isGrounded)//TODO: this is broken
+		//	{
+		//		m_TrampolineJumpNow = false;
+				//Debug.Log("Landed");
+		//		m_PlayerController = null;
+		//	}
+		//}
 	}
 
 
@@ -81,10 +90,12 @@ public class Trampoline : MonoBehaviour {
 			if (other.tag == "Player")
 			{
 				//Debug.Log("JUMP");
-				m_PlayerController = (CharacterController)other.GetComponent(typeof (CharacterController));
-				Jump();
-				m_TrampolineJumpNow = true;
-				GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SFXManager>().playSound(this.gameObject, Sounds.JumpPad);
+				m_baseMove = other.gameObject.GetComponent<BaseMovementAbility>();
+				//m_PlayerController = (CharacterController)other.GetComponent(typeof (CharacterController));
+				//Jump();
+				//m_TrampolineJumpNow = true;
+			//	GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SFXManager>().playSound(this.gameObject, Sounds.JumpPad);
+				m_baseMove.TrampolineJump();
 
 
 
@@ -105,7 +116,7 @@ public class Trampoline : MonoBehaviour {
 		m_VerticalVelocity = 1.0f;
 	}
 
-	void Launch ()
+/*	void Launch ()
 	{
 		if(m_VerticalVelocity > MAX_FALL_SPEED)
 		{
@@ -122,6 +133,6 @@ public class Trampoline : MonoBehaviour {
 
 
 	}
-	
+	*/
 
 }
