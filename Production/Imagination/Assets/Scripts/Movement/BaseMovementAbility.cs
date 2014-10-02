@@ -320,6 +320,24 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		m_CharacterController.Move (m_Platform.GetAmountToMovePlayer());
 	}
 
+	public void TrampolineJump()
+	{
+		m_VerticalVelocity = 15.0f;
+		Vector3 Movement = new Vector3 (0, (m_VerticalVelocity ), 0);
+
+		if(m_VerticalVelocity > BASE_MAX_FALL_SPEED)
+		{
+			
+			m_VerticalVelocity -= Time.deltaTime * FALL_ACCELERATION;
+		}
+		
+		if (m_VerticalVelocity >= 0)
+		{
+			m_CharacterController.Move (Movement * Time.deltaTime);
+		}
+		
+	}
+
 	//Plays a walking animation
     void PlayAnimation()
     {
