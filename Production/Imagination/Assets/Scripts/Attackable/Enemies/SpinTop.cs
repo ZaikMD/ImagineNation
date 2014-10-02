@@ -19,6 +19,8 @@ public class SpinTop : BaseEnemy
 	Vector3 m_ChargeToPosition;
 	float m_ChargeDistance;
 
+	public float m_DistanceFromChargeToPosition;
+
 	bool m_PlayerHit;
 
 	private enum FightStates
@@ -26,6 +28,7 @@ public class SpinTop : BaseEnemy
 		Default,
 		Wobble,
 		Charge,
+		BuildingUpCharge,
 		KnockedBack
 	}
 
@@ -35,16 +38,16 @@ public class SpinTop : BaseEnemy
 
 		m_CharacterController = GetComponent<CharacterController> ();
 
-		m_FightState = FightStates.Charge;
+		m_FightState = FightStates.BuildingUpCharge;
 		m_AggroRange = 10.0f;
 		m_CombatRange = m_AggroRange;
 
-		m_WobbleTimer = 0.0f;
-		m_MaxWobbleTime = 1.0f;
+		m_MaxWobbleTime = 2.0f;
+		m_WobbleTimer = m_MaxWobbleTime;
 
 		m_ChargeTimer = 0.0f;
-		m_ChargeBuildUpTime = 2.0f;
-		m_ChargeSpeed = 10.0f;
+		m_ChargeBuildUpTime = 1.0f;
+		m_ChargeSpeed = 20.0f;
 		m_IsCharging = false;
 		m_ChargeDistance = 3.0f;
 
@@ -54,6 +57,7 @@ public class SpinTop : BaseEnemy
 
 	void Update () 
 	{
+		Debug.DrawRay(m_ChargeToPosition, transform.position, Color.magenta);
 		base.Update ();
 	}
 
@@ -72,6 +76,10 @@ public class SpinTop : BaseEnemy
 		case FightStates.Charge:
 			Debug.Log("Charge");
 			Charge ();
+			break;
+		case FightStates.BuildingUpCharge:
+			Debug.Log("BuildingUpCharge");
+			BuildingUpCharge ();
 			break;
 		case FightStates.KnockedBack:
 			Debug.Log("KnockedBack");
@@ -94,71 +102,49 @@ public class SpinTop : BaseEnemy
 
 	void Wobble()
 	{
-		if(m_WobbleTimer < m_MaxWobbleTime)
+		if(m_WobbleTimer > 0.0f)
 		{
-			m_WobbleTimer += Time.deltaTime;
+			m_WobbleTimer -= Time.deltaTime;
 		}
 		else
 		{
-			m_FightState = FightStates.Charge;
+			m_FightState = FightStates.BuildingUpCharge;
+			m_WobbleTimer = m_MaxWobbleTime;
 		}
 	}
 
 	void Charge()
 	{
+		m_Agent.speed = m_ChargeSpeed;
+		m_DistanceFromChargeToPosition = Vector3.Distance (m_ChargeToPosition, transform.position);
 
-		if(!m_IsCharging)
+		if(!m_PlayerHit)
 		{
-			if(m_ChargeTimer < m_ChargeBuildUpTime)
+			if(m_DistanceFromChargeToPosition < 1.5f)
 			{
-				m_ChargeTimer += Time.deltaTime;
-				m_ChargeDirection = m_Target.position - transform.position;
-			}
-			else
-			{
-				m_ChargeToPosition = m_ChargeDirection.normalized * m_ChargeDistance;
-
-				m_IsCharging = true;
-				m_ChargeTimer = 0.0f;
+				m_FightState = FightStates.Wobble;
 			}
 		}
 		else
 		{
-			Vector3 tempDir = m_ChargeToPosition - transform.position;
-			float DistanceFromChargeToPosition = tempDir.magnitude;
+			m_FightState = FightStates.KnockedBack;
+		}
+	}
 
-			if(DistanceFromChargeToPosition > 1.0f)
-			{
-				//transform.position += m_ChargeDirection.normalized * m_ChargeSpeed * Time.deltaTime;
-				//m_CharacterController.Move(m_ChargeDirection.normalized * m_ChargeSpeed * Time.deltaTime);
-				//m_Target = m_ChargeToPosition;
-				m_Agent.SetDestination(m_ChargeToPosition);
-
-				if(m_PlayerHit)
-				{
-					m_FightState = FightStates.KnockedBack;
-				}
-			}
-			else
-			{
-				m_FightState = FightStates.Wobble;
-				m_IsCharging = false;
-
-				for (int i = 0; i < m_Players.Length; i++)
-				{
-					if (m_Players[i] != m_Target)
-					{
-						float distance = Vector3.Distance(gameObject.transform.position, m_Players[i].transform.position);
-						
-						if (GetDistanceToTarget() >= distance)
-						{
-							m_Target = m_Players[i].gameObject.transform;
-						}
-					}
-				}
-
-				m_Agent.SetDestination(m_Target.position);
-			}
+	void BuildingUpCharge()
+	{
+		if(m_ChargeTimer < m_ChargeBuildUpTime)
+		{
+			m_ChargeTimer += Time.deltaTime;
+			m_ChargeDirection = m_Target.position - transform.position;
+			//m_ChargeDirection.y = 0.0f;
+		}
+		else
+		{
+			m_ChargeToPosition = m_ChargeDirection.normalized * m_ChargeDistance;
+			m_Agent.SetDestination(m_ChargeToPosition);
+			m_ChargeTimer = 0.0f;
+			m_FightState = FightStates.Charge;
 
 		}
 	}
@@ -166,7 +152,7 @@ public class SpinTop : BaseEnemy
 	void KnockedBack()
 	{
 		//TODO: Bounce top back
-		m_FightState = FightStates.Charge;
+		m_FightState = FightStates.BuildingUpCharge;
 	}
 
 	void OnTriggerEnter(Collider other)
