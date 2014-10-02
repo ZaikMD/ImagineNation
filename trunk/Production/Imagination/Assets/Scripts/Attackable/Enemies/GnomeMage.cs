@@ -25,19 +25,21 @@ public class GnomeMage : BaseEnemy
 	private List<GameObject> m_Clones;
 	private Vector3 m_CloneSpawnDistance;
 	private int m_NumberOfClones;
+	private bool m_ClonesCreated;
 
 	//MoveAway Variables
 	private float m_RotSpeed;
 	private float m_BackSpeed;
 	private float m_SwitchRotTimer;
+	private float m_MoveDist;
+	private int m_MoveAngle;
 
 	// Attack Variables
 	private float m_TimeBetweenShots;
 	private float m_ShotTimer;
 	private bool m_CanShoot;
 
-	//TEST
-	int dist = 7;
+
 
 	// Use this for initialization
 	void Start () 
@@ -54,8 +56,10 @@ public class GnomeMage : BaseEnemy
 		m_RotSpeed = 15f;
 		m_BackSpeed = 5f;
 		m_SwitchRotTimer = Random.Range(0.3f, 3);
+		m_MoveDist = 7.0f;
+		m_MoveAngle = 90;
 
-		m_TimeBetweenShots = 1.0f;
+		m_TimeBetweenShots = 1.5f;
 		m_ShotTimer = 0.0f;
 		m_CanShoot = true;
 
@@ -65,24 +69,45 @@ public class GnomeMage : BaseEnemy
 
 		m_Clones = new List<GameObject>();
 		m_NumberOfClones = 2;
-		m_CloneSpawnDistance = new Vector3 (7, 0, 0);
+		m_CloneSpawnDistance = new Vector3 (5, 0, 0);
+		m_ClonesCreated = false;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
+		if (Input.GetKeyDown (KeyCode.K))
+						m_Health--;
+
 		base.Update ();
 
-		if (m_Health ==1)
+		if (m_Health == 1)
 		{
+			if (!m_ClonesCreated)
+			{
 			CreateClones();
 			m_CurrentFightState = FightStates.Cloned;
+			}
 		}
 
 		m_ShotTimer -= Time.deltaTime;
 		if (m_ShotTimer <= 0)
 		{
 			m_CanShoot = true;
+		}
+
+		if (m_ClonesCreated)
+		{
+			m_ShieldTimer -= Time.deltaTime;
+			if (m_ShieldTimer <= 0)
+			{
+				m_Health = m_MaxHealth;
+				DestroyClones();
+			
+				m_CurrentFightState = FightStates.Regular;
+				m_ClonesCreated = false;
+				return;
+			}
 		}
 	}
 
@@ -123,20 +148,6 @@ public class GnomeMage : BaseEnemy
 
 	private void Cloned()
 	{
-		m_ShieldTimer -= Time.deltaTime;
-		if (m_ShieldTimer <= 0)
-		{
-			m_Health = m_MaxHealth;
-
-			foreach (GameObject clone in m_Clones)
-			{
-				Destroy(clone);
-				m_Clones.Remove(clone);
-			}
-			m_CurrentFightState = FightStates.Regular;
-			return;
-		}
-
 		Shoot();
 	}
 
@@ -145,7 +156,7 @@ public class GnomeMage : BaseEnemy
 		m_CanShoot = false;
 		if (m_CanShoot)
 		{
-			transform.LookAt(m_Target);
+			transform.LookAt(m_Target.position);
 			m_CanShoot = false;
 			m_ShotTimer = m_TimeBetweenShots;
 			Instantiate (m_ProjectilePrefab, transform.position, transform.rotation);
@@ -154,45 +165,46 @@ public class GnomeMage : BaseEnemy
 
 	private void MoveAway ()
 	{
+		m_SwitchRotTimer -= Time.deltaTime;
 
-		//transform.RotateAround (m_Target.transform.position, Vector3.up,m_RotSpeed * Time.deltaTime);
+		if (m_SwitchRotTimer <= 0)
+		{
+			m_MoveAngle *= -1;
+			m_SwitchRotTimer = Random.Range(0.3f, 3);
+		}
 
-		Vector3 point = RotateAboutOrigin (transform.position, m_Target.transform.position, 90);
-		point += (transform.position - m_Target.transform.position).normalized * 7.0f;
+		Vector3 point = RotateAboutOrigin (transform.position, m_Target.position, m_MoveAngle);
+		point += (transform.position - m_Target.position).normalized * m_MoveDist;
 		m_Agent.SetDestination(point);
 
-
-		//float rotAngle = 90;
-		//m_SwitchRotTimer -= Time.deltaTime;
-		//if (m_SwitchRotTimer <= 0)
-		//{
-		//	
-		//	m_SwitchRotTimer = Random.Range(0.3f, 3);
-		//}
 	}
 
 	private void CreateClones()
 	{
 		Vector3[] positions = new Vector3[3];
 		positions [0] = transform.position;
-		positions [1] = m_Target.transform.position + m_CloneSpawnDistance;
-		positions[2] = m_Target.transform.position - m_CloneSpawnDistance;
+		positions [1] = m_Target.position + m_CloneSpawnDistance;
+		positions[2] = m_Target.position - m_CloneSpawnDistance;
 		Vector3 pos;
 		int range;
 
-		for (int i = 0; i < m_NumberOfClones - 1; i++)
+		for (int i = 0; i < m_NumberOfClones; i++)
 		{
 			do 
 			{
 			 range = Random.Range(0,2);
 			 pos = positions[range];
 			}
-			while (pos != Vector3.zero);
+			while (pos == Vector3.zero);
 		
 			m_Clones.Add((GameObject) Instantiate(m_ClonePrefab, pos, Quaternion.identity));	
 			positions[range] = Vector3.zero;
 
+		}
 
+		for (int i = 0; i < m_NumberOfClones; i++)
+		{
+			m_Clones[i].GetComponent<GnomeClone>().SetTarget(m_Target);
 		}
 
 		for (int i = 0; i < positions.Length; i++)
@@ -200,14 +212,27 @@ public class GnomeMage : BaseEnemy
 			if (positions[i] != Vector3.zero)
 			{
 				transform.position = positions[i];
+				m_Agent.destination = positions[i];
 			}
 		}
+		
+		m_ShieldTimer = m_ShieldRechargeTime;
+		m_ClonesCreated = true;
+	}
 
+	private void DestroyClones()
+	{
+		for (int i = 0; i < m_NumberOfClones; i++)
+		{
+			Destroy(m_Clones[i]);
+		}
+		m_Clones.Clear ();
 	}
 
 	protected override void Die ()
 	{
-		throw new System.NotImplementedException ();
+		DestroyClones ();
+		Destroy (this.gameObject);
 	}
 
 	
@@ -220,5 +245,7 @@ public class GnomeMage : BaseEnemy
 
 		return new Vector3(rotatedX, point.y, rotatedZ);
 	} 
+
+
 
 }
