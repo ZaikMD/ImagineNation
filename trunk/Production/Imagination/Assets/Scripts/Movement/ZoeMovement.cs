@@ -70,7 +70,7 @@ public class ZoeMovement : BaseMovementAbility {
 
 			//On the third jump we exit gliding
 			else if(m_NumberOfJumps >= 3)
-			{
+			{ 
 				stopGlidingWhileAirborne();
 			}
 		}

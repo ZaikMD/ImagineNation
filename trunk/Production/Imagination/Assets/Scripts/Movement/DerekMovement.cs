@@ -55,9 +55,10 @@ public class DerekMovement : BaseMovementAbility
             //Check the timer against our max time on the wall
             if (m_WallHangTimer >= MAX_WALL_HANG)
             {
-                //if true we set timer back to 0 and set the boolean to false
+                //LaunchJump send player off the wall by a small amount
+                //removes player from wall 
 				LaunchJump(m_WallJumpDirection * 0.1f);
-				//m_WallHangTimer = 0.0f;
+                //Set the boolean to false
 				m_OnWall = false;
             }
             else
