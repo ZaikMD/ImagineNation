@@ -286,9 +286,9 @@ public class GnomeMage : BaseEnemy
 	/// </summary>
 	protected override void Die ()
 	{
-		// If there are clones this will destroy them, then destroy the enemy
+		// If there are clones this will destroy them
+		if (m_ClonesCreated)
 		DestroyClones ();
-		Destroy (this.gameObject);
 	}
 
 	/// <summary>
