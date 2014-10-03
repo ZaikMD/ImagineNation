@@ -57,9 +57,12 @@ public abstract class BaseMovementAbility : MonoBehaviour
 
 	float m_GroundedDelayTimer = 0.07f;
 
+	protected Vector3 m_TrampolineJump = Vector3.zero;
+
 	//States
 	protected bool m_CurrentlyJumping;
 	protected bool m_IsOnMovingPlatform;
+	protected bool m_JumpByTrampoline;
 
 	//Called at the start of the program
 	protected void Start () 
@@ -75,6 +78,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		m_VerticalVelocity = -1.0f;
 		m_CurrentlyJumping = false;
 		m_IsOnMovingPlatform = false;
+		m_JumpByTrampoline = false;
 	}
 
 	//The default update all characters should use
@@ -93,6 +97,8 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		//If the player is grounded 
 		if(GetIsGrounded())
 		{
+			m_TrampolineJump = Vector3.zero;
+			m_JumpByTrampoline = false;
 			//Check if we should start jumping
 			if(InputManager.getJumpDown(m_AcceptInputFrom.ReadInputFrom))
 			{
@@ -103,7 +109,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			else
 			{
 
-                m_HorizontalAirVelocity = Vector2.zero;
+            	m_HorizontalAirVelocity = Vector2.zero;
 				GroundMovement();
 
 				if(m_IsOnMovingPlatform)
@@ -148,6 +154,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			} */
 
 			AirMovement();
+			
 		}
 
 
@@ -281,6 +288,17 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		//Add our vertical movement to our move
 		Movement.y = m_VerticalVelocity;
 
+
+		//if (m_TrampolineJump.magnitude > 5)
+		//{
+		//	Movement = m_TrampolineJump.normalized * 5;
+			//Movement.x = (Mathf.Clamp(m_TrampolineJump.x, -5.0f, 5.0f));
+		//	Movement.z = (Mathf.Clamp(m_TrampolineJump.z,-5.0f,5.0f));
+
+			//Movement.x = (Mathf.Clamp(Movement.x, -5.0f, 5.0f));
+			//Movement.z = (Mathf.Clamp(Movement.z,-5.0f,5.0f));
+
+		//}
 		//Move the character
 		m_CharacterController.Move (Movement * Time.deltaTime);
 
@@ -320,10 +338,11 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		m_CharacterController.Move (m_Platform.GetAmountToMovePlayer());
 	}
 
-	public void TrampolineJump()
+	public virtual void TrampolineJump(Vector3 m_launchDirection)
 	{
-		m_VerticalVelocity = 15.0f;
-		Vector3 Movement = new Vector3 (0, (m_VerticalVelocity ), 0);
+		m_VerticalVelocity = 15.0f;//m_launchDirection.y;
+		m_TrampolineJump.x = m_launchDirection.x;
+		m_TrampolineJump.z = m_launchDirection.z;
 
 		if(m_VerticalVelocity > BASE_MAX_FALL_SPEED)
 		{
@@ -333,7 +352,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		
 		if (m_VerticalVelocity >= 0)
 		{
-			m_CharacterController.Move (Movement * Time.deltaTime);
+			m_CharacterController.Move (m_TrampolineJump * m_VerticalVelocity * Time.deltaTime);
 		}
 		
 	}

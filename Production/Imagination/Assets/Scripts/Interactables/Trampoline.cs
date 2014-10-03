@@ -24,12 +24,18 @@ public class Trampoline : MonoBehaviour {
 
 
 
+
+
 	// Use this for initialization
 	void Start () 
 	{
 		if (m_JumpGameObject != null)
-		{	
+		{
 			m_TrampolinePosition = gameObject.transform.position;
+			m_LaunchDirection =  m_JumpGameObject.transform.position - m_TrampolinePosition;
+			m_LaunchDirection.Normalize();
+			m_LaunchDirection *= JUMP_SPEED;
+			//m_TrampolinePosition = gameObject.transform.position;
 			//Debug.Log (m_TrampolinePosition);
 			//m_JumpGameObject.transform.position; //gameObject.transform.position;
 			//Debug.Log (m_JumpGameObject.transform.position);
@@ -39,9 +45,9 @@ public class Trampoline : MonoBehaviour {
 			//Debug.Log("empty game object: " + m_JumpGameObject.transform.position);
 			//Debug.Log("trampoline: " + m_TrampolinePosition);
 
-			m_LaunchDirection =  m_JumpGameObject.transform.position - m_TrampolinePosition;
-			m_LaunchDirection.Normalize();
-			m_LaunchDirection *= JUMP_SPEED;
+			//m_LaunchDirection =  m_JumpGameObject.transform.position - m_TrampolinePosition;
+			//m_LaunchDirection.Normalize();
+			//m_LaunchDirection *= JUMP_SPEED;
 			//Debug.Log (" final: " + m_LaunchDirection);
 
 			//Debug.Log (m_LaunchDirection);
@@ -92,10 +98,10 @@ public class Trampoline : MonoBehaviour {
 				//Debug.Log("JUMP");
 				m_baseMove = other.gameObject.GetComponent<BaseMovementAbility>();
 				//m_PlayerController = (CharacterController)other.GetComponent(typeof (CharacterController));
-				//Jump();
 				//m_TrampolineJumpNow = true;
 			//	GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SFXManager>().playSound(this.gameObject, Sounds.JumpPad);
-				m_baseMove.TrampolineJump();
+				m_baseMove.TrampolineJump(m_LaunchDirection);
+				//m_baseMove.LaunchJump(m_LaunchDirection);
 
 
 
@@ -110,11 +116,7 @@ public class Trampoline : MonoBehaviour {
 		}
 
 	}
-
-	void Jump()
-	{
-		m_VerticalVelocity = 1.0f;
-	}
+	
 
 /*	void Launch ()
 	{
