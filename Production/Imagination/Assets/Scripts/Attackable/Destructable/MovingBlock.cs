@@ -194,8 +194,11 @@ public class MovingBlock : Destructable
 			m_Destination.y = rayHit.point.y;
 		}
 
+	}
 
-
+	protected override void onDeath ()
+	{
+		respawn ();
 	}
 
 }
