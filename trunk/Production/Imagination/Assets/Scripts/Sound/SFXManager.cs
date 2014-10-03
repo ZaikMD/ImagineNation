@@ -331,7 +331,7 @@ public class SFXManager : MonoBehaviour
         tempAudioInfo.m_AudioClip = null;
         tempAudioInfo.OneShot = false;
 
-		Debug.Log("meh");
+
 
         switch(sound)
         {
