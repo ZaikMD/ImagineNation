@@ -4,7 +4,8 @@ using System.Collections;
 public class PressurePlates : SwitchBaseClass
 {
 
-	bool m_Activated = false;
+
+	public bool m_IngorePlayers;
 
 	ArrayList m_List;
 	public GameObject m_MovingBoxStopPoint;
@@ -18,21 +19,18 @@ public class PressurePlates : SwitchBaseClass
 	// Update is called once per frame
 	void Update () 
 	{
-
-
-		if(m_List.Count > 0 )
-		{
-			m_Activated = true;
-
-		}
 	}
 
 	void OnTriggerEnter(Collider obj)
 	{
-		if(obj.gameObject.tag == "Player")
+		if(!m_IngorePlayers)
 		{
-			m_List.Add(obj.gameObject);
 
+			if(obj.gameObject.tag == "Player")
+			{
+				m_List.Add(obj.gameObject);
+
+			}
 		}
 
 		if(obj.gameObject.tag == "MovingBlock")
@@ -56,4 +54,9 @@ public class PressurePlates : SwitchBaseClass
 			m_List.Remove(obj.gameObject);
 		}
 	}
+
+    public override bool getActive()
+    {
+        return m_List.Count > 0;
+    }
 }
