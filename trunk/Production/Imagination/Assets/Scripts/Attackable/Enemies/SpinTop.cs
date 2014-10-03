@@ -18,6 +18,10 @@ public class SpinTop : BaseEnemy
 	Vector3 m_ChargeDirection;
 	Vector3 m_ChargeToPosition;
 	float m_ChargeDistance;
+	float m_DistanceToTarget;
+
+	float m_DistanceToPlayer;
+	float m_DistanceToPlayer2;
 
 	public float m_DistanceFromChargeToPosition;
 
@@ -25,7 +29,6 @@ public class SpinTop : BaseEnemy
 
 	private enum FightStates
 	{
-		Default,
 		Wobble,
 		Charge,
 		BuildingUpCharge,
@@ -47,9 +50,8 @@ public class SpinTop : BaseEnemy
 
 		m_ChargeTimer = 0.0f;
 		m_ChargeBuildUpTime = 1.0f;
-		m_ChargeSpeed = 20.0f;
+		m_ChargeSpeed = 5.0f;
 		m_IsCharging = false;
-		m_ChargeDistance = 3.0f;
 
 		m_PlayerHit = false;
 
@@ -57,18 +59,18 @@ public class SpinTop : BaseEnemy
 
 	void Update () 
 	{
-		Debug.DrawRay(m_ChargeToPosition, transform.position, Color.magenta);
 		base.Update ();
 	}
 
 	protected override void Fight()
 	{
+		UpdateFightState ();
+	}
+
+	void UpdateFightState ()
+	{
 		switch(m_FightState)
 		{
-		case FightStates.Default:
-			Default();
-			Debug.Log("Default");
-			break;
 		case FightStates.Wobble:
 			Wobble ();
 			Debug.Log("Wobble");
@@ -95,11 +97,6 @@ public class SpinTop : BaseEnemy
 		Instantiate (m_RagdollPrefab, transform.position, transform.rotation);
 	}
 
-	void Default()
-	{
-
-	}
-
 	void Wobble()
 	{
 		if(m_WobbleTimer > 0.0f)
@@ -108,6 +105,13 @@ public class SpinTop : BaseEnemy
 		}
 		else
 		{
+			m_DistanceToPlayer = Vector3.Distance(m_Target.position, transform.position);
+			if(m_DistanceToPlayer > m_CombatRange)
+			{
+				m_State = State.Default;
+				return;
+			}
+
 			m_FightState = FightStates.BuildingUpCharge;
 			m_WobbleTimer = m_MaxWobbleTime;
 		}
@@ -115,14 +119,16 @@ public class SpinTop : BaseEnemy
 
 	void Charge()
 	{
+		Debug.DrawRay(m_ChargeToPosition, transform.position - m_ChargeToPosition, Color.magenta);
 		m_Agent.speed = m_ChargeSpeed;
 		m_DistanceFromChargeToPosition = Vector3.Distance (m_ChargeToPosition, transform.position);
 
 		if(!m_PlayerHit)
 		{
-			if(m_DistanceFromChargeToPosition < 1.5f)
+			if(m_DistanceFromChargeToPosition < 3.0f)
 			{
 				m_FightState = FightStates.Wobble;
+
 			}
 		}
 		else
@@ -136,13 +142,17 @@ public class SpinTop : BaseEnemy
 		if(m_ChargeTimer < m_ChargeBuildUpTime)
 		{
 			m_ChargeTimer += Time.deltaTime;
-			m_ChargeDirection = m_Target.position - transform.position;
-			//m_ChargeDirection.y = 0.0f;
 		}
 		else
 		{
+			m_ChargeDirection = m_Target.position - transform.position;
+			m_DistanceToTarget = m_ChargeDirection.magnitude;
+			
+			m_ChargeDistance = m_DistanceToTarget * 1.5f;
 			m_ChargeToPosition = m_ChargeDirection.normalized * m_ChargeDistance;
+
 			m_Agent.SetDestination(m_ChargeToPosition);
+
 			m_ChargeTimer = 0.0f;
 			m_FightState = FightStates.Charge;
 
