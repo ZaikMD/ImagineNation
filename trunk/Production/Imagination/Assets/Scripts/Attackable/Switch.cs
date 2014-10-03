@@ -19,6 +19,8 @@ public class Switch : SwitchBaseClass, Attackable
     public bool m_OnTimer;
     public float m_Timer;
 
+    bool m_Activated;
+
 	protected float m_SaveTimer;
 
 	public Material m_ActiveMaterial;
@@ -78,4 +80,5 @@ public class Switch : SwitchBaseClass, Attackable
 	{
 
 	}
+
 }
