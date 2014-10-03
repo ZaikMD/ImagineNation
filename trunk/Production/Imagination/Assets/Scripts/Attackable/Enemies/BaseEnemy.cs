@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//Require our NavMeshAgent for EnemyAI
 [RequireComponent(typeof(NavMeshAgent))]
 public abstract class BaseEnemy : Destructable
 {
+	//Enum for Enemy States
     protected enum State
     {
         Default,
@@ -108,6 +110,11 @@ public abstract class BaseEnemy : Destructable
     // Update is called once per frame
     protected void Update()
     {
+        if (m_IsActive == false)
+        {
+            DisableEnemy();
+        }
+
         //Call our Update State function
 		UpdateState ();
     }
@@ -459,6 +466,21 @@ public abstract class BaseEnemy : Destructable
     public bool GetIsAlive()
     {
         return m_IsAlive;
+    }
+
+	public void SetIsActive(bool isActive)
+	{
+		m_IsActive = isActive;
+	}
+
+	public bool GetIsActive()
+	{
+		return m_IsActive;
+	}
+
+    protected void DisableEnemy()
+    {
+        this.gameObject.SetActive(false);
     }
 
     //Set aggroRange for custom areas within the game
