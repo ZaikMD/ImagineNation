@@ -33,4 +33,10 @@ public class EnemySpawner : MonoBehaviour
 	{
 
 	}
+
+	public bool GetIsAlive()
+	{
+		return m_Enemy.GetIsAlive ();
+	}
+
 }
