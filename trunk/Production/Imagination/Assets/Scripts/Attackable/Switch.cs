@@ -81,4 +81,9 @@ public class Switch : SwitchBaseClass, Attackable
 
 	}
 
+	public override bool getActive ()
+	{
+		return m_Activated;
+	}
+
 }
