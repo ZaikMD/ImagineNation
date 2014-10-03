@@ -7,13 +7,11 @@ using System.Collections;
  * This Script loads all sound effects and tells the audio sources to play
  * a passed in sound.
  * 
- * To Play a sound effect add a point from the class with the logic, or animation manager
- * call the Play Sound function and pass in this.Gameobject for the first argument.
+ * To Play a sound effect, First get a reference to this script (there should be a
+ * empty game Object in your scene with the SFXManager script and the Sound Manager tag).
+ * call the Play Sound function and pass in ethier the game object that will be the origin,
+ * or a vector3 repersenting the posityion of the orgin for the first argument.
  * for the second argument, pass in a sound as an enum of Sound( Sounds.nameOfSound )
- * 
- * set up a pointer to this class from the class that will be calling the function.
- * this class will likely be setup on the main camera.
- * 
  * 
  * 
  * Oct, 1, 2014, 
@@ -26,18 +24,38 @@ using System.Collections;
 //The name of all the sounds are below
 public enum Sounds
 {
+	//Common
     Jump,
     Walk,
     Run,
 	Collectable,
 	WeaponWoosh,
 	JumpPad,
+
+	//Alex
 	AlexHitOne,
 	AlexHitTwo,
 	AlexHitThree,
 	AlexHurt,
+	AlexDeath,
+	AlexJump,
+
+	//Derek
 	DerekHitOne,
-	DerekHurt
+	DerekHitTwo,
+	DerekHitThree,
+	DerekHurt,
+	DerekDeath,
+	DerekJump,
+
+	//Zoey
+	ZoeyHitOne,
+	ZoeyHitTwo,
+	ZoeyHitThree,
+	ZoeyHurt,
+	ZoeyDeath,
+	ZoeyJump
+
 }
 
 //this struct holds all the info needed to determine how to play are sounds
@@ -62,13 +80,31 @@ public class SFXManager : MonoBehaviour
 	AudioClip m_Collectable;
 	AudioClip m_WeaponWoosh;
 	AudioClip m_JumpPad;
+
+	//Alex Sounds
 	AudioClip m_AlexHitOne;
 	AudioClip m_AlexHitTwo;
 	AudioClip m_AlexHitThree;
 	AudioClip m_AlexHurt;
-	AudioClip m_DerekHitOne;
-	AudioClip m_DerekHurt;
+	AudioClip m_AlexDeath;
+	AudioClip m_AlexJump;
 
+	//Derek Sounds
+	AudioClip m_DerekHitOne;
+	AudioClip m_DerekHitTwo;
+	AudioClip m_DerekHitThree;
+	AudioClip m_DerekHurt;
+	AudioClip m_DerekDeath;
+	AudioClip m_DerekJump;
+
+
+	//Zoey Sounds
+	AudioClip m_ZoeyHitOne;
+	AudioClip m_ZoeyHitTwo;
+	AudioClip m_ZoeyHitThree;
+	AudioClip m_ZoeyHurt;
+	AudioClip m_ZoeyDeath;
+	AudioClip m_ZoeyJump;
 
 	//Variables for class
 	AudioSource m_Source;
@@ -100,14 +136,26 @@ public class SFXManager : MonoBehaviour
 		m_AlexHitOne = (AudioClip)Resources.Load("Sounds/Alex/First_Weapon_hit_Alex");
 		m_AlexHitTwo = (AudioClip)Resources.Load("Sounds/Alex/Second_Weapon_Hit_Alex");
 		m_AlexHitThree = (AudioClip)Resources.Load("Sounds/Alex/Final_Weapon_hit_Alex");
-		m_AlexHurt = (AudioClip)Resources.Load ("Sounds/Alex/painful_grunts_boy");
+		m_AlexHurt = (AudioClip)Resources.Load ("Sounds/Alex/Alex_Painful_Grunt");
+		m_AlexJump = (AudioClip)Resources.Load ("Sounds/Alex/Alex_Jump");
 
 		//Derek Sounds
-		m_DerekHitOne = (AudioClip)Resources.Load ("Sounds/Derek/Realistic_Punch");
-		m_DerekHurt = (AudioClip)Resources.Load ("Sounds/Alex/painful_grunts_boy");
+		m_DerekHitOne = (AudioClip)Resources.Load ("Sounds/Derek/Derek_First_Hit");
+		m_DerekHitTwo = (AudioClip)Resources.Load ("Sounds/Derek/Derek_Second_Hit");
+		m_DerekHitThree = (AudioClip)Resources.Load ("Sounds/Derek/Derek_Third_Hit");
+		m_DerekHurt = (AudioClip)Resources.Load ("Sounds/Common/Derek_Painful_Grunt");
+		m_DerekJump = (AudioClip)Resources.Load ("Sounds/Derek/Derek_Jump");
 
 
+		//TODO: Load proper zoey sounds
 		//Zoey Sounds
+		m_ZoeyHitOne = (AudioClip)Resources.Load ("Sounds/Derek/Derek_First_Hit");
+		m_ZoeyHitTwo = (AudioClip)Resources.Load ("Sounds/Derek/Derek_Second_Hit");
+		m_ZoeyHitThree = (AudioClip)Resources.Load ("Sounds/Derek/Derek_Third_Hit");
+		m_ZoeyHurt = (AudioClip)Resources.Load ("Sounds/Common/Derek_Painful_Grunt");
+		m_ZoeyJump = (AudioClip)Resources.Load ("Sounds/Derek/Derek_Jump");
+
+
 
     }
 
@@ -119,15 +167,16 @@ public class SFXManager : MonoBehaviour
     /// </summary>
 	void Start ()
     {
-		//Instantiate varibles
-		m_Source = this.gameObject.GetComponent<AudioSource> ();
-//TODO: load which players are player one and two
+
+		//TODO: load which players are player one and two
 
 		m_PlayerOne = getPlayerTransform (GameData.Instance.PlayerOneCharacter);
 		m_PlayerTwo = getPlayerTransform (GameData.Instance.PlayerTwoCharacter);
 
-		//This is used when not loading a new level, needed for testing,
 
+		//TODO: Delete for finale product, Onload will handle. OnLoad does not run when playing scene in editor
+		//Load all sounds
+		
 		//Common Sounds
 		m_JumpSFX = (AudioClip)Resources.Load("Sounds/Alex/Alex_Jump");
 		m_WalkSFX = (AudioClip)Resources.Load("Sounds/Common/Jump_Pad");
@@ -140,16 +189,28 @@ public class SFXManager : MonoBehaviour
 		m_AlexHitOne = (AudioClip)Resources.Load("Sounds/Alex/First_Weapon_hit_Alex");
 		m_AlexHitTwo = (AudioClip)Resources.Load("Sounds/Alex/Second_Weapon_Hit_Alex");
 		m_AlexHitThree = (AudioClip)Resources.Load("Sounds/Alex/Final_Weapon_hit_Alex");
-		m_AlexHurt = (AudioClip)Resources.Load ("Sounds/Alex/painful_grunts_boy");
+		m_AlexHurt = (AudioClip)Resources.Load ("Sounds/Alex/Alex_Painful_Grunt");
+		m_AlexDeath = (AudioClip)Resources.Load ("Sounds/Alex/Alex_Death");
+		m_AlexJump = (AudioClip)Resources.Load ("Sounds/Alex/Alex_Jump");
 		
 		//Derek Sounds
 		m_DerekHitOne = (AudioClip)Resources.Load ("Sounds/Derek/Realistic_Punch");
-		m_DerekHurt = (AudioClip)Resources.Load ("Sounds/Alex/painful_grunts_boy");
-		
-		
+		m_DerekHitTwo = (AudioClip)Resources.Load ("Sounds/Derek/Derek_Second_Hit");
+		m_DerekHitThree = (AudioClip)Resources.Load ("Sounds/Derek/Derek_Third_Hit");
+		m_DerekHurt = (AudioClip)Resources.Load ("Sounds/Derek/Derek_Painful_Grunt");
+		m_DerekDeath = (AudioClip)Resources.Load ("Sound/Derek/Derek_Death");
+		m_DerekJump = (AudioClip)Resources.Load ("Sounds/Derek/Derek_Jump");
+
+		//TODO: Load proper sounds for zoey
 		//Zoey Sounds
 
-		
+		m_ZoeyHitOne = (AudioClip)Resources.Load ("Sounds/Derek/Derek_First_Hit");
+		m_ZoeyHitTwo = (AudioClip)Resources.Load ("Sounds/Derek/Derek_Second_Hit");
+		m_ZoeyHitThree = (AudioClip)Resources.Load ("Sounds/Derek/Derek_Third_Hit");
+		m_ZoeyHurt = (AudioClip)Resources.Load ("Sounds/Common/Derek_Painful_Grunt");
+		m_ZoeyDeath = (AudioClip)Resources.Load ("Sounds/Alex/Alex_Death");
+		m_ZoeyJump = (AudioClip)Resources.Load ("Sounds/Derek/Derek_Jump");
+
 	}
 
 	/// <summary>
@@ -185,10 +246,10 @@ public class SFXManager : MonoBehaviour
 
 	
 	/// <summary>
-	/// This function plays a sound where you want it to play.
+	/// This function plays a sound from the gameObject you want it to play from.
 	/// </summary>
 	/// <param name="objectPlayingTheSound">Object playing the sound. pass in this.gameObject to have it originate from the object the script is attached</param>
-	/// <param name="sound">The sound that is played, it is an enum, to select a sound, Type Sounds.insertSoundNameHere</param>
+	/// <param name="sound">The sound that is played, it is an enum, to select a sound, Type Sounds.insertSoundNameHere, Sound names are all one word</param>
     public void playSound(GameObject objectPlayingTheSound, Sounds sound)
     {
 
@@ -229,10 +290,10 @@ public class SFXManager : MonoBehaviour
 
     }
 	/// <summary>
-	/// Plaies the sound.
+	/// This function plays a sound from the location specified
 	/// </summary>
 	/// <param name="Location">Pass in a vector3 for the location of the sound to play from don't use if it needs to move with them.</param>
-	/// <param name="The sound that is played, it is an enum, to select a sound, Type Sounds.insertSoundNameHere">.</param>
+	/// <param name="The sound that is played, it is an enum, to select a sound, Type Sounds.insertSoundNameHere, Sound names are all one word">.</param>
 	public void playSound(Vector3 Location, Sounds sound)
 	{
 
@@ -335,82 +396,165 @@ public class SFXManager : MonoBehaviour
 
         switch(sound)
         {
-            case Sounds.Jump:
-               
+
+
+	//Common Sounds
+        case Sounds.Jump:
             tempAudioInfo.m_AudioClip = m_JumpSFX;
             tempAudioInfo.OneShot = false;
             return tempAudioInfo;
             break;
 
-            case Sounds.Walk:
+        case Sounds.Walk:
             tempAudioInfo.m_AudioClip = m_WalkSFX;
             tempAudioInfo.OneShot = false;
             return tempAudioInfo;
             break;
 
-            case Sounds.Run:
+        case Sounds.Run:
             tempAudioInfo.m_AudioClip = m_RunSFX;
             tempAudioInfo.OneShot = false;
             return tempAudioInfo;
             break;
 
-			case Sounds.Collectable:
+		case Sounds.Collectable:
             tempAudioInfo.m_AudioClip = m_Collectable;
             tempAudioInfo.OneShot = true;
             return tempAudioInfo;
             break;
 
-			case Sounds.WeaponWoosh:
+		case Sounds.WeaponWoosh:
 			tempAudioInfo.m_AudioClip = m_WeaponWoosh;
 			tempAudioInfo.OneShot = true;
 			return tempAudioInfo;
 			break;
 
-			case Sounds.JumpPad:
+		case Sounds.JumpPad:
 			tempAudioInfo.m_AudioClip = m_JumpPad;
 			tempAudioInfo.OneShot = true;
 			return tempAudioInfo;
 			break;
-
-			case Sounds.AlexHitOne:
+	
+		
+	//Alex Sounds
+		case Sounds.AlexHitOne:
 			tempAudioInfo.m_AudioClip = m_AlexHitOne;
 			tempAudioInfo.OneShot = true;
 			return tempAudioInfo;
 			break;
 
-			case Sounds.AlexHitTwo:
+		case Sounds.AlexHitTwo:
 			tempAudioInfo.m_AudioClip = m_AlexHitTwo;
 			tempAudioInfo.OneShot = true;
 			return tempAudioInfo;
 			break;
 
-			case Sounds.AlexHitThree:
+		case Sounds.AlexHitThree:
 			tempAudioInfo.m_AudioClip = m_AlexHitThree;
 			tempAudioInfo.OneShot = true;
 			return tempAudioInfo;
 			break;
 
-			case Sounds.AlexHurt:
+		case Sounds.AlexHurt:
 			tempAudioInfo.m_AudioClip = m_AlexHurt;
 			tempAudioInfo.OneShot = true;
 			return tempAudioInfo;
 			break;
 
-			case Sounds.DerekHitOne:
+		case Sounds.AlexDeath:
+			tempAudioInfo.m_AudioClip = m_AlexDeath;
+			tempAudioInfo.OneShot = false;
+			return tempAudioInfo;
+			break;
+
+		case Sounds.AlexJump:
+			tempAudioInfo.m_AudioClip = m_AlexJump;
+			tempAudioInfo.OneShot = true;
+			return tempAudioInfo;
+			break;
+
+
+	//Derek Sounds
+		case Sounds.DerekHitOne:
 			tempAudioInfo.m_AudioClip = m_DerekHitOne;
 			tempAudioInfo.OneShot = true;
 			return tempAudioInfo;
 			break;
-		
 
-			case Sounds.DerekHurt:
-			tempAudioInfo.m_AudioClip = m_AlexHurt;
+		case Sounds.DerekHitTwo:
+			tempAudioInfo.m_AudioClip = m_DerekHitTwo;
+			tempAudioInfo.OneShot = true;
+			return tempAudioInfo;
+			break;
+		
+		case Sounds.DerekHitThree:
+			tempAudioInfo.m_AudioClip = m_DerekHitThree;
+			tempAudioInfo.OneShot = true;
+			return tempAudioInfo;
+			break;
+
+		case Sounds.DerekHurt:
+			tempAudioInfo.m_AudioClip = m_DerekHurt;
+			tempAudioInfo.OneShot = true;
+			return tempAudioInfo;
+			break;
+
+		case Sounds.DerekDeath:
+			tempAudioInfo.m_AudioClip = m_DerekDeath;
+			tempAudioInfo.OneShot = false;
+			return tempAudioInfo;
+			break;
+
+		case Sounds.DerekJump:
+			tempAudioInfo.m_AudioClip = m_DerekJump;
+			tempAudioInfo.OneShot = true;
+			return tempAudioInfo;
+			break;
+
+
+	//Zoey Sounds
+		case Sounds.ZoeyHitOne:
+			tempAudioInfo.m_AudioClip = m_ZoeyHitOne;
 			tempAudioInfo.OneShot = true;
 			return tempAudioInfo;
 			break;
 			
-
+		case Sounds.ZoeyHitTwo:
+			tempAudioInfo.m_AudioClip = m_ZoeyHitTwo;
+			tempAudioInfo.OneShot = true;
+			return tempAudioInfo;
+			break;
 			
+		case Sounds.ZoeyHitThree:
+			tempAudioInfo.m_AudioClip = m_ZoeyHitThree;
+			tempAudioInfo.OneShot = true;
+			return tempAudioInfo;
+			break;
+			
+		case Sounds.ZoeyHurt:
+			tempAudioInfo.m_AudioClip = m_ZoeyHurt;
+			tempAudioInfo.OneShot = true;
+			return tempAudioInfo;
+			break;
+
+
+		case Sounds.ZoeyDeath:
+			tempAudioInfo.m_AudioClip = m_ZoeyDeath;
+			tempAudioInfo.OneShot = false;
+			return tempAudioInfo;
+			break;
+
+		case Sounds.ZoeyJump:
+			tempAudioInfo.m_AudioClip = m_ZoeyJump;
+			tempAudioInfo.OneShot = true;
+			return tempAudioInfo;
+			break;
+
+
+
+
+
+
 		default:
 			Debug.LogError("No regonized sound passed in");
             return tempAudioInfo;
