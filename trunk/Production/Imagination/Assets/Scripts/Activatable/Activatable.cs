@@ -15,7 +15,7 @@ public class Activatable : MonoBehaviour
 {
     public SwitchBaseClass[] m_Switches;
 	public bool m_OnlyOneSwitchNeeded = false;
-	//public EnemySpawners[] m_Spawners;
+	public EnemySpawner[] m_Spawners;
 	protected bool m_AllSwitchesActive;
 	public bool m_ActivatesOnEnemiesDeath = false;
 	bool m_AllEnemiesDead;
@@ -83,14 +83,14 @@ public class Activatable : MonoBehaviour
 	//if the activatable is triggered by enemy deaths
 	bool CheckSpawners() 
 	{
-		/*
+
 		for(int i = 0; i < m_Spawners.Length; i++)
 		{
-			if(m_Spawners[i].GetIsAlive == true)
+			if(m_Spawners[i].GetIsAlive() == true)
 			{
 				return false;
 			}
-		}*/
+		}
 		return true;
 	}
 }
