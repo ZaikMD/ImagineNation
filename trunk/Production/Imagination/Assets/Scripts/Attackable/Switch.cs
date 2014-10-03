@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 /// <summary>
-/// Lever.
+/// 
 /// 
 /// Created by Zach Dubuc
 /// 
@@ -13,7 +13,7 @@ using System.Collections;
 /// 19/09/14 Matthew Whitlaw EDIT: Added a getActive function
 /// 22/09/14 Zach Dubuc EDIT: Added a material when the switch is active/inactive
 /// 
-public class Switch : MonoBehaviour, Attackable
+public class Switch : SwitchBaseClass, Attackable
 {
 
     public bool m_OnTimer;
@@ -26,8 +26,6 @@ public class Switch : MonoBehaviour, Attackable
 
 	public GameObject m_LeverChange;
 
-
-	bool m_Active = false;
 	// Use this for initialization
 	void Start () 
     {
@@ -37,7 +35,7 @@ public class Switch : MonoBehaviour, Attackable
 	// Update is called once per frame
 	void Update () 
     {
-		if(m_Active)
+		if(m_Activated)
 		{
 			if(m_OnTimer)
 			{
@@ -62,15 +60,13 @@ public class Switch : MonoBehaviour, Attackable
 
 	void resetLever()
 	{
-		m_Active = false;
+        m_Activated = false;
 		m_Timer = m_SaveTimer;
 	}
 
     public void onHit(PlayerProjectile proj)
     {
-		m_Active = true;
-
-		Debug.Log (m_Active);
+        m_Activated = true;
     }
 
     public void onHit(EnemyProjectile proj)
@@ -81,10 +77,5 @@ public class Switch : MonoBehaviour, Attackable
 	protected virtual void onUse()
 	{
 
-	}
-
-	public bool getActive()
-	{
-		return m_Active;
 	}
 }

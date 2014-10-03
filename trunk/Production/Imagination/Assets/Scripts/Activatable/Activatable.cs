@@ -13,7 +13,7 @@ using System.Collections;
 
 public class Activatable : MonoBehaviour 
 {
-	public Switch[] m_Switches;
+	public SwitchBaseClass[] m_Switches;
 	public bool m_OnlyOneSwitchNeeded = false;
 	//public EnemySpawners[] m_Spawners;
 	protected bool m_AllSwitchesActive;
