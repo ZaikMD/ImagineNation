@@ -118,8 +118,7 @@ Shader "Production/GlowShader"
          		vertexOutput output;
          		
          		//Enlarge the glow
-         		input.vertex.xz *= _GlowSize;
-         		input.vertex.y *= _GlowSize;
+         		input.vertex.xyz *= _GlowSize;
          		
          		//Calculate the vertex's position according to the camera
          		output.pos = mul(UNITY_MATRIX_MVP, input.vertex);
