@@ -34,7 +34,10 @@ public class Destructable : MonoBehaviour, Attackable
 
 	protected virtual void onDeath()
 	{
-		Instantiate(m_Ragdoll, transform.position, transform.rotation);
+		if(m_Ragdoll != null)
+		{
+			Instantiate(m_Ragdoll, transform.position, transform.rotation);
+		}
 		Destroy(this.gameObject);
 	}
 }
