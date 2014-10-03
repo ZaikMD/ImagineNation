@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PressurePlates : MonoBehaviour 
+public class PressurePlates : SwitchBaseClass
 {
 
 	bool m_Activated = false;
@@ -55,10 +55,5 @@ public class PressurePlates : MonoBehaviour
 		{
 			m_List.Remove(obj.gameObject);
 		}
-	}
-
-	bool getActivated()
-	{
-		return m_Activated;
 	}
 }
