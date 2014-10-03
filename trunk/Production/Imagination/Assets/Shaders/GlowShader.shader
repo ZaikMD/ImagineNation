@@ -19,7 +19,7 @@ Shader "Production/GlowShader"
 	Properties
 	{
 		_GlowTint("Glow Tint", Color) = (0.1, 1.0, 0.0, 1.0)
-		_GlowSize("Glow Size", Float) = 1.1
+		_GlowSize("Glow Size", Float) = 1.2
 		_GlowShowsDistance("Distance that Glow Begins to Show", Float) = 15.0
 	}
 	Subshader
@@ -118,7 +118,7 @@ Shader "Production/GlowShader"
          		vertexOutput output;
          		
          		//Enlarge the glow
-         		input.vertex.xz *= pow(_GlowSize, 2);
+         		input.vertex.xz *= _GlowSize;
          		input.vertex.y *= _GlowSize;
          		
          		//Calculate the vertex's position according to the camera
