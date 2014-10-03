@@ -19,6 +19,8 @@ public abstract class BaseEnemy : Destructable
     protected bool m_InCombat = false;
     //Boolean to check if we are idling
     protected bool m_Idling = false;
+	//Boolean to check if enemy is Active
+	protected bool m_IsActive = true;
 
     //Check to see what State the StateMachine is in
     protected State m_State;
@@ -97,6 +99,7 @@ public abstract class BaseEnemy : Destructable
         //Reset Function to bring the enemy back to a default state
         m_InCombat = false;
         m_IsAlive = true;
+		m_IsActive = true;
         m_Target = null;
         m_CombatTimer = EXIT_COMBAT_TIME;
         m_State = State.Default;
@@ -111,30 +114,34 @@ public abstract class BaseEnemy : Destructable
 
 	protected void UpdateState()
 	{
-        //Check if Enemy is alive then run our State Machine
-		if (m_IsAlive)
+		//Check if our enemy is active
+		if(m_IsActive)
 		{
-            //Case for each State the Enemy can be in, and calls
-            //the corresponding function for each state
-			switch (m_State)
+  	      	//Check if Enemy is alive then run our State Machine
+			if (m_IsAlive)
 			{
-				case State.Default:
-					Default();
-					break;
-				case State.Idle:
-					Idle();
-					break;
-                case State.Fight:
-                    Fight();
-                    break;
-				case State.Chase:
-					Chase();
-                    break;
-				case State.Patrol:
-					Patrol();
-					break;
-				default:
-					break;
+  	          //Case for each State the Enemy can be in, and calls
+  	          //the corresponding function for each state
+				switch (m_State)
+				{
+					case State.Default:
+						Default();
+						break;
+					case State.Idle:
+						Idle();
+						break;
+  	              case State.Fight:
+  	                  Fight();
+  	                  break;
+					case State.Chase:
+						Chase();
+  	                  break;
+					case State.Patrol:
+						Patrol();
+						break;
+					default:
+						break;
+				}
 			}
 		}
 	}
@@ -437,6 +444,8 @@ public abstract class BaseEnemy : Destructable
     protected override void onDeath()
     {
         Die();
+		m_IsActive = false;
+		m_IsAlive = false;
         base.onDeath();
     }
 

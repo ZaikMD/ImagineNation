@@ -1,6 +1,6 @@
 ﻿/*
  * Created by Greg
- * Date: 
+ * Date: 10/9/2014
  *  
  * 
  * This class is used by Alex, giving him a much larger jump height.
@@ -16,7 +16,8 @@ using UnityEngine;
 using System.Collections;
 
 //Normal movement with a higher jump
-public class AlexMovementMoonBoots : BaseMovementAbility {
+public class AlexMovementMoonBoots : BaseMovementAbility 
+{
 	
 	//Super moon boot jump speed
 	private const float MOON_BOOTS_JUMP = 10.0f;
