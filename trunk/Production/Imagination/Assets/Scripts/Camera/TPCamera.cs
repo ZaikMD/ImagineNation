@@ -49,7 +49,7 @@ public class TPCamera : MonoBehaviour
                 currentCharacter = Characters.Zoey;
                 break;
         }
-
+		/*
         if (GameData.Instance.PlayerOneCharacter == currentCharacter)
         {
            m_Camera.rect = new Rect(0.0f, 0.5f, 1.0f, 0.5f);
@@ -57,7 +57,16 @@ public class TPCamera : MonoBehaviour
         else
         {
             m_Camera.rect = new Rect(0.0f, 0.0f, 1.0f, 0.5f);
-        }
+        }*/
+
+		if (GameData.Instance.PlayerOneCharacter == currentCharacter)
+		{
+			m_Camera.rect = new Rect(0.0f, 0.0f, 0.5f, 1.0f);
+		}
+		else
+		{
+			m_Camera.rect = new Rect(0.5f, 0.0f, 0.5f, 1.0f);
+		}
 
         m_AcceptInputFrom = gameObject.GetComponent<AcceptInputFrom>();
 

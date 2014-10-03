@@ -5,14 +5,31 @@ public class GameData : MonoBehaviour
 {
 
 	public static GameData Instance{ get; private set; }
-	
+
+	static int m_InstanceCounter = 0;
+    int m_ID = int.MaxValue;
+    public int ID
+    {
+        get { return m_ID; }
+        private set { m_ID = value; }
+    }
+
 	void Awake()
 	{
+        ID = m_InstanceCounter++;
+
 		//if theres another instance (there shouldnt be) destroy this
 		if(Instance != null && Instance != this)
 		{
-			//destroy all other instances
-			Destroy(gameObject);
+            if (ID > Instance.ID)
+            {
+                //destroy all other instances
+                Destroy(gameObject);
+            }
+            else
+            {
+                Destroy(Instance.gameObject);
+            }
 		}
 		
 		//set the instance
@@ -22,6 +39,9 @@ public class GameData : MonoBehaviour
 		DontDestroyOnLoad(this.gameObject);
 	}
 	//================================================================================ 
+
+    public PlayerInput m_PlayerOneInput;
+    public PlayerInput m_PlayerTwoInput;
 
  	Characters m_PlayerOneCharacter = Characters.Zoey;
 	public Characters PlayerOneCharacter

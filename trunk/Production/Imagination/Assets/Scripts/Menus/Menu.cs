@@ -145,7 +145,7 @@ public class Menu : MonoBehaviour
 		}
 	}
 	
-	void setSelection(MenuButton selection)
+	protected virtual void setSelection(MenuButton selection)
 	{
 		if( selection == null)
 		{
