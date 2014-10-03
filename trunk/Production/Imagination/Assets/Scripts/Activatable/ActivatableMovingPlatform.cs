@@ -8,7 +8,8 @@ public class ActivatableMovingPlatform : Activatable
 	bool m_AtFinalDestination;
 	bool m_AtDestination;
 	bool m_IsReversing;
-	//public bool m_CanReverse;
+	public bool m_CanReverse;
+	bool m_AtLastDest;
 
 	float m_AtDestinationTimer;
 	float m_TimerLimit;
@@ -29,6 +30,7 @@ public class ActivatableMovingPlatform : Activatable
 		m_TimerLimit = 3.0f;
 		m_DestinationCounter = 0;
 		m_IsActive = true;
+		m_AtLastDest = false;
 	}
 
 	void Update () 
@@ -44,12 +46,16 @@ public class ActivatableMovingPlatform : Activatable
 				//If the distance to the next platform is smaller than then the minimum required distance
 				if(m_DistanceToNextPlatform <= 0.5f)
 				{
+
 					//Check if the current destination is at the last element,
 					//if it is start reversing.
-
 					if(m_DestinationCounter == (m_Destinations.Length -1))
 					{
-						m_IsReversing = true;
+						m_AtLastDest = true;
+						if(m_CanReverse)
+						{
+							m_IsReversing = true;
+						}
 					}
 
 					//If the current destination is the first element,
@@ -65,6 +71,10 @@ public class ActivatableMovingPlatform : Activatable
 			}
 			else //If the platform is at destination
 			{
+				if(m_AtLastDest == true && m_CanReverse == false)
+				{
+					return;
+				}
 				//Increment the timer while at the destination
 				m_AtDestinationTimer += Time.deltaTime;
 
