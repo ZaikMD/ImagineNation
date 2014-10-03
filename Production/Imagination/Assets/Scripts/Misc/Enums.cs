@@ -8,7 +8,8 @@ public enum PlayerInput
 	GamePadTwo,
 	GamePadThree,
 	GamePadFour,
-	All
+	All,
+    None
 }
 
 public enum Characters
