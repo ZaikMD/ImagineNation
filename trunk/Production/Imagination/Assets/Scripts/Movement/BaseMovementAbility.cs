@@ -51,7 +51,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	protected const float FALL_ACCELERATION = 20.0f;
 	protected const float HELD_FALL_ACCELERATION = 15.0f;
 
-	protected const float AIR_DECCELERATION_LERP_VALUE = 0.05f;
+	protected const float AIR_DECCELERATION_LERP_VALUE = 0.02f;
 
 	protected const float NOT_GROUNDED_DELAY_TIMER = 0.07f;
 
@@ -129,7 +129,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		//If we are not on the ground, we must be airborne, so do air movement
 		else
 		{
-			/*if(m_GroundedDelayTimer >= 0.0f)  //or if the grounded delay timer is less than zero, we can still jump
+			if(m_GroundedDelayTimer >= 0.0f)  //or if the grounded delay timer is less than zero, we can still jump
 			{
 				m_GroundedDelayTimer -= Time.deltaTime;
 				if(InputManager.getJumpDown(m_AcceptInputFrom.ReadInputFrom))
@@ -151,7 +151,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 					}
 				}
 				
-			} */
+			} 
 
 			AirMovement();
 			
@@ -234,8 +234,14 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		transform.LookAt(transform.position + jump.normalized);
 		m_HorizontalAirVelocity = new Vector2(jump.x, jump.z);
 
-	}
+		m_TrampolineJump.x = jump.x;
+		m_TrampolineJump.y = 1.2f;
+		m_TrampolineJump.z = jump.z;
+		
+		m_JumpByTrampoline = true;
 
+	}
+	
 	//Moves the player in all three directions
 	//
 	//Horizontal movement is added first, and is based off the previous horizontal speed with a minor change based on controller input, giving the player
@@ -268,7 +274,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		}
 		else
 		{
-			m_HorizontalAirVelocity = Vector3.Lerp(m_HorizontalAirVelocity, Vector3.zero, AIR_DECCELERATION_LERP_VALUE);
+			m_HorizontalAirVelocity = Vector2.Lerp(m_HorizontalAirVelocity, Vector2.zero, AIR_DECCELERATION_LERP_VALUE);
 		}
 
 		//Cap the vertical fall speed
@@ -300,7 +306,16 @@ public abstract class BaseMovementAbility : MonoBehaviour
 
 		//}
 		//Move the character
-		m_CharacterController.Move (Movement * Time.deltaTime);
+		if(m_JumpByTrampoline == true)
+		{
+			m_CharacterController.Move((Movement + m_TrampolineJump)*Time.deltaTime);//*Time.deltaTime);
+		}
+
+		else {
+
+			m_CharacterController.Move (Movement * Time.deltaTime);
+		}
+
 
 	}
 
@@ -336,25 +351,6 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	void PlatformMovement()
 	{
 		m_CharacterController.Move (m_Platform.GetAmountToMovePlayer());
-	}
-
-	public virtual void TrampolineJump(Vector3 m_launchDirection)
-	{
-		m_VerticalVelocity = 15.0f;//m_launchDirection.y;
-		m_TrampolineJump.x = m_launchDirection.x;
-		m_TrampolineJump.z = m_launchDirection.z;
-
-		if(m_VerticalVelocity > BASE_MAX_FALL_SPEED)
-		{
-			
-			m_VerticalVelocity -= Time.deltaTime * FALL_ACCELERATION;
-		}
-		
-		if (m_VerticalVelocity >= 0)
-		{
-			m_CharacterController.Move (m_TrampolineJump * m_VerticalVelocity * Time.deltaTime);
-		}
-		
 	}
 
 	//Plays a walking animation
