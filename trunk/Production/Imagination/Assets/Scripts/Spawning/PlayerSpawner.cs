@@ -16,9 +16,6 @@ public class PlayerSpawner : MonoBehaviour
 		
 		//set the instance
 		Instance = this;
-		
-		//prevents this object being destroyed between scene loads
-		DontDestroyOnLoad(this.gameObject);
 	}
 	//================================================================================
 
@@ -70,7 +67,7 @@ public class PlayerSpawner : MonoBehaviour
 		GameObject player = character.GetComponentInChildren (typeof(PlayerHealth)).gameObject;
 
 		player.transform.position = spawnPoint.transform.position;
-
+        player.GetComponent<AcceptInputFrom>().ReadInputFrom = GameData.Instance.m_PlayerOneInput;
 
 		spawnPoint = currentCheckPoint.transform.FindChild ("PlayerTwoSpawnPoint").gameObject;
 		switch(GameData.Instance.PlayerTwoCharacter)
@@ -92,7 +89,7 @@ public class PlayerSpawner : MonoBehaviour
 		player = character.GetComponentInChildren (typeof(PlayerHealth)).gameObject;
 		
 		player.transform.position = spawnPoint.transform.position;
-
+        player.GetComponent<AcceptInputFrom>().ReadInputFrom = GameData.Instance.m_PlayerTwoInput;
 		Destroy (this.gameObject);
 	}
 }
