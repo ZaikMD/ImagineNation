@@ -284,7 +284,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		//Move the character
 		if(m_JumpByTrampoline == true)
 		{
-			m_CharacterController.Move((Movement + m_TrampolineJump)*Time.deltaTime);//*Time.deltaTime);
+			m_CharacterController.Move((Movement + m_TrampolineJump));//*Time.deltaTime);
 		}
 
 		else {
@@ -306,7 +306,10 @@ public abstract class BaseMovementAbility : MonoBehaviour
 
 		if ((Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 0.1f) && m_VerticalVelocity == 0.0f) || m_CharacterController.isGrounded)
 		{
-			m_VerticalVelocity = 0.0f;
+			if(m_VerticalVelocity < 0.0f)
+			{
+				m_VerticalVelocity = 0.0f;
+			}
 			if(hit.transform != null)
 			{
 				if(hit.collider.gameObject.tag == "MovingPlatform")
