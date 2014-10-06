@@ -129,30 +129,6 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		//If we are not on the ground, we must be airborne, so do air movement
 		else
 		{
-			if(m_GroundedDelayTimer >= 0.0f)  //or if the grounded delay timer is less than zero, we can still jump
-			{
-				m_GroundedDelayTimer -= Time.deltaTime;
-				if(InputManager.getJumpDown(m_AcceptInputFrom.ReadInputFrom))
-				{
-					
-					Jump();
-					AirMovement();
-					m_GroundedDelayTimer = 0.0f;
-				}
-				else
-				{
-					m_VerticalVelocity = 0.0f;
-					m_HorizontalAirVelocity = Vector2.zero;
-					GroundMovement();
-					
-					if(m_IsOnMovingPlatform)
-					{
-						PlatformMovement();
-					}
-				}
-				
-			} 
-
 			AirMovement();
 			
 		}
