@@ -28,7 +28,8 @@ Shader "Production/GlowShader"
 		Pass
 		{
 			Tags { "Queue" = "Transparent" } 
-			Stencil {
+			Stencil
+			{
                 Ref 1
                 Comp always
                 Pass replace
@@ -69,7 +70,8 @@ Shader "Production/GlowShader"
 		Pass
 		{
 			Tags { "Queue" = "Transparent" }
-			Stencil {
+			Stencil
+			{
                 Ref 1
                 Comp NotEqual
                 Pass keep
@@ -98,11 +100,11 @@ Shader "Production/GlowShader"
          	//What the vertex shader will recieve
          	struct vertexInput
          	{
-         		float4 vertex : POSITION;
+         		float4 pos : POSITION;
          		float3 normal : NORMAL;
          	};
          	
-         	//What the fragment shader willl recieve
+         	//What the fragment shader will recieve
          	struct vertexOutput
          	{
          		float4 pos : POSITION;
@@ -118,19 +120,19 @@ Shader "Production/GlowShader"
          		vertexOutput output;
          		
          		//Enlarge the glow
-         		input.vertex.xyz *= _GlowSize;
+         		input.pos.xyz *= _GlowSize;
          		
          		//Calculate the vertex's position according to the camera
-         		output.pos = mul(UNITY_MATRIX_MVP, input.vertex);
+         		output.pos = mul(UNITY_MATRIX_MVP, input.pos);
          		
          		//Calculate the vertex's position in world space
-         		output.worldPos = mul(_Object2World, input.vertex);
+         		output.worldPos = mul(_Object2World, input.pos);
          		
          		//Calculate the normal of the surface in object coordinates
          		output.normal = normalize(mul(float4(input.normal, 0.0), _World2Object).xyz);
          		
          		//Calculate view direction, for dot calculations in the fragment shader
-         		output.viewDir = normalize(_WorldSpaceCameraPos - mul(_Object2World, input.vertex).xyz);
+         		output.viewDir = normalize(_WorldSpaceCameraPos - mul(_Object2World, input.pos).xyz);
          		
          		//Return our output
          		return output;
