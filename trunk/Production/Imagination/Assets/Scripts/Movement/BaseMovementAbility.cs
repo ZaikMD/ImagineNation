@@ -217,7 +217,22 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		m_JumpByTrampoline = true;
 
 	}
-	
+	public void TempTrampolineJump()
+	{
+		m_VerticalVelocity = 15.0f;
+		Vector3 Movement = new Vector3 (0, (m_VerticalVelocity), 0);
+
+		if(m_VerticalVelocity > BASE_MAX_FALL_SPEED)
+		{
+			m_VerticalVelocity-= Time.deltaTime * FALL_ACCELERATION;
+		}
+
+		if(m_VerticalVelocity >=0)
+		{
+			m_CharacterController.Move(Movement * Time.deltaTime);
+		}
+
+	}
 	//Moves the player in all three directions
 	//
 	//Horizontal movement is added first, and is based off the previous horizontal speed with a minor change based on controller input, giving the player
