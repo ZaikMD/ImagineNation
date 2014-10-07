@@ -40,7 +40,7 @@ Shader "Production/GlowShader"
 			Cull back
 			ZWrite Off
 			
-			//Our blend equation is multiplicative
+			//Our blend equation is additive
          	Blend One One
          	
          	CGPROGRAM
