@@ -96,7 +96,7 @@ Shader "Production/DarknessShader"
  				//Calculate a new opacity for faces that are facing away from the camera
             	float newOpacity = pow(min(1.0, (dot(viewDirection, normalDirection) * _MistTint.a *
             							(1.0 / _TransparencyGrow))), _TransparencyGrow);
-            	if (newOpacity < 0.03)
+            	if (newOpacity < 0.02)
             	{
             		discard;
             	}
@@ -191,7 +191,7 @@ Shader "Production/DarknessShader"
  				//Calculate a new opacity for faces that are facing away from the camera
             	float newOpacity = pow(min(1.0, (abs(dot(viewDirection, normalDirection)) * _FogTint.a)), _TransparencyGrow);
             	
-            	if (newOpacity < 0.03)
+            	if (newOpacity < 0.01)
             	{
             		discard;
             	}
