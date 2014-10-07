@@ -55,11 +55,11 @@ Shader "Production/DarknessShader"
          	//What the vertex shader will recieve
          	struct vertexInput
          	{
-         		float4 vertex : POSITION;
+         		float4 pos : POSITION;
          		float3 normal : NORMAL;
          	};
          	
-         	//What the fragment shader willl recieve
+         	//What the fragment shader will recieve
          	struct vertexOutput
          	{
          		float4 pos : SV_POSITION;
@@ -74,13 +74,13 @@ Shader "Production/DarknessShader"
          		vertexOutput output;
          		
          		//Calculate the vertex's position according to the camera
-         		output.pos = mul(UNITY_MATRIX_MVP, input.vertex);
+         		output.pos = mul(UNITY_MATRIX_MVP, input.pos);
          		
          		//Calculate the normal of the surface in object coordinates
          		output.normal = normalize(mul(float4(input.normal, 0.0), _World2Object).xyz);
          		
          		//Calculate view direction, for dot calculations in the fragment shader
-         		output.viewDir = normalize(_WorldSpaceCameraPos - mul(_Object2World, input.vertex).xyz);
+         		output.viewDir = normalize(_WorldSpaceCameraPos - mul(_Object2World, input.pos).xyz);
          		
          		//Return our output
          		return output;
