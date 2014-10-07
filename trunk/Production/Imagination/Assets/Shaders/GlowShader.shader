@@ -148,16 +148,13 @@ Shader "Production/GlowShader"
  				//Calculate a new opacity for faces that are facing away from the camera
             	float newOpacity = min(_GlowTint.a, pow(dot(viewDirection, normalDirection), 2.0) * _GlowTint.a * _GlowShowsDistance / distance(output.worldPos.xyz, _WorldSpaceCameraPos));
             	
-            	if (newOpacity < 0.03)
+            	if (newOpacity < 0.01)
             	{
             		discard;
             	}
             	
-            	//Calculate the colour of this fragment
-            	float4 fragmentColour = float4 (_GlowTint.xyz, newOpacity);
-            	
             	//Return the colour of the first pass's fragment
-            	return fragmentColour;
+            	return float4 (_GlowTint.xyz, newOpacity);
          	}
          	
          	
