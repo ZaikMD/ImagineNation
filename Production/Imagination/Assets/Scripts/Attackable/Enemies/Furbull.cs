@@ -26,6 +26,8 @@ public class Furbull : BaseEnemy
 	// Use this for initialization
 	void Start () 
     {
+		m_Health = 1;
+
         //Set attack timer from base
         m_AttackTimer = 0.0f;
         //Set Combat Range from base

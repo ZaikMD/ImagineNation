@@ -23,7 +23,7 @@ public class Destructable : MonoBehaviour, Attackable
 
     public virtual void onHit(EnemyProjectile proj)
     {
-        
+		m_Health -= 1;
     }
 
 	public virtual void instantKill()
