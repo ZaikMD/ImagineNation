@@ -93,7 +93,7 @@ public class DerekMovement : BaseMovementAbility
     private void OnControllerColliderHit(ControllerColliderHit other)
 	{
         //Checks if the gameobject we collide with is a wall and we arent grounded
-		if(other.gameObject.CompareTag(WALL_STRING) && !m_CharacterController.isGrounded)
+		if(other.gameObject.CompareTag(Constants.WALL_TAG_STRING) && !m_CharacterController.isGrounded)
 		{
             //Sets that we are on the wall
 			m_OnWall = true;
@@ -118,7 +118,7 @@ public class DerekMovement : BaseMovementAbility
         Vector3 rayOrigin = gameObject.transform.TransformDirection(Vector3.forward);
         if(Physics.Raycast(gameObject.transform.position, rayOrigin, out rayHit))
         {
-            if (rayHit.collider.CompareTag(WALL_STRING))
+            if (rayHit.collider.CompareTag(Constants.WALL_TAG_STRING))
             {
                 Vector3 rayVector = rayHit.point - gameObject.transform.position;
 				Vector3 reflectVector = Vector3.Reflect(rayVector, rayHit.normal);
