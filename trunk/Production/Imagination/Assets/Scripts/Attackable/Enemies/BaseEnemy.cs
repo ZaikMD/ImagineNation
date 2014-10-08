@@ -49,7 +49,7 @@ public abstract class BaseEnemy : Destructable
     //Combat range for how close the enemy has to be to hit the player, differs for enemies
     protected float m_CombatRange;
     //Initial Stopping Distance of the NavMeshAgent
-    protected float m_InitialStoppingDistance = 0.0f;
+    protected float m_InitialStoppingDistance = 1.5f;
 
     //Attack Timer to delay enemy attacks
     protected float m_AttackTimer;
@@ -131,6 +131,11 @@ public abstract class BaseEnemy : Destructable
         {
             DisableEnemy();
         }
+
+		if (m_Health <= 0) 
+		{
+			onDeath();
+		}
 
         //Call our Update State function
 		UpdateState ();
@@ -470,7 +475,7 @@ public abstract class BaseEnemy : Destructable
         Die();
 		m_IsActive = false;
 		m_IsAlive = false;
-        base.onDeath();
+       
     }
 
     //Set whether the enemy is alive or not
