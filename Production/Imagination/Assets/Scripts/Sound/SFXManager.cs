@@ -14,9 +14,13 @@ using System.Collections;
  * for the second argument, pass in a sound as an enum of Sound( Sounds.nameOfSound )
  * 
  * 
- * Oct, 1, 2014, 
+ * Oct, 1, 2014, kole
  * Updated the class to work with two cameras. to play a sound will be done the same way
  * this now gets the player who is closest and gets a value based of off the distance to the player
+ * 
+ * 
+ * Oct, 8, 2014, kole
+ * Updated the class to use constants instead of strings
  * 
  */
 
