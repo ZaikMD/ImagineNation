@@ -7,7 +7,10 @@
 /// 
 /// IMPORTANT: Ensure that the light's original intensity is set to 0 in the editor.
 /// 
+
+#region Change Log
 /// EDIT: 26/09/14 - Added functionality to toggle Darkness' activity - Matthew Whitlaw
+#endregion
 
 using UnityEngine;
 using System.Collections;

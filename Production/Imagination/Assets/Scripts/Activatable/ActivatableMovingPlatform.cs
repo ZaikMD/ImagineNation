@@ -1,4 +1,20 @@
-﻿using UnityEngine;
+﻿/// 
+/// Activatable moving platform.
+/// Created by: Matthew Whitlaw
+/// 
+/// This is the moving platform class that inherits from activatable and is responsible
+/// for moving a platform prefab along a series of destinations.
+/// 
+/// IMPORTANT: When setting up a moving platform, have a series of empty game objects that
+/// will act as the destinations, tag the platform as MovingPlatform, and ensure that the player
+/// is tagged as Player.
+/// 
+///
+
+#region Change Log 
+#endregion
+
+using UnityEngine;
 using System.Collections;
 
 public class ActivatableMovingPlatform : Activatable 
@@ -125,6 +141,8 @@ public class ActivatableMovingPlatform : Activatable
 
 	}
 
+	//A getter function that player will call in order to get the direction and amount to 
+	//move the player when on a moving player
 	public Vector3 GetAmountToMovePlayer()
 	{
 		return m_AmountToMovePlayer;

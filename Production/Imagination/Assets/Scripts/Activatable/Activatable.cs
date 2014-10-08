@@ -7,6 +7,10 @@
 /// or on actual switches, and whether or not only one switch is needed.
 /// 
 /// 
+/// 
+
+#region Change Log
+#endregion
 
 using UnityEngine;
 using System.Collections;
@@ -24,11 +28,6 @@ public class Activatable : MonoBehaviour
 	{
 		m_AllSwitchesActive = false;
 		m_AllEnemiesDead = false;
-	}
-	
-	void Update () 
-	{
-
 	}
 
 	//This is the main function that inheriting classes will call.

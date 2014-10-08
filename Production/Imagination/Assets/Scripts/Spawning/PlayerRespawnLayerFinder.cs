@@ -10,6 +10,11 @@
 /// IMPORTANT: In order for this script to function as intended the desired respawn
 /// location must be set to layer "Respawn" and that layer must be the 8th layer in the
 /// list of layers. If it is not, then change the variable or move it to 8th in the list.
+/// 
+/// 
+
+#region Change Log
+#endregion
 
 using UnityEngine;
 using System.Collections;
