@@ -7,6 +7,7 @@ using System.Collections;
  * 
  * 10/8/2014, Kole Tackney
  * Added Animation Constants 
+ * Added Sound Constants
  * 
  */
 
