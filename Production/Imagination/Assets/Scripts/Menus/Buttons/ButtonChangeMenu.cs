@@ -9,11 +9,14 @@ public class ButtonChangeMenu : MenuButton
 	{
 		if(NewMenu != null)
 		{
+			//tell menu manager to swap to the next menu
 			MenuManager.Instance.changeMenu(NewMenu);
 		}
 		else
 		{
-			Debug.Log("No Menu set");
+			#if DEBUG || UNITY_EDITOR
+				Debug.Log("No Menu set");
+			#endif
 		}
 	}
 }

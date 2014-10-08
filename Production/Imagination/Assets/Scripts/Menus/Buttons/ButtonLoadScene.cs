@@ -9,11 +9,14 @@ public class ButtonLoadScene : MenuButton
 	{
 		if(SceneToLoad != "")
 		{
+			//load the next scene
 			Application.LoadLevel(SceneToLoad);
 		}
 		else
 		{
-			Debug.Log("No Scene Set to Load");
+			#if DEBUG || UNITY_EDITOR
+				Debug.Log("No Scene Set to Load");
+			#endif
 		}
 	}
 }

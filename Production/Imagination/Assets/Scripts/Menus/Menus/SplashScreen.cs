@@ -12,19 +12,20 @@ public class SplashScreen : Menu
 	{
 		if(MainMenu == null)
 		{
-			Debug.Log("No Main Menu set");
+			#if DEBUG || UNITY_EDITOR
+				Debug.Log("No Main Menu set");
+			#endif
 		}
 	}
 	
 	// Update is called once per frame
 	public override void update () 
 	{
-		//base.update();
-
 		if(InputManager.getJumpDown() || InputManager.getPauseDown())
 		{
 			if(MainMenu != null)
 			{
+				//go to the next menu
 				MenuManager.Instance.changeMenu(MainMenu);
 			}
 		}

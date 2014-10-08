@@ -6,6 +6,7 @@ public class GameData : MonoBehaviour
 
 	public static GameData Instance{ get; private set; }
 
+	//ID is used to ensure that the older GamaData is kept in the case of duplicates
 	static int m_InstanceCounter = 0;
     int m_ID = int.MaxValue;
     public int ID
@@ -44,6 +45,7 @@ public class GameData : MonoBehaviour
     public PlayerInput m_PlayerTwoInput;
 
  	Characters m_PlayerOneCharacter = Characters.Zoe;
+	//the set ensures that playerTwo is not set to the same value as player one
 	public Characters PlayerOneCharacter
 	{
 		get{ return m_PlayerOneCharacter; }
@@ -75,6 +77,7 @@ public class GameData : MonoBehaviour
 	}
 
 	Characters m_PlayerTwoCharacter = Characters.Alex;
+	//only changes the setting if its not what player two is set to
 	public Characters PlayerTwoCharacter
 	{
 		get{ return m_PlayerTwoCharacter; }
@@ -87,8 +90,10 @@ public class GameData : MonoBehaviour
 		}
 	}
 
+	//eventually to be used for pausing
 	public bool m_GameIsRunnging = false;
 
+	//current level, section, and checkpoint
 	Levels m_CurrentLevel = Levels.Level_1;
 	Sections m_CurrentSection = Sections.Sections_1;
 	CheckPoints m_CurrentCheckPoint = CheckPoints.CheckPoint_1;
