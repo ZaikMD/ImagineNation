@@ -1,35 +1,50 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+/// <summary>
+/// MovingBlock
+/// 
+/// Created by Zach Dubuc.
+/// 
+/// Moving blocks will move when a player hits them with an attack.
+/// </summary>
+
 [RequireComponent(typeof (CharacterController))]
 
 public class MovingBlock : Destructable
 {
-
+    //Respawn location
 	Vector3 m_Respawn;
-
+    //Distance the block will travel each time it's hit
 	public float m_Distance;
-
+    //The array of materials that will be cycled through when the health decrements
 	public Material[] m_Materials;
-
+    //The speed the block will move
 	public float m_Speed;
-
+    //The current material
 	int m_CurrentMaterial = 0;
 
+    //The destination the block will move towards
 	Vector3 m_Destination;
-	Vector3 m_ZeroVector = Vector3.zero;
 
+    //Bools
 	bool m_Hit = false;
 	bool m_Moving = false;
 
+    //The health of the block
 	protected int m_SaveHealth;
 
+    //Timer for in between hits
 	float m_HitTimer = 1.0f;
 
+    //The reset for the hit timer
 	protected float m_SaveHitTimer;
 
+    //Prefab for the box
 	public GameObject m_BoxPrefab;
-
+    
+    //Gravity for when the block needs to fall
 	float m_Gravity = -10.0f;
 
 
@@ -52,27 +67,31 @@ public class MovingBlock : Destructable
 	// Update is called once per frame
 	void Update () 
 	{
+        //If the box is dead, respawn it
 		if(m_Health <= 0)
 		{
 			respawn();
 		}
 
-
+        //Get the character controller
 		CharacterController controller = GetComponent<CharacterController>();
 
+        //Get the direction the box is moving
 		Vector3 direction = m_Destination - transform.position;
 
-
-		if(direction !=  m_ZeroVector)
+        //If the direction is not zero, move the block
+        if (direction != Vector3.zero)
 		{
 			controller.Move(direction * m_Speed* Time.deltaTime);
 
 		} 
 
+        //If the block has been hit, decrement the hit timer
 		if(m_Hit)
 		{
 			m_HitTimer -= Time.deltaTime;
 		}
+        //If the hit timer is less than zero, the block can be hit again
 		if(m_HitTimer <= 0.0f)
 		{
 			m_Hit = false;
@@ -80,11 +99,13 @@ public class MovingBlock : Destructable
 
 		}
 
+        //Call the fall function
 		fall ();
 	}
 
 	void respawn()
 	{
+        //Respawn will reset all the variables for the block and reset it's position
 		m_CurrentMaterial = 0;
 		transform.position = m_Respawn;
 		m_Destination = m_Respawn;
@@ -92,9 +113,10 @@ public class MovingBlock : Destructable
 		m_Health = m_SaveHealth;
 	}
 
+    //Override the onHits 
 	public override void onHit(PlayerProjectile proj)
 	{
-		return;
+		return; 
 	}
 	
 	public override void onHit(EnemyProjectile proj)
@@ -106,14 +128,20 @@ public class MovingBlock : Destructable
 	{
 		if(!m_Hit)
 		{
-			if(obj.gameObject.tag == "PlayerProjectile")
+			if(obj.gameObject.tag == "PlayerProjectile") //If the object is a playerProjectile, call setDestination and pass in the gameobject
 			{
-				GameObject newObj = obj.gameObject;
+				
 				setDestination (obj.gameObject);
 			}
 		}
 	}
 
+    /// <summary>
+    /// Set destination will raycast from obj to the blocks position. If the normal of the
+    /// Transform direction matches and of the 4 directions of the blocks transform,
+    /// then the destination will be set to the opposite of that direction
+    /// </summary>
+    /// <param name="obj"></param>
 	void setDestination(GameObject obj)
 	{
 		Vector3 rayDirection = transform.position - obj.transform.position;
@@ -165,22 +193,25 @@ public class MovingBlock : Destructable
 			m_CurrentMaterial ++;
 		}
 		
+        //If the current material is going to be outside the array, reset it
 		if(m_CurrentMaterial >= m_Materials.Length)
 		{
 			m_CurrentMaterial = 0;
 		}
-		m_BoxPrefab.renderer.material = m_Materials [m_CurrentMaterial];
-		m_Hit = true;
+		m_BoxPrefab.renderer.material = m_Materials [m_CurrentMaterial]; //Set the current material
+		m_Hit = true; //The block has been hit
 
 	}
 
 	public void setPressurePlateDestination(Vector3 destination)
 	{
-		m_Destination = destination;
+		m_Destination = destination; // Sets the destination that the block will go towards if it hits a pressure plate
 	}
 
 	void fall()
 	{
+
+        //Raycast downwards to see if the block will need to fall
 		Vector3 rayDirection = -transform.up;
 		
 		Ray ray = new Ray (transform.position, rayDirection);
@@ -198,7 +229,7 @@ public class MovingBlock : Destructable
 
 	protected override void onDeath ()
 	{
-		respawn ();
+		respawn (); //If the block dies then respawn it
 	}
 
 }

@@ -15,18 +15,20 @@ using System.Collections;
 /// 
 public class Switch : SwitchBaseClass, Attackable
 {
-
+    //Bools
     public bool m_OnTimer;
     public float m_Timer;
-
     bool m_Activated;
 
+    //Save for the timer
 	protected float m_SaveTimer;
 
+    //Materials for the switch
 	public Material m_ActiveMaterial;
 	public Material m_InactiveMaterial;
 
-	public GameObject m_LeverChange;
+    //Gameobject to hold the switch prefab that will change colours
+	public GameObject m_SwitchChange;
 
 	// Use this for initialization
 	void Start () 
@@ -37,41 +39,41 @@ public class Switch : SwitchBaseClass, Attackable
 	// Update is called once per frame
 	void Update () 
     {
-		if(m_Activated)
+		if(m_Activated) //If the lever is activated
 		{
-			if(m_OnTimer)
+			if(m_OnTimer) //If there is a timer
 			{
-				if(m_Timer <= 0)
+                if (m_Timer <= 0) //If the timer is zero, reset the switch
 				{
 					resetLever();
 				}
 
 				else
 				{
-					m_Timer -= Time.deltaTime;
+					m_Timer -= Time.deltaTime; //Otherwise decrement the timer
 				}
 			}
-			m_LeverChange.renderer.material = m_ActiveMaterial;
+            m_SwitchChange.renderer.material = m_ActiveMaterial; //Change the colour of the switch is it is activate
 		}
 
 		else
 		{
-			m_LeverChange.renderer.material = m_InactiveMaterial;
+            m_SwitchChange.renderer.material = m_InactiveMaterial; //Else change the colour if it isn't activated
 		}
 	}
 
-	void resetLever()
+	void resetLever() //Reset variables
 	{
         m_Activated = false;
 		m_Timer = m_SaveTimer;
 	}
 
-    public void onHit(PlayerProjectile proj)
+    public void onHit(PlayerProjectile proj) //If the player hits the switch, set activated to true
     {
         m_Activated = true;
     }
 
-    public void onHit(EnemyProjectile proj)
+    public void onHit(EnemyProjectile proj) //Ignore enemys
     {
 		return;
     }
@@ -81,7 +83,7 @@ public class Switch : SwitchBaseClass, Attackable
 
 	}
 
-	public override bool getActive ()
+	public override bool getActive () //Returns whether or not the switch is active
 	{
 		return m_Activated;
 	}
