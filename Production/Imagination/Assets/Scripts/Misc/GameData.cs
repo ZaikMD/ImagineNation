@@ -126,12 +126,4 @@ public class GameData : MonoBehaviour
 			}
 		}
 	}
-
-	void OnLevelWasLoaded(int level)
-	{
-		if(string.Compare(Application.loadedLevelName, "Game") == 0)
-		{
-			m_GameIsRunnging = true;
-		}
-	}
 }
