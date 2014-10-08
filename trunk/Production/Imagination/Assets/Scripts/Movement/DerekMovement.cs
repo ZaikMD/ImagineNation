@@ -7,9 +7,12 @@
  * then forces them off the wall if they have jumped again while on
  * the wall. This is used with base movement and ray casting. 
  * 
- * 
+ */
+#region ChangeLog
+/* 
  * 19/9/2014 - Changed to currectly use the new base class functionality - Jason Hein
  */
+#endregion
 
 using UnityEngine;
 using System.Collections;
@@ -18,7 +21,6 @@ public class DerekMovement : BaseMovementAbility
 {
     //Const that affect the speed of the player when on the wall
 	private const float MAX_WALL_HANG = 0.5f;
-	//private const float WALL_MAX_FALL_SPEED = -5.0f;
 	private const float WALL_JUMP_SPEED_VERTICAL = 10.0f;
     private const float WALL_FALL_SPEED = -0.5f;
     private const float CAN_BE_ON_WALL_MAX = 0.75f;
@@ -75,6 +77,7 @@ public class DerekMovement : BaseMovementAbility
         }
         else
         {
+            //Call Base Update and reset the Wall Hang Timer
             base.Update();
 			m_WallHangTimer = 0.0f;
         }
@@ -82,6 +85,7 @@ public class DerekMovement : BaseMovementAbility
 
 	void WallAirMovement()
 	{
+        //Change our velocity when we are hanging on the wall
         m_VerticalVelocity = WALL_FALL_SPEED;
         m_CharacterController.Move(transform.up * m_VerticalVelocity * Time.deltaTime);
 	}
@@ -89,7 +93,7 @@ public class DerekMovement : BaseMovementAbility
     private void OnControllerColliderHit(ControllerColliderHit other)
 	{
         //Checks if the gameobject we collide with is a wall and we arent grounded
-		if(other.gameObject.CompareTag("Wall") && !m_CharacterController.isGrounded)
+		if(other.gameObject.CompareTag(WALL_STRING) && !m_CharacterController.isGrounded)
 		{
             //Sets that we are on the wall
 			m_OnWall = true;
@@ -107,11 +111,14 @@ public class DerekMovement : BaseMovementAbility
 
     private Vector3 RayCastReturn()
     {
+        //Raycast towards the wall once we are on the wall, and give a vector
+        //reflecting out of the wall to give us a direction to launch the 
+        //Player off the wall
         RaycastHit rayHit;
         Vector3 rayOrigin = gameObject.transform.TransformDirection(Vector3.forward);
         if(Physics.Raycast(gameObject.transform.position, rayOrigin, out rayHit))
         {
-            if (rayHit.collider.CompareTag("Wall"))
+            if (rayHit.collider.CompareTag(WALL_STRING))
             {
                 Vector3 rayVector = rayHit.point - gameObject.transform.position;
 				Vector3 reflectVector = Vector3.Reflect(rayVector, rayHit.normal);

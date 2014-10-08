@@ -1,6 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/*
+ * Created by Joe Burchill
+ * Date: Sept, 26, 2014
+ *  
+ * This script handles all the base functionality for each enemy.
+ * It contains a state machine that uses NavMesh to simulate an organic
+ * AI. Any Enemy in our game uses this base state machine and modifies,
+ * specific states that are unique to the enemy.
+ * 
+ */
+#region ChangeLog
+/* 
+ * 
+ */
+#endregion
+
+
 //Require our NavMeshAgent for EnemyAI
 [RequireComponent(typeof(NavMeshAgent))]
 public abstract class BaseEnemy : Destructable
