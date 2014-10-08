@@ -1,14 +1,14 @@
 //
 //ZoeMovement
-//
-//Allows the player to glide while airborne with a second and held jump, by reducing the maximum speed that you can fall.
-//
-//
 //Created by: Matthew Whitlaw
 //
-//15/09/14 Edit: Fully Commented - Matthew Whitlaw.
+//Allows the player to glide while airborne with a second and held jump,
+// by reducing the maximum speed that you can fall.
 //
+
+#region Change Log
 //19/9/2014 - Changed to currectly use the new base class functionality - Jason Hein
+#endregion
 
 using UnityEngine;
 using System.Collections;
