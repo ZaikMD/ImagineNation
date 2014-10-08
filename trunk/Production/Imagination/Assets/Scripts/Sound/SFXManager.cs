@@ -266,11 +266,11 @@ public class SFXManager : MonoBehaviour
 
 
 		//Safety check to make sure we have a sound
-		if (tempSoundInfo.m_AudioClip == null)
-        {
-            Debug.LogError("no Sound matching that name");
-            return;
-        }
+		//if (tempSoundInfo.m_AudioClip == null)
+       // {
+            //Debug.LogError("no Sound matching that name");
+            //return;
+        //}
 		    
 
 		tempAudioSource.volume = getSoundVolume (objectPlayingTheSound.transform.position);

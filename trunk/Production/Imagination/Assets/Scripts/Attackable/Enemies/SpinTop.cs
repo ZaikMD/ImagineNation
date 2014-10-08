@@ -11,6 +11,9 @@ public class SpinTop : BaseEnemy
 	float m_WobbleTimer;
 	float m_MaxWobbleTime;
 
+	float m_KnockBackTimer;
+	float m_MaxKnockBackTime;
+
 	float m_ChargeTimer;
 	float m_ChargeBuildUpTime;
 	float m_ChargeSpeed;
@@ -21,7 +24,6 @@ public class SpinTop : BaseEnemy
 	float m_DistanceToTarget;
 
 	float m_DistanceToPlayer;
-	float m_DistanceToPlayer2;
 
 	public float m_DistanceFromChargeToPosition;
 
@@ -48,9 +50,12 @@ public class SpinTop : BaseEnemy
 		m_MaxWobbleTime = 2.0f;
 		m_WobbleTimer = m_MaxWobbleTime;
 
+		m_MaxKnockBackTime = 1.0f;
+		m_KnockBackTimer = m_MaxKnockBackTime;
+
 		m_ChargeTimer = 0.0f;
 		m_ChargeBuildUpTime = 1.0f;
-		m_ChargeSpeed = 5.0f;
+		m_ChargeSpeed = 20.0f;
 		m_IsCharging = false;
 
 		m_PlayerHit = false;
@@ -73,18 +78,18 @@ public class SpinTop : BaseEnemy
 		{
 		case FightStates.Wobble:
 			Wobble ();
-			Debug.Log("Wobble");
+			//Debug.Log("Wobble");
 			break;
 		case FightStates.Charge:
-			Debug.Log("Charge");
+			//Debug.Log("Charge");
 			Charge ();
 			break;
 		case FightStates.BuildingUpCharge:
-			Debug.Log("BuildingUpCharge");
+			//Debug.Log("BuildingUpCharge");
 			BuildingUpCharge ();
 			break;
 		case FightStates.KnockedBack:
-			Debug.Log("KnockedBack");
+			//Debug.Log("KnockedBack");
 			KnockedBack ();
 			break;
 		default:
@@ -128,12 +133,14 @@ public class SpinTop : BaseEnemy
 			if(m_DistanceFromChargeToPosition < 3.0f)
 			{
 				m_FightState = FightStates.Wobble;
+				m_Agent.speed = 6.0f;
 
 			}
 		}
 		else
 		{
 			m_FightState = FightStates.KnockedBack;
+			m_Agent.speed = 6.0f;
 		}
 	}
 
@@ -142,13 +149,21 @@ public class SpinTop : BaseEnemy
 		if(m_ChargeTimer < m_ChargeBuildUpTime)
 		{
 			m_ChargeTimer += Time.deltaTime;
+			m_Agent.SetDestination(transform.position);
 		}
 		else
 		{
-			m_ChargeDirection = m_Target.position - transform.position;
+			m_ChargeDirection = Vector3.zero;
+			m_ChargeToPosition = Vector3.zero;
+			m_ChargeDistance = 0.0f;
+
+			Vector3 currentPosition = transform.position;
+			Vector3 destinationPosition = m_Target.transform.position;
+
+			m_ChargeDirection = destinationPosition - currentPosition;
 			m_DistanceToTarget = m_ChargeDirection.magnitude;
 			
-			m_ChargeDistance = m_DistanceToTarget * 1.5f;
+			m_ChargeDistance = m_DistanceToTarget;// * 1.5f;
 			m_ChargeToPosition = m_ChargeDirection.normalized * m_ChargeDistance;
 
 			m_Agent.SetDestination(m_ChargeToPosition);
@@ -161,19 +176,28 @@ public class SpinTop : BaseEnemy
 
 	void KnockedBack()
 	{
-		//TODO: Bounce top back
-		m_FightState = FightStates.BuildingUpCharge;
+		m_Agent.SetDestination (transform.position);
+		if(m_KnockBackTimer > 0.0f)
+		{
+			m_KnockBackTimer -= Time.deltaTime;
+			transform.position -= m_ChargeDirection.normalized * Time.deltaTime * 5.0f;
+		}
+		else
+		{
+			m_KnockBackTimer = m_MaxKnockBackTime;
+			m_FightState = FightStates.BuildingUpCharge;
+		}
 	}
 
 	void OnTriggerEnter(Collider other)
 	{
 		if(other.tag == "Player")
 		{
+			m_PlayerHit = true;
 			Destructable destructableObj = (Destructable)other.GetComponentInChildren<Destructable> ();
 			if(destructableObj != null)
 			{
 				destructableObj.onHit(new EnemyProjectile());
-				m_PlayerHit = true;
 			}
 		}
 	}
