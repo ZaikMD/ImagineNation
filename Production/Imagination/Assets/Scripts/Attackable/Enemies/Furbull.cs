@@ -1,6 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/*
+ * Created by Joe Burchill
+ * Date: Sept, 26, 2014
+ *  
+ * This script handles the functionality of the Furbull,
+ * a specific enemy that is very basic, it has a simple
+ * headbutt attack with a short delay.
+ * 
+ */
+#region ChangeLog
+/* 
+ * 
+ */
+#endregion
+
 public class Furbull : BaseEnemy 
 {
     //Enemy Projectile for the Furbull to attack the Player

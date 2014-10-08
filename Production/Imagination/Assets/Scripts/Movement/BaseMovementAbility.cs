@@ -1,15 +1,23 @@
-//
-//BaseMovement
-//
-//Responsible for basic vertical movement and it is to be 
-//inherited by the specific movement abilities for each character
-//
-//Created by: Matthew Whitlaw, Joe Burchill, Greg Fortier
-//
-//15/09/14 Edit: Fully Commented - Matthew Whitlaw.
-//
-//24/09/14 Edit: Added PlatformMovement and Additional functionality
-// to IsGrounded - Matthew Whitlaw
+/*
+*BaseMovement
+*
+*Responsible for basic vertical and horizontal movement and it is to be 
+*inherited by the specific movement abilities for each character
+*
+*Created by: Matthew Whitlaw, Joe Burchill, Greg Fortier
+*/
+
+#region ChangeLog
+/*
+* 15/09/14 Edit: Fully Commented - Matthew Whitlaw.
+*
+* 24/09/14 Edit: Added PlatformMovement and Additional functionality
+* to IsGrounded - Matthew Whitlaw
+* 
+*/
+#endregion
+
+
 
 using UnityEngine;
 using System.Collections;

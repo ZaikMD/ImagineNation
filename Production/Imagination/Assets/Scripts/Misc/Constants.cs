@@ -16,4 +16,7 @@ public static class Constants
 	public const string CHECK_POINT_3_STRING = "CheckPoint_3";
 
 	public const string MAIN_CAMERA_STRING = "MainCamera";
+
+    public const string WALL_TAG_STRING = "Wall";
+    public const string MOVING_PLATFORM_TAG_STRING = "MovingPlatform";
 }
