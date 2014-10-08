@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class DestructableWallRagDoll : MonoBehaviour 
 {
-	public float m_DestroyTime = 3.0f;
+	float m_DestroyTime = 3.0f;
 
 	// Use this for initialization
 	void Start ()
