@@ -12,9 +12,9 @@ public class EnemyProjectile : BaseProjectile
 
 	void OnTriggerEnter( Collider obj)
 	{
-		if(obj.gameObject.GetComponent(typeof(Attackable)) as Attackable != null)
+		if(obj.gameObject.GetComponent(typeof(Attackable)) as Attackable != null)//checks to see if the object that has been hit is attackable
 		{
-			Attackable attackable = obj.gameObject.GetComponent(typeof(Attackable)) as Attackable;
+			Attackable attackable = obj.gameObject.GetComponent(typeof(Attackable)) as Attackable; //if so call the onhit function and pass in the gameobject
 			
 			attackable.onHit(this);
 		} 

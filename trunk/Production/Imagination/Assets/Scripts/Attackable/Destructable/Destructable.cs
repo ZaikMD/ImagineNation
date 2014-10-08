@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// Creatred by Zach Dubuc.
+/// 
+/// Destructable is a base class for anything that can be destroyed by a player or enemy.
+/// </summary>
 public class Destructable : MonoBehaviour, Attackable
 {
 
@@ -15,7 +19,7 @@ public class Destructable : MonoBehaviour, Attackable
 			onDeath();
         }
 	}
-
+    //Onhit will get called by the PLayer and Enemy projectiles
     public virtual void onHit(PlayerProjectile proj)
     {        
         m_Health -= 1;        
@@ -25,13 +29,13 @@ public class Destructable : MonoBehaviour, Attackable
     {
 		m_Health -= 1;
     }
-
+    //To instantkill the object
 	public virtual void instantKill()
 	{
 		m_Health = 0;
 		onDeath ();
 	}
-
+    //Controlls what happens when the object dies
 	protected virtual void onDeath()
 	{
 		if(m_Ragdoll != null)
