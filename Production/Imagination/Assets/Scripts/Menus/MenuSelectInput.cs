@@ -1,4 +1,20 @@
-﻿using UnityEngine;
+﻿/*
+*MenuSelectInput
+*
+*resposible for setting what player is using what input
+*
+*Created by: Kris Matis
+*/
+
+#region ChangeLog
+/*
+* 8/10/2014 Edit: Fully Commented - Kris Matis.
+*
+* 
+*/
+#endregion
+
+using UnityEngine;
 using System.Collections;
 
 public class MenuSelectInput : Menu

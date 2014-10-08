@@ -1,4 +1,26 @@
-﻿using UnityEngine;
+﻿/*
+*GameData
+*
+*resposible for holding game settings and player data IE input type
+*
+*decides whether or not to update a check point when a check point requests it
+*
+*chenges player ones character and sets player twos so they dont match
+*
+*decides whether or not to change player two character based off player ones character
+*
+*Created by: Kris Matis
+*/
+
+#region ChangeLog
+/*
+* 8/10/2014 Edit: Fully Commented - Kris Matis.
+*
+* 
+*/
+#endregion
+
+using UnityEngine;
 using System.Collections;
 
 public class GameData : MonoBehaviour 

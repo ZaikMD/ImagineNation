@@ -1,4 +1,20 @@
-﻿using UnityEngine;
+﻿/*
+*ButtonLoadScene
+*
+*resposible for loading the next scene
+*
+*Created by: Kris Matis
+*/
+
+#region ChangeLog
+/*
+* 8/10/2014 Edit: Fully Commented - Kris Matis.
+*
+* 
+*/
+#endregion
+
+using UnityEngine;
 using System.Collections;
 
 public class ButtonLoadScene : MenuButton

@@ -1,4 +1,22 @@
-﻿using UnityEngine;
+﻿/*
+*AutoContinueSplashScreen
+*
+*resposible for imediately setting the next menu as the current menu and disableing the option of back tracking to this menu
+*
+*suitable for continueing to a menu system in game (pause menu)
+*
+*Created by: Kris Matis
+*/
+
+#region ChangeLog
+/*
+* 8/10/2014 Edit: Fully Commented - Kris Matis.
+*
+* 
+*/
+#endregion
+
+using UnityEngine;
 using System.Collections;
 
 public class AutoContinueSplashScreen : Menu 
