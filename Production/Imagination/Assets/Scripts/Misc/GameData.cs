@@ -43,7 +43,7 @@ public class GameData : MonoBehaviour
     public PlayerInput m_PlayerOneInput;
     public PlayerInput m_PlayerTwoInput;
 
- 	Characters m_PlayerOneCharacter = Characters.Zoey;
+ 	Characters m_PlayerOneCharacter = Characters.Zoe;
 	public Characters PlayerOneCharacter
 	{
 		get{ return m_PlayerOneCharacter; }
@@ -60,10 +60,10 @@ public class GameData : MonoBehaviour
 			case Characters.Derek:
 				if (m_PlayerTwoCharacter == value)
 				{
-					m_PlayerTwoCharacter = Characters.Zoey;
+					m_PlayerTwoCharacter = Characters.Zoe;
 				}
 				break;
-			case Characters.Zoey:
+			case Characters.Zoe:
 				if (m_PlayerTwoCharacter == value)
 				{
 					m_PlayerTwoCharacter = Characters.Alex;

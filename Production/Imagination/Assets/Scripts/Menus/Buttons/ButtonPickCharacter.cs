@@ -4,7 +4,7 @@ using System.Collections;
 public class ButtonPickCharacter : MenuButton 
 {		
 	public Players PlayerToSet = Players.PlayerOne;
-	public Characters CharacterBeingPicked = Characters.Zoey;
+	public Characters CharacterBeingPicked = Characters.Zoe;
 
 	protected override void start ()
 	{

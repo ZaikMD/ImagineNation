@@ -70,7 +70,7 @@ public class DeadPlayerManager : MonoBehaviour
 
 			break;
 
-		case Characters.Zoey:
+		case Characters.Zoe:
 			m_PlayerOne = GameObject.FindGameObjectWithTag("Zoe");
 			m_PlayerOneHealth = m_PlayerOne.GetComponentInChildren(typeof(PlayerHealth)) as PlayerHealth;
 
@@ -91,7 +91,7 @@ public class DeadPlayerManager : MonoBehaviour
 
 			break;
 			
-		case Characters.Zoey:
+		case Characters.Zoe:
 			m_PlayerTwo = GameObject.FindGameObjectWithTag("Zoe");
 			m_PlayerTwoHealth = m_PlayerTwo.GetComponentInChildren(typeof(PlayerHealth)) as PlayerHealth;
 

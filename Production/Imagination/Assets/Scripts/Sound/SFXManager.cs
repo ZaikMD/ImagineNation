@@ -231,7 +231,7 @@ public class SFXManager : MonoBehaviour
 			return GameObject.FindGameObjectWithTag("Derek").transform;
 			break;
 
-			case Characters.Zoey:
+			case Characters.Zoe:
 			return GameObject.FindGameObjectWithTag("Zoe").transform;
 			break;
 

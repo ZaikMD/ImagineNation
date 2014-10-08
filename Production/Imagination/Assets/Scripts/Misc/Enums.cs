@@ -14,7 +14,7 @@ public enum PlayerInput
 
 public enum Characters
 {
-	Zoey,
+	Zoe,
 	Derek,
 	Alex
 }
