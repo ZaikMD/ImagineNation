@@ -335,7 +335,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			}
 			if(hit.transform != null)
 			{
-				if(hit.collider.gameObject.tag == "MovingPlatform")
+				if(hit.collider.gameObject.tag == Constants.MOVING_PLATFORM_TAG_STRING)
 				{
 					m_IsOnMovingPlatform = true;
 					m_Platform = hit.transform.gameObject.GetComponent<ActivatableMovingPlatform>();

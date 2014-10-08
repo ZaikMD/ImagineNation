@@ -98,7 +98,7 @@ public abstract class BaseEnemy : Destructable
 		m_Agent.speed = 6.0f;
 
 		//Find both the players based off their tag
-		m_Players = GameObject.FindGameObjectsWithTag ("Player");
+		m_Players = GameObject.FindGameObjectsWithTag (Constants.PLAYER_STRING);
         
         //Set Initial Stopping Distance for the NavMeshAgent
         m_InitialStoppingDistance = m_Agent.stoppingDistance;
