@@ -61,16 +61,16 @@ public abstract class BaseMovementAbility : MonoBehaviour
 
 	protected const float AIR_DECCELERATION_LERP_VALUE = 0.02f;
 
-	protected const float NOT_GROUNDED_DELAY_TIMER = 0.07f;
 
-	float m_GroundedDelayTimer = 0.07f;
 
-	protected Vector3 m_TrampolineJump = Vector3.zero;
+
+
+
 
 	//States
 	protected bool m_CurrentlyJumping;
 	protected bool m_IsOnMovingPlatform;
-	protected bool m_JumpByTrampoline;
+
 
 	//Called at the start of the program
 	protected void Start () 
@@ -86,7 +86,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		m_VerticalVelocity = -1.0f;
 		m_CurrentlyJumping = false;
 		m_IsOnMovingPlatform = false;
-		m_JumpByTrampoline = false;
+
 	}
 
 	//The default update all characters should use
@@ -105,8 +105,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		//If the player is grounded 
 		if(GetIsGrounded())
 		{
-			m_TrampolineJump = Vector3.zero;
-			m_JumpByTrampoline = false;
+
 			//Check if we should start jumping
 			if(InputManager.getJumpDown(m_AcceptInputFrom.ReadInputFrom))
 			{
@@ -126,7 +125,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 				}
 			}
 
-			m_GroundedDelayTimer = NOT_GROUNDED_DELAY_TIMER;
+		
 
 
 			//Gravity();
@@ -218,12 +217,6 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		transform.LookAt(transform.position + jump.normalized);
 		m_HorizontalAirVelocity = new Vector2(jump.x, jump.z);
 
-		m_TrampolineJump.x = jump.x;
-		m_TrampolineJump.y = 1.2f;
-		m_TrampolineJump.z = jump.z;
-		
-		m_JumpByTrampoline = true;
-
 	}
 	public void TempTrampolineJump()
 	{
@@ -294,26 +287,8 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		Movement.y = m_VerticalVelocity;
 
 
-		//if (m_TrampolineJump.magnitude > 5)
-		//{
-		//	Movement = m_TrampolineJump.normalized * 5;
-			//Movement.x = (Mathf.Clamp(m_TrampolineJump.x, -5.0f, 5.0f));
-		//	Movement.z = (Mathf.Clamp(m_TrampolineJump.z,-5.0f,5.0f));
-
-			//Movement.x = (Mathf.Clamp(Movement.x, -5.0f, 5.0f));
-			//Movement.z = (Mathf.Clamp(Movement.z,-5.0f,5.0f));
-
-		//}
-		//Move the character
-		if(m_JumpByTrampoline == true)
-		{
-			m_CharacterController.Move((Movement + m_TrampolineJump));//*Time.deltaTime);
-		}
-
-		else {
-
-			m_CharacterController.Move (Movement * Time.deltaTime);
-		}
+		m_CharacterController.Move (Movement * Time.deltaTime);
+		
 
 
 	}
@@ -326,6 +301,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		RaycastHit hit;
 
 		Debug.DrawRay (transform.position, transform.TransformDirection (Vector3.down), Color.magenta);
+
 
 		if ((Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 0.1f) && m_VerticalVelocity == 0.0f) || m_CharacterController.isGrounded)
 		{
