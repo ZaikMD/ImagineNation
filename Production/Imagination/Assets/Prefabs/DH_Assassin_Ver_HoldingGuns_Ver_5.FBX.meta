@@ -138,7 +138,15 @@ ModelImporter:
     7400002: Run
     7400004: Jump
     7400006: Idle
-    7400008: Take 0013
+    7400008: Landing
+    7400010: Falling
+    7400012: Death
+    7400014: DoubleSlash
+    7400016: RightHook
+    7400018: OverHeadSlash
+    7400020: lookAround
+    7400022: TakingWeaponOut
+    7400024: Gliding
     9500000: //RootNode
     11100000: //RootNode
     13700000: Character_Generic
@@ -775,10 +783,1242 @@ ModelImporter:
       maskType: 0
       maskSource: {instanceID: 0}
     - serializedVersion: 16
-      name: Take 0013
+      name: Landing
       takeName: Take 001
-      firstFrame: 0
-      lastFrame: 12000
+      firstFrame: 1216
+      lastFrame: 1235
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone_Generic_Char_MarineLArmIKTarget
+        weight: 1
+      - path: Bone_Generic_Char_MarineLLegPlatform
+        weight: 1
+      - path: Bone_Generic_Char_MarineRIKTarget
+        weight: 1
+      - path: Bone_Generic_Char_MarineRPlatform
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh/Bone_Generic_Char_MarineLLegCalf
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh/Bone_Generic_Char_MarineLLegCalf/Bone_Generic_Char_MarineLLegAnkle
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh/Bone_Generic_Char_MarineLLegCalf/Bone_Generic_Char_MarineLLegAnkle/MarineLLegToe
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh/Bone_Generic_Char_MarineRCalf
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh/Bone_Generic_Char_MarineRCalf/Bone_Generic_Char_MarineRAnkle
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh/Bone_Generic_Char_MarineRCalf/Bone_Generic_Char_MarineRAnkle/MarineRToe
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit01
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit01/MarineLArmDigit02
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit01/MarineLArmDigit02/MarineLArmDigit03
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit11
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit11/MarineLArmDigit12
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit11/MarineLArmDigit12/MarineLArmDigit13
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit21
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit21/MarineLArmDigit22
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit21/MarineLArmDigit22/MarineLArmDigit23
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit31
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit31/MarineLArmDigit32
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit31/MarineLArmDigit32/MarineLArmDigit33
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit41
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit41/MarineLArmDigit42
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit41/MarineLArmDigit42/MarineLArmDigit43
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1/Bone_Generic_Char_MarineNeck2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1/Bone_Generic_Char_MarineNeck2/Bone_Generic_Char_MarineHead
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1/Bone_Generic_Char_MarineNeck2/Bone_Generic_Char_MarineHead/Bone_Generic_Char_Marine_Jaw
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit11
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit11/Bone_Generic_Char_MarineRDigit12
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit11/Bone_Generic_Char_MarineRDigit12/Bone_Generic_Char_MarineRDigit13
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit21
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit21/Bone_Generic_Char_MarineRDigit22
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit21/Bone_Generic_Char_MarineRDigit22/Bone_Generic_Char_MarineRDigit23
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit31
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit31/Bone_Generic_Char_MarineRDigit32
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit31/Bone_Generic_Char_MarineRDigit32/Bone_Generic_Char_MarineRDigit33
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit01
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit01/MarineRDigit02
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit01/MarineRDigit02/MarineRDigit03
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit41
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit41/MarineRDigit42
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit41/MarineRDigit42/MarineRDigit43
+        weight: 1
+      - path: BoneROOT_Generic_Char_Marine
+        weight: 1
+      - path: Character_Generic
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Falling
+      takeName: Take 001
+      firstFrame: 1149
+      lastFrame: 1209
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone_Generic_Char_MarineLArmIKTarget
+        weight: 1
+      - path: Bone_Generic_Char_MarineLLegPlatform
+        weight: 1
+      - path: Bone_Generic_Char_MarineRIKTarget
+        weight: 1
+      - path: Bone_Generic_Char_MarineRPlatform
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh/Bone_Generic_Char_MarineLLegCalf
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh/Bone_Generic_Char_MarineLLegCalf/Bone_Generic_Char_MarineLLegAnkle
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh/Bone_Generic_Char_MarineLLegCalf/Bone_Generic_Char_MarineLLegAnkle/MarineLLegToe
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh/Bone_Generic_Char_MarineRCalf
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh/Bone_Generic_Char_MarineRCalf/Bone_Generic_Char_MarineRAnkle
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh/Bone_Generic_Char_MarineRCalf/Bone_Generic_Char_MarineRAnkle/MarineRToe
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit01
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit01/MarineLArmDigit02
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit01/MarineLArmDigit02/MarineLArmDigit03
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit11
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit11/MarineLArmDigit12
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit11/MarineLArmDigit12/MarineLArmDigit13
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit21
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit21/MarineLArmDigit22
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit21/MarineLArmDigit22/MarineLArmDigit23
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit31
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit31/MarineLArmDigit32
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit31/MarineLArmDigit32/MarineLArmDigit33
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit41
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit41/MarineLArmDigit42
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit41/MarineLArmDigit42/MarineLArmDigit43
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1/Bone_Generic_Char_MarineNeck2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1/Bone_Generic_Char_MarineNeck2/Bone_Generic_Char_MarineHead
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1/Bone_Generic_Char_MarineNeck2/Bone_Generic_Char_MarineHead/Bone_Generic_Char_Marine_Jaw
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit11
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit11/Bone_Generic_Char_MarineRDigit12
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit11/Bone_Generic_Char_MarineRDigit12/Bone_Generic_Char_MarineRDigit13
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit21
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit21/Bone_Generic_Char_MarineRDigit22
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit21/Bone_Generic_Char_MarineRDigit22/Bone_Generic_Char_MarineRDigit23
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit31
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit31/Bone_Generic_Char_MarineRDigit32
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit31/Bone_Generic_Char_MarineRDigit32/Bone_Generic_Char_MarineRDigit33
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit01
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit01/MarineRDigit02
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit01/MarineRDigit02/MarineRDigit03
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit41
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit41/MarineRDigit42
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit41/MarineRDigit42/MarineRDigit43
+        weight: 1
+      - path: BoneROOT_Generic_Char_Marine
+        weight: 1
+      - path: Character_Generic
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Death
+      takeName: Take 001
+      firstFrame: 1052
+      lastFrame: 1083
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone_Generic_Char_MarineLArmIKTarget
+        weight: 1
+      - path: Bone_Generic_Char_MarineLLegPlatform
+        weight: 1
+      - path: Bone_Generic_Char_MarineRIKTarget
+        weight: 1
+      - path: Bone_Generic_Char_MarineRPlatform
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh/Bone_Generic_Char_MarineLLegCalf
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh/Bone_Generic_Char_MarineLLegCalf/Bone_Generic_Char_MarineLLegAnkle
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh/Bone_Generic_Char_MarineLLegCalf/Bone_Generic_Char_MarineLLegAnkle/MarineLLegToe
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh/Bone_Generic_Char_MarineRCalf
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh/Bone_Generic_Char_MarineRCalf/Bone_Generic_Char_MarineRAnkle
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh/Bone_Generic_Char_MarineRCalf/Bone_Generic_Char_MarineRAnkle/MarineRToe
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit01
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit01/MarineLArmDigit02
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit01/MarineLArmDigit02/MarineLArmDigit03
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit11
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit11/MarineLArmDigit12
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit11/MarineLArmDigit12/MarineLArmDigit13
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit21
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit21/MarineLArmDigit22
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit21/MarineLArmDigit22/MarineLArmDigit23
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit31
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit31/MarineLArmDigit32
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit31/MarineLArmDigit32/MarineLArmDigit33
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit41
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit41/MarineLArmDigit42
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit41/MarineLArmDigit42/MarineLArmDigit43
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1/Bone_Generic_Char_MarineNeck2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1/Bone_Generic_Char_MarineNeck2/Bone_Generic_Char_MarineHead
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1/Bone_Generic_Char_MarineNeck2/Bone_Generic_Char_MarineHead/Bone_Generic_Char_Marine_Jaw
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit11
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit11/Bone_Generic_Char_MarineRDigit12
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit11/Bone_Generic_Char_MarineRDigit12/Bone_Generic_Char_MarineRDigit13
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit21
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit21/Bone_Generic_Char_MarineRDigit22
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit21/Bone_Generic_Char_MarineRDigit22/Bone_Generic_Char_MarineRDigit23
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit31
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit31/Bone_Generic_Char_MarineRDigit32
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit31/Bone_Generic_Char_MarineRDigit32/Bone_Generic_Char_MarineRDigit33
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit01
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit01/MarineRDigit02
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit01/MarineRDigit02/MarineRDigit03
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit41
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit41/MarineRDigit42
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit41/MarineRDigit42/MarineRDigit43
+        weight: 1
+      - path: BoneROOT_Generic_Char_Marine
+        weight: 1
+      - path: Character_Generic
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: DoubleSlash
+      takeName: Take 001
+      firstFrame: 11680
+      lastFrame: 11712
+      wrapMode: 4
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone_Generic_Char_MarineLArmIKTarget
+        weight: 1
+      - path: Bone_Generic_Char_MarineLLegPlatform
+        weight: 1
+      - path: Bone_Generic_Char_MarineRIKTarget
+        weight: 1
+      - path: Bone_Generic_Char_MarineRPlatform
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh/Bone_Generic_Char_MarineLLegCalf
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh/Bone_Generic_Char_MarineLLegCalf/Bone_Generic_Char_MarineLLegAnkle
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh/Bone_Generic_Char_MarineLLegCalf/Bone_Generic_Char_MarineLLegAnkle/MarineLLegToe
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh/Bone_Generic_Char_MarineRCalf
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh/Bone_Generic_Char_MarineRCalf/Bone_Generic_Char_MarineRAnkle
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh/Bone_Generic_Char_MarineRCalf/Bone_Generic_Char_MarineRAnkle/MarineRToe
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit01
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit01/MarineLArmDigit02
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit01/MarineLArmDigit02/MarineLArmDigit03
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit11
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit11/MarineLArmDigit12
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit11/MarineLArmDigit12/MarineLArmDigit13
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit21
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit21/MarineLArmDigit22
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit21/MarineLArmDigit22/MarineLArmDigit23
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit31
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit31/MarineLArmDigit32
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit31/MarineLArmDigit32/MarineLArmDigit33
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit41
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit41/MarineLArmDigit42
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit41/MarineLArmDigit42/MarineLArmDigit43
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1/Bone_Generic_Char_MarineNeck2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1/Bone_Generic_Char_MarineNeck2/Bone_Generic_Char_MarineHead
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1/Bone_Generic_Char_MarineNeck2/Bone_Generic_Char_MarineHead/Bone_Generic_Char_Marine_Jaw
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit11
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit11/Bone_Generic_Char_MarineRDigit12
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit11/Bone_Generic_Char_MarineRDigit12/Bone_Generic_Char_MarineRDigit13
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit21
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit21/Bone_Generic_Char_MarineRDigit22
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit21/Bone_Generic_Char_MarineRDigit22/Bone_Generic_Char_MarineRDigit23
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit31
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit31/Bone_Generic_Char_MarineRDigit32
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit31/Bone_Generic_Char_MarineRDigit32/Bone_Generic_Char_MarineRDigit33
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit01
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit01/MarineRDigit02
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit01/MarineRDigit02/MarineRDigit03
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit41
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit41/MarineRDigit42
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit41/MarineRDigit42/MarineRDigit43
+        weight: 1
+      - path: BoneROOT_Generic_Char_Marine
+        weight: 1
+      - path: Character_Generic
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: RightHook
+      takeName: Take 001
+      firstFrame: 2389
+      lastFrame: 2418
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone_Generic_Char_MarineLArmIKTarget
+        weight: 1
+      - path: Bone_Generic_Char_MarineLLegPlatform
+        weight: 1
+      - path: Bone_Generic_Char_MarineRIKTarget
+        weight: 1
+      - path: Bone_Generic_Char_MarineRPlatform
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh/Bone_Generic_Char_MarineLLegCalf
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh/Bone_Generic_Char_MarineLLegCalf/Bone_Generic_Char_MarineLLegAnkle
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh/Bone_Generic_Char_MarineLLegCalf/Bone_Generic_Char_MarineLLegAnkle/MarineLLegToe
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh/Bone_Generic_Char_MarineRCalf
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh/Bone_Generic_Char_MarineRCalf/Bone_Generic_Char_MarineRAnkle
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh/Bone_Generic_Char_MarineRCalf/Bone_Generic_Char_MarineRAnkle/MarineRToe
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit01
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit01/MarineLArmDigit02
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit01/MarineLArmDigit02/MarineLArmDigit03
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit11
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit11/MarineLArmDigit12
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit11/MarineLArmDigit12/MarineLArmDigit13
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit21
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit21/MarineLArmDigit22
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit21/MarineLArmDigit22/MarineLArmDigit23
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit31
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit31/MarineLArmDigit32
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit31/MarineLArmDigit32/MarineLArmDigit33
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit41
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit41/MarineLArmDigit42
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit41/MarineLArmDigit42/MarineLArmDigit43
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1/Bone_Generic_Char_MarineNeck2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1/Bone_Generic_Char_MarineNeck2/Bone_Generic_Char_MarineHead
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1/Bone_Generic_Char_MarineNeck2/Bone_Generic_Char_MarineHead/Bone_Generic_Char_Marine_Jaw
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit11
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit11/Bone_Generic_Char_MarineRDigit12
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit11/Bone_Generic_Char_MarineRDigit12/Bone_Generic_Char_MarineRDigit13
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit21
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit21/Bone_Generic_Char_MarineRDigit22
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit21/Bone_Generic_Char_MarineRDigit22/Bone_Generic_Char_MarineRDigit23
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit31
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit31/Bone_Generic_Char_MarineRDigit32
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit31/Bone_Generic_Char_MarineRDigit32/Bone_Generic_Char_MarineRDigit33
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit01
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit01/MarineRDigit02
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit01/MarineRDigit02/MarineRDigit03
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit41
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit41/MarineRDigit42
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit41/MarineRDigit42/MarineRDigit43
+        weight: 1
+      - path: BoneROOT_Generic_Char_Marine
+        weight: 1
+      - path: Character_Generic
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: OverHeadSlash
+      takeName: Take 001
+      firstFrame: 5384
+      lastFrame: 5418
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone_Generic_Char_MarineLArmIKTarget
+        weight: 1
+      - path: Bone_Generic_Char_MarineLLegPlatform
+        weight: 1
+      - path: Bone_Generic_Char_MarineRIKTarget
+        weight: 1
+      - path: Bone_Generic_Char_MarineRPlatform
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh/Bone_Generic_Char_MarineLLegCalf
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh/Bone_Generic_Char_MarineLLegCalf/Bone_Generic_Char_MarineLLegAnkle
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh/Bone_Generic_Char_MarineLLegCalf/Bone_Generic_Char_MarineLLegAnkle/MarineLLegToe
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh/Bone_Generic_Char_MarineRCalf
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh/Bone_Generic_Char_MarineRCalf/Bone_Generic_Char_MarineRAnkle
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh/Bone_Generic_Char_MarineRCalf/Bone_Generic_Char_MarineRAnkle/MarineRToe
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit01
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit01/MarineLArmDigit02
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit01/MarineLArmDigit02/MarineLArmDigit03
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit11
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit11/MarineLArmDigit12
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit11/MarineLArmDigit12/MarineLArmDigit13
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit21
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit21/MarineLArmDigit22
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit21/MarineLArmDigit22/MarineLArmDigit23
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit31
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit31/MarineLArmDigit32
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit31/MarineLArmDigit32/MarineLArmDigit33
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit41
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit41/MarineLArmDigit42
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit41/MarineLArmDigit42/MarineLArmDigit43
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1/Bone_Generic_Char_MarineNeck2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1/Bone_Generic_Char_MarineNeck2/Bone_Generic_Char_MarineHead
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1/Bone_Generic_Char_MarineNeck2/Bone_Generic_Char_MarineHead/Bone_Generic_Char_Marine_Jaw
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit11
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit11/Bone_Generic_Char_MarineRDigit12
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit11/Bone_Generic_Char_MarineRDigit12/Bone_Generic_Char_MarineRDigit13
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit21
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit21/Bone_Generic_Char_MarineRDigit22
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit21/Bone_Generic_Char_MarineRDigit22/Bone_Generic_Char_MarineRDigit23
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit31
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit31/Bone_Generic_Char_MarineRDigit32
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit31/Bone_Generic_Char_MarineRDigit32/Bone_Generic_Char_MarineRDigit33
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit01
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit01/MarineRDigit02
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit01/MarineRDigit02/MarineRDigit03
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit41
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit41/MarineRDigit42
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit41/MarineRDigit42/MarineRDigit43
+        weight: 1
+      - path: BoneROOT_Generic_Char_Marine
+        weight: 1
+      - path: Character_Generic
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: lookAround
+      takeName: Take 001
+      firstFrame: 714
+      lastFrame: 736
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone_Generic_Char_MarineLArmIKTarget
+        weight: 1
+      - path: Bone_Generic_Char_MarineLLegPlatform
+        weight: 1
+      - path: Bone_Generic_Char_MarineRIKTarget
+        weight: 1
+      - path: Bone_Generic_Char_MarineRPlatform
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh/Bone_Generic_Char_MarineLLegCalf
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh/Bone_Generic_Char_MarineLLegCalf/Bone_Generic_Char_MarineLLegAnkle
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh/Bone_Generic_Char_MarineLLegCalf/Bone_Generic_Char_MarineLLegAnkle/MarineLLegToe
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh/Bone_Generic_Char_MarineRCalf
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh/Bone_Generic_Char_MarineRCalf/Bone_Generic_Char_MarineRAnkle
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh/Bone_Generic_Char_MarineRCalf/Bone_Generic_Char_MarineRAnkle/MarineRToe
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit01
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit01/MarineLArmDigit02
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit01/MarineLArmDigit02/MarineLArmDigit03
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit11
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit11/MarineLArmDigit12
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit11/MarineLArmDigit12/MarineLArmDigit13
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit21
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit21/MarineLArmDigit22
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit21/MarineLArmDigit22/MarineLArmDigit23
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit31
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit31/MarineLArmDigit32
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit31/MarineLArmDigit32/MarineLArmDigit33
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit41
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit41/MarineLArmDigit42
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit41/MarineLArmDigit42/MarineLArmDigit43
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1/Bone_Generic_Char_MarineNeck2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1/Bone_Generic_Char_MarineNeck2/Bone_Generic_Char_MarineHead
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1/Bone_Generic_Char_MarineNeck2/Bone_Generic_Char_MarineHead/Bone_Generic_Char_Marine_Jaw
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit11
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit11/Bone_Generic_Char_MarineRDigit12
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit11/Bone_Generic_Char_MarineRDigit12/Bone_Generic_Char_MarineRDigit13
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit21
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit21/Bone_Generic_Char_MarineRDigit22
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit21/Bone_Generic_Char_MarineRDigit22/Bone_Generic_Char_MarineRDigit23
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit31
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit31/Bone_Generic_Char_MarineRDigit32
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit31/Bone_Generic_Char_MarineRDigit32/Bone_Generic_Char_MarineRDigit33
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit01
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit01/MarineRDigit02
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit01/MarineRDigit02/MarineRDigit03
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit41
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit41/MarineRDigit42
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit41/MarineRDigit42/MarineRDigit43
+        weight: 1
+      - path: BoneROOT_Generic_Char_Marine
+        weight: 1
+      - path: Character_Generic
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: TakingWeaponOut
+      takeName: Take 001
+      firstFrame: 1940
+      lastFrame: 1963
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone_Generic_Char_MarineLArmIKTarget
+        weight: 1
+      - path: Bone_Generic_Char_MarineLLegPlatform
+        weight: 1
+      - path: Bone_Generic_Char_MarineRIKTarget
+        weight: 1
+      - path: Bone_Generic_Char_MarineRPlatform
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh/Bone_Generic_Char_MarineLLegCalf
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh/Bone_Generic_Char_MarineLLegCalf/Bone_Generic_Char_MarineLLegAnkle
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineLLegThigh/Bone_Generic_Char_MarineLLegCalf/Bone_Generic_Char_MarineLLegAnkle/MarineLLegToe
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh/Bone_Generic_Char_MarineRCalf
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh/Bone_Generic_Char_MarineRCalf/Bone_Generic_Char_MarineRAnkle
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineRThigh/Bone_Generic_Char_MarineRCalf/Bone_Generic_Char_MarineRAnkle/MarineRToe
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit01
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit01/MarineLArmDigit02
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit01/MarineLArmDigit02/MarineLArmDigit03
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit11
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit11/MarineLArmDigit12
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit11/MarineLArmDigit12/MarineLArmDigit13
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit21
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit21/MarineLArmDigit22
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit21/MarineLArmDigit22/MarineLArmDigit23
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit31
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit31/MarineLArmDigit32
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit31/MarineLArmDigit32/MarineLArmDigit33
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit41
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit41/MarineLArmDigit42
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineLArmCollarbone/Bone_Generic_Char_MarineLArmUpperarm/Bone_Generic_Char_MarineLArmForearm1/Bone_Generic_Char_MarineLArmForearm2/Bone_Generic_Char_MarineLArmPalm/MarineLArmDigit41/MarineLArmDigit42/MarineLArmDigit43
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1/Bone_Generic_Char_MarineNeck2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1/Bone_Generic_Char_MarineNeck2/Bone_Generic_Char_MarineHead
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineNeck1/Bone_Generic_Char_MarineNeck2/Bone_Generic_Char_MarineHead/Bone_Generic_Char_Marine_Jaw
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit11
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit11/Bone_Generic_Char_MarineRDigit12
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit11/Bone_Generic_Char_MarineRDigit12/Bone_Generic_Char_MarineRDigit13
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit21
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit21/Bone_Generic_Char_MarineRDigit22
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit21/Bone_Generic_Char_MarineRDigit22/Bone_Generic_Char_MarineRDigit23
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit31
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit31/Bone_Generic_Char_MarineRDigit32
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/Bone_Generic_Char_MarineRDigit31/Bone_Generic_Char_MarineRDigit32/Bone_Generic_Char_MarineRDigit33
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit01
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit01/MarineRDigit02
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit01/MarineRDigit02/MarineRDigit03
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit41
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit41/MarineRDigit42
+        weight: 1
+      - path: Bone_Generic_DH_Char_MarinePelvis/Bone_Generic_Char_MarineSpine1/Bone_Generic_Char_MarineSpine2/Bone_Generic_Char_MarineSpine3/Bone_Generic_Char_MarineRibcage/Bone_Generic_Char_MarineRCollarbone/Bone_Generic_Char_MarineRUpperarm/Bone_Generic_Char_MarineRForearm1/Bone_Generic_Char_MarineRForearm2/Bone_Generic_Char_MarineRPalm/MarineRDigit41/MarineRDigit42/MarineRDigit43
+        weight: 1
+      - path: BoneROOT_Generic_Char_Marine
+        weight: 1
+      - path: Character_Generic
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Gliding
+      takeName: Take 001
+      firstFrame: 11639
+      lastFrame: 11639
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

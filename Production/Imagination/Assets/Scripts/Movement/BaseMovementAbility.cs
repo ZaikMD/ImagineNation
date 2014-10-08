@@ -336,7 +336,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
     {
         if (InputManager.getMove(m_AcceptInputFrom.ReadInputFrom) == Vector2.zero)
         {
-            m_Anim.Play("Idle");
+            m_Anim.Play(Constants.Animations.IDLE);
             if (m_SFX != null)
             {
               // m_SFX.stopSound(this.gameObject);
@@ -350,7 +350,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
             && InputManager.getMove(m_AcceptInputFrom.ReadInputFrom).y > -0.3f)
         {
 
-            m_Anim.Play("Walk");
+            m_Anim.Play(Constants.Animations.WALK);
             if (m_SFX != null)
             {
                 m_SFX.playSound(this.gameObject, Sounds.Walk);
@@ -358,7 +358,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
                 return;
         }
 
-        m_Anim.Play("Run");
+        m_Anim.Play(Constants.Animations.RUN);
         if (m_SFX != null)
         {
             m_SFX.playSound(this.gameObject, Sounds.Run);
