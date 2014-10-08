@@ -50,7 +50,7 @@ public class PlayerSpawner : MonoBehaviour
 
 		switch(GameData.Instance.PlayerOneCharacter)
 		{
-		case Characters.Zoey:
+		case Characters.Zoe:
 			character = (GameObject) GameObject.Instantiate (ZoeyPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
 
 			character.name = "Zoe";
@@ -72,7 +72,7 @@ public class PlayerSpawner : MonoBehaviour
 		spawnPoint = currentCheckPoint.transform.FindChild ("PlayerTwoSpawnPoint").gameObject;
 		switch(GameData.Instance.PlayerTwoCharacter)
 		{
-		case Characters.Zoey:
+		case Characters.Zoe:
 			character =  (GameObject) GameObject.Instantiate (ZoeyPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
 			character.name = "Zoe";
 			break;

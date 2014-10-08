@@ -7,7 +7,7 @@ public class TESTSetGameData : MonoBehaviour
 	public PlayerInput PlayerTwoInput = PlayerInput.None;
 
 	public Characters PlayerOneCharacter = Characters.Alex;
-	public Characters PlayerTwoCharacter = Characters.Zoey;
+	public Characters PlayerTwoCharacter = Characters.Zoe;
 
 	public Levels m_CurrentLevel = Levels.Level_1;
 	public Sections m_CurrentSection = Sections.Sections_1;

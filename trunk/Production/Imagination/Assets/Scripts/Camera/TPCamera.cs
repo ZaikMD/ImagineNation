@@ -42,11 +42,11 @@ public class TPCamera : MonoBehaviour
                 currentCharacter = Characters.Derek;
                 break;
             case "Zoe":
-                currentCharacter = Characters.Zoey;
+                currentCharacter = Characters.Zoe;
                 break;
             default:
                 Debug.LogError("parent is named wrong");
-                currentCharacter = Characters.Zoey;
+                currentCharacter = Characters.Zoe;
                 break;
         }
 		/*
