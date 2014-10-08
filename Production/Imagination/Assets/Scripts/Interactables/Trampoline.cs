@@ -1,58 +1,39 @@
-﻿using UnityEngine;
+﻿/*
+ * Created by Greg Fortier
+ * Date: Oct, 1st, 2014
+ *  
+ * This script checks if a player has collided with a trampoline. 
+ * If he has then it will call the TrampolineJump() from BaseMovementAbility
+ * 
+ * 
+ *08/10/2014 Edit: Commented and cleaned code - Greg Fortier
+*/
+
+using UnityEngine;
 using System.Collections;
 
 public class Trampoline : MonoBehaviour {
 
-	public GameObject m_JumpGameObject;
-
-	Vector3 m_TrampolinePosition = Vector3.zero;
-	Vector3 m_LaunchDirection = Vector3.zero;
-
-	float m_TrampolineJump = 5.0f;
-
-	public float JUMP_SPEED = 15.0f;
-
-	protected const float MAX_FALL_SPEED = -15.0f;
-	public float FALL_ACCELERATION = 1.0f;
-
-	bool m_TrampolineJumpNow;
-
-	CharacterController m_PlayerController;
+	//used to be able to access the trampolineJump function from BaseMovementAbility
 	BaseMovementAbility m_baseMove;
-
-
-
-
-
+	
 	// Use this for initialization
 	void Start () 
 	{
-		m_TrampolineJumpNow = false;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{	
-			if (m_TrampolineJumpNow == true)
-			{
-				m_TrampolineJumpNow = false;
-				m_PlayerController = null;
-			}
+
 	}
-
-
-
 
 	void OnTriggerEnter(Collider other)
 	{
-			if (other.tag == "Player")
-			{
-				m_baseMove = other.gameObject.GetComponent<BaseMovementAbility>();
-				m_baseMove.TempTrampolineJump();
-
-			}
-	
+		if (other.tag == "Player")
+		{
+			m_baseMove = other.gameObject.GetComponent<BaseMovementAbility>();
+			m_baseMove.TrampolineJump();
+		}
 	}
-	
-	
 }
