@@ -1,4 +1,22 @@
-﻿using UnityEngine;
+﻿/*
+*SplashScreen
+*
+*a start point for the menu system that only has functionality for coninueing
+*
+*
+*
+*Created by: Kris Matis
+*/
+
+#region ChangeLog
+/*
+* 8/10/2014 Edit: Fully Commented - Kris Matis.
+*
+* 
+*/
+#endregion
+
+using UnityEngine;
 using System.Collections;
 
 public class SplashScreen : Menu 

@@ -1,4 +1,22 @@
-﻿using UnityEngine;
+﻿/*
+*Menu
+*
+*resposible for basic menu functionality
+*
+*can be implemented as a basic menu
+*
+*Created by: Kris Matis
+*/
+
+#region ChangeLog
+/*
+* 8/10/2014 Edit: Fully Commented - Kris Matis.
+*
+* 
+*/
+#endregion
+
+using UnityEngine;
 using System.Collections;
 
 public class Menu : MonoBehaviour 

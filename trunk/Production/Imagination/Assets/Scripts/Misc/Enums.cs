@@ -1,4 +1,20 @@
-﻿using UnityEngine;
+﻿/*
+*
+*
+*resposible for holding enums multiple scripts need
+*
+*Created by: Kris Matis
+*/
+
+#region ChangeLog
+/*
+* 
+*
+* 
+*/
+#endregion
+
+using UnityEngine;
 using System.Collections;
 
 public enum PlayerInput

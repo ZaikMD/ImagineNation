@@ -1,4 +1,20 @@
-﻿using UnityEngine;
+﻿/*
+*PlayerHealth
+*
+*resposible for keeping track of the players health and updating the gui
+*
+*Created by: Kris Matis
+*/
+
+#region ChangeLog
+/*
+* 8/10/2014 Edit: Fully Commented - Kris Matis.
+*
+* 
+*/
+#endregion
+
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 

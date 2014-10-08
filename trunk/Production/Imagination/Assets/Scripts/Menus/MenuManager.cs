@@ -1,4 +1,22 @@
-﻿using UnityEngine;
+﻿/*
+*MenuManager
+*
+*resposible for updating the current menu
+*
+*moveing the camera to the menus mount point
+*
+*Created by: Kris Matis
+*/
+
+#region ChangeLog
+/*
+* 8/10/2014 Edit: Fully Commented - Kris Matis.
+*
+* 
+*/
+#endregion
+
+using UnityEngine;
 using System.Collections;
 
 public class MenuManager : MonoBehaviour 

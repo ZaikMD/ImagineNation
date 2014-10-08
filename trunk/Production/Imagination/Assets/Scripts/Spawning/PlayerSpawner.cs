@@ -1,4 +1,20 @@
-﻿using UnityEngine;
+﻿/*
+*PlayerSpawner
+*
+*resposible for spawning the players
+*
+*Created by: Kris Matis
+*/
+
+#region ChangeLog
+/*
+* 8/10/2014 Edit: Fully Commented - Kris Matis.
+*
+* 
+*/
+#endregion
+
+using UnityEngine;
 using System.Collections;
 
 public class PlayerSpawner : MonoBehaviour 
