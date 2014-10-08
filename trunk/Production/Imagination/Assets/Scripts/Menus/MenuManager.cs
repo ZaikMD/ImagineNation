@@ -38,11 +38,14 @@ public class MenuManager : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		//get the camera
 		MainCamera = (Camera) GameObject.FindGameObjectWithTag(Constants.MAIN_CAMERA_STRING).GetComponent(typeof(Camera));
 
 		if(MainCamera == null)
 		{
-			Debug.LogError("No Main Camera Found");
+			#if DEBUG || UNITY_EDITOR
+				Debug.LogError("No Main Camera Found");
+			#endif
 		}
 
 		//get all the menu game objects
@@ -65,14 +68,18 @@ public class MenuManager : MonoBehaviour
 				}
 				else if (i == Menus.Length - 1)
 				{
-					Debug.LogError("No Splash Screen Found");
+					#if DEBUG || UNITY_EDITOR
+						Debug.LogError("No Splash Screen Found");
+					#endif
 				}
 				i++;
 			}while(i < Menus.Length);
 		}
 		else
 		{
-			Debug.LogError("No Menus Found");
+			#if DEBUG || UNITY_EDITOR
+				Debug.LogError("No Menus Found");
+			#endif
 		}
 	}
 
@@ -105,7 +112,9 @@ public class MenuManager : MonoBehaviour
 		}
 		else
 		{
-			Debug.Log("m_CurrentMenu is NULL");
+			#if DEBUG || UNITY_EDITOR
+				Debug.Log("m_CurrentMenu is NULL");
+			#endif
 		}
 	}
 
@@ -119,7 +128,9 @@ public class MenuManager : MonoBehaviour
 		}
 		else
 		{
-			Debug.Log(m_CurrentMenu.name +  ":  cameraPos is NULL");
+			#if DEBUG || UNITY_EDITOR
+				Debug.Log(m_CurrentMenu.name +  ":  cameraPos is NULL");
+			#endif
 		}
 	}
 
@@ -133,7 +144,9 @@ public class MenuManager : MonoBehaviour
 		}
 		else
 		{
-			Debug.Log(m_CurrentMenu.name +  ":  cameraPos is NULL");
+			#if DEBUG || UNITY_EDITOR
+				Debug.Log(m_CurrentMenu.name +  ":  cameraPos is NULL");
+			#endif
 		}
 	}
 
@@ -156,7 +169,9 @@ public class MenuManager : MonoBehaviour
 		}
 		else
 		{
-			Debug.Log ("newMenu is NULL");
+			#if DEBUG || UNITY_EDITOR
+				Debug.Log ("newMenu is NULL");
+			#endif
 		}
 	}
 
@@ -182,7 +197,9 @@ public class MenuManager : MonoBehaviour
 		}
 		else
 		{
-			Debug.Log ("newMenu is NULL");
+			#if DEBUG || UNITY_EDITOR
+				Debug.Log ("newMenu is NULL");
+			#endif
 		}
 	}
 }

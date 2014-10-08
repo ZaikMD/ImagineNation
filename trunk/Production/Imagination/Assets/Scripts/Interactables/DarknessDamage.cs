@@ -3,6 +3,7 @@ using System.Collections;
 
 public class DarknessDamage : MonoBehaviour 
 {
+	//onTriggerEnter damage the destructable if there is one
     void OnTriggerEnter(Collider obj)
     {
         Destructable objDestructable = (Destructable)obj.GetComponentInChildren<Destructable>();
@@ -12,6 +13,7 @@ public class DarknessDamage : MonoBehaviour
         }
     }
 
+	//OnTriggerStay damage the destructable if there is one
     void OnTriggerStay(Collider obj)
     {
         Destructable objDestructable = (Destructable)obj.GetComponentInChildren<Destructable>();

@@ -12,7 +12,9 @@ public class AutoContinueSplashScreen : Menu
 	{
 		if(StartMenu == null)
 		{
-			Debug.Log("No Start Menu set");
+			#if DEBUG || UNITY_EDITOR
+				Debug.Log("No Start Menu set");
+			#endif
 		}
 	}
 	

@@ -31,7 +31,7 @@ public class PlayerSpawner : MonoBehaviour
 	{
 		GameObject currentCheckPoint = null;
 
-
+		//finds the current check point
 		switch(GameData.Instance.CurrentCheckPoint)
 		{
 		case CheckPoints.CheckPoint_1:
@@ -45,12 +45,14 @@ public class PlayerSpawner : MonoBehaviour
 			break;
 		}
 
-
+		//finds the spawn point
 		GameObject spawnPoint = currentCheckPoint.transform.FindChild (PLAYER_ONE_SPAWN_POINT).gameObject;
+
+		//had to give character a value so it wouldnt complain later
 		GameObject character = this.gameObject;
 
 
-
+		//sets the playerOne character
 		switch(GameData.Instance.PlayerOneCharacter)
 		{
 		case Characters.Zoe:
@@ -67,11 +69,14 @@ public class PlayerSpawner : MonoBehaviour
 			character.name = Constants.ALEX_STRING;
 			break;
 		}
+		//finds the players gameObject using the health script (the player game object is a subObject in the prefab)
 		GameObject player = character.GetComponentInChildren (typeof(PlayerHealth)).gameObject;
 
+		//moves the player to the correct position
 		player.transform.position = spawnPoint.transform.position;
         player.GetComponent<AcceptInputFrom>().ReadInputFrom = GameData.Instance.m_PlayerOneInput;
 
+		//same stuff but for player two
 		spawnPoint = currentCheckPoint.transform.FindChild (PLAYER_TWO_SPAWN_POINT).gameObject;
 		switch(GameData.Instance.PlayerTwoCharacter)
 		{
@@ -93,6 +98,8 @@ public class PlayerSpawner : MonoBehaviour
 		
 		player.transform.position = spawnPoint.transform.position;
         player.GetComponent<AcceptInputFrom>().ReadInputFrom = GameData.Instance.m_PlayerTwoInput;
+
+		//this script has done its job and should be deleted now
 		Destroy (this.gameObject);
 	}
 }

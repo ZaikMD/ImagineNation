@@ -3,7 +3,9 @@ using System.Collections;
 
 public class ButtonPickCharacter : MenuButton 
 {		
+	//what player is being picked by this button
 	public Players PlayerToSet = Players.PlayerOne;
+	//what character is this button setting it to
 	public Characters CharacterBeingPicked = Characters.Zoe;
 
 	protected override void start ()
@@ -12,6 +14,8 @@ public class ButtonPickCharacter : MenuButton
 
 	protected override void update ()
 	{
+		//we need an update to set player twos character while player one is pickeing to avoid a dupicate selection
+
         //checks whitch player to set
 		if(PlayerToSet == Players.PlayerOne)
 		{
@@ -53,6 +57,7 @@ public class ButtonPickCharacter : MenuButton
 
 	public override void use ()
 	{
+		//set the correct players character
 		if(PlayerToSet == Players.PlayerOne)
 		{
 			GameData.Instance.PlayerOneCharacter = CharacterBeingPicked;
