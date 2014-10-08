@@ -5,6 +5,9 @@ using GamepadInput;
 
 public static class InputManager
 {
+	const string MOUSE_X_STRING = "Mouse X";
+	const string MOUSE_Y_STRING = "Mouse Y";
+
 	//each input follows the following format
 
 	//Generic functions that read all input for get, down, and up
@@ -638,7 +641,7 @@ public static class InputManager
     #region Generic Inputs
     public static Vector2 getCamera()
     {
-        Vector2 input = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+		Vector2 input = new Vector2(Input.GetAxis(MOUSE_X_STRING), Input.GetAxis(MOUSE_Y_STRING));
         if (input.magnitude == 0)
         {
             return GamePad.GetAxis(GamePad.Axis.LeftStick, GamePad.Index.Any);
@@ -653,7 +656,7 @@ public static class InputManager
         switch (inputToRead)
         {
             case PlayerInput.Keyboard:
-                return new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+			return new Vector2(Input.GetAxis(MOUSE_X_STRING), Input.GetAxis(MOUSE_Y_STRING));
             case PlayerInput.GamePadOne:
                 return GamePad.GetAxis(GamePad.Axis.RightStick, GamePad.Index.One);
 

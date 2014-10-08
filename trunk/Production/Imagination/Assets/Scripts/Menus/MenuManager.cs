@@ -4,7 +4,7 @@ using System.Collections;
 public class MenuManager : MonoBehaviour 
 {
 	public static MenuManager Instance{ get; private set; }
-	
+
 	void Awake()
 	{
 		//if theres another instance (there shouldnt be) destroy this
@@ -22,7 +22,10 @@ public class MenuManager : MonoBehaviour
 	}
 
 	//------------------------------------------------------------------------------
-	
+
+	const string MENU_STRING = "Menu";
+	const string SPLASH_SCREEN_STRING = "Splash Screen";
+
 	Menu m_CurrentMenu;
 
 	Camera MainCamera;
@@ -35,7 +38,7 @@ public class MenuManager : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		MainCamera = (Camera) GameObject.FindGameObjectWithTag("MainCamera").GetComponent(typeof(Camera));
+		MainCamera = (Camera) GameObject.FindGameObjectWithTag(Constants.MAIN_CAMERA_STRING).GetComponent(typeof(Camera));
 
 		if(MainCamera == null)
 		{
@@ -43,7 +46,7 @@ public class MenuManager : MonoBehaviour
 		}
 
 		//get all the menu game objects
-		GameObject[] menus = GameObject.FindGameObjectsWithTag("Menu");
+		GameObject[] menus = GameObject.FindGameObjectsWithTag(MENU_STRING);
 		if(menus.Length != 0)
 		{
 			Menu[] Menus;
@@ -53,7 +56,7 @@ public class MenuManager : MonoBehaviour
 			{
 				//get the menu object
 				Menus[i] = (Menu) menus[i].GetComponent(typeof(Menu));//.GetComponentInChildren(typeof(Menu));
-				if(Menus[i].gameObject.name.CompareTo("Splash Screen") == 0)
+				if(Menus[i].gameObject.name.CompareTo(SPLASH_SCREEN_STRING) == 0)
 				{
 					//if we found the slash screen set it as the current menu
 					m_CurrentMenu = Menus[i];

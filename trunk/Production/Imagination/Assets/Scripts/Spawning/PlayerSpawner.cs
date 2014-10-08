@@ -19,6 +19,9 @@ public class PlayerSpawner : MonoBehaviour
 	}
 	//================================================================================
 
+	const string PLAYER_ONE_SPAWN_POINT = "PlayerOneSpawnPoint";
+	const string PLAYER_TWO_SPAWN_POINT = "PlayerTwoSpawnPoint";
+
 	public GameObject ZoeyPrefab;
 	public GameObject DerekPrefab;
 	public GameObject AlexPrefab;
@@ -32,18 +35,18 @@ public class PlayerSpawner : MonoBehaviour
 		switch(GameData.Instance.CurrentCheckPoint)
 		{
 		case CheckPoints.CheckPoint_1:
-			currentCheckPoint = GameObject.FindGameObjectWithTag("CheckPoint_1");
+			currentCheckPoint = GameObject.FindGameObjectWithTag(Constants.CHECK_POINT_1_STRING);
 			break;
 		case CheckPoints.CheckPoint_2:
-			currentCheckPoint = GameObject.FindGameObjectWithTag("CheckPoint_2");
+			currentCheckPoint = GameObject.FindGameObjectWithTag(Constants.CHECK_POINT_2_STRING);
 			break;
 		case CheckPoints.CheckPoint_3:
-			currentCheckPoint = GameObject.FindGameObjectWithTag("CheckPoint_3");
+			currentCheckPoint = GameObject.FindGameObjectWithTag(Constants.CHECK_POINT_3_STRING);
 			break;
 		}
 
 
-		GameObject spawnPoint = currentCheckPoint.transform.FindChild ("PlayerOneSpawnPoint").gameObject;
+		GameObject spawnPoint = currentCheckPoint.transform.FindChild (PLAYER_ONE_SPAWN_POINT).gameObject;
 		GameObject character = this.gameObject;
 
 
@@ -53,15 +56,15 @@ public class PlayerSpawner : MonoBehaviour
 		case Characters.Zoe:
 			character = (GameObject) GameObject.Instantiate (ZoeyPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
 
-			character.name = "Zoe";
+			character.name = Constants.ZOE_STRING;
 			break;
 		case Characters.Derek:
 			character =  (GameObject) GameObject.Instantiate (DerekPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
-			character.name = "Derek";
+			character.name = Constants.DEREK_STRING;
 			break;
 		case Characters.Alex:
 			character =  (GameObject) GameObject.Instantiate (AlexPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
-			character.name = "Alex";
+			character.name = Constants.ALEX_STRING;
 			break;
 		}
 		GameObject player = character.GetComponentInChildren (typeof(PlayerHealth)).gameObject;
@@ -69,20 +72,20 @@ public class PlayerSpawner : MonoBehaviour
 		player.transform.position = spawnPoint.transform.position;
         player.GetComponent<AcceptInputFrom>().ReadInputFrom = GameData.Instance.m_PlayerOneInput;
 
-		spawnPoint = currentCheckPoint.transform.FindChild ("PlayerTwoSpawnPoint").gameObject;
+		spawnPoint = currentCheckPoint.transform.FindChild (PLAYER_TWO_SPAWN_POINT).gameObject;
 		switch(GameData.Instance.PlayerTwoCharacter)
 		{
 		case Characters.Zoe:
 			character =  (GameObject) GameObject.Instantiate (ZoeyPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
-			character.name = "Zoe";
+			character.name = Constants.ZOE_STRING;
 			break;
 		case Characters.Derek:
 			character =  (GameObject) GameObject.Instantiate (DerekPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
-			character.name = "Derek";
+			character.name = Constants.DEREK_STRING;
 			break;
 		case Characters.Alex:
 			character =  (GameObject) GameObject.Instantiate (AlexPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
-			character.name = "Alex";
+			character.name = Constants.ALEX_STRING;
 			break;
 		}
 

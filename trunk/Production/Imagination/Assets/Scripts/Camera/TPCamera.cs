@@ -6,6 +6,9 @@ using System.Collections.Generic;
 [RequireComponent(typeof(AcceptInputFrom))]
 public class TPCamera : MonoBehaviour
 {
+	const string CAMERA_IGNORE_COLLISION_LAYER = "CameraCollisionIgnore";
+
+
     List<Behaviour> m_Behaviours = new List<Behaviour>();
     AcceptInputFrom m_AcceptInputFrom;
 
@@ -35,13 +38,13 @@ public class TPCamera : MonoBehaviour
         Characters currentCharacter;
         switch (transform.parent.name)
         {
-            case "Alex":
+            case Constants.ALEX_STRING:
                 currentCharacter = Characters.Alex;
                 break;
-            case "Derek":
+            case Constants.DEREK_STRING:
                 currentCharacter = Characters.Derek;
                 break;
-            case "Zoe":
+            case Constants.ZOE_STRING:
                 currentCharacter = Characters.Zoe;
                 break;
             default:
@@ -334,7 +337,7 @@ public class TPCamera : MonoBehaviour
             }
 
             RaycastHit raycastInfo;
-            Physics.Raycast(m_Containing.Player.transform.position, RayDirection, out raycastInfo, raycastDistance, ~(LayerMask.GetMask("Player") | LayerMask.GetMask("CameraCollisionIgnore")));
+            Physics.Raycast(m_Containing.Player.transform.position, RayDirection, out raycastInfo, raycastDistance, ~(LayerMask.GetMask(Constants.PLAYER_STRING) | LayerMask.GetMask(CAMERA_IGNORE_COLLISION_LAYER)));
 
             if (m_Containing.DrawRays)
             {

@@ -21,7 +21,7 @@ public class CheckPoint : MonoBehaviour
 
 	void OnTriggerEnter(Collider obj)
 	{
-		if(obj.tag == "Player")
+		if(obj.tag == Constants.PLAYER_STRING)
 		{
 			GameData.Instance.CurrentCheckPoint = m_Value;
 		}
