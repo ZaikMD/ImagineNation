@@ -218,16 +218,23 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		m_HorizontalAirVelocity = new Vector2(jump.x, jump.z);
 
 	}
-	public void TempTrampolineJump()
+
+	/*15/09/14 Edit: Added TrampolineJump script() - Greg Fortier
+	*
+	*/
+	//Moves the player upwards when the function is called;
+	public void TrampolineJump()
 	{
 		m_VerticalVelocity = 15.0f;
 		Vector3 Movement = new Vector3 (0, (m_VerticalVelocity), 0);
 
+		//Starts decreasing the velocity so that the player does not keep flying upwards
 		if(m_VerticalVelocity > BASE_MAX_FALL_SPEED)
 		{
 			m_VerticalVelocity-= Time.deltaTime * FALL_ACCELERATION;
 		}
 
+		//Moves the player
 		if(m_VerticalVelocity >=0)
 		{
 			m_CharacterController.Move(Movement * Time.deltaTime);
