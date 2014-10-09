@@ -1,6 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
+/// <summary>
+/// Special attack.
+/// 
+/// created by Zach Dubuc
+/// 
+/// The special attack for players, shoots in 360 radius
+/// </summary>
 
+#region ChangeLog
+/*
+* 8/10/2014 Edit: Fully Commented- Zach Dubuc
+*
+* 
+*/
 public class SpecialAttack : BaseAttack
 {
 

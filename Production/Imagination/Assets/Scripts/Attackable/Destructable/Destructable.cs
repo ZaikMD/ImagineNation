@@ -5,6 +5,13 @@ using System.Collections;
 /// 
 /// Destructable is a base class for anything that can be destroyed by a player or enemy.
 /// </summary>
+
+#region ChangeLog
+/*
+* 8/10/2014 Edit: Fully Commented- Zach Dubuc
+*
+* 
+*/
 public class Destructable : MonoBehaviour, Attackable
 {
 

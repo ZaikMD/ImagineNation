@@ -7,6 +7,13 @@ using System.Collections;
 /// 
 /// Give it the type of EnemyProjectile
 /// </summary>
+
+#region ChangeLog
+/*
+* 8/10/2014 Edit: Fully Commented- Zach Dubuc
+*
+* 
+*/
 public class EnemyProjectile : BaseProjectile 
 {
 

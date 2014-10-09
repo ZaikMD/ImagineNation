@@ -29,6 +29,7 @@ public static class Constants
 
     public const string WALL_TAG_STRING = "Wall";
     public const string MOVING_PLATFORM_TAG_STRING = "MovingPlatform";
+	public const string MOVING_BLOCK_TAG_STRING = "MovingBlock";
 
 	public static class Animations
 	{

@@ -1,6 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
+/// <summary>
+/// Dead player manager.
+/// 
+/// Created by Zach Dubuc
+/// 
+/// Manages the dead player and respawns them when appropriate
+/// </summary>
+/// 
 
+#region ChangeLog
+/*
+* 8/10/2014 Edit: Fully Commented and changed strings to constants- Zach Dubuc
+*
+* 
+*/
+#endregion
 public class DeadPlayerManager : MonoBehaviour 
 {
 	public static DeadPlayerManager Instance{ get; private set; }
@@ -59,19 +74,19 @@ public class DeadPlayerManager : MonoBehaviour
 		switch(GameData.Instance.PlayerOneCharacter)
 		{
 		case Characters.Alex:
-			m_PlayerOne = GameObject.FindGameObjectWithTag("Alex");
+			m_PlayerOne = GameObject.FindGameObjectWithTag(Constants.ALEX_STRING);
 			m_PlayerOneHealth = m_PlayerOne.GetComponentInChildren(typeof(PlayerHealth)) as PlayerHealth;
 
 			break;
 
 		case Characters.Derek:
-			m_PlayerOne = GameObject.FindGameObjectWithTag("Derek");
+			m_PlayerOne = GameObject.FindGameObjectWithTag(Constants.DEREK_STRING);
 			m_PlayerOneHealth = m_PlayerOne.GetComponentInChildren(typeof(PlayerHealth)) as PlayerHealth;
 
 			break;
 
 		case Characters.Zoe:
-			m_PlayerOne = GameObject.FindGameObjectWithTag("Zoe");
+			m_PlayerOne = GameObject.FindGameObjectWithTag(Constants.ZOE_STRING);
 			m_PlayerOneHealth = m_PlayerOne.GetComponentInChildren(typeof(PlayerHealth)) as PlayerHealth;
 
 			break;
@@ -80,19 +95,19 @@ public class DeadPlayerManager : MonoBehaviour
 		switch(GameData.Instance.PlayerTwoCharacter)
 		{
 		case Characters.Alex:
-			m_PlayerTwo = GameObject.FindGameObjectWithTag("Alex");
+			m_PlayerTwo = GameObject.FindGameObjectWithTag(Constants.ALEX_STRING);
 			m_PlayerTwoHealth = m_PlayerTwo.GetComponentInChildren(typeof(PlayerHealth)) as PlayerHealth;
 
 			break;
 			
 		case Characters.Derek:
-			m_PlayerTwo = GameObject.FindGameObjectWithTag("Derek");
+			m_PlayerTwo = GameObject.FindGameObjectWithTag(Constants.DEREK_STRING);
 			m_PlayerTwoHealth = m_PlayerTwo.GetComponentInChildren(typeof(PlayerHealth)) as PlayerHealth;
 
 			break;
 			
 		case Characters.Zoe:
-			m_PlayerTwo = GameObject.FindGameObjectWithTag("Zoe");
+			m_PlayerTwo = GameObject.FindGameObjectWithTag(Constants.ZOE_STRING);
 			m_PlayerTwoHealth = m_PlayerTwo.GetComponentInChildren(typeof(PlayerHealth)) as PlayerHealth;
 
 			break;

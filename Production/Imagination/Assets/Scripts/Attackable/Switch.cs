@@ -12,7 +12,7 @@ using System.Collections;
 /// 
 /// 19/09/14 Matthew Whitlaw EDIT: Added a getActive function
 /// 22/09/14 Zach Dubuc EDIT: Added a material when the switch is active/inactive
-/// 
+/// 08/10/2014 Zach Dubuc EDIT: Added in comments
 public class Switch : SwitchBaseClass, Attackable
 {
     //Bools

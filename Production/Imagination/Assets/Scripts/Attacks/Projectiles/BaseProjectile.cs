@@ -7,6 +7,14 @@ using System.Collections;
 /// The projectile that the attacks use.
 /// 
 /// </summary>
+
+#region ChangeLog
+/*
+* 8/10/2014 Edit: Fully Commented- Zach Dubuc
+*
+* 
+*/
+
 public class BaseProjectile : MonoBehaviour 
 {
 
