@@ -34,14 +34,18 @@ public class SpinTop : BaseEnemy
 	FightStates m_FightState;
 
 	float m_WobbleTimer;
-	float m_MaxWobbleTime;
+	public float m_MaxWobbleTime;
 
 	float m_KnockBackTimer;
-	float m_MaxKnockBackTime;
+	public float m_MaxKnockBackTime;
+
+	float m_HitByPlayerTimer;
+	public float m_MaxTimeAfterHitByPlayer;
+
+	public float m_ChargeSpeed;
 
 	float m_ChargeTimer;
 	float m_ChargeBuildUpTime;
-	float m_ChargeSpeed;
 	bool m_IsCharging;
 	Vector3 m_ChargeDirection;
 	Vector3 m_ChargeToPosition;
@@ -53,6 +57,7 @@ public class SpinTop : BaseEnemy
 	public float m_DistanceFromChargeToPosition;
 
 	bool m_PlayerHit;
+	Vector3 m_DirectionHitByPlayer;
 
 	//The enum of fightstates for the enemy fight state
 	private enum FightStates
@@ -60,7 +65,8 @@ public class SpinTop : BaseEnemy
 		Wobble,
 		Charge,
 		BuildingUpCharge,
-		KnockedBack
+		KnockedBack,
+		HitByPlayer
 	}
 
 	void Start () 
@@ -79,6 +85,9 @@ public class SpinTop : BaseEnemy
 
 		m_MaxKnockBackTime = 1.0f;
 		m_KnockBackTimer = m_MaxKnockBackTime;
+
+		m_MaxTimeAfterHitByPlayer = 1.0f;
+		m_HitByPlayerTimer = m_MaxTimeAfterHitByPlayer;
 
 		m_ChargeTimer = 0.0f;
 		m_ChargeBuildUpTime = 1.0f;
@@ -116,6 +125,9 @@ public class SpinTop : BaseEnemy
 			break;
 		case FightStates.KnockedBack:
 			KnockedBack ();
+			break;
+		case FightStates.HitByPlayer:
+			HitByPlayer();
 			break;
 		default:
 			break;
@@ -235,11 +247,31 @@ public class SpinTop : BaseEnemy
 		}
 	}
 
+	void HitByPlayer()
+	{
+		//Set the destination to the spin top itself
+		m_Agent.SetDestination (transform.position);
+		
+		//Check the timer
+		if(m_HitByPlayerTimer > 0.0f)
+		{
+			//If Move in the opposite direction that the player's projectile came from.
+			m_HitByPlayerTimer -= Time.deltaTime;
+			transform.position -= m_DirectionHitByPlayer.normalized * Time.deltaTime * 5.0f;
+		}
+		else
+		{
+			//If the timer is over then reset the timer and go into building up charge
+			m_HitByPlayerTimer = m_MaxTimeAfterHitByPlayer;
+			m_FightState = FightStates.BuildingUpCharge;
+		}
+	}
+
 	void OnTriggerEnter(Collider other)
 	{
 		//If the player enters the trigger set player hit to true and get their destructible component 
 		//to be able to call their onhit function and apply damage.
-		if(other.tag == "Player")
+		if(other.tag == Constants.PLAYER_STRING)
 		{
 			m_PlayerHit = true;
 			Destructable destructableObj = (Destructable)other.GetComponentInChildren<Destructable> ();
@@ -253,7 +285,7 @@ public class SpinTop : BaseEnemy
 	void OnTriggerExit(Collider other)
 	{
 		//Reset player hit if the player exits the trigger
-		if(other.tag == "Player")
+		if(other.tag == Constants.PLAYER_STRING)
 		{
 			m_PlayerHit = false;
 		}
@@ -263,9 +295,10 @@ public class SpinTop : BaseEnemy
 	{
 		if(m_FightState == FightStates.Wobble)
 		{
-			//If the spin top is in the wobble state call on hit and set the state to knockedback
+			//If the spin top is in the wobble state call on hit and set the state to HitByPlayer
 			base.onHit (proj);
-			m_FightState = FightStates.KnockedBack;
+			m_DirectionHitByPlayer = m_Target.position - transform.position;
+			m_FightState = FightStates.HitByPlayer;
 		}
 	}
 
