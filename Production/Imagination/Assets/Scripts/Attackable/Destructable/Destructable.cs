@@ -12,6 +12,7 @@ using System.Collections;
 *
 * 
 */
+#endregion
 public class Destructable : MonoBehaviour, Attackable
 {
 

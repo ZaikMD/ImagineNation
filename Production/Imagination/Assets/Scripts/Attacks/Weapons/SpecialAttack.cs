@@ -14,6 +14,7 @@ using System.Collections;
 *
 * 
 */
+#endregion
 public class SpecialAttack : BaseAttack
 {
 

@@ -12,6 +12,7 @@ using System.Collections;
 *
 * 
 */
+#endregion
 public class BaseAttack : MonoBehaviour 
 {
 	protected GameObject m_Projectile;
