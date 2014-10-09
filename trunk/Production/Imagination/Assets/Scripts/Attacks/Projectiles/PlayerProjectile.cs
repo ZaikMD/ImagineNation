@@ -7,6 +7,13 @@ using System.Collections;
 /// 
 /// Makes it typeof PlayerProjectile
 /// </summary>
+
+#region ChangeLog
+/*
+* 8/10/2014 Edit: Fully Commented- Zach Dubuc
+*
+* 
+*/
 public class PlayerProjectile : BaseProjectile 
 {
 	void OnTriggerEnter( Collider obj)

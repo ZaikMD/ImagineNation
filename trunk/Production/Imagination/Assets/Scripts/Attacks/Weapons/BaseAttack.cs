@@ -4,6 +4,14 @@ using System.Collections;
 /// Base attack.
 /// Created by Zach Dubuc
 /// </summary>
+/// 
+
+#region ChangeLog
+/*
+* 8/10/2014 Edit: Fully Commented and changed strings to constants- Zach Dubuc
+*
+* 
+*/
 public class BaseAttack : MonoBehaviour 
 {
 	protected GameObject m_Projectile;

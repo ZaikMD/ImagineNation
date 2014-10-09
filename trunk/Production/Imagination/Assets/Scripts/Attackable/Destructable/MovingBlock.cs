@@ -10,6 +10,13 @@ using System.Collections;
 /// Moving blocks will move when a player hits them with an attack.
 /// </summary>
 
+#region ChangeLog
+/*
+* 8/10/2014 Edit: Fully Commented and changed strings to constants- Zach Dubuc
+*
+* 
+*/
+
 [RequireComponent(typeof (CharacterController))]
 
 public class MovingBlock : Destructable
@@ -128,7 +135,7 @@ public class MovingBlock : Destructable
 	{
 		if(!m_Hit)
 		{
-			if(obj.gameObject.tag == "PlayerProjectile") //If the object is a playerProjectile, call setDestination and pass in the gameobject
+			if(obj.gameObject.tag == Constants.PLAYER_PROJECTILE_STRING) //If the object is a playerProjectile, call setDestination and pass in the gameobject
 			{
 				
 				setDestination (obj.gameObject);
