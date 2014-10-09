@@ -155,6 +155,15 @@ public class SFXManager : MonoBehaviour
 		m_AlexJump = (AudioClip)Resources.Load (Constants.Sounds.ALEX_JUMP);
 		
 		//Derek Sounds
+<<<<<<< .mine
+		m_DerekHitOne = (AudioClip)Resources.Load ("Sounds/Derek/Derek_First_Hit");
+		m_DerekHitTwo = (AudioClip)Resources.Load ("Sounds/Derek/Derek_Second_Hit");
+		m_DerekHitThree = (AudioClip)Resources.Load ("Sounds/Derek/Derek_Third_Hit");
+		m_DerekHurt = (AudioClip)Resources.Load ("Sounds/Common/Derek_Painful_Grunt");
+		m_DerekJump = (AudioClip)Resources.Load ("Sounds/Derek/Derek_Jump");
+
+
+=======
 		m_DerekHitOne = (AudioClip)Resources.Load (Constants.Sounds.DEREK_FIRST_WEAPON_HIT);
 		m_DerekHitTwo = (AudioClip)Resources.Load (Constants.Sounds.DEREK_SECOND_WEAPON_HIT);
 		m_DerekHitThree = (AudioClip)Resources.Load (Constants.Sounds.DEREK_THIRD_WEAPON_HIT);
@@ -163,7 +172,19 @@ public class SFXManager : MonoBehaviour
 		m_DerekJump = (AudioClip)Resources.Load (Constants.Sounds.DEREK_JUMP);
 		
 		
+>>>>>>> .r794
 		//Zoey Sounds
+<<<<<<< .mine
+		m_ZoeyHitOne = (AudioClip)Resources.Load ("Sounds/Zoey/Zoey_First_Hit");
+		m_ZoeyHitTwo = (AudioClip)Resources.Load ("Sounds/Zoey/Zoey_Second_Hit");
+		m_ZoeyHitThree = (AudioClip)Resources.Load ("Sounds/Zoey/Zoey_Third_Hit");
+		m_ZoeyHurt = (AudioClip)Resources.Load ("Sounds/Zoey/Zoey_Painful_Grunt");
+		m_ZoeyDeath = (AudioClip)Resources.Load ("Sounds/Zoey/Zoey_Death");
+		m_ZoeyJump = (AudioClip)Resources.Load ("Sounds/Zoey/Zoey_Jump");
+		m_ZoeyWingsOpen = (AudioClip)Resources.Load ("Sounds/Zoey/Wings_Open");
+		m_ZoeyWingsClose = (AudioClip)Resources.Load ("Sounds/Zoey/Wings_Close");
+		m_ZoeyWingsDeploy = (AudioClip)Resources.Load ("Sounds/Zoey/Wings_Deploy");
+=======
 		m_ZoeyHitOne = (AudioClip)Resources.Load (Constants.Sounds.ZOEY_FIRST_WEAPON_HIT);
 		m_ZoeyHitTwo = (AudioClip)Resources.Load (Constants.Sounds.ZOEY_SECOND_WEAPON_HIT);
 		m_ZoeyHitThree = (AudioClip)Resources.Load (Constants.Sounds.ZOEY_THIRD_WEAPON_HIT);
@@ -173,7 +194,12 @@ public class SFXManager : MonoBehaviour
 		m_ZoeyWingsOpen = (AudioClip)Resources.Load (Constants.Sounds.ZOEY_WINGS_OPEN);
 		m_ZoeyWingsClose = (AudioClip)Resources.Load (Constants.Sounds.ZOEY_WINGS_CLOSE);
 		m_ZoeyWingsDeploy = (AudioClip)Resources.Load (Constants.Sounds.ZOEY_WINGS_DEPLOY);
+>>>>>>> .r794
 
+<<<<<<< .mine
+
+=======
+>>>>>>> .r794
     }
 
 
@@ -220,6 +246,17 @@ public class SFXManager : MonoBehaviour
 
 	
 		//Zoey Sounds
+<<<<<<< .mine
+		m_ZoeyHitOne = (AudioClip)Resources.Load ("Sounds/Zoey/Zoey_First_Hit");
+		m_ZoeyHitTwo = (AudioClip)Resources.Load ("Sounds/Zoey/Zoey_Second_Hit");
+		m_ZoeyHitThree = (AudioClip)Resources.Load ("Sounds/Zoey/Zoey_Third_Hit");
+		m_ZoeyHurt = (AudioClip)Resources.Load ("Sounds/Zoey/Zoey_Painful_Grunt");
+		m_ZoeyDeath = (AudioClip)Resources.Load ("Sounds/Zoey/Zoey_Death");
+		m_ZoeyJump = (AudioClip)Resources.Load ("Sounds/Zoey/Zoey_Jump");
+		m_ZoeyWingsOpen = (AudioClip)Resources.Load ("Sounds/Zoey/Wings_Open");
+		m_ZoeyWingsClose = (AudioClip)Resources.Load ("Sounds/Zoey/Wings_Close");
+		m_ZoeyWingsDeploy = (AudioClip)Resources.Load ("Sounds/Zoey/Wings_Deploy");
+=======
 		m_ZoeyHitOne = (AudioClip)Resources.Load (Constants.Sounds.ZOEY_FIRST_WEAPON_HIT);
 		m_ZoeyHitTwo = (AudioClip)Resources.Load (Constants.Sounds.ZOEY_SECOND_WEAPON_HIT);
 		m_ZoeyHitThree = (AudioClip)Resources.Load (Constants.Sounds.ZOEY_THIRD_WEAPON_HIT);
@@ -229,6 +266,7 @@ public class SFXManager : MonoBehaviour
 		m_ZoeyWingsOpen = (AudioClip)Resources.Load (Constants.Sounds.ZOEY_WINGS_OPEN);
 		m_ZoeyWingsClose = (AudioClip)Resources.Load (Constants.Sounds.ZOEY_WINGS_CLOSE);
 		m_ZoeyWingsDeploy = (AudioClip)Resources.Load (Constants.Sounds.ZOEY_WINGS_DEPLOY);
+>>>>>>> .r794
 
 	}
 

@@ -16,7 +16,7 @@ using System.Collections;
 *
 * 
 */
-
+#endregion
 [RequireComponent(typeof (CharacterController))]
 
 public class MovingBlock : Destructable
