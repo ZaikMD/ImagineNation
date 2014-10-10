@@ -2,6 +2,19 @@
 using System.Collections;
 using System.Collections.Generic;
 
+/*
+ * Created by Mathieu Elias
+ * Date: Sept 29, 2014
+ *  
+ * This script handles the functionality of the Gnome Mage enemy
+ * 
+ */
+#region ChangeLog
+/* 
+ * 
+ */
+#endregion
+
 public class GnomeMage : BaseEnemy 
 {
 	private enum FightStates

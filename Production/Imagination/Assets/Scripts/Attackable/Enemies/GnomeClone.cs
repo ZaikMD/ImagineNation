@@ -1,6 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/*
+ * Created by Mathieu Elias
+ * Date: Sept 29, 2014
+ *  
+ * This script handles the functionality of the Gnome Mages clones
+ * 
+ */
+#region ChangeLog
+/* 
+ * 
+ */
+#endregion
+
 public class GnomeClone : MonoBehaviour 
 {
 	private Transform m_Target;
