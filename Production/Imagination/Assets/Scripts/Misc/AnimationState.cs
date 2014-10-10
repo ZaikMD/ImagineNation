@@ -33,7 +33,7 @@ public enum AnimationStates
 
 public class AnimationState : MonoBehaviour {
 
-	AnimationState m_CurrentState;
+	AnimationStates m_CurrentState;
 	float m_AnimTimer;
 
 	// Use this for initialization
