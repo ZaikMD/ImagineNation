@@ -186,22 +186,26 @@ public class DeadPlayerManager : MonoBehaviour
 						
 					if(getPlayerRespawnLocation(m_AlivePlayerHealth.gameObject)) //If so, check to see if the player is in a valid location to respawn beside
 					{
-						m_DeadPlayerHealth.resetHealth(); //Reset player health
-						m_DeadPlayerHealth.gameObject.transform.position = m_RespawnLocation; //Respawn player
-						finder.SetSearchForRespawnLayer(false); //Set looking for a respawn layer to false
 
-						m_RespawnTimer = RESPAWN_TIMER; //Reset respawn timer
-							
-						m_OnePlayerDead = false; //Reset bools
-					
-						if(m_DeadPlayerHealth == m_OnePlayerDead)
+						if(finder.GetRespawnLayerFound()) //Check again just in case they have moved off a layer
 						{
-							m_PlayerOneDead = false;							
-						}
+							m_DeadPlayerHealth.resetHealth(); //Reset player health
+							m_DeadPlayerHealth.gameObject.transform.position = m_RespawnLocation; //Respawn player
+							finder.SetSearchForRespawnLayer(false); //Set looking for a respawn layer to false
 
-						else
-						{
-							m_PlayerTwoDead = false;
+							m_RespawnTimer = RESPAWN_TIMER; //Reset respawn timer
+								
+							m_OnePlayerDead = false; //Reset bools
+						
+							if(m_DeadPlayerHealth == m_OnePlayerDead)
+							{
+								m_PlayerOneDead = false;							
+							}
+
+							else
+							{
+								m_PlayerTwoDead = false;
+							}
 						}
 					}
 				}
