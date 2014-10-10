@@ -101,7 +101,7 @@ public class PlayerHealth : Destructable
         //setting the current texture
 		m_GUITexture.texture = textures [m_Health];
 
-		m_GUITexture.pixelInset = new Rect (0.0f, Screen.height / 2.0f - textures [m_Health].height, textures [m_Health].width, textures [m_Health].height);
+		m_GUITexture.pixelInset = new Rect (0.0f, Screen.height - textures [m_Health].height, textures [m_Health].width, textures [m_Health].height);
 	}
 	
 	// Update is called once per frame
