@@ -264,7 +264,7 @@ public class SFXManager : MonoBehaviour
 			break;
 
 			default:
-#if DEBUG
+#if DEBUG || UNITY_EDITOR
 			Debug.LogError("Enum is out of range");
 #endif
 			return null;
@@ -298,7 +298,7 @@ public class SFXManager : MonoBehaviour
 		//Safety check to make sure we have a sound
 		if (tempSoundInfo.m_AudioClip == null)
         {
-#if DEBUG
+#if DEBUG || UNITY_EDITOR
             Debug.LogError("no Sound matching that name");
 #endif
 			return;
@@ -340,7 +340,7 @@ public class SFXManager : MonoBehaviour
 		//Safety check to make sure we have a sound
 		if (tempSoundInfo.m_AudioClip == null)
 		{
-#if DEBUG
+#if DEBUG || UNITY_EDITOR
 			Debug.LogError("no Sound matching that name");
 #endif
 			return;
@@ -606,7 +606,7 @@ public class SFXManager : MonoBehaviour
 
 
 		default:
-#if DEBUG
+#if DEBUG || UNITY_EDITOR
 			Debug.LogError("No regonized sound passed in");
 #endif
 			return tempAudioInfo;
