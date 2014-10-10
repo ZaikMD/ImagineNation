@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 /*
  * Created by: Kole Tackney
+ * Date: 10, 10, 2014
  * 
  * This script will take request from other scripts to play animations
  * If available it will return that animation to the object calling it.
@@ -33,23 +35,47 @@ public enum AnimationStates
 
 public class AnimationState : MonoBehaviour {
 
-	AnimationStates m_CurrentState;
-	float m_AnimTimer;
+	public List<AnimationStates> m_CurrentStates;
+	public float m_AnimTimer;
+	public bool m_Grounded;
+	public bool m_Jumping;
 
 	// Use this for initialization
 	void Start ()
 	{
-	
-
-
+		m_CurrentStates = new List<AnimationStates>();
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
+		if(m_AnimTimer > 0)
+		{
+			m_AnimTimer -= Time.deltaTime;
+		}
 
+	}
 
-	
+	public void AddAnimRequest(AnimationStates AnimState)
+	{
+		m_CurrentStates.Add(AnimState);
+	}
+
+	private void EmptyAnimRequest()
+	{
+		m_CurrentStates.Clear();	
+	}
+
+	public string GetAnimation ()
+	{
+		if(m_Grounded)
+		{
+			return Constants.Animations.IDLE;
+		}
+		else
+		{
+			return Constants.Animations.FALLING;
+		}
 	}
 
 
@@ -63,8 +89,10 @@ public class AnimationState : MonoBehaviour {
 		
 		case Constants.Animations.IDLE:
 			{
-				
-				return Constants.Animations.IDLE;
+				//if(m_CurrentState == AnimationStates.Jump || m_CurrentState == AnimationStates.Falling || m_CurrentState == AnimationStates.Gliding)
+
+					return Constants.Animations.IDLE;
+
 				break;
 			}
 
@@ -84,7 +112,7 @@ public class AnimationState : MonoBehaviour {
 		case Constants.Animations.JUMP:
 			{
 				//check if we can jump
-				m_CurrentState = AnimationStates.Jump;
+			//	m_CurrentState = AnimationStates.Jump;
 				return Constants.Animations.JUMP;
 				break;
 			}
@@ -92,8 +120,9 @@ public class AnimationState : MonoBehaviour {
 		case Constants.Animations.FALLING:
 			{
 				//check if we can fall
-				return Constants.Animations.FALLING;
-				break;
+
+					return Constants.Animations.FALLING;
+					break;
 			}
 
 		case Constants.Animations.GLIDING:
