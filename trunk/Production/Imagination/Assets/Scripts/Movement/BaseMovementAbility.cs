@@ -139,8 +139,6 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			AirMovement();
 			
 		}
-
-
 	}
 
 	//Moves the player based on the facing angle of the camera and the players input

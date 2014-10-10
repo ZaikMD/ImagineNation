@@ -12,8 +12,8 @@ using System.Collections;
  */
 #region ChangeLog
 /* 
- * 
- */
+ * kris matis 10/10/2014: made the furbulls turn towards you in combat
+ */ 
 #endregion
 
 public class Furbull : BaseEnemy 
@@ -52,6 +52,10 @@ public class Furbull : BaseEnemy
         //Check our target
         if (m_Target != null)
         {
+			Vector3 targetpos = m_Target.position;
+			targetpos.y = transform.position.y;
+			transform.forward = Vector3.Lerp(transform.forward,  targetpos - transform.position, 0.05f);
+
             //If our target isn't null we check our attack timer
             if (m_AttackTimer <= 0.0f)
             {
