@@ -71,7 +71,13 @@ public class MenuManagerV2 : MonoBehaviour
     public GUITexture Shutter;
     GUITexture m_Shutter;
 
-    ChangeMenuAnimation m_ChangeMenuAnimation;
+    bool ShutterUp = false;
+    bool Teleported = false;
+    bool ShutterDown = false;
+
+    const float SHUTTER_SPEED = 0.5f;
+    const float SHUTTER_UP_DELAY = 0.3f;
+    float m_Timer = SHUTTER_SPEED;
 
     // Use this for initialization
 	void Start ()
@@ -109,6 +115,8 @@ public class MenuManagerV2 : MonoBehaviour
         #region Change Menu Animation
         m_ChangeMenuAnimation = new ChangeMenuAnimation(this);
         #endregion
+
+        resetShutterVariables();
     }
 	
 	// Update is called once per frame
@@ -121,9 +129,10 @@ public class MenuManagerV2 : MonoBehaviour
         else
         {
             
-            if(!m_ChangeMenuAnimation.getIsDone())
+            if(!getIsShutterDone())
             {
                 //update the change animation
+                updateShutter();
             }
             else
             {
@@ -148,62 +157,46 @@ public class MenuManagerV2 : MonoBehaviour
     {
         m_CurrentMenu = m_NextMenu;
         m_NextMenu = null;
-        m_ChangeMenuAnimation.reset();
+        resetShutterVariables();
     }
 
-    protected class ChangeMenuAnimation
-    {
-        MenuManagerV2 m_Container;
         
-        public bool ShutterUp { get; private set; }
-        public bool Teleported { get; private set; }
-        public bool ShutterDown { get; private set; }
-
-        const float SHUTTER_SPEED = 0.5f;
-        const float SHUTTER_UP_DELAY = 0.3f;
-        float m_Timer = SHUTTER_SPEED;
-
-        public ChangeMenuAnimation(MenuManagerV2 container)
+    void updateShutter()
+    {
+        if (!ShutterUp)
         {
-            m_Container = container;
-            reset();
-        }
+            //rotate texture over screen
 
-        public void update()
+            float rotationAmount = Mathf.Clamp01(m_Timer / SHUTTER_SPEED);
+            rotationAmount = 1 - rotationAmount;
+
+        }
+        else if (!Teleported)
         {
-            if (!ShutterUp)
-            {
-                //rotate texture over screen
+            //teleprt camera here
 
-                float rotationAmount = Mathf.Clamp01(m_Timer / SHUTTER_SPEED);
-                rotationAmount = 1 - rotationAmount;
-
-            }
-            else if (!Teleported)
-            {
-                //teleprt camera here
-
-                m_Timer = SHUTTER_SPEED + SHUTTER_UP_DELAY;
-            }
-            else if (!ShutterDown)
-            {
-                //rotate shuter down here
-            }
+            m_Timer = SHUTTER_SPEED + SHUTTER_UP_DELAY;
         }
-
-        public void reset()
+        else if (!ShutterDown)
         {
-            ShutterUp = false;
-            Teleported = false;
-            ShutterDown = false;
+            //rotate shuter down here
 
-            m_Timer = SHUTTER_SPEED;
+            float rotationAmount = Mathf.Clamp01(m_Timer / SHUTTER_SPEED);
         }
+    }
 
-        public bool getIsDone()
-        {
-            return ShutterUp || Teleported || ShutterDown;
-        }
+    void resetShutterVariables()
+    {
+        ShutterUp = false;
+        Teleported = false;
+        ShutterDown = false;
+
+        m_Timer = SHUTTER_SPEED;
+    }
+
+    bool getIsShutterDone()
+    {
+        return ShutterUp || Teleported || ShutterDown;
     }
 }
 
