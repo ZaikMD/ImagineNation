@@ -80,7 +80,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		//m_Camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
 		m_Anim = GetComponent<Animation>();
 
-		m_AnimState = new AnimationState ();
+		m_AnimState = GetComponent<AnimationState>();
 
         m_SFX = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SFXManager>();
 
@@ -96,7 +96,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	protected void Update () 
 	{
 		//Plays a walking animation
-        PlayAnimation();
+      //  PlayAnimation();
 
 		//If at any point the jump button is released the player is
 		//no longer currently jumping
@@ -147,7 +147,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//Moves the player based on the facing angle of the camera and the players input
 	protected void GroundMovement()
 	{
-		
+		PlayAnimation ();
 		//if we do not have any values, no need to continue
 		if (InputManager.getMove(m_AcceptInputFrom.ReadInputFrom) == Vector2.zero)
 		{
@@ -189,6 +189,10 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//Sets the vertical velocity to a pre-determined jump speed, and our horizontal air movement to our current running speed
 	protected virtual void Jump()
 	{
+		m_Anim.Play (m_AnimState.PlayAnimation (Constants.Animations.JUMP));
+		m_AnimState.m_Jumping = true;
+		m_AnimState.m_AnimTimer = 0.25f;
+		Debug.Log(m_Anim.clip.length);
 		m_VerticalVelocity = JUMP_SPEED;
 		m_CurrentlyJumping = true;
 
@@ -252,6 +256,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//Then we move the player
 	protected virtual void AirMovement()
 	{
+		m_Anim.Play (m_AnimState.PlayAnimation (Constants.Animations.FALLING));
 		Vector3 Movement = new Vector3(m_HorizontalAirVelocity.x, 0, m_HorizontalAirVelocity.y);
 		if (InputManager.getMove(m_AcceptInputFrom.ReadInputFrom) != Vector2.zero)
 		{

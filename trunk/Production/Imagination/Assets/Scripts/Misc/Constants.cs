@@ -31,7 +31,7 @@ public static class Constants
     public const string MOVING_PLATFORM_TAG_STRING = "MovingPlatform";
 	public const string MOVING_BLOCK_TAG_STRING = "MovingBlock";
 
-	public static class Animations
+	public struct Animations
 	{
 		public const string IDLE = "Idle";
 		public const string WALK = "Walk";
