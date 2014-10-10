@@ -35,6 +35,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//Other objects this class needs
 	public Transform m_Camera;
 	public Animation m_Anim;
+	protected AnimationState m_AnimState;
     protected SFXManager m_SFX;
 	protected CharacterController m_CharacterController;
 	protected AcceptInputFrom m_AcceptInputFrom;
@@ -78,6 +79,8 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		m_CharacterController = GetComponent<CharacterController> ();
 		//m_Camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
 		m_Anim = GetComponent<Animation>();
+
+		m_AnimState = new AnimationState ();
 
         m_SFX = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SFXManager>();
 
@@ -341,7 +344,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
     {
         if (InputManager.getMove(m_AcceptInputFrom.ReadInputFrom) == Vector2.zero)
         {
-            m_Anim.Play(Constants.Animations.IDLE);
+			m_Anim.Play(m_AnimState.PlayAnimation(Constants.Animations.IDLE));
             if (m_SFX != null)
             {
               // m_SFX.stopSound(this.gameObject);
@@ -355,7 +358,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
             && InputManager.getMove(m_AcceptInputFrom.ReadInputFrom).y > -0.3f)
         {
 
-            m_Anim.Play(Constants.Animations.WALK);
+			m_Anim.Play(m_AnimState.PlayAnimation(Constants.Animations.WALK));
             if (m_SFX != null)
             {
                 m_SFX.playSound(this.gameObject, Sounds.Walk);
@@ -363,7 +366,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
                 return;
         }
 
-        m_Anim.Play(Constants.Animations.RUN);
+        m_Anim.Play(m_AnimState.PlayAnimation(Constants.Animations.RUN));
         if (m_SFX != null)
         {
             m_SFX.playSound(this.gameObject, Sounds.Run);
