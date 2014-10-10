@@ -10,6 +10,7 @@
 /*
 * 8/10/2014 Edit: Fully Commented - Kris Matis.
 *
+* 10/102014 Edit: no longer has an internal class - Kris MAtis
 * 
 */
 #endregion
