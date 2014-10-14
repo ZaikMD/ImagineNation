@@ -30,7 +30,7 @@ public class Trampoline : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-		if (other.tag == "Player")
+		if (other.tag == Constants.PLAYER_STRING)
 		{
 			m_baseMove = other.gameObject.GetComponent<BaseMovementAbility>();
 			m_baseMove.TrampolineJump();

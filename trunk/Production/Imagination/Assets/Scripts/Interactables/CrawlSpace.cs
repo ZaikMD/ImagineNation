@@ -16,7 +16,11 @@ using System.Collections;
 public class CrawlSpace : MonoBehaviour 
 {
 	//Arrays are for member variables that need to be different from each other because they are used for individual players, so Element 0 is for player 1
-	public float Delay = 3.0f;
+	//used to determine if the player should be delayed when going through crawlspace
+	float m_DelayChecker = 2.5f;
+	float m_DelayValue = 0.5f;
+	
+	public float m_DelayTimer = 3.0f;
 	public float[] m_CrawlDelay = new float[2];
 
 	public CrawlSpace m_OtherCrawlSpace;
@@ -25,6 +29,8 @@ public class CrawlSpace : MonoBehaviour
 	CharacterController[] m_Players = new CharacterController[2];
 
 	int m_InComingPlayers = 0;
+
+
 
 	public void addIncomingPlayer()
 	{
@@ -74,19 +80,19 @@ public class CrawlSpace : MonoBehaviour
 		if(m_InComingPlayers == 0)
 		{
 			//if the OnTrigger enter was a player
-			if (other.tag == "Player")
+			if (other.tag == Constants.PLAYER_STRING)
 			{
 				//Null check on the player CharacterController, happens if the first element is NULL
 				if (m_Players[0] == null)
 				{
 					//if timer number 2 has more than 2.5 seconds left, Delay the timer incase of problems where players spawn in other players
-					if(m_CrawlDelay[1] > 2.5f)
+					if(m_CrawlDelay[1] > m_DelayChecker)
 					{
-						m_CrawlDelay[0] = Delay + 0.5f;
+						m_CrawlDelay[0] = m_DelayTimer + m_DelayValue;
 					}
 					else
 					{
-						m_CrawlDelay[0] = Delay;
+						m_CrawlDelay[0] = m_DelayTimer;
 					}
 
 					//sets the first character controller element to the typeof charactercontroller
@@ -98,13 +104,13 @@ public class CrawlSpace : MonoBehaviour
 				//Happens when the first m_player controller is not null, (if the first element is not null we know its a second player entering the crawlspace
 				else
 				{
-					if(m_CrawlDelay[0] > 2.5f)
+					if(m_CrawlDelay[0] > m_DelayChecker)
 					{
-						m_CrawlDelay[1] = Delay + 0.5f;
+						m_CrawlDelay[1] = m_DelayTimer + m_DelayValue;
 					}
 					else
 					{
-						m_CrawlDelay[1] = Delay;
+						m_CrawlDelay[1] = m_DelayTimer;
 					}
 					//sets the second character controller element to the typeof charactercontroller (which player it is)
 					m_Players[1] = (CharacterController)other.GetComponent(typeof (CharacterController));
@@ -119,12 +125,11 @@ public class CrawlSpace : MonoBehaviour
 	{
 		if(m_Players[0] == null && m_Players[1] ==null)
 		{
-			if(other.gameObject.tag == "Player")
+			if(other.gameObject.tag == Constants.PLAYER_STRING)
 			{
 				if(m_InComingPlayers > 0)
 				{
 					m_InComingPlayers--;
-					//Debug.Log(gameObject.name + "    " + m_InComingPlayers);
 				}
 			}
 		}
