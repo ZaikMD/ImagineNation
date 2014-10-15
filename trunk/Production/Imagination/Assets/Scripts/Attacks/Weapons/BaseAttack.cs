@@ -31,10 +31,13 @@ public class BaseAttack : MonoBehaviour
 	protected Vector3 m_InitialPosition;
 	protected Quaternion m_InitialRotation;
 
+	protected float m_FirePointYOffSet = 1.0f;
+
+
 	// Use this for initialization
 	void Start () 
 	{
-
+	
 	}
 	
 	// Update is called once per frame
@@ -120,6 +123,6 @@ public class BaseAttack : MonoBehaviour
 	public virtual void createProjectile()
 	{
 
-		Instantiate (m_Projectile,m_InitialPosition, m_InitialRotation);
+		Instantiate (m_Projectile,new Vector3(m_InitialPosition.x, m_InitialPosition.y + m_FirePointYOffSet, m_InitialPosition.z), m_InitialRotation);
 	}
 }
