@@ -16,7 +16,11 @@
 /// Wobble - if the spin top missed the player then it pauses for a certain
 /// amount of time allowing the player to inflict damage
 /// 
-/// Knockedback - occurs when the top was hit or hits the player
+/// Knockedback - occurs when the top hits the player, applies a knockback to the
+/// spin top
+/// 
+/// HitByPlayer - occurs when the Spin Top is successfully hit by player,
+/// applies a knockback
 /// 
 /// This script also handles the OnTriggerEnter and OnTriggerExit with the player.
 
@@ -26,13 +30,14 @@
 using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(CharacterController))]
 public class SpinTop : BaseEnemy 
 {
-	CharacterController m_CharacterController;
 	public GameObject m_RagdollPrefab;
 	FightStates m_FightState;
+	float m_NormalSpeed;
+	float m_KnockBackMultiplier;
 
+	//Timers
 	float m_WobbleTimer;
 	public float m_MaxWobbleTime;
 
@@ -44,18 +49,21 @@ public class SpinTop : BaseEnemy
 
 	public float m_ChargeSpeed;
 
+	//Charging Variables
 	float m_ChargeTimer;
 	float m_ChargeBuildUpTime;
 	bool m_IsCharging;
 	Vector3 m_ChargeDirection;
 	Vector3 m_ChargeToPosition;
 	float m_ChargeDistance;
+	float m_PercentToChargePastPlayer;
+
+	//Distances
 	float m_DistanceToTarget;
-
 	float m_DistanceToPlayer;
+	float m_DistanceFromChargeToPosition;
 
-	public float m_DistanceFromChargeToPosition;
-
+	//PlayerHit Variables
 	bool m_PlayerHit;
 	Vector3 m_DirectionHitByPlayer;
 
@@ -74,12 +82,14 @@ public class SpinTop : BaseEnemy
 		//Call base enemy's start and intialize all variables specific to Spin Top
 		base.Start ();
 
-		m_CharacterController = GetComponent<CharacterController> ();
-
+		//General Variable Values
 		m_FightState = FightStates.BuildingUpCharge;
+		m_NormalSpeed = m_Agent.speed;
+		m_KnockBackMultiplier = 5.0f;
 		m_AggroRange = 10.0f;
 		m_CombatRange = m_AggroRange;
 
+		//Default Timers
 		m_MaxWobbleTime = 2.0f;
 		m_WobbleTimer = m_MaxWobbleTime;
 
@@ -89,10 +99,12 @@ public class SpinTop : BaseEnemy
 		m_MaxTimeAfterHitByPlayer = 1.0f;
 		m_HitByPlayerTimer = m_MaxTimeAfterHitByPlayer;
 
+		//Charge Values
 		m_ChargeTimer = 0.0f;
 		m_ChargeBuildUpTime = 1.0f;
 		m_ChargeSpeed = 20.0f;
 		m_IsCharging = false;
+		m_PercentToChargePastPlayer = 1.5f;
 
 		m_PlayerHit = false;
 
@@ -177,7 +189,7 @@ public class SpinTop : BaseEnemy
 			{
 				//Enter wobble state and reset the agent speed
 				m_FightState = FightStates.Wobble;
-				m_Agent.speed = 6.0f;
+				m_Agent.speed = m_NormalSpeed;
 
 			}
 		}
@@ -185,7 +197,7 @@ public class SpinTop : BaseEnemy
 		{
 			//If the player was hit then enter knocked back and reset the agent speed
 			m_FightState = FightStates.KnockedBack;
-			m_Agent.speed = 6.0f;
+			m_Agent.speed = m_NormalSpeed;
 		}
 	}
 
@@ -212,7 +224,7 @@ public class SpinTop : BaseEnemy
 			m_DistanceToTarget = m_ChargeDirection.magnitude;
 
 			//Get a distance just passed the distance to the player
-			m_ChargeDistance = m_DistanceToTarget * 1.5f;
+			m_ChargeDistance = m_DistanceToTarget * m_PercentToChargePastPlayer;
 
 			//Determine a specific position just passed the player
 			m_ChargeToPosition = currentPosition + m_ChargeDirection.normalized * m_ChargeDistance;
@@ -237,7 +249,7 @@ public class SpinTop : BaseEnemy
 		{
 			//If Move in the opposite direction that the player was collided with
 			m_KnockBackTimer -= Time.deltaTime;
-			transform.position -= m_ChargeDirection.normalized * Time.deltaTime * 5.0f;
+			transform.position -= m_ChargeDirection.normalized * Time.deltaTime * m_KnockBackMultiplier;
 		}
 		else
 		{
@@ -257,7 +269,7 @@ public class SpinTop : BaseEnemy
 		{
 			//If Move in the opposite direction that the player's projectile came from.
 			m_HitByPlayerTimer -= Time.deltaTime;
-			transform.position -= m_DirectionHitByPlayer.normalized * Time.deltaTime * 5.0f;
+			transform.position -= m_DirectionHitByPlayer.normalized * Time.deltaTime * m_KnockBackMultiplier;
 		}
 		else
 		{

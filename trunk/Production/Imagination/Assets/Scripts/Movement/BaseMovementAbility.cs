@@ -62,6 +62,10 @@ public abstract class BaseMovementAbility : MonoBehaviour
 
 	protected const float AIR_DECCELERATION_LERP_VALUE = 0.02f;
 
+	//Distances
+	protected const float GETGROUNDED_RAYCAST_DISTANCE = 0.135f;
+	protected float m_PercentageOfVectorUp = GETGROUNDED_RAYCAST_DISTANCE - 0.1f;
+
 
 
 
@@ -317,10 +321,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	{
 		RaycastHit hit;
 
-		Debug.DrawRay (transform.position, transform.TransformDirection (Vector3.down), Color.magenta);
-
-
-		if ((Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 0.1f) && m_VerticalVelocity == 0.0f) || m_CharacterController.isGrounded)
+		if ((Physics.Raycast(transform.position + (Vector3.up * m_PercentageOfVectorUp), transform.TransformDirection(Vector3.down), out hit, GETGROUNDED_RAYCAST_DISTANCE) && m_VerticalVelocity == 0.0f) || m_CharacterController.isGrounded)
 		{
 			if(m_VerticalVelocity < 0.0f)
 			{

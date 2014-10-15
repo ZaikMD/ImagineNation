@@ -19,31 +19,30 @@ using System.Collections;
 
 public class ActivatableMovingPlatform : Activatable 
 {
-	bool m_IsActive;
+	const float MIN_DIST_TO_NEXT_PLATFORM = 0.3f;
+	const float PLATFORM_SPEED = 2.5f;
+	const float TIME_AT_PLATFORM_DEST = 3.0f;
 
+	public GameObject[] m_Destinations;
+	public bool m_CanReverse;
+
+	bool m_IsActive;
 	bool m_AtFinalDestination;
 	bool m_AtDestination;
 	bool m_IsReversing;
-	public bool m_CanReverse;
 	bool m_AtLastDest;
 
 	float m_AtDestinationTimer;
-	float m_TimerLimit;
-
-	float m_PlatformSpeed;
 	float m_DistanceToNextPlatform;
-
-	public GameObject[] m_Destinations;
+	
 	GameObject m_CurrentDestination;
 	GameObject m_NextDestination;
 	int m_DestinationCounter;
-
+	
 	Vector3 m_AmountToMovePlayer;
 
 	void Start () 
 	{
-		m_PlatformSpeed = 3.0f;
-		m_TimerLimit = 3.0f;
 		m_DestinationCounter = 0;
 		m_IsActive = true;
 		m_AtLastDest = false;
@@ -60,7 +59,7 @@ public class ActivatableMovingPlatform : Activatable
 				MoveToDestination();//Move the platform toward its destination
 
 				//If the distance to the next platform is smaller than then the minimum required distance
-				if(m_DistanceToNextPlatform <= 0.5f)
+				if(m_DistanceToNextPlatform <= MIN_DIST_TO_NEXT_PLATFORM)
 				{
 
 					//Check if the current destination is at the last element,
@@ -97,7 +96,7 @@ public class ActivatableMovingPlatform : Activatable
 				m_AmountToMovePlayer = Vector3.zero;
 
 				//If the timer reached the limit
-				if(m_AtDestinationTimer >= m_TimerLimit)
+				if(m_AtDestinationTimer >= TIME_AT_PLATFORM_DEST)
 				{
 					//Reset the timer
 					m_AtDestinationTimer = 0.0f;
@@ -136,8 +135,8 @@ public class ActivatableMovingPlatform : Activatable
 		m_DistanceToNextPlatform = destinationDirection.magnitude;
 
 		//Move the platform along that direction over time.
-		transform.position += destinationDirection.normalized * m_PlatformSpeed * Time.deltaTime;
-		m_AmountToMovePlayer = destinationDirection.normalized * m_PlatformSpeed * Time.deltaTime;
+		transform.position += destinationDirection.normalized * PLATFORM_SPEED * Time.deltaTime;
+		m_AmountToMovePlayer = destinationDirection.normalized * PLATFORM_SPEED * Time.deltaTime;
 
 	}
 
