@@ -7,13 +7,14 @@
 /// player to start searching for a respawn layer, once found it will set a bool
 /// to true, and the DeadPlayerManager will respawn the player accordingly.
 /// 
-/// IMPORTANT: In order for this script to function as intended the desired respawn
-/// location must be set to layer "Respawn" and that layer must be the 8th layer in the
-/// list of layers. If it is not, then change the variable or move it to 8th in the list.
 /// 
 /// 
 
 #region Change Log
+//Name: Matthew Whitlaw
+//Date: 15/10/2014
+//Change: Instead of using bit shifting to find the respawn layer
+//this script now uses GetMask to check the layer the raycast hit.
 #endregion
 
 using UnityEngine;
@@ -21,15 +22,14 @@ using System.Collections;
 
 public class PlayerRespawnLayerFinder : MonoBehaviour 
 {
+	const string RESPAWN_LAYER = "Respawn";
 	bool m_SearchForRespawnLayer;
-	int m_RespawnLayer;
 	bool m_RespawnLayerFound;
 	float m_MinDistanceFromGroundToRespawn;
 	
 	void Start () 
 	{
 		m_SearchForRespawnLayer = true;
-		m_RespawnLayer = 1 << 8;
 		m_RespawnLayerFound = false;
 		m_MinDistanceFromGroundToRespawn = 0.1f;
 	}
@@ -39,12 +39,16 @@ public class PlayerRespawnLayerFinder : MonoBehaviour
 
 		if(m_SearchForRespawnLayer == true)
 		{
+			RaycastHit hitInfo;
+			bool rayHit; 
 			//If the respawn layer is being searched for then raycast downward and return true
 			//if the respawn layer is hit.
-			if(Physics.Raycast(transform.position, Vector3.down, m_MinDistanceFromGroundToRespawn, m_RespawnLayer))
+			//if(Physics.Raycast(transform.position, Vector3.down, m_MinDistanceFromGroundToRespawn, m_RespawnLayer))
+			rayHit = Physics.Raycast(transform.position, Vector3.down, out hitInfo, m_MinDistanceFromGroundToRespawn, LayerMask.GetMask(RESPAWN_LAYER));
+
+			if(rayHit)
 			{
 				m_RespawnLayerFound = true;
-				//Debug.Log("Respawn!"); //For testing purposes, uncomment if needed.
 			}
 		}
 		else
