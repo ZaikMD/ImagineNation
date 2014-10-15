@@ -17,6 +17,8 @@ Shader "Production/WorldShader"
     	_MainTex ("Texture", 2D) = "white" {} 
     	_SpecColor ("Specular Light Color", Color) = (0.4,0.4,0.4,1.0) 
     	_Shininess ("Shininess", Float) = 10.0
+    	_PointLightIllumination("Point Light Illumination", Float) = 10.0
+    	_PointLightMaxIllumination("Point Light Max Illumination", Float) = 0.8
     }
     
     //Shader
@@ -141,6 +143,8 @@ Shader "Production/WorldShader"
          	sampler2D _MainTex;
          	float4 _SpecColor;
          	float _Shininess;
+         	float _PointLightIllumination;
+         	float _PointLightMaxIllumination;
          	
          	
          	//What the vertex shader will recieve
@@ -199,8 +203,11 @@ Shader "Production/WorldShader"
             	float4 textureColor = tex2D(_MainTex, output.tex.xy);
             	
             	//Calculate shading based off our distance from the lights
-            	float3 distShading = 1.0 / length(_WorldSpaceLightPos0.xyz - output.posWorld.xyz);
-            	
+            	float distShading = 1.0 / pow(length(_WorldSpaceLightPos0.xyz - output.posWorld.xyz), 2.0) * _PointLightIllumination;
+            	if (distShading > _PointLightMaxIllumination)
+            	{
+            		distShading = _PointLightMaxIllumination;
+            	}
             	
             	//Calculate the base colour of the fragment with lighting
             	

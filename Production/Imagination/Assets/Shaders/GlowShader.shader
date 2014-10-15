@@ -20,7 +20,8 @@ Shader "Production/GlowShader"
 	{
 		_GlowTint("Glow Tint", Color) = (0.1, 1.0, 0.0, 1.0)
 		_GlowSize("Glow Size", Float) = 1.2
-		_GlowShowsDistance("Distance that Glow Begins to Show", Float) = 15.0
+		_GlowShowsDistance("Distance that Glow Begins to Show", Float) = 10.0
+		_TransparencyGrow("Transparency Grow", Float) = 4.0
 	}
 	Subshader
 	{
@@ -95,6 +96,7 @@ Shader "Production/GlowShader"
          	float4 _GlowTint;
          	float _GlowSize;
          	float _GlowShowsDistance;
+         	float _TransparencyGrow;
          	
          	
          	//What the vertex shader will recieve
@@ -146,8 +148,27 @@ Shader "Production/GlowShader"
             	float3 viewDirection = normalize(output.viewDir);
  
  				//Calculate a new opacity for faces that are facing away from the camera
-            	float newOpacity = min(_GlowTint.a, pow(dot(viewDirection, normalDirection), 2.0) * _GlowTint.a * _GlowShowsDistance / distance(output.worldPos.xyz, _WorldSpaceCameraPos));
-            	
+ 				
+ 				//Calc a float to modify the opacity based on the distance from the camera
+ 				float distanceModifier = pow(_GlowShowsDistance / distance(output.worldPos.xyz, _WorldSpaceCameraPos), 2.0);
+ 				if (distanceModifier > 1.5)
+ 				{
+ 					distanceModifier = 1.5;
+ 				}
+ 				
+ 				//Calculate a dot product to make the opacity grow out from the object
+ 				float dotOfAngle = dot(viewDirection, normalDirection) + (_GlowSize - 1.0);
+ 				if (dotOfAngle < 0.01)
+ 				{
+ 					discard;
+ 				}
+ 				else if (dotOfAngle > 1.0)
+ 				{
+ 					dotOfAngle = 1.0;
+ 				}
+ 				
+ 				//Calculate a new opacity for faces that are facing tangent to the cameras view direction
+            	float newOpacity = min(_GlowTint.a, pow(dotOfAngle, _TransparencyGrow) * _GlowTint.a * distanceModifier);
             	if (newOpacity < 0.01)
             	{
             		discard;
