@@ -49,6 +49,8 @@ public class PlayerHealth : Destructable
 		private set{}
 	}
 
+	public TPCamera PlayerCamera;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -174,9 +176,9 @@ public class PlayerHealth : Destructable
         {
             //not dead already so die
             m_IsDead = true;
-            Instantiate(m_Ragdoll, transform.position, transform.rotation);
-            //TODO: Hide this object
-            //TODO: tell Dead player Manager that this player is dead
+            GameObject ragdoll = (GameObject) Instantiate(m_Ragdoll, transform.position, transform.rotation);
+            
+			ragdoll.GetComponent<PlayerRagDoll>().m_PlayerCamera = PlayerCamera;
         }
 	}
 
@@ -195,5 +197,7 @@ public class PlayerHealth : Destructable
 		m_InvulnerabilityTimer = InvulnerabilityTimer;
 		StopHealthRegenTime = 0.0f;
 		m_GUITexture.texture = textures[m_Health];
+
+		PlayerCamera.Player = this.gameObject.transform.FindChild("\"Centre Point\"").gameObject;
 	}
 }
