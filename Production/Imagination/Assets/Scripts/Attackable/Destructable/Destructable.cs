@@ -10,7 +10,7 @@ using System.Collections;
 /*
 * 8/10/2014 Edit: Fully Commented- Zach Dubuc
 *
-* 
+* 15/10/2014 Edit: Added the tag check in onHit - Mathieu Elias
 */
 #endregion
 public class Destructable : MonoBehaviour, Attackable
@@ -29,12 +29,14 @@ public class Destructable : MonoBehaviour, Attackable
 	}
     //Onhit will get called by the PLayer and Enemy projectiles
     public virtual void onHit(PlayerProjectile proj)
-    {        
+    {       
+		if (this.tag != Constants.PLAYER_STRING)
         m_Health -= 1;        
     }
 
     public virtual void onHit(EnemyProjectile proj)
     {
+		if (this.tag == Constants.PLAYER_STRING)
 		m_Health -= 1;
     }
     //To instantkill the object
