@@ -26,11 +26,11 @@ using System.Collections;
 //move the player accordingly, and it will require AcceptInputFrom, a class
 //that will determine from where the input is being recieved, either keyboard
 //or one of the four possible gamepads.
-
+[RequireComponent(typeof(AnimationState))]
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(AcceptInputFrom))]
 [RequireComponent(typeof(AudioSource))]
-public abstract class BaseMovementAbility : MonoBehaviour 
+public abstract class BaseMovementAbility : MonoBehaviour
 {
 	//Other objects this class needs
 	public Transform m_Camera;
@@ -142,12 +142,14 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			AirMovement();
 			
 		}
+
+		m_Anim.Play (m_AnimState.GetAnimation ());
 	}
 
 	//Moves the player based on the facing angle of the camera and the players input
 	protected void GroundMovement()
 	{
-		PlayAnimation ();
+		OnGroundAnimLogic ();
 		//if we do not have any values, no need to continue
 		if (InputManager.getMove(m_AcceptInputFrom.ReadInputFrom) == Vector2.zero)
 		{
@@ -167,6 +169,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 				m_VerticalVelocity -= Time.deltaTime * FALL_ACCELERATION;
 			}
 		}
+
 
 		Vector3 moveTo = transform.forward * m_GroundSpeed * Time.deltaTime;
 		moveTo.y = m_VerticalVelocity;
@@ -189,7 +192,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//Sets the vertical velocity to a pre-determined jump speed, and our horizontal air movement to our current running speed
 	protected virtual void Jump()
 	{
-		m_Anim.Play (m_AnimState.PlayAnimation (Constants.Animations.JUMP));
+		m_AnimState.AddAnimRequest (AnimationStates.Jump);
 		m_AnimState.m_Jumping = true;
 		m_AnimState.m_AnimTimer = 0.25f;
 		Debug.Log(m_Anim.clip.length);
@@ -230,6 +233,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//Moves the player upwards when the function is called;
 	public void TrampolineJump()
 	{
+		m_AnimState.AddAnimRequest (AnimationStates.Jump);
 		m_VerticalVelocity = 15.0f;
 		Vector3 Movement = new Vector3 (0, (m_VerticalVelocity), 0);
 
@@ -256,7 +260,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//Then we move the player
 	protected virtual void AirMovement()
 	{
-		//m_Anim.Play (m_AnimState.PlayAnimation (Constants.Animations.FALLING));
+		m_AnimState.AddAnimRequest (AnimationStates.Falling);
 		Vector3 Movement = new Vector3(m_HorizontalAirVelocity.x, 0, m_HorizontalAirVelocity.y);
 		if (InputManager.getMove(m_AcceptInputFrom.ReadInputFrom) != Vector2.zero)
 		{
@@ -333,10 +337,13 @@ public abstract class BaseMovementAbility : MonoBehaviour
 				{
 					m_IsOnMovingPlatform = false;
 				}
-			} 
+			}
+			m_AnimState.m_Grounded = true;
 			return true;
 		}
+		m_AnimState.m_Grounded = false;
 		return false;
+
 	}
 
 	void PlatformMovement()
@@ -345,37 +352,23 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	}
 
 	//Plays a walking animation
-    void PlayAnimation()
+    void OnGroundAnimLogic()
     {
         if (InputManager.getMove(m_AcceptInputFrom.ReadInputFrom) == Vector2.zero)
         {
-			m_Anim.Play(m_AnimState.PlayAnimation(Constants.Animations.IDLE));
-            if (m_SFX != null)
-            {
-              // m_SFX.stopSound(this.gameObject);
-            }
-                return;
+			m_AnimState.AddAnimRequest(AnimationStates.Idle);           
         }
-
-        if (InputManager.getMove(m_AcceptInputFrom.ReadInputFrom).x < 0.3f
+		else if (InputManager.getMove(m_AcceptInputFrom.ReadInputFrom).x < 0.3f
             && InputManager.getMove(m_AcceptInputFrom.ReadInputFrom).x > -0.3f
             && InputManager.getMove(m_AcceptInputFrom.ReadInputFrom).y < 0.3f
             && InputManager.getMove(m_AcceptInputFrom.ReadInputFrom).y > -0.3f)
         {
-
-			m_Anim.Play(m_AnimState.PlayAnimation(Constants.Animations.WALK));
-            if (m_SFX != null)
-            {
-                m_SFX.playSound(this.gameObject, Sounds.Walk);
-            }
-                return;
+			m_AnimState.AddAnimRequest(AnimationStates.Walk);
+			return;
         }
-
-        m_Anim.Play(m_AnimState.PlayAnimation(Constants.Animations.RUN));
-        if (m_SFX != null)
-        {
-            m_SFX.playSound(this.gameObject, Sounds.Run);
-        }
-    }
-	
+		else
+		{
+			m_AnimState.AddAnimRequest(AnimationStates.Run);
+		}        
+	}	
 }
