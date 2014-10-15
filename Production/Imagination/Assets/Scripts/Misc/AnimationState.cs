@@ -40,147 +40,112 @@ public class AnimationState : MonoBehaviour {
 	public bool m_Grounded;
 	public bool m_Jumping;
 
+	public AnimationClip m_Jump;
+
 	// Use this for initialization
 	void Start ()
 	{
 		m_CurrentStates = new List<AnimationStates>();
+
+		m_AnimTimer = m_Jump.length;
+
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		if(m_AnimTimer > 0)
+		if(m_Jumping)
 		{
 			m_AnimTimer -= Time.deltaTime;
-		}
 
+			if(m_AnimTimer < 0)
+			{
+				m_Jumping = false;
+				m_AnimTimer = m_Jump.length;
+			}	
+		}
 	}
 
+	/// <summary>
+	/// Adds a request to play an animation, if 
+	/// </summary>
+	/// <param name="AnimState">Animation state.</param>
 	public void AddAnimRequest(AnimationStates AnimState)
 	{
 		m_CurrentStates.Add(AnimState);
 	}
 
+	/// <summary>
+	/// Empties the animation request List.
+	/// </summary>
 	private void EmptyAnimRequest()
 	{
 		m_CurrentStates.Clear();	
 	}
 
+
+	/// <summary>
+	/// this function goes through a list of the animation requests, and determine which to play
+	/// to use, 
+	/// </summary>
+	/// <returns>The animation.</returns>
 	public string GetAnimation ()
 	{
-		if(m_Grounded)
+		string currentString = Constants.Animations.IDLE;
+
+		for (int i = 0; i < m_CurrentStates.Count; i++)
 		{
-			return Constants.Animations.IDLE;
-		}
-		else
-		{
-			return Constants.Animations.FALLING;
-		}
-	}
-
-
-	public string PlayAnimation(string AnimationToPlay)
-	{
-		//GO to see if we can play sound this sound
-
-		//If jump
-		switch(AnimationToPlay)
-		{
-		
-		case Constants.Animations.IDLE:
+			if(m_CurrentStates[i] == AnimationStates.Death)
 			{
-				//if(m_CurrentState == AnimationStates.Jump || m_CurrentState == AnimationStates.Falling || m_CurrentState == AnimationStates.Gliding)
-
-					return Constants.Animations.IDLE;
-
-				break;
-			}
-
-		case Constants.Animations.WALK:
-			{
-				
-				return Constants.Animations.WALK;
-				break;
-			}
-
-		case Constants.Animations.RUN:
-			{
-				return Constants.Animations.RUN;
-				break;
-			}
-
-		case Constants.Animations.JUMP:
-			{
-				//check if we can jump
-			//	m_CurrentState = AnimationStates.Jump;
-				return Constants.Animations.JUMP;
-				break;
-			}
-
-		case Constants.Animations.FALLING:
-			{
-				//check if we can fall
-
-					return Constants.Animations.FALLING;
-					break;
-			}
-
-		case Constants.Animations.GLIDING:
-			{
-				//check if we can fall
-				return Constants.Animations.GLIDING;
-				break;
-			}
-
-		case Constants.Animations.DEATH:
-			{
+				//death overides everything, no one can escape death!
 				return Constants.Animations.DEATH;
-				break;
 			}
-		
-		case Constants.Animations.DOUBLE_SLASH:
+			if(m_Grounded)
 			{
-				return Constants.Animations.DOUBLE_SLASH;
-				break;
-			}
-		case Constants.Animations.RIGHT_HOOK:
-			{
-				return Constants.Animations.RIGHT_HOOK;
-				break;
-			}	
+				if(m_CurrentStates[i] == AnimationStates.Jump)
+				{
+					currentString = Constants.Animations.JUMP;
+					continue;
+				}
+				else if(m_CurrentStates[i] == AnimationStates.OverHeadSlash)
+				{
+					currentString = Constants.Animations.OVERHEAD_SLASH;
+					continue;
+				}
+				else if(m_CurrentStates[i] == AnimationStates.Run)
+				{
+					currentString = Constants.Animations.RUN;
+					continue;
+				}
+				else if(m_CurrentStates[i] == AnimationStates.Idle)
+				{
+					currentString = Constants.Animations.IDLE;
+					continue;
+				}
+				else if(m_CurrentStates[i] == AnimationStates.Walk)
+				{
+					currentString = Constants.Animations.WALK;
+					continue;
+				}
 
-		case Constants.Animations.OVERHEAD_SLASH:
-			{
-				return Constants.Animations.OVERHEAD_SLASH;
-				break;
 			}
-		
-		case Constants.Animations.LOOK_AROUND:
+			else
 			{
-				return Constants.Animations.LOOK_AROUND;
-				break;
+				if(m_Jumping)
+				{
+					currentString = Constants.Animations.JUMP;
+					continue;
+				}
+				else
+				{
+					currentString = Constants.Animations.FALLING;
+					continue;
+				}
 			}
-		
-		case Constants.Animations.TAKING_WEAPON_OUT:
-			{
-				return Constants.Animations.TAKING_WEAPON_OUT;
-				break;
-			}				
-		
-		default:
-		{
-#if UNITY_EDITOR || DEBUG
-			Debug.LogError("Passed in value is unknown, are you using Constants.Animations?");
-#endif
-			return Constants.Animations.IDLE;
-			break;
 		}
-
-
+		EmptyAnimRequest ();
+		return currentString;
 	}
-
-	}
-
 
 
 

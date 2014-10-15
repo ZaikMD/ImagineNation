@@ -48,7 +48,7 @@ public static class Constants
 		public const string GLIDING = "Gliding";
 	}
 
-	public static class Sounds
+	public struct Sounds
 	{
 		 
 		public const string	JUMP = "Sounds/Alex/Alex_Jump";
