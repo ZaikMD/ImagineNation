@@ -30,29 +30,30 @@ public class GnomeMage : BaseEnemy
 	private FightStates m_CurrentFightState;
 
 	//Shield Variables
-	private float m_ShieldRechargeTime;
+	private float m_ShieldRechargeTime = 2.0f;
 	private float m_ShieldTimer;
 
 	//Clones
 	public GameObject m_ClonePrefab;
 	private List<GameObject> m_Clones;
-	private float m_CloneSpawnDistance;
-	private int m_NumberOfClones;
+	public float m_CloneSpawnDistance = 5.0f;
+	public int m_NumberOfClones = 2;
 	private bool m_ClonesCreated;
 
 	//MoveAway Variables
-	private float m_RotSpeed;
-	private float m_BackSpeed;
+	public float m_RotSpeed = 15f;
+	public float m_BackUpSpeed = 5f;;
 	private float m_SwitchRotTimer;
-	private float m_MoveDist;
+	public float m_MoveDist = 7.0f;
 	private int m_MoveAngle;
 
+	public float m_MinSwitchRotTime = 0.3f;
+	public float m_MaxSwitchRotTime = 3.0f;
+
 	// Attack Variables
-	private float m_TimeBetweenShots;
+	public float m_TimeBetweenShots = 1.5f;;
 	private float m_ShotTimer;
 	private bool m_CanShoot;
-
-
 
 	// Use this for initialization
 	void Start () 
@@ -63,18 +64,13 @@ public class GnomeMage : BaseEnemy
 
 		// Set the health/shield variables
 		m_Health = m_MaxHealth;
-		m_ShieldRechargeTime = 2.0f;
 	    m_ShieldTimer = 0.0f;
 
 		// Set the movement variables
-		m_RotSpeed = 15f;
-		m_BackSpeed = 5f;
 		m_SwitchRotTimer = Random.Range(0.3f, 3);
-		m_MoveDist = 7.0f;
 		m_MoveAngle = 90;
 
 		// Shooting variables
-		m_TimeBetweenShots = 1.5f;
 		m_ShotTimer = 0.0f;
 		m_CanShoot = true;
 
@@ -84,19 +80,13 @@ public class GnomeMage : BaseEnemy
 
 		// Clone variables
 		m_Clones = new List<GameObject>();
-		m_NumberOfClones = 2;
-		m_CloneSpawnDistance = 5.0f;
+
 		m_ClonesCreated = false;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		// Random Test Input, 
-		//TODO: Remove
-		if (Input.GetKeyDown (KeyCode.K))
-						m_Health--;
-
 		// Call the Base Enemies Update
 		base.Update ();
 
@@ -160,8 +150,7 @@ public class GnomeMage : BaseEnemy
 
 		case (FightStates.Cloned):
 			Cloned();
-				break;
-			
+				break;			
 		}
 
 		m_State = State.Default;
@@ -174,7 +163,6 @@ public class GnomeMage : BaseEnemy
 	{
 		MoveAway ();
 		Shoot ();
-
 	}
 
 	/// <summary>
@@ -217,7 +205,7 @@ public class GnomeMage : BaseEnemy
 		{
 			m_MoveAngle *= -1;
 			// Reset the timer to a random value between .3 and 3 seconds
-			m_SwitchRotTimer = Random.Range(0.3f, 3.0f);
+			m_SwitchRotTimer = Random.Range(m_MinSwitchRotTime, m_MaxSwitchRotTime);
 		}
 
 		// Apply the rotation while trying to stay a certain dist from the player
@@ -242,8 +230,7 @@ public class GnomeMage : BaseEnemy
 			Vector3 loc = new Vector3( Mathf.Cos(angle),0,Mathf.Sin(angle));			
 			loc = (loc.normalized * m_CloneSpawnDistance) + m_Target.position;
 
-			positions[i] = loc;			
-			
+			positions[i] = loc;				
 		}
 
 		Vector3 pos;
@@ -255,12 +242,10 @@ public class GnomeMage : BaseEnemy
 			{
 			 range = Random.Range(0,2);
 			 pos = positions[range];
-			}
-			while (pos == Vector3.zero);
+			}while (pos == Vector3.zero);
 		
 			m_Clones.Add((GameObject) Instantiate(m_ClonePrefab, pos, Quaternion.identity));	
 			positions[range] = Vector3.zero;
-
 		}
 
 		for (int i = 0; i < m_NumberOfClones; i++)
