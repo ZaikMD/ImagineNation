@@ -51,7 +51,7 @@ public class GnomeMage : BaseEnemy
 	public float m_MaxSwitchRotTime = 3.0f;
 
 	// Attack Variables
-	public float m_TimeBetweenShots = 1.5f;;
+	public float m_TimeBetweenShots = 1.5f;
 	private float m_ShotTimer;
 	private bool m_CanShoot;
 
