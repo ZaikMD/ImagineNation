@@ -18,7 +18,7 @@ public class GnomeClone : MonoBehaviour
 {
 	private Transform m_Target;
 	public GameObject m_ProjectilePrefab;
-	private float m_TimeBetweenShots = 1.5f;
+	public float m_TimeBetweenShots = 1.5f;
 	private float m_ShotTimer = 0.0f;
 
 	// Use this for initialization
