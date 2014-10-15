@@ -15,10 +15,10 @@ Shader "Production/WorldShader"
 	Properties
     {
     	_MainTex ("Texture", 2D) = "white" {} 
-    	_SpecColor ("Specular Light Color", Color) = (0.4,0.4,0.4,1.0) 
+    	_SpecColor ("Specular Light Color", Color) = (0.3,0.3,0.3,1.0) 
     	_Shininess ("Shininess", Float) = 10.0
     	_PointLightIllumination("Point Light Illumination", Float) = 10.0
-    	_PointLightMaxIllumination("Point Light Max Illumination", Float) = 0.8
+    	_PointLightMaxIllumination("Point Light Max Illumination", Float) = 0.35
     }
     
     //Shader
