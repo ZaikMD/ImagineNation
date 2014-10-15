@@ -139,7 +139,14 @@ public abstract class BaseEnemy : Destructable
 
         //Call our Update State function
 		UpdateState ();
+
+		FindPlayer ();
     }
+
+	protected void FindPlayer ()
+	{
+		m_Players = GameObject.FindGameObjectsWithTag (Constants.PLAYER_STRING);
+	}
 
 	protected void UpdateState()
 	{
@@ -320,6 +327,8 @@ public abstract class BaseEnemy : Destructable
                 }
             }
         }
+
+		Debug.Log ("Out of Loop");
     }
 
     //Idle state for when the enemy is standing still

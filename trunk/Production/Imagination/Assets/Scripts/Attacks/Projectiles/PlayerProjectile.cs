@@ -24,6 +24,10 @@ public class PlayerProjectile : BaseProjectile
             Attackable attackable = obj.gameObject.GetComponent(typeof(Attackable)) as Attackable; //if so call the onhit function and pass in the gameobject
 			
 			attackable.onHit(this);
+			if(obj.gameObject.tag != Constants.PLAYER_STRING)
+			{
+				Destroy(this.gameObject);
+			}
 		} 
 	}
 }
