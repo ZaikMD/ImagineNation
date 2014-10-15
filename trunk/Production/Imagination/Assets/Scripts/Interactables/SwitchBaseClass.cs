@@ -7,7 +7,7 @@ using System.Collections;
 /// </summary>
 public class SwitchBaseClass : MonoBehaviour
 {
-    bool m_Activated;
+    protected bool m_Activated;
 
     public virtual bool getActive() //Returns whether or not the object is active
     {

@@ -18,8 +18,7 @@ public class Switch : SwitchBaseClass, Attackable
     //Bools
     public bool m_OnTimer;
     public float m_Timer;
-    bool m_Activated;
-
+    
     //Save for the timer
 	protected float m_SaveTimer;
 
