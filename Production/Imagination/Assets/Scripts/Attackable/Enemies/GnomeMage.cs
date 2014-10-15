@@ -42,7 +42,7 @@ public class GnomeMage : BaseEnemy
 
 	//MoveAway Variables
 	public float m_RotSpeed = 15f;
-	public float m_BackUpSpeed = 5f;;
+	public float m_BackUpSpeed = 5f;
 	private float m_SwitchRotTimer;
 	public float m_MoveDist = 7.0f;
 	private int m_MoveAngle;
