@@ -113,7 +113,7 @@ public class MenuManagerV2 : MonoBehaviour
         #endregion
 
         #region Change Menu Animation
-        m_ChangeMenuAnimation = new ChangeMenuAnimation(this);
+        //m_ChangeMenuAnimation = new ChangeMenuAnimation(this);
         #endregion
 
         resetShutterVariables();

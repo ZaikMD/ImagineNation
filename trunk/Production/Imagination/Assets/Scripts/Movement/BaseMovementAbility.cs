@@ -256,7 +256,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//Then we move the player
 	protected virtual void AirMovement()
 	{
-		m_Anim.Play (m_AnimState.PlayAnimation (Constants.Animations.FALLING));
+		//m_Anim.Play (m_AnimState.PlayAnimation (Constants.Animations.FALLING));
 		Vector3 Movement = new Vector3(m_HorizontalAirVelocity.x, 0, m_HorizontalAirVelocity.y);
 		if (InputManager.getMove(m_AcceptInputFrom.ReadInputFrom) != Vector2.zero)
 		{
