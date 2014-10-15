@@ -44,6 +44,7 @@ Shader "Production/WorldShader"
          	
          	//Public Uniforms
          	sampler2D _MainTex;
+         	float4 _MainTex_ST;
          	
          	
          	//What the vertex shader will recieve
@@ -51,7 +52,7 @@ Shader "Production/WorldShader"
          	{
             	float4 pos : POSITION;
             	float3 normal : NORMAL;
-            	float4 uv : TEXCOORD0;
+            	half2 uv : TEXCOORD0;
        		};
        		
        		//What the fragment shader will recieve
@@ -60,7 +61,7 @@ Shader "Production/WorldShader"
             	float4 pos : SV_POSITION;
             	float4 posWorld : TEXCOORD0;
             	float3 normalDir : TEXCOORD1;
-            	float4 uv : TEXCOORD2;
+            	half2 uv : TEXCOORD2;
         	};
         	
          	
@@ -80,7 +81,7 @@ Shader "Production/WorldShader"
          		output.normalDir = normalize(mul(float4(input.normal, 0.0), _World2Object).xyz);
          		
          		//Give output the texture colour
-         		output.uv = input.uv;
+         		output.uv = input.uv * _MainTex_ST.xy + _MainTex_ST.zw;
          		
          		//Return our output
          		return output;
@@ -99,7 +100,7 @@ Shader "Production/WorldShader"
             	float3 lightDirection = normalize(_WorldSpaceLightPos0.xyz);
  				
  				//Base colour of this fragment
-            	float4 textureColor = tex2D(_MainTex, output.uv.xy);
+            	float4 textureColor = tex2D(_MainTex, output.uv);
             	
             	//Calculate ambient light
             	float3 ambientLight = textureColor.xyz * UNITY_LIGHTMODEL_AMBIENT.xyz;
@@ -141,6 +142,7 @@ Shader "Production/WorldShader"
          	
          	//Public Uniforms
          	sampler2D _MainTex;
+         	float4 _MainTex_ST;
          	float4 _SpecColor;
          	float _Shininess;
          	float _PointLightIllumination;
@@ -150,9 +152,9 @@ Shader "Production/WorldShader"
          	//What the vertex shader will recieve
          	struct vertInput
          	{
-            	float4 vertex : POSITION;
+            	float4 pos : POSITION;
             	float3 normal : NORMAL;
-            	float4 texcoord : TEXCOORD0;
+            	half2 uv : TEXCOORD0;
        		};
        		
        		//What the fragment shader willl recieve
@@ -161,7 +163,7 @@ Shader "Production/WorldShader"
             	float4 pos : SV_POSITION;
             	float4 posWorld : TEXCOORD0;
             	float3 normalDir : TEXCOORD1;
-            	float4 tex : TEXCOORD2;
+            	half2 uv : TEXCOORD2;
         	};
         	
         	
@@ -172,16 +174,16 @@ Shader "Production/WorldShader"
          		vertOutput output;
          		
          		//Calculate the vertex's position according to the camera
-         		output.pos = mul(UNITY_MATRIX_MVP, input.vertex);
+         		output.pos = mul(UNITY_MATRIX_MVP, input.pos);
          		
          		//Calculate the real world position of the vertex, for later calculations
-         		output.posWorld = mul(_Object2World, input.vertex);
+         		output.posWorld = mul(_Object2World, input.pos);
          		
          		//Calculate the direction of our surface normal
          		output.normalDir = normalize(mul(float4(input.normal, 0.0), _World2Object).xyz);
          		
          		//Give output the texture colour
-         		output.tex = input.texcoord;
+         		output.uv = input.uv * _MainTex_ST.xy + _MainTex_ST.zw;
          		
          		//Return our output
          		return output;
@@ -200,7 +202,7 @@ Shader "Production/WorldShader"
             	float3 lightDirection = normalize(_WorldSpaceLightPos0.xyz - output.posWorld.xyz);
  				
  				//Base colour of this fragment
-            	float4 textureColor = tex2D(_MainTex, output.tex.xy);
+            	float4 textureColor = tex2D(_MainTex, output.uv);
             	
             	//Calculate shading based off our distance from the lights
             	float distShading = 1.0 / pow(length(_WorldSpaceLightPos0.xyz - output.posWorld.xyz), 2.0) * _PointLightIllumination;
