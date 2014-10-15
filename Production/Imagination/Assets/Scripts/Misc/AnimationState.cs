@@ -40,15 +40,15 @@ public class AnimationState : MonoBehaviour {
 	public bool m_Grounded;
 	public bool m_Jumping;
 
+	public SFXManager m_SFX;
 	public AnimationClip m_Jump;
 
 	// Use this for initialization
 	void Start ()
 	{
 		m_CurrentStates = new List<AnimationStates>();
-
+		m_SFX = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SFXManager>();
 		m_AnimTimer = m_Jump.length;
-
 	}
 	
 	// Update is called once per frame
@@ -143,11 +143,26 @@ public class AnimationState : MonoBehaviour {
 				}
 			}
 		}
+
 		EmptyAnimRequest ();
+
 		return currentString;
 	}
 
 
-
-
+	void PlaySound(string currentString)
+	{
+		switch(currentString)
+		{
+			case Constants.Animations.IDLE:
+			m_SFX.stopSound(this.gameObject);
+			break;
+			case Constants.Animations.WALK:
+			m_SFX.playSound(this.gameObject, Sounds.Walk);
+			break;
+			case Constants.Animations.RUN:
+			m_SFX.playSound(this.gameObject, Sounds.Run);
+			break;
+		}
+	}
 }
