@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BaseGoal : MonoBehaviour {
 
-	public Transform m_LevelEnd;
+	//public Transform m_LevelEnd;
 	public string m_NextScene;
 
 	protected bool[] m_AtEnd = new bool[2];
@@ -32,17 +32,19 @@ public class BaseGoal : MonoBehaviour {
 	void Update()
 	{
 	
-		for(int i = 0; i < m_Players.Length; i++)
+		/*for(int i = 0; i < m_Players.Length; i++)
 		{
 			if(m_PlayerWaitingToExit == m_MaxPlayersPossible)
 			{
 				MoveToEnd();
 			}
-		}
+		}*/
 		
 			if (m_AtEnd[1])
 			{
 				LoadNext();
+				m_Players[0] = null;
+				m_Players[1] = null;
 				return;
 			}
 		}
@@ -50,7 +52,7 @@ public class BaseGoal : MonoBehaviour {
 	public void MoveToEnd()
 	{  
 
-		//must create player prefabs that have animations set to them and move the actual player hidden from the camera
+		/*//must create player prefabs that have animations set to them and move the actual player hidden from the camera
 		for (int i = 0; i < m_Players.Length; i++)
 		{
 			if (m_Players[i] != null)
@@ -75,6 +77,7 @@ public class BaseGoal : MonoBehaviour {
 				}
 			}
 		}
+		*/
 	}
 
 	void OnTriggerEnter(Collider other)
@@ -85,7 +88,8 @@ public class BaseGoal : MonoBehaviour {
 			{
 				m_Players[0] = (CharacterController)other.GetComponent(typeof (CharacterController));
 				AddWaitingPlayer();
-				m_PlayerPositionHolder[0] = m_Players[0].transform.position;
+				//m_PlayerPositionHolder[0] = m_Players[0].transform.position;
+				m_AtEnd[0] = true;
 
 			}
 
@@ -93,7 +97,8 @@ public class BaseGoal : MonoBehaviour {
 			{
 				m_Players[1] = (CharacterController)other.GetComponent(typeof (CharacterController));
 				AddWaitingPlayer();
-				m_PlayerPositionHolder[1] = m_Players[1].transform.position;
+				m_AtEnd[1] = true;
+				//m_PlayerPositionHolder[1] = m_Players[1].transform.position;
 			}
 		}
 	}
@@ -101,6 +106,9 @@ public class BaseGoal : MonoBehaviour {
 	void OnTriggerExit(Collider other)
 	{
 		m_PlayerWaitingToExit--;
+
+		m_AtEnd[0] = false;
+
 	}
 
 	public void LoadNext()
