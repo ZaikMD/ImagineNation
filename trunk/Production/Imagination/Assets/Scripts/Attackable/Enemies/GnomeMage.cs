@@ -178,7 +178,6 @@ public class GnomeMage : BaseEnemy
 	/// </summary>
 	private void Shoot()
 	{
-		m_CanShoot = false;
 		if (m_CanShoot)
 		{
 			// Look at the target
@@ -227,7 +226,8 @@ public class GnomeMage : BaseEnemy
 			
 			float angle = UnityEngine.Random.Range(0.0f, 2.0f * Mathf.PI);
 			
-			Vector3 loc = new Vector3( Mathf.Cos(angle),0,Mathf.Sin(angle));			
+			Vector3 loc = new Vector3( Mathf.Cos(angle),0,Mathf.Sin(angle));
+			if (m_Target != null)
 			loc = (loc.normalized * m_CloneSpawnDistance) + m_Target.position;
 
 			positions[i] = loc;				
