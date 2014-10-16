@@ -108,7 +108,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		{
 			m_CurrentlyJumping = false;
 		}
-
+		GetIsGrounded ();
 		if(IsOnMovingPlatform ())
 		{
 			PlatformMovement();
