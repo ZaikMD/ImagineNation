@@ -108,6 +108,7 @@ public class BaseGoal : MonoBehaviour {
 		m_PlayerWaitingToExit--;
 
 		m_AtEnd[0] = false;
+		m_Players [0] = null;
 
 	}
 
