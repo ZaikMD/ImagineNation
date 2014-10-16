@@ -50,7 +50,7 @@ Shader "Production/WorldShader"
          	//What the vertex shader will recieve
          	struct vertInput
          	{
-            	float4 pos : POSITION;
+            	float4 pos : POSITION0;
             	float3 normal : NORMAL;
             	half2 uv : TEXCOORD0;
        		};
@@ -58,10 +58,10 @@ Shader "Production/WorldShader"
        		//What the fragment shader will recieve
          	struct vertOutput
          	{
-            	float4 pos : SV_POSITION;
-            	float4 posWorld : TEXCOORD0;
-            	float3 normalDir : TEXCOORD1;
-            	half2 uv : TEXCOORD2;
+            	float4 pos : POSITION0;
+            	float4 posWorld : POSITION1;
+            	float3 normalDir : TEXCOORD0;
+            	half2 uv : TEXCOORD1;
         	};
         	
          	
@@ -105,14 +105,11 @@ Shader "Production/WorldShader"
             	//Calculate ambient light
             	float3 ambientLight = textureColor.xyz * UNITY_LIGHTMODEL_AMBIENT.xyz;
             	
-            	
             	//Calculate the base colour of the fragment with lighting
-            	
-            	//Ambient colour + texture colour x light colour x shade based off of a dot product between the surface normal and the light direction (at least being 0).
-            	float3 fragmentColour = ambientLight + textureColor.xyz * _LightColor0.xyz * max(0.0, dot(normalDirection, lightDirection));
+            	float3 diffuseLighting = textureColor.xyz * _LightColor0.xyz * max(0.0, dot(normalDirection, lightDirection));
 
          		//Return the final colour of the fragment
-         		return float4(fragmentColour, 1.0);
+         		return float4(ambientLight + diffuseLighting, 1.0);
          	}
          	
          	
@@ -152,7 +149,7 @@ Shader "Production/WorldShader"
          	//What the vertex shader will recieve
          	struct vertInput
          	{
-            	float4 pos : POSITION;
+            	float4 pos : POSITION0;
             	float3 normal : NORMAL;
             	half2 uv : TEXCOORD0;
        		};
@@ -160,10 +157,11 @@ Shader "Production/WorldShader"
        		//What the fragment shader willl recieve
          	struct vertOutput
          	{
-            	float4 pos : SV_POSITION;
-            	float4 posWorld : TEXCOORD0;
-            	float3 normalDir : TEXCOORD1;
-            	half2 uv : TEXCOORD2;
+            	float4 pos : POSITION0;
+            	float4 posWorld : POSITION1;
+            	float3 normalDir : TEXCOORD0;
+            	half2 uv : TEXCOORD1;
+            	float3 vertexLighting : TEXCOORD2;
         	};
         	
         	
@@ -184,6 +182,25 @@ Shader "Production/WorldShader"
          		
          		//Give output the texture colour
          		output.uv = input.uv * _MainTex_ST.xy + _MainTex_ST.zw;
+         		
+         		//Additional Lighting (vertex lights)
+         		output.vertexLighting = float3 (0.0, 0.0, 0.0);
+         		#ifdef VERTEXLIGHT_ON
+            	for (int index = 0; index < 8; index++)
+            	{    
+               		float3 vertexToLightSource = unity_LightPosition[index].xyz - output.posWorld.xyz; 
+              	 	float distShading = 1.0 / pow(vertexToLightSource, 2) * _PointLightIllumination;
+              	 	if (distShading > _PointLightMaximumIllumination)
+            		{
+            			distShading = _PointLightMaximumIllumination;
+            		}
+              	 	
+               		float3 vertexLightIllumination = distShading * unity_LightColor[index].rgb *
+               		tex2D(_MainTex, output.uv).rgb * max(0.0, dot(output.normalDir, normalize(vertexToLightSource)));         
+ 
+               		output.vertexLighting += vertexLightIllumination;
+            	}
+           	 	#endif
          		
          		//Return our output
          		return output;
@@ -222,9 +239,9 @@ Shader "Production/WorldShader"
             	float3 specularReflection;
             	
             	//If we are facing the light, so calculate specular lighting
-            	if (dot(normalDirection, lightDirection) > 0.0)
+            	if (_SpecColor.a > 0.0 && dot(normalDirection, lightDirection) > 0.0)
             	{
-            		specularReflection = _LightColor0.xyz * _SpecColor.xyz * distShading * textureColor.a *
+            		specularReflection = _LightColor0.xyz * _SpecColor.xyz * _SpecColor.a * distShading * textureColor.a *
             		pow(max(0.0, dot(reflect(-lightDirection, normalDirection), viewDirection)), _Shininess);
             	}
             	
@@ -236,7 +253,7 @@ Shader "Production/WorldShader"
             	
 
          		//Return the final colour of the fragment
-         		return float4(fragmentColour + specularReflection, 1.0);
+         		return float4(fragmentColour + specularReflection + output.vertexLighting, 1.0);
          	}
          	
          	
