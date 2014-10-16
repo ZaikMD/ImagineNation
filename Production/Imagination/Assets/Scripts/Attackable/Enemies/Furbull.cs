@@ -13,6 +13,8 @@ using System.Collections;
 #region ChangeLog
 /* 
  * kris matis 10/10/2014: made the furbulls turn towards you in combat
+ * 
+ * Increased Combat Range - Joe Burchill Oct. 16, m2014
  */ 
 #endregion
 
@@ -31,7 +33,7 @@ public class Furbull : BaseEnemy
         //Set attack timer from base
         m_AttackTimer = 0.0f;
         //Set Combat Range from base
-		m_CombatRange = 1.5f;
+		m_CombatRange = 3.0f;
 
         //Call base class Start()
 		base.Start ();

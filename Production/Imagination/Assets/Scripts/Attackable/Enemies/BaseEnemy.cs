@@ -13,8 +13,7 @@ using System.Collections;
  */
 #region ChangeLog
 /* 
- * Changed some Magic Numbers - Joe Burchill Oct. 16, 2014
- * 
+ * Changed some Magic Numbers, and Adjusted Speeds for Base - Joe Burchill Oct. 16, 2014
  */
 #endregion
 
@@ -39,8 +38,8 @@ public abstract class BaseEnemy : Destructable
 
 	//Differing Speeds for enemy states
 	private const float MIN_PATROL_SPEED = 3.0f;
-	private const float MAX_PATROL_SPEED = 7.0f;
-	private const float CHASE_SPEED = 9.0f;
+	private const float MAX_PATROL_SPEED = 5.0f;
+	private const float CHASE_SPEED = 5.0f;
 	private const float STARTING_SPEED = 6.0f;
 
 	//Const for Reaching a Node distance
@@ -63,7 +62,8 @@ public abstract class BaseEnemy : Destructable
     //Combat range for how close the enemy has to be to hit the player, differs for enemies
     protected float m_CombatRange;
     //Initial Stopping Distance of the NavMeshAgent
-    protected float m_InitialStoppingDistance = 1.5f;
+    protected float m_InitialStoppingDistance;
+    private const float STARTING_STOPPING_DISTANCE = 2.5F;
 
     //Attack Timer to delay enemy attacks
     protected float m_AttackTimer;
@@ -113,7 +113,10 @@ public abstract class BaseEnemy : Destructable
 
 		//Find both the players based off their tag
 		m_Players = GameObject.FindGameObjectsWithTag (Constants.PLAYER_STRING);
-        
+
+        //Set Starting Stopping Distance
+        m_Agent.stoppingDistance = STARTING_STOPPING_DISTANCE;
+
         //Set Initial Stopping Distance for the NavMeshAgent
         m_InitialStoppingDistance = m_Agent.stoppingDistance;
         
