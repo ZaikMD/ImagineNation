@@ -36,6 +36,7 @@ public enum AnimationStates
 public class AnimationState : MonoBehaviour {
 
 	public List<AnimationStates> m_CurrentStates;
+	AnimationStates m_CurrentState;
 	public float m_AnimTimer;
 	public bool m_Grounded;
 	public bool m_Jumping;
@@ -46,11 +47,14 @@ public class AnimationState : MonoBehaviour {
 
 	public SFXManager m_SFX;
 	public AnimationClip m_Jump;
-
+	public AnimationClip m_Punch;
+	public AnimationClip m_Slash;
+	public AnimationClip m_DoubleSlash;
 
 	// Use this for initialization
 	void Start ()
 	{
+		//Initializing functions that need to be initialized.
 		m_CurrentStates = new List<AnimationStates>();
 		m_SFX = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SFXManager>();
 		m_AnimTimer = m_Jump.length;
@@ -59,6 +63,7 @@ public class AnimationState : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+		//these control timers for animations that need them.
 		if(m_Jumping)
 		{
 			m_AnimTimer -= Time.deltaTime;
@@ -66,10 +71,8 @@ public class AnimationState : MonoBehaviour {
 			if(m_AnimTimer < 0)
 			{
 				m_Jumping = false;
-				m_AnimTimer = m_Jump.length;
 			}	
 		}
-
 		if(m_Attacking)
 		{
 			m_AttackTimer -= Time.deltaTime;
@@ -77,10 +80,8 @@ public class AnimationState : MonoBehaviour {
 			if(m_AttackTimer < 0)
 			{
 				m_Attacking = false;
-				m_AttackTimer = 1.0f;
 			}	
 		}
-
 		if(m_FinalAttacking)
 		{
 			m_AttackTimer -= Time.deltaTime;
@@ -88,14 +89,12 @@ public class AnimationState : MonoBehaviour {
 			if(m_AttackTimer < 0)
 			{
 				m_FinalAttacking = false;
-				m_AttackTimer = 1.0f;
 			}	
 		}
-
 	}
 
 	/// <summary>
-	/// Adds a request to play an animation, if 
+	/// Adds the passed in animation to a list, so it can determin if possible at the current time
 	/// </summary>
 	/// <param name="AnimState">Animation state.</param>
 	public void AddAnimRequest(AnimationStates AnimState)
@@ -114,13 +113,15 @@ public class AnimationState : MonoBehaviour {
 
 	/// <summary>
 	/// this function goes through a list of the animation requests, and determine which to play
-	/// to use, 
 	/// </summary>
 	/// <returns>The animation.</returns>
 	public string GetAnimation ()
 	{
 		string currentString = Constants.Animations.IDLE;
 
+
+		//Cycles through the list of all requested animations, if animation should be played over the current
+		//animation, if so replaces current animation with the new one and continues. if it gets to itself it will also continue
 		for (int i = 0; i < m_CurrentStates.Count; i++)
 		{
 			if(m_CurrentStates[i] == AnimationStates.Death)
@@ -133,40 +134,61 @@ public class AnimationState : MonoBehaviour {
 				if(m_CurrentStates[i] == AnimationStates.Jump)
 				{
 					currentString = Constants.Animations.JUMP;
+					startNewAnim(AnimationStates.Jump);
+					m_CurrentState = AnimationStates.Jump;
 					continue;
 				}
 				else if(m_CurrentStates[i] == AnimationStates.DoubleSlash || currentString == Constants.Animations.DOUBLE_SLASH || m_FinalAttacking)
 				{
 					currentString = Constants.Animations.DOUBLE_SLASH;
+					startNewAnim(AnimationStates.DoubleSlash);
+					m_CurrentState = AnimationStates.DoubleSlash;
 					m_FinalAttacking = true;
 					//	m_AnimTimer = m_Attack.length;
 					continue;
 				}
-				else if(m_CurrentStates[i] == AnimationStates.OverHeadSlash || currentString == Constants.Animations.OVERHEAD_SLASH || m_Attacking)
+				if(this.gameObject.name == Constants.ALEX_WITH_MOVEMENT_STRING || this.gameObject.name == Constants.ZOE_WITH_MOVEMENT_STRING)
 				{
-					currentString = Constants.Animations.OVERHEAD_SLASH;
-					m_Attacking = true;
-				//	m_AnimTimer = m_Attack.length;
-					continue;
+					if(m_CurrentStates[i] == AnimationStates.OverHeadSlash || currentString == Constants.Animations.OVERHEAD_SLASH || m_Attacking)
+					{
+						currentString = Constants.Animations.OVERHEAD_SLASH;
+						m_Attacking = true;
+						startNewAnim(AnimationStates.OverHeadSlash);
+						m_CurrentState = AnimationStates.OverHeadSlash;
+						continue;
+					}
+				
 				}
-				else if(m_CurrentStates[i] == AnimationStates.Punch || currentString == Constants.Animations.RIGHT_HOOK)
+				if(this.gameObject.name == Constants.DEREK_WITH_MOVEMENT_STRING)
 				{
-					currentString = Constants.Animations.RIGHT_HOOK;
-					continue;
+					if(m_CurrentStates[i] == AnimationStates.Punch || currentString == Constants.Animations.RIGHT_HOOK || m_Attacking)
+					{
+						currentString = Constants.Animations.RIGHT_HOOK;
+						m_Attacking = true;
+						startNewAnim(AnimationStates.Punch);
+						m_CurrentState = AnimationStates.Punch;
+						continue;
+					}
 				}
-				else if(m_CurrentStates[i] == AnimationStates.Run || currentString == Constants.Animations.RUN)
+				if(m_CurrentStates[i] == AnimationStates.Run || currentString == Constants.Animations.RUN)
 				{
 					currentString = Constants.Animations.RUN;
+					startNewAnim(AnimationStates.Run);
+					m_CurrentState = AnimationStates.Run;
 					continue;
 				}
 				else if(m_CurrentStates[i] == AnimationStates.Walk || currentString == Constants.Animations.WALK)
 				{
 					currentString = Constants.Animations.WALK;
+					startNewAnim(AnimationStates.Walk);
+					m_CurrentState = AnimationStates.Walk;
 					continue;
 				}
 				else if(m_CurrentStates[i] == AnimationStates.Idle)
 				{
 					currentString = Constants.Animations.IDLE;
+					startNewAnim(AnimationStates.Idle);
+					m_CurrentState = AnimationStates.Idle;
 					continue;
 				}
 
@@ -177,11 +199,15 @@ public class AnimationState : MonoBehaviour {
 				if(m_Jumping)
 				{
 					currentString = Constants.Animations.JUMP;
+					startNewAnim(AnimationStates.Jump);
+					m_CurrentState = AnimationStates.Jump;
 					continue;
 				}
 				else
 				{
 					currentString = Constants.Animations.FALLING;
+					startNewAnim(AnimationStates.Falling);
+					m_CurrentState = AnimationStates.Falling;
 					continue;
 				}
 			}
@@ -191,6 +217,45 @@ public class AnimationState : MonoBehaviour {
 		PlaySound (currentString);
 		return currentString;
 	}
+
+	//this function will set the anim timer when appropriate
+	void startNewAnim(AnimationStates state)
+	{
+		if(state == AnimationStates.Punch || state == AnimationStates.OverHeadSlash)
+		{
+			if(m_CurrentState != AnimationStates.Punch && state == AnimationStates.Punch)
+			{
+				m_AttackTimer = m_Punch.length;
+				return;
+			}
+			if(m_CurrentState != AnimationStates.OverHeadSlash && state == AnimationStates.OverHeadSlash)
+			{
+				m_AttackTimer = m_Slash.length;
+				return;
+			}
+		}
+
+		if(state == AnimationStates.DoubleSlash)
+		{
+			if(m_CurrentState != AnimationStates.DoubleSlash)
+			{
+				m_AttackTimer = m_DoubleSlash.length;
+				return;
+			}
+		}
+
+
+		if(state == AnimationStates.Jump)
+		{
+			if(m_CurrentState != AnimationStates.Jump)
+	        {
+				m_AnimTimer = m_Jump.length;
+				return;
+			}
+		}	
+	}
+
+
 
 
 	void PlaySound(string currentString)
@@ -208,22 +273,7 @@ public class AnimationState : MonoBehaviour {
 			case Constants.Animations.RUN:
 				m_SFX.playSound(this.gameObject, Sounds.Run);
 				break;
-	/*
-			case Constants.Animations.JUMP:
-				switch(this.gameObject.name)
-				{
-					case Constants.ALEX_WITH_MOVEMENT_STRING:
-					m_SFX.playSound(this.gameObject, Sounds.AlexJump);
-					break;
-					case Constants.DEREK_WITH_MOVEMENT_STRING:
-					m_SFX.playSound(this.gameObject, Sounds.DerekJump);
-					break;
-					case Constants.ZOE_WITH_MOVEMENT_STRING:
-					m_SFX.playSound(this.gameObject, Sounds.ZoeyJump);
-					break;
 
-				}
-	*/			break;
 		}
 	}
 }

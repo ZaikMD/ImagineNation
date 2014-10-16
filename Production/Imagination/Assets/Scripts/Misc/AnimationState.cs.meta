@@ -2,7 +2,12 @@ fileFormatVersion: 2
 guid: e3341cd41a577e7419b5f793b4ec4e1a
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - m_SFX: {instanceID: 0}
+  - m_Jump: {fileID: 7400004, guid: 3bceb3deebb08714da2aad20e44e10a8, type: 3}
+  - m_Punch: {fileID: 7400016, guid: 3bceb3deebb08714da2aad20e44e10a8, type: 3}
+  - m_Slash: {fileID: 7400018, guid: 3bceb3deebb08714da2aad20e44e10a8, type: 3}
+  - m_DoubleSlash: {fileID: 7400014, guid: 3bceb3deebb08714da2aad20e44e10a8, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -294,7 +294,6 @@ public class SFXManager : MonoBehaviour
 
 		AudioSource tempAudioSource = objectPlayingTheSound.GetComponent<AudioSource> ();
 
-
 		//Safety check to make sure we have a sound
 		if (tempSoundInfo.m_AudioClip == null)
         {
@@ -303,10 +302,8 @@ public class SFXManager : MonoBehaviour
 #endif
 			return;
         }
-		    
 
 		tempAudioSource.volume = getSoundVolume (objectPlayingTheSound.transform.position);
-
 
         tempAudioSource.clip = tempSoundInfo.m_AudioClip;
 
@@ -328,15 +325,12 @@ public class SFXManager : MonoBehaviour
 	/// <param name="The sound that is played, it is an enum, to select a sound, Type Sounds.insertSoundNameHere, Sound names are all one word">.</param>
 	public void playSound(Vector3 Location, Sounds sound)
 	{
-
 		GameObject soundObject = (GameObject)Instantiate (m_SoundObject);
 
 		//this class takes the enum passed in and passes it to anouther function to get all data it needs.
 		AudioInfo tempSoundInfo = getClipFromList(sound);
 		AudioSource tempAudioSource = soundObject.GetComponent<AudioSource> ();
-
-				
-		
+			
 		//Safety check to make sure we have a sound
 		if (tempSoundInfo.m_AudioClip == null)
 		{
@@ -348,10 +342,8 @@ public class SFXManager : MonoBehaviour
 
 		soundObject.GetComponent<AutoDestroy> ().timer = tempSoundInfo.m_AudioClip.length;
 
-
 		tempAudioSource.volume = getSoundVolume (Location);
-		
-		
+				
 		tempAudioSource.clip = tempSoundInfo.m_AudioClip;
 		
 		if (tempSoundInfo.OneShot)
@@ -363,10 +355,7 @@ public class SFXManager : MonoBehaviour
 			if(!tempAudioSource.isPlaying)
 				tempAudioSource.Play();
 		}
-
-
-	}
-	
+	}	
 
 	/// <summary>
 	/// Stops the sound.
@@ -382,9 +371,7 @@ public class SFXManager : MonoBehaviour
             return;
         }
 
-        tempSource.Stop();  
-
- 
+        tempSource.Stop();   
     }
 
 
@@ -407,9 +394,6 @@ public class SFXManager : MonoBehaviour
 			//Player Two is closer, use there distance;
 			return (100 - DisToP2) / 100;
 		}
-
-
-		return 1.0f;
 	}
 
 
