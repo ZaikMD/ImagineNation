@@ -110,7 +110,7 @@ Shader "Production/GlowShader"
          	struct vertexOutput
          	{
          		float4 pos : POSITION;
-         		float4 worldPos : POSITION1;
+         		half distanceFromCamera : POSITION1;
             	float3 normal : TEXCOORD0;
             	float3 viewDir : TEXCOORD1;
          	};
@@ -127,8 +127,12 @@ Shader "Production/GlowShader"
          		//Calculate the vertex's position according to the camera
          		output.pos = mul(UNITY_MATRIX_MVP, input.pos);
          		
-         		//Calculate the vertex's position in world space
-         		output.worldPos = mul(_Object2World, input.pos);
+         		//Calc a float to modify the opacity based on the distance from the camera
+         		output.distanceFromCamera = pow(_GlowShowsDistance / distance(mul(_Object2World, input.pos), _WorldSpaceCameraPos), 2.0);
+         		if (output.distanceFromCamera > 1.5)
+ 				{
+ 					output.distanceFromCamera = 1.5;
+ 				}
          		
          		//Calculate the normal of the surface in object coordinates
          		output.normal = normalize(mul(float4(input.normal, 0.0), _World2Object).xyz);
@@ -146,15 +150,6 @@ Shader "Production/GlowShader"
          		//Re-normalize some interpolated vertex output
          		float3 normalDirection = normalize(output.normal);
             	float3 viewDirection = normalize(output.viewDir);
- 
- 				//Calculate a new opacity for faces that are facing away from the camera
- 				
- 				//Calc a float to modify the opacity based on the distance from the camera
- 				float distanceModifier = pow(_GlowShowsDistance / distance(output.worldPos.xyz, _WorldSpaceCameraPos), 2.0);
- 				if (distanceModifier > 1.5)
- 				{
- 					distanceModifier = 1.5;
- 				}
  				
  				//Calculate a dot product to make the opacity grow out from the object
  				float dotOfAngle = dot(viewDirection, normalDirection) + (_GlowSize - 1.0);
@@ -168,7 +163,7 @@ Shader "Production/GlowShader"
  				}
  				
  				//Calculate a new opacity for faces that are facing tangent to the cameras view direction
-            	float newOpacity = min(_GlowTint.a, pow(dotOfAngle, _TransparencyGrow) * _GlowTint.a * distanceModifier);
+            	float newOpacity = min(_GlowTint.a, pow(dotOfAngle, _TransparencyGrow) * _GlowTint.a * output.distanceFromCamera);
             	if (newOpacity < 0.01)
             	{
             		discard;
