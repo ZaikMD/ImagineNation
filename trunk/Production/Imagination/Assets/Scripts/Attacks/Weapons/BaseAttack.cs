@@ -31,7 +31,7 @@ public class BaseAttack : MonoBehaviour
 	protected Vector3 m_InitialPosition;
 	protected Quaternion m_InitialRotation;
 
-	protected float m_FirePointYOffSet = 1.0f;
+	protected float m_FirePointYOffSet = 0.5f;
 
 
 	// Use this for initialization

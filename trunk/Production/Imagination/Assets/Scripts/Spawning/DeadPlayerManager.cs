@@ -197,7 +197,7 @@ public class DeadPlayerManager : MonoBehaviour
 								
 							m_OnePlayerDead = false; //Reset bools
 						
-							if(m_DeadPlayerHealth == m_OnePlayerDead)
+							if(m_DeadPlayerHealth == m_PlayerOneHealth)
 							{
 								m_PlayerOneDead = false;							
 							}
