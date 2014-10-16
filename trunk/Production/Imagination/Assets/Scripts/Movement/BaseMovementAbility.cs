@@ -86,7 +86,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 
 		m_AnimState = GetComponent<AnimationState>();
 
-        m_SFX = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SFXManager>();
+        m_SFX = GameObject.FindGameObjectWithTag(Constants.SOUND_MANAGER).GetComponent<SFXManager>();
 
 		m_AcceptInputFrom = gameObject.GetComponent<AcceptInputFrom> ();
 
@@ -147,7 +147,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			
 		}
 
-		m_Anim.Play (m_AnimState.GetAnimation ());
+		m_Anim.Play (m_AnimState.GetAnimation());
 	}
 
 	//Moves the player based on the facing angle of the camera and the players input
@@ -198,10 +198,22 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	{
 		m_AnimState.AddAnimRequest (AnimationStates.Jump);
 		m_AnimState.m_Jumping = true;
-		m_AnimState.m_AnimTimer = 0.25f;
-		Debug.Log(m_Anim.clip.length);
 		m_VerticalVelocity = JUMP_SPEED;
 		m_CurrentlyJumping = true;
+
+
+		switch(this.gameObject.name)
+		{
+		case Constants.ALEX_WITH_MOVEMENT_STRING:
+			m_SFX.playSound(this.gameObject, Sounds.AlexJump);
+			break;
+		case Constants.DEREK_WITH_MOVEMENT_STRING:
+			m_SFX.playSound(this.gameObject, Sounds.DerekJump);
+			break;
+		case Constants.ZOE_WITH_MOVEMENT_STRING:
+			m_SFX.playSound(this.gameObject, Sounds.ZoeyJump);
+			break;
+		}
 
 		//We are running, we set our horizontal air speed to our running speed
 		if (InputManager.getMove() != Vector2.zero)

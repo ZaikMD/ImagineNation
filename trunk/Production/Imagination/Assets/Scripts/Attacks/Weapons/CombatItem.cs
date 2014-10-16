@@ -17,6 +17,8 @@ using System.Collections;
 #endregion
 public class CombatItem : MonoBehaviour 
 {
+	SFXManager m_SFX;
+	AnimationState m_AnimState;
 
 	public GameObject m_ProjectilePrefab;
 	BaseAttack[] m_BaseAttacks = new BaseAttack[3]; //Array of the attacks. Combo's are 3 attacks.
@@ -40,7 +42,8 @@ public class CombatItem : MonoBehaviour
 
         m_ReadInput = gameObject.GetComponent<AcceptInputFrom>();
         
-
+		m_SFX = GameObject.FindGameObjectWithTag(Constants.SOUND_MANAGER).GetComponent<SFXManager>();
+		m_AnimState = GetComponent<AnimationState>();
 	}
 	
 	// Update is called once per frame
@@ -61,7 +64,7 @@ public class CombatItem : MonoBehaviour
                 else
                 {
                     m_BaseAttacks[m_CurrentAttack].startAttack(transform.position, transform.rotation); //Call attack function
-
+					PlaySoundAndAnim();
                     m_PreviousAttack = m_CurrentAttack;//Set the previous attack to the current attack, then increment the current attack
                     m_CurrentAttack++;
                    
@@ -96,5 +99,74 @@ public class CombatItem : MonoBehaviour
 			m_BaseAttacks[i].Update();
 		}
 
+	}
+
+	void PlaySoundAndAnim()
+	{
+		switch(this.gameObject.name)
+		{
+			case Constants.ALEX_WITH_MOVEMENT_STRING:
+				switch(m_CurrentAttack)
+				{
+					//First attack, play slash one
+					case 0:
+					m_AnimState.AddAnimRequest(AnimationStates.OverHeadSlash);
+					m_SFX.playSound(this.gameObject, Sounds.AlexHitOne);		
+					break;
+				
+					case 1:
+					m_AnimState.AddAnimRequest(AnimationStates.OverHeadSlash);
+					m_SFX.playSound(this.gameObject, Sounds.AlexHitTwo);
+					break;
+				
+					case 2:
+					m_AnimState.AddAnimRequest(AnimationStates.DoubleSlash);
+					m_SFX.playSound(this.gameObject, Sounds.AlexHitThree);
+					break;
+				}
+			break;
+
+			case Constants.DEREK_WITH_MOVEMENT_STRING:
+				switch(m_CurrentAttack)
+				{
+					//First attack, play punch for derek
+					case 0:
+					m_AnimState.AddAnimRequest(AnimationStates.Punch);
+					m_SFX.playSound(this.gameObject, Sounds.DerekHitOne);		
+					break;
+				
+					case 1:
+					m_AnimState.AddAnimRequest(AnimationStates.Punch);
+					m_SFX.playSound(this.gameObject, Sounds.DerekHitTwo);
+					break;
+				
+					case 2:
+					m_AnimState.AddAnimRequest(AnimationStates.DoubleSlash);
+					m_SFX.playSound(this.gameObject, Sounds.DerekHitThree);
+					break;
+				}
+			break;
+
+			case Constants.ZOE_WITH_MOVEMENT_STRING:
+				switch(m_CurrentAttack)
+				{
+					//First attack, play slash one
+					case 0:
+					m_AnimState.AddAnimRequest(AnimationStates.OverHeadSlash);
+					m_SFX.playSound(this.gameObject, Sounds.ZoeyHitOne);		
+					break;
+				
+					case 1:
+					m_AnimState.AddAnimRequest(AnimationStates.OverHeadSlash);
+					m_SFX.playSound(this.gameObject, Sounds.ZoeyHitTwo);
+					break;
+				
+					case 2:
+					m_AnimState.AddAnimRequest(AnimationStates.DoubleSlash);
+					m_SFX.playSound(this.gameObject, Sounds.ZoeyHitThree);
+					break;
+				}
+			break;
+		}
 	}
 }
