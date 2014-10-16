@@ -33,6 +33,7 @@ using System.Collections;
 public class SpinTop : BaseEnemy 
 {
 	public GameObject m_RagdollPrefab;
+    public GameObject m_SpinTopModelColor;
 	FightStates m_FightState;
 	float m_NormalSpeed;
 	float m_KnockBackMultiplier;
@@ -153,6 +154,8 @@ public class SpinTop : BaseEnemy
 
 	void Wobble()
 	{
+        m_SpinTopModelColor.renderer.material.color = Color.red;
+
 		//Count down the wobble timer
 		if(m_WobbleTimer > 0.0f)
 		{
@@ -171,6 +174,7 @@ public class SpinTop : BaseEnemy
 			//Otherwise build up charge again and reset wobble timer
 			m_FightState = FightStates.BuildingUpCharge;
 			m_WobbleTimer = m_MaxWobbleTime;
+            m_SpinTopModelColor.renderer.material.color = Color.blue;
 		}
 	}
 
@@ -199,6 +203,7 @@ public class SpinTop : BaseEnemy
 			m_FightState = FightStates.KnockedBack;
 			m_Agent.speed = m_NormalSpeed;
 		}
+        m_SpinTopModelColor.renderer.material.color = Color.blue;
 	}
 
 	void BuildingUpCharge()
@@ -237,6 +242,7 @@ public class SpinTop : BaseEnemy
 			m_FightState = FightStates.Charge;
 
 		}
+        m_SpinTopModelColor.renderer.material.color = Color.blue;
 	}
 
 	void KnockedBack()
@@ -257,6 +263,7 @@ public class SpinTop : BaseEnemy
 			m_KnockBackTimer = m_MaxKnockBackTime;
 			m_FightState = FightStates.BuildingUpCharge;
 		}
+        m_SpinTopModelColor.renderer.material.color = Color.blue;
 	}
 
 	void HitByPlayer()
