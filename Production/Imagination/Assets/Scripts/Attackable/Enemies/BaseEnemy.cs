@@ -13,6 +13,7 @@ using System.Collections;
  */
 #region ChangeLog
 /* 
+ * Changed some Magic Numbers - Joe Burchill Oct. 16, 2014
  * 
  */
 #endregion
@@ -31,6 +32,19 @@ public abstract class BaseEnemy : Destructable
         Chase,
         Patrol,
     }
+
+	//Constant for our Minimum and Max random idle number
+	private const int IDLE_MIN_RANGE = 1;
+	private const int IDLE_MAX_RANGE = 600;
+
+	//Differing Speeds for enemy states
+	private const float MIN_PATROL_SPEED = 3.0f;
+	private const float MAX_PATROL_SPEED = 7.0f;
+	private const float CHASE_SPEED = 9.0f;
+	private const float STARTING_SPEED = 6.0f;
+
+	//Const for Reaching a Node distance
+	private const float REACHED_NODE_DISTANCE = 2.0f;
 
     //Boolean to check if the enemy is Alive
     protected bool m_IsAlive = true;
@@ -95,7 +109,7 @@ public abstract class BaseEnemy : Destructable
         m_Agent = this.gameObject.GetComponent<NavMeshAgent>();
 
 		//Set speed of the enemy
-		m_Agent.speed = 6.0f;
+		m_Agent.speed = STARTING_SPEED;
 
 		//Find both the players based off their tag
 		m_Players = GameObject.FindGameObjectsWithTag (Constants.PLAYER_STRING);
@@ -310,9 +324,9 @@ public abstract class BaseEnemy : Destructable
             else
             {
                 //Get a random number from 1 to 600
-                int idleRandom = Random.Range(1, 600);
+                int idleRandom = Random.Range(IDLE_MIN_RANGE, IDLE_MAX_RANGE);
                 //Check if it is 1
-                if (idleRandom == 1)
+                if (idleRandom == IDLE_MIN_RANGE)
                 {
                     //Set idling to true, clear target, and set to idle
                     m_Idling = true;
@@ -327,8 +341,6 @@ public abstract class BaseEnemy : Destructable
                 }
             }
         }
-
-		Debug.Log ("Out of Loop");
     }
 
     //Idle state for when the enemy is standing still
@@ -344,7 +356,7 @@ public abstract class BaseEnemy : Destructable
         m_Agent.SetDestination(m_Target.position);
 
         //If we have reached our target enter this statement
-        if (GetDistanceToTarget() <= 2.0f)
+        if (GetDistanceToTarget() <= REACHED_NODE_DISTANCE)
         {
             //Check Idle Timer
             if (m_IdlingTime <= 0)
@@ -378,7 +390,7 @@ public abstract class BaseEnemy : Destructable
     protected virtual void Chase()
     {
         //Speed the Enemy up when chasing
-		m_Agent.speed = 9.0f;
+		m_Agent.speed = CHASE_SPEED;
         //Set Stopping Distance back to initial so it doesnt stop on top of player
         m_Agent.stoppingDistance = m_InitialStoppingDistance;
 
@@ -408,7 +420,7 @@ public abstract class BaseEnemy : Destructable
             }
 
             //Check if you have reached the node, set boolean if so
-            if (GetDistanceToTarget() <= 2.0f)
+			if (GetDistanceToTarget() <= REACHED_NODE_DISTANCE)
             {
                 m_ReachedNode = true;
             }
@@ -421,7 +433,7 @@ public abstract class BaseEnemy : Destructable
                 m_NodeIndex++;
 
                 //Randomize enemy speed between 3 and 7 after reaching each node, organic feel
-                float randomSpeed = Random.Range(3.0f, 7.0f);
+                float randomSpeed = Random.Range(MIN_PATROL_SPEED, MAX_PATROL_SPEED);
                 m_Agent.speed = randomSpeed;
             }
             else
