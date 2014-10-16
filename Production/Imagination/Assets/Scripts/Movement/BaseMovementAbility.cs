@@ -109,10 +109,14 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			m_CurrentlyJumping = false;
 		}
 
+		if(IsOnMovingPlatform ())
+		{
+			PlatformMovement();
+		}
+
 		//If the player is grounded 
 		if(GetIsGrounded())
 		{
-
 			//Check if we should start jumping
 			if(InputManager.getJumpDown(m_AcceptInputFrom.ReadInputFrom))
 			{
@@ -122,29 +126,14 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			//Otherwise do normal ground movement, and reset our air movement
 			else
 			{
-
             	m_HorizontalAirVelocity = Vector2.zero;
 				GroundMovement();
-
-				if(m_IsOnMovingPlatform)
-				{
-					PlatformMovement();
-				}
 			}
-
-		
-
-
-			//Gravity();
 		}
-
-
-		
 		//If we are not on the ground, we must be airborne, so do air movement
 		else
 		{
-			AirMovement();
-			
+			AirMovement();			
 		}
 
 		m_Anim.Play (m_AnimState.GetAnimation());
@@ -276,7 +265,9 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//Then we move the player
 	protected virtual void AirMovement()
 	{
+		//if(!IsOnMovingPlatform())
 		m_AnimState.AddAnimRequest (AnimationStates.Falling);
+
 		Vector3 Movement = new Vector3(m_HorizontalAirVelocity.x, 0, m_HorizontalAirVelocity.y);
 		if (InputManager.getMove(m_AcceptInputFrom.ReadInputFrom) != Vector2.zero)
 		{
@@ -333,23 +324,11 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	{
 		RaycastHit hit;
 
-		if ((Physics.Raycast(transform.position + (Vector3.up * m_PercentageOfVectorUp), transform.TransformDirection(Vector3.down), out hit, GETGROUNDED_RAYCAST_DISTANCE) && m_VerticalVelocity == 0.0f) || m_CharacterController.isGrounded)
+		if ((Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 0.15f) && m_VerticalVelocity == 0.0f) || m_CharacterController.isGrounded)
 		{
 			if(m_VerticalVelocity < 0.0f)
 			{
 				m_VerticalVelocity = 0.0f;
-			}
-			if(hit.transform != null)
-			{
-				if(hit.collider.gameObject.tag == Constants.MOVING_PLATFORM_TAG_STRING)
-				{
-					m_IsOnMovingPlatform = true;
-					m_Platform = hit.transform.gameObject.GetComponent<ActivatableMovingPlatform>();
-				}
-				else
-				{
-					m_IsOnMovingPlatform = false;
-				}
 			}
 			m_AnimState.m_Grounded = true;
 			return true;
@@ -357,6 +336,33 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		m_AnimState.m_Grounded = false;
 		return false;
 
+	}
+
+	bool IsOnMovingPlatform()
+	{
+		RaycastHit hitInfo;
+		return IsOnMovingPlatform (out hitInfo);
+	}
+
+	bool IsOnMovingPlatform(out RaycastHit hitInfo)
+	{
+		if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hitInfo, 0.5f))
+		{
+			if(hitInfo.transform != null)
+			{
+				if(hitInfo.collider.gameObject.tag == Constants.MOVING_PLATFORM_TAG_STRING)
+				{
+					m_IsOnMovingPlatform = true;
+					m_Platform = hitInfo.transform.gameObject.GetComponent<ActivatableMovingPlatform>();
+					return true;
+				}
+				else
+				{
+					m_IsOnMovingPlatform = false;
+				}
+			}
+		}
+		return false;
 	}
 
 	void PlatformMovement()
