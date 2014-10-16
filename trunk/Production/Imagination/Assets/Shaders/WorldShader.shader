@@ -229,9 +229,6 @@ Shader "Production/WorldShader"
             	}
             	
             	//Calculate the base colour of the fragment with lighting
-            	
-            	//Texture colour x light colour x shade based off distance from light x shade based off
-            	//of a dot product between the surface normal and the light direction (at least being 0).
             	float3 fragmentColour = textureColor.xyz * _LightColor0.xyz * distShading * max(0.0, dot(normalDirection, lightDirection));
             	
             	
