@@ -1,4 +1,21 @@
-﻿using UnityEngine;
+﻿/*
+ * Created by: Greg Fortier
+ * The BaseGoal functions as a level goal(the end of the level). Currently when the player
+ * reaches the end goal, he must wait for the second player before the level will finish.
+ * 
+ * So the level will only switch if both players are in the trigger
+ * 
+ */
+
+#region ChangeLog
+/*
+* 8/10/2014 Edit: Greg Fortier
+* Fully commented, removed the character controller components since the crawlspace will no longer automatically move the players when changing the level
+* 
+*/
+#endregion
+
+using UnityEngine;
 using System.Collections;
 
 public class BaseGoal : MonoBehaviour {
@@ -7,117 +24,77 @@ public class BaseGoal : MonoBehaviour {
 	public string m_NextScene;
 
 	protected bool[] m_AtEnd = new bool[2];
-	protected float m_Speed;
+	//protected float m_Speed;
 
-	CharacterController[] m_Players = new CharacterController[2];
+	//CharacterController[] m_Players = new CharacterController[2];
 	Vector3[] m_PlayerPositionHolder = new Vector3[2];
 
 	int m_PlayerWaitingToExit = 0;
 	int m_MaxPlayersPossible = 2;
 
 	float m_DistanceToEnd = 1.0f;
-	
+
+	//Initialize values
 	void Start()
 	{
 		m_PlayerWaitingToExit = 0;
 
-		for(int i = 0; i < m_Players.Length; i++)
+		for(int i = 0; i < m_AtEnd.Length; i++)
 		{
 			m_AtEnd[i] = false;
 		}
-
-		m_Speed = GameObject.FindGameObjectWithTag (Constants.PLAYER_STRING).GetComponent<BaseMovementAbility> ().m_GroundSpeed * Time.deltaTime;
 	}
 
 	void Update()
 	{
-	
-		/*for(int i = 0; i < m_Players.Length; i++)
-		{
-			if(m_PlayerWaitingToExit == m_MaxPlayersPossible)
-			{
-				MoveToEnd();
-			}
-		}*/
-		
-			if (m_AtEnd[1])
+		//if element 1 of array m_AtEnd equals true than load the next level. Because element 1 would be player2
+		if (m_AtEnd[1])
 			{
 				LoadNext();
-				m_Players[0] = null;
-				m_Players[1] = null;
 				return;
 			}
 		}
 
-	public void MoveToEnd()
-	{  
+	//if the player comes in contact with the level goal trigger. It will check if the first element of the m_AtEnd bool = false if yes then increment
+	//the integer m_PlayerWaitingToExit and make m_AtEnd[0] true
 
-		/*//must create player prefabs that have animations set to them and move the actual player hidden from the camera
-		for (int i = 0; i < m_Players.Length; i++)
-		{
-			if (m_Players[i] != null)
-			{
-			
-				m_Players[i].transform.LookAt(m_LevelEnd);
-				Vector3 vect3 = new Vector3(0, 0, 0);
-
-	            m_Players[i].SimpleMove(vect3);
-
-				float distToFin = Vector3.Distance(m_Players[i].transform.position, m_LevelEnd.position);
-
-				if( distToFin > m_DistanceToEnd)
-				{
-					m_Players[i].Move( m_Players[i].transform.forward * m_Speed);
-				}
-
-			
-				if(distToFin < m_DistanceToEnd)
-				{
-					m_AtEnd[i] = true;
-				}
-			}
-		}
-		*/
-	}
-
+	//if m_AtEnd[0] does not equal false then that means that m_AtEnd[1] must be true if someone walks in the trigger.
 	void OnTriggerEnter(Collider other)
 	{
 		if(other.tag == Constants.PLAYER_STRING)
 		{
-			if (m_Players[0] == null)
+			if (m_AtEnd[0] != true)
 			{
-				m_Players[0] = (CharacterController)other.GetComponent(typeof (CharacterController));
 				AddWaitingPlayer();
-				//m_PlayerPositionHolder[0] = m_Players[0].transform.position;
 				m_AtEnd[0] = true;
 
 			}
 
 			else 
 			{
-				m_Players[1] = (CharacterController)other.GetComponent(typeof (CharacterController));
 				AddWaitingPlayer();
 				m_AtEnd[1] = true;
-				//m_PlayerPositionHolder[1] = m_Players[1].transform.position;
 			}
 		}
 	}
 
+	//When the player exits the trigger is makes sure the values are decremented so that the second player can not activate level goal alone
 	void OnTriggerExit(Collider other)
 	{
 		m_PlayerWaitingToExit--;
 
 		m_AtEnd[0] = false;
-		m_Players [0] = null;
 
 	}
 
+	//Loads the next level
 	public void LoadNext()
 	{
 		//Tell Game Data to load next level
 		Application.LoadLevel (m_NextScene);
 	}
 
+	//Increment waiting player count so that it knows how many people are waiting to change level
 	public void AddWaitingPlayer()
 	{
 		m_PlayerWaitingToExit++;

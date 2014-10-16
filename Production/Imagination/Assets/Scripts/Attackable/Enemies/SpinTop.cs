@@ -25,6 +25,10 @@
 /// This script also handles the OnTriggerEnter and OnTriggerExit with the player.
 
 #region Change Log
+/*
+ * Joe Burchill -Oct 16th/2014
+ * Added functionality that changes the color of the spin top to indicate when it can be attacked and when it can't
+ */
 #endregion
 
 using UnityEngine;
