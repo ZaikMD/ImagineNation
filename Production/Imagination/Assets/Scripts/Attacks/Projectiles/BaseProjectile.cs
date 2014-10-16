@@ -26,13 +26,21 @@ public class BaseProjectile : MonoBehaviour
 	
 	public float m_Range = 2;
 
+	public bool m_Hidden = false;
+
 
 
 	// Use this for initialization
 	void Start () 
 	{
 		m_InitialPosition = transform.position;
+		if(m_Hidden)
+		{
+			renderer.enabled = false;
+		}
 	}
+
+
 	
 	// Update is called once per frame
 	void Update () 

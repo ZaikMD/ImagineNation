@@ -21,11 +21,6 @@ public class PlayerProjectile : BaseProjectile
 {
 
 
-	void Start()
-	{
-		renderer.enabled = false;
-	}
-
 	void OnTriggerEnter( Collider obj)
 	{
         if (obj.gameObject.GetComponent(typeof(Attackable)) as Attackable != null)//checks to see if the object that has been hit is attackable
