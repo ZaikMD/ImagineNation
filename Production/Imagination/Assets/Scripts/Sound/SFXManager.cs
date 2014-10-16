@@ -251,16 +251,16 @@ public class SFXManager : MonoBehaviour
 		switch(charater)
 		{
 			case Characters.Alex:
-			return GameObject.FindGameObjectWithTag(Constants.ALEX_STRING).transform;
+			return GameObject.Find(Constants.ALEX_WITH_MOVEMENT_STRING).transform;
 			break;
 
 
 			case Characters.Derek:
-			return GameObject.FindGameObjectWithTag(Constants.DEREK_STRING).transform;
+			return GameObject.Find(Constants.DEREK_WITH_MOVEMENT_STRING).transform;
 			break;
 
 			case Characters.Zoe:
-			return GameObject.FindGameObjectWithTag(Constants.ZOE_STRING).transform;
+			return GameObject.Find(Constants.ZOE_WITH_MOVEMENT_STRING).transform;
 			break;
 
 			default:

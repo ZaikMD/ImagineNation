@@ -39,9 +39,14 @@ public class AnimationState : MonoBehaviour {
 	public float m_AnimTimer;
 	public bool m_Grounded;
 	public bool m_Jumping;
+	public bool m_Attacking;
+	public bool m_FinalAttacking;
+
+	float m_AttackTimer = 0.5f;
 
 	public SFXManager m_SFX;
 	public AnimationClip m_Jump;
+
 
 	// Use this for initialization
 	void Start ()
@@ -64,6 +69,29 @@ public class AnimationState : MonoBehaviour {
 				m_AnimTimer = m_Jump.length;
 			}	
 		}
+
+		if(m_Attacking)
+		{
+			m_AttackTimer -= Time.deltaTime;
+
+			if(m_AttackTimer < 0)
+			{
+				m_Attacking = false;
+				m_AttackTimer = 1.0f;
+			}	
+		}
+
+		if(m_FinalAttacking)
+		{
+			m_AttackTimer -= Time.deltaTime;
+			
+			if(m_AttackTimer < 0)
+			{
+				m_FinalAttacking = false;
+				m_AttackTimer = 1.0f;
+			}	
+		}
+
 	}
 
 	/// <summary>
@@ -107,14 +135,33 @@ public class AnimationState : MonoBehaviour {
 					currentString = Constants.Animations.JUMP;
 					continue;
 				}
-				else if(m_CurrentStates[i] == AnimationStates.OverHeadSlash)
+				else if(m_CurrentStates[i] == AnimationStates.DoubleSlash || currentString == Constants.Animations.DOUBLE_SLASH || m_FinalAttacking)
 				{
-					currentString = Constants.Animations.OVERHEAD_SLASH;
+					currentString = Constants.Animations.DOUBLE_SLASH;
+					m_FinalAttacking = true;
+					//	m_AnimTimer = m_Attack.length;
 					continue;
 				}
-				else if(m_CurrentStates[i] == AnimationStates.Run)
+				else if(m_CurrentStates[i] == AnimationStates.OverHeadSlash || currentString == Constants.Animations.OVERHEAD_SLASH || m_Attacking)
+				{
+					currentString = Constants.Animations.OVERHEAD_SLASH;
+					m_Attacking = true;
+				//	m_AnimTimer = m_Attack.length;
+					continue;
+				}
+				else if(m_CurrentStates[i] == AnimationStates.Punch || currentString == Constants.Animations.RIGHT_HOOK)
+				{
+					currentString = Constants.Animations.RIGHT_HOOK;
+					continue;
+				}
+				else if(m_CurrentStates[i] == AnimationStates.Run || currentString == Constants.Animations.RUN)
 				{
 					currentString = Constants.Animations.RUN;
+					continue;
+				}
+				else if(m_CurrentStates[i] == AnimationStates.Walk || currentString == Constants.Animations.WALK)
+				{
+					currentString = Constants.Animations.WALK;
 					continue;
 				}
 				else if(m_CurrentStates[i] == AnimationStates.Idle)
@@ -122,11 +169,7 @@ public class AnimationState : MonoBehaviour {
 					currentString = Constants.Animations.IDLE;
 					continue;
 				}
-				else if(m_CurrentStates[i] == AnimationStates.Walk)
-				{
-					currentString = Constants.Animations.WALK;
-					continue;
-				}
+
 
 			}
 			else
@@ -145,7 +188,7 @@ public class AnimationState : MonoBehaviour {
 		}
 
 		EmptyAnimRequest ();
-
+		PlaySound (currentString);
 		return currentString;
 	}
 
@@ -155,14 +198,32 @@ public class AnimationState : MonoBehaviour {
 		switch(currentString)
 		{
 			case Constants.Animations.IDLE:
-			m_SFX.stopSound(this.gameObject);
-			break;
+				m_SFX.stopSound(this.gameObject);
+				break;
+		
 			case Constants.Animations.WALK:
-			m_SFX.playSound(this.gameObject, Sounds.Walk);
-			break;
+				m_SFX.playSound(this.gameObject, Sounds.Walk);
+				break;
+
 			case Constants.Animations.RUN:
-			m_SFX.playSound(this.gameObject, Sounds.Run);
-			break;
+				m_SFX.playSound(this.gameObject, Sounds.Run);
+				break;
+	/*
+			case Constants.Animations.JUMP:
+				switch(this.gameObject.name)
+				{
+					case Constants.ALEX_WITH_MOVEMENT_STRING:
+					m_SFX.playSound(this.gameObject, Sounds.AlexJump);
+					break;
+					case Constants.DEREK_WITH_MOVEMENT_STRING:
+					m_SFX.playSound(this.gameObject, Sounds.DerekJump);
+					break;
+					case Constants.ZOE_WITH_MOVEMENT_STRING:
+					m_SFX.playSound(this.gameObject, Sounds.ZoeyJump);
+					break;
+
+				}
+	*/			break;
 		}
 	}
 }

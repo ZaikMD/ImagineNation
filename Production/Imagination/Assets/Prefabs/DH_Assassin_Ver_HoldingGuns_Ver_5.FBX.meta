@@ -1555,7 +1555,7 @@ ModelImporter:
     - serializedVersion: 16
       name: OverHeadSlash
       takeName: Take 001
-      firstFrame: 5384
+      firstFrame: 5400
       lastFrame: 5418
       wrapMode: 0
       orientationOffsetY: 0
