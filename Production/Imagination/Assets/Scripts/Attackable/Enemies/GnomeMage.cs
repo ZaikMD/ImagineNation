@@ -240,7 +240,7 @@ public class GnomeMage : BaseEnemy
 		{
 			do 
 			{
-			 range = Random.Range(0,2);
+				range = Random.Range(0,m_NumberOfClones);
 			 pos = positions[range];
 			}while (pos == Vector3.zero);
 		
