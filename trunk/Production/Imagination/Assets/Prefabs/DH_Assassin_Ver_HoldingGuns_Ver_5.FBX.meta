@@ -1401,8 +1401,8 @@ ModelImporter:
     - serializedVersion: 16
       name: RightHook
       takeName: Take 001
-      firstFrame: 2389
-      lastFrame: 2418
+      firstFrame: 2395
+      lastFrame: 2413
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

@@ -25,7 +25,7 @@ public class BaseAttack : MonoBehaviour
 	bool m_GraceCountdown = false;
 
 
-	protected float m_SaveAttackTimer = 0.5f;
+	protected float m_SaveAttackTimer = 0.6f;
 	protected float m_SaveGraceTimer = 0.8f;
 
 	protected Vector3 m_InitialPosition;
@@ -98,6 +98,12 @@ public class BaseAttack : MonoBehaviour
 	public float getAttackTimer()
 	{
 		return m_AttackTimer;
+	}
+
+	public void setAttackTimer(float attackTimer)
+	{
+		m_SaveAttackTimer = attackTimer;
+		return;
 	}
 
 	public float getGraceTimer()

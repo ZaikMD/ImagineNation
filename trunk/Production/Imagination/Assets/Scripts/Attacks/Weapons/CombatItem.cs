@@ -40,10 +40,12 @@ public class CombatItem : MonoBehaviour
 			m_BaseAttacks.Initialize();
 		}
 
-        m_ReadInput = gameObject.GetComponent<AcceptInputFrom>();
+		m_BaseAttacks [2].setAttackTimer (1.1f);
+
+        m_ReadInput = gameObject.GetComponent<AcceptInputFrom> ();
         
-		m_SFX = GameObject.FindGameObjectWithTag(Constants.SOUND_MANAGER).GetComponent<SFXManager>();
-		m_AnimState = GetComponent<AnimationState>();
+		m_SFX = GameObject.FindGameObjectWithTag(Constants.SOUND_MANAGER).GetComponent<SFXManager> ();
+		m_AnimState = GetComponent<AnimationState> ();
 	}
 	
 	// Update is called once per frame
