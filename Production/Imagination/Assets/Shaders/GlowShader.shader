@@ -113,7 +113,6 @@ Shader "Production/GlowShader"
          		half distanceFromCamera : POSITION1;
             	float3 normal : TEXCOORD0;
             	float3 viewDir : TEXCOORD1;
-            	float3 localPos : TEXCOORD2;
          	};
          	
          	//Vertex Shader
@@ -121,8 +120,6 @@ Shader "Production/GlowShader"
          	{
          		//A container for the vertexOutput
          		vertexOutput output;
-         		
-         		output.localPos = input.pos;
          		
          		//Enlarge the glow
          		input.pos.xyz *= _GlowSize;
@@ -132,9 +129,9 @@ Shader "Production/GlowShader"
          		
          		//Calc a float to modify the opacity based on the distance from the camera
          		output.distanceFromCamera = pow(_GlowShowsDistance / distance(mul(_Object2World, input.pos), _WorldSpaceCameraPos), 2.0);
-         		if (output.distanceFromCamera > 1.5)
+         		if (output.distanceFromCamera > 1.0)
  				{
- 					output.distanceFromCamera = 1.5;
+ 					output.distanceFromCamera = 1.0;
  				}
          		
          		//Calculate the normal of the surface in object coordinates
