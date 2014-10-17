@@ -368,6 +368,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	void PlatformMovement()
 	{
 		m_CharacterController.Move (m_Platform.GetAmountToMovePlayer());
+		m_CharacterController.Move (Vector3.down);
 	}
 
 	//Plays a walking animation
