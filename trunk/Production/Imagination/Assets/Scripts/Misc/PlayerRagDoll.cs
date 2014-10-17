@@ -1,13 +1,24 @@
-﻿using UnityEngine;
+﻿/*
+ * this class creates and destroys the ghost and player
+ * it also tells the camera to follow the ghost and not the player
+ * 
+ * created by Kris MAtis 10/10/2014
+ * 
+ * commented and cleaned 17/1012014
+ * 
+ * 
+ */
+
+
+using UnityEngine;
 using System.Collections;
 
 [RequireComponent(typeof(Animation))]
 public class PlayerRagDoll : MonoBehaviour 
 {
+	//the prefab and game object for the ghost
 	public GameObject GhostPrefab;
 	GameObject m_Ghost;
-
-	Animation m_Animator;
 
 	float m_Timer = DeadPlayerManager.Instance.m_RespawnTimer;
 
@@ -16,13 +27,10 @@ public class PlayerRagDoll : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		m_Animator = gameObject.GetComponent<Animation> ();
-		m_Animator.Play (Constants.Animations.DEATH);
-
-		//Collider[] colliders = gameObject.GetComponent<Collider> ();
-		//ignore player collision?
+		//create the ghost
 		m_Ghost = (GameObject)GameObject.Instantiate (GhostPrefab, transform.position, transform.rotation);
 
+		//tell the camera to look at the ghost instead of the player
 		m_PlayerCamera.Player = m_Ghost;
 	}
 	
@@ -31,13 +39,15 @@ public class PlayerRagDoll : MonoBehaviour
 	{
 		if(m_Ghost != null)
 		{
-			m_Ghost.transform.Rotate (new Vector3(0.0f,1.0f,0.0f));
-			m_Ghost.transform.position = m_Ghost.transform.position + (new Vector3 (0.0f, 1.0f, 0.0f) * Time.deltaTime);
+			//update the ghost
+			m_Ghost.transform.Rotate (Vector3.up);
+			m_Ghost.transform.position = m_Ghost.transform.position + (Vector3.up * Time.deltaTime);
 		}
 
 		m_Timer -= Time.deltaTime;
 		if(m_Timer < 0.0f)
 		{
+			//time to despawn the ghost and get rid of the game object
 			Destroy(m_Ghost);
 			Destroy(this.gameObject);
 		}
