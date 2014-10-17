@@ -305,13 +305,16 @@ public class GnomeMage : BaseEnemy
 		// Loop through and destroy all created clones
 		for (int i = 0; i < m_NumberOfClones; i++)
 		{
-			Destroy(m_Clones[i]);
+			if (m_Clones[i] != null)
+			{
+				Destroy(m_Clones[i]);
+			}
 		}
 		m_Clones.Clear ();
 	}
 
 	/// <summary>
-	/// call this when you die
+	/// call this when gnome dies
 	/// </summary>
 	protected override void Die ()
 	{
