@@ -43,6 +43,9 @@ public class PlayerHealth : Destructable
 
 	const float TEXTURE_SCALE = 0.45f;
 
+	//used to make sound calls
+	SFXManager m_SFX;
+
     //used to stop the script from executing and used so other scripts can tell the player is dead
 	bool m_IsDead = false;
     public bool IsDead
@@ -56,6 +59,9 @@ public class PlayerHealth : Destructable
 	// Use this for initialization
 	void Start () 
 	{
+		//gets reference to sound manager
+		m_SFX = GameObject.FindGameObjectWithTag(Constants.SOUND_MANAGER).GetComponent<SFXManager>();
+
 		//this block zeros out the parent game object and the health bar GUITexture so health displays properly
 		List<Transform> childrenOfParent = new List<Transform> ();
 
@@ -163,7 +169,9 @@ public class PlayerHealth : Destructable
             //not invulnerable so take damage
 			if(m_Health > 0)
 			{
-				m_Health -= 1;  
+				m_Health -= 1; 
+				//play sound
+				playSound();
 			}
 			m_StopHealthRegenTimer = StopHealthRegenTime;
 			m_InvulnerabilityTimer = InvulnerabilityTimer;
@@ -176,7 +184,7 @@ public class PlayerHealth : Destructable
 	{
         if (!m_IsDead)
         {
-            //not dead already so die
+			//not dead already so die
             m_IsDead = true;
             GameObject ragdoll = (GameObject) Instantiate(m_Ragdoll, transform.position, transform.rotation);
             
@@ -202,4 +210,49 @@ public class PlayerHealth : Destructable
 
 		PlayerCamera.Player = this.gameObject.transform.FindChild("\"Centre Point\"").gameObject;
 	}
+
+	public void playSound()
+	{
+		//Check to see which player we are
+		switch(this.gameObject.name)
+		{
+			case Constants.ALEX_WITH_MOVEMENT_STRING:
+			//first we check we have any health left, if not, were dead, and should play death sound
+			if(m_Health <= 0)
+			{
+				m_SFX.playSound(transform.position, Sounds.AlexDeath);
+			}
+			else
+			{
+				//still have health left so just play hurt sound
+				m_SFX.playSound(transform.position, Sounds.AlexHurt);
+			}
+			break;
+
+			case Constants.DEREK_WITH_MOVEMENT_STRING:
+			if(m_Health <= 0)
+			{
+				m_SFX.playSound(transform.position, Sounds.DerekDeath);
+			}
+			else
+			{
+				//still have health left so just play hurt sound
+				m_SFX.playSound(transform.position, Sounds.DerekHurt);
+			}
+			break;
+
+			case Constants.ZOE_WITH_MOVEMENT_STRING:
+			if(m_Health <= 0)
+			{
+				m_SFX.playSound(transform.position, Sounds.ZoeyDeath);
+			}
+			else
+			{
+				//still have health left so just play hurt sound
+				m_SFX.playSound(transform.position, Sounds.ZoeyHurt);
+			}
+			break;
+		}
+	}
+
 }
