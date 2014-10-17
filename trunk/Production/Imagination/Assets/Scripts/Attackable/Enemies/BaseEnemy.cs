@@ -204,6 +204,12 @@ public abstract class BaseEnemy : Destructable
         //Check if the enemy is in combat
         if (m_InCombat)
         {
+			if (m_Target == null)
+			{
+				Reset();
+				return;
+			}
+
             //Cycle through our enemy if it is considered a group
             for (int enemyIndex = 0; enemyIndex < GroupOfEnemies.Length; enemyIndex++)
             {
