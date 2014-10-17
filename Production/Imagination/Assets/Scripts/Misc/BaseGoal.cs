@@ -93,7 +93,7 @@ public class BaseGoal : MonoBehaviour {
 	public void LoadNext()
 	{
 		//Tell Game Data to load next level
-		GameData.Instance.CurrentCheckPoint = CheckPoints.CheckPoint_1; //Reset the checkpoint
+		GameData.Instance.resetCheckPoint (); //Reset the checkpoint
 		Application.LoadLevel (m_NextScene);
 	}
 
