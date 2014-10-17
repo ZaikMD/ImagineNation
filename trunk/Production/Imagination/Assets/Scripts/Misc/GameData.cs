@@ -16,7 +16,7 @@
 /*
 * 8/10/2014 Edit: Fully Commented - Kris Matis.
 *
-* 
+* 17/10/2014 Edit: Zach Dubuc - Added in a reset checkpoint Function
 */
 #endregion
 
@@ -152,5 +152,10 @@ public class GameData : MonoBehaviour
 
 			}
 		}
+	}
+
+	public void resetCheckPoint()
+	{
+		m_CurrentCheckPoint = CheckPoints.CheckPoint_1;
 	}
 }
