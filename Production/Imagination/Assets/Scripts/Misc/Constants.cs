@@ -58,8 +58,8 @@ public static class Constants
 	{
 		 
 		public const string	JUMP = "Sounds/Alex/Alex_Jump";
-		public const string WALK = "Sounds/Common/Jump_Pad";
-		public const string RUN = "Sounds/Common/footsteps_carpet_edit2";
+		public const string WALK = "Sounds/Common/footsteps_carpet_walk";
+		public const string RUN = "Sounds/Common/footsteps_carpet_edit3";
 		public const string WEAPON_WOOSH = "Sounds/Common/Woosh";
 		public const string COLLECTABLE = "Sounds/Common/Collectable";
 		public const string JUMPAD = "Sounds/Common/Jump_Pad";
