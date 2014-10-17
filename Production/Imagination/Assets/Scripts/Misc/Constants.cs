@@ -64,6 +64,7 @@ public static class Constants
 		public const string COLLECTABLE = "Sounds/Common/Collectable";
 		public const string JUMPAD = "Sounds/Common/Jump_Pad";
 		public const string ZIPPER = "Sounds/Common/Zipper";
+		public const string GATE_OPEN = "Sounds/Interactable/Gate_Down";
 
 		//Alex Sounds
 		public const string ALEX_FIRST_WEAPON_HIT = "Sounds/Alex/First_Weapon_hit_Alex";
