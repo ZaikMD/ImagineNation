@@ -228,9 +228,9 @@ public class SFXManager : MonoBehaviour
 		//Zoey Sounds
 
 
-		m_ZoeyHitOne = (AudioClip)Resources.Load (Constants.Sounds.ZOEY_FIRST_WEAPON_HIT);
-		m_ZoeyHitTwo = (AudioClip)Resources.Load (Constants.Sounds.ZOEY_SECOND_WEAPON_HIT);
-		m_ZoeyHitThree = (AudioClip)Resources.Load (Constants.Sounds.ZOEY_THIRD_WEAPON_HIT);
+		m_ZoeyHitOne = (AudioClip)Resources.Load (Constants.Sounds.ALEX_FIRST_WEAPON_HIT);
+		m_ZoeyHitTwo = (AudioClip)Resources.Load (Constants.Sounds.ALEX_SECOND_WEAPON_HIT);
+		m_ZoeyHitThree = (AudioClip)Resources.Load (Constants.Sounds.ALEX_THIRD_WEAPON_HIT);
 		m_ZoeyHurt = (AudioClip)Resources.Load (Constants.Sounds.ZOEY_HURT);
 		m_ZoeyDeath = (AudioClip)Resources.Load (Constants.Sounds.ZOEY_DEATH);
 		m_ZoeyJump = (AudioClip)Resources.Load (Constants.Sounds.ZOEY_JUMP);
@@ -381,6 +381,7 @@ public class SFXManager : MonoBehaviour
 	/// <returns>The sound volume.</returns>
 	private float getSoundVolume(Vector3 SoundLocation)
 	{
+
 		float DisToP1 = Vector3.Distance(m_PlayerOne.position, SoundLocation);
 		float DisToP2 = Vector3.Distance(m_PlayerTwo.position, SoundLocation);
 	
