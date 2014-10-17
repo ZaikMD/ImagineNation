@@ -113,6 +113,7 @@ Shader "Production/GlowShader"
          		half distanceFromCamera : POSITION1;
             	float3 normal : TEXCOORD0;
             	float3 viewDir : TEXCOORD1;
+            	float3 localPos : TEXCOORD2;
          	};
          	
          	//Vertex Shader
@@ -120,6 +121,8 @@ Shader "Production/GlowShader"
          	{
          		//A container for the vertexOutput
          		vertexOutput output;
+         		
+         		output.localPos = input.pos;
          		
          		//Enlarge the glow
          		input.pos.xyz *= _GlowSize;
@@ -152,7 +155,7 @@ Shader "Production/GlowShader"
             	float3 viewDirection = normalize(output.viewDir);
  				
  				//Calculate a dot product to make the opacity grow out from the object
- 				float dotOfAngle = dot(viewDirection, normalDirection) + (_GlowSize - 1.0);
+ 				float dotOfAngle = dot(viewDirection, normalDirection);
  				if (dotOfAngle < 0.01)
  				{
  					discard;
