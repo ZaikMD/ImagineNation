@@ -66,10 +66,8 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	protected const float GETGROUNDED_RAYCAST_DISTANCE = 0.135f;
 	protected float m_PercentageOfVectorUp = GETGROUNDED_RAYCAST_DISTANCE - 0.1f;
 
-
-
-
-
+	//movement that other classes have requested
+	protected Vector3 m_ExternalMovement = Vector3.zero;
 
 
 	//States
@@ -109,23 +107,28 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			m_CurrentlyJumping = false;
 		}
 		GetIsGrounded ();
-		if(IsOnMovingPlatform ())
+		//if(IsOnMovingPlatform ())
 		{
-			PlatformMovement();
+			//PlatformMovement();
 		}
+		IsOnMovingPlatform ();
+		externalMovement ();
 
 		//If the player is grounded 
 		if(GetIsGrounded())
 		{
+
 			//Check if we should start jumping
 			if(InputManager.getJumpDown(m_AcceptInputFrom.ReadInputFrom))
 			{
+				m_AnimState.m_Grounded = false;
 				Jump();
 				AirMovement();
 			}
 			//Otherwise do normal ground movement, and reset our air movement
 			else
 			{
+				m_AnimState.m_Grounded = true;
             	m_HorizontalAirVelocity = Vector2.zero;
 				GroundMovement();
 			}
@@ -133,10 +136,23 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		//If we are not on the ground, we must be airborne, so do air movement
 		else
 		{
+			m_AnimState.m_Grounded = false;
 			AirMovement();			
 		}
 
 		m_Anim.Play (m_AnimState.GetAnimation());
+	}
+
+	public void requestMovement(Vector3 movement)
+	{
+		//add the requested movement to the current stored movement
+		m_ExternalMovement += movement;
+	}
+
+	protected void externalMovement()
+	{
+		m_CharacterController.Move (m_ExternalMovement);
+		m_ExternalMovement = Vector3.zero;
 	}
 
 	//Moves the player based on the facing angle of the camera and the players input
@@ -333,10 +349,8 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			{
 				m_VerticalVelocity = 0.0f;
 			}
-			m_AnimState.m_Grounded = true;
 			return true;
 		}
-		m_AnimState.m_Grounded = false;
 		return false;
 
 	}
@@ -357,6 +371,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 				{
 					m_IsOnMovingPlatform = true;
 					m_Platform = hitInfo.transform.gameObject.GetComponent<ActivatableMovingPlatform>();
+					PlatformMovement();
 					return true;
 				}
 				else
@@ -370,8 +385,9 @@ public abstract class BaseMovementAbility : MonoBehaviour
 
 	void PlatformMovement()
 	{
-		m_CharacterController.Move (m_Platform.GetAmountToMovePlayer());
-		m_CharacterController.Move (Vector3.down);
+		requestMovement (m_Platform.GetAmountToMovePlayer ());
+		//m_CharacterController.Move (m_Platform.GetAmountToMovePlayer());
+		//m_CharacterController.Move (Vector3.down);
 	}
 
 	//Plays a walking animation
