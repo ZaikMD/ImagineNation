@@ -25,6 +25,7 @@ public class ActivatableMovingPlatform : Activatable
 
 	public GameObject[] m_Destinations;
 	public bool m_CanReverse;
+	public bool m_IsGate;
 
 	bool m_IsActive;
 	bool m_AtFinalDestination;
@@ -41,21 +42,34 @@ public class ActivatableMovingPlatform : Activatable
 	
 	Vector3 m_AmountToMovePlayer;
 
+	SFXManager m_SFX;
+
 	void Start () 
 	{
 		m_DestinationCounter = 0;
 		m_IsActive = true;
 		m_AtLastDest = false;
+
+		m_SFX = GameObject.FindGameObjectWithTag(Constants.SOUND_MANAGER).GetComponent<SFXManager>();
 	}
 
 	void Update () 
 	{
+		if(!CheckSwitches() || m_AtLastDest)
+		{
+			m_SFX.stopSound(this.gameObject);
+		}
 		//Platforms can only move if the switches are active
 		if(CheckSwitches())
 		{
 			//If the platform is moving from one destination to another
 			if(m_IsActive)
 			{
+				//if this is a gate then play gate sound
+				if(m_IsGate)
+				{
+					m_SFX.playSound(this.gameObject, Sounds.GateOpen);
+				}
 				MoveToDestination();//Move the platform toward its destination
 
 				//If the distance to the next platform is smaller than then the minimum required distance
@@ -86,6 +100,8 @@ public class ActivatableMovingPlatform : Activatable
 			}
 			else //If the platform is at destination
 			{
+
+
 				if(m_AtLastDest == true && m_CanReverse == false)
 				{
 					return;
