@@ -23,7 +23,7 @@ public class Furbull : BaseEnemy
     //Enemy Projectile for the Furbull to attack the Player
     public EnemyProjectile EnemyProjectile;
     //Const for Attack Delay, so enemy doesn't constantly hit player
-    private const float FURBULL_ATTACK_DELAY = 1.5f;
+    public  float FURBULL_ATTACK_DELAY = 1.5f;
     
 	// Use this for initialization
 	void Start () 
