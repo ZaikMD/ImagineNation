@@ -8,6 +8,8 @@
  * 
  * 
  *10/10/2014 Edit: Commented and cleaned code - Greg Fortier
+ *
+ *Oct 17th 2014 Edit: Now rotates the player based on the rotation of the game object;
 */
 
 using UnityEngine;
@@ -25,6 +27,7 @@ public class CrawlSpace : MonoBehaviour
 
 	public CrawlSpace m_OtherCrawlSpace;
 	public GameObject m_TemporaryHidingSpot;
+	public GameObject m_OtherCrawlModelRotation;
 
 	CharacterController[] m_Players = new CharacterController[2];
 
@@ -67,7 +70,13 @@ public class CrawlSpace : MonoBehaviour
 						continue;
 					}
 					//When the timer is over transform the player's position to the other crawl space's
-					m_Players[i].transform.position =  m_OtherCrawlSpace.gameObject.transform.position;
+					m_Players[i].transform.position = m_OtherCrawlSpace.gameObject.transform.position;
+
+					if (m_OtherCrawlModelRotation != null)
+					{
+						m_Players[i].transform.rotation = m_OtherCrawlModelRotation.gameObject.transform.rotation;
+					}
+
 					m_Players[i] = null;
 				}
 			}
