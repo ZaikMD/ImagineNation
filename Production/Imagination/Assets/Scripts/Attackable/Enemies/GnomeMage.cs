@@ -180,27 +180,32 @@ public class GnomeMage : BaseEnemy
 	/// </summary>
 	private void Shoot()
 	{
-		if (m_CanShoot)
+		if (m_Target != null)
 		{
-			RaycastHit hitInfo;
 
-			Vector3 dir = transform.position - m_Target.transform.position ;
-
-			// Look at the target
-			transform.LookAt(m_Target.position);
-
-
-			// Raycast the way the gnome is looking, if it hits the player then shoot
-			Physics.Raycast(m_LookPoint.transform.position, m_LookPoint.transform.forward,out hitInfo);
-
-			if (hitInfo.collider.tag == Constants.PLAYER_STRING)
+			if (m_CanShoot)
 			{
-				// Create the projectile
-				Instantiate (m_ProjectilePrefab, transform.position, transform.rotation);
-				// bring the shot timer back up
-				m_ShotTimer = m_TimeBetweenShots;
-				// He just shot so set his can shoot to false
-				m_CanShoot = false;
+				RaycastHit hitInfo;
+			
+				Vector3 dir = transform.position - m_Target.transform.position ;
+			
+				// Look at the target
+				transform.LookAt(m_Target.position);
+			
+			
+				// Raycast the way the gnome is looking, if it hits the player then shoot
+				if (!Physics.Raycast(m_LookPoint.transform.position, m_LookPoint.transform.forward,out hitInfo))
+					return;
+			
+				if (hitInfo.collider.tag == Constants.PLAYER_STRING)
+				{
+					// Create the projectile
+					Instantiate (m_ProjectilePrefab, transform.position, transform.rotation);
+					// bring the shot timer back up
+					m_ShotTimer = m_TimeBetweenShots;
+					// He just shot so set his can shoot to false
+					m_CanShoot = false;
+				}
 			}
 		}
 	}
@@ -210,21 +215,24 @@ public class GnomeMage : BaseEnemy
 	/// </summary>
 	private void MoveAway ()
 	{
-		// Update the switch rotation timer
-		m_SwitchRotTimer -= Time.deltaTime;
-
-		// If the timer is smaller or equal to zero  then simply switch the direction of his rotation
-		if (m_SwitchRotTimer <= 0)
+		if (m_Target != null)
 		{
-			m_MoveAngle *= -1;
-			// Reset the timer to a random value between .3 and 3 seconds
-			m_SwitchRotTimer = Random.Range(m_MinSwitchRotTime, m_MaxSwitchRotTime);
+			// Update the switch rotation timer
+			m_SwitchRotTimer -= Time.deltaTime;
+			
+			// If the timer is smaller or equal to zero  then simply switch the direction of his rotation
+			if (m_SwitchRotTimer <= 0)
+			{
+				m_MoveAngle *= -1;
+				// Reset the timer to a random value between .3 and 3 seconds
+				m_SwitchRotTimer = Random.Range(m_MinSwitchRotTime, m_MaxSwitchRotTime);
+			}
+			
+			// Apply the rotation while trying to stay a certain dist from the player
+			Vector3 point = RotateAboutOrigin (transform.position, m_Target.position, m_MoveAngle);
+			point += (transform.position - m_Target.position).normalized * m_MoveDist;
+			m_Agent.SetDestination(point);
 		}
-
-		// Apply the rotation while trying to stay a certain dist from the player
-		Vector3 point = RotateAboutOrigin (transform.position, m_Target.position, m_MoveAngle);
-		point += (transform.position - m_Target.position).normalized * m_MoveDist;
-		m_Agent.SetDestination(point);
 
 	}
 
