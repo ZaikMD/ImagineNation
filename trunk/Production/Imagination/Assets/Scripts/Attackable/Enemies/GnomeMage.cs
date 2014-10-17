@@ -10,7 +10,7 @@ using System.Collections.Generic;
  * 
  */
 #region ChangeLog
-/* 
+/* Mathieu Elias 16/10/2014 : Made it so the mage raycasts towards target before shooting 
  * 
  */
 #endregion
@@ -22,6 +22,8 @@ public class GnomeMage : BaseEnemy
 		Regular = 0,
 		Cloned
 	}
+
+	public GameObject m_LookPoint;
 
 	public GameObject m_ProjectilePrefab; 
 
@@ -180,14 +182,26 @@ public class GnomeMage : BaseEnemy
 	{
 		if (m_CanShoot)
 		{
+			RaycastHit hitInfo;
+
+			Vector3 dir = transform.position - m_Target.transform.position ;
+
 			// Look at the target
 			transform.LookAt(m_Target.position);
-			// Create the projectile
-			Instantiate (m_ProjectilePrefab, transform.position, transform.rotation);
-			// bring the shot timer back up
-			m_ShotTimer = m_TimeBetweenShots;
-			// He just shot so set his can shoot to false
-			m_CanShoot = false;
+
+
+			// Raycast the way the gnome is looking, if it hits the player then shoot
+			Physics.Raycast(m_LookPoint.transform.position, m_LookPoint.transform.forward,out hitInfo);
+
+			if (hitInfo.collider.tag == Constants.PLAYER_STRING)
+			{
+				// Create the projectile
+				Instantiate (m_ProjectilePrefab, transform.position, transform.rotation);
+				// bring the shot timer back up
+				m_ShotTimer = m_TimeBetweenShots;
+				// He just shot so set his can shoot to false
+				m_CanShoot = false;
+			}
 		}
 	}
 
