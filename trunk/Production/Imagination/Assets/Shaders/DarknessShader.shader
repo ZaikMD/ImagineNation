@@ -8,7 +8,6 @@
 // Created by Jason Hein
 
 
-
 Shader "Production/DarknessShader"
 {
 	//Properties that can be set by designers
@@ -44,13 +43,11 @@ Shader "Production/DarknessShader"
          	#pragma vertex vertShader
          	#pragma fragment fragShader
          	
-         	
          	//Public Uniforms
          	float4 _FogTint;
          	float _OffsetSpeed;
          	float _TransparencyGrow;
          	float4 _MistTint;
-         	
          	
          	//What the vertex shader will recieve
          	struct vertexInput
@@ -101,7 +98,6 @@ Shader "Production/DarknessShader"
             		discard;
             	}
             	
-            	
             	//Calculate the colour of this fragment
             	float4 fragmentColour = float4 (_MistTint.xyz, newOpacity);
             	
@@ -109,7 +105,6 @@ Shader "Production/DarknessShader"
             	//Return the colour of the first pass's fragment
             	return fragmentColour;
          	}
-         	
          	
          	ENDCG
 		}
@@ -139,7 +134,6 @@ Shader "Production/DarknessShader"
          	float _OffsetSpeed;
          	float4 _MainTex_ST;
          	float _TransparencyGrow;
-         	
          	
          	//What the vertex shader will recieve
          	struct vertexInput
@@ -199,15 +193,12 @@ Shader "Production/DarknessShader"
             	//Base colour of this fragment
             	float4 textureColor = tex2D(_MainTex,  output.tex);
             	
-            	
             	//Calculate the colour of this fragment
             	float4 fragmentColour = float4 (textureColor.xyz * _FogTint.xyz, newOpacity);
-            	
             	
             	//Return the colour of the first pass's fragment
             	return fragmentColour;
          	}
-         	
          	
          	ENDCG
 		}
