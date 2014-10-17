@@ -14,6 +14,7 @@
 * 24/09/14 Edit: Added PlatformMovement and Additional functionality
 * to IsGrounded - Matthew Whitlaw
 * 
+* 16/10/2014 fixed moving platforma and added functionality for pushers and other various bugs - Kris Matis
 */
 #endregion
 
@@ -151,8 +152,11 @@ public abstract class BaseMovementAbility : MonoBehaviour
 
 	protected void externalMovement()
 	{
-		m_CharacterController.Move (m_ExternalMovement);
-		m_ExternalMovement = Vector3.zero;
+		if(m_ExternalMovement.magnitude != 0.0f)
+		{
+			m_CharacterController.Move (m_ExternalMovement);
+			m_ExternalMovement = Vector3.zero;
+		}
 	}
 
 	//Moves the player based on the facing angle of the camera and the players input
@@ -343,7 +347,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	{
 		RaycastHit hit;
 
-		if ((Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 0.15f) && m_VerticalVelocity == 0.0f) || m_CharacterController.isGrounded)
+		if ((Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 0.2f) && m_VerticalVelocity == 0.0f) || m_CharacterController.isGrounded)
 		{
 			if(m_VerticalVelocity < 0.0f)
 			{
