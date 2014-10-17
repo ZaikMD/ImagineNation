@@ -83,7 +83,7 @@ Shader "Production/GlowShader"
 			Cull back
 			ZWrite Off
 			
-			//Our blend equation is multiplicative
+			//Our blend equation is Additive
          	Blend SrcAlpha One
          	
          	CGPROGRAM
