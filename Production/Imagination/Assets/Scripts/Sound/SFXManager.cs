@@ -468,7 +468,7 @@ public class SFXManager : MonoBehaviour
 
 		case Sounds.AlexDeath:
 			tempAudioInfo.m_AudioClip = m_AlexDeath;
-			tempAudioInfo.OneShot = false;
+			tempAudioInfo.OneShot = true;
 			break;
 
 		case Sounds.AlexJump:
@@ -500,7 +500,7 @@ public class SFXManager : MonoBehaviour
 
 		case Sounds.DerekDeath:
 			tempAudioInfo.m_AudioClip = m_DerekDeath;
-			tempAudioInfo.OneShot = false;
+			tempAudioInfo.OneShot = true;
 			break;
 
 		case Sounds.DerekJump:
@@ -533,7 +533,7 @@ public class SFXManager : MonoBehaviour
 
 		case Sounds.ZoeyDeath:
 			tempAudioInfo.m_AudioClip = m_ZoeyDeath;
-			tempAudioInfo.OneShot = false;
+			tempAudioInfo.OneShot = true;
 			break;
 
 		case Sounds.ZoeyJump:

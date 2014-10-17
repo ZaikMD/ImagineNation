@@ -35,6 +35,7 @@ public enum AnimationStates
 
 public class AnimationState : MonoBehaviour {
 
+	//state varible
 	public List<AnimationStates> m_CurrentStates;
 	AnimationStates m_CurrentState;
 	public float m_AnimTimer;
@@ -42,10 +43,12 @@ public class AnimationState : MonoBehaviour {
 	public bool m_Jumping;
 	public bool m_Attacking;
 	public bool m_FinalAttacking;
-
 	float m_AttackTimer = 0.5f;
 
+	//sound manager
 	public SFXManager m_SFX;
+
+	//animation clips used to get the length we should play anim
 	public AnimationClip m_Jump;
 	public AnimationClip m_Punch;
 	public AnimationClip m_Slash;
@@ -66,8 +69,10 @@ public class AnimationState : MonoBehaviour {
 		//these control timers for animations that need them.
 		if(m_Jumping)
 		{
+			//decrements timer
 			m_AnimTimer -= Time.deltaTime;
 
+			//checks if timer is up, if so sets varible
 			if(m_AnimTimer < 0)
 			{
 				m_Jumping = false;
@@ -129,6 +134,7 @@ public class AnimationState : MonoBehaviour {
 				//death overides everything, no one can escape death!
 				return Constants.Animations.DEATH;
 			}
+			//checks if grounded, certain animations can only be done in air/on the ground
 			if(m_Grounded)
 			{
 				if(m_CurrentStates[i] == AnimationStates.Jump)
@@ -138,8 +144,10 @@ public class AnimationState : MonoBehaviour {
 					m_CurrentState = AnimationStates.Jump;
 					continue;
 				}
+				//checks if we currently have a request for double slash, or if we already had one this frame
 				else if(m_CurrentStates[i] == AnimationStates.DoubleSlash || currentString == Constants.Animations.DOUBLE_SLASH || m_FinalAttacking)
 				{
+					//sets are varibles to double slash, so next request can't get farther
 					currentString = Constants.Animations.DOUBLE_SLASH;
 					startNewAnim(AnimationStates.DoubleSlash);
 					m_CurrentState = AnimationStates.DoubleSlash;
@@ -218,9 +226,13 @@ public class AnimationState : MonoBehaviour {
 		return currentString;
 	}
 
-	//this function will set the anim timer when appropriate
+	/// <summary>
+	/// this function checks if we should start a new animation, and sets timers appropriatly
+	/// </summary>
+	/// <param name="state">State.</param>
 	void startNewAnim(AnimationStates state)
 	{
+		//checks to see if we are doing a main 
 		if(state == AnimationStates.Punch || state == AnimationStates.OverHeadSlash)
 		{
 			if(m_CurrentState != AnimationStates.Punch && state == AnimationStates.Punch)
