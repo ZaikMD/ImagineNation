@@ -41,6 +41,8 @@ public class PlayerHealth : Destructable
     //used to reset the health
 	int m_TotalHealth;
 
+	const float TEXTURE_SCALE = 0.45f;
+
     //used to stop the script from executing and used so other scripts can tell the player is dead
 	bool m_IsDead = false;
     public bool IsDead
@@ -103,7 +105,7 @@ public class PlayerHealth : Destructable
         //setting the current texture
 		m_GUITexture.texture = textures [m_Health];
 
-		m_GUITexture.pixelInset = new Rect (0.0f, Screen.height - textures [m_Health].height, textures [m_Health].width, textures [m_Health].height);
+		m_GUITexture.pixelInset = new Rect (0.0f, Screen.height - textures [m_Health].height * TEXTURE_SCALE, textures [m_Health].width * TEXTURE_SCALE, textures [m_Health].height * TEXTURE_SCALE);
 	}
 	
 	// Update is called once per frame
