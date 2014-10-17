@@ -269,11 +269,12 @@ public class AnimationState : MonoBehaviour {
 
 
 
-
+	//play sounds for walking, running, idle
 	void PlaySound(string currentString)
 	{
 		switch(currentString)
 		{
+			//no sound plays while idle
 			case Constants.Animations.IDLE:
 				m_SFX.stopSound(this.gameObject);
 				break;
