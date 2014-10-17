@@ -238,7 +238,10 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//Moves the player upwards when the function is called;
 	public void TrampolineJump()
 	{
-		m_AnimState.AddAnimRequest (AnimationStates.Jump);
+		//Plays sound and animation when jumping on trampoline.
+		m_SFX.playSound(this.gameObject, Sounds.JumpPad);
+		m_AnimState.AddAnimRequest(AnimationStates.Jump);
+
 		m_VerticalVelocity = 15.0f;
 		Vector3 Movement = new Vector3 (0, (m_VerticalVelocity), 0);
 
