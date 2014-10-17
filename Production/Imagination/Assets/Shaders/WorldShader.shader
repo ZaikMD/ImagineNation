@@ -46,7 +46,6 @@ Shader "Production/WorldShader"
          	sampler2D _MainTex;
          	float4 _MainTex_ST;
          	
-         	
          	//What the vertex shader will recieve
          	struct vertInput
          	{
@@ -63,7 +62,6 @@ Shader "Production/WorldShader"
             	float3 normalDir : TEXCOORD0;
             	half2 uv : TEXCOORD1;
         	};
-        	
          	
          	//Vertex Shader
          	vertOutput vertShader(vertInput input)
@@ -112,11 +110,9 @@ Shader "Production/WorldShader"
          		return float4(ambientLight + diffuseLighting, 1.0);
          	}
          	
-         	
  			//End the cg shader
  			ENDCG
 		}
-		
 		
 		//Pass for additional lighting
 		Pass
@@ -133,7 +129,6 @@ Shader "Production/WorldShader"
          	#pragma vertex vertShader
          	#pragma fragment fragShader
          	
-         	
          	//World Light Colour (from "UnityCG.cginc")
          	float4 _LightColor0;
          	
@@ -144,7 +139,6 @@ Shader "Production/WorldShader"
          	float _Shininess;
          	float _PointLightIllumination;
          	float _PointLightMaximumIllumination;
-         	
          	
          	//What the vertex shader will recieve
          	struct vertInput
@@ -163,7 +157,6 @@ Shader "Production/WorldShader"
             	half2 uv : TEXCOORD1;
             	float3 vertexLighting : TEXCOORD2;
         	};
-        	
         	
         	//Vertex Shader
          	vertOutput vertShader(vertInput input)
@@ -247,12 +240,10 @@ Shader "Production/WorldShader"
             	{
             		specularReflection = float3(0.0, 0.0, 0.0);
             	}
-            	
 
          		//Return the final colour of the fragment
          		return float4(fragmentColour + specularReflection + output.vertexLighting, 1.0);
          	}
-         	
          	
          	//End the cg shader
  			ENDCG

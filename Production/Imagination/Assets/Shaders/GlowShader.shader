@@ -12,7 +12,6 @@
 // Created by Jason Hein
 
 
-
 Shader "Production/GlowShader"
 {
 	//Properties that can be set by designers
@@ -63,7 +62,6 @@ Shader "Production/GlowShader"
             	return float4(0.0,0.0,0.0,0.0);
          	}
          	
-         	
          	ENDCG
 		}
 		
@@ -90,7 +88,6 @@ Shader "Production/GlowShader"
  
          	#pragma vertex vertShader
          	#pragma fragment fragShader
-         	
          	
          	//Public Uniforms
          	float4 _GlowTint;
@@ -172,7 +169,6 @@ Shader "Production/GlowShader"
             	//Return the colour of the first pass's fragment
             	return float4 (_GlowTint.xyz, newOpacity);
          	}
-         	
          	
          	ENDCG
          }
