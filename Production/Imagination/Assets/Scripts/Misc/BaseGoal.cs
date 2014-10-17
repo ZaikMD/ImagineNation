@@ -12,6 +12,8 @@
 * 8/10/2014 Edit: Greg Fortier
 * Fully commented, removed the character controller components since the crawlspace will no longer automatically move the players when changing the level
 * 
+* 17/10/2014 Edit: Zach Dubuc
+* Added in checkpoints being reset when a new scene loads
 */
 #endregion
 
@@ -91,6 +93,7 @@ public class BaseGoal : MonoBehaviour {
 	public void LoadNext()
 	{
 		//Tell Game Data to load next level
+		GameData.Instance.CurrentCheckPoint = CheckPoints.CheckPoint_1; //Reset the checkpoint
 		Application.LoadLevel (m_NextScene);
 	}
 
