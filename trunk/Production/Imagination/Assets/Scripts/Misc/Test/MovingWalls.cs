@@ -1,102 +1,80 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class MovingWalls : MonoBehaviour 
 {
 	public GameObject m_DestinationObject;
 	public float m_Speed;
 
+	List<BaseMovementAbility> m_Players;
+
 	private Vector3 m_OriginalPosition;
 	private Vector3 m_DestinationPosition;
 	private Vector3 m_Direction;
 	private bool m_MovingForward;
 	private float m_PushPlayerSpeed;
-	private float m_FinalPush;
-	private Transform m_Other;
-	private bool m_PlayerReachedLimit;
 
 	
 	void Start () 
 	{
+		m_Players = new List<BaseMovementAbility>();
+
 		m_OriginalPosition = transform.position;
 		m_DestinationPosition = m_DestinationObject.transform.position;
 		m_Direction = m_DestinationPosition - m_OriginalPosition;
 		m_MovingForward = true;
-		m_PushPlayerSpeed = 0.55f;
-		m_FinalPush = 2.0f;
-		m_PlayerReachedLimit = false;
 	}
 
 	void Update () 
 	{
-		Move ();
-
-		if(m_PlayerReachedLimit && m_Other != null)
-		{
-			if(m_MovingForward)
-			{
-				m_Other.position -= m_Direction * Time.deltaTime * m_PushPlayerSpeed;
-			}
-			else
-			{
-				m_Other.position += m_Direction * Time.deltaTime * m_PushPlayerSpeed;
-			}
-		}
-
-	}
-
-	void Move ()
-	{
 		if(m_MovingForward)
 		{
-			transform.position += m_Direction * Time.deltaTime * m_Speed;
-			float distance = Vector3.Distance(transform.position, m_DestinationPosition);
-			if(distance < 0.1f)
-			{
-				m_MovingForward = false;
+			Move (m_DestinationPosition);
+		}
+		else
+		{
+			Move(m_OriginalPosition);
+		}
+	}
 
-				if(m_Other != null)
-					m_PlayerReachedLimit = true;
+	void Move (Vector3 destination)
+	{
+		Vector3 speed = ((destination - transform.position).normalized * Time.deltaTime * m_Speed);
+		Vector3 distance = transform.position - destination;
+
+		if(distance.magnitude > speed.magnitude)
+		{
+			transform.position += speed;
+
+			if(m_MovingForward)
+			{
+				for(int i = 0; i < m_Players.Count; i++)
+				{
+					m_Players[i].requestMovement(speed);
+				}
+				m_Players.Clear();
 			}
 		}
 		else
 		{
-			transform.position -= m_Direction * Time.deltaTime * m_Speed;
-			float distance = Vector3.Distance(transform.position, m_OriginalPosition);
-			if(distance < 0.1f)
-			{
-				m_MovingForward = true;
+			transform.position = destination;
+			m_MovingForward = !m_MovingForward;
 
-				if(m_Other != null)
-					m_PlayerReachedLimit = true;
-			}
+			m_Players.Clear();
 		}
 	}
 
 	void OnTriggerStay(Collider other)
 	{
-		if(other.tag == Constants.PLAYER_STRING)
+		BaseMovementAbility player = other.gameObject.GetComponent<BaseMovementAbility> ();
+
+		if(player != null)
 		{
-			m_Other = other.transform;
-
-			if(m_MovingForward)
+			if(!m_Players.Contains(player))
 			{
-				other.transform.position += m_Direction * Time.deltaTime * m_PushPlayerSpeed;
+				m_Players.Add(player);
 			}
-			else
-			{
-				other.transform.position -= m_Direction * Time.deltaTime * m_PushPlayerSpeed;
-			}
-
-		}
-	}
-
-	void OnTriggerExit(Collider other)
-	{
-		if(other.tag == Constants.PLAYER_STRING)
-		{
-			m_Other = null;
-			m_PlayerReachedLimit = false;
 		}
 	}
 }
