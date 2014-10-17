@@ -63,8 +63,11 @@ public enum Sounds
 	ZoeyJump,
 	ZoeyOpenWings,
 	ZoeyCloseWings,
-	ZoeyDeployedWings
+	ZoeyDeployedWings,
 
+	//Enemies
+	MageAttack,
+	MageHit
 }
 
 //this struct holds all the info needed to determine how to play are sounds
@@ -120,6 +123,9 @@ public class SFXManager : MonoBehaviour
 	AudioClip m_ZoeyWingsClose;
 	AudioClip m_ZoeyWingsDeploy;
 
+	//Enemies sounds
+	AudioClip m_MageAttack;
+	AudioClip m_MageHit;
 
 
 	//Variables for class
@@ -158,18 +164,14 @@ public class SFXManager : MonoBehaviour
 		m_AlexJump = (AudioClip)Resources.Load (Constants.Sounds.ALEX_JUMP);
 		
 		//Derek Sounds
-
 		m_DerekHitOne = (AudioClip)Resources.Load (Constants.Sounds.DEREK_FIRST_WEAPON_HIT);
 		m_DerekHitTwo = (AudioClip)Resources.Load (Constants.Sounds.DEREK_SECOND_WEAPON_HIT);
 		m_DerekHitThree = (AudioClip)Resources.Load (Constants.Sounds.DEREK_THIRD_WEAPON_HIT);
 		m_DerekHurt = (AudioClip)Resources.Load (Constants.Sounds.DEREK_HURT);
 		m_DerekDeath = (AudioClip)Resources.Load (Constants.Sounds.DEREK_DEATH);
 		m_DerekJump = (AudioClip)Resources.Load (Constants.Sounds.DEREK_JUMP);
-		
-		
 
 		//Zoey Sounds
-
 		m_ZoeyHitOne = (AudioClip)Resources.Load (Constants.Sounds.ZOEY_FIRST_WEAPON_HIT);
 		m_ZoeyHitTwo = (AudioClip)Resources.Load (Constants.Sounds.ZOEY_SECOND_WEAPON_HIT);
 		m_ZoeyHitThree = (AudioClip)Resources.Load (Constants.Sounds.ZOEY_THIRD_WEAPON_HIT);
@@ -180,9 +182,9 @@ public class SFXManager : MonoBehaviour
 		m_ZoeyWingsClose = (AudioClip)Resources.Load (Constants.Sounds.ZOEY_WINGS_CLOSE);
 		m_ZoeyWingsDeploy = (AudioClip)Resources.Load (Constants.Sounds.ZOEY_WINGS_DEPLOY);
 
-
-
-
+		//Enimies sounds
+		m_MageAttack = (AudioClip)Resources.Load (Constants.Sounds.MAGE_SHOOT);
+		m_MageHit = (AudioClip)Resources.Load (Constants.Sounds.MAGE_HIT);
     }
 
 
@@ -193,8 +195,6 @@ public class SFXManager : MonoBehaviour
     /// </summary>
 	void Start ()
     {
-
-
 		//TODO: load which players are player one and two
 
 		m_PlayerOne = getPlayerTransform (GameData.Instance.PlayerOneCharacter);
@@ -228,11 +228,8 @@ public class SFXManager : MonoBehaviour
 		m_DerekHurt = (AudioClip)Resources.Load (Constants.Sounds.DEREK_HURT);
 		m_DerekDeath = (AudioClip)Resources.Load (Constants.Sounds.DEREK_DEATH);
 		m_DerekJump = (AudioClip)Resources.Load (Constants.Sounds.DEREK_JUMP);
-
-	
+			
 		//Zoey Sounds
-
-
 		m_ZoeyHitOne = (AudioClip)Resources.Load (Constants.Sounds.ALEX_FIRST_WEAPON_HIT);
 		m_ZoeyHitTwo = (AudioClip)Resources.Load (Constants.Sounds.ALEX_SECOND_WEAPON_HIT);
 		m_ZoeyHitThree = (AudioClip)Resources.Load (Constants.Sounds.ALEX_THIRD_WEAPON_HIT);
@@ -243,6 +240,9 @@ public class SFXManager : MonoBehaviour
 		m_ZoeyWingsClose = (AudioClip)Resources.Load (Constants.Sounds.ZOEY_WINGS_CLOSE);
 		m_ZoeyWingsDeploy = (AudioClip)Resources.Load (Constants.Sounds.ZOEY_WINGS_DEPLOY);
 
+		//Enimies sounds
+		m_MageAttack = (AudioClip)Resources.Load (Constants.Sounds.MAGE_SHOOT);
+		m_MageHit = (AudioClip)Resources.Load (Constants.Sounds.MAGE_HIT);
 #endif
 	}
 
@@ -258,7 +258,6 @@ public class SFXManager : MonoBehaviour
 			case Characters.Alex:
 			return GameObject.Find(Constants.ALEX_WITH_MOVEMENT_STRING).transform;
 			break;
-
 
 			case Characters.Derek:
 			return GameObject.Find(Constants.DEREK_WITH_MOVEMENT_STRING).transform;
@@ -277,9 +276,6 @@ public class SFXManager : MonoBehaviour
 		}
 	}
 
-
-
-	
 	/// <summary>
 	/// This function plays a sound from the gameObject you want it to play from.
 	/// </summary>
@@ -309,8 +305,7 @@ public class SFXManager : MonoBehaviour
         }
 
 		tempAudioSource.volume = getSoundVolume (objectPlayingTheSound.transform.position);
-
-        tempAudioSource.clip = tempSoundInfo.m_AudioClip;
+		tempAudioSource.clip = tempSoundInfo.m_AudioClip;
 
         if (tempSoundInfo.OneShot)
         {
@@ -559,6 +554,16 @@ public class SFXManager : MonoBehaviour
 		case Sounds.ZoeyDeployedWings:
 			tempAudioInfo.m_AudioClip = m_ZoeyWingsDeploy;
 			tempAudioInfo.OneShot = false;
+			break;
+
+		case Sounds.MageAttack:
+			tempAudioInfo.m_AudioClip = m_MageAttack;
+			tempAudioInfo.OneShot = true;
+			break;
+
+		case Sounds.MageHit:
+			tempAudioInfo.m_AudioClip = m_MageHit;
+			tempAudioInfo.OneShot = true;
 			break;
 
 		default:

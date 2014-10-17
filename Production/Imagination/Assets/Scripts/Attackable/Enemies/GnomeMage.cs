@@ -57,9 +57,16 @@ public class GnomeMage : BaseEnemy
 	private float m_ShotTimer;
 	private bool m_CanShoot;
 
+
+	//Sound Varibles
+	SFXManager m_SFX;
+
 	// Use this for initialization
 	void Start () 
 	{
+		//Sound Varibles
+		m_SFX = GameObject.FindGameObjectWithTag(Constants.SOUND_MANAGER).GetComponent<SFXManager>();
+
 		base.Start ();
 
 		m_CurrentFightState = FightStates.Regular;
@@ -201,6 +208,8 @@ public class GnomeMage : BaseEnemy
 				{
 					// Create the projectile
 					Instantiate (m_ProjectilePrefab, transform.position, transform.rotation);
+					//Play Lauch sound
+					m_SFX.playSound(this.gameObject, Sounds.MageAttack);
 					// bring the shot timer back up
 					m_ShotTimer = m_TimeBetweenShots;
 					// He just shot so set his can shoot to false
