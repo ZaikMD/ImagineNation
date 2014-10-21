@@ -10,7 +10,7 @@
 /*
 * 8/10/2014 Edit: Fully Commented - Kris Matis.
 *
-* 
+* 21/10/*2014 Edit : added camera snapping inputs
 */
 #endregion
 
@@ -653,7 +653,7 @@ public static class InputManager
     #endregion
     #endregion
 
-    #region Camera
+    #region Camera Movement
     #region Generic Inputs
     public static Vector2 getCamera()
     {
@@ -689,6 +689,104 @@ public static class InputManager
                 return getCamera();
         }
         return new Vector2(0, 0);
+    }
+    #endregion
+    #endregion
+
+    #region Camera Snap
+    #region Generic Inputs
+    public static bool getCameraSnap()
+    {
+        return GamePad.GetButton(GamePad.Button.RightStick, GamePad.Index.Any);
+    }
+
+    public static bool getCameraSnapDown()
+    {
+        return GamePad.GetButtonDown(GamePad.Button.RightStick, GamePad.Index.Any);
+    }
+
+    public static bool getCameraSnapUp()
+    {
+        return GamePad.GetButtonUp(GamePad.Button.RightStick, GamePad.Index.Any);
+    }
+    #endregion
+    //==========================================================================================
+    #region Specific Inputs
+    public static bool getCameraSnap(PlayerInput inputToRead)
+    {
+        switch (inputToRead)
+        {
+            case PlayerInput.Keyboard:
+                return Input.GetKey(KeyCode.Tab);
+
+            case PlayerInput.GamePadOne:
+                return GamePad.GetButton(GamePad.Button.RightStick, GamePad.Index.One);
+
+            case PlayerInput.GamePadTwo:
+                return GamePad.GetButton(GamePad.Button.RightStick, GamePad.Index.Two);
+
+            case PlayerInput.GamePadThree:
+                return GamePad.GetButton(GamePad.Button.RightStick, GamePad.Index.Three);
+
+            case PlayerInput.GamePadFour:
+                return GamePad.GetButton(GamePad.Button.RightStick, GamePad.Index.Four);
+
+            case PlayerInput.All:
+                return getCameraSnap();
+        }
+        return false;
+    }
+
+    //==========================================================================================
+    public static bool getCameraSnapDown(PlayerInput inputToRead)
+    {
+        switch (inputToRead)
+        {
+            case PlayerInput.Keyboard:
+                return Input.GetKeyDown(KeyCode.Tab);
+
+            case PlayerInput.GamePadOne:
+                return GamePad.GetButtonDown(GamePad.Button.RightStick, GamePad.Index.One);
+
+            case PlayerInput.GamePadTwo:
+                return GamePad.GetButtonDown(GamePad.Button.RightStick, GamePad.Index.Two);
+
+            case PlayerInput.GamePadThree:
+                return GamePad.GetButtonDown(GamePad.Button.RightStick, GamePad.Index.Three);
+
+            case PlayerInput.GamePadFour:
+                return GamePad.GetButtonDown(GamePad.Button.RightStick, GamePad.Index.Four);
+
+            case PlayerInput.All:
+                return getCameraSnap();
+        }
+        return false;
+    }
+
+    //==========================================================================================
+    public static bool getCameraSnapUp(PlayerInput inputToRead)
+    {
+        switch (inputToRead)
+        {
+            case PlayerInput.Keyboard:
+                return Input.GetKeyUp(KeyCode.Tab);
+
+            case PlayerInput.GamePadOne:
+                return GamePad.GetButtonUp(GamePad.Button.RightStick, GamePad.Index.One);
+
+            case PlayerInput.GamePadTwo:
+                return GamePad.GetButtonUp(GamePad.Button.RightStick, GamePad.Index.Two);
+
+            case PlayerInput.GamePadThree:
+                return GamePad.GetButtonUp(GamePad.Button.RightStick, GamePad.Index.Three);
+
+            case PlayerInput.GamePadFour:
+                return GamePad.GetButtonUp(GamePad.Button.RightStick, GamePad.Index.Four);
+
+            case PlayerInput.All:
+                return getCameraSnapUp();
+        }
+        return false;
     }
     #endregion
     #endregion

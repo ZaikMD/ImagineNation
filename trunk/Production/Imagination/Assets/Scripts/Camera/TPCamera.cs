@@ -11,6 +11,8 @@
 * 8/10/2014 Edit: Fully Commented - Kris Matis.
 *
 * 10/10/2014 Edit: no longer has internal classes
+ * 
+ * 21/10/2014 Edit: added camera snaping
 */
 #endregion
 
@@ -113,11 +115,24 @@ public class TPCamera : MonoBehaviour
 		//move the rotation points position to the player
         RotationPoint.transform.position = Vector3.Lerp(RotationPoint.transform.position, Player.transform.position, LERP_AMOUNT);
 
-		//update all the beahaviours
+        
+
+		//update rotation
         Rotation2();
+        
+        //see if the camera should snap
+        CameraSnap();
+        
+        //lerp the camera position
         LerpToPosition();
+        
+        //look at the player
         LookAt();
+        
+        //check for collision
         Collision();
+
+        //action area behaviors
         ActionArea();
 	}
 
@@ -125,6 +140,15 @@ public class TPCamera : MonoBehaviour
     //=================================================================================================
     //behaviors
     #region Behaviors
+
+    //public so other things can snap the camera
+    public void CameraSnap()
+    {
+        if (InputManager.getCameraSnapDown(m_AcceptInputFrom.ReadInputFrom))
+        {
+            RotationPoint.transform.rotation = Player.transform.rotation;
+        }
+    }
 
     void ActionArea()
     {
