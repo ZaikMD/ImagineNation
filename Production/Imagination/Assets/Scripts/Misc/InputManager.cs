@@ -11,6 +11,8 @@
 * 8/10/2014 Edit: Fully Commented - Kris Matis.
 *
 * 21/10/*2014 Edit : added camera snapping inputs
+ * 
+ * 21/10/2014 edit : added the menu inputs
 */
 #endregion
 
@@ -697,17 +699,17 @@ public static class InputManager
     #region Generic Inputs
     public static bool getCameraSnap()
     {
-        return GamePad.GetButton(GamePad.Button.RightStick, GamePad.Index.Any);
+        return GamePad.GetButton(GamePad.Button.RightStick, GamePad.Index.Any) || Input.GetKey(KeyCode.Tab);
     }
 
     public static bool getCameraSnapDown()
     {
-        return GamePad.GetButtonDown(GamePad.Button.RightStick, GamePad.Index.Any);
+        return GamePad.GetButtonDown(GamePad.Button.RightStick, GamePad.Index.Any) || Input.GetKeyDown(KeyCode.Tab);
     }
 
     public static bool getCameraSnapUp()
     {
-        return GamePad.GetButtonUp(GamePad.Button.RightStick, GamePad.Index.Any);
+        return GamePad.GetButtonUp(GamePad.Button.RightStick, GamePad.Index.Any) || Input.GetKeyUp(KeyCode.Tab);
     }
     #endregion
     //==========================================================================================
@@ -758,7 +760,7 @@ public static class InputManager
                 return GamePad.GetButtonDown(GamePad.Button.RightStick, GamePad.Index.Four);
 
             case PlayerInput.All:
-                return getCameraSnap();
+                return getCameraSnapDown();
         }
         return false;
     }
@@ -785,6 +787,342 @@ public static class InputManager
 
             case PlayerInput.All:
                 return getCameraSnapUp();
+        }
+        return false;
+    }
+    #endregion
+    #endregion
+
+    //=======================================================================================================
+
+    #region Menu Change Selection
+    #region Generic Inputs
+    public static Vector2 getMenuChangeSelection()
+    {
+        Vector2 input = turnWASDIntoVector2();
+        if (input.magnitude == 0)
+        {
+            return GamePad.GetAxis(GamePad.Axis.LeftStick, GamePad.Index.Any);
+        }
+        return input;
+    }
+    #endregion
+    //==========================================================================================
+    #region Specific Inputs
+    public static Vector2 getMenuChangeSelection(PlayerInput inputToRead)
+    {
+        switch (inputToRead)
+        {
+            case PlayerInput.Keyboard:
+                return turnWASDIntoVector2();
+            case PlayerInput.GamePadOne:
+                return GamePad.GetAxis(GamePad.Axis.LeftStick, GamePad.Index.One);
+
+            case PlayerInput.GamePadTwo:
+                return GamePad.GetAxis(GamePad.Axis.LeftStick, GamePad.Index.Two);
+
+            case PlayerInput.GamePadThree:
+                return GamePad.GetAxis(GamePad.Axis.LeftStick, GamePad.Index.Three);
+
+            case PlayerInput.GamePadFour:
+                return GamePad.GetAxis(GamePad.Axis.LeftStick, GamePad.Index.Four);
+
+            case PlayerInput.All:
+                return getMenuChangeSelection();
+        }
+        return new Vector2(0, 0);
+    }
+    #endregion
+    #endregion
+   
+    #region Menu Start
+    #region Generic Inputs
+    public static bool getMenuStart()
+    {
+        return GamePad.GetButton(GamePad.Button.Start, GamePad.Index.Any) || Input.GetKey(KeyCode.Return);
+    }
+
+    public static bool getMenuStartDown()
+    {
+        return GamePad.GetButtonDown(GamePad.Button.Start, GamePad.Index.Any) || Input.GetKeyDown(KeyCode.Return);
+    }
+
+    public static bool getMenuStartUp()
+    {
+        return GamePad.GetButtonUp(GamePad.Button.Start, GamePad.Index.Any) || Input.GetKeyUp(KeyCode.Return);
+    }
+    #endregion
+    //==========================================================================================
+    #region Specific Inputs
+    public static bool getMenuStart(PlayerInput inputToRead)
+    {
+        switch (inputToRead)
+        {
+            case PlayerInput.Keyboard:
+                return Input.GetKey(KeyCode.Return);
+
+            case PlayerInput.GamePadOne:
+                return GamePad.GetButton(GamePad.Button.Start, GamePad.Index.One);
+
+            case PlayerInput.GamePadTwo:
+                return GamePad.GetButton(GamePad.Button.Start, GamePad.Index.Two);
+
+            case PlayerInput.GamePadThree:
+                return GamePad.GetButton(GamePad.Button.Start, GamePad.Index.Three);
+
+            case PlayerInput.GamePadFour:
+                return GamePad.GetButton(GamePad.Button.Start, GamePad.Index.Four);
+
+            case PlayerInput.All:
+                return getMenuStart();
+        }
+        return false;
+    }
+
+    //==========================================================================================
+    public static bool getMenuStartDown(PlayerInput inputToRead)
+    {
+        switch (inputToRead)
+        {
+            case PlayerInput.Keyboard:
+                return Input.GetKeyDown(KeyCode.Return);
+
+            case PlayerInput.GamePadOne:
+                return GamePad.GetButtonDown(GamePad.Button.Start, GamePad.Index.One);
+
+            case PlayerInput.GamePadTwo:
+                return GamePad.GetButtonDown(GamePad.Button.Start, GamePad.Index.Two);
+
+            case PlayerInput.GamePadThree:
+                return GamePad.GetButtonDown(GamePad.Button.Start, GamePad.Index.Three);
+
+            case PlayerInput.GamePadFour:
+                return GamePad.GetButtonDown(GamePad.Button.Start, GamePad.Index.Four);
+
+            case PlayerInput.All:
+                return getMenuStartDown();
+        }
+        return false;
+    }
+
+    //==========================================================================================
+    public static bool getMenuStartUp(PlayerInput inputToRead)
+    {
+        switch (inputToRead)
+        {
+            case PlayerInput.Keyboard:
+                return Input.GetKeyUp(KeyCode.Return);
+
+            case PlayerInput.GamePadOne:
+                return GamePad.GetButtonUp(GamePad.Button.Start, GamePad.Index.One);
+
+            case PlayerInput.GamePadTwo:
+                return GamePad.GetButtonUp(GamePad.Button.Start, GamePad.Index.Two);
+
+            case PlayerInput.GamePadThree:
+                return GamePad.GetButtonUp(GamePad.Button.Start, GamePad.Index.Three);
+
+            case PlayerInput.GamePadFour:
+                return GamePad.GetButtonUp(GamePad.Button.Start, GamePad.Index.Four);
+
+            case PlayerInput.All:
+                return getMenuStartUp();
+        }
+        return false;
+    }
+    #endregion
+    #endregion
+
+    #region Menu Accept
+    #region Generic Inputs
+    public static bool getMenuAccept()
+    {
+        return GamePad.GetButton(GamePad.Button.A, GamePad.Index.Any) || Input.GetKey(KeyCode.Space);
+    }
+
+    public static bool getMenuAcceptDown()
+    {
+        return GamePad.GetButtonDown(GamePad.Button.A, GamePad.Index.Any) || Input.GetKeyDown(KeyCode.Space);
+    }
+
+    public static bool getMenuAcceptUp()
+    {
+        return GamePad.GetButtonUp(GamePad.Button.A, GamePad.Index.Any) || Input.GetKeyUp(KeyCode.Space);
+    }
+    #endregion
+    //==========================================================================================
+    #region Specific Inputs
+    public static bool getMenuAccept(PlayerInput inputToRead)
+    {
+        switch (inputToRead)
+        {
+            case PlayerInput.Keyboard:
+                return Input.GetKey(KeyCode.Space);
+
+            case PlayerInput.GamePadOne:
+                return GamePad.GetButton(GamePad.Button.A, GamePad.Index.One);
+
+            case PlayerInput.GamePadTwo:
+                return GamePad.GetButton(GamePad.Button.A, GamePad.Index.Two);
+
+            case PlayerInput.GamePadThree:
+                return GamePad.GetButton(GamePad.Button.A, GamePad.Index.Three);
+
+            case PlayerInput.GamePadFour:
+                return GamePad.GetButton(GamePad.Button.A, GamePad.Index.Four);
+
+            case PlayerInput.All:
+                return getMenuAccept();
+        }
+        return false;
+    }
+
+    //==========================================================================================
+    public static bool getMenuAcceptDown(PlayerInput inputToRead)
+    {
+        switch (inputToRead)
+        {
+            case PlayerInput.Keyboard:
+                return Input.GetKeyDown(KeyCode.Space);
+
+            case PlayerInput.GamePadOne:
+                return GamePad.GetButtonDown(GamePad.Button.A, GamePad.Index.One);
+
+            case PlayerInput.GamePadTwo:
+                return GamePad.GetButtonDown(GamePad.Button.A, GamePad.Index.Two);
+
+            case PlayerInput.GamePadThree:
+                return GamePad.GetButtonDown(GamePad.Button.A, GamePad.Index.Three);
+
+            case PlayerInput.GamePadFour:
+                return GamePad.GetButtonDown(GamePad.Button.A, GamePad.Index.Four);
+
+            case PlayerInput.All:
+                return getMenuAcceptDown();
+        }
+        return false;
+    }
+
+    //==========================================================================================
+    public static bool getMenuAcceptUp(PlayerInput inputToRead)
+    {
+        switch (inputToRead)
+        {
+            case PlayerInput.Keyboard:
+                return Input.GetKeyUp(KeyCode.Space);
+
+            case PlayerInput.GamePadOne:
+                return GamePad.GetButtonUp(GamePad.Button.A, GamePad.Index.One);
+
+            case PlayerInput.GamePadTwo:
+                return GamePad.GetButtonUp(GamePad.Button.A, GamePad.Index.Two);
+
+            case PlayerInput.GamePadThree:
+                return GamePad.GetButtonUp(GamePad.Button.A, GamePad.Index.Three);
+
+            case PlayerInput.GamePadFour:
+                return GamePad.GetButtonUp(GamePad.Button.A, GamePad.Index.Four);
+
+            case PlayerInput.All:
+                return getMenuAcceptUp();
+        }
+        return false;
+    }
+    #endregion
+    #endregion
+
+    #region Menu Back
+    #region Generic Inputs
+    public static bool getMenuBack()
+    {
+        return GamePad.GetButton(GamePad.Button.B, GamePad.Index.Any) || Input.GetKey(KeyCode.Escape);
+    }
+
+    public static bool getMenuBackDown()
+    {
+        return GamePad.GetButtonDown(GamePad.Button.B, GamePad.Index.Any) || Input.GetKeyDown(KeyCode.Escape);
+    }
+
+    public static bool getMenuBackUp()
+    {
+        return GamePad.GetButtonUp(GamePad.Button.B, GamePad.Index.Any) || Input.GetKeyUp(KeyCode.Escape);
+    }
+    #endregion
+    //==========================================================================================
+    #region Specific Inputs
+    public static bool getMenuBack(PlayerInput inputToRead)
+    {
+        switch (inputToRead)
+        {
+            case PlayerInput.Keyboard:
+                return Input.GetKey(KeyCode.Escape);
+
+            case PlayerInput.GamePadOne:
+                return GamePad.GetButton(GamePad.Button.B, GamePad.Index.One);
+
+            case PlayerInput.GamePadTwo:
+                return GamePad.GetButton(GamePad.Button.B, GamePad.Index.Two);
+
+            case PlayerInput.GamePadThree:
+                return GamePad.GetButton(GamePad.Button.B, GamePad.Index.Three);
+
+            case PlayerInput.GamePadFour:
+                return GamePad.GetButton(GamePad.Button.B, GamePad.Index.Four);
+
+            case PlayerInput.All:
+                return getMenuBack();
+        }
+        return false;
+    }
+
+    //==========================================================================================
+    public static bool getMenuBackDown(PlayerInput inputToRead)
+    {
+        switch (inputToRead)
+        {
+            case PlayerInput.Keyboard:
+                return Input.GetKeyDown(KeyCode.Escape);
+
+            case PlayerInput.GamePadOne:
+                return GamePad.GetButtonDown(GamePad.Button.B, GamePad.Index.One);
+
+            case PlayerInput.GamePadTwo:
+                return GamePad.GetButtonDown(GamePad.Button.B, GamePad.Index.Two);
+
+            case PlayerInput.GamePadThree:
+                return GamePad.GetButtonDown(GamePad.Button.B, GamePad.Index.Three);
+
+            case PlayerInput.GamePadFour:
+                return GamePad.GetButtonDown(GamePad.Button.B, GamePad.Index.Four);
+
+            case PlayerInput.All:
+                return getMenuBackDown();
+        }
+        return false;
+    }
+
+    //==========================================================================================
+    public static bool getMenuBackUp(PlayerInput inputToRead)
+    {
+        switch (inputToRead)
+        {
+            case PlayerInput.Keyboard:
+                return Input.GetKeyUp(KeyCode.Escape);
+
+            case PlayerInput.GamePadOne:
+                return GamePad.GetButtonUp(GamePad.Button.B, GamePad.Index.One);
+
+            case PlayerInput.GamePadTwo:
+                return GamePad.GetButtonUp(GamePad.Button.B, GamePad.Index.Two);
+
+            case PlayerInput.GamePadThree:
+                return GamePad.GetButtonUp(GamePad.Button.B, GamePad.Index.Three);
+
+            case PlayerInput.GamePadFour:
+                return GamePad.GetButtonUp(GamePad.Button.B, GamePad.Index.Four);
+
+            case PlayerInput.All:
+                return getMenuBackUp();
         }
         return false;
     }
