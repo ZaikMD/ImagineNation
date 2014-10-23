@@ -4,6 +4,8 @@
 *resposible for holding enums multiple scripts need
 *
 *Created by: Kris Matis
+ *
+ * 23/10/2014 kris matis :made the inputs bit based
 */
 
 #region ChangeLog
