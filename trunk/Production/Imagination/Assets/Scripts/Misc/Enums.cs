@@ -19,13 +19,14 @@ using System.Collections;
 
 public enum PlayerInput
 {
-	Keyboard,
-	GamePadOne,
-	GamePadTwo,
-	GamePadThree,
-	GamePadFour,
-	All,
-    None
+	Keyboard = 1,
+	GamePadOne = 2,
+	GamePadTwo = 4,
+	GamePadThree = 8,
+	GamePadFour = 16,
+    All = Keyboard | GamePadOne | GamePadTwo | GamePadThree | GamePadFour,
+    Count = 6,// <============== IT IS CRITICAL TO UPDATE THIS IF THE NUMBER CHANGES,     ALSO UPDATE THE CONSTANT ARRAY
+    None = 0
 }
 
 public enum Characters
