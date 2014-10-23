@@ -5,36 +5,25 @@ public class MenuV2 : MonoBehaviour
 {
     public bool IsActiveMenu = false;
 
-    bool m_IsChangingMenu = false;
-    public bool IsChangingMenu
-    {
-        get { return m_IsChangingMenu; }
-        private set { m_IsChangingMenu = value; }
-    }
+    public PlayerInput[] ReadInputFrom;
+    int m_ReadInputFrom = 0;
 
-    bool m_HasSwitched = false;
-    public bool HasSwitched
+    bool m_IsReadingInput = true;
+    public bool IsReadingInput
     {
-        get { return m_HasSwitched; }
-        private set { m_HasSwitched = value; }
+        get { return m_IsReadingInput; }
+        set { m_IsReadingInput = value; }
     }
-
-    MenuV2 m_NextMenu;
-    public MenuV2 NexMenu
-    {
-        get { return m_NextMenu; }
-        private set { m_NextMenu = value; }
-    }
-
 
     public ButtonV2 m_CurrentButton = null;
     
-
-
 	// Use this for initialization
 	void Start () 
     {
-	
+        for (int i = 0; i < ReadInputFrom.Length; i++)
+        {
+            m_ReadInputFrom = m_ReadInputFrom | (int)ReadInputFrom[i];
+        }
 	}
 	
 	// Update is called once per frame
@@ -42,20 +31,9 @@ public class MenuV2 : MonoBehaviour
     {
         if (IsActiveMenu)
         {
-            if (!IsChangingMenu)
+            if (m_IsReadingInput)
             {
-                if (HasSwitched)
-                {
-                    update();
-                }
-                else
-                {
-                    updateSwitchToThis();
-                }
-            }
-            else
-            {
-                updateChange();
+                update();
             }
         }
 	}
@@ -74,61 +52,6 @@ public class MenuV2 : MonoBehaviour
         {
             //use button
         }
-    }
-
-    /// <summary>
-    /// used to update the shutter before swapping
-    /// </summary>
-    void updateChange()
-    {
-    }
-
-    /// <summary>
-    /// used to update the shutter once the menu has been swapped too
-    /// </summary>
-    void updateSwitchToThis()
-    {
-    }
-
-    /// <summary>
-    /// starts switching to the next menu
-    /// </summary>
-    /// <param name="NextMenu"></param>
-    public void changeTo(MenuV2 nextMenu)
-    {
-        //chaning the menu so this menu is no longer the active one
-        IsActiveMenu = false;
-
-        //no longer changing the menu
-        IsChangingMenu = false;
-
-        if (nextMenu == null)
-        {
-            //if we didnt get a valid menu just change to the preset one
-            #if DEBUG || UNITY_EDITOR
-            Debug.LogError("No Menu set");
-            #endif
-        }
-        else
-        {
-            NexMenu = nextMenu;
-            IsChangingMenu = true;
-        }
-    }
-
-    /// <summary>
-    /// switches the active menu to the menu instance that gets its implmentation of this function called
-    /// </summary>
-    public void switchToThis()
-    {
-        //not changing the menu
-        IsChangingMenu = false;
-
-        //the current menu hasnt been switched to yet (fully)
-        HasSwitched = false;
-
-        //this menu is now the active one
-        IsActiveMenu = true;
     }
 }
 

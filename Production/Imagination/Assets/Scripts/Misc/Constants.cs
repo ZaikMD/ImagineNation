@@ -9,10 +9,30 @@ using System.Collections;
  * Added Animation Constants 
  * Added Sound Constants
  * 
+ *  23/10/2014 kris Matis : added the playerinput[] constant (had to do work arounds)
+ * 
  */
 
 public static class Constants
 {
+	static PlayerInput[] m_PLAYER_INPUT_ARRAY;// = new PlayerInput[(int)PlayerInput.Count] { PlayerInput.Keyboard, PlayerInput.GamePadOne, PlayerInput.GamePadTwo, PlayerInput.GamePadThree, PlayerInput.GamePadFour, PlayerInput.All };
+	public static PlayerInput[] PLAYER_INPUT_ARRAY
+	{
+		get
+		{
+			if(m_PLAYER_INPUT_ARRAY == null)
+			{
+				m_PLAYER_INPUT_ARRAY = new PlayerInput[(int)PlayerInput.Count] { PlayerInput.Keyboard, 
+                                                                                 PlayerInput.GamePadOne, 
+                                                                                 PlayerInput.GamePadTwo, 
+                                                                                 PlayerInput.GamePadThree, 
+                                                                                 PlayerInput.GamePadFour, 
+                                                                                 PlayerInput.All };
+			}
+			return m_PLAYER_INPUT_ARRAY;
+		}
+	}
+
 	public const string PLAYER_STRING = "Player";
 	public const string ALEX_STRING = "Alex";
 	public const string DEREK_STRING = "Derek";

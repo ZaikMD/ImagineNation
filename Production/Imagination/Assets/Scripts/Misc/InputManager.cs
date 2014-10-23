@@ -4,6 +4,8 @@
 *resposible for reading inputs
 *
 *Created by: Kris Matis
+ *
+ * 23/10/2014 kris matis : added bit based input reading
 */
 
 #region ChangeLog
@@ -65,7 +67,6 @@ public static class InputManager
     }
 	#endregion generic Generic
     //=====================================================================================================
-
 
 	#region Specific Inputs
 	public static bool getJump(PlayerInput inputToRead)
@@ -144,6 +145,54 @@ public static class InputManager
 	}
 	#endregion
     //=====================================================================================================
+
+    #region Bits
+    public static bool getJump(int bitsToRead)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if(getJump(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static bool getJumpDown(int bitsToRead)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getJumpDown(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static bool getJumpUp(int bitsToRead)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getJumpUp(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    #endregion
     //=====================================================================================================
 	#endregion
 
@@ -254,8 +303,55 @@ public static class InputManager
 	}
     #endregion
     //=====================================================================================================
-    //=====================================================================================================
+    #region Bits
+    public static bool getAttack(int bitsToRead)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if(getAttack(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static bool getAttackDown(int bitsToRead)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getAttackDown(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static bool getAttackUp(int bitsToRead)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getAttackUp(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     #endregion
+    //=====================================================================================================
+	#endregion
 
     #region Character Switch
     #region Generic Inputs
@@ -365,11 +461,58 @@ public static class InputManager
 	}
     #endregion
     //=====================================================================================================
+    #region Bits
+    public static bool getCharacterSwitch(int bitsToRead)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getCharacterSwitch(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static bool getCharacterSwitchDown(int bitsToRead)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getCharacterSwitchDown(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static bool getCharacterSwitchUp(int bitsToRead)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getCharacterSwitchUp(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    #endregion
     //=====================================================================================================
     #endregion
 
     #region Show Hud
-    #region
+    #region generic inputs
     public static bool getShowHud()
     {
         if (Input.GetKey(KeyCode.F) || GamePad.GetButton(GamePad.Button.B, GamePad.Index.Any))
@@ -475,6 +618,53 @@ public static class InputManager
 	}
     #endregion
     //=====================================================================================================
+    #region Bits
+    public static bool getShowHud(int bitsToRead)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getShowHud(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static bool getShowHudDown(int bitsToRead)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getShowHudDown(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static bool getShowHudUp(int bitsToRead)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getShowHudUp(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    #endregion
     //=====================================================================================================
     #endregion
 
@@ -587,6 +777,53 @@ public static class InputManager
     #endregion
     
     //=====================================================================================================
+    #region Bits
+    public static bool getPause(int bitsToRead)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getPause(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static bool getPauseDown(int bitsToRead)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getPauseDown(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static bool getPauseUp(int bitsToRead)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getPauseUp(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    #endregion
     //=====================================================================================================
     #endregion
 
@@ -653,6 +890,23 @@ public static class InputManager
 		return input;
     }
     #endregion
+    //==========================================================================================
+    #region Bits
+    public static Vector2 getMove(int bitsToRead)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getMove(Constants.PLAYER_INPUT_ARRAY[i]) != Vector2.zero)
+                {
+                    return getMove(Constants.PLAYER_INPUT_ARRAY[i]);
+                }
+            }
+        }
+        return Vector2.zero;
+    }
+    #endregion
     #endregion
 
     #region Camera Movement
@@ -691,6 +945,23 @@ public static class InputManager
                 return getCamera();
         }
         return new Vector2(0, 0);
+    }
+    #endregion
+    //==========================================================================================
+    #region Bits
+    public static Vector2 getCamera(int bitsToRead)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getCamera(Constants.PLAYER_INPUT_ARRAY[i]) != Vector2.zero)
+                {
+                    return getCamera(Constants.PLAYER_INPUT_ARRAY[i]);
+                }
+            }
+        }
+        return Vector2.zero;
     }
     #endregion
     #endregion
@@ -791,6 +1062,54 @@ public static class InputManager
         return false;
     }
     #endregion
+    //=====================================================================================================
+    #region Bits
+    public static bool getCameraSnap(int bitsToRead)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getCameraSnap(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static bool getCameraSnapDown(int bitsToRead)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getCameraSnapDown(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static bool getCameraSnapUp(int bitsToRead)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getCameraSnapUp(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    #endregion
     #endregion
 
     //=======================================================================================================
@@ -831,6 +1150,23 @@ public static class InputManager
                 return getMenuChangeSelection();
         }
         return new Vector2(0, 0);
+    }
+    #endregion
+    //==========================================================================================
+    #region Bits
+    public static Vector2 getMenuChangeSelection(int bitsToRead)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getMenuChangeSelection(Constants.PLAYER_INPUT_ARRAY[i]) != Vector2.zero)
+                {
+                    return getMenuChangeSelection(Constants.PLAYER_INPUT_ARRAY[i]);
+                }
+            }
+        }
+        return Vector2.zero;
     }
     #endregion
     #endregion
@@ -931,6 +1267,54 @@ public static class InputManager
         return false;
     }
     #endregion
+    //=====================================================================================================
+    #region Bits
+    public static bool getMenuStart(int bitsToRead)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getMenuStart(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static bool getMenuStartDown(int bitsToRead)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getMenuStartDown(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static bool getMenuStartUp(int bitsToRead)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getMenuStartUp(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    #endregion
     #endregion
 
     #region Menu Accept
@@ -1029,6 +1413,54 @@ public static class InputManager
         return false;
     }
     #endregion
+    //=====================================================================================================
+    #region Bits
+    public static bool getMenuAccept(int bitsToRead)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getMenuAccept(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static bool getMenuAcceptDown(int bitsToRead)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getMenuAcceptDown(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static bool getMenuAcceptUp(int bitsToRead)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getMenuAcceptUp(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    #endregion
     #endregion
 
     #region Menu Back
@@ -1126,6 +1558,54 @@ public static class InputManager
         }
         return false;
     }
+    #endregion
+    //=====================================================================================================
+    #region Bits
+    public static bool getMenuBack(int bitsToRead)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getMenuBack(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static bool getMenuBackDown(int bitsToRead)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getMenuBackDown(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static bool getMenuBackUp(int bitsToRead)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getMenuBackUp(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     #endregion
     #endregion
 }
