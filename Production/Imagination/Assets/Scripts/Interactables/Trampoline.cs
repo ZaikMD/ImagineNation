@@ -24,7 +24,7 @@ public class Trampoline : MonoBehaviour {
 	const string LAUNCHPOINT_NAME = "JumpPoint";
 
 	//Magnitude to launch the player
-	public float LaunchAmount = 15.0f;
+	public float LaunchAmount = 20.0f;
 	public float LaunchTimer = 0.5f;
 
 	//Load the launch point
