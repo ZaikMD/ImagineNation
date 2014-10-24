@@ -15,13 +15,18 @@
 * to IsGrounded - Matthew Whitlaw
 * 
 * 16/10/2014 fixed moving platforma and added functionality for pushers and other various bugs - Kris Matis
+* 
+* 24/10/2014 EDOT: Now works with multiple timed launches, reduced control during initial launch, and added horiozntal launches.
+* 
+* 
+* 
 */
 #endregion
 
 
 
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 //BaseMovement will require a character controller in order to
 //move the player accordingly, and it will require AcceptInputFrom, a class
@@ -60,27 +65,31 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	protected const float JUMP_SPEED = 7.5f;
 	protected const float FALL_ACCELERATION = 20.0f;
 	protected const float HELD_FALL_ACCELERATION = 15.0f;
-
 	protected const float AIR_DECCELERATION_LERP_VALUE = 0.02f;
 
 	//Distances
 	protected const float GETGROUNDED_RAYCAST_DISTANCE = 0.135f;
 	protected float m_PercentageOfVectorUp = GETGROUNDED_RAYCAST_DISTANCE - 0.1f;
 
-	//movement that other classes have requested
-	protected Vector3 m_ExternalMovement = Vector3.zero;
+	//Movement that other classes have requested
+	protected Vector3 m_InstantExternalMovement = Vector3.zero;
 
+	//List of Luanch movements
+	protected List<LaunchMovement> m_LaunchExternalMovement = new List<LaunchMovement>();
 
 	//States
 	protected bool m_CurrentlyJumping;
 	protected bool m_IsOnMovingPlatform;
 
 
+
+
+	//Intitialization
+
 	//Called at the start of the program
 	protected void Start () 
 	{
 		m_CharacterController = GetComponent<CharacterController> ();
-		//m_Camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
 		m_Anim = GetComponent<Animation>();
 
 		m_AnimState = GetComponent<AnimationState>();
@@ -93,31 +102,37 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		m_CurrentlyJumping = false;
 		m_IsOnMovingPlatform = false;
 
+		Physics.IgnoreLayerCollision (LayerMask.NameToLayer (Constants.PLAYER_STRING),
+		                             LayerMask.NameToLayer (Constants.PLAYER_STRING));
+
 	}
+
+
+
+	//Update movement
 
 	//The default update all characters should use
 	protected void Update () 
 	{
-		//Plays a walking animation
-      //  PlayAnimation();
-
-		//If at any point the jump button is released the player is
-		//no longer currently jumping
+		//If at any point the jump button is released the player is no longer currently jumping
 		if(InputManager.getJumpUp(m_AcceptInputFrom.ReadInputFrom))
 		{
 			m_CurrentlyJumping = false;
 		}
+
+		//Initialize states
 		GetIsGrounded ();
-		//if(IsOnMovingPlatform ())
-		{
-			//PlatformMovement();
-		}
 		IsOnMovingPlatform ();
-		externalMovement ();
+
+		//External movement
+		InstantExternalMovement ();
+		HandleExternalLaunchTimers ();
 
 		//If the player is grounded 
 		if(GetIsGrounded())
 		{
+			//Reset any launch movement that reset when we touch the ground
+			ResetGroundedLaunchMovement();
 
 			//Check if we should start jumping
 			if(InputManager.getJumpDown(m_AcceptInputFrom.ReadInputFrom))
@@ -144,31 +159,64 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		m_Anim.Play (m_AnimState.GetAnimation());
 	}
 
-	public void requestMovement(Vector3 movement)
-	{
-		//add the requested movement to the current stored movement
-		m_ExternalMovement += movement;
-	}
-
-	protected void externalMovement()
-	{
-		if(m_ExternalMovement.magnitude != 0.0f)
-		{
-			m_CharacterController.Move (m_ExternalMovement);
-			m_ExternalMovement = Vector3.zero;
-		}
-	}
-
 	//Moves the player based on the facing angle of the camera and the players input
 	protected void GroundMovement()
 	{
+		//Do animation logic
 		OnGroundAnimLogic ();
-		//if we do not have any values, no need to continue
+		
+		//if we do not have any movement, no need to continue
 		if (InputManager.getMove(m_AcceptInputFrom.ReadInputFrom) == Vector2.zero)
 		{
 			return;
 		}
+		
+		Vector3 moveTo = transform.forward * m_GroundSpeed * Time.deltaTime;
+		moveTo.y = m_VerticalVelocity;
+		
+		//First we look at the direction from GetProjection, our forward is now that direction, so we move forward. 
+		transform.LookAt(transform.position + GetProjection());
+		m_CharacterController.Move(moveTo + GetLaunchVelocity () * Time.deltaTime);
+	}
 
+	//Moves the player in all three directions
+	//
+	//Horizontal movement is added first, and is based off the previous horizontal speed with a minor change based on controller input, giving the player
+	//minor control horizontally while airborne.
+	//
+	//We next add vertical speed, which is the previous veritcal speed minus a small amount based on our set falling acceleration.
+	//
+	//Then we move the player
+	protected virtual void AirMovement()
+	{
+		//if(!IsOnMovingPlatform())
+		m_AnimState.AddAnimRequest (AnimationStates.Falling);
+		
+		Vector3 Movement = new Vector3(m_HorizontalAirVelocity.x, 0, m_HorizontalAirVelocity.y);
+		if (InputManager.getMove(m_AcceptInputFrom.ReadInputFrom) != Vector2.zero)
+		{
+			//Calc new velocity based on input
+			Movement = new Vector3(Movement.x + (GetProjection().x * m_AirHorizontalAcceleration * Time.deltaTime),
+			                       0,
+			                       Movement.z + (GetProjection().z * m_AirHorizontalAcceleration * Time.deltaTime));
+			
+			//Calc the direction to look and move
+			m_HorizontalAirVelocity = new Vector2(Movement.x, Movement.z);
+			transform.LookAt(transform.position + GetProjection());
+			
+			//Cap the horizontal movement speed
+			float horizontalVelocityMagnitude = Mathf.Abs(m_HorizontalAirVelocity.magnitude);
+			if (horizontalVelocityMagnitude >= MAX_HORIZONTAL_AIR_SPEED) ///Should be max speed
+			{
+				Movement = Movement.normalized * MAX_HORIZONTAL_AIR_SPEED;
+				m_HorizontalAirVelocity = new Vector2(Movement.x, Movement.z);
+			}
+		}
+		else
+		{
+			m_HorizontalAirVelocity = Vector2.Lerp(m_HorizontalAirVelocity, Vector2.zero, AIR_DECCELERATION_LERP_VALUE);
+		}
+		
 		//Cap the vertical fall speed
 		if(m_VerticalVelocity > m_MaxFallSpeed)
 		{
@@ -182,15 +230,115 @@ public abstract class BaseMovementAbility : MonoBehaviour
 				m_VerticalVelocity -= Time.deltaTime * FALL_ACCELERATION;
 			}
 		}
-
-
-		Vector3 moveTo = transform.forward * m_GroundSpeed * Time.deltaTime;
-		moveTo.y = m_VerticalVelocity;
-
-		//First we look at the direction from GetProjection, our forward is now that direction, so we move forward. 
-		transform.LookAt(transform.position + GetProjection());
-		m_CharacterController.Move(moveTo);
+		
+		//Add our vertical movement to our move
+		Movement.y = m_VerticalVelocity;
+		
+		m_CharacterController.Move (Movement * Time.deltaTime + GetLaunchVelocity () * Time.deltaTime);
 	}
+
+
+
+	//External movement
+
+	//Sets additional movement next frame
+	public void RequestInstantMovement(Vector3 movement)
+	{
+		//add the requested movement to the current stored movement
+		m_InstantExternalMovement += movement;
+	}
+
+	//Moves the player by the set external movement
+	protected void InstantExternalMovement()
+	{
+		if(m_InstantExternalMovement.magnitude != 0.0f)
+		{
+			m_CharacterController.Move (m_InstantExternalMovement);
+			m_InstantExternalMovement = Vector3.zero;
+		}
+	}
+
+	/// <summary>
+	/// Gets the total launch velocity
+	/// </summary>
+	/// <returns>The launch velocity.</returns>
+	public Vector3 GetLaunchVelocity ()
+	{	
+		//Check if there is any launch movement
+		if (m_LaunchExternalMovement.Count == 0)
+		{
+			return Vector3.zero;
+		}
+
+		//Otherwise return our total launch movement
+		Vector3 launchVelocity = Vector3.zero;
+		for (int index = 0; index < m_LaunchExternalMovement.Count; index++)
+		{
+			launchVelocity += m_LaunchExternalMovement[index].launch;
+		}
+		return launchVelocity;
+	}
+	
+	/// <summary>
+	/// Handles the timers of all external launch timers
+	/// </summary>
+	protected void HandleExternalLaunchTimers()
+	{
+		float deltaTime = Time.deltaTime;
+
+		//Decrement timers
+		for (int index = 0; index < m_LaunchExternalMovement.Count; index++)
+		{
+			m_LaunchExternalMovement[index].timer -= deltaTime;
+			Debug.Log(m_LaunchExternalMovement[index].timer);
+
+			//If the timer is up, give the player control over this movement, and then remove it
+			if (m_LaunchExternalMovement[index].timer < 0.0f)
+			{
+				Vector3 velocity = m_LaunchExternalMovement[index].launch;
+				m_VerticalVelocity += velocity.y;
+				m_HorizontalAirVelocity.x += velocity.x;
+				m_HorizontalAirVelocity.y += velocity.z;
+				m_LaunchExternalMovement.RemoveAt(index);
+			}
+		}
+	}
+
+	/// <summary>
+	/// Resets the launch movement.
+	/// </summary>
+	public void ResetLaunchMovement()
+	{
+		if (m_LaunchExternalMovement.Count > 0)
+		{
+			m_LaunchExternalMovement.Clear ();
+		}
+	}
+
+	/// <summary>
+	/// Resets the launch movement.
+	/// </summary>
+	public void ResetGroundedLaunchMovement()
+	{
+		//Do nothing if we have no launch movement
+		if (m_LaunchExternalMovement.Count == 0)
+		{
+			return;
+		}
+
+		//Remove launch movement that resets on the ground
+		for (int index = 0; index < m_LaunchExternalMovement.Count; index++)
+		{
+			if (m_LaunchExternalMovement[index].resetOnGrounded)
+			{
+				m_LaunchExternalMovement.RemoveAt(index);
+			}
+		}
+	}
+
+
+
+	//Helper functions
 
 	//Gets a vector3 for the direction we should be getting input based of off the cameras facing angle
 	protected Vector3 GetProjection()
@@ -201,6 +349,28 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		projection.y = 0;
 		return projection.normalized;
 	}
+
+	//Getter for if the character is grounded based on character controller
+	//
+	//If we are supposed to still be grounded but aren't according to our character controller, we are still considered grounded due to a raycast downwards
+	public bool GetIsGrounded()
+	{
+		RaycastHit hit;
+		
+		if ((Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 0.2f) && m_VerticalVelocity == 0.0f) || m_CharacterController.isGrounded)
+		{
+			if(m_VerticalVelocity < 0.0f)
+			{
+				m_VerticalVelocity = 0.0f;
+			}
+			return true;
+		}
+		return false;
+		
+	}
+
+
+	//Jumping functions
 
 	//Sets the vertical velocity to a pre-determined jump speed, and our horizontal air movement to our current running speed
 	protected virtual void Jump()
@@ -241,130 +411,38 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	/// Launches a player in a given Vector direction, the magnitude of which will be the speed
 	/// </summary>
 	/// <param name="jump">Jump.</param>
-	public virtual void LaunchJump(Vector3 jump)
+	public void Launch(Vector3 jump, float timeToForce, bool cancelOnGrounded)
 	{
-		m_VerticalVelocity = jump.y;
-		jump.y = 0.0f;
-
 		m_CurrentlyJumping = true;
-		transform.LookAt(transform.position + jump.normalized);
-		m_HorizontalAirVelocity = new Vector2(jump.x, jump.z);
-
+		m_LaunchExternalMovement.Add (new LaunchMovement (jump, timeToForce, cancelOnGrounded));
 	}
 
-	/*15/09/14 Edit: Added TrampolineJump script() - Greg Fortier
-	*
-	*/
-	//Moves the player upwards when the function is called;
-	public void TrampolineJump()
+	/// <summary>
+	/// Sets jump related variables, then calls launch
+	/// </summary>
+	public virtual void LaunchJump(Vector3 jump, float launchTimer)
 	{
-		//Plays sound and animation when jumping on trampoline.
+		//Animation and sound
 		m_SFX.playSound(this.gameObject, Sounds.JumpPad);
 		m_AnimState.AddAnimRequest(AnimationStates.Jump);
 
-		m_VerticalVelocity = 15.0f;
-		Vector3 Movement = new Vector3 (0, (m_VerticalVelocity), 0);
-
-		//Starts decreasing the velocity so that the player does not keep flying upwards
-		if(m_VerticalVelocity > BASE_MAX_FALL_SPEED)
-		{
-			m_VerticalVelocity-= Time.deltaTime * FALL_ACCELERATION;
-		}
-
-		//Moves the player
-		if(m_VerticalVelocity >=0)
-		{
-			m_CharacterController.Move(Movement * Time.deltaTime);
-		}
-
-	}
-	//Moves the player in all three directions
-	//
-	//Horizontal movement is added first, and is based off the previous horizontal speed with a minor change based on controller input, giving the player
-	//minor control horizontally while airborne.
-	//
-	//We next add vertical speed, which is the previous veritcal speed minus a small amount based on our set falling acceleration.
-	//
-	//Then we move the player
-	protected virtual void AirMovement()
-	{
-		//if(!IsOnMovingPlatform())
-		m_AnimState.AddAnimRequest (AnimationStates.Falling);
-
-		Vector3 Movement = new Vector3(m_HorizontalAirVelocity.x, 0, m_HorizontalAirVelocity.y);
-		if (InputManager.getMove(m_AcceptInputFrom.ReadInputFrom) != Vector2.zero)
-		{
-			//Calc new velocity based on input
-			Movement = new Vector3(Movement.x + (GetProjection().x * m_AirHorizontalAcceleration * Time.deltaTime),
-			                       0,
-			                       Movement.z + (GetProjection().z * m_AirHorizontalAcceleration * Time.deltaTime));
-		
-			//Calc the direction to look and move
-			m_HorizontalAirVelocity = new Vector2(Movement.x, Movement.z);
-			transform.LookAt(transform.position + GetProjection());
-			
-			//Cap the horizontal movement speed
-			float horizontalVelocityMagnitude = Mathf.Abs(m_HorizontalAirVelocity.magnitude);
-			if (horizontalVelocityMagnitude >= MAX_HORIZONTAL_AIR_SPEED) ///Should be max speed
-			{
-				Movement = Movement.normalized * MAX_HORIZONTAL_AIR_SPEED;
-				m_HorizontalAirVelocity = new Vector2(Movement.x, Movement.z);
-			}
-		}
-		else
-		{
-			m_HorizontalAirVelocity = Vector2.Lerp(m_HorizontalAirVelocity, Vector2.zero, AIR_DECCELERATION_LERP_VALUE);
-		}
-
-		//Cap the vertical fall speed
-		if(m_VerticalVelocity > m_MaxFallSpeed)
-		{
-			//Constantly decrease velocity based on time passed by an deceleration
-			if(InputManager.getJump(m_AcceptInputFrom.ReadInputFrom) && m_CurrentlyJumping == true)
-			{
-				m_VerticalVelocity -= Time.deltaTime * HELD_FALL_ACCELERATION;
-			}
-			else
-			{
-				m_VerticalVelocity -= Time.deltaTime * FALL_ACCELERATION;
-			}
-		}
-
-		//Add our vertical movement to our move
-		Movement.y = m_VerticalVelocity;
-
-
-		m_CharacterController.Move (Movement * Time.deltaTime);
-		
-
-
+		//Jump
+		m_CurrentlyJumping = true;
+		Launch(jump, launchTimer, true);
 	}
 
-	//Getter for if the character is grounded based on character controller
-	//
-	//If we are supposed to still be grounded but aren't according to our character controller, we are still considered grounded due to a raycast downwards
-	public bool GetIsGrounded()
-	{
-		RaycastHit hit;
 
-		if ((Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 0.2f) && m_VerticalVelocity == 0.0f) || m_CharacterController.isGrounded)
-		{
-			if(m_VerticalVelocity < 0.0f)
-			{
-				m_VerticalVelocity = 0.0f;
-			}
-			return true;
-		}
-		return false;
 
-	}
+	//Moving Platforms
 
+	//Return if this character is on a platform
 	bool IsOnMovingPlatform()
 	{
 		RaycastHit hitInfo;
 		return IsOnMovingPlatform (out hitInfo);
 	}
 
+	//Return if this character is on a platform, and give back the hitinfo
 	bool IsOnMovingPlatform(out RaycastHit hitInfo)
 	{
 		if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hitInfo, 0.5f))
@@ -387,12 +465,16 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		return false;
 	}
 
+	//Platforms request platform movement
 	void PlatformMovement()
 	{
-		requestMovement (m_Platform.GetAmountToMovePlayer ());
-		//m_CharacterController.Move (m_Platform.GetAmountToMovePlayer());
-		//m_CharacterController.Move (Vector3.down);
+		RequestInstantMovement (m_Platform.GetAmountToMovePlayer ());
 	}
+
+
+
+
+	//Animation
 
 	//Plays a walking animation
     void OnGroundAnimLogic()
