@@ -10,6 +10,7 @@
  *10/10/2014 Edit: Commented and cleaned code - Greg Fortier
  *
  *Oct 17th 2014 Edit: Now rotates the player based on the rotation of the game object;
+ *Oct 24th 2014 Edit: Adding the CameraSnap public function from TPCamera, so the camera snaps to behind the player when the player exits a crawl space.
 */
 
 using UnityEngine;
@@ -33,6 +34,8 @@ public class CrawlSpace : MonoBehaviour
 
 	int m_InComingPlayers = 0;
 
+	TPCamera m_CameraSnapper;
+
 
 
 	public void addIncomingPlayer()
@@ -47,6 +50,9 @@ public class CrawlSpace : MonoBehaviour
 		{
 			m_CrawlDelay[i] = 0.0f;
 		}
+
+
+
 	}
 	
 	// Update is called once per frame
@@ -75,6 +81,14 @@ public class CrawlSpace : MonoBehaviour
 					if (m_OtherCrawlModelRotation != null)
 					{
 						m_Players[i].transform.rotation = m_OtherCrawlModelRotation.gameObject.transform.rotation;
+
+						//camera snap is used to force the camera to be behind the player when the player exits a crawlspace
+						m_Players[i].transform.parent.gameObject.GetComponentInChildren<TPCamera>().CameraSnap(true);
+
+
+		
+
+
 					}
 
 					m_Players[i] = null;
