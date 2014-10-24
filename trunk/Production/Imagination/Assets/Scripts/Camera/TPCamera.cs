@@ -12,7 +12,7 @@
 *
 * 10/10/2014 Edit: no longer has internal classes
  * 
- * 21/10/2014 Edit: added camera snaping
+ * 21/10/2014 Edit: added a public CameraSnap function that does the same as CameraSnap but is activated by boolean - Greg Fortier usable for crawlspaces
 */
 #endregion
 
@@ -142,13 +142,21 @@ public class TPCamera : MonoBehaviour
     #region Behaviors
 
     //public so other things can snap the camera
-    public void CameraSnap()
+    void CameraSnap()
     {
         if (InputManager.getCameraSnapDown(m_AcceptInputFrom.ReadInputFrom))
         {
             RotationPoint.transform.rotation = Player.transform.rotation;
         }
     }
+
+	public void CameraSnap(bool snap)
+	{
+		if (snap)
+		{
+			RotationPoint.transform.rotation = Player.transform.rotation;
+		}
+	}
 
     void ActionArea()
     {
