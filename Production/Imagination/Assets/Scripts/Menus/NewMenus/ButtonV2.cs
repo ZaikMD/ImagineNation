@@ -24,6 +24,13 @@ public abstract class ButtonV2 : MonoBehaviour
     public GameObject Disabled;
     public GameObject Highlighted;
 
+    MenuV2 m_ParentMenu;
+    public MenuV2 ParentMenu 
+    {
+        get { return m_ParentMenu; }
+        set { m_ParentMenu = value; }
+    }
+
     public enum ButtonStates
     {
         Default = 0,
@@ -178,7 +185,7 @@ public abstract class ButtonV2 : MonoBehaviour
 
     public ButtonV2 getTopLeftNeighbor()
     {
-        if (TopLeftNeighbor.ButtonState != ButtonStates.Disabled)
+        if (TopLeftNeighbor == null || TopLeftNeighbor.ButtonState != ButtonStates.Disabled)
         {
             return TopLeftNeighbor;
         }
@@ -190,7 +197,7 @@ public abstract class ButtonV2 : MonoBehaviour
 
     public ButtonV2 getTopMiddleNeighbor()
     {
-        if (TopMiddleNeighbor.ButtonState != ButtonStates.Disabled)
+        if (TopMiddleNeighbor == null || TopMiddleNeighbor.ButtonState != ButtonStates.Disabled)
         {
             return TopMiddleNeighbor;
         }
@@ -202,7 +209,7 @@ public abstract class ButtonV2 : MonoBehaviour
 
     public ButtonV2 getTopRightNeighbor()
     {
-        if (TopRightNeighbor.ButtonState != ButtonStates.Disabled)
+        if (TopRightNeighbor == null || TopRightNeighbor.ButtonState != ButtonStates.Disabled)
         {
             return TopRightNeighbor;
         }
@@ -216,7 +223,7 @@ public abstract class ButtonV2 : MonoBehaviour
     //centre row of buttons
     public ButtonV2 getCentreLeftNeighbor()
     {
-        if (CentreLeftNeighbor.ButtonState != ButtonStates.Disabled)
+        if (CentreLeftNeighbor == null || CentreLeftNeighbor.ButtonState != ButtonStates.Disabled)
         {
             return CentreLeftNeighbor;
         }
@@ -228,7 +235,7 @@ public abstract class ButtonV2 : MonoBehaviour
 
     public ButtonV2 getCentreRightNeighbor()
     {
-        if (CentreRightNeighbor.ButtonState != ButtonStates.Disabled)
+        if (CentreRightNeighbor == null || CentreRightNeighbor.ButtonState != ButtonStates.Disabled)
         {
             return CentreRightNeighbor;
         }
@@ -242,7 +249,7 @@ public abstract class ButtonV2 : MonoBehaviour
     //bottom row of buttons
     public ButtonV2 getBottomLeftNeighbor()
     {
-        if (BottomLeftNeighbor.ButtonState != ButtonStates.Disabled)
+        if (BottomLeftNeighbor == null || BottomLeftNeighbor.ButtonState != ButtonStates.Disabled)
         {
             return BottomLeftNeighbor;
         }
@@ -254,7 +261,7 @@ public abstract class ButtonV2 : MonoBehaviour
 
     public ButtonV2 getBottomMiddleNeighbor()
     {
-        if (BottomMiddleNeighbor.ButtonState != ButtonStates.Disabled)
+        if (BottomMiddleNeighbor == null || BottomMiddleNeighbor.ButtonState != ButtonStates.Disabled)
         {
             return BottomMiddleNeighbor;
         }
@@ -266,7 +273,7 @@ public abstract class ButtonV2 : MonoBehaviour
 
     public ButtonV2 getBottomRightNeighbor()
     {
-        if (BottomRightNeighbor.ButtonState != ButtonStates.Disabled)
+        if (BottomRightNeighbor == null || BottomRightNeighbor.ButtonState != ButtonStates.Disabled)
         {
             return BottomRightNeighbor;
         }
