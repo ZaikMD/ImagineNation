@@ -28,6 +28,7 @@ public class DerekMovement : BaseMovementAbility
     //Timer to limit the player hanging onto the wall for too long
 	private float m_WallHangTimer = 0.0f;
     private float m_CanBeOnWallTimer = 0.0f;
+	const float WALL_FORCE_TIME = 1.0f;
 
     //Boolean to tell if the player is on the wall or not
 	private bool m_OnWall = false;
@@ -59,7 +60,7 @@ public class DerekMovement : BaseMovementAbility
             {
                 //LaunchJump send player off the wall by a small amount
                 //removes player from wall 
-				LaunchJump(m_WallJumpDirection * 0.1f);
+				LaunchJump(m_WallJumpDirection * 0.1f, WALL_FORCE_TIME);
                 //Set the boolean to false
 				m_OnWall = false;
             }
@@ -102,7 +103,7 @@ public class DerekMovement : BaseMovementAbility
 
 	private void JumpOffWall()
 	{
-		LaunchJump (m_WallJumpDirection * 10.0f);
+		LaunchJump (m_WallJumpDirection * 10.0f, WALL_FORCE_TIME);
 		
 		//Sets our vertical velocity to launch the player up
 		m_VerticalVelocity = WALL_JUMP_SPEED_VERTICAL;
