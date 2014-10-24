@@ -48,8 +48,8 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	protected ActivatableMovingPlatform m_Platform;
 
 	//Speed can be set by designers
-	public float m_GroundSpeed = 5.0f;
-	public float m_AirHorizontalAcceleration = 5.0f;
+	protected const float GROUND_RUNSPEED = 5.0f;
+	protected const float AIR_HORIZONTAL_CONTROL = 11.0f;
 
 	//Current velocity
 	protected Vector2 m_HorizontalAirVelocity = Vector2.zero;
@@ -57,7 +57,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	protected Vector2 m_CurrentHorizontalAirVelocity;
 
 	//Maximum speeds
-	protected const float MAX_HORIZONTAL_AIR_SPEED = 5.0f;
+	protected const float MAX_HORIZONTAL_AIR_SPEED = 7.5f;
 	protected const float BASE_MAX_FALL_SPEED = -15.0f;
 	protected float m_MaxFallSpeed = BASE_MAX_FALL_SPEED;
 
@@ -65,7 +65,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	protected const float JUMP_SPEED = 7.5f;
 	protected const float FALL_ACCELERATION = 20.0f;
 	protected const float HELD_FALL_ACCELERATION = 15.0f;
-	protected const float AIR_DECCELERATION_LERP_VALUE = 0.02f;
+	protected const float AIR_DECCELERATION_LERP_VALUE = 0.24f;
 
 	//Distances
 	protected const float GETGROUNDED_RAYCAST_DISTANCE = 0.135f;
@@ -171,7 +171,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			return;
 		}
 		
-		Vector3 moveTo = transform.forward * m_GroundSpeed * Time.deltaTime;
+		Vector3 moveTo = transform.forward * GROUND_RUNSPEED * Time.deltaTime;
 		moveTo.y = m_VerticalVelocity;
 		
 		//First we look at the direction from GetProjection, our forward is now that direction, so we move forward. 
@@ -196,9 +196,9 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		if (InputManager.getMove(m_AcceptInputFrom.ReadInputFrom) != Vector2.zero)
 		{
 			//Calc new velocity based on input
-			Movement = new Vector3(Movement.x + (GetProjection().x * m_AirHorizontalAcceleration * Time.deltaTime),
+			Movement = new Vector3(Movement.x + (GetProjection().x * AIR_HORIZONTAL_CONTROL * Time.deltaTime),
 			                       0,
-			                       Movement.z + (GetProjection().z * m_AirHorizontalAcceleration * Time.deltaTime));
+			                       Movement.z + (GetProjection().z * AIR_HORIZONTAL_CONTROL * Time.deltaTime));
 			
 			//Calc the direction to look and move
 			m_HorizontalAirVelocity = new Vector2(Movement.x, Movement.z);
@@ -214,7 +214,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		}
 		else
 		{
-			m_HorizontalAirVelocity = Vector2.Lerp(m_HorizontalAirVelocity, Vector2.zero, AIR_DECCELERATION_LERP_VALUE);
+			m_HorizontalAirVelocity = Vector2.Lerp(m_HorizontalAirVelocity, Vector2.zero, AIR_DECCELERATION_LERP_VALUE * Time.deltaTime);
 		}
 		
 		//Cap the vertical fall speed
@@ -397,7 +397,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		if (InputManager.getMove() != Vector2.zero)
 		{
 			transform.LookAt(transform.position + GetProjection());
-			m_HorizontalAirVelocity = transform.forward * m_GroundSpeed;
+			m_HorizontalAirVelocity = transform.forward * GROUND_RUNSPEED;
 		}
 		//If we are not running, our current horizontal speed is zero
 		else
