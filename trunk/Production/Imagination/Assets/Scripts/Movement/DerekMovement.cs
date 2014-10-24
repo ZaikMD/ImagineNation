@@ -28,7 +28,7 @@ public class DerekMovement : BaseMovementAbility
     //Timer to limit the player hanging onto the wall for too long
 	private float m_WallHangTimer = 0.0f;
     private float m_CanBeOnWallTimer = 0.0f;
-	const float WALL_FORCE_TIME = 1.0f;
+	const float WALL_FORCE_TIME = 0.5f;
 
     //Boolean to tell if the player is on the wall or not
 	private bool m_OnWall = false;
