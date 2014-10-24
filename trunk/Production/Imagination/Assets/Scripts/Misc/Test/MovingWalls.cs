@@ -1,4 +1,4 @@
-﻿/// 
+/// 
 /// Moving walls.
 /// Created By: Matthew Whitlaw
 /// 
@@ -73,7 +73,7 @@ public class MovingWalls : MonoBehaviour
 			{
 				for(int i = 0; i < m_Players.Count; i++)
 				{
-					m_Players[i].requestMovement(speed * SPEED_MULTIPLIER);
+					m_Players[i].RequestInstantMovement(speed * SPEED_MULTIPLIER);
 				}
 				//Empty the list, if players are still in the trigger they'll be readded
 				m_Players.Clear();
