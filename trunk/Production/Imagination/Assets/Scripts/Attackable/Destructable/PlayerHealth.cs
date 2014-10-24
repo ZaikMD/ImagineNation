@@ -10,7 +10,7 @@
 /*
 * 8/10/2014 Edit: Fully Commented - Kris Matis.
 *
-* 
+* 24/10/2014 Edit: Took out m_StopRegenHealthTimer and made it so m_HealthRegenTimer resets when the player is hit
 */
 #endregion
 
@@ -27,12 +27,8 @@ public class PlayerHealth : Destructable
 	public GUITexture m_GUITexture;
 
     //how long it takes to regen health and the timer
-	public float HealthRegenTime = 5.0f;
+	public float HealthRegenTime = 15.0f;
 	float m_HealthRegenTimer;
-
-    //how long being hit stops your health regen for and its timer
-	public float StopHealthRegenTime = 20.0f;
-	float m_StopHealthRegenTimer;
 
     //how long you're invulnerable after being hit
 	public float InvulnerabilityTimer = 1.5f;
@@ -102,7 +98,6 @@ public class PlayerHealth : Destructable
 
         //setting initial values for the timers
 		m_HealthRegenTimer = HealthRegenTime;
-		m_StopHealthRegenTimer = 0.0f;
 		m_InvulnerabilityTimer = InvulnerabilityTimer;
 
         //setting the total health
@@ -130,27 +125,19 @@ public class PlayerHealth : Destructable
 			}
 			else
 			{
-				if(m_StopHealthRegenTimer > 0)
-				{
-					m_StopHealthRegenTimer -= Time.deltaTime;
-				}
 
 				if(m_Health < m_TotalHealth)
 				{
                     //need to regen health
-					
-                    if(m_StopHealthRegenTimer <= 0)
+					if(m_HealthRegenTimer <= 0)
 					{
-						if(m_HealthRegenTimer <= 0)
-						{
-							m_Health++;
-							m_HealthRegenTimer = HealthRegenTime;
-							m_GUITexture.texture = textures[m_Health];
-						}
-						else
-						{
-							m_HealthRegenTimer-= Time.deltaTime;
-						}
+						m_Health++;
+						m_HealthRegenTimer = HealthRegenTime;
+ 						m_GUITexture.texture = textures[m_Health];
+					}
+					else
+					{
+						m_HealthRegenTimer-= Time.deltaTime;
 					}
 				}
 			}
@@ -170,10 +157,11 @@ public class PlayerHealth : Destructable
 			if(m_Health > 0)
 			{
 				m_Health -= 1; 
+
 				//play sound
 				playSound();
 			}
-			m_StopHealthRegenTimer = StopHealthRegenTime;
+			m_HealthRegenTimer = HealthRegenTime;
 			m_InvulnerabilityTimer = InvulnerabilityTimer;
             //update health bar
 			m_GUITexture.texture = textures[m_Health];
@@ -205,7 +193,7 @@ public class PlayerHealth : Destructable
 		m_IsDead = false;
 		m_Health = m_TotalHealth;
 		m_InvulnerabilityTimer = InvulnerabilityTimer;
-		StopHealthRegenTime = 0.0f;
+		m_HealthRegenTimer = HealthRegenTime;
 		m_GUITexture.texture = textures[m_Health];
 
 		PlayerCamera.Player = this.gameObject.transform.FindChild("\"Centre Point\"").gameObject;
