@@ -351,13 +351,9 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	public bool GetIsGrounded()
 	{
 		RaycastHit hit;
-		
-		if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, GETGROUNDED_RAYCAST_DISTANCE) && m_VerticalVelocity == 0.0f)
-		{
-			m_CharacterController.Move(hit.point - transform.position);
-			return true;
-		}
-		else if (m_CharacterController.isGrounded)
+
+		//If we should be grounded, set our vertical velocity to 0
+		if (m_CharacterController.isGrounded)
 		{
 			if(m_VerticalVelocity < 0.0f)
 			{
@@ -365,8 +361,15 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			}
 			return true;
 		}
+		//If we should be grounded but are above the ground, we teleport down to match the ground
+		else if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, GETGROUNDED_RAYCAST_DISTANCE) && m_VerticalVelocity == 0.0f)
+		{
+			m_CharacterController.Move(hit.point - transform.position);
+			return true;
+		}
+
+		//Otherwise return that we are airborne
 		return false;
-		
 	}
 
 
