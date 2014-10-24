@@ -16,7 +16,8 @@
 * 
 * 16/10/2014 fixed moving platforma and added functionality for pushers and other various bugs - Kris Matis
 * 
-* 24/10/2014 EDOT: Now works with multiple timed launches, reduced control during initial launch, and added horiozntal launches.
+* 24/10/2014 Edit: Now works with multiple timed launches, reduced control during initial launch, and added horiozntal launches. - Jason Hein
+* 				   Fixed falling on hills bug.
 * 
 * 
 * 
@@ -53,8 +54,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 
 	//Current velocity
 	protected Vector2 m_HorizontalAirVelocity = Vector2.zero;
-	protected float m_VerticalVelocity;
-	protected Vector2 m_CurrentHorizontalAirVelocity;
+	protected float m_VerticalVelocity = -1.0f;
 
 	//Maximum speeds
 	protected const float MAX_HORIZONTAL_AIR_SPEED = 7.5f;
@@ -68,8 +68,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	protected const float AIR_DECCELERATION_LERP_VALUE = 0.24f;
 
 	//Distances
-	protected const float GETGROUNDED_RAYCAST_DISTANCE = 0.135f;
-	protected float m_PercentageOfVectorUp = GETGROUNDED_RAYCAST_DISTANCE - 0.1f;
+	protected const float GETGROUNDED_RAYCAST_DISTANCE = 1.05f;
 
 	//Movement that other classes have requested
 	protected Vector3 m_InstantExternalMovement = Vector3.zero;
@@ -78,8 +77,8 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	protected List<LaunchMovement> m_LaunchExternalMovement = new List<LaunchMovement>();
 
 	//States
-	protected bool m_CurrentlyJumping;
-	protected bool m_IsOnMovingPlatform;
+	protected bool m_CurrentlyJumping = false;
+	protected bool m_IsOnMovingPlatform = false;
 
 
 
@@ -97,10 +96,6 @@ public abstract class BaseMovementAbility : MonoBehaviour
         m_SFX = GameObject.FindGameObjectWithTag(Constants.SOUND_MANAGER).GetComponent<SFXManager>();
 
 		m_AcceptInputFrom = gameObject.GetComponent<AcceptInputFrom> ();
-
-		m_VerticalVelocity = -1.0f;
-		m_CurrentlyJumping = false;
-		m_IsOnMovingPlatform = false;
 
 		Physics.IgnoreLayerCollision (LayerMask.NameToLayer (Constants.PLAYER_STRING),
 		                             LayerMask.NameToLayer (Constants.PLAYER_STRING));
@@ -171,11 +166,10 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			return;
 		}
 		
-		Vector3 moveTo = transform.forward * GROUND_RUNSPEED * Time.deltaTime;
-		moveTo.y = m_VerticalVelocity;
+		Vector3 moveTo = GetProjection() * GROUND_RUNSPEED * Time.deltaTime;
 		
 		//First we look at the direction from GetProjection, our forward is now that direction, so we move forward. 
-		transform.LookAt(transform.position + GetProjection());
+		transform.LookAt(transform.position + moveTo);
 		m_CharacterController.Move(moveTo + GetLaunchVelocity () * Time.deltaTime);
 	}
 
@@ -191,33 +185,34 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	{
 		//if(!IsOnMovingPlatform())
 		m_AnimState.AddAnimRequest (AnimationStates.Falling);
-		
-		Vector3 Movement = new Vector3(m_HorizontalAirVelocity.x, 0, m_HorizontalAirVelocity.y);
+
+		//Horizontal movement
 		if (InputManager.getMove(m_AcceptInputFrom.ReadInputFrom) != Vector2.zero)
 		{
-			//Calc new velocity based on input
-			Movement = new Vector3(Movement.x + (GetProjection().x * AIR_HORIZONTAL_CONTROL * Time.deltaTime),
-			                       0,
-			                       Movement.z + (GetProjection().z * AIR_HORIZONTAL_CONTROL * Time.deltaTime));
+			//Get the current projection from input and camera
+			Vector3 projection = GetProjection();
 			
 			//Calc the direction to look and move
-			m_HorizontalAirVelocity = new Vector2(Movement.x, Movement.z);
-			transform.LookAt(transform.position + GetProjection());
+			m_HorizontalAirVelocity = new Vector2(m_HorizontalAirVelocity.x + (projection.x * AIR_HORIZONTAL_CONTROL * Time.deltaTime),
+			                                      m_HorizontalAirVelocity.y + (projection.z * AIR_HORIZONTAL_CONTROL * Time.deltaTime));
+			transform.LookAt(transform.position + projection);
 			
 			//Cap the horizontal movement speed
 			float horizontalVelocityMagnitude = Mathf.Abs(m_HorizontalAirVelocity.magnitude);
 			if (horizontalVelocityMagnitude >= MAX_HORIZONTAL_AIR_SPEED) ///Should be max speed
 			{
-				Movement = Movement.normalized * MAX_HORIZONTAL_AIR_SPEED;
-				m_HorizontalAirVelocity = new Vector2(Movement.x, Movement.z);
+				m_HorizontalAirVelocity = m_HorizontalAirVelocity.normalized * MAX_HORIZONTAL_AIR_SPEED;
 			}
 		}
 		else
 		{
 			m_HorizontalAirVelocity = Vector2.Lerp(m_HorizontalAirVelocity, Vector2.zero, AIR_DECCELERATION_LERP_VALUE * Time.deltaTime);
 		}
+
+		//Add our horizontal movement to our move
+		Vector3 Movement = new Vector3(m_HorizontalAirVelocity.x, 0.0f, m_HorizontalAirVelocity.y);
 		
-		//Cap the vertical fall speed
+		//If we are above the max falling speed, we fall faster
 		if(m_VerticalVelocity > m_MaxFallSpeed)
 		{
 			//Constantly decrease velocity based on time passed by an deceleration
@@ -233,7 +228,8 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		
 		//Add our vertical movement to our move
 		Movement.y = m_VerticalVelocity;
-		
+
+		//Move
 		m_CharacterController.Move (Movement * Time.deltaTime + GetLaunchVelocity () * Time.deltaTime);
 	}
 
@@ -356,7 +352,12 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	{
 		RaycastHit hit;
 		
-		if ((Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 0.2f) && m_VerticalVelocity == 0.0f) || m_CharacterController.isGrounded)
+		if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, GETGROUNDED_RAYCAST_DISTANCE) && m_VerticalVelocity == 0.0f)
+		{
+			m_CharacterController.Move(hit.point - transform.position);
+			return true;
+		}
+		else if (m_CharacterController.isGrounded)
 		{
 			if(m_VerticalVelocity < 0.0f)
 			{
