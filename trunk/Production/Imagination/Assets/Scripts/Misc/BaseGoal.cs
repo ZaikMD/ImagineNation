@@ -94,7 +94,7 @@ public class BaseGoal : MonoBehaviour {
 	{
 		//Tell Game Data to load next level
 		GameData.Instance.resetCheckPoint (); //Reset the checkpoint
-		Application.LoadLevel (m_NextScene);
+		Application.LoadLevel (Application.loadedLevel + 1);
 	}
 
 	//Increment waiting player count so that it knows how many people are waiting to change level
