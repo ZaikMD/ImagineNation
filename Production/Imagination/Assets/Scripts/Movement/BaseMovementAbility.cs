@@ -290,7 +290,6 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		for (int index = 0; index < m_LaunchExternalMovement.Count; index++)
 		{
 			m_LaunchExternalMovement[index].timer -= deltaTime;
-			Debug.Log(m_LaunchExternalMovement[index].timer);
 
 			//If the timer is up, give the player control over this movement, and then remove it
 			if (m_LaunchExternalMovement[index].timer < 0.0f)
