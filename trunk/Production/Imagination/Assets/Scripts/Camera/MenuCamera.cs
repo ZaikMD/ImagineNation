@@ -25,11 +25,11 @@ public class MenuCamera : MonoBehaviour
     }
 
     //whether or not we should be showing the shutter
-    bool m_ShowShutter = false;
+    public bool m_ShowShutter = false;
     public bool ShowShutter
     {
         get { return m_IsDoneShutterMove; }
-        set { m_ShowShutter = value; }
+        protected set { m_ShowShutter = value; }
     }
 
     //the difference in euler angles for the shutter when its shown
@@ -44,6 +44,8 @@ public class MenuCamera : MonoBehaviour
     const float SHUTTER_SPEED = 0.15f;
     float m_ShutterTimer = SHUTTER_SPEED;
     #endregion
+
+    protected MenuV2 m_NewMenu = null;
 
     #region Random Move
     //the inital position
@@ -88,7 +90,13 @@ public class MenuCamera : MonoBehaviour
         transform.LookAt(LookAt);
     }
 
-    public void changePosition(Vector3 newPosition, Transform lookAt)
+    public void changeMenu(MenuV2 newMenu)
+    {
+        ShowShutter = true;
+		m_NewMenu = newMenu;
+    }
+
+    void changePosition(Vector3 newPosition, Transform lookAt)
     {
         //set the cameras position
         transform.position = newPosition;
@@ -101,6 +109,8 @@ public class MenuCamera : MonoBehaviour
 
         //pick a new target position
         pickInitialTargetPosition();
+
+        ShowShutter = false;
     }
     
     void updatePosition()
@@ -164,6 +174,12 @@ public class MenuCamera : MonoBehaviour
         {
             //dont need to move the shutter so set the bool
             m_IsDoneShutterMove = true;
+
+            if (m_NewMenu != null)
+            {
+                changePosition(m_NewMenu.CameraMountPoint.transform.position, m_NewMenu.transform);
+                m_NewMenu = null;
+            }
         }
         
         //move the shutter

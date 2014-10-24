@@ -47,6 +47,9 @@ public class MenuV2 : MonoBehaviour
     //the menu camera 
     static MenuCamera m_Camera;
 
+    //the camera mount point
+    public GameObject CameraMountPoint;
+
 	// Use this for initialization
     protected virtual void Start() 
     {
@@ -62,9 +65,17 @@ public class MenuV2 : MonoBehaviour
                 Debug.LogError("NO CAMERA FOUND");
             #endif
         }
+
+        m_CurrentButtonSelection.ButtonState = ButtonV2.ButtonStates.Highlightled;
+
+        ButtonV2[] childButtons = gameObject.GetComponentsInChildren<ButtonV2>();
+        for (int i = 0; i < childButtons.Length; i++)
+        {
+            childButtons[i].ParentMenu = this;
+        }
 	}
-	
-	// Update is called once per frame
+
+    // Update is called once per frame
     protected virtual void Update() 
     {
         //we dont update a menu that isnt the active one
@@ -109,11 +120,16 @@ public class MenuV2 : MonoBehaviour
                 #endif
             }
         }
+        #endregion
+
+        #region back
         else if (InputManager.getMenuBackDown(m_ReadInputFrom)) // check if "B" was hit
         {
             if (m_LastMenu != null)
             {
-                //TODO: change to the previous menu
+                m_Camera.changeMenu(m_LastMenu);
+                IsActiveMenu = false;
+                m_LastMenu.IsActiveMenu = true;
                 m_LastMenu = null;
             }
         }
