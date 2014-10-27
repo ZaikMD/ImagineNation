@@ -3,7 +3,7 @@ using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 
-public class CollectableEditor : UnityEditor
+public class CollectableEditor : Editor
 {
 	struct CollectableInfo
 	{

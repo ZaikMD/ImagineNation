@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-enum CollectableType
+public enum CollectableType
 {
 	LightPeg,
 	PuzzlePiece
@@ -14,7 +14,7 @@ public abstract class BaseCollectable : MonoBehaviour {
 				
 	void OnTriggerEnter(Collider other)
 	{
-		if(other.tag = Constants.PLAYER_STRING)
+		if(other.tag == Constants.PLAYER_STRING)
 		{
 			PassInfoToGameData();
 			Destroy(this.gameObject);
