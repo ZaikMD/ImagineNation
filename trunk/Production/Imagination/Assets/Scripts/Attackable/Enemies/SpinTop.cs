@@ -72,7 +72,6 @@ public class SpinTop : BaseEnemy
 	float m_DistanceToTarget;
 	float m_DistanceToPlayer;
 	float m_DistanceFromChargeToPosition;
-    float m_MinDistanceToPlayer;
 
 	//PlayerHit Variables
 	bool m_PlayerHit;
