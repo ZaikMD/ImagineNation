@@ -74,7 +74,7 @@ public abstract class BaseEnemy : Destructable
     protected float m_IdlingTime = MAX_IDLE_TIME;
 
     //Const for how long the enemy takes to get out of combat
-    private const float EXIT_COMBAT_TIME = 2.0f;
+    private const float EXIT_COMBAT_TIME = 25.0f;
     //Timer to track when the enemy leaves the player alone
     protected float m_CombatTimer = EXIT_COMBAT_TIME;
 
@@ -121,7 +121,7 @@ public abstract class BaseEnemy : Destructable
         m_InitialStoppingDistance = m_Agent.stoppingDistance;
         
 		//Set to make sure CombatRange does not exceed Aggro Range
-        if (m_AggroRange <= m_CombatRange)
+        if (m_AggroRange < m_CombatRange)
         {
             m_CombatRange = m_AggroRange;
         }
@@ -505,7 +505,8 @@ public abstract class BaseEnemy : Destructable
         Die();
 		m_IsActive = false;
 		m_IsAlive = false;
-       
+     	
+		base.onDeath ();
     }
 
     //Set whether the enemy is alive or not
