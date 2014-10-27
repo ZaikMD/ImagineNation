@@ -7,7 +7,9 @@
 #region ChangeLog
 /*
 * 23/10/2014 edit: kris matis  created the script and commented it
-*/
+ * 
+ * 27/10/2014 edit: kris matis  set isDoneMoving to false as soon as a new menu is set
+ */
 #endregion
 
 using UnityEngine;
@@ -94,6 +96,7 @@ public class MenuCamera : MonoBehaviour
     {
         ShowShutter = true;
 		m_NewMenu = newMenu;
+        m_IsDoneShutterMove = false;
     }
 
     void changePosition(Vector3 newPosition, Transform lookAt)
