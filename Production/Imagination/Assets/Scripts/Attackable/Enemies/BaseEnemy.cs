@@ -74,7 +74,7 @@ public abstract class BaseEnemy : Destructable
     protected float m_IdlingTime = MAX_IDLE_TIME;
 
     //Const for how long the enemy takes to get out of combat
-    private const float EXIT_COMBAT_TIME = 25.0f;
+    private const float EXIT_COMBAT_TIME = 5.0f;
     //Timer to track when the enemy leaves the player alone
     protected float m_CombatTimer = EXIT_COMBAT_TIME;
 
