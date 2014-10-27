@@ -51,7 +51,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 
 	//Speed can be set by designers
 	protected const float GROUND_RUNSPEED = 5.0f;
-	protected const float AIR_HORIZONTAL_CONTROL = 11.0f;
+	protected const float AIR_HORIZONTAL_CONTROL = 20.0f;
 
 	//Current velocity
 	protected Vector2 m_HorizontalAirVelocity = Vector2.zero;
@@ -87,7 +87,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//Intitialization
 
 	//Called at the start of the program
-	protected void Start () 
+	protected void start () 
 	{
 		m_CharacterController = GetComponent<CharacterController> ();
 		m_Anim = GetComponent<Animation>();
@@ -108,7 +108,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//Update movement
 
 	//The default update all characters should use
-	protected void Update () 
+	protected void update () 
 	{
 		//If at any point the jump button is released the player is no longer currently jumping
 		if(InputManager.getJumpUp(m_AcceptInputFrom.ReadInputFrom))

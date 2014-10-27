@@ -24,13 +24,13 @@ public class AlexMovementMoonBoots : BaseMovementAbility
 
 	// Initialization
 	void Start () {
-		base.Start ();
+		base.start ();
 	}
 	// Just calls the base update
 	void Update ()
 	{
 		//then calls base Update script from BaseMovementAbility
-		base.Update ();
+		base.update ();
 	
 	}
 

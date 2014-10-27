@@ -42,7 +42,7 @@ public class DerekMovement : BaseMovementAbility
 	void Start () 
 	{ 
         //Calls the base class start function
-		base.Start ();
+		base.start ();
 	}
 	
 	// Update is called once per frame
@@ -80,7 +80,7 @@ public class DerekMovement : BaseMovementAbility
         else
         {
             //Call Base Update and reset the Wall Hang Timer
-            base.Update();
+            base.update();
 			m_WallHangTimer = 0.0f;
         }
 	}

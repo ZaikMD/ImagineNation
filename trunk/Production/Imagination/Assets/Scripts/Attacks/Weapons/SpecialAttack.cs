@@ -31,7 +31,7 @@ public class SpecialAttack : BaseAttack
 		for(int i = 0; i < m_NumberOfProjectiles; i++)
 		{
 			m_Rotation = Quaternion.Euler(m_InitialRotation.x, m_InitialRotation.y + (i * m_Angle), m_InitialRotation.z);
-			Instantiate (m_Projectile,new Vector3(m_InitialPosition.x, m_InitialPosition.y + m_FirePointYOffSet, m_InitialPosition.z), m_Rotation);
+			GameObject.Instantiate (m_Projectile,new Vector3(m_InitialPosition.x, m_InitialPosition.y + m_FirePointYOffSet, m_InitialPosition.z), m_Rotation);
 		}
 
 

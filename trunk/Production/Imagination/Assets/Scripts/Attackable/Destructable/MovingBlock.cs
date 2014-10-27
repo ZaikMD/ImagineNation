@@ -224,14 +224,10 @@ public class MovingBlock : Destructable
 		Ray ray = new Ray (transform.position, rayDirection);
 		
 		RaycastHit rayHit;
-		
+
 		Physics.Raycast (ray, out rayHit, 10.0f);
 
-		if(rayHit.point != null)
-		{
-			m_Destination.y = rayHit.point.y;
-		}
-
+		m_Destination.y = rayHit.point.y;
 	}
 
 	protected override void onDeath ()
