@@ -23,8 +23,20 @@ using System.Collections;
 public class MenuV2 : MonoBehaviour 
 {
     //is the menu the active one?
-    public bool IsActiveMenu = false;
+    bool m_IsActiveMenu = false;
+    public bool IsActiveMenu
+    {
+        get { return m_IsActiveMenu; }
+        set
+        {
+            m_IsActiveMenu = value;
 
+            if (m_IsActiveMenu)
+            {
+                OnActivated();
+            }
+        }
+    }
     //what inputs to read
     public PlayerInput[] ReadInputFrom;
     //the input to read combined (using |)
@@ -90,7 +102,7 @@ public class MenuV2 : MonoBehaviour
     protected virtual void Update() 
     {
         //we dont update a menu that isnt the active one
-        if (IsActiveMenu)
+        if (m_IsActiveMenu)
         {
             //dont update if the shutter is moving
             if (m_Camera.IsDoneShutterMove)
@@ -146,8 +158,8 @@ public class MenuV2 : MonoBehaviour
             if (m_LastMenu != null)
             {
                 m_Camera.changeMenu(m_LastMenu);
-                IsActiveMenu = false;
-                m_LastMenu.IsActiveMenu = true;
+                m_IsActiveMenu = false;
+                m_LastMenu.m_IsActiveMenu = true;
                 m_LastMenu = null;
             }
         }
@@ -237,5 +249,9 @@ public class MenuV2 : MonoBehaviour
         m_CurrentButtonSelection.ButtonState = ButtonV2.ButtonStates.Default;
         m_CurrentButtonSelection = selection;
         m_CurrentButtonSelection.ButtonState = ButtonV2.ButtonStates.Highlightled;
+    }
+
+    protected virtual void OnActivated()
+    {
     }
 }
