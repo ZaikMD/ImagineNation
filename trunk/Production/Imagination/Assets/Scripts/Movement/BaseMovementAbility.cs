@@ -185,6 +185,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	{
 		//if(!IsOnMovingPlatform())
 		m_AnimState.AddAnimRequest (AnimationStates.Falling);
+		//Vector3 launchVelocity = GetLaunchVelocity ();
 
 		//Horizontal movement
 		if (InputManager.getMove(m_AcceptInputFrom.ReadInputFrom) != Vector2.zero)
@@ -230,7 +231,9 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		Movement.y = m_VerticalVelocity;
 
 		//Move
-		m_CharacterController.Move (Movement * Time.deltaTime + GetLaunchVelocity () * Time.deltaTime);
+		Movement += GetLaunchVelocity ();
+		Movement *= Time.deltaTime;
+		m_CharacterController.Move (Movement);
 	}
 
 

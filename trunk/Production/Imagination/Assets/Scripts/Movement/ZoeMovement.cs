@@ -86,7 +86,7 @@ public class ZoeMovement : BaseMovementAbility {
 			else
 			{
 				m_Timer -= Time.deltaTime;
-				m_VerticalVelocity = m_MaxFallSpeed;
+				m_VerticalVelocity = m_MaxFallSpeed - GetLaunchVelocity().y;
 			}
 
 			//Glide through the air
