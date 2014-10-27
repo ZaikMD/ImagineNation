@@ -11,6 +11,7 @@
 #region ChangeLog
 /* 
  * 19/9/2014 - Changed to currectly use the new base class functionality - Jason Hein
+ * 27/10/2014 - Fixed stuck on the wall bug and pre-accelerating while on the wall - Jason Hein
  */
 #endregion
 
@@ -20,14 +21,16 @@ using System.Collections;
 public class DerekMovement : BaseMovementAbility
 {
     //Const that affect the speed of the player when on the wall
-	private const float MAX_WALL_HANG = 0.5f;
-	private const float WALL_JUMP_SPEED_VERTICAL = 10.0f;
-    private const float WALL_FALL_SPEED = -0.5f;
-    private const float CAN_BE_ON_WALL_MAX = 0.75f;
+	private const float MAX_WALL_HANG = 0.4f;
+	private const float WALL_JUMP_SPEED = 12.0f;
+    private const float WALL_FALL_SPEED = 0.8f;
+
+	//Amount to send the player up off the wall
+	private const float WALL_JUMP_UP_DIRECTION = 0.8f;
 
     //Timer to limit the player hanging onto the wall for too long
 	private float m_WallHangTimer = 0.0f;
-	const float WALL_FORCE_TIME = 0.5f;
+	const float WALL_FORCE_TIME = 0.3f;
 
     //Boolean to tell if the player is on the wall or not
 	private bool m_OnWall = false;
@@ -82,13 +85,15 @@ public class DerekMovement : BaseMovementAbility
         }
 	}
 
+	//Make the player fall a little while on a wall
 	void WallAirMovement()
 	{
-        //Change our velocity when we are hanging on the wall
-        m_VerticalVelocity = WALL_FALL_SPEED;
+		m_HorizontalAirVelocity = Vector2.zero;
+        m_VerticalVelocity = -WALL_FALL_SPEED;
         m_CharacterController.Move(transform.up * m_VerticalVelocity * Time.deltaTime);
 	}
 
+	//Check if we are on a wall
     private void OnControllerColliderHit(ControllerColliderHit other)
 	{
         //Checks if the gameobject we collide with is a wall and we arent grounded
@@ -101,11 +106,10 @@ public class DerekMovement : BaseMovementAbility
 
 	private void JumpOffWall()
 	{
-		LaunchJump (m_WallJumpDirection * 10.0f, WALL_FORCE_TIME);
+		LaunchJump (m_WallJumpDirection * WALL_JUMP_SPEED, WALL_FORCE_TIME);
 		
-		//Sets our vertical velocity to launch the player up
-		m_VerticalVelocity = WALL_JUMP_SPEED_VERTICAL;
-		m_CharacterController.Move(transform.up * m_VerticalVelocity * Time.deltaTime);
+		//Set the player off the wall
+		RequestInstantMovement(m_WallJumpDirection * WALL_JUMP_SPEED * Time.deltaTime);
 	}
 
     private Vector3 RayCastReturn()
@@ -121,6 +125,7 @@ public class DerekMovement : BaseMovementAbility
             {
                 Vector3 rayVector = rayHit.point - gameObject.transform.position;
 				Vector3 reflectVector = Vector3.Reflect(rayVector, rayHit.normal);
+				reflectVector.y += WALL_JUMP_UP_DIRECTION; //Reflect the direction upwards
 				return reflectVector;
             }
         }
