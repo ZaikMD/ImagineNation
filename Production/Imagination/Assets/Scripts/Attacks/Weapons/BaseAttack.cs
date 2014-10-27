@@ -17,28 +17,20 @@ public class BaseAttack : MonoBehaviour
 {
 	protected GameObject m_Projectile;
 
-	float m_AttackTimer = 0.5f; //The animation Timer (Hopefully)
+	float m_AttackTimer = 0.5f; //The animation Timer 
 	float m_GraceTimer = 0.8f; //How long the player will have to combo the attack, starts .2 seconds before m_AttackTimer ends
 
-	bool m_AnimationDone; //Bool for if the animation is done or not
 	bool m_Attacking = false;
 	bool m_GraceCountdown = false;
 
-
 	protected float m_SaveAttackTimer = 0.6f;
 	protected float m_SaveGraceTimer = 0.8f;
+    protected float m_StartGraceTimerTimer = 0.2f;
 
 	protected Vector3 m_InitialPosition;
 	protected Quaternion m_InitialRotation;
 
 	protected float m_FirePointYOffSet = 0.5f;
-
-
-	// Use this for initialization
-	void Start () 
-	{
-	
-	}
 	
 	// Update is called once per frame
 	public void Update ()
@@ -48,14 +40,13 @@ public class BaseAttack : MonoBehaviour
 			m_AttackTimer -= Time.deltaTime; //If the player is attacking, decrement the attack timer
 		}
 
-		if(m_AttackTimer <= 0.2f)
+        if (m_AttackTimer <= m_StartGraceTimerTimer)
 		{
-			m_GraceCountdown = true; // IF the attack timer is less than 0.2, the grace timer can start decrementing
+			m_GraceCountdown = true; // If the attack timer is less than 0.2, the grace timer can start decrementing
 		}
 		if(m_AttackTimer <= 0.0f)
 		{
 			m_Attacking = false; // If the attack timer is less that zero, the player is done attacking
-			//m_AttackTimer = m_SaveAttackTimer;
 		}
 
 		if(m_GraceCountdown)
@@ -66,12 +57,7 @@ public class BaseAttack : MonoBehaviour
 		if(m_GraceTimer <= 0.0f)
 		{
 			m_GraceCountdown = false; //If the grace timer is less than zero, then it is no longer decrementing, and it resets
-			//m_GraceTimer = m_SaveGraceTimer;
-
 		}
-
-		//Debug.Log (m_GraceTimer);
-
 	}
 
 	public void loadPrefab( GameObject prefab)
