@@ -196,7 +196,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			//Calc the direction to look and move
 			m_HorizontalAirVelocity = new Vector2(m_HorizontalAirVelocity.x + (projection.x * AIR_HORIZONTAL_CONTROL * Time.deltaTime),
 			                                      m_HorizontalAirVelocity.y + (projection.z * AIR_HORIZONTAL_CONTROL * Time.deltaTime));
-			//transform.LookAt(transform.position + projection);
+			transform.LookAt(transform.position + projection);
 			
 			//Cap the horizontal movement speed
 			float horizontalVelocityMagnitude = Mathf.Abs(m_HorizontalAirVelocity.magnitude);
