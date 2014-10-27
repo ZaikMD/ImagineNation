@@ -18,6 +18,7 @@
 * 
 * 24/10/2014 Edit: Now works with multiple timed launches, reduced control during initial launch, and added horiozntal launches. - Jason Hein
 * 				   Fixed falling on hills bug.
+* 27/11/2014 Edit: Fixed side jumping bug, and the bug related to gliding and trampolines.
 * 
 * 
 * 
@@ -68,12 +69,12 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	protected const float AIR_DECCELERATION_LERP_VALUE = 0.24f;
 
 	//Distances
-	protected const float GETGROUNDED_RAYCAST_DISTANCE = 1.05f;
+	protected const float GETGROUNDED_RAYCAST_DISTANCE = 0.80f;
 
 	//Movement that other classes have requested
 	protected Vector3 m_InstantExternalMovement = Vector3.zero;
 
-	//List of Luanch movements
+	//List of Laanch movements
 	protected List<LaunchMovement> m_LaunchExternalMovement = new List<LaunchMovement>();
 
 	//States
@@ -434,6 +435,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 
 		//Jump
 		m_CurrentlyJumping = true;
+		m_VerticalVelocity = 0.0f;
 		Launch(jump, launchTimer, true);
 	}
 
