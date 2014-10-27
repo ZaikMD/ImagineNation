@@ -28,13 +28,7 @@ public class BaseGoal : MonoBehaviour {
 	protected bool[] m_AtEnd = new bool[2];
 	//protected float m_Speed;
 
-	//CharacterController[] m_Players = new CharacterController[2];
-	Vector3[] m_PlayerPositionHolder = new Vector3[2];
-
 	int m_PlayerWaitingToExit = 0;
-	int m_MaxPlayersPossible = 2;
-
-	float m_DistanceToEnd = 1.0f;
 
 	//Initialize values
 	void Start()

@@ -19,8 +19,6 @@ public class PlayerSectionV2
     Transform m_MountPoint;
     Transform m_OriginalMountpoint;
 
-    Characters m_Character;
-
     bool m_IsMounted = false;
     public bool IsMounted
     {
@@ -42,7 +40,6 @@ public class PlayerSectionV2
     {
         m_Model = model;
         m_MountPoint = mountPoint;
-        m_Character = character;
     }
 
     public virtual void update()

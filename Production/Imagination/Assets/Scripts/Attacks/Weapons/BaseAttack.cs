@@ -13,7 +13,7 @@ using System.Collections;
 * 
 */
 #endregion
-public class BaseAttack : MonoBehaviour 
+public class BaseAttack
 {
 	protected GameObject m_Projectile;
 
@@ -114,7 +114,6 @@ public class BaseAttack : MonoBehaviour
 
 	public virtual void createProjectile()
 	{
-
-		Instantiate (m_Projectile,new Vector3(m_InitialPosition.x, m_InitialPosition.y + m_FirePointYOffSet, m_InitialPosition.z), m_InitialRotation);
+		GameObject.Instantiate (m_Projectile,new Vector3(m_InitialPosition.x, m_InitialPosition.y + m_FirePointYOffSet, m_InitialPosition.z), m_InitialRotation);
 	}
 }

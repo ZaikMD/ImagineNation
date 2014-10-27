@@ -14,8 +14,8 @@ using UnityEngine;
 using System.Collections;
 
 //Adds the ability to fall slower while airborne with some player input
-public class ZoeMovement : BaseMovementAbility {
-
+public class ZoeMovement : BaseMovementAbility
+{
 	//After exiting glide, we enter a cannot glide state
 	public bool m_CanGlide;
 
@@ -33,7 +33,7 @@ public class ZoeMovement : BaseMovementAbility {
 	// Call the base start function and initialize all variables
 	void Start () 
 	{
-		base.Start ();
+		base.start ();
 		m_CanGlide = true;
 		m_NumberOfJumps = 0;
 		m_Timer = -2.0f;
@@ -96,12 +96,12 @@ public class ZoeMovement : BaseMovementAbility {
 		else if (m_Timer > -1.0f)
 		{
 			stopGlidingWhileAirborne();
-			base.Update ();
+			base.update ();
 		}
 		//Otherwise we are not gliding, and we should move normally
 		else
 		{
-			base.Update ();
+			base.update ();
 		}
 	}
 

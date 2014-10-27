@@ -24,7 +24,6 @@ public class MovingWalls : MonoBehaviour
 
 	private Vector3 m_OriginalPosition;
 	private Vector3 m_DestinationPosition;
-	private Vector3 m_Direction;
 	private bool m_MovingForward;
 	private float m_PushPlayerSpeed;
 
@@ -37,7 +36,6 @@ public class MovingWalls : MonoBehaviour
 
 		m_OriginalPosition = transform.position;
 		m_DestinationPosition = m_DestinationObject.transform.position;
-		m_Direction = m_DestinationPosition - m_OriginalPosition;
 		m_MovingForward = true;
 	}
 

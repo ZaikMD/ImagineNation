@@ -194,8 +194,6 @@ public class GnomeMage : BaseEnemy
 			{
 				RaycastHit hitInfo;
 			
-				Vector3 dir = transform.position - m_Target.transform.position ;
-			
 				// Look at the target
 				transform.LookAt(m_Target.position);
 			
