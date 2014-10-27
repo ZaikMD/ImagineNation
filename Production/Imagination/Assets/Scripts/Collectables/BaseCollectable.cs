@@ -1,15 +1,37 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BaseCollectable : MonoBehaviour {
+enum CollectableType
+{
+	LightPeg,
+	PuzzlePiece
+}
 
-	// Use this for initialization
-	void Start () {
-	
+public abstract class BaseCollectable : MonoBehaviour {
+
+	int m_ID;
+	CollectableType m_Type;	
+				
+	void OnTriggerEnter(Collider other)
+	{
+		if(other.tag = Constants.PLAYER_STRING)
+		{
+			PassInfoToGameData();
+			Destroy(this.gameObject);
+		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+		
+	public void SetInfo(int id, CollectableType type)
+	{
+		m_ID = id;
+		m_Type = type;
+	}
+
+	/// <summary>
+	/// sends data to gameData so game data knows its been collected.
+	/// </summary>
+	void PassInfoToGameData()
+	{
+
 	}
 }
