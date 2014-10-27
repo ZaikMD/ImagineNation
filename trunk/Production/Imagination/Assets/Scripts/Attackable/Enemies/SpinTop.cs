@@ -28,6 +28,12 @@
 /*
  * Joe Burchill -Oct 16th/2014
  * Added functionality that changes the color of the spin top to indicate when it can be attacked and when it can't
+ * 
+ * Joe Burchill - Oct 27th/2014
+ * Changed the Colors to be more corresponding to the state. Red means danger, while blue means the top is vulnerable.
+ * 
+ * Removed Ragdoll Prefab variable, already one from Destructible
+ * 
  */
 #endregion
 
@@ -36,7 +42,6 @@ using System.Collections;
 
 public class SpinTop : BaseEnemy 
 {
-	public GameObject m_RagdollPrefab;
     public GameObject m_SpinTopModelColor;
 	FightStates m_FightState;
 	float m_NormalSpeed;
@@ -67,6 +72,7 @@ public class SpinTop : BaseEnemy
 	float m_DistanceToTarget;
 	float m_DistanceToPlayer;
 	float m_DistanceFromChargeToPosition;
+    float m_MinDistanceToPlayer;
 
 	//PlayerHit Variables
 	bool m_PlayerHit;
@@ -90,24 +96,20 @@ public class SpinTop : BaseEnemy
 		//General Variable Values
 		m_FightState = FightStates.BuildingUpCharge;
 		m_NormalSpeed = m_Agent.speed;
-		m_KnockBackMultiplier = 5.0f;
+		m_KnockBackMultiplier = 20.0f;
 		m_AggroRange = 10.0f;
 		m_CombatRange = m_AggroRange;
 
 		//Default Timers
-		m_MaxWobbleTime = 2.0f;
 		m_WobbleTimer = m_MaxWobbleTime;
 
-		m_MaxKnockBackTime = 1.0f;
 		m_KnockBackTimer = m_MaxKnockBackTime;
 
-		m_MaxTimeAfterHitByPlayer = 1.0f;
 		m_HitByPlayerTimer = m_MaxTimeAfterHitByPlayer;
 
 		//Charge Values
 		m_ChargeTimer = 0.0f;
-		m_ChargeBuildUpTime = 1.0f;
-		m_ChargeSpeed = 20.0f;
+		m_ChargeBuildUpTime = 0.25f;
 		m_IsCharging = false;
 		m_PercentToChargePastPlayer = 1.5f;
 
@@ -132,18 +134,33 @@ public class SpinTop : BaseEnemy
 		switch(m_FightState)
 		{
 		case FightStates.Wobble:
-			Wobble ();
+#if DEBUG || UNITY_EDITOR
+                Debug.Log("Wobble");
+#endif
+            Wobble ();
 			break;
 		case FightStates.Charge:
+#if DEBUG || UNITY_EDITOR
+            Debug.Log("Charge");
+#endif
 			Charge ();
 			break;
 		case FightStates.BuildingUpCharge:
+#if DEBUG || UNITY_EDITOR
+            Debug.Log("BuildingUpCharge");
+#endif
 			BuildingUpCharge ();
 			break;
 		case FightStates.KnockedBack:
+#if DEBUG || UNITY_EDITOR
+            Debug.Log("KnockedBack");
+#endif
 			KnockedBack ();
 			break;
 		case FightStates.HitByPlayer:
+#if DEBUG || UNITY_EDITOR
+            Debug.Log("HitByPlayer");
+#endif
 			HitByPlayer();
 			break;
 		default:
@@ -153,12 +170,12 @@ public class SpinTop : BaseEnemy
 
 	protected override void Die()
 	{
-		//Instantiate (m_RagdollPrefab, transform.position, transform.rotation);
+		m_IsActive = false;
 	}
 
 	void Wobble()
 	{
-        m_SpinTopModelColor.renderer.material.color = Color.red;
+        m_SpinTopModelColor.renderer.material.color = Color.blue;
 
 		//Count down the wobble timer
 		if(m_WobbleTimer > 0.0f)
@@ -178,14 +195,12 @@ public class SpinTop : BaseEnemy
 			//Otherwise build up charge again and reset wobble timer
 			m_FightState = FightStates.BuildingUpCharge;
 			m_WobbleTimer = m_MaxWobbleTime;
-            m_SpinTopModelColor.renderer.material.color = Color.blue;
+            m_SpinTopModelColor.renderer.material.color = Color.red;
 		}
 	}
 
 	void Charge()
 	{
-		//Debug.DrawRay(m_ChargeToPosition, transform.position - m_ChargeToPosition, Color.magenta);
-
 		//Set a custom charge speed and check how far from the ChargeToPosition
 		m_Agent.speed = m_ChargeSpeed;
 		m_DistanceFromChargeToPosition = Vector3.Distance (m_ChargeToPosition, transform.position);
@@ -207,7 +222,7 @@ public class SpinTop : BaseEnemy
 			m_FightState = FightStates.KnockedBack;
 			m_Agent.speed = m_NormalSpeed;
 		}
-        m_SpinTopModelColor.renderer.material.color = Color.blue;
+        m_SpinTopModelColor.renderer.material.color = Color.red;
 	}
 
 	void BuildingUpCharge()
@@ -246,7 +261,7 @@ public class SpinTop : BaseEnemy
 			m_FightState = FightStates.Charge;
 
 		}
-        m_SpinTopModelColor.renderer.material.color = Color.blue;
+        m_SpinTopModelColor.renderer.material.color = Color.red;
 	}
 
 	void KnockedBack()
@@ -267,7 +282,7 @@ public class SpinTop : BaseEnemy
 			m_KnockBackTimer = m_MaxKnockBackTime;
 			m_FightState = FightStates.BuildingUpCharge;
 		}
-        m_SpinTopModelColor.renderer.material.color = Color.blue;
+        m_SpinTopModelColor.renderer.material.color = Color.red;
 	}
 
 	void HitByPlayer()
