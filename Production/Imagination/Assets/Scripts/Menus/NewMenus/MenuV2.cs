@@ -12,7 +12,8 @@
 /*
 * 23/10/2014 Edit: no longer a stub
 *
-* 
+* 27/10/2014 edit: made the upate fully function based
+ * 
 */
 #endregion
 
@@ -33,7 +34,7 @@ public class MenuV2 : MonoBehaviour
     public ButtonV2 m_CurrentButtonSelection = null;
 
     //timer for a delay when switching buttons
-    const float DELAY_TIME = 0.2f;
+    protected const float DELAY_TIME = 0.25f;
     protected float m_Timer = 0.0f;
 
     //the previous menu
@@ -45,7 +46,7 @@ public class MenuV2 : MonoBehaviour
     }
 
     //the menu camera 
-    static MenuCamera m_Camera;
+    protected static MenuCamera m_Camera;
 
     //the camera mount point
     public GameObject CameraMountPoint;
@@ -66,14 +67,24 @@ public class MenuV2 : MonoBehaviour
             #endif
         }
 
-        m_CurrentButtonSelection.ButtonState = ButtonV2.ButtonStates.Highlightled;
+        if (m_CurrentButtonSelection != null)
+        {
+            m_CurrentButtonSelection.ButtonState = ButtonV2.ButtonStates.Highlightled;
+        }
 
         ButtonV2[] childButtons = gameObject.GetComponentsInChildren<ButtonV2>();
         for (int i = 0; i < childButtons.Length; i++)
         {
             childButtons[i].ParentMenu = this;
         }
+
+        start();
 	}
+
+    protected virtual void start()
+    {
+        //used by inheriting classes to add functionality to start while keeping the old
+    }
 
     // Update is called once per frame
     protected virtual void Update() 
@@ -94,7 +105,6 @@ public class MenuV2 : MonoBehaviour
     /// </summary>
     protected virtual void update()
     {
-        #region change selection
         //update Timer
         m_Timer += Time.deltaTime;
 
@@ -103,10 +113,15 @@ public class MenuV2 : MonoBehaviour
             //change selection if needed
             changeSelection();
         }
+       
+		if (!useButton())
+        {
+            back();
+        }       
+    }
 
-        #endregion
-
-        #region use button
+    protected virtual bool useButton()
+    {
         if (InputManager.getMenuAcceptDown(m_ReadInputFrom))//check if "A" was hit
         {
             if (m_CurrentButtonSelection != null)
@@ -115,15 +130,18 @@ public class MenuV2 : MonoBehaviour
             }
             else
             {
-                #if DEBUG || UNITY_EDITOR
-                    Debug.LogError("NO BUTTON SET");
-                #endif
+#if DEBUG || UNITY_EDITOR
+                Debug.LogError("NO BUTTON SET");
+#endif
             }
+            return true;
         }
-        #endregion
+        return false;
+    }
 
-        #region back
-        else if (InputManager.getMenuBackDown(m_ReadInputFrom)) // check if "B" was hit
+    protected virtual void back()
+    {
+        if (InputManager.getMenuBackDown(m_ReadInputFrom)) // check if "B" was hit
         {
             if (m_LastMenu != null)
             {
@@ -133,10 +151,9 @@ public class MenuV2 : MonoBehaviour
                 m_LastMenu = null;
             }
         }
-        #endregion
     }
 
-    protected void changeSelection()
+    protected virtual void changeSelection()
     {
         //get the change selection input
         Vector2 selectionInput = InputManager.getMenuChangeSelection(m_ReadInputFrom);
