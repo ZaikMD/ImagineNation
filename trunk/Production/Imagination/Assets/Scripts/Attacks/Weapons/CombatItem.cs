@@ -12,7 +12,7 @@ using System.Collections;
 /*
 * 8/10/2014 Edit: Fully Commented- Zach Dubuc
 *
-* 
+* Added in a  for loop to set the attack timer on any special attacks
 */
 #endregion
 public class CombatItem : MonoBehaviour 
@@ -39,8 +39,13 @@ public class CombatItem : MonoBehaviour
 			m_BaseAttacks[i].loadPrefab(m_ProjectilePrefab); //Loads the prefab for the projectiles
 			m_BaseAttacks.Initialize();
 		}
-
-		m_BaseAttacks [2].setAttackTimer (1.1f);
+        for (int i = 0; i < m_BaseAttacks.Length; i++)
+        {
+            if (m_BaseAttacks[i].GetType() == typeof(SpecialAttack))
+            {
+                m_BaseAttacks[i].setAttackTimer(1.1f);
+            }
+        }
 
         m_ReadInput = gameObject.GetComponent<AcceptInputFrom> ();
         
