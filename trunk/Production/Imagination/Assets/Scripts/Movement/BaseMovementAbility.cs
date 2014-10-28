@@ -69,7 +69,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	protected const float FALL_ACCELERATION = 20.0f;
 	protected const float HELD_FALL_ACCELERATION = 12.0f;
 	protected const float AIR_DECCELERATION_LERP_VALUE_PREDELTA = 0.25f;
-	protected const float GROUND_DECCELERATION_LERP_VALUE_PREDELTA = 6.0f;
+	protected const float GROUND_DECCELERATION_LERP_VALUE_PREDELTA = 6.5f;
 
 	//Distances
 	protected const float GETGROUNDED_RAYCAST_DISTANCE = 0.80f;
@@ -193,7 +193,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			}
 			else
 			{
-				horizontalVelocity = Vector2.Lerp(horizontalVelocity, Vector2.zero, GROUND_DECCELERATION_LERP_VALUE_PREDELTA * Time.deltaTime);
+				horizontalVelocity = Vector2.Lerp(horizontalVelocity, Vector2.zero, Mathf.Min(GROUND_DECCELERATION_LERP_VALUE_PREDELTA * Time.deltaTime, 1.0f));
 			}
 		}
 
@@ -243,7 +243,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			}
 			else
 			{
-				horizontalAirVelocity = Vector2.Lerp(horizontalAirVelocity, Vector2.zero, AIR_DECCELERATION_LERP_VALUE_PREDELTA * Time.deltaTime);
+				horizontalAirVelocity = Vector2.Lerp(horizontalAirVelocity, Vector2.zero, Mathf.Min(AIR_DECCELERATION_LERP_VALUE_PREDELTA * Time.deltaTime, 1.0f));
 			}
 		}
 		
