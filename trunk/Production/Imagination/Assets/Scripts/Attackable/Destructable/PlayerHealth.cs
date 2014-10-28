@@ -176,6 +176,7 @@ public class PlayerHealth : Destructable
             m_IsDead = true;
             GameObject ragdoll = (GameObject) Instantiate(m_Ragdoll, transform.position, transform.rotation);
             
+			//Give our ragdoll a reference to the camera
 			ragdoll.GetComponent<PlayerRagDoll>().m_PlayerCamera = PlayerCamera;
         }
 	}

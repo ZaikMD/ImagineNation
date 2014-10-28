@@ -20,7 +20,7 @@ public class PlayerRagDoll : MonoBehaviour
 	public GameObject GhostPrefab;
 	GameObject m_Ghost;
 
-	float m_Timer = DeadPlayerManager.Instance.m_RespawnTimer;
+	float m_Timer = 0.0f;
 
 	public TPCamera m_PlayerCamera;
 
@@ -29,6 +29,9 @@ public class PlayerRagDoll : MonoBehaviour
 	{
 		//create the ghost
 		m_Ghost = (GameObject)GameObject.Instantiate (GhostPrefab, transform.position, transform.rotation);
+
+		//set the timer
+		m_Timer = DeadPlayerManager.Instance.m_RespawnTimer;
 
 		//tell the camera to look at the ghost instead of the player
 		m_PlayerCamera.Player = m_Ghost;
