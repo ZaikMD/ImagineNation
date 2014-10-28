@@ -33,7 +33,7 @@ public class ZoeMovement : BaseMovementAbility
 
 	//Fall speeds
 	private const float GLIDE_MAX_FALL_SPEED = -1.5f;
-	private const float GLIDE_LERP_SPEED_PRE_DELTA = 2.25f;
+	private const float GLIDE_LERP_SPEED_PRE_DELTA = 2.4f;
 
 	//Jump speeds
 	private const float JUMP_SPEED = 6.5f;
