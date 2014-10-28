@@ -22,6 +22,7 @@
 * 27/11/2014 Edit: Cleaned up movement code, and increase difference between held air and non-held air acceleration.
 * 				   Changed falling and jumping constants to getter function in inheriting classes.
 * 				   Seperated falling calculation into a virtual function GetVerticalMovementAfterFalling()
+* 28/11/2014 Edit: Changed a number of constants and added a setPausedMovement function.
 * 
 * 
 * 
@@ -53,7 +54,6 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	protected ActivatableMovingPlatform m_Platform;
 
 	//Movement control
-	protected const float GROUND_HORIZONTAL_CONTROL = 40.0f;
 	protected const float AIR_HORIZONTAL_CONTROL = 25.0f;
 
 	//Current velocity
@@ -83,6 +83,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//States
 	protected bool m_CurrentlyJumping = false;
 	protected bool m_IsOnMovingPlatform = false;
+	protected bool m_PausedMovement = false;
 
 
 
@@ -112,6 +113,12 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//The default update all characters should use
 	protected void update () 
 	{
+		//Do not move if we are paused
+		if (m_PausedMovement)
+		{
+			return;
+		}
+
 		//If at any point the jump button is released the player is no longer currently jumping
 		if(InputManager.getJumpUp(m_AcceptInputFrom.ReadInputFrom))
 		{
@@ -172,18 +179,11 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			Vector3 projection = GetProjection();
 			
 			//Calc the direction to look and move
-			horizontalVelocity += new Vector2(projection.x * GROUND_HORIZONTAL_CONTROL * Time.deltaTime,
-			                                     projection.z * GROUND_HORIZONTAL_CONTROL * Time.deltaTime);
+			horizontalVelocity = new Vector2(projection.x * MAX_GROUND_RUNSPEED,
+			                                 projection.z * MAX_GROUND_RUNSPEED);
 
 			//Have the player look where the player is going
 			transform.LookAt(transform.position + projection);
-			
-			//Cap the horizontal movement speed
-			float horizontalVelocityMagnitude = Mathf.Abs(horizontalVelocity.magnitude);
-			if (horizontalVelocityMagnitude >= MAX_GROUND_RUNSPEED) ///Should be max speed
-			{
-				horizontalVelocity = horizontalVelocity.normalized * MAX_GROUND_RUNSPEED;
-			}
 		}
 		else
 		{
@@ -418,6 +418,16 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	{
 		return 0.0f;
 	}
+
+	/// <summary>
+	/// Allows other scripts to momentarily stop all movement
+	/// </summary>
+	/// <param name="paused">If set to <c>true</c> paused.</param>
+	public void setMovementPaused(bool paused)
+	{
+		m_PausedMovement = paused;
+	}
+
 
 
 	//Jumping functions
