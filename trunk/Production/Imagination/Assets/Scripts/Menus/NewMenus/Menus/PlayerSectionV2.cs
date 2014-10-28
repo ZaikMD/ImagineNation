@@ -23,7 +23,11 @@ public class PlayerSectionV2
     public bool IsMounted
     {
         get { return m_IsMounted; }
-        set { m_IsMounted = value; }
+        set 
+        { 
+            m_IsMounted = value;
+            m_IsScaling = true;
+        }
     }
 
     bool m_IsScaling = false;
@@ -31,6 +35,13 @@ public class PlayerSectionV2
     {
         get { return m_IsScaling; }
         set { m_IsScaling = value; }
+    }
+
+    bool m_IsReady = false;
+    public bool IsReady
+    {
+        get { return m_IsReady; }
+        set { m_IsReady = value; }
     }
 
     const float SCALE_AMOUNT = 3.0f;
