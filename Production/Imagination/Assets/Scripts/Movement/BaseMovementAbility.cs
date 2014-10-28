@@ -481,7 +481,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 
 		//Jump
 		m_CurrentlyJumping = true;
-		m_Velocity.y = 0.0f;
+		m_Velocity.y = 1.0f;
 		Launch(jump, launchTimer, true);
 	}
 
