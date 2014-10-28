@@ -7,7 +7,12 @@
 //
 
 #region Change Log
-//19/9/2014 - Changed to currectly use the new base class functionality - Jason Hein
+/*19/9/2014 - Changed to currectly use the new base class functionality - Jason Hein
+ * 27/11/2014 - Added getter function for jumping and falling variables - Jason Hein
+ * 				Zoe now overrides a function GetVerticalMovementAfterFalling to set the players vertical gliding velocity
+ * 
+ * 
+ */
 #endregion
 
 using UnityEngine;
@@ -27,11 +32,11 @@ public class ZoeMovement : BaseMovementAbility
 	private const float MAX_GLIDE_TIME = 2.0f;
 
 	//Fall speeds
-	private const float MAX_FALL_SPEED = -15.0f;
 	private const float GLIDE_MAX_FALL_SPEED = -1.5f;
+	private const float GLIDE_LERP_SPEED_PRE_DELTA = 2.25f;
 
 	//Jump speeds
-	private const float JUMP_SPEED = 6.5f;
+	private const float JUMP_SPEED = 6.25f;
 
 	// Call the base start function and initialize all variables
 	void Start () 
@@ -72,7 +77,7 @@ public class ZoeMovement : BaseMovementAbility
 			//On the third jump we exit gliding
 			else if(m_NumberOfJumps >= 3)
 			{ 
-				stopGlidingWhileAirborne();
+				StopGlidingWhileAirborne();
 			}
 		}
 		//If we are gliding
@@ -81,34 +86,24 @@ public class ZoeMovement : BaseMovementAbility
 			//If we are not holding down the button, exit gliding
 			if(!InputManager.getJump(m_AcceptInputFrom.ReadInputFrom))
 			{
-				stopGlidingWhileAirborne();
+				StopGlidingWhileAirborne();
 			}
 			//Otherwise set gliding based falling variables
 			else
 			{
 				m_Timer -= Time.deltaTime;
-				m_Velocity.y = getFallSpeed() - GetLaunchVelocity().y;
 			}
-
-			//Glide through the air
-			AirMovement();
-			base.update ();
 		}
 		//If we have just exited glidings max timer
 		else if (m_Timer > -1.0f)
 		{
-			stopGlidingWhileAirborne();
-			base.update ();
+			StopGlidingWhileAirborne();
 		}
-		//Otherwise we are not gliding, and we should move normally
-		else
-		{
-			base.update ();
-		}
+		base.update ();
 	}
 
 	//Set all gliding variables to a standard airborne state
-	void stopGlidingWhileAirborne()
+	void StopGlidingWhileAirborne()
 	{
 		m_Timer = -2.0f;
 		m_CanGlide = false;
@@ -117,20 +112,31 @@ public class ZoeMovement : BaseMovementAbility
 	/// <summary>
 	/// Gets the players jump speed. Must be overrided by inheriting classes in order to jump.
 	/// </summary>
-	protected override float getJumpSpeed()
+	protected override float GetJumpSpeed()
 	{
 		return JUMP_SPEED;
 	}
-	
+
+
 	/// <summary>
-	/// Gets the players fall speed. Must be overrided by inheriting classes in order to fall.
+	/// Returns a value for vertical movement after decelleration due to falling is calculated.
 	/// </summary>
-	protected override float getFallSpeed()
+	protected override float GetVerticalMovementAfterFalling()
 	{
-		if (m_Timer > 0.0f)
+		//Add our horizontal movement to our move
+		float verticalVelocity = m_Velocity.y;
+
+		if (m_Timer > -1.0f)
 		{
-			return GLIDE_MAX_FALL_SPEED;
+			if (verticalVelocity != GLIDE_MAX_FALL_SPEED)
+			{
+				verticalVelocity = Mathf.Lerp(verticalVelocity, GLIDE_MAX_FALL_SPEED, Time.deltaTime * GLIDE_LERP_SPEED_PRE_DELTA);
+			}
 		}
-		return MAX_FALL_SPEED;
+		else
+		{
+			verticalVelocity = base.GetVerticalMovementAfterFalling();
+		}
+		return verticalVelocity;
 	}
 }

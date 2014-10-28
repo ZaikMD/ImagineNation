@@ -9,6 +9,7 @@
  * 
  * 
  * 19/9/2014 - Changed to currectly use the new base class functionality - Jason Hein
+ * 27/11/2014 - Added getter function for jumping and falling variables - Jason Hein
  */
 
 
@@ -20,10 +21,7 @@ public class AlexMovementMoonBoots : BaseMovementAbility
 {
 	
 	//Jump speeds
-	private const float JUMP_SPEED = 8.0f;
-
-	//Fall speed
-	private const float MAX_FALL_SPEED = -15.0f;
+	private const float JUMP_SPEED = 7.5f;
 
 	// Initialization
 	void Start () {
@@ -40,16 +38,8 @@ public class AlexMovementMoonBoots : BaseMovementAbility
 	/// <summary>
 	/// Gets the players jump speed. Must be overrided by inheriting classes in order to jump.
 	/// </summary>
-	protected override float getJumpSpeed()
+	protected override float GetJumpSpeed()
 	{
 		return JUMP_SPEED;
-	}
-	
-	/// <summary>
-	/// Gets the players fall speed. Must be overrided by inheriting classes in order to fall.
-	/// </summary>
-	protected override float getFallSpeed()
-	{
-		return MAX_FALL_SPEED;
 	}
 }
