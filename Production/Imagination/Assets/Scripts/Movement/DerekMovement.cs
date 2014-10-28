@@ -22,15 +22,17 @@ public class DerekMovement : BaseMovementAbility
 {
     //Const that affect the speed of the player when on the wall
 	private const float MAX_WALL_HANG = 0.4f;
-	private const float WALL_JUMP_SPEED = 12.0f;
+	private const float WALL_JUMP_SPEED = 11.0f;
     private const float WALL_FALL_SPEED = 0.8f;
+	private const float MAX_FALL_SPEED = -15.0f;
+	private const float JUMP_SPEED = 6.5f;
 
 	//Amount to send the player up off the wall
 	private const float WALL_JUMP_UP_DIRECTION = 0.8f;
 
     //Timer to limit the player hanging onto the wall for too long
 	private float m_WallHangTimer = 0.0f;
-	const float WALL_FORCE_TIME = 0.3f;
+	const float WALL_FORCE_TIME = 0.8f;
 
     //Boolean to tell if the player is on the wall or not
 	private bool m_OnWall = false;
@@ -80,17 +82,16 @@ public class DerekMovement : BaseMovementAbility
         else
         {
             //Call Base Update and reset the Wall Hang Timer
-            base.update();
+            //base.update();
 			m_WallHangTimer = 0.0f;
         }
+		base.update();
 	}
 
 	//Make the player fall a little while on a wall
 	void WallAirMovement()
 	{
-		m_HorizontalAirVelocity = Vector2.zero;
-        m_VerticalVelocity = -WALL_FALL_SPEED;
-        m_CharacterController.Move(transform.up * m_VerticalVelocity * Time.deltaTime);
+		m_Velocity = new Vector3 (0.0f, -WALL_FALL_SPEED, 0.0f);
 	}
 
 	//Check if we are on a wall
@@ -104,6 +105,7 @@ public class DerekMovement : BaseMovementAbility
 		}
 	}
 
+	//Jump off the wall
 	private void JumpOffWall()
 	{
 		LaunchJump (m_WallJumpDirection * WALL_JUMP_SPEED, WALL_FORCE_TIME);
@@ -131,4 +133,20 @@ public class DerekMovement : BaseMovementAbility
         }
 		return Vector3.zero;
     }
+
+	/// <summary>
+	/// Gets the players jump speed. Must be overrided by inheriting classes in order to jump.
+	/// </summary>
+	protected override float getJumpSpeed()
+	{
+		return JUMP_SPEED;
+	}
+	
+	/// <summary>
+	/// Gets the players fall speed. Must be overrided by inheriting classes in order to fall.
+	/// </summary>
+	protected override float getFallSpeed()
+	{
+		return MAX_FALL_SPEED;
+	}
 }
