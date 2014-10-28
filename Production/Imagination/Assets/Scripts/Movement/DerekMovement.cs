@@ -25,7 +25,7 @@ public class DerekMovement : BaseMovementAbility
 	private const float MAX_WALL_HANG = 0.4f;
 	private const float WALL_JUMP_SPEED = 11.0f;
     private const float WALL_FALL_SPEED = 0.8f;
-	private const float JUMP_SPEED = 6.25f;
+	private const float JUMP_SPEED = 6.5f;
 
 	//Amount to send the player up off the wall
 	private const float WALL_JUMP_UP_DIRECTION = 0.8f;

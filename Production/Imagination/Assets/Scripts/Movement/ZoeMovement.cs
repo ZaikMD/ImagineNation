@@ -36,7 +36,7 @@ public class ZoeMovement : BaseMovementAbility
 	private const float GLIDE_LERP_SPEED_PRE_DELTA = 2.25f;
 
 	//Jump speeds
-	private const float JUMP_SPEED = 6.25f;
+	private const float JUMP_SPEED = 6.5f;
 
 	// Call the base start function and initialize all variables
 	void Start () 
