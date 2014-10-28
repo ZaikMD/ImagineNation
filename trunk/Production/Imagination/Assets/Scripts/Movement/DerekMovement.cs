@@ -12,6 +12,7 @@
 /* 
  * 19/9/2014 - Changed to currectly use the new base class functionality - Jason Hein
  * 27/10/2014 - Fixed stuck on the wall bug and pre-accelerating while on the wall - Jason Hein
+ * 27/11/2014 - Added getter function for jumping and falling variables - Jason Hein
  */
 #endregion
 
@@ -24,8 +25,7 @@ public class DerekMovement : BaseMovementAbility
 	private const float MAX_WALL_HANG = 0.4f;
 	private const float WALL_JUMP_SPEED = 11.0f;
     private const float WALL_FALL_SPEED = 0.8f;
-	private const float MAX_FALL_SPEED = -15.0f;
-	private const float JUMP_SPEED = 6.5f;
+	private const float JUMP_SPEED = 6.25f;
 
 	//Amount to send the player up off the wall
 	private const float WALL_JUMP_UP_DIRECTION = 0.8f;
@@ -137,16 +137,8 @@ public class DerekMovement : BaseMovementAbility
 	/// <summary>
 	/// Gets the players jump speed. Must be overrided by inheriting classes in order to jump.
 	/// </summary>
-	protected override float getJumpSpeed()
+	protected override float GetJumpSpeed()
 	{
 		return JUMP_SPEED;
-	}
-	
-	/// <summary>
-	/// Gets the players fall speed. Must be overrided by inheriting classes in order to fall.
-	/// </summary>
-	protected override float getFallSpeed()
-	{
-		return MAX_FALL_SPEED;
 	}
 }
