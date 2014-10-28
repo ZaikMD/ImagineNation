@@ -130,7 +130,7 @@ public class ZoeMovement : BaseMovementAbility
 		{
 			if (verticalVelocity != GLIDE_MAX_FALL_SPEED)
 			{
-				verticalVelocity = Mathf.Lerp(verticalVelocity, GLIDE_MAX_FALL_SPEED, Time.deltaTime * GLIDE_LERP_SPEED_PRE_DELTA);
+				verticalVelocity = Mathf.Lerp(verticalVelocity, GLIDE_MAX_FALL_SPEED, Mathf.Min(Time.deltaTime * GLIDE_LERP_SPEED_PRE_DELTA, 1.0f));
 			}
 		}
 		else
