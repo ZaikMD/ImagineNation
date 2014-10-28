@@ -9,6 +9,7 @@
  * 28/10/2014 edit: script made
  * 
  * 28/10/2014 edit: script is filled out
+ *  28/10/2014 edit finished debuging base functionality is in exept for saving the settings
  */
 #endregion
 
@@ -102,8 +103,8 @@ public class PlayerSelectArrow : MonoBehaviour
         }
         else
         {
-            transform.position = new Vector3(999, 999, 999);
-            CharacterSelections[m_Index].setMountPoint(SelectionMountPoint);
+			transform.position = transform.position + new Vector3(0.0f, 999.0f, 0.0f);
+            CharacterSelections[m_Index].setMountPoint(SelectionMountPoint.position);
         }
     }
 
