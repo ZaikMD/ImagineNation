@@ -22,6 +22,8 @@ using System.Collections;
 
 public class MenuV2 : MonoBehaviour 
 {
+    public bool IsStaringMenu = false;
+
     //is the menu the active one?
     bool m_IsActiveMenu = false;
     public bool IsActiveMenu
@@ -66,6 +68,8 @@ public class MenuV2 : MonoBehaviour
 	// Use this for initialization
     protected virtual void Start() 
     {
+        IsActiveMenu = IsStaringMenu;
+
         for (int i = 0; i < ReadInputFrom.Length; i++)
         {
             m_ReadInputFrom = m_ReadInputFrom | (int)ReadInputFrom[i];
