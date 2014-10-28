@@ -257,22 +257,18 @@ public class SFXManager : MonoBehaviour
 		{
 			case Characters.Alex:
 			return GameObject.Find(Constants.ALEX_WITH_MOVEMENT_STRING).transform;
-			break;
 
 			case Characters.Derek:
 			return GameObject.Find(Constants.DEREK_WITH_MOVEMENT_STRING).transform;
-			break;
 
 			case Characters.Zoe:
 			return GameObject.Find(Constants.ZOE_WITH_MOVEMENT_STRING).transform;
-			break;
 
 			default:
 #if DEBUG || UNITY_EDITOR
 			Debug.LogError("Enum is out of range");
 #endif
 			return null;
-			break;
 		}
 	}
 

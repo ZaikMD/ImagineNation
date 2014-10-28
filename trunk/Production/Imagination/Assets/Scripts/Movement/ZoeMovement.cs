@@ -26,9 +26,12 @@ public class ZoeMovement : BaseMovementAbility
 	public float m_Timer;
 	private const float MAX_GLIDE_TIME = 2.0f;
 
-	//Gliding fall speed
+	//Fall speeds
+	private const float MAX_FALL_SPEED = -15.0f;
 	private const float GLIDE_MAX_FALL_SPEED = -1.5f;
 
+	//Jump speeds
+	private const float JUMP_SPEED = 6.5f;
 
 	// Call the base start function and initialize all variables
 	void Start () 
@@ -50,7 +53,6 @@ public class ZoeMovement : BaseMovementAbility
 			{
 				//Allow the player to glide again
 				m_Timer = -2.0f;
-				m_MaxFallSpeed = BASE_MAX_FALL_SPEED;
 			}
 			m_CanGlide = true;
 			m_NumberOfJumps = 0;
@@ -64,7 +66,6 @@ public class ZoeMovement : BaseMovementAbility
 			//Only on the second jump input recieved can Zoe use gliding
 			if(m_NumberOfJumps == 2 && m_CanGlide == true)
 			{
-				m_MaxFallSpeed = GLIDE_MAX_FALL_SPEED;
 				m_Timer = MAX_GLIDE_TIME;
 			}
 
@@ -86,11 +87,12 @@ public class ZoeMovement : BaseMovementAbility
 			else
 			{
 				m_Timer -= Time.deltaTime;
-				m_VerticalVelocity = m_MaxFallSpeed - GetLaunchVelocity().y;
+				m_Velocity.y = getFallSpeed() - GetLaunchVelocity().y;
 			}
 
 			//Glide through the air
 			AirMovement();
+			base.update ();
 		}
 		//If we have just exited glidings max timer
 		else if (m_Timer > -1.0f)
@@ -110,6 +112,25 @@ public class ZoeMovement : BaseMovementAbility
 	{
 		m_Timer = -2.0f;
 		m_CanGlide = false;
-		m_MaxFallSpeed = BASE_MAX_FALL_SPEED;
+	}
+
+	/// <summary>
+	/// Gets the players jump speed. Must be overrided by inheriting classes in order to jump.
+	/// </summary>
+	protected override float getJumpSpeed()
+	{
+		return JUMP_SPEED;
+	}
+	
+	/// <summary>
+	/// Gets the players fall speed. Must be overrided by inheriting classes in order to fall.
+	/// </summary>
+	protected override float getFallSpeed()
+	{
+		if (m_Timer > 0.0f)
+		{
+			return GLIDE_MAX_FALL_SPEED;
+		}
+		return MAX_FALL_SPEED;
 	}
 }

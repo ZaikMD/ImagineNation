@@ -51,22 +51,18 @@ public abstract class BaseMovementAbility : MonoBehaviour
 
 	//Speed can be set by designers
 	protected const float GROUND_RUNSPEED = 5.0f;
-	protected const float AIR_HORIZONTAL_CONTROL = 20.0f;
+	protected const float AIR_HORIZONTAL_CONTROL = 18.0f;
 
 	//Current velocity
-	protected Vector2 m_HorizontalAirVelocity = Vector2.zero;
-	protected float m_VerticalVelocity = -1.0f;
+	protected Vector3 m_Velocity = new Vector3(0.0f, -1.0f, 0.0f);
 
 	//Maximum speeds
 	protected const float MAX_HORIZONTAL_AIR_SPEED = 7.5f;
-	protected const float BASE_MAX_FALL_SPEED = -15.0f;
-	protected float m_MaxFallSpeed = BASE_MAX_FALL_SPEED;
 
 	//Acceleration
-	protected const float JUMP_SPEED = 7.5f;
 	protected const float FALL_ACCELERATION = 20.0f;
-	protected const float HELD_FALL_ACCELERATION = 15.0f;
-	protected const float AIR_DECCELERATION_LERP_VALUE = 0.24f;
+	protected const float HELD_FALL_ACCELERATION = 10.0f;
+	protected const float AIR_DECCELERATION_LERP_VALUE = 0.2f;
 
 	//Distances
 	protected const float GETGROUNDED_RAYCAST_DISTANCE = 0.80f;
@@ -141,7 +137,6 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			else
 			{
 				m_AnimState.m_Grounded = true;
-            	m_HorizontalAirVelocity = Vector2.zero;
 				GroundMovement();
 			}
 		}
@@ -152,6 +147,8 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			AirMovement();			
 		}
 
+		m_CharacterController.Move ((m_Velocity + GetLaunchVelocity()) * Time.deltaTime);
+
 		m_Anim.Play (m_AnimState.GetAnimation());
 	}
 
@@ -161,17 +158,18 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		//Do animation logic
 		OnGroundAnimLogic ();
 		
-		//if we do not have any movement, no need to continue
+		//If we do not have any movement, set our velocity to zero and return
 		if (InputManager.getMove(m_AcceptInputFrom.ReadInputFrom) == Vector2.zero)
 		{
+			m_Velocity = Vector3.zero;
 			return;
 		}
+
+		//Set our new velocity
+		m_Velocity = GetProjection() * GROUND_RUNSPEED;
 		
-		Vector3 moveTo = GetProjection() * GROUND_RUNSPEED * Time.deltaTime;
-		
-		//First we look at the direction from GetProjection, our forward is now that direction, so we move forward. 
-		transform.LookAt(transform.position + moveTo);
-		m_CharacterController.Move(moveTo + GetLaunchVelocity () * Time.deltaTime);
+		//Look in the direction we are running
+		transform.LookAt(transform.position + m_Velocity);
 	}
 
 	//Moves the player in all three directions
@@ -189,52 +187,49 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		//Vector3 launchVelocity = GetLaunchVelocity ();
 
 		//Horizontal movement
+		Vector2 horizontalAirVelocity = new Vector2 (m_Velocity.x, m_Velocity.z);
 		if (InputManager.getMove(m_AcceptInputFrom.ReadInputFrom) != Vector2.zero)
 		{
 			//Get the current projection from input and camera
 			Vector3 projection = GetProjection();
 			
 			//Calc the direction to look and move
-			m_HorizontalAirVelocity = new Vector2(m_HorizontalAirVelocity.x + (projection.x * AIR_HORIZONTAL_CONTROL * Time.deltaTime),
-			                                      m_HorizontalAirVelocity.y + (projection.z * AIR_HORIZONTAL_CONTROL * Time.deltaTime));
+			horizontalAirVelocity += new Vector2(projection.x * AIR_HORIZONTAL_CONTROL * Time.deltaTime,
+			                                     projection.z * AIR_HORIZONTAL_CONTROL * Time.deltaTime);
 			transform.LookAt(transform.position + projection);
 			
 			//Cap the horizontal movement speed
-			float horizontalVelocityMagnitude = Mathf.Abs(m_HorizontalAirVelocity.magnitude);
+			float horizontalVelocityMagnitude = Mathf.Abs(horizontalAirVelocity.magnitude);
 			if (horizontalVelocityMagnitude >= MAX_HORIZONTAL_AIR_SPEED) ///Should be max speed
 			{
-				m_HorizontalAirVelocity = m_HorizontalAirVelocity.normalized * MAX_HORIZONTAL_AIR_SPEED;
+				horizontalAirVelocity = horizontalAirVelocity.normalized * MAX_HORIZONTAL_AIR_SPEED;
 			}
 		}
 		else
 		{
-			m_HorizontalAirVelocity = Vector2.Lerp(m_HorizontalAirVelocity, Vector2.zero, AIR_DECCELERATION_LERP_VALUE * Time.deltaTime);
+
+			horizontalAirVelocity = Vector2.Lerp(horizontalAirVelocity, Vector2.zero, AIR_DECCELERATION_LERP_VALUE * Time.deltaTime);
 		}
 
 		//Add our horizontal movement to our move
-		Vector3 Movement = new Vector3(m_HorizontalAirVelocity.x, 0.0f, m_HorizontalAirVelocity.y);
+		float verticalVelocity = m_Velocity.y;
 		
 		//If we are above the max falling speed, we fall faster
-		if(m_VerticalVelocity > m_MaxFallSpeed)
+		if(verticalVelocity > getFallSpeed())
 		{
 			//Constantly decrease velocity based on time passed by an deceleration
 			if(InputManager.getJump(m_AcceptInputFrom.ReadInputFrom) && m_CurrentlyJumping == true)
 			{
-				m_VerticalVelocity -= Time.deltaTime * HELD_FALL_ACCELERATION;
+				verticalVelocity -= Time.deltaTime * HELD_FALL_ACCELERATION;
 			}
 			else
 			{
-				m_VerticalVelocity -= Time.deltaTime * FALL_ACCELERATION;
+				verticalVelocity -= Time.deltaTime * FALL_ACCELERATION;
 			}
 		}
 		
-		//Add our vertical movement to our move
-		Movement.y = m_VerticalVelocity;
-
-		//Move
-		Movement += GetLaunchVelocity ();
-		Movement *= Time.deltaTime;
-		m_CharacterController.Move (Movement);
+		//Set our new velocity
+		m_Velocity = new Vector3(horizontalAirVelocity.x, verticalVelocity, horizontalAirVelocity.y);
 	}
 
 
@@ -294,10 +289,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			//If the timer is up, give the player control over this movement, and then remove it
 			if (m_LaunchExternalMovement[index].timer < 0.0f)
 			{
-				Vector3 velocity = m_LaunchExternalMovement[index].launch;
-				m_VerticalVelocity += velocity.y;
-				m_HorizontalAirVelocity.x += velocity.x;
-				m_HorizontalAirVelocity.y += velocity.z;
+				m_Velocity += m_LaunchExternalMovement[index].launch;
 				m_LaunchExternalMovement.RemoveAt(index);
 			}
 		}
@@ -359,14 +351,14 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		//If we should be grounded, set our vertical velocity to 0
 		if (m_CharacterController.isGrounded)
 		{
-			if(m_VerticalVelocity < 0.0f)
+			if(m_Velocity.y < 0.0f)
 			{
-				m_VerticalVelocity = 0.0f;
+				m_Velocity.y = 0.0f;
 			}
 			return true;
 		}
 		//If we should be grounded but are above the ground, we teleport down to match the ground
-		else if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, GETGROUNDED_RAYCAST_DISTANCE) && m_VerticalVelocity == 0.0f)
+		else if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, GETGROUNDED_RAYCAST_DISTANCE) && m_Velocity.y == 0.0f)
 		{
 			m_CharacterController.Move(hit.point - transform.position);
 			return true;
@@ -374,6 +366,22 @@ public abstract class BaseMovementAbility : MonoBehaviour
 
 		//Otherwise return that we are airborne
 		return false;
+	}
+
+	/// <summary>
+	/// Gets the players jump speed. Must be overrided by inheriting classes in order to jump.
+	/// </summary>
+	protected virtual float getJumpSpeed()
+	{
+		return 0.0f;
+	}
+
+	/// <summary>
+	/// Gets the players fall speed. Must be overrided by inheriting classes in order to fall.
+	/// </summary>
+	protected virtual float getFallSpeed()
+	{
+		return 0.0f;
 	}
 
 
@@ -384,7 +392,6 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	{
 		m_AnimState.AddAnimRequest (AnimationStates.Jump);
 		m_AnimState.m_Jumping = true;
-		m_VerticalVelocity = JUMP_SPEED;
 		m_CurrentlyJumping = true;
 
 
@@ -401,17 +408,24 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			break;
 		}
 
+		//We are now jumping
+		m_CurrentlyJumping = true;
+
 		//We are running, we set our horizontal air speed to our running speed
+		Vector2 horizontalVelocity;
 		if (InputManager.getMove() != Vector2.zero)
 		{
 			transform.LookAt(transform.position + GetProjection());
-			m_HorizontalAirVelocity = new Vector2(transform.forward.x, transform.forward.z) * GROUND_RUNSPEED;
+			horizontalVelocity = new Vector2(transform.forward.x, transform.forward.z) * GROUND_RUNSPEED;
 		}
 		//If we are not running, our current horizontal speed is zero
 		else
 		{
-			m_HorizontalAirVelocity = Vector2.zero;
+			horizontalVelocity = Vector2.zero;
 		}
+
+		//Set our new velocity
+		m_Velocity = new Vector3 (horizontalVelocity.x, getJumpSpeed(), horizontalVelocity.y);
 	}
 
 	/// <summary>
@@ -435,7 +449,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 
 		//Jump
 		m_CurrentlyJumping = true;
-		m_VerticalVelocity = 0.0f;
+		m_Velocity.y = 0.0f;
 		Launch(jump, launchTimer, true);
 	}
 

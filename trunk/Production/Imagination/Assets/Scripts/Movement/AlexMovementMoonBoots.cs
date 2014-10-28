@@ -19,8 +19,11 @@ using System.Collections;
 public class AlexMovementMoonBoots : BaseMovementAbility 
 {
 	
-	//Super moon boot jump speed
-	private const float MOON_BOOTS_JUMP = 10.0f;
+	//Jump speeds
+	private const float JUMP_SPEED = 8.0f;
+
+	//Fall speed
+	private const float MAX_FALL_SPEED = -15.0f;
 
 	// Initialization
 	void Start () {
@@ -34,11 +37,19 @@ public class AlexMovementMoonBoots : BaseMovementAbility
 	
 	}
 
-	//Jump higher than normal
-	protected override void Jump()
+	/// <summary>
+	/// Gets the players jump speed. Must be overrided by inheriting classes in order to jump.
+	/// </summary>
+	protected override float getJumpSpeed()
 	{
-		m_SFX.playSound (this.gameObject, Sounds.Jump);
-		base.Jump ();
-		m_VerticalVelocity = MOON_BOOTS_JUMP;
+		return JUMP_SPEED;
+	}
+	
+	/// <summary>
+	/// Gets the players fall speed. Must be overrided by inheriting classes in order to fall.
+	/// </summary>
+	protected override float getFallSpeed()
+	{
+		return MAX_FALL_SPEED;
 	}
 }
