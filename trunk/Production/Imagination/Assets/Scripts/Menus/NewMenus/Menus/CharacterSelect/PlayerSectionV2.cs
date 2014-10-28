@@ -8,7 +8,8 @@
 /*
  * 27/10/2014 edit: script made
  * 
- * 28/10/2014 edit: what i did while sick was fucking terrible so im resarting
+ * 28/10/2014 edit: what i did while sick was terrible so im resarting 
+ * 28/10/2014 edit: mostly done
  */
 #endregion
 
