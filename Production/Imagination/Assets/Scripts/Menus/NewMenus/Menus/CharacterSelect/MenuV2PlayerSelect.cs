@@ -10,6 +10,7 @@
  * 
  * 28/10/2014 edit: what i did while sick was terrible so im resarting
  * 28/10/2014 edit: mostly done
+ * 28/10/2014 edit finished debuging base functionality is in exept for saving the settings
  */
 #endregion
 
@@ -136,13 +137,13 @@ public class MenuV2PlayerSelect : MenuV2
                     //check if un-confirming
                     if (input.Back)
                     {
-                        PlayerArrows[i].getSelection().IsConfirmed = true;
+                        PlayerArrows[i].getSelection().IsConfirmed = false;
                     }
                 }
             }
         }
 
-        if (PlayerArrows[PLAYER_ONE].getSelection().IsConfirmed && PlayerArrows[PLAYER_TWO].getSelection().IsConfirmed)
+		if (PlayerArrows[PLAYER_ONE].getSelection() != PlayerArrows[PLAYER_TWO].getSelection() && (PlayerArrows[PLAYER_ONE].getSelection().IsConfirmed && PlayerArrows[PLAYER_TWO].getSelection().IsConfirmed))
         {
             //TODO: set things
             //change menu

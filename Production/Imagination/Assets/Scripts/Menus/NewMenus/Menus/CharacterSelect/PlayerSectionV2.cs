@@ -10,6 +10,7 @@
  * 
  * 28/10/2014 edit: what i did while sick was terrible so im resarting 
  * 28/10/2014 edit: mostly done
+ *  28/10/2014 edit finished debuging base functionality is in exept for saving the settings
  */
 #endregion
 
@@ -23,8 +24,8 @@ public class PlayerSectionV2 : MonoBehaviour
 
     public Characters Character;
 
-    Transform m_MountPoint;
-    Transform m_OriginalMountpoint;
+    Vector3 m_MountPoint;
+    Vector3 m_OriginalMountpoint;
 
     bool m_IsMounted = false;
     public bool IsMounted
@@ -46,24 +47,24 @@ public class PlayerSectionV2 : MonoBehaviour
 
     void Start()
     {
-        m_OriginalMountpoint = transform;
+        m_OriginalMountpoint = transform.position;
     }
 
     void Update()
     {
         if (m_IsMounted)
         {
-            transform.position = Vector3.Lerp(transform.position, m_MountPoint.position, MOVE_LERP_SPEED);
+            transform.position = Vector3.Lerp(transform.position, m_MountPoint, MOVE_LERP_SPEED);
             transform.localScale = Vector3.Lerp(transform.localScale, Vector3.one * SCALE_AMOUNT, SCALE_LERP_SPEED);
         }
         else
         {
-            transform.position = Vector3.Lerp(transform.position, m_OriginalMountpoint.position, MOVE_LERP_SPEED);
+            transform.position = Vector3.Lerp(transform.position, m_OriginalMountpoint, MOVE_LERP_SPEED);
             transform.localScale = Vector3.Lerp(transform.localScale, Vector3.one, SCALE_LERP_SPEED);
         }
     }
 
-    public void setMountPoint(Transform mountPoint)
+    public void setMountPoint(Vector3 mountPoint)
     {
         m_IsMounted = true;
         m_MountPoint = mountPoint;
