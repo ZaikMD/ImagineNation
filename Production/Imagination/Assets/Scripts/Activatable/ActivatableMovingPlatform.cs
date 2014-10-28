@@ -17,8 +17,12 @@
 using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Activatable moving platform.
+/// </summary>
 public class ActivatableMovingPlatform : Activatable 
 {
+	//Constants
 	const float MIN_DIST_TO_NEXT_PLATFORM = 0.3f;
 	const float PLATFORM_SPEED = 2.5f;
 	const float TIME_AT_PLATFORM_DEST = 3.0f;
@@ -27,38 +31,43 @@ public class ActivatableMovingPlatform : Activatable
 	public bool m_CanReverse;
 	public bool m_IsGate;
 
-	bool m_IsActive;
+	//States
+	bool m_IsActive = true;
 	bool m_AtFinalDestination;
 	bool m_AtDestination;
 	bool m_IsReversing;
-	bool m_AtLastDest;
+	bool m_AtLastDest = false;
 
+	//Timers
 	float m_AtDestinationTimer;
 	float m_DistanceToNextPlatform;
-	
+
+	//GameObjects
 	GameObject m_CurrentDestination;
 	GameObject m_NextDestination;
-	int m_DestinationCounter;
-	
+	int m_DestinationCounter = 0;
+
+	//Amount to move the player
 	Vector3 m_AmountToMovePlayer;
 
+	//Sound manager
 	SFXManager m_SFX;
 
+	//Initialization
 	void Start () 
 	{
-		m_DestinationCounter = 0;
-		m_IsActive = true;
-		m_AtLastDest = false;
-
 		m_SFX = GameObject.FindGameObjectWithTag(Constants.SOUND_MANAGER).GetComponent<SFXManager>();
 	}
 
+	//Update the moving platform
 	void Update () 
 	{
+		//Play a stopping sound
 		if(!CheckSwitches() || m_AtLastDest)
 		{
 			m_SFX.stopSound(this.gameObject);
 		}
+
 		//Platforms can only move if the switches are active
 		if(CheckSwitches())
 		{
@@ -135,9 +144,12 @@ public class ActivatableMovingPlatform : Activatable
 			}
 		}
 		else if(m_IsActive)
-		m_AmountToMovePlayer = Vector3.zero;
+		{
+			m_AmountToMovePlayer = Vector3.zero;
+		}
 	}
 
+	//Moves the platform towards the next destination
 	void MoveToDestination()
 	{
 		//Get the two positions required for calculation, the platforms current position
@@ -147,20 +159,22 @@ public class ActivatableMovingPlatform : Activatable
 
 		//Get the direction vector between them
 		Vector3 destinationDirection = destinationPosition - currentPosition;
+
 		//Get the magnitude of that direction to use for a proximity check once close enough
 		m_DistanceToNextPlatform = destinationDirection.magnitude;
 
-		//Move the platform along that direction over time.
-		transform.position += destinationDirection.normalized * PLATFORM_SPEED * Time.deltaTime;
+		//Move the platform along that direction over time
 		m_AmountToMovePlayer = destinationDirection.normalized * PLATFORM_SPEED * Time.deltaTime;
+		transform.position += m_AmountToMovePlayer;
 
 	}
 
-	//A getter function that player will call in order to get the direction and amount to 
-	//move the player when on a moving player
+	/// <summary>
+	/// Returns the amount that the player should move in order to follow the moving platform.
+	/// </summary>
+	/// <returns>The amount to move player.</returns>
 	public Vector3 GetAmountToMovePlayer()
 	{
 		return m_AmountToMovePlayer;
 	}
-
 }

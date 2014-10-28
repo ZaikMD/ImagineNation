@@ -8,6 +8,9 @@
 /// 
 
 #region ChangeLog
+/*
+ * 28/10/2014 - Added more comments to code
+ */
 #endregion
 using UnityEngine;
 using System.Collections;
@@ -15,19 +18,25 @@ using System.Collections.Generic;
 
 public class MovingWalls : MonoBehaviour 
 {
+	//Destination that can be set by designers
 	public GameObject m_DestinationObject;
-	public float m_Speed;
 
+	//Speed of movement
+	public float m_Speed = 2.0f;
 	const float SPEED_MULTIPLIER = 1.2f;
 
+	//Players being pushed
 	List<BaseMovementAbility> m_Players;
 
+	//Positions to lerp to
 	private Vector3 m_OriginalPosition;
 	private Vector3 m_DestinationPosition;
-	private bool m_MovingForward;
-	private float m_PushPlayerSpeed;
 
-	
+	//States
+	private bool m_MovingForward;
+
+
+	//Initialization
 	void Start () 
 	{
 		//A list of base movement abilities that will represent the 
@@ -39,6 +48,7 @@ public class MovingWalls : MonoBehaviour
 		m_MovingForward = true;
 	}
 
+	//Update the pusher
 	void Update () 
 	{
 		//Either the platform is moving forward or backward
@@ -57,33 +67,35 @@ public class MovingWalls : MonoBehaviour
 	void Move (Vector3 destination)
 	{
 		//Get the speed and distance between the pusher and the destination
-		Vector3 speed = ((destination - transform.position).normalized * Time.deltaTime * m_Speed);
-		Vector3 distance = transform.position - destination;
+		Vector3 distance = destination - transform.position;
+		Vector3 speed = distance.normalized * m_Speed * Time.deltaTime;
 
+		//If the distance is greater than one frame of movement
 		if(distance.magnitude > speed.magnitude)
 		{
-			//Move the platform if the distance is greater than one frame of movement
+			//Move the platform
 			transform.position += speed;
 
-			//If the pusher is moving forward then loop through the player list
-			//and request basemovementability to move the player
+			//Loop through the player list and request basemovementability to move the player
 			if(m_MovingForward)
 			{
 				for(int i = 0; i < m_Players.Count; i++)
 				{
 					m_Players[i].RequestInstantMovement(speed * SPEED_MULTIPLIER);
 				}
+
 				//Empty the list, if players are still in the trigger they'll be readded
 				m_Players.Clear();
 			}
 		}
+		//If the distance is less than one frame 
 		else
 		{
-			//if the distance is less than one frame then set the destination to the
-			//destination and reverse the direction
+			//Set the destination to the destination and reverse the direction
 			transform.position = destination;
 			m_MovingForward = !m_MovingForward;
 
+			//Empty the list, if players are still in the trigger they'll be readded
 			m_Players.Clear();
 		}
 	}
@@ -91,8 +103,10 @@ public class MovingWalls : MonoBehaviour
 	//Add the players currently in the trigger to the list of players.
 	void OnTriggerStay(Collider other)
 	{
+		//Gets the basemovement ability component from the objects
 		BaseMovementAbility player = other.gameObject.GetComponent<BaseMovementAbility> ();
 
+		//If the component existsts then add it to the list
 		if(player != null)
 		{
 			if(!m_Players.Contains(player))
