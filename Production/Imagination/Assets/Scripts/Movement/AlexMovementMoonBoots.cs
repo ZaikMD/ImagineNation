@@ -21,7 +21,7 @@ public class AlexMovementMoonBoots : BaseMovementAbility
 {
 	
 	//Jump speeds
-	private const float JUMP_SPEED = 8.5f;
+	private const float JUMP_SPEED = 8.0f;
 
 	// Initialization
 	void Start () {
