@@ -53,22 +53,23 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	protected ActivatableMovingPlatform m_Platform;
 
 	//Movement control
-	protected const float GROUND_HORIZONTAL_CONTROL = 30.0f;
-	protected const float AIR_HORIZONTAL_CONTROL = 18.0f;
+	protected const float GROUND_HORIZONTAL_CONTROL = 40.0f;
+	protected const float AIR_HORIZONTAL_CONTROL = 25.0f;
 
 	//Current velocity
 	protected Vector3 m_Velocity = new Vector3(0.0f, -1.0f, 0.0f);
 
 	//Maximum speeds
 	protected const float MAX_GROUND_RUNSPEED = 5.0f;
-	protected const float MAX_HORIZONTAL_AIR_SPEED = 7.0f;
+	protected const float MAX_HORIZONTAL_AIR_SPEED = 5.5f;
 	protected const float MAX_FALL_SPEED = -15.0f;
+	protected const float SPEED_MINIMUM_VALUE_TO_CLAMP = 0.5f;
 
 	//Acceleration
 	protected const float FALL_ACCELERATION = 20.0f;
-	protected const float HELD_FALL_ACCELERATION = 10.0f;
-	protected const float AIR_DECCELERATION_LERP_VALUE_PREDELTA = 0.2f;
-	protected const float GROUND_DECCELERATION_LERP_VALUE_PREDELTA = 3.5f;
+	protected const float HELD_FALL_ACCELERATION = 12.0f;
+	protected const float AIR_DECCELERATION_LERP_VALUE_PREDELTA = 0.25f;
+	protected const float GROUND_DECCELERATION_LERP_VALUE_PREDELTA = 6.0f;
 
 	//Distances
 	protected const float GETGROUNDED_RAYCAST_DISTANCE = 0.80f;
@@ -186,8 +187,14 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		}
 		else
 		{
-			
-			horizontalVelocity = Vector2.Lerp(horizontalVelocity, Vector2.zero, GROUND_DECCELERATION_LERP_VALUE_PREDELTA * Time.deltaTime);
+			if (horizontalVelocity.magnitude < SPEED_MINIMUM_VALUE_TO_CLAMP)
+			{
+				horizontalVelocity = Vector2.zero;
+			}
+			else
+			{
+				horizontalVelocity = Vector2.Lerp(horizontalVelocity, Vector2.zero, GROUND_DECCELERATION_LERP_VALUE_PREDELTA * Time.deltaTime);
+			}
 		}
 
 		//Set our new velocity
@@ -230,8 +237,14 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		}
 		else
 		{
-
-			horizontalAirVelocity = Vector2.Lerp(horizontalAirVelocity, Vector2.zero, AIR_DECCELERATION_LERP_VALUE_PREDELTA * Time.deltaTime);
+			if (horizontalAirVelocity.magnitude < SPEED_MINIMUM_VALUE_TO_CLAMP)
+			{
+				horizontalAirVelocity = Vector2.zero;
+			}
+			else
+			{
+				horizontalAirVelocity = Vector2.Lerp(horizontalAirVelocity, Vector2.zero, AIR_DECCELERATION_LERP_VALUE_PREDELTA * Time.deltaTime);
+			}
 		}
 		
 		//Set our new velocity
@@ -433,21 +446,8 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		//We are now jumping
 		m_CurrentlyJumping = true;
 
-		//We are running, we set our horizontal air speed to our running speed
-		Vector2 horizontalVelocity;
-		if (InputManager.getMove() != Vector2.zero)
-		{
-			transform.LookAt(transform.position + GetProjection());
-			horizontalVelocity = new Vector2(transform.forward.x, transform.forward.z) * MAX_GROUND_RUNSPEED;
-		}
-		//If we are not running, our current horizontal speed is zero
-		else
-		{
-			horizontalVelocity = Vector2.zero;
-		}
-
 		//Set our new velocity
-		m_Velocity = new Vector3 (horizontalVelocity.x, GetJumpSpeed(), horizontalVelocity.y);
+		m_Velocity.y = GetJumpSpeed();
 	}
 
 	/// <summary>
@@ -523,17 +523,15 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//Plays a walking animation
     void OnGroundAnimLogic()
     {
-        if (InputManager.getMove(m_AcceptInputFrom.ReadInputFrom) == Vector2.zero)
+		Vector2 horizontalVelocity = new Vector2 (m_Velocity.x, m_Velocity.z);
+
+		if (horizontalVelocity == Vector2.zero)
         {
 			m_AnimState.AddAnimRequest(AnimationStates.Idle);           
         }
-		else if (InputManager.getMove(m_AcceptInputFrom.ReadInputFrom).x < 0.3f
-            && InputManager.getMove(m_AcceptInputFrom.ReadInputFrom).x > -0.3f
-            && InputManager.getMove(m_AcceptInputFrom.ReadInputFrom).y < 0.3f
-            && InputManager.getMove(m_AcceptInputFrom.ReadInputFrom).y > -0.3f)
+		else if (horizontalVelocity.magnitude < (MAX_GROUND_RUNSPEED / 2.0f))
         {
 			m_AnimState.AddAnimRequest(AnimationStates.Walk);
-			return;
         }
 		else
 		{
