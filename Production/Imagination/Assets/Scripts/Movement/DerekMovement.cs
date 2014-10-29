@@ -12,7 +12,8 @@
 /* 
  * 19/9/2014 - Changed to currectly use the new base class functionality - Jason Hein
  * 27/10/2014 - Fixed stuck on the wall bug and pre-accelerating while on the wall - Jason Hein
- * 27/11/2014 - Added getter function for jumping and falling variables - Jason Hein
+ * 27/10/2014 - Added getter function for jumping and falling variables - Jason Hein
+ * 29/10/2014 - Added Rotation to the player when jumping off the wall - Joe Burchill
  */
 #endregion
 
@@ -27,12 +28,18 @@ public class DerekMovement : BaseMovementAbility
     private const float WALL_FALL_SPEED = 0.8f;
 	private const float JUMP_SPEED = 6.5f;
 
+	//Rotation angle for player
+	private const float PLAYER_ANGLE_ROTATION = 180.0f;
+
 	//Amount to send the player up off the wall
 	private const float WALL_JUMP_UP_DIRECTION = 0.8f;
 
+	//Small amount to move player off wall to cancel collision
+	private const float MOVE_OFF_WALL_DIRECTION = 0.1f;
+
     //Timer to limit the player hanging onto the wall for too long
 	private float m_WallHangTimer = 0.0f;
-	const float WALL_FORCE_TIME = 0.8f;
+	const float WALL_FORCE_TIME = 0.2f;
 
     //Boolean to tell if the player is on the wall or not
 	private bool m_OnWall = false;
@@ -63,7 +70,7 @@ public class DerekMovement : BaseMovementAbility
             {
                 //LaunchJump send player off the wall by a small amount
                 //removes player from wall 
-				LaunchJump(m_WallJumpDirection * 0.1f, WALL_FORCE_TIME);
+				LaunchJump(m_WallJumpDirection * MOVE_OFF_WALL_DIRECTION, WALL_FORCE_TIME);
                 //Set the boolean to false
 				m_OnWall = false;
             }
@@ -109,6 +116,8 @@ public class DerekMovement : BaseMovementAbility
 	private void JumpOffWall()
 	{
 		LaunchJump (m_WallJumpDirection * WALL_JUMP_SPEED, WALL_FORCE_TIME);
+
+		transform.Rotate (0.0f, PLAYER_ANGLE_ROTATION, 0.0f);
 		
 		//Set the player off the wall
 		RequestInstantMovement(m_WallJumpDirection * WALL_JUMP_SPEED * Time.deltaTime);
