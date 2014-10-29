@@ -27,8 +27,8 @@ public class GameData : MonoBehaviour
 {
 
 	public static GameData Instance{ get; private set; }
-
-	//ID is used to ensure that the older GamaData is kept in the case of duplicates
+    
+    //ID is used to ensure that the older GamaData is kept in the case of duplicates
 	static int m_InstanceCounter = 0;
     int m_ID = int.MaxValue;
     public int ID
@@ -119,6 +119,7 @@ public class GameData : MonoBehaviour
 	Levels m_CurrentLevel = Levels.Level_1;
 	Sections m_CurrentSection = Sections.Sections_1;
 	CheckPoints m_CurrentCheckPoint = CheckPoints.CheckPoint_1;
+    bool m_FirstTimePlayingLevel = false; 
 
 	public Levels CurrentLevel
 	{
@@ -158,4 +159,37 @@ public class GameData : MonoBehaviour
 	{
 		m_CurrentCheckPoint = CheckPoints.CheckPoint_1;
 	}
+
+    //Collectable info
+    public bool FirstTimePlayingLevel
+    {
+        get { return m_FirstTimePlayingLevel; }
+        set
+        {
+            m_FirstTimePlayingLevel = value;
+        }
+    }
+    
+    bool[] m_LightPegsCollectedInLevel;
+
+    public bool[] CollectedLightPegs()
+    {
+        return m_LightPegsCollectedInLevel;
+    }
+
+    public void SetCollectedPegs(int length)
+    {
+        m_LightPegsCollectedInLevel = new bool[length];
+
+        for (int i = 0; i < length; i++)
+        {
+            m_LightPegsCollectedInLevel[i] = false;   
+        }
+    }
+
+    public void LightPegCollected(int ID)
+    {
+        m_LightPegsCollectedInLevel[ID] = true;
+    }
+
 }

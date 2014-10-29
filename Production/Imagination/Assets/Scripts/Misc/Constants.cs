@@ -51,7 +51,7 @@ public static class Constants
 
 	public const string MAIN_CAMERA_STRING = "MainCamera";
 	public const string SOUND_MANAGER = "SoundManager";
-
+    public const string COLLECTABLE_MANAGER = "CollectableManager";
 
     public const string WALL_TAG_STRING = "Wall";
     public const string MOVING_PLATFORM_TAG_STRING = "MovingPlatform";

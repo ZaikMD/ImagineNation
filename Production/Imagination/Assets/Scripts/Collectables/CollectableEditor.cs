@@ -3,16 +3,18 @@ using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 
-public class CollectableEditor : Editor
+public class CollectableEditor : EditorWindow
 {
-	struct CollectableInfo
+    //The previous checkpoint
+    public int CheckPoint;
+
+    struct CollectableInfo
 	{
 		Vector3 Pos;
 		CollectableType Type;
 	}
 
-
-	//Varibales
+    //Varibales
 	GameObject m_LightPegPrefab;
 	GameObject m_PuzzlePiecePrefab;
 

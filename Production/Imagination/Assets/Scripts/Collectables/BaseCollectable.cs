@@ -9,7 +9,7 @@ public enum CollectableType
 
 public abstract class BaseCollectable : MonoBehaviour {
 
-	int m_ID;
+    protected int m_ID;
 	CollectableType m_Type;	
 				
 	void OnTriggerEnter(Collider other)
@@ -30,7 +30,7 @@ public abstract class BaseCollectable : MonoBehaviour {
 	/// <summary>
 	/// sends data to gameData so game data knows its been collected.
 	/// </summary>
-	void PassInfoToGameData()
+	protected void PassInfoToGameData()
 	{
 
 	}
