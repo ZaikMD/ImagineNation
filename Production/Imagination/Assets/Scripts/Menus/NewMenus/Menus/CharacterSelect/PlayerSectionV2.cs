@@ -11,6 +11,8 @@
  * 28/10/2014 edit: what i did while sick was terrible so im resarting 
  * 28/10/2014 edit: mostly done
  *  28/10/2014 edit finished debuging base functionality is in exept for saving the settings
+ *  
+ * * 29/10/2014 edit: added resets
  */
 #endregion
 
@@ -68,5 +70,12 @@ public class PlayerSectionV2 : MonoBehaviour
     {
         m_IsMounted = true;
         m_MountPoint = mountPoint;
+    }
+
+    public void reset()
+    {
+        m_IsConfirmed = false;
+        m_IsMounted = false;
+        m_MountPoint = m_OriginalMountpoint;
     }
 }

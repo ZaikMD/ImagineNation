@@ -10,7 +10,10 @@
  * 
  * 28/10/2014 edit: what i did while sick was terrible so im resarting
  * 28/10/2014 edit: mostly done
- * 28/10/2014 edit finished debuging base functionality is in exept for saving the settings
+ * 28/10/2014 edit: finished debuging base functionality is in exept for saving the settings
+ * 
+ * 29/10/2014 edit: added resets
+ * 29/10/2014 edit: can load into the level now
  */
 #endregion
 
@@ -28,6 +31,11 @@ public class MenuV2PlayerSelect : MenuV2
 
     public GameObject PedestalKeyboardPrefab;
     public GameObject PedestalGamepadPreafab;
+
+    public string SceneToLoad;
+
+    new const float DELAY_TIME = 0.5f;
+
 
     struct input
     {
@@ -64,16 +72,16 @@ public class MenuV2PlayerSelect : MenuV2
                 input.Back = InputManager.getMenuBackDown(GameData.Instance.m_PlayerTwoInput);
             }
 
-            m_Timer -= Time.deltaTime;
+            m_Timer += Time.deltaTime;
             if (input.Move != Vector2.zero)
             {
-                if(m_Timer > 0.0f)
+                if(m_Timer < DELAY_TIME)
                 {
                     input.Move = Vector2.zero;
                 }
                 else
                 {
-                    m_Timer = DELAY_TIME;
+                    m_Timer = 0.0f;
                 }
             }
 
@@ -145,10 +153,21 @@ public class MenuV2PlayerSelect : MenuV2
 
 		if (PlayerArrows[PLAYER_ONE].getSelection() != PlayerArrows[PLAYER_TWO].getSelection() && (PlayerArrows[PLAYER_ONE].getSelection().IsConfirmed && PlayerArrows[PLAYER_TWO].getSelection().IsConfirmed))
         {
-            //TODO: set things
-            //change menu
-            //reset things
-            Debug.Log("done");
+            //set the characters
+            GameData.Instance.PlayerOneCharacter = PlayerArrows[PLAYER_ONE].getCharacterSetting();
+            GameData.Instance.PlayerTwoCharacter = PlayerArrows[PLAYER_TWO].getCharacterSetting();            
+
+            //reset the menu
+            for (int i = 0; i < PlayerArrows.Length; i++)
+            {
+                PlayerArrows[i].reset();
+            }
+
+            //go to next scene
+            if (string.Compare(SceneToLoad, "") != 0)
+            {
+                Application.LoadLevel(SceneToLoad);
+            }
         }
     }
 }

@@ -10,6 +10,8 @@
  * 
  * 28/10/2014 edit: script is filled out
  *  28/10/2014 edit finished debuging base functionality is in exept for saving the settings
+ *  
+ * * 29/10/2014 edit: added resets
  */
 #endregion
 
@@ -31,11 +33,14 @@ public class PlayerSelectArrow : MonoBehaviour
         set { m_IsMounted = value; }
     }
 
+    static int m_IndexesUsed = 0;
+
     int m_Index = 0;
 
 	// Use this for initialization
 	void Start () 
     {
+        m_Index = m_IndexesUsed++;
         transform.position = ArrowMountPoints[m_Index].position;
 	}
 
@@ -116,5 +121,17 @@ public class PlayerSelectArrow : MonoBehaviour
     public Characters getCharacterSetting()
     {
         return CharacterSelections[m_Index].Character;
+    }
+
+    public void reset()
+    {
+        m_IndexesUsed = 0;
+        m_Index = m_IndexesUsed++;
+        m_IsMounted = false;
+
+        for (int i = 0; i < CharacterSelections.Length; i++)
+        {
+            CharacterSelections[i].reset();
+        }
     }
 }
