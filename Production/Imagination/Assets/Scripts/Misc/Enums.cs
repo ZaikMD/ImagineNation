@@ -10,7 +10,7 @@
 
 #region ChangeLog
 /*
-* 
+* added counts and none to levels,section,and checkpoints
 *
 * 
 */
@@ -46,20 +46,26 @@ public enum Players
 
 public enum Levels
 {
-	Level_1
+	Level_1,
+	Count,
+	None
 }
 
 public enum Sections
 {
 	Sections_1,
 	Sections_2,
-	Sections_3
+	Sections_3,
+	Count,
+	None
 }
 
 public enum CheckPoints
 {
 	CheckPoint_1,
 	CheckPoint_2,
-	CheckPoint_3
+	CheckPoint_3,
+	Count,
+	None
 }
 
