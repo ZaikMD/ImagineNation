@@ -41,7 +41,7 @@ public class PlayerSectionV2 : MonoBehaviour
         set { m_IsConfirmed = value; }
     }
 
-    const float SCALE_AMOUNT = 1.5f;
+    const float SCALE_AMOUNT = 3.0f;
     const float SCALE_LERP_SPEED = 0.08f;
     const float MOVE_LERP_SPEED = 0.12f;
 
