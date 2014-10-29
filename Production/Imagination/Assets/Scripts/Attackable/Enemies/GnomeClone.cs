@@ -14,35 +14,56 @@ using System.Collections;
  */
 #endregion
 
-public class GnomeClone : MonoBehaviour 
+[RequireComponent(typeof(NavMeshAgent))]
+public class GnomeClone : Destructable 
 {
+	public NavMeshAgent m_Agent;
+
 	private Transform m_Target;
 	public GameObject m_ProjectilePrefab;
 	public float m_TimeBetweenShots = 1.5f;
 	private float m_ShotTimer = 0.0f;
+	private Vector3 m_Position;
 
 	// Use this for initialization
 	void Start () 
 	{
+	    //Find our NavMeshAgent
+		m_Agent = this.gameObject.GetComponent<NavMeshAgent>();
 
+		m_Health = 1;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
+		base.Update ();
+		if (m_Target != null)
 		transform.LookAt(m_Target.position);
 
 		m_ShotTimer -= Time.deltaTime;
 		if (m_ShotTimer <= 0)
 		{
-			if (m_ProjectilePrefab != null)
-				Instantiate (m_ProjectilePrefab, transform.position, transform.rotation);
-			m_ShotTimer = m_TimeBetweenShots;
+			Shoot ();
 		}
+	}
+
+	private void Shoot()
+	{
+		if (m_ProjectilePrefab != null)
+			Instantiate (m_ProjectilePrefab, transform.position, transform.rotation);
+
+		m_ShotTimer = m_TimeBetweenShots;
 	}
 
 	public void SetTarget(Transform target)
 	{
 		m_Target = target;
+	}
+
+	public void SetPosition(Vector3 position)
+	{
+		if (m_Agent != null)
+		m_Agent.SetDestination (m_Position);
 	}
 }
