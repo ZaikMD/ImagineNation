@@ -20,20 +20,20 @@ public class GnomeMage : BaseEnemy
 	private enum FightStates
 	{
 		Regular = 0,
+		Cloning,
 		Cloned
 	}
 
 	public GameObject m_LookPoint;
-
 	public GameObject m_ProjectilePrefab; 
-
-	private const int m_MaxHealth = 3;
 
 	private FightStates m_CurrentFightState;
 
 	//Shield Variables
-	private float m_ShieldRechargeTime = 2.0f;
+	private float m_ShieldRechargeTime = 20.0f;
 	private float m_ShieldTimer;
+	private const int m_MaxHealth = 3;
+	private bool m_Invulnerable = false;
 
 	//Clones
 	public GameObject m_ClonePrefab;
@@ -57,7 +57,6 @@ public class GnomeMage : BaseEnemy
 	private float m_ShotTimer;
 	private bool m_CanShoot;
 
-
 	//Sound Varibles
 	SFXManager m_SFX;
 
@@ -67,6 +66,7 @@ public class GnomeMage : BaseEnemy
 		//Sound Varibles
 		m_SFX = GameObject.FindGameObjectWithTag(Constants.SOUND_MANAGER).GetComponent<SFXManager>();
 
+		//Base enemy start
 		base.Start ();
 
 		m_CurrentFightState = FightStates.Regular;
@@ -89,7 +89,6 @@ public class GnomeMage : BaseEnemy
 
 		// Clone variables
 		m_Clones = new List<GameObject>();
-
 		m_ClonesCreated = false;
 	}
 	
@@ -104,9 +103,9 @@ public class GnomeMage : BaseEnemy
 		{
 			if (!m_ClonesCreated)
 			{
-			// When his shield is down create his two clones
-			CreateClones();
-			m_CurrentFightState = FightStates.Cloned;
+			// When his shield is down he begins cloning
+				//TODO: Deactivate Shield
+				m_CurrentFightState = FightStates.Cloning;
 			}
 		}
 
@@ -124,10 +123,9 @@ public class GnomeMage : BaseEnemy
 			if (m_ShieldTimer <= 0)
 			{
 				m_Health = m_MaxHealth;
-				DestroyClones();
-			
+				DestroyClones();			
 				m_CurrentFightState = FightStates.Regular;
-				m_ClonesCreated = false;
+				//TODO: Activate Shield
 				return;
 			}
 		}
@@ -156,6 +154,9 @@ public class GnomeMage : BaseEnemy
 			Regular();
 			break;
 
+		case FightStates.Cloning:
+			Cloning();
+			break;
 
 		case (FightStates.Cloned):
 			Cloned();
@@ -172,6 +173,11 @@ public class GnomeMage : BaseEnemy
 	{
 		MoveAway ();
 		Shoot ();
+	}
+
+	private void Cloning()
+	{
+		CreateClones ();
 	}
 
 	/// <summary>
@@ -248,11 +254,14 @@ public class GnomeMage : BaseEnemy
 	/// </summary>
 	private void CreateClones()
 	{
+		m_Invulnerable = true;
+		//TODO: Make gnome jump back
+
+		// Create As many random positions as there are clones and +1 for the acutal gnome
 		Vector3[] positions = new Vector3[m_NumberOfClones + 1];
 	
 		for (int i = 0; i < positions.Length; i++)
-		{
-			
+		{			
 			float angle = UnityEngine.Random.Range(0.0f, 2.0f * Mathf.PI);
 			
 			Vector3 loc = new Vector3( Mathf.Cos(angle),0,Mathf.Sin(angle));
@@ -262,37 +271,24 @@ public class GnomeMage : BaseEnemy
 			positions[i] = loc;				
 		}
 
-		Vector3 pos;
-		int range;
-
+		//Creating the clones and setting their destination
 		for (int i = 0; i < m_NumberOfClones; i++)
-		{
-			do 
-			{
-				range = Random.Range(0,m_NumberOfClones);
-			 pos = positions[range];
-			}while (pos == Vector3.zero);
-		
-			m_Clones.Add((GameObject) Instantiate(m_ClonePrefab, pos, Quaternion.identity));	
-			positions[range] = Vector3.zero;
-		}
+		{		
+			GameObject clone = (GameObject) Instantiate(m_ClonePrefab, transform.position, transform.rotation);
+			m_Clones.Add(clone);
 
-		for (int i = 0; i < m_NumberOfClones; i++)
-		{
-			m_Clones[i].GetComponent<GnomeClone>().SetTarget(m_Target);
+			clone.GetComponent<GnomeClone>().SetPosition(positions[i]);
+			clone.GetComponent<GnomeClone>().SetTarget(m_Target);
 		}
+		// Setting the real gnomes destination
+		m_Agent.destination = positions[positions.Length - 1];
 
-		for (int i = 0; i < positions.Length; i++)
-		{
-			if (positions[i] != Vector3.zero)
-			{
-				transform.position = positions[i];
-				m_Agent.destination = positions[i];
-			}
-		}
-		
+		// Setting the time till shield recharges	
 		m_ShieldTimer = m_ShieldRechargeTime;
-		m_ClonesCreated = true;
+		// Clones have been created
+		m_ClonesCreated = true;  
+		m_Invulnerable = false;
+		m_CurrentFightState = FightStates.Cloned;
 	}
 
 	/// <summary>
@@ -309,6 +305,7 @@ public class GnomeMage : BaseEnemy
 			}
 		}
 		m_Clones.Clear ();
+		m_ClonesCreated = false;
 	}
 
 	/// <summary>
@@ -319,6 +316,14 @@ public class GnomeMage : BaseEnemy
 		// If there are clones this will destroy them
 		if (m_ClonesCreated)
 		DestroyClones ();
+	}
+
+	public override void onHit (PlayerProjectile proj)
+	{
+		if (!m_Invulnerable)
+			if (this.tag != Constants.PLAYER_STRING)
+				m_Health -= 1;        
+
 	}
 
 	/// <summary>
