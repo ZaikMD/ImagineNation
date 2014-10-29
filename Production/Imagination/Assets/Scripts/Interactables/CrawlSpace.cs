@@ -8,9 +8,10 @@
  * 
  * 
  *10/10/2014 Edit: Commented and cleaned code - Greg Fortier
- *
- *Oct 17th 2014 Edit: Now rotates the player based on the rotation of the game object;
- *Oct 24th 2014 Edit: Adding the CameraSnap public function from TPCamera, so the camera snaps to behind the player when the player exits a crawl space.
+ *Oct 17th 2014 Edit: Now rotates the player based on the rotation of the game object; - Greg Fortier
+ *Oct 24th 2014 Edit: Adding the CameraSnap public function from TPCamera, so the camera snaps to behind the player when the player exits a crawl space. -Greg Fortier
+ *Oct 29th 2014 Edit: Added 1 public GameObject called m_ExitPoint, exit point will be used to tell the player where to exit since during playtesting, players thaught the exit point was
+ *too close to the tube itself
 */
 
 using UnityEngine;
@@ -29,6 +30,7 @@ public class CrawlSpace : MonoBehaviour
 	public CrawlSpace m_OtherCrawlSpace;
 	public GameObject m_TemporaryHidingSpot;
 	public GameObject m_OtherCrawlModelRotation;
+	public GameObject m_ExitPoint;
 
 	CharacterController[] m_Players = new CharacterController[2];
 
@@ -76,7 +78,7 @@ public class CrawlSpace : MonoBehaviour
 						continue;
 					}
 					//When the timer is over transform the player's position to the other crawl space's
-					m_Players[i].transform.position = m_OtherCrawlSpace.gameObject.transform.position;
+					m_Players[i].transform.position = m_ExitPoint.gameObject.transform.position;
 
 					if (m_OtherCrawlModelRotation != null)
 					{
