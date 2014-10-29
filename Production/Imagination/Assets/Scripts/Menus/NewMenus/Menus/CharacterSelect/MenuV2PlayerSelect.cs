@@ -14,6 +14,7 @@
  * 
  * 29/10/2014 edit: added resets
  * 29/10/2014 edit: can load into the level now
+ * 29/10/2014 edit: put the stuff for instructions in (not tested yet)
  */
 #endregion
 
@@ -27,15 +28,16 @@ public class MenuV2PlayerSelect : MenuV2
 
     public PlayerSelectArrow[] PlayerArrows;
 
-    public GameObject[] PlayerPedestalMountPoint;
+    public Transform[] PlayerInstructionMountPoints;
 
-    public GameObject PedestalKeyboardPrefab;
-    public GameObject PedestalGamepadPreafab;
+    GameObject[] PlayerInstructions = new GameObject[2];
+
+    public GameObject KeyboardInstructionsPrefab;
+    public GameObject GamepadInstructionsPreafab;
 
     public string SceneToLoad;
 
     new const float DELAY_TIME = 0.5f;
-
 
     struct input
     {
@@ -50,6 +52,59 @@ public class MenuV2PlayerSelect : MenuV2
             Back = back;
         }
     };
+
+    protected override void OnActivated()
+    {
+        if (PlayerInstructionMountPoints != null)
+        {
+            if (PlayerInstructions[PLAYER_ONE] != null || PlayerInstructions[PLAYER_TWO] != null)
+            {
+                Destroy(PlayerInstructions[PLAYER_ONE]);
+                Destroy(PlayerInstructions[PLAYER_TWO]);
+            }
+
+            if (PlayerInstructionMountPoints[PLAYER_ONE] != null)
+            {
+                switch(GameData.Instance.m_PlayerOneInput)
+                {
+                    case PlayerInput.GamePadOne: 
+                    case PlayerInput.GamePadTwo: 
+                    case PlayerInput.GamePadThree: 
+                    case PlayerInput.GamePadFour:
+                        PlayerInstructions[PLAYER_ONE] = (GameObject)GameObject.Instantiate(GamepadInstructionsPreafab, 
+                                                                                            PlayerInstructionMountPoints[PLAYER_ONE].position, 
+                                                                                            PlayerInstructionMountPoints[PLAYER_ONE].rotation);
+                        break;
+
+                    case PlayerInput.Keyboard:
+                        PlayerInstructions[PLAYER_ONE] = (GameObject)GameObject.Instantiate(KeyboardInstructionsPrefab, 
+                                                                                            PlayerInstructionMountPoints[PLAYER_ONE].position, 
+                                                                                            PlayerInstructionMountPoints[PLAYER_ONE].rotation);
+                        break;
+                }
+            }
+
+            if (PlayerInstructionMountPoints[PLAYER_TWO] != null)
+            {
+                switch (GameData.Instance.m_PlayerTwoInput)
+                {
+                    case PlayerInput.GamePadOne:
+                    case PlayerInput.GamePadTwo:
+                    case PlayerInput.GamePadThree:
+                    case PlayerInput.GamePadFour:
+                        PlayerInstructions[PLAYER_TWO] = (GameObject)GameObject.Instantiate(GamepadInstructionsPreafab, 
+                                                                                            PlayerInstructionMountPoints[PLAYER_TWO].position, 
+                                                                                            PlayerInstructionMountPoints[PLAYER_TWO].rotation);
+                        break;
+                    case PlayerInput.Keyboard:
+                        PlayerInstructions[PLAYER_TWO] = (GameObject)GameObject.Instantiate(KeyboardInstructionsPrefab, 
+                                                                                            PlayerInstructionMountPoints[PLAYER_TWO].position, 
+                                                                                            PlayerInstructionMountPoints[PLAYER_TWO].rotation);
+                        break;
+                }
+            }
+        }
+    }
 
     // Update is called once per frame
     protected override void  update()
