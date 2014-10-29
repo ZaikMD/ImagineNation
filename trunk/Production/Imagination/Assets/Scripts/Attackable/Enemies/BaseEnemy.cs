@@ -158,6 +158,8 @@ public abstract class BaseEnemy : Destructable
 		UpdateState ();
 
 		FindPlayer ();
+
+		base.Update ();
     }
 
 	protected void FindPlayer ()

@@ -42,7 +42,7 @@ using System.Collections;
 
 public class SpinTop : BaseEnemy 
 {
-    public GameObject m_SpinTopModelColor;
+    public GameObject m_ModelColor;
 	FightStates m_FightState;
 	float m_NormalSpeed;
 	float m_KnockBackMultiplier;
@@ -174,9 +174,9 @@ public class SpinTop : BaseEnemy
 
 	void Wobble()
 	{
-        m_SpinTopModelColor.renderer.material.color = Color.blue;
+		m_ModelColor.renderer.material.color = Color.green;
 
-		//Count down the wobble timer
+        //Count down the wobble timer
 		if(m_WobbleTimer > 0.0f)
 		{
 			m_WobbleTimer -= Time.deltaTime;
@@ -194,12 +194,13 @@ public class SpinTop : BaseEnemy
 			//Otherwise build up charge again and reset wobble timer
 			m_FightState = FightStates.BuildingUpCharge;
 			m_WobbleTimer = m_MaxWobbleTime;
-            m_SpinTopModelColor.renderer.material.color = Color.red;
 		}
 	}
 
 	void Charge()
 	{
+		m_ModelColor.renderer.material.color = Color.red;
+
 		//Set a custom charge speed and check how far from the ChargeToPosition
 		m_Agent.speed = m_ChargeSpeed;
 		m_DistanceFromChargeToPosition = Vector3.Distance (m_ChargeToPosition, transform.position);
@@ -221,11 +222,12 @@ public class SpinTop : BaseEnemy
 			m_FightState = FightStates.KnockedBack;
 			m_Agent.speed = m_NormalSpeed;
 		}
-        m_SpinTopModelColor.renderer.material.color = Color.red;
 	}
 
 	void BuildingUpCharge()
 	{
+		m_ModelColor.renderer.material.color = Color.yellow;
+
 		//If still building up
 		if(m_ChargeTimer < m_ChargeBuildUpTime)
 		{
@@ -260,7 +262,6 @@ public class SpinTop : BaseEnemy
 			m_FightState = FightStates.Charge;
 
 		}
-        m_SpinTopModelColor.renderer.material.color = Color.red;
 	}
 
 	void KnockedBack()
@@ -281,7 +282,6 @@ public class SpinTop : BaseEnemy
 			m_KnockBackTimer = m_MaxKnockBackTime;
 			m_FightState = FightStates.BuildingUpCharge;
 		}
-        m_SpinTopModelColor.renderer.material.color = Color.red;
 	}
 
 	void HitByPlayer()
