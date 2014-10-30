@@ -17,6 +17,8 @@
 * 8/10/2014 Edit: Fully Commented - Kris Matis.
 *
 * 17/10/2014 Edit: Zach Dubuc - Added in a reset checkpoint Function
+* 
+* 30/10/2014 Edit: Kole - Added collectable code, so collectables would reset right 
 */
 #endregion
 
@@ -171,11 +173,17 @@ public class GameData : MonoBehaviour
     }
     
     bool[] m_LightPegsCollectedInLevel;
+	bool[] m_PuzzlePieceCollectedInLevel;
 
     public bool[] CollectedLightPegs()
     {
         return m_LightPegsCollectedInLevel;
     }
+
+	public bool[] CollectedPuzzlePiece()
+	{
+		return m_PuzzlePieceCollectedInLevel;
+	}
 
     public void SetCollectedPegs(int length)
     {
@@ -187,6 +195,16 @@ public class GameData : MonoBehaviour
         }
     }
 
+	public void SetCollectedPuzzlePieces(int length)
+	{
+		m_PuzzlePieceCollectedInLevel = new bool[length];
+		
+		for (int i = 0; i < length; i++)
+		{
+			m_PuzzlePieceCollectedInLevel[i] = false;   
+		}
+	}
+
     public void LightPegCollected(int ID)
     {
 		m_LightPegsCollectedInLevel[ID] = true;
@@ -195,6 +213,16 @@ public class GameData : MonoBehaviour
 	public void ResetCollectedPeg(int id)
 	{
 		m_LightPegsCollectedInLevel[id] = false;
+	}
+
+	public void PuzzlePieceCollected(int ID)
+	{
+		m_PuzzlePieceCollectedInLevel[ID] = true;
+	}
+	
+	public void ResetPuzzlePiece(int id)
+	{
+		m_PuzzlePieceCollectedInLevel[id] = false;
 	}
 
 }

@@ -16,13 +16,13 @@ public class LightPeg : BaseCollectable
 
     CharacterController m_Controller;
 
-    LightPegManager m_LightPegManager;
+    CollectableManager m_LightPegManager;
 
     // Use this for initialization
     void Start()
     {
         m_Controller = gameObject.GetComponent<CharacterController>();
-        m_LightPegManager = GameObject.FindGameObjectWithTag(Constants.COLLECTABLE_MANAGER).GetComponent<LightPegManager>();
+        m_LightPegManager = GameObject.FindGameObjectWithTag(Constants.COLLECTABLE_MANAGER).GetComponent<CollectableManager>();
     }
 
     // Update is called once per frame
