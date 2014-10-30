@@ -14,6 +14,8 @@ using System.Collections;
 #region ChangeLog
 /* 
  * Changed some Magic Numbers, and Adjusted Speeds for Base - Joe Burchill Oct. 16, 2014
+ * Added else statment to default state, fixed combat state bool - Joe Burchill Oct. 29, 2014
+ * 
  */
 #endregion
 
@@ -74,7 +76,7 @@ public abstract class BaseEnemy : Destructable
     protected float m_IdlingTime = MAX_IDLE_TIME;
 
     //Const for how long the enemy takes to get out of combat
-    private const float EXIT_COMBAT_TIME = 5.0f;
+    private const float EXIT_COMBAT_TIME = 2.5f;
     //Timer to track when the enemy leaves the player alone
     protected float m_CombatTimer = EXIT_COMBAT_TIME;
 
@@ -318,40 +320,42 @@ public abstract class BaseEnemy : Destructable
             }
 
         }
-
-        //Loop through player objects
-        for (int i = 0; i < m_Players.Length; i++)
-        {
-            //Check distance from the enemy to the player
-            float distance = Vector3.Distance(transform.position, m_Players[i].transform.position);
-            //Check if that distance is within aggro range
-            if (distance <= m_AggroRange)
-            {
-                //Set Combat to true, the target to the player and return to default
-                m_InCombat = true;
-                m_Target = m_Players[i].gameObject.transform;
-                m_State = State.Default;
-            }
-            else
-            {
-                //Get a random number from 1 to 600
-                int idleRandom = Random.Range(IDLE_MIN_RANGE, IDLE_MAX_RANGE);
-                //Check if it is 1
-                if (idleRandom == IDLE_MIN_RANGE)
-                {
-                    //Set idling to true, clear target, and set to idle
-                    m_Idling = true;
-					m_Target = null;
-                    m_State = State.Idle;
-                }
-                else
-                {
-                    //Clear target, and set state to Patrol, if the random number is not 1
-					m_Target = null;
-                    m_State = State.Patrol;
-                }
-            }
-        }
+		else
+		{
+        	//Loop through player objects
+        	for (int i = 0; i < m_Players.Length; i++)
+        	{
+        	    //Check distance from the enemy to the player
+        	    float distance = Vector3.Distance(transform.position, m_Players[i].transform.position);
+        	    //Check if that distance is within aggro range
+        	    if (distance <= m_AggroRange)
+        	    {
+        	        //Set Combat to true, the target to the player and return to default
+        	        m_InCombat = true;
+        	        m_Target = m_Players[i].gameObject.transform;
+        	        m_State = State.Default;
+        	    }
+        	    else
+        	    {
+        	        //Get a random number from 1 to 600
+        	        int idleRandom = Random.Range(IDLE_MIN_RANGE, IDLE_MAX_RANGE);
+        	        //Check if it is 1
+        	        if (idleRandom == IDLE_MIN_RANGE)
+        	        {
+        	            //Set idling to true, clear target, and set to idle
+        	            m_Idling = true;
+						m_Target = null;
+        	            m_State = State.Idle;
+        	        }
+        	        else
+        	        {
+        	            //Clear target, and set state to Patrol, if the random number is not 1
+						m_Target = null;
+        	            m_State = State.Patrol;
+        	        }
+        	    }
+        	}
+		}
     }
 
     //Idle state for when the enemy is standing still
