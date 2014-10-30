@@ -188,6 +188,7 @@ public class SpinTop : BaseEnemy
 			if(m_DistanceToPlayer > m_CombatRange)
 			{
 				m_State = State.Default;
+				m_ModelColor.renderer.material.color = Color.yellow;
 				return;
 			}
 
