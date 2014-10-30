@@ -23,15 +23,12 @@ public class GnomeClone : Destructable
 	public GameObject m_ProjectilePrefab;
 	public float m_TimeBetweenShots = 1.5f;
 	private float m_ShotTimer = 0.0f;
-	private Vector3 m_Position;
+
 
 	// Use this for initialization
 	void Start () 
 	{
-	    //Find our NavMeshAgent
-		m_Agent = this.gameObject.GetComponent<NavMeshAgent>();
 
-		m_Health = 1;
 	}
 	
 	// Update is called once per frame
@@ -46,6 +43,14 @@ public class GnomeClone : Destructable
 		{
 			Shoot ();
 		}
+	}
+
+	public void OnStartUp()
+	{
+		//Find our NavMeshAgent
+		m_Agent = this.gameObject.GetComponent<NavMeshAgent>();
+		
+		m_Health = 1;
 	}
 
 	private void Shoot()
@@ -64,6 +69,6 @@ public class GnomeClone : Destructable
 	public void SetPosition(Vector3 position)
 	{
 		if (m_Agent != null)
-		m_Agent.SetDestination (m_Position);
+		m_Agent.SetDestination (position);
 	}
 }
