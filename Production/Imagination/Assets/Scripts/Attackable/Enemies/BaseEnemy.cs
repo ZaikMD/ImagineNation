@@ -51,8 +51,6 @@ public abstract class BaseEnemy : Destructable
     protected bool m_IsAlive = true;
     //Boolean for checking inCombat
     protected bool m_InCombat = false;
-    //Boolean to check if we are idling
-    protected bool m_Idling = false;
 	//Boolean to check if enemy is Active
 	protected bool m_IsActive = true;
 
@@ -125,11 +123,12 @@ public abstract class BaseEnemy : Destructable
 		//Set to make sure CombatRange does not exceed Aggro Range
         if (m_AggroRange < m_CombatRange)
         {
+			//Debug log if unirty editor
             m_CombatRange = m_AggroRange;
         }
 
 		//Set our current State for enemies
-		m_State = State.Default;		
+		m_State = State.Default;
 	}
 	
 	public void Reset()
@@ -159,46 +158,52 @@ public abstract class BaseEnemy : Destructable
         //Call our Update State function
 		UpdateState ();
 
-		FindPlayer ();
-
+		//Destructable update
 		base.Update ();
     }
 
-	protected void FindPlayer ()
-	{
-		m_Players = GameObject.FindGameObjectsWithTag (Constants.PLAYER_STRING);
-	}
-
 	protected void UpdateState()
 	{
-		//Check if our enemy is active
-		if(m_IsActive)
+		//Check if our enemy is active and alive
+		if(m_IsActive && m_IsAlive)
 		{
-  	      	//Check if Enemy is alive then run our State Machine
-			if (m_IsAlive)
+  	        //Case for each State the Enemy can be in, and calls
+  	        //the corresponding function for each state
+
+			switch (m_State)
 			{
-  	          //Case for each State the Enemy can be in, and calls
-  	          //the corresponding function for each state
-				switch (m_State)
-				{
-					case State.Default:
-						Default();
-						break;
-					case State.Idle:
-						Idle();
-						break;
+				case State.Default:
+#if DEBUG || UNITY_EDITOR
+				Debug.Log ("Default");
+#endif
+					Default();
+					break;
+				case State.Idle:
+#if DEBUG || UNITY_EDITOR
+			  		Debug.Log ("Idle");
+#endif
+					Idle();
+					break;
   	              case State.Fight:
-  	                  Fight();
-  	                  break;
-					case State.Chase:
-						Chase();
-  	                  break;
-					case State.Patrol:
-						Patrol();
-						break;
-					default:
-						break;
-				}
+#if DEBUG || UNITY_EDITOR
+				Debug.Log ("Fight");
+#endif
+  	                 Fight();
+  	                 break;
+				case State.Chase:
+#if DEBUG || UNITY_EDITOR
+				Debug.Log ("Chase");
+#endif
+					Chase();
+  	                break;
+				case State.Patrol:
+#if DEBUG || UNITY_EDITOR
+				Debug.Log ("Patrol");
+#endif
+					Patrol();
+					break;
+				default:
+					break;
 			}
 		}
 	}
@@ -229,12 +234,12 @@ public abstract class BaseEnemy : Destructable
                             //If the player isnt the target, check the distance between the enemy and the player
                             float distance = Vector3.Distance(gameObject.transform.position, m_Players[i].transform.position);
                             
-                            //Check the distance against the enmy target
+                            //Check the distance against the enemy target
                             if (GetDistanceToTarget() >= distance)
                             {
                                 //If the target is greater or equal to the distance of the player, set our target to the player
                                 m_Target = m_Players[i].gameObject.transform;
-
+			
                                 //Check if the target is within aggro range
                                 if (GetDistanceToTarget() <= m_AggroRange)
                                 {
@@ -243,16 +248,19 @@ public abstract class BaseEnemy : Destructable
                                     {
                                         //Enter fight state
                                         GroupOfEnemies[enemyIndex].SetState(State.Fight);
-
+			
                                         //Reset combat timer
                                         m_CombatTimer = EXIT_COMBAT_TIME;
                                         return;
                                     }
+			
                                     //If the target is it will set the target to the player for every enemy in the group
 									GroupOfEnemies[enemyIndex].SetTarget(m_Players[i].gameObject.transform);
+			
                                     //This will set the state Chase to each enemy in the group, so if you aggro one
                                     //You aggro them all
 									GroupOfEnemies[enemyIndex].SetState(State.Chase);
+			
                                     //Reset our Combat Timer cause we are remaining in combat
                                     m_CombatTimer = EXIT_COMBAT_TIME;  
                                 }
@@ -306,10 +314,12 @@ public abstract class BaseEnemy : Destructable
             {
                 //Reset Timer
                 m_CombatTimer = EXIT_COMBAT_TIME;
+
                 //Set Enemy out of Combat
                 m_InCombat = false;
+
                 //Enemy back to patrol
-                m_State = State.Patrol;
+                m_State = State.Default; 
             }
             else
             {
@@ -342,15 +352,11 @@ public abstract class BaseEnemy : Destructable
         	        //Check if it is 1
         	        if (idleRandom == IDLE_MIN_RANGE)
         	        {
-        	            //Set idling to true, clear target, and set to idle
-        	            m_Idling = true;
-						m_Target = null;
         	            m_State = State.Idle;
         	        }
         	        else
         	        {
         	            //Clear target, and set state to Patrol, if the random number is not 1
-						m_Target = null;
         	            m_State = State.Patrol;
         	        }
         	    }
@@ -362,10 +368,7 @@ public abstract class BaseEnemy : Destructable
     protected virtual void Idle()
     {
         //If target is null set it to the Idle Node
-		if(m_Target == null)
-		{
-        	m_Target = IdleNode;
-		}
+        m_Target = IdleNode;
 
         //Set Nav Mesh destination to the target
         m_Agent.SetDestination(m_Target.position);
@@ -378,7 +381,6 @@ public abstract class BaseEnemy : Destructable
             {
                 //Reset timer, set idling to false and return to default
                 m_IdlingTime = MAX_IDLE_TIME;
-                m_Idling = false;
                 m_State = State.Default;
             }
             else
@@ -551,6 +553,8 @@ public abstract class BaseEnemy : Destructable
     //Ability to set state
     protected void SetState(State state)
     {
+
+
         m_State = state;
     }
 
