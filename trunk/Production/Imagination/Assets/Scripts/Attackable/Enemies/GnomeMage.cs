@@ -57,6 +57,13 @@ public class GnomeMage : BaseEnemy
 	private float m_ShotTimer;
 	private bool m_CanShoot;
 
+	// Cloning Variables
+	private bool m_Moving = false;
+	private Vector3 m_Destination;
+	public float m_JumpBackDistance = 5.0f;
+	public float m_JumpBackSpeed = 25.0f;
+
+
 	//Sound Varibles
 	SFXManager m_SFX;
 
@@ -177,6 +184,16 @@ public class GnomeMage : BaseEnemy
 
 	private void Cloning()
 	{
+		m_Invulnerable = true;
+
+		if (!m_Moving)
+		MoveBack ();
+
+		float dist = Vector3.Distance (transform.position, m_Destination);
+		if ( dist <= 1.0f)
+			m_Moving = false;
+
+		if (!m_Moving)
 		CreateClones ();
 	}
 
@@ -249,14 +266,25 @@ public class GnomeMage : BaseEnemy
 
 	}
 
+	private void MoveBack()
+	{
+		transform.LookAt (m_Target.position);
+
+		Vector3 dir = transform.position - m_Target.position;
+
+		Vector3 destination = dir.normalized * m_JumpBackDistance + transform.position;
+
+		m_Destination = destination;
+		m_Agent.SetDestination (m_Destination);
+
+		m_Moving = true;
+	}
+
 	/// <summary>
 	/// Creates the clones and chooses random positions in which to put the real gnome and his clones
 	/// </summary>
 	private void CreateClones()
 	{
-		m_Invulnerable = true;
-		//TODO: Make gnome jump back
-
 		// Create As many random positions as there are clones and +1 for the acutal gnome
 		Vector3[] positions = new Vector3[m_NumberOfClones + 1];
 	
@@ -277,6 +305,7 @@ public class GnomeMage : BaseEnemy
 			GameObject clone = (GameObject) Instantiate(m_ClonePrefab, transform.position, transform.rotation);
 			m_Clones.Add(clone);
 
+			clone.GetComponent<GnomeClone>().OnStartUp();
 			clone.GetComponent<GnomeClone>().SetPosition(positions[i]);
 			clone.GetComponent<GnomeClone>().SetTarget(m_Target);
 		}
