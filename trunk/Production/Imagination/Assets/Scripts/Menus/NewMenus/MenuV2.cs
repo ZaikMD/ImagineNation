@@ -13,6 +13,7 @@
 * 23/10/2014 Edit: no longer a stub
 *
 * 27/10/2014 edit: made the upate fully function based
+ * 30/10/2014 edit made a variable proteceted
  * 
 */
 #endregion
@@ -25,7 +26,7 @@ public class MenuV2 : MonoBehaviour
     public bool IsStaringMenu = false;
 
     //is the menu the active one?
-    bool m_IsActiveMenu = false;
+    protected bool m_IsActiveMenu = false;
     public bool IsActiveMenu
     {
         get { return m_IsActiveMenu; }
