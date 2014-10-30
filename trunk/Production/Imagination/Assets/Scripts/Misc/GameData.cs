@@ -119,7 +119,7 @@ public class GameData : MonoBehaviour
 	Levels m_CurrentLevel = Levels.Level_1;
 	Sections m_CurrentSection = Sections.Sections_1;
 	CheckPoints m_CurrentCheckPoint = CheckPoints.CheckPoint_1;
-    bool m_FirstTimePlayingLevel = false; 
+    bool m_FirstTimePlayingLevel = true; 
 
 	public Levels CurrentLevel
 	{
@@ -189,7 +189,12 @@ public class GameData : MonoBehaviour
 
     public void LightPegCollected(int ID)
     {
-        m_LightPegsCollectedInLevel[ID] = true;
+		m_LightPegsCollectedInLevel[ID] = true;
     }
+
+	public void ResetCollectedPeg(int id)
+	{
+		m_LightPegsCollectedInLevel[id] = false;
+	}
 
 }
