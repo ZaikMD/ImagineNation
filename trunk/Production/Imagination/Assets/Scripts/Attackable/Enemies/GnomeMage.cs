@@ -30,7 +30,7 @@ public class GnomeMage : BaseEnemy
 	private FightStates m_CurrentFightState;
 
 	//Shield Variables
-	private float m_ShieldRechargeTime = 20.0f;
+	private float m_ShieldRechargeTime = 3.0f;
 	private float m_ShieldTimer;
 	private const int m_MaxHealth = 3;
 	private bool m_Invulnerable = false;
@@ -62,6 +62,8 @@ public class GnomeMage : BaseEnemy
 	private Vector3 m_Destination;
 	public float m_JumpBackDistance = 5.0f;
 	public float m_JumpBackSpeed = 25.0f;
+
+	private Vector3 m_PrevPosition;
 
 
 	//Sound Varibles
@@ -182,6 +184,9 @@ public class GnomeMage : BaseEnemy
 		Shoot ();
 	}
 
+	/// <summary>
+	/// Cloning Fight State
+	/// </summary>
 	private void Cloning()
 	{
 		m_Invulnerable = true;
@@ -190,11 +195,14 @@ public class GnomeMage : BaseEnemy
 		MoveBack ();
 
 		float dist = Vector3.Distance (transform.position, m_Destination);
-		if ( dist <= 1.0f)
+		if ( dist <= 1.0f || transform.position == m_PrevPosition)
 			m_Moving = false;
+
+		m_PrevPosition = transform.position;
 
 		if (!m_Moving)
 		CreateClones ();
+
 	}
 
 	/// <summary>
@@ -266,18 +274,45 @@ public class GnomeMage : BaseEnemy
 
 	}
 
+	/// <summary>
+	/// Move Back
+	/// </summary>
 	private void MoveBack()
 	{
 		transform.LookAt (m_Target.position);
 
-		Vector3 dir = transform.position - m_Target.position;
+		m_Destination = FindJumpBackPoint (0.0f);
 
-		Vector3 destination = dir.normalized * m_JumpBackDistance + transform.position;
-
-		m_Destination = destination;
+		if (m_Destination == Vector3.zero)
+						CreateClones ();
+	
 		m_Agent.SetDestination (m_Destination);
 
 		m_Moving = true;
+	}
+
+	/// <summary>
+	/// Find a valid point to move to
+	/// </summary>
+	/// <returns>The jump back point.</returns>
+	/// <param name="angle">Angle.</param>
+	private Vector3 FindJumpBackPoint(float angle)
+	{
+		if (angle == 360.0f)
+			return Vector3.zero;
+
+		Vector3 point = RotateAboutOrigin (transform.position, m_Target.position, angle);
+
+		point += (transform.position - m_Target.position).normalized * m_JumpBackDistance;
+
+		Vector3 dir = point - transform.position;
+		RaycastHit hitInfo;
+
+		//If we collided with something we need to choose a new point
+		if (Physics.Raycast (transform.position, dir, out hitInfo, m_JumpBackDistance))		
+			FindJumpBackPoint(angle + 20);		
+
+		return point;
 	}
 
 	/// <summary>
