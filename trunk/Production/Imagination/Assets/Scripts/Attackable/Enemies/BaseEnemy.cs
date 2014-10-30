@@ -25,7 +25,7 @@ using System.Collections;
 public abstract class BaseEnemy : Destructable
 {
 	//Enum for Enemy States
-    protected enum State
+    public enum State
     {
         Default,
         Idle,
@@ -55,7 +55,7 @@ public abstract class BaseEnemy : Destructable
 	protected bool m_IsActive = true;
 
     //Check to see what State the StateMachine is in
-    protected State m_State;
+    public State m_State;
 
     //Aggro range for distance when the enemy chases the player
     protected float m_AggroRange = 20.0f;
