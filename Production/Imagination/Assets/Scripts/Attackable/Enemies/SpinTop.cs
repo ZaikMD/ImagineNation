@@ -34,6 +34,8 @@
  * 
  * Removed Ragdoll Prefab variable, already one from Destructible
  * 
+ * Changed the colors to red, yellow, and green
+ * 
  */
 #endregion
 
@@ -133,33 +135,18 @@ public class SpinTop : BaseEnemy
 		switch(m_FightState)
 		{
 		case FightStates.Wobble:
-#if DEBUG || UNITY_EDITOR
-                Debug.Log("Wobble");
-#endif
             Wobble ();
 			break;
 		case FightStates.Charge:
-#if DEBUG || UNITY_EDITOR
-            Debug.Log("Charge");
-#endif
 			Charge ();
 			break;
 		case FightStates.BuildingUpCharge:
-#if DEBUG || UNITY_EDITOR
-            Debug.Log("BuildingUpCharge");
-#endif
 			BuildingUpCharge ();
 			break;
 		case FightStates.KnockedBack:
-#if DEBUG || UNITY_EDITOR
-            Debug.Log("KnockedBack");
-#endif
 			KnockedBack ();
 			break;
 		case FightStates.HitByPlayer:
-#if DEBUG || UNITY_EDITOR
-            Debug.Log("HitByPlayer");
-#endif
 			HitByPlayer();
 			break;
 		default:
@@ -309,13 +296,16 @@ public class SpinTop : BaseEnemy
 	{
 		//If the player enters the trigger set player hit to true and get their destructible component 
 		//to be able to call their onhit function and apply damage.
-		if(other.tag == Constants.PLAYER_STRING)
+		if(m_FightState != FightStates.Wobble)
 		{
-			m_PlayerHit = true;
-			Destructable destructableObj = (Destructable)other.GetComponentInChildren<Destructable> ();
-			if(destructableObj != null)
+			if(other.tag == Constants.PLAYER_STRING)
 			{
-				destructableObj.onHit(new EnemyProjectile());
+				m_PlayerHit = true;
+				Destructable destructableObj = (Destructable)other.GetComponentInChildren<Destructable> ();
+				if(destructableObj != null)
+				{
+					destructableObj.onHit(new EnemyProjectile());
+				}
 			}
 		}
 	}
