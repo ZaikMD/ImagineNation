@@ -64,6 +64,7 @@ public class GnomeMage : BaseEnemy
 	public float m_JumpBackSpeed = 25.0f;
 
 	private Vector3 m_PrevPosition;
+	public GameObject m_Shield;
 
 
 	//Sound Varibles
@@ -113,7 +114,7 @@ public class GnomeMage : BaseEnemy
 			if (!m_ClonesCreated)
 			{
 			// When his shield is down he begins cloning
-				//TODO: Deactivate Shield
+				ActivateShield(false);
 				m_CurrentFightState = FightStates.Cloning;
 			}
 		}
@@ -134,7 +135,7 @@ public class GnomeMage : BaseEnemy
 				m_Health = m_MaxHealth;
 				DestroyClones();			
 				m_CurrentFightState = FightStates.Regular;
-				//TODO: Activate Shield
+				ActivateShield(true);
 				return;
 			}
 		}
@@ -388,6 +389,11 @@ public class GnomeMage : BaseEnemy
 			if (this.tag != Constants.PLAYER_STRING)
 				m_Health -= 1;        
 
+	}
+
+	private void ActivateShield(bool activate)
+	{
+		m_Shield.SetActive (activate);
 	}
 
 	/// <summary>
