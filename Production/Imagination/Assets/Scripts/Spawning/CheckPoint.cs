@@ -25,7 +25,9 @@ public class CheckPoint : MonoBehaviour
 	public GUITexture m_Texture;
 	public Vector2 TextureScale =  new Vector2(1.0f, 1.0f);
 	bool m_DrawGUI;
-	float m_TimerGUI =0;
+    bool m_WasUsed;
+
+	float m_TimerGUI = 0.0f;
 	float m_baseTimeValue = 5.0f;
 	int m_DivideByTwo = 2;
 
@@ -45,14 +47,14 @@ public class CheckPoint : MonoBehaviour
 		//gets sound manager
 		m_SFX = GameObject.FindGameObjectWithTag(Constants.SOUND_MANAGER).GetComponent<SFXManager>();
 
-		m_DrawGUI = true;
-
+		m_DrawGUI = false;
+        m_WasUsed = false;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		OnGUI ();
+        updateGUI();
 
 	
 	}
@@ -62,40 +64,39 @@ public class CheckPoint : MonoBehaviour
 		if(obj.tag == Constants.PLAYER_STRING)
 		{
 
-			if(m_DrawGUI)
+			if(!m_DrawGUI && !m_WasUsed)
 			{
-				m_TimerGUI = m_baseTimeValue;
+				m_TimerGUI = m_baseTimeValue;			
 
-			}
+			    //Plays the collectable sound
+			    m_SFX.playSound(this.gameObject, Sounds.Collectable);
+			    GameData.Instance.CurrentCheckPoint = m_Value;
+			    m_ColorSection.renderer.material = m_OnMaterial;
 
-			//Plays the collectable sound
-			m_SFX.playSound(this.gameObject, Sounds.Collectable);
-			GameData.Instance.CurrentCheckPoint = m_Value;
-			m_ColorSection.renderer.material = m_OnMaterial;
-
+                m_DrawGUI = true;
+                m_WasUsed = true;
+            }
 		}
 	}
 
-	void OnGUI()
+	void updateGUI()
 	{
-		//if(m_DrawGUI)
-		//{
-			if(m_TimerGUI >0)
-			{
-				m_Texture.transform.parent.gameObject.GetComponentInChildren<GUITexture>();
-				m_Texture.pixelInset = new Rect (0, 0, (m_Texture.texture.width * TextureScale.x)/m_DivideByTwo, (m_Texture.texture.height * TextureScale.y)/m_DivideByTwo);
-				m_TimerGUI -= Time.deltaTime;
-				m_Texture.enabled = true;
-				Debug.Log(m_TimerGUI);
-			}
-
-			else 
-			{
-				m_DrawGUI = false;
-				//m_TimerGUI = m_baseTimeValue;
-				m_Texture.enabled = false;
-			}
-		//}
-
+        if (m_DrawGUI)
+        {
+            if (m_TimerGUI > 0.0f)
+            {
+                m_Texture.transform.parent.gameObject.GetComponentInChildren<GUITexture>();
+                m_Texture.pixelInset = new Rect(0, 0, (m_Texture.texture.width * TextureScale.x) / m_DivideByTwo, (m_Texture.texture.height * TextureScale.y) / m_DivideByTwo);
+                m_TimerGUI -= Time.deltaTime;
+                m_Texture.enabled = true;
+                Debug.Log(m_TimerGUI);
+            }
+            else
+            {
+                m_DrawGUI = false;
+                //m_TimerGUI = m_baseTimeValue;
+                m_Texture.enabled = false;
+            }
+        }
 	}
 }
