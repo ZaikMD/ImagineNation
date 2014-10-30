@@ -45,7 +45,7 @@ using System.Collections;
 public class SpinTop : BaseEnemy 
 {
     public GameObject m_ModelColor;
-	FightStates m_FightState;
+	public FightStates m_FightState;
 	float m_NormalSpeed;
 	float m_KnockBackMultiplier;
 
@@ -80,7 +80,7 @@ public class SpinTop : BaseEnemy
 	Vector3 m_DirectionHitByPlayer;
 
 	//The enum of fightstates for the enemy fight state
-	private enum FightStates
+	public enum FightStates
 	{
 		Wobble,
 		Charge,
