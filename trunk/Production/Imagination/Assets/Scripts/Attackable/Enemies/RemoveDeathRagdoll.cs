@@ -5,8 +5,8 @@ using System.Collections;
  * Created by Joe Burchill
  * Date: Oct. 29, 2014
  *  
- * This script handles destroying the smoke effect
- * after a certain amount of time it will be destroyed
+ * This script handles destroying the smoke effect.
+ * After a certain amount of time it will be destroyed
  * so the object doesn't stay in the scene after being
  * instantiated.
  * 

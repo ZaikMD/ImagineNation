@@ -173,33 +173,18 @@ public abstract class BaseEnemy : Destructable
 			switch (m_State)
 			{
 				case State.Default:
-#if DEBUG || UNITY_EDITOR
-				Debug.Log ("Default");
-#endif
 					Default();
 					break;
 				case State.Idle:
-#if DEBUG || UNITY_EDITOR
-			  		Debug.Log ("Idle");
-#endif
 					Idle();
 					break;
   	              case State.Fight:
-#if DEBUG || UNITY_EDITOR
-				Debug.Log ("Fight");
-#endif
   	                 Fight();
   	                 break;
 				case State.Chase:
-#if DEBUG || UNITY_EDITOR
-				Debug.Log ("Chase");
-#endif
 					Chase();
   	                break;
 				case State.Patrol:
-#if DEBUG || UNITY_EDITOR
-				Debug.Log ("Patrol");
-#endif
 					Patrol();
 					break;
 				default:
@@ -431,10 +416,7 @@ public abstract class BaseEnemy : Destructable
             m_Agent.stoppingDistance = 0;
 
             //If the target is null it will set the Patrol Path Node
-            if (m_Target == null)
-            {
-                m_Target = PathNodes[m_NodeIndex].transform;
-            }
+			m_Target = PathNodes[m_NodeIndex].transform;
 
             //Check if you have reached the node, set boolean if so
 			if (GetDistanceToTarget() <= REACHED_NODE_DISTANCE)
