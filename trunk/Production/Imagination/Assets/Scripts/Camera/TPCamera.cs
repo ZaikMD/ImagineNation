@@ -21,9 +21,14 @@ using System.Collections;
 
 [RequireComponent(typeof(Camera))]
 [RequireComponent(typeof(AcceptInputFrom))]
-public class TPCamera : MonoBehaviour
+public class TPCamera : ShutterCamera
 {
 	const string CAMERA_IGNORE_COLLISION_LAYER = "CameraCollisionIgnore";
+
+    //const string[] CAMERA_IGNORE_Layer = { "CameraOneIgnore", "CameraTwoIgnore"};
+    int m_IgnoreLayer;
+
+    static int m_IgnoreCounter;
 
 	//what the camera accepts input from 
     AcceptInputFrom m_AcceptInputFrom;
@@ -59,6 +64,13 @@ public class TPCamera : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
+        //m_IgnoreLayer = m_IgnoreCounter++;
+
+        //foreach (Transform objTransform in base.ShutterRotationPoint.transform)
+        {
+            //objTransform.gameObject.layer = LayerMask.GetMask();
+        }
+
 		//find the camera on this gameobject
         m_Camera = gameObject.GetComponent<Camera>();
 
