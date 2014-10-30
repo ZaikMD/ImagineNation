@@ -5,17 +5,18 @@ public class LoadNextLevel : MonoBehaviour {
 
 	AsyncOperation m_Async;
 
-	public TextMesh m_Text;
-	float m_Progress;
-	bool m_CanLoadNextLevel;
-	bool m_LoadingLevel;
 
+	bool loadNextLevel;
+
+	public MovieTexture m_LoadVideo;
 	// Use this for initialization
 	void Start ()
 	{
-		Application.LoadLevel (Application.loadedLevel + 1);
-//		m_LoadingLevel = false;
-//		m_CanLoadNextLevel = false;
+		//Application.LoadLevelAsync (Application.loadedLevel + 1);
+		m_LoadVideo.Play ();
+		m_LoadVideo.loop = true;
+		loadNextLevel = true;
+
 	}
 	
 	// Update is called once per frame
@@ -24,35 +25,15 @@ public class LoadNextLevel : MonoBehaviour {
 	//	m_Async = Application.LoadLevelAsync(Application.loadedLevel + 1);
 	//	m_Async.allowSceneActivation = false;
 //		m_Text.text = m_Async.progress;
-		if(!m_LoadingLevel)
+		m_LoadVideo.Play ();
+		if(loadNextLevel)
 		{
-			StartCoroutine(waitAsecond (1));
-		}
-
-		if(m_Async != null)
-		{
-			m_Progress = m_Async.progress * 100;
-		}
-		else
-		{
-			m_Progress = 0;
-		}
-		Debug.Log (m_Progress);
-		m_Text.text = m_Progress.ToString();
-
-		if(m_CanLoadNextLevel)
-		{
-			m_Text.text = "Press start";
-
-			if(InputManager.getMenuStart())
-			{
-
-				m_Async.allowSceneActivation = true;
-			}
+			loadNextLevel = false;
+			StartCoroutine(Load());
 		}
 	}
 
-	IEnumerator waitAsecond (float waitTime) 
+	IEnumerator waitASecond (float waitTime) 
 	{
 		yield return new WaitForSeconds (waitTime);
 		StartCoroutine(Load ());
@@ -60,21 +41,16 @@ public class LoadNextLevel : MonoBehaviour {
 	
 	IEnumerator Load () 
 	{
-		Debug.Log ("there");
 		m_Async = Application.LoadLevelAsync(Application.loadedLevel + 1);
-		m_Async.allowSceneActivation = false;
-		m_LoadingLevel = true;
+//		m_Async.allowSceneActivation = false;
 		yield return m_Async.isDone;
-		yield return m_Progress = 100;
-		m_CanLoadNextLevel = true;
+		yield return SwitchScene();
 	}
 
-	void SwitchScene()
+	bool SwitchScene()
 	{
-		if(m_Async != null)
-		{
-			m_Async.allowSceneActivation = true;
-		}
+		return Input.GetKeyDown (KeyCode.Space);
+		//return true;
 	}
 
 }
