@@ -15,6 +15,8 @@
  * 29/10/2014 edit: added resets
  * 29/10/2014 edit: can load into the level now
  * 29/10/2014 edit: put the stuff for instructions in (not tested yet)
+ * 
+ * 30/10/2014 edit: added back and fixed a null check
  */
 #endregion
 
@@ -38,6 +40,9 @@ public class MenuV2PlayerSelect : MenuV2
     public string SceneToLoad;
 
     new const float DELAY_TIME = 0.5f;
+    float m_PlayerOneTimer = 0.0f;
+    float m_PlayerTwoTimer = 0.0f;
+
 
     struct input
     {
@@ -55,7 +60,7 @@ public class MenuV2PlayerSelect : MenuV2
 
     protected override void OnActivated()
     {
-        if (PlayerInstructionMountPoints != null)
+        if (PlayerInstructionMountPoints.Length >= 2)
         {
             if (PlayerInstructions[PLAYER_ONE] != null || PlayerInstructions[PLAYER_TWO] != null)
             {
@@ -114,31 +119,45 @@ public class MenuV2PlayerSelect : MenuV2
             //get the input
             input input = new input(Vector2.zero, false, false);
 
+            m_PlayerOneTimer += Time.deltaTime;
+            m_PlayerTwoTimer += Time.deltaTime;
+
             if (i == PLAYER_ONE)
             {
                 input.Move = InputManager.getMenuChangeSelection(GameData.Instance.m_PlayerOneInput);
                 input.Accept = InputManager.getMenuAcceptDown(GameData.Instance.m_PlayerOneInput);
                 input.Back = InputManager.getMenuBackDown(GameData.Instance.m_PlayerOneInput);
+
+                if (input.Move != Vector2.zero)
+                {
+                    if (m_PlayerOneTimer < DELAY_TIME)
+                    {
+                        input.Move = Vector2.zero;
+                    }
+                    else
+                    {
+                        m_PlayerOneTimer = 0.0f;
+                    }
+                }
             }
             else if (i == PLAYER_TWO)
             {
                 input.Move = InputManager.getMenuChangeSelection(GameData.Instance.m_PlayerTwoInput);
                 input.Accept = InputManager.getMenuAcceptDown(GameData.Instance.m_PlayerTwoInput);
                 input.Back = InputManager.getMenuBackDown(GameData.Instance.m_PlayerTwoInput);
-            }
 
-            m_Timer += Time.deltaTime;
-            if (input.Move != Vector2.zero)
-            {
-                if(m_Timer < DELAY_TIME)
+                if (input.Move != Vector2.zero)
                 {
-                    input.Move = Vector2.zero;
+                    if (m_PlayerTwoTimer < DELAY_TIME)
+                    {
+                        input.Move = Vector2.zero;
+                    }
+                    else
+                    {
+                        m_PlayerTwoTimer = 0.0f;
+                    }
                 }
-                else
-                {
-                    m_Timer = 0.0f;
-                }
-            }
+            }       
 
 
             if (!PlayerArrows[i].IsMounted)
@@ -166,8 +185,15 @@ public class MenuV2PlayerSelect : MenuV2
                         if (!PlayerArrows[i].IsMounted)
                         {
                             PlayerArrows[i].select();
+                            return;
                         }
                     }
+                }
+
+                back();
+                if (!m_IsActiveMenu)
+                {
+                    return;
                 }
             }
             else
@@ -225,4 +251,22 @@ public class MenuV2PlayerSelect : MenuV2
             }
         }
     }
+
+    protected override void back()
+    {
+        if (InputManager.getMenuBackDown((int)GameData.Instance.m_PlayerOneInput | (int)GameData.Instance.m_PlayerTwoInput))
+        {
+            m_Camera.changeMenu(m_LastMenu);
+            m_IsActiveMenu = false;
+            m_LastMenu.IsActiveMenu = true;
+            m_LastMenu = null;
+
+            //reset the menu
+            for (int i = 0; i < PlayerArrows.Length; i++)
+            {
+                PlayerArrows[i].reset();
+            }
+        }
+    }
+
 }
