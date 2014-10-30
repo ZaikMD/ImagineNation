@@ -12,7 +12,7 @@ using System.Collections;
 
 public class LightPeg : BaseCollectable
 {
-  //  public  int m_ID;
+   // public int m_ID;
 
     CharacterController m_Controller;
 

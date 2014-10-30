@@ -9,7 +9,7 @@ public enum CollectableType
 
 public abstract class BaseCollectable : MonoBehaviour {
 
-    protected int m_ID;
+    public int m_ID;
 	CollectableType m_Type;	
 				
 	void OnTriggerEnter(Collider other)
