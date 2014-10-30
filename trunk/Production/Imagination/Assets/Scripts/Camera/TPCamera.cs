@@ -25,10 +25,10 @@ public class TPCamera : ShutterCamera
 {
 	const string CAMERA_IGNORE_COLLISION_LAYER = "CameraCollisionIgnore";
 
-    //const string[] CAMERA_IGNORE_Layer = { "CameraOneIgnore", "CameraTwoIgnore"};
+    string[] CAMERA_IGNORE_LAYERS = { "CameraIgnore", "CameraOneIgnore", "CameraTwoIgnore"};
     int m_IgnoreLayer;
 
-    static int m_IgnoreCounter;
+    static int m_IgnoreCounter = 1;
 
 	//what the camera accepts input from 
     AcceptInputFrom m_AcceptInputFrom;
@@ -64,11 +64,11 @@ public class TPCamera : ShutterCamera
 	// Use this for initialization
 	void Start ()
     {
-        //m_IgnoreLayer = m_IgnoreCounter++;
+        m_IgnoreLayer = m_IgnoreCounter++;
 
-        //foreach (Transform objTransform in base.ShutterRotationPoint.transform)
+        foreach (Transform objTransform in base.ShutterRotationPoint.transform)
         {
-            //objTransform.gameObject.layer = LayerMask.GetMask();
+            //objTransform.gameObject.layer = LayerMask.GetMask(CAMERA_IGNORE_LAYERS[0]);
         }
 
 		//find the camera on this gameobject

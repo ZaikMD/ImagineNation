@@ -54,9 +54,7 @@ public class CheckPoint : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-        updateGUI();
-
-	
+        updateGUI();	
 	}
 
 	void OnTriggerEnter(Collider obj)
