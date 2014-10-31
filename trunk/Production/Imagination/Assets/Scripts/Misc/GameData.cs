@@ -1,4 +1,4 @@
-﻿/*
+﻿       /*
 *GameData
 *
 *resposible for holding game settings and player data IE input type

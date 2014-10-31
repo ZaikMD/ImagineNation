@@ -1,14 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LoadNextLevel : MonoBehaviour {
+public class LoadNextLevel : MonoBehaviour 
+{
 
 	AsyncOperation m_Async;
-
 
 	bool loadNextLevel;
 
 	public MovieTexture m_LoadVideo;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -24,7 +25,7 @@ public class LoadNextLevel : MonoBehaviour {
 	{
 	//	m_Async = Application.LoadLevelAsync(Application.loadedLevel + 1);
 	//	m_Async.allowSceneActivation = false;
-//		m_Text.text = m_Async.progress;
+    //  m_Text.text = m_Async.progress;
 		m_LoadVideo.Play ();
 		if(loadNextLevel)
 		{
@@ -41,7 +42,26 @@ public class LoadNextLevel : MonoBehaviour {
 	
 	IEnumerator Load () 
 	{
-		m_Async = Application.LoadLevelAsync(Application.loadedLevel + 1);
+		switch(GameData.Instance.CurrentLevel)
+		{
+		case Levels.Level_1:
+			switch(GameData.Instance.CurrentSection)
+			{
+			case Sections.Sections_1:
+				m_Async = Application.LoadLevelAsync(Constants.LEVEL1_SECTION1);
+				break;
+
+			case Sections.Sections_2:
+				m_Async = Application.LoadLevelAsync(Constants.LEVEL1_SECTION2);
+				break;
+
+			case Sections.Sections_3:
+				m_Async = Application.LoadLevelAsync(Constants.LEVEL1_SECTION3);
+				break;
+			}
+
+			break;
+		}
 //		m_Async.allowSceneActivation = false;
 		yield return m_Async.isDone;
 		yield return SwitchScene();
