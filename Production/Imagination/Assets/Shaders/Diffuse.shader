@@ -9,14 +9,12 @@
 // Created by Jason Hein
 
 
-Shader "Production/WorldShader"
+Shader "Production/Diffuse"
 {
 	//Properties that can be set by designers
 	Properties
     {
     	_MainTex ("Texture", 2D) = "white" {} 
-    	_SpecColor ("Specular Light Color", Color) = (0.3,0.3,0.3,1.0) 
-    	_Shininess ("Shininess", Float) = 10.0
     	_PointLightIllumination("Point Light Illumination", Float) = 10.0
     	_PointLightMaximumIllumination("Point Light Max Illumination", Float) = 0.35
     }
@@ -135,8 +133,6 @@ Shader "Production/WorldShader"
          	//Public Uniforms
          	sampler2D _MainTex;
          	float4 _MainTex_ST;
-         	float4 _SpecColor;
-         	float _Shininess;
          	float _PointLightIllumination;
          	float _PointLightMaximumIllumination;
          	
@@ -223,26 +219,9 @@ Shader "Production/WorldShader"
             	
             	//Calculate the base colour of the fragment with lighting
             	float3 fragmentColour = textureColor.xyz * _LightColor0.xyz * distShading * max(0.0, dot(normalDirection, lightDirection));
-            	
-            	
-            	//Specular reflection
-            	float3 specularReflection;
-            	
-            	//If we are facing the light, so calculate specular lighting
-            	if (_SpecColor.a > 0.0 && dot(normalDirection, lightDirection) > 0.0)
-            	{
-            		specularReflection = _LightColor0.xyz * _SpecColor.xyz * _SpecColor.a * distShading * textureColor.a *
-            		pow(max(0.0, dot(reflect(-lightDirection, normalDirection), viewDirection)), _Shininess);
-            	}
-            	
-            	//Otherwise their is no specular lighting
-            	else
-            	{
-            		specularReflection = float3(0.0, 0.0, 0.0);
-            	}
 
          		//Return the final colour of the fragment
-         		return float4(fragmentColour + specularReflection + output.vertexLighting, 1.0);
+         		return float4(fragmentColour + output.vertexLighting, 1.0);
          	}
          	
          	//End the cg shader
