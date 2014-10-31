@@ -91,7 +91,7 @@ case CheckPoints.CheckPoint_1:
 				newLightPeg.transform.position = m_LightPegsForCheckPointOne[i].transform.position;
 				Destroy(m_LightPegsForCheckPointOne[i].gameObject);
 				m_LightPegsForCheckPointOne[i] = newLightPeg;
-				newLightPeg.GetComponent<LightPeg>().m_ID = i;
+				newLightPeg.GetComponent<LightPeg>().SetInfo(i);
 			}
 
 
@@ -101,7 +101,7 @@ case CheckPoints.CheckPoint_1:
 				newLightPeg.transform.position = m_LightPegsForCheckPointTwo[i].transform.position;
 				Destroy(m_LightPegsForCheckPointTwo[i].gameObject);
 				m_LightPegsForCheckPointTwo[i] = newLightPeg;
-				newLightPeg.GetComponent<LightPeg>().m_ID = i + m_LightPegsForCheckPointOne.Length;
+				newLightPeg.GetComponent<LightPeg>().SetInfo(i + m_LightPegsForCheckPointOne.Length);
 			}
 
 
@@ -111,7 +111,7 @@ case CheckPoints.CheckPoint_1:
 				newLightPeg.transform.position = m_LightPegsForCheckPointThree[i].transform.position;
 				Destroy(m_LightPegsForCheckPointThree[i].gameObject);
 				m_LightPegsForCheckPointThree[i] = newLightPeg;
-				newLightPeg.GetComponent<LightPeg>().m_ID = i + m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length;
+				newLightPeg.GetComponent<LightPeg>().SetInfo(i + m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length);
 			}
 
 //puzzle pieces 
@@ -121,7 +121,7 @@ case CheckPoints.CheckPoint_1:
 				newPuzzlePiece.transform.position = m_PuzzlePieceForCheckPointOne[i].transform.position;
 				Destroy(m_PuzzlePieceForCheckPointOne[i].gameObject);
 				m_PuzzlePieceForCheckPointOne[i] = newPuzzlePiece;
-				newPuzzlePiece.GetComponent<PuzzlePiece>().m_ID = i;
+				newPuzzlePiece.GetComponent<PuzzlePiece>().SetInfo(i);
 			}
 
 			for(int i = 0; i < m_PuzzlePieceForCheckPointTwo.Length; i++)
@@ -130,7 +130,7 @@ case CheckPoints.CheckPoint_1:
 				newPuzzlePiece.transform.position = m_PuzzlePieceForCheckPointTwo[i].transform.position;
 				Destroy(m_PuzzlePieceForCheckPointTwo[i].gameObject);
 				m_PuzzlePieceForCheckPointTwo[i] = newPuzzlePiece;
-				newPuzzlePiece.GetComponent<PuzzlePiece>().m_ID = i + m_PuzzlePieceForCheckPointOne.Length;
+				newPuzzlePiece.GetComponent<PuzzlePiece>().SetInfo(i + m_PuzzlePieceForCheckPointOne.Length);
 			}
 
 			for(int i = 0; i < m_PuzzlePieceForCheckPointThree.Length; i++)
@@ -139,7 +139,7 @@ case CheckPoints.CheckPoint_1:
 				newPuzzlePiece.transform.position = m_PuzzlePieceForCheckPointThree[i].transform.position;
 				Destroy(m_PuzzlePieceForCheckPointThree[i].gameObject);
 				m_PuzzlePieceForCheckPointThree[i] = newPuzzlePiece;
-				newPuzzlePiece.GetComponent<PuzzlePiece>().m_ID = i;
+				newPuzzlePiece.GetComponent<PuzzlePiece>().SetInfo(i + m_PuzzlePieceForCheckPointOne.Length + m_PuzzlePieceForCheckPointTwo.Length);
 			}
 
             //Set counter to 0
@@ -181,7 +181,7 @@ case CheckPoints.CheckPoint_2:
 				newLightPeg.transform.position = m_LightPegsForCheckPointTwo[i].transform.position;
 				Destroy(m_LightPegsForCheckPointTwo[i].gameObject);
 				m_LightPegsForCheckPointTwo[i] = newLightPeg;
-				newLightPeg.GetComponent<LightPeg>().m_ID = i + m_LightPegsForCheckPointOne.Length;
+				newLightPeg.GetComponent<LightPeg>().SetInfo(i + m_LightPegsForCheckPointOne.Length);
 				GameData.Instance.ResetCollectedPeg(i + m_LightPegsForCheckPointOne.Length);            
             }
 
@@ -191,7 +191,7 @@ case CheckPoints.CheckPoint_2:
 				newLightPeg.transform.position = m_LightPegsForCheckPointThree[i].transform.position;
 				Destroy(m_LightPegsForCheckPointThree[i].gameObject);
 				m_LightPegsForCheckPointThree[i] = newLightPeg;
-				newLightPeg.GetComponent<LightPeg>().m_ID = i + m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length;
+				newLightPeg.GetComponent<LightPeg>().SetInfo(i + m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length);
 				GameData.Instance.ResetCollectedPeg(i + m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length);  
 			}
 
@@ -227,7 +227,7 @@ case CheckPoints.CheckPoint_2:
 				newPuzzlePiece.transform.position = m_PuzzlePieceForCheckPointTwo[i].transform.position;
 				Destroy(m_PuzzlePieceForCheckPointTwo[i].gameObject);
 				m_PuzzlePieceForCheckPointTwo[i] = newPuzzlePiece;
-				newPuzzlePiece.GetComponent<PuzzlePiece>().m_ID = i + m_PuzzlePieceForCheckPointOne.Length;
+				newPuzzlePiece.GetComponent<PuzzlePiece>().SetInfo(i + m_PuzzlePieceForCheckPointOne.Length);
 			}
 
 			for(int i = 0; i < m_LightPegsForCheckPointThree.Length; i++)
@@ -236,7 +236,7 @@ case CheckPoints.CheckPoint_2:
 				newLightPeg.transform.position = m_LightPegsForCheckPointThree[i].transform.position;
 				Destroy(m_LightPegsForCheckPointThree[i].gameObject);
 				m_LightPegsForCheckPointThree[i] = newLightPeg;
-				newLightPeg.GetComponent<LightPeg>().m_ID = i + m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length;
+				newLightPeg.GetComponent<LightPeg>().SetInfo(i + m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length);
 				GameData.Instance.ResetCollectedPeg(i + m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length);  
 			}
 
@@ -267,7 +267,7 @@ case CheckPoints.CheckPoint_3:
 					newLightPeg.transform.position = m_LightPegsForCheckPointOne[i].transform.position;
 					Destroy(m_LightPegsForCheckPointOne[i].gameObject);
 					m_LightPegsForCheckPointOne[i] = newLightPeg;
-					newLightPeg.GetComponent<LightPeg>().m_ID = i;
+					newLightPeg.GetComponent<LightPeg>().SetInfo(i);
 					GameData.Instance.ResetCollectedPeg(i);
 				}           
 			}
@@ -291,7 +291,7 @@ case CheckPoints.CheckPoint_3:
 					newLightPeg.transform.position = m_LightPegsForCheckPointTwo[i].transform.position;
 					Destroy(m_LightPegsForCheckPointTwo[i].gameObject);
 					m_LightPegsForCheckPointTwo[i] = newLightPeg;
-					newLightPeg.GetComponent<LightPeg>().m_ID = i + m_LightPegsForCheckPointOne.Length;
+					newLightPeg.GetComponent<LightPeg>().SetInfo(i + m_LightPegsForCheckPointOne.Length);
 					GameData.Instance.ResetCollectedPeg(i + m_LightPegsForCheckPointOne.Length);      
 				}           
 			}
@@ -303,7 +303,7 @@ case CheckPoints.CheckPoint_3:
 				newLightPeg.transform.position = m_LightPegsForCheckPointThree[i].transform.position;
 				Destroy(m_LightPegsForCheckPointThree[i].gameObject);
 				m_LightPegsForCheckPointThree[i] = newLightPeg;
-				newLightPeg.GetComponent<LightPeg>().m_ID = i + m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length;
+				newLightPeg.GetComponent<LightPeg>().SetInfo(i + m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length);
 				GameData.Instance.ResetCollectedPeg(i + m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length);  
 			}
 

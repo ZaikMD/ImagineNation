@@ -1,28 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/*Created by: kole
+ * 
+ * handles the collision of the Puzzle pieces
+ * this class inherits from Base collecable 
+ */
+
 public class PuzzlePiece : BaseCollectable
 {
-	CharacterController m_Controller;
-	CollectableManager m_CollectableManager;
-	
-	// Use this for initialization
-	void Start()
-	{
-		m_Controller = gameObject.GetComponent<CharacterController>();
-		m_CollectableManager = GameObject.FindGameObjectWithTag(Constants.COLLECTABLE_MANAGER).GetComponent<CollectableManager>();
-	}
-	
-	// Update is called once per frame
-	void Update()
-	{
-		//This will apply gravity for us
-		Vector3 speed = Vector3.zero;
-		m_Controller.SimpleMove(speed);
-	}
-	
+	//All the puzzle pieces should have a trigger on them, when enter, this function will be called
 	void OnTriggerEnter(Collider other)
 	{
+		//checks to see if the object in our trigger is a player.
 		if (other.gameObject.tag == Constants.PLAYER_STRING)
 		{
 			//Tell GameData this peg was collected
@@ -30,11 +20,12 @@ public class PuzzlePiece : BaseCollectable
 
 			//increment collectable counter
 			m_CollectableManager.IncrementPuzzleCounter();
+
+			//Play the collected sound
+			PlaySound();
 			
 			//destroy this gameobject
 			Destroy(this.gameObject);            
 		}
-	}
-	
-	
+	}	
 }

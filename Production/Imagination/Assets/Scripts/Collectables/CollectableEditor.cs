@@ -11,7 +11,6 @@ public class CollectableEditor : EditorWindow
     struct CollectableInfo
 	{
 		Vector3 Pos;
-		CollectableType Type;
 	}
 
     //Varibales
