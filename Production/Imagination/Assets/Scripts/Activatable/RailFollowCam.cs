@@ -24,6 +24,7 @@ public class RailFollowCam : Activatable
 
 		m_Camera.enabled = false;
 		m_PLayerCams = GameObject.FindGameObjectsWithTag (Constants.MAIN_CAMERA_STRING);
+		transform.parent = null;
 	}
 	
 	// Update is called once per frame
