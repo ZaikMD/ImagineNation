@@ -6,47 +6,28 @@ using System.Collections;
  * Light peg will act simularly to coins in mario
  * When a peg is Collected, it will increment the total  
  *  
+ * This Class inherits from BaseCollecatable
  */
-
-[RequireComponent(typeof(CharacterController))]
 
 public class LightPeg : BaseCollectable
 {
-   // public int m_ID;
-
-    CharacterController m_Controller;
-
-    CollectableManager m_LightPegManager;
-
-    // Use this for initialization
-    void Start()
-    {
-        m_Controller = gameObject.GetComponent<CharacterController>();
-        m_LightPegManager = GameObject.FindGameObjectWithTag(Constants.COLLECTABLE_MANAGER).GetComponent<CollectableManager>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //This will apply gravity for us
-        Vector3 speed = Vector3.zero;
-        m_Controller.SimpleMove(speed);
-    }
-
+	//All the puzzle pieces should have a trigger on them, when enter, this function will be called
     void OnTriggerEnter(Collider other)
     {
+		//checks to see if the object in our trigger is a player.
         if (other.gameObject.tag == Constants.PLAYER_STRING)
         {
             //Tell GameData this peg was collected
             GameData.Instance.LightPegCollected(m_ID);
 
             //increment collectable counter
-            m_LightPegManager.IncrementCounter();
+            m_CollectableManager.IncrementCounter();
+
+			//Play Collected sound 
+			PlaySound();
 
             //destroy this gameobject
             Destroy(this.gameObject);            
         }
     }
- 
-
 }
