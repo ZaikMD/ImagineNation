@@ -2,6 +2,8 @@
 using System.Collections;
 using System;
 
+//TODO: remove all magic numbers
+
 // Enum to of the different Modes a control point can have
 public enum BezierControlPointMode 
 {

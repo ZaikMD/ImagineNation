@@ -4,14 +4,14 @@ using System.Collections;
 public static class Bezier 
 {
 	// Cubic bezier curve
-	public static Vector3 GetPoint (Vector3 point0, Vector3 point1, Vector3 point2, Vector3 point3, float t) 
+	public static Vector3 GetPoint (Vector3 point0, Vector3 point1, Vector3 point2, Vector3 point3, float time) 
 	{
-		t = Mathf.Clamp01(t);
-		float oneMinusT = 1f - t;
+		time = Mathf.Clamp01(time);
+		float oneMinusT = 1f - time;
 		return (Mathf.Pow (oneMinusT, 3.0f) * point0 + 3.0f *
-						Mathf.Pow (oneMinusT, 2.0f) * t * point1 + 3.0f * 
-						oneMinusT * Mathf.Pow (t, 2) * point2 + Mathf.Pow (t, 3.0f) * 
-						point3);
+		        Mathf.Pow (oneMinusT, 2.0f) * time * point1 + 3.0f * 
+		        oneMinusT * Mathf.Pow (time, 2) * point2 + Mathf.Pow (time, 3.0f) * 
+				point3);
 				
 				
 	}
