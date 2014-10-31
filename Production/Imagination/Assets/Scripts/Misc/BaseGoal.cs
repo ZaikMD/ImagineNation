@@ -25,6 +25,9 @@ public class BaseGoal : MonoBehaviour {
 	//public Transform m_LevelEnd;
 	public string m_NextScene;
 
+	public Levels m_NextLevel;
+	public Sections m_NextSection;
+
 	protected bool[] m_AtEnd = new bool[2];
 	//protected float m_Speed;
 
@@ -86,10 +89,13 @@ public class BaseGoal : MonoBehaviour {
 	//Loads the next level
 	public void LoadNext()
 	{
+		GameData.Instance.CurrentLevel = m_NextLevel;
+		GameData.Instance.CurrentSection = m_NextSection;
 		//Tell Game Data to load next level
 		GameData.Instance.resetCheckPoint (); //Reset the checkpoint
-		GameData.Instance.FirstTimePlayingLevel = true; // reset first time playing
-		Application.LoadLevel (Application.loadedLevel + 1); // load the next level
+		GameData.Instance.FirstTimePlayingLevel = true;// reset first time playing
+
+		Application.LoadLevel (Constants.LOADING_SCREEN); // load the next level
 	}
 
 	//Increment waiting player count so that it knows how many people are waiting to change level
