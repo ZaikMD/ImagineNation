@@ -13,6 +13,8 @@
 * 10/10/2014 Edit: no longer has internal classes
  * 
  * 21/10/2014 Edit: added a public CameraSnap function that does the same as CameraSnap but is activated by boolean - Greg Fortier usable for crawlspaces
+ * 
+ * 31/10/2014 edit: culling mask and shutter layer is being set in preperation for pause screen
 */
 #endregion
 
@@ -29,6 +31,27 @@ public class TPCamera : ShutterCamera
     int m_IgnoreLayer;
 
     static int m_IgnoreCounter = 1;
+
+    //override the base class property
+    new public bool ShowShutter
+    {
+        get 
+        { 
+            return m_ShowShutter; 
+        }
+        protected set 
+        { 
+            m_ShowShutter = value;
+            if(m_ShowShutter)
+			{
+				setShutterLayer(CAMERA_IGNORE_LAYERS[m_IgnoreLayer]);
+			}
+			else
+			{
+				setShutterLayer(CAMERA_IGNORE_LAYERS[0]);
+			}
+        }
+    }
 
 	//what the camera accepts input from 
     AcceptInputFrom m_AcceptInputFrom;
@@ -68,12 +91,8 @@ public class TPCamera : ShutterCamera
         m_Camera = gameObject.GetComponent<Camera>();
 
 		m_Camera.cullingMask = LayerMask.GetMask ( CAMERA_IGNORE_LAYERS[m_IgnoreCounter++]) | m_Camera.cullingMask;
-		
-		foreach (Transform objTransform in base.ShutterRotationPoint.transform)
-		{
-			objTransform.gameObject.layer = LayerMask.NameToLayer(CAMERA_IGNORE_LAYERS[0]);
-		}
 
+		setShutterLayer (CAMERA_IGNORE_LAYERS [0]);
 
 		//===================================================================
 		//find the player the camera is on
@@ -120,6 +139,15 @@ public class TPCamera : ShutterCamera
 		//==================================================================================
         //get the accept input from script on the camera game object
 		m_AcceptInputFrom = gameObject.GetComponent<AcceptInputFrom>();
+	}
+
+	void setShutterLayer(string layer)
+	{
+		ShutterRotationPoint.gameObject.layer = LayerMask.NameToLayer(layer);
+		foreach (Transform objTransform in base.ShutterRotationPoint.transform)
+		{
+			objTransform.gameObject.layer = LayerMask.NameToLayer(layer);
+		}
 	}
 	
 	// Update is called once per frame
