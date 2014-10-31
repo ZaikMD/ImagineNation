@@ -12,6 +12,9 @@ using System.Collections.Generic;
 
 public class CollectableManager : MonoBehaviour {
 
+    public Texture m_LightPegsImage;
+    public Texture m_PuzzlePieceImage;
+ 
     public GameObject m_LightPegPrefab;
 	public GameObject m_PuzzlePiecePrefab;
 
@@ -62,7 +65,6 @@ public class CollectableManager : MonoBehaviour {
 
     void SpawnLightPegs()
     {
-		Debug.Log(GameData.Instance.FirstTimePlayingLevel);
         if (GameData.Instance.FirstTimePlayingLevel)
         {
             //first time the level is being played
@@ -334,12 +336,31 @@ case CheckPoints.CheckPoint_3:
         m_Timer = OnScreenTime;
     }
 
+    /// <summary>
+    /// Displays the current amount of pegs and puzzle pieces collected
+    /// </summary>
     void OnGUI()
     {
         if (m_DisplayCounter)
         { 
-			Rect guiRect = new Rect(Screen.width / 2 - 70, 0, 140, 20);
-			GUI.Box(guiRect, "Puzzles: " + m_NumberOfPuzzlePiecesCollected + " Pegs: "  + m_NumberOfLightPegsCollect);
+			Rect guiRect = new Rect(Screen.width / 2 - 70, 0, 140, 140);
+            GUIContent guiContent = new GUIContent(m_NumberOfLightPegsCollect.ToString(), m_LightPegsImage);
+	        //GUI.Box(guiRect, guiContent);
+
+            GUI.DrawTexture(guiRect, m_LightPegsImage);
+            //resetting the recticle to 
+            guiRect = new Rect(Screen.width / 2 - 70, 0, 70, 20);
+        
+            switch(m_NumberOfPuzzlePiecesCollected)
+            {
+                case 0:
+
+                break;
+            
+                case 1:
+
+                break;            
+            }                        
         }
     }
 }
