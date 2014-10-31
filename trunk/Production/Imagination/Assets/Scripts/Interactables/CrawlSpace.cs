@@ -11,7 +11,8 @@
  *Oct 17th 2014 Edit: Now rotates the player based on the rotation of the game object; - Greg Fortier
  *Oct 24th 2014 Edit: Adding the CameraSnap public function from TPCamera, so the camera snaps to behind the player when the player exits a crawl space. -Greg Fortier
  *Oct 29th 2014 Edit: Added 1 public GameObject called m_ExitPoint, exit point will be used to tell the player where to exit since during playtesting, players thaught the exit point was
- *too close to the tube itself
+ *too close to the tube itself -Greg Fortier
+ *Oct 31st Edit: redesign of how crawlspace works, players now exit further out of the exit -Greg Fortier
 */
 
 using UnityEngine;
@@ -39,7 +40,7 @@ public class CrawlSpace : MonoBehaviour
 	TPCamera m_CameraSnapper;
 
 
-
+	//increments m_InComingPlayer
 	public void addIncomingPlayer()
 	{
 		m_InComingPlayers++;
@@ -52,9 +53,6 @@ public class CrawlSpace : MonoBehaviour
 		{
 			m_CrawlDelay[i] = 0.0f;
 		}
-
-
-
 	}
 	
 	// Update is called once per frame
@@ -79,6 +77,9 @@ public class CrawlSpace : MonoBehaviour
 					}
 					//When the timer is over transform the player's position to the other crawl space's
 					m_Players[i].transform.position = m_ExitPoint.gameObject.transform.position;
+	
+					//Decrements IncomingPlayer value on the other crawlspace
+					m_OtherCrawlSpace.DecrementIncomingPlayer();
 
 					if (m_OtherCrawlModelRotation != null)
 					{
@@ -86,11 +87,6 @@ public class CrawlSpace : MonoBehaviour
 
 						//camera snap is used to force the camera to be behind the player when the player exits a crawlspace
 						m_Players[i].transform.parent.gameObject.GetComponentInChildren<TPCamera>().CameraSnap(true);
-
-
-		
-
-
 					}
 
 					m_Players[i] = null;
@@ -145,18 +141,12 @@ public class CrawlSpace : MonoBehaviour
 		}
 	}
 
-	//when the player exits the trigger  incoming player will decrement
-	void OnTriggerExit(Collider other)
+	//Decrements m_InComingPlayer 
+	public void DecrementIncomingPlayer()
 	{
-		if(m_Players[0] == null && m_Players[1] ==null)
+		if(m_InComingPlayers > 0)
 		{
-			if(other.gameObject.tag == Constants.PLAYER_STRING)
-			{
-				if(m_InComingPlayers > 0)
-				{
-					m_InComingPlayers--;
-				}
-			}
+			m_InComingPlayers--;
 		}
 	}
 }
