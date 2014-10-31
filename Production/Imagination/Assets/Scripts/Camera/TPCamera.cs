@@ -64,15 +64,16 @@ public class TPCamera : ShutterCamera
 	// Use this for initialization
 	void Start ()
     {
-        m_IgnoreLayer = m_IgnoreCounter++;
-
-        foreach (Transform objTransform in base.ShutterRotationPoint.transform)
-        {
-            //objTransform.gameObject.layer = LayerMask.GetMask(CAMERA_IGNORE_LAYERS[0]);
-        }
-
 		//find the camera on this gameobject
         m_Camera = gameObject.GetComponent<Camera>();
+
+		m_Camera.cullingMask = LayerMask.GetMask ( CAMERA_IGNORE_LAYERS[m_IgnoreCounter++]) | m_Camera.cullingMask;
+		
+		foreach (Transform objTransform in base.ShutterRotationPoint.transform)
+		{
+			objTransform.gameObject.layer = LayerMask.NameToLayer(CAMERA_IGNORE_LAYERS[0]);
+		}
+
 
 		//===================================================================
 		//find the player the camera is on
