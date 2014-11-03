@@ -33,6 +33,9 @@ public static class Constants
 		}
 	}
 
+    //This will control how long the hud is displayed for
+    public const float HUD_ON_SCREEN_TIME = 3.0f;
+
 	public const string PLAYER_STRING = "Player";
 	public const string ALEX_STRING = "Alex";
 	public const string DEREK_STRING = "Derek";
@@ -52,6 +55,7 @@ public static class Constants
 	public const string MAIN_CAMERA_STRING = "MainCamera";
 	public const string SOUND_MANAGER = "SoundManager";
     public const string COLLECTABLE_MANAGER = "CollectableManager";
+    public const string HUD = "Hud";
 
     public const string WALL_TAG_STRING = "Wall";
     public const string MOVING_PLATFORM_TAG_STRING = "MovingPlatform";
