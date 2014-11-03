@@ -144,6 +144,15 @@ public class Switch : SwitchBaseClass, Attackable
     {
 		return;
     }
+	public bool beenHit()
+	{
+		if(m_StartPauseForCamera = true)
+		{
+			return true;
+		}
+
+		return false;
+	}
 
 	protected virtual void onUse()
 	{
