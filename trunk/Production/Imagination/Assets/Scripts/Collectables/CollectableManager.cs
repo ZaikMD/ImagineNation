@@ -12,8 +12,7 @@ using System.Collections.Generic;
 
 public class CollectableManager : MonoBehaviour {
 
-    public Texture m_LightPegsImage;
-    public Texture m_PuzzlePieceImage;
+    Hud m_Hud;
  
     public GameObject m_LightPegPrefab;
 	public GameObject m_PuzzlePiecePrefab;
@@ -39,6 +38,8 @@ public class CollectableManager : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+        m_Hud = GameObject.FindGameObjectWithTag(Constants.HUD).GetComponent<Hud>();
+
         m_Timer = OnScreenTime;
         m_NumberOfLightPegsCollect = 0;
 
@@ -321,17 +322,18 @@ case CheckPoints.CheckPoint_3:
     public void IncrementCounter()
     {
         m_NumberOfLightPegsCollect ++;
-        DisplayCounter();
+        m_Hud.UpdateLightPegs(m_NumberOfLightPegsCollect);
     }
 
 	public void IncrementPuzzleCounter()
 	{
 		m_NumberOfPuzzlePiecesCollected ++;
-		DisplayCounter();
+        
 	}
 	
 	void DisplayCounter()
     {
+        //change to referenec our hud, and call display hud
         m_DisplayCounter = true;
         m_Timer = OnScreenTime;
     }
@@ -339,28 +341,4 @@ case CheckPoints.CheckPoint_3:
     /// <summary>
     /// Displays the current amount of pegs and puzzle pieces collected
     /// </summary>
-    void OnGUI()
-    {
-        if (m_DisplayCounter)
-        { 
-			Rect guiRect = new Rect(Screen.width / 2 - 70, 0, 140, 140);
-            GUIContent guiContent = new GUIContent(m_NumberOfLightPegsCollect.ToString(), m_LightPegsImage);
-	        //GUI.Box(guiRect, guiContent);
-
-            GUI.DrawTexture(guiRect, m_LightPegsImage);
-            //resetting the recticle to 
-            guiRect = new Rect(Screen.width / 2 - 70, 0, 70, 20);
-        
-            switch(m_NumberOfPuzzlePiecesCollected)
-            {
-                case 0:
-
-                break;
-            
-                case 1:
-
-                break;            
-            }                        
-        }
-    }
 }
