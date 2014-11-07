@@ -12,36 +12,42 @@ using System.Collections;
 
 public class Hud : MonoBehaviour {
 
+	//bool's to determine to show things
     bool m_ShowCheckPoint;
     bool m_ShowHiddenHud;
 
-   //Time for showing and hiding hud
+   	//Time for showing and hiding hud
     float m_HudDisplayLength;
     float m_HudDisplayTimer;
     float m_CheckPointDisplayTimer;
 
     //Varibles to display
-    //health
     int LightPegCollected;
     int PuzzlePiecesCollected;
+	int PlayerOneHealth;
+	int PlayerTwoHealth;
+	int NumberOfLives;
 
 	//Images for our hud
     public Texture m_LightPegHudImage;
-    public Texture m_PuzzlePieceHudNoneImage;
-    public Texture m_PuzzlePieceHudOneImage;
-    public Texture m_PuzzlePieceHudTwoImage;
-    public Texture m_PuzzlePieceHudThreeImage;
-    public Texture m_PuzzlePieceHudFourImage;
-    public Texture m_PuzzlePieceHudFiveImage;
-    public Texture m_PuzzlePieceHudSixImage;
+    public Texture[] m_PuzzlePieceHudImages;
     public Texture m_LifeCounterImage;
     public Texture m_CheckpointImage;
-   
+	public Texture m_LeftHealthBoarder;
+	public Texture m_RightHealthBoarder;
+	public Texture[] m_DerekHealthImages;
+	public Texture[] m_AlexHealthImages;
+	public Texture[] m_ZoeyHealthImages;
+
+
+	Texture[] m_PlayerOneHealthImages;
+	Texture[] m_PlayerTwoHealthImages;
+
     //Font for numbers
     public Font m_NumberFont;
 
 
-    // Use this for initialization
+    //Use this for initialization
 	void Start ()
     {
         //Setting all varibles to desired starting stat
@@ -50,6 +56,37 @@ public class Hud : MonoBehaviour {
         m_CheckPointDisplayTimer = 0;
         m_ShowCheckPoint = false;
         m_ShowHiddenHud = false;
+
+
+		switch(GameData.Instance.PlayerOneCharacter)
+		{
+			case Characters.Alex:
+			m_PlayerOneHealthImages = m_AlexHealthImages;
+			break; 
+
+			case Characters.Derek:
+			m_PlayerOneHealthImages = m_DerekHealthImages;
+			break;
+
+			case Characters.Zoe:
+			m_PlayerOneHealthImages = m_ZoeyHealthImages;
+			break;
+		}
+
+		switch(GameData.Instance.PlayerTwoCharacter)
+		{
+			case Characters.Alex:
+			m_PlayerTwoHealthImages = m_AlexHealthImages;
+			break;
+
+			case Characters.Derek:
+			m_PlayerTwoHealthImages = m_DerekHealthImages;
+			break;
+
+			case Characters.Zoe:
+			m_PlayerTwoHealthImages = m_ZoeyHealthImages;
+			break;
+		}
 	}
 	
 	// Update is called once per frame
@@ -77,6 +114,19 @@ public class Hud : MonoBehaviour {
         }
 	}
 
+	public void SetHealth(int Health, int Player)
+	{
+		if(Player == 1)
+		{
+			PlayerOneHealth = Health;
+		}
+		else
+		{
+			PlayerTwoHealth = Health;
+		}
+
+	}
+
     public void ShowCheckpoint()
     {
         m_ShowCheckPoint = true;
@@ -98,15 +148,17 @@ public class Hud : MonoBehaviour {
     //All our graphics have to be done in on gui
     void OnGUI()
     {
-
+		float SizeOfHudElements = Screen.width / 10;
+		Rect PositionRect = new Rect(0, 0, SizeOfHudElements, SizeOfHudElements);
+		//Need to fix the custom fonts.
+		//GUI.skin.font = m_NumberFont;
+		//Hidden hud elements such as collectables and Lives remaining
         if(m_ShowHiddenHud)
         {
-            //our health will be about a tenth of the screen wide and tall
-            float SizeOfHudElements = Screen.width / 10;
-            Rect PositionRect = new Rect(0, 0, SizeOfHudElements, SizeOfHudElements);
-          //GUI.skin.font = m_NumberFont;
-            
-         //GUI.DrawTexture(PositionRect, m_LightPegHudImage);
+			GUI.skin.label.fontSize = 144;
+
+            //Light Pegs
+         	GUI.DrawTexture(PositionRect, m_LightPegHudImage);
 
             PositionRect.Set(PositionRect.width, 0, SizeOfHudElements, SizeOfHudElements);
             if (LightPegCollected < 10)
@@ -118,7 +170,45 @@ public class Hud : MonoBehaviour {
                 GUI.Label(PositionRect, LightPegCollected.ToString());
             }
 
-            PositionRect.x = Screen.width - SizeOfHudElements;         
+/* no Puzzle piece texture yet
+			//PuzzlePieces
+			PositionRect.Set( Screen.width /2 - SizeOfHudElements, 0, SizeOfHudElements * 2, SizeOfHudElements);
+			GUI.DrawTexture(PositionRect, m_PuzzlePieceHudImages[PuzzlePiecesCollected]);
+*/
+			//Life Counter image
+			PositionRect.Set(Screen.width - SizeOfHudElements, 0, SizeOfHudElements, SizeOfHudElements);
+			GUI.DrawTexture(PositionRect, m_LifeCounterImage);
+
+			//Number repersenting lives remaining;
+			PositionRect.Set(Screen.width - SizeOfHudElements * 2, 0, SizeOfHudElements, SizeOfHudElements);
+			if(NumberOfLives < 10)
+			{
+				//No Lifes implemented yet
+				//GUI.Label(PositionRect, "0" + LightPegCollected.ToString());
+			}
+			else
+			{
+				//No Lives imlemented yet
+				//GUI.Label(PositionRect, LightPegCollected.ToString());
+			}
         }
+
+		//CheckPoints
+		if(m_ShowCheckPoint)
+		{
+			PositionRect.Set (Screen.width/4, Screen.height/4, Screen.width/ 2 , Screen.height / 8);
+			GUI.DrawTexture(PositionRect, m_CheckpointImage);
+		}
+
+		//Health
+		PositionRect.Set (0, Screen.height - SizeOfHudElements, SizeOfHudElements, SizeOfHudElements);
+
+		GUI.DrawTexture(PositionRect, m_PlayerOneHealthImages[PlayerOneHealth]);
+		GUI.DrawTexture (PositionRect, m_LeftHealthBoarder);
+
+		PositionRect.Set (Screen.width - SizeOfHudElements, Screen.height - SizeOfHudElements, SizeOfHudElements, SizeOfHudElements);
+
+		GUI.DrawTexture(PositionRect, m_PlayerTwoHealthImages[PlayerTwoHealth]);
+		GUI.DrawTexture (PositionRect, m_RightHealthBoarder);
     }
 }

@@ -11,6 +11,8 @@
 * 8/10/2014 Edit: Fully Commented - Kris Matis.
 *
 * 24/10/2014 Edit: Took out m_StopRegenHealthTimer and made it so m_HealthRegenTimer resets when the player is hit
+* 
+* 7/11/2014 Edit: added varible to determine if we are player one or two - Kole 
 */
 #endregion
 
@@ -37,10 +39,14 @@ public class PlayerHealth : Destructable
     //used to reset the health
 	int m_TotalHealth;
 
+	//Used to know which player we are
+	int m_Player;
+
 	const float TEXTURE_SCALE = 0.45f;
 
 	//used to make sound calls
 	SFXManager m_SFX;
+	Hud m_Hud;
 
     //used to stop the script from executing and used so other scripts can tell the player is dead
 	bool m_IsDead = false;
@@ -55,8 +61,41 @@ public class PlayerHealth : Destructable
 	// Use this for initialization
 	void Start () 
 	{
+		Characters currentCharacter;
+		switch (transform.parent.name)
+		{
+		case Constants.ALEX_STRING:
+			currentCharacter = Characters.Alex;
+			break;
+		case Constants.DEREK_STRING:
+			currentCharacter = Characters.Derek;
+			break;
+		case Constants.ZOE_STRING:
+			currentCharacter = Characters.Zoe;
+			break;
+		default:
+			#if DEBUG || UNITY_EDITOR
+			Debug.LogError("parent is named wrong");
+			#endif
+			currentCharacter = Characters.Zoe;
+			break;
+		}
+
+		//Check if player one
+		if (GameData.Instance.PlayerOneCharacter == currentCharacter)
+		{
+			m_Player = 1;
+		}
+		else
+		{
+			m_Player = 2;
+		}
+
 		//gets reference to sound manager
 		m_SFX = GameObject.FindGameObjectWithTag(Constants.SOUND_MANAGER).GetComponent<SFXManager>();
+
+		//Gets reference to hud
+		m_Hud = GameObject.FindGameObjectWithTag(Constants.HUD).GetComponent<Hud>();
 
 		//this block zeros out the parent game object and the health bar GUITexture so health displays properly
 		List<Transform> childrenOfParent = new List<Transform> ();
@@ -102,6 +141,9 @@ public class PlayerHealth : Destructable
 
         //setting the total health
 		m_TotalHealth = m_Health;
+
+		//Set Health in hud
+		m_Hud.SetHealth (m_TotalHealth, m_Player);
 
         //setting the current texture
 		m_GUITexture.texture = textures [m_Health];
@@ -164,6 +206,7 @@ public class PlayerHealth : Destructable
 			m_HealthRegenTimer = HealthRegenTime;
 			m_InvulnerabilityTimer = InvulnerabilityTimer;
             //update health bar
+			m_Hud.SetHealth (m_Health, m_Player);
 			m_GUITexture.texture = textures[m_Health];
 		}
 	}
@@ -196,7 +239,7 @@ public class PlayerHealth : Destructable
 		m_InvulnerabilityTimer = InvulnerabilityTimer;
 		m_HealthRegenTimer = HealthRegenTime;
 		m_GUITexture.texture = textures[m_Health];
-
+		m_Hud.SetHealth (m_Health, m_Player);
 		PlayerCamera.Player = this.gameObject.transform.FindChild("\"Centre Point\"").gameObject;
 	}
 
