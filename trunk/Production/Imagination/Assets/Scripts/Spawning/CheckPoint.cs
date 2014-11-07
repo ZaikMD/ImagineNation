@@ -39,6 +39,7 @@ public class CheckPoint : MonoBehaviour
 	public CheckPoints m_Value;
 
 	SFXManager m_SFX;
+	Hud m_Hud;
 
 	// Use this for initialization
 	void Start ()
@@ -46,6 +47,8 @@ public class CheckPoint : MonoBehaviour
 		m_ColorSection.renderer.material = m_OffMaterial;
 		//gets sound manager
 		m_SFX = GameObject.FindGameObjectWithTag(Constants.SOUND_MANAGER).GetComponent<SFXManager>();
+		//gets Hud
+		m_Hud = GameObject.FindGameObjectWithTag(Constants.HUD).GetComponent<Hud>();
 
 		m_DrawGUI = false;
         m_WasUsed = false;
@@ -68,7 +71,9 @@ public class CheckPoint : MonoBehaviour
 
 			    //Plays the collectable sound
 			    m_SFX.playSound(this.gameObject, Sounds.Collectable);
-			    GameData.Instance.CurrentCheckPoint = m_Value;
+				m_Hud.ShowCheckpoint();
+
+				GameData.Instance.CurrentCheckPoint = m_Value;
 			    m_ColorSection.renderer.material = m_OnMaterial;
 
                 m_DrawGUI = true;
