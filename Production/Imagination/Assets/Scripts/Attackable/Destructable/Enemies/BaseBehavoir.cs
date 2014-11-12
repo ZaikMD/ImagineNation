@@ -15,7 +15,7 @@ using System.Collections.Generic;
 public class BaseBehavoir : MonoBehaviour
 {
 	//A list of components to execute that is chosen by designers for each enemy
-	public List<AIControlComponent> m_Components = new List<AIControlComponen>();
+	public List<AIControlComponent> m_Components = new List<AIControlComponent>();
 
 	//What states are overrided by the GroupController
 	List<bool> m_IgnoreComponent = new List<bool> ();
