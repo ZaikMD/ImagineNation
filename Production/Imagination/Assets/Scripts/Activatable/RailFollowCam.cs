@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+//12/11/2014 Edit: Added in a for loop to check beenHit instead of getActive for switches
 public class RailFollowCam : Activatable 
 {
 	public Camera m_Camera;
@@ -34,12 +34,9 @@ public class RailFollowCam : Activatable
 		{
 			if (!m_Active)
 			{
-
-				m_Active = CheckSwitches();
-
 				for(int i = 0; i < m_Switches.Length;i ++)
 				{
-					/*if(m_Switches.BeenHit() != true)
+					if(m_Switches[i].beenHit() != true)
 					{
 						m_Active = false;
 					}
@@ -47,7 +44,7 @@ public class RailFollowCam : Activatable
 					else
 					{
 						m_Active = true;
-					} */
+					} 
 				}
 				if (m_Active)
 				{
