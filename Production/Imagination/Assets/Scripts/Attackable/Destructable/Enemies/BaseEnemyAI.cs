@@ -17,15 +17,15 @@ public class BaseEnemyAI : Destructable
 	//Enemy States
 	public enum EnemyState
 	{
-		Invalid,
-		Idle,
-		Chase,
-		Attack,
-		Dead,
-		Count
+		Idle = 1,
+		Chase = 2,
+		Attack = 4,
+		Dead = 8,
+		Count,
+		Invalid = 0
 	}
 	EnemyState m_State = EnemyState.Idle;
-	EnemyState m_ForcedState = EnemyState.Invalid;
+	int m_NoUpdateStates = 0;
 
 	//The behavoirs of this enemy
 	public BaseBehavoir m_IdleBehavoir;
@@ -33,33 +33,29 @@ public class BaseEnemyAI : Destructable
 	public BaseBehavoir m_AttackBehavoir;
 	public BaseBehavoir m_DeadBehavoir;
 
-#if UNITY_EDITOR
-	void Start ()
-	{
-		if (m_IdleBehavoir == null || m_ChaseBehavoir == null || m_AttackBehavoir == null || m_DeadBehavoir == null)
-		{
-			Debug.LogError(gameObject.name + " is missing a base enemy behavoir.");
-		}
-	}
-#endif
 
 	//Choose a Behavoir to update
 	void Update ()
 	{
+		if((int)m_State & m_NoUpdateStates != 0)
+		{
+			return;
+		}
+
 		//Call a behavoir based on our state
-		if (m_State == EnemyState.Idle || m_ForcedState == EnemyState.Idle)
+		if (m_State == EnemyState.Idle)
 		{
 			m_IdleBehavoir.Update();
 		}
-		else if (m_State == EnemyState.Chase || m_ForcedState == EnemyState.Chase)
+		else if (m_State == EnemyState.Chase)
 		{
 			m_ChaseBehavoir.Update();
 		}
-		else if (m_State == EnemyState.Attack || m_ForcedState == EnemyState.Attack)
+		else if (m_State == EnemyState.Attack)
 		{
 			m_AttackBehavoir.Update();
 		}
-		else if (m_State == EnemyState.Dead || m_ForcedState == EnemyState.Dead)
+		else if (m_State == EnemyState.Dead)
 		{
 			m_DeadBehavoir.Update();
 		}
@@ -70,7 +66,9 @@ public class BaseEnemyAI : Destructable
 	{
 		if (state != null && m_State != state)
 		{
+			//Set state
 			m_State = state;
+
 			//Tell group our state
 		}
 	}
@@ -81,12 +79,40 @@ public class BaseEnemyAI : Destructable
 		return m_State;
 	}
 
-	//Forces a state unless provided null
-	public virtual void ForceState(EnemyState state)
+	//Forces a state to not update unless provided null
+	public virtual void setNoUpdateStates(int state)
 	{
-		if (state != null && m_ForcedState != state)
+		if (state != 0 && m_NoUpdateStates != state)
 		{
-			m_ForcedState = state;
+			m_NoUpdateStates = state;
 		}
+	}
+
+	//Forces a state unless provided null
+	public virtual void addNoUpdateState(int state)
+	{
+		m_NoUpdateStates = m_NoUpdateStates | state;
+	}
+
+	public virtual void removeNoUpdateState(int state)
+	{
+		m_NoUpdateStates = m_NoUpdateStates ^ state;
+	}
+
+	//Forces a state unless provided null
+	public virtual void setNoUpdateStates(EnemyState state)
+	{
+		setNoUpdateStates((int) state);
+	}
+	
+	//Forces a state unless provided null
+	public virtual void addNoUpdateState(EnemyState state)
+	{
+		addNoUpdateState ((int)state);
+	}
+	
+	public virtual void removeNoUpdateState(EnemyState state)
+	{
+		removeNoUpdateState ((int)state);
 	}
 }
