@@ -44,7 +44,7 @@ public class Switch : SwitchBaseClass, Attackable
 
 	public bool m_WillPauseForCamera;
 	public float m_CameraPauseTimer;
-	bool m_StartPauseForCamera;
+	bool m_BeenHit = false;
 
 	// Use this for initialization
 	void Start () 
@@ -69,7 +69,7 @@ public class Switch : SwitchBaseClass, Attackable
 
 		if(m_WillPauseForCamera) //If the switch will pause for the camera to show something
 		{
-			if(m_StartPauseForCamera) //If the switch has been hit to stat pausing it
+			if(m_BeenHit) //If the switch has been hit to start pausing it
 			{
 				movePiece(); //Call move Piece which will move the pieces of the switch
 				if(m_CameraPauseTimer <= 0) //If the Pause timer for the camera is done counting down
@@ -136,7 +136,7 @@ public class Switch : SwitchBaseClass, Attackable
 		}
 		else
 		{
-			m_StartPauseForCamera = true;
+			m_BeenHit = true;
 		}
     }
 
@@ -144,14 +144,10 @@ public class Switch : SwitchBaseClass, Attackable
     {
 		return;
     }
-	public bool beenHit()
-	{
-		if(m_StartPauseForCamera = true)
-		{
-			return true;
-		}
 
-		return false;
+	public bool BeenHit()
+	{
+		return m_BeenHit;
 	}
 
 	protected virtual void onUse()

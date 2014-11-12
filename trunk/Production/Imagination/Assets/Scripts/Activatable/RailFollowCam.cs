@@ -34,7 +34,21 @@ public class RailFollowCam : Activatable
 		{
 			if (!m_Active)
 			{
+
 				m_Active = CheckSwitches();
+
+				for(int i = 0; i < m_Switches.Length;i ++)
+				{
+					/*if(m_Switches.BeenHit() != true)
+					{
+						m_Active = false;
+					}
+
+					else
+					{
+						m_Active = true;
+					} */
+				}
 				if (m_Active)
 				{
 					for (int i = 0; i < m_PLayerCams.Length; i ++)
