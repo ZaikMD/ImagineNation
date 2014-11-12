@@ -14,6 +14,7 @@ using System.Collections;
 /// 22/09/14 Zach Dubuc EDIT: Added a material when the switch is active/inactive
 /// 08/10/2014 Zach Dubuc EDIT: Added in comments
 /// 27/10/2014 Zach Dubuc EDIT: Added a rotation/ Movement to the switch, as well as a pause for camera
+///  12/11/2014 Edit: Added in beenHit Overide- Zach Dubuc
 public class Switch : SwitchBaseClass, Attackable
 {
     //Bools
@@ -44,7 +45,6 @@ public class Switch : SwitchBaseClass, Attackable
 
 	public bool m_WillPauseForCamera;
 	public float m_CameraPauseTimer;
-	bool m_BeenHit = false;
 
 	// Use this for initialization
 	void Start () 
@@ -145,7 +145,7 @@ public class Switch : SwitchBaseClass, Attackable
 		return;
     }
 
-	public bool BeenHit()
+	public override bool beenHit()
 	{
 		return m_BeenHit;
 	}

@@ -12,7 +12,7 @@ using System.Collections;
 /*
 * 8/10/2014 Edit: Fully Commented and changed strings to constants- Zach Dubuc
 *
-* 
+* 12/11/2014 Edit: Added in beenHit Overide- Zach Dubuc
 */
 #endregion
 public class PressurePlates : SwitchBaseClass
@@ -67,6 +67,11 @@ public class PressurePlates : SwitchBaseClass
 		{
 			m_List.Remove(obj.gameObject);
 		}
+	}
+
+	public override bool beenHit()
+	{
+		return false;
 	}
 
     public override bool getActive()
