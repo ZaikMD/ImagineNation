@@ -92,7 +92,6 @@ public class Hud : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        Debug.Log(m_HudDisplayTimer);
         if (m_HudDisplayTimer > 0)
         {
             m_HudDisplayTimer -= Time.deltaTime;

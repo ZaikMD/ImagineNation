@@ -102,9 +102,15 @@ public abstract class BaseEnemy : Destructable
     //Array of Enemies to handle Group functionality
     public BaseEnemy[] GroupOfEnemies;
 
+	//Reference to collectable manager so we can spawnlight peg on death
+	protected CollectableManager m_CollectableManager;
+
     // Use this for initialization
     protected void Start()
     {
+		//Find our collectable manager
+		m_CollectableManager = GameObject.FindGameObjectWithTag(Constants.COLLECTABLE_MANAGER).GetComponent<CollectableManager>();
+
         //Find our NavMeshAgent
         m_Agent = this.gameObject.GetComponent<NavMeshAgent>();
 
