@@ -15,22 +15,11 @@ using System.Collections.Generic;
 public class BaseBehavoir : MonoBehaviour
 {
 	//A list of components to execute that is chosen by designers for each enemy
-	public List<AIControlComponent> m_Components = new List<AIControlComponent>();
+	public List<AIControlComponent> m_Components = new List<AIControlComponen>();
 
 	//What states are overrided by the GroupController
-	List<bool> m_IgnoreComponent;
+	List<bool> m_IgnoreComponent = new List<bool> ();
 
-
-	//Load our components
-	void Start ()
-	{
-		//For every component of this behavoir
-		for (int i = 0; i < m_Components.Count; i++)
-		{
-			//Load that component
-			m_Components[i].Load ();
-		}
-	}
 
 	//Update the behavoirs logic
 	public void Update ()

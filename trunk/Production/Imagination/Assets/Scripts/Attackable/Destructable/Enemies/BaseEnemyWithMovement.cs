@@ -17,7 +17,7 @@ public class BaseEnemyWithMovement : BaseEnemyAI
 {
 	//Load a NavMeshAgent for the AI
 	protected NavMeshAgent m_Agent;
-	protected void Start ()
+	protected void LoadNavMesh ()
 	{
 		m_Agent = gameObject.GetComponent<NavMeshAgent>();
 	}
