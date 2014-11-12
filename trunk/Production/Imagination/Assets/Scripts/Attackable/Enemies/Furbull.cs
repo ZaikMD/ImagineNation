@@ -79,6 +79,7 @@ public class Furbull : BaseEnemy
     {
         //Set base boolean to false
         m_IsAlive = false;
+		m_CollectableManager.SpawnLightPegAtLocation(this.gameObject);
     }
 
     private void ShootProjectile()

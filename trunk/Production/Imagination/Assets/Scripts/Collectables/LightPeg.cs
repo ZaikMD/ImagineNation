@@ -14,6 +14,10 @@ public class LightPeg : BaseCollectable
 	//All the puzzle pieces should have a trigger on them, when enter, this function will be called
     void OnTriggerEnter(Collider other)
     {
+		//Check if we are still spawning
+		if(this.GetComponent<EnemyLightPegSpawn>() != null)
+		return;		
+
 		//checks to see if the object in our trigger is a player.
         if (other.gameObject.tag == Constants.PLAYER_STRING)
         {

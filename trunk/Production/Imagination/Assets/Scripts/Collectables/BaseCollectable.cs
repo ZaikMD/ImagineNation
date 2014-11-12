@@ -31,9 +31,12 @@ public abstract class BaseCollectable : MonoBehaviour {
 
 	void Update()
 	{
+		if(this.GetComponent<EnemyLightPegSpawn>() == null)
+		{
 		//This will apply gravity for us
 		Vector3 speed = Vector3.zero;
 		m_Controller.SimpleMove(speed);
+		}
 	}
 
 	//Sets our if and Type

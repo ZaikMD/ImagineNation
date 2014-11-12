@@ -64,6 +64,31 @@ public class CollectableManager : MonoBehaviour {
         }
     }
 
+#region Spawn a light peg at random location
+	/// <summary>
+	/// Spawns the light peg at location.
+	/// </summary>
+	/// <param name="position">Position.</param>
+	public void SpawnLightPegAtLocation(Vector3 position)
+	{
+		GameObject newLightPeg = (GameObject)Instantiate(m_LightPegPrefab);
+		//Make sure not to spawn in ground
+		position.y += 0.5f;
+		newLightPeg.transform.position = position;
+		newLightPeg.AddComponent<EnemyLightPegSpawn> ();
+	}
+
+	public void SpawnLightPegAtLocation(GameObject gameObjectSpawn)
+	{
+		SpawnLightPegAtLocation(gameObjectSpawn.transform.position);	
+	}
+
+	public void SpawnLightPegAtLocation(Transform position)
+	{
+		SpawnLightPegAtLocation(position.position);
+	}
+#endregion
+
     void SpawnLightPegs()
     {
         if (GameData.Instance.FirstTimePlayingLevel)
