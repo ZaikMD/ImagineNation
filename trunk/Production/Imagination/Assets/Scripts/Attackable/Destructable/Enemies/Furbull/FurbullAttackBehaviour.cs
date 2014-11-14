@@ -1,15 +1,22 @@
-﻿using UnityEngine;
+﻿/*
+ * Created by Joe Burchill November 14/2014
+ * Attack Behaviour for the Furbull, calls
+ * Attack Component
+ */
+
+#region ChangeLog
+/*
+ * 
+ */
+#endregion
+
+using UnityEngine;
 using System.Collections;
 
-public class FurbullAttackBehaviour : MonoBehaviour {
+public class FurbullAttackBehaviour : BaseAttackBehaviour 
+{
+	public override void update()
+	{
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
 	}
 }

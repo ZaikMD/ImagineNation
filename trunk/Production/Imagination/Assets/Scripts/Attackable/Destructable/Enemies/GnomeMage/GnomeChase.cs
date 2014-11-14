@@ -13,7 +13,7 @@ using System.Collections;
  */
 #endregion
 
-public class GnomeChase : BaseBehaviour 
+public class GnomeChase : MonoBehaviour 
 {
 
 	// Use this for initialization

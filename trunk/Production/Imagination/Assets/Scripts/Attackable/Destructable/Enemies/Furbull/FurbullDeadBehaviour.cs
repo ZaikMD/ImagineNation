@@ -1,15 +1,22 @@
-﻿using UnityEngine;
+﻿/*
+ * Created by Joe Burchill November 14/2014
+ * Dead Behaviour for the Furbull, calls
+ * Dead Component
+ */
+
+#region ChangeLog
+/*
+ * 
+ */
+#endregion
+
+using UnityEngine;
 using System.Collections;
 
-public class FurbullDeadBehaviour : MonoBehaviour {
+public class FurbullDeadBehaviour : BaseDeadBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+	public override void update()
+	{
+		
 	}
 }

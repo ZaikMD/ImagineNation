@@ -1,15 +1,22 @@
-﻿using UnityEngine;
+﻿/*
+ * Created by Joe Burchill November 14/2014
+ * Idle Behaviour for the Spin Top, calls
+ * idle component
+ */
+
+#region ChangeLog
+/*
+ * 
+ */
+#endregion
+
+using UnityEngine;
 using System.Collections;
 
-public class SpinningTopIdleBehaviour : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+public class SpinningTopIdleBehaviour : BaseIdleBehaviour 
+{
+	public override void update()
+	{
+		
 	}
 }
