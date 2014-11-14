@@ -85,8 +85,9 @@ public class ShutterCamera : MonoBehaviour
             //dont need to move the shutter so set the bool
             m_IsDoneShutterMove = true;
         }
+	
 
         //move the shutter
-        ShutterRotationPoint.transform.eulerAngles = m_ShutterInitialEuler + (m_ShowShutterEulers * (m_ShutterTimer / SHUTTER_SPEED));
+        ShutterRotationPoint.transform.eulerAngles = transform.eulerAngles + m_ShutterInitialEuler + (m_ShowShutterEulers * (m_ShutterTimer / SHUTTER_SPEED));
     }
 }

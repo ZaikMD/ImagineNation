@@ -15,10 +15,6 @@ using System.Collections;
 
 public class MenuV2InputSelect : MenuV2
 {
-    //hiding base class functionality thats not needed
-    new private PlayerInput[] ReadInputFrom;
-
-
     //the data to create the input slections
     public GameObject[] MountPoints;
     public GameObject[] SelectionPrefabs;
