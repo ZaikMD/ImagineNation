@@ -13,7 +13,7 @@ using System.Collections;
 
 //Require our NavMeshAgent for EnemyAI
 [RequireComponent(typeof(NavMeshAgent))]
-public class BaseEnemyWithMovement : BaseEnemyAI
+public class EnemyWithMovement : EnemyAI
 {
 	//Load a NavMeshAgent for the AI
 	protected NavMeshAgent m_Agent;

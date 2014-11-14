@@ -12,7 +12,7 @@ using UnityEngine;
 using System.Collections.Generic;
 
 
-public class BaseEnemyAI : Destructable
+public class EnemyAI : Destructable
 {
 	//Enemy States
 	public enum EnemyState
