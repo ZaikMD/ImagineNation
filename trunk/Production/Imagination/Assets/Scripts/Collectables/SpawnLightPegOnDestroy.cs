@@ -15,6 +15,11 @@ public class SpawnLightPegOnDestroy : MonoBehaviour
 
 	void OnDestroy()
 	{
+		if(!Application.isPlaying)
+		{
+			return;
+		}
+
 		int tempNumberOfPegs;
 
 		if(m_MinimumPossibillity == m_MaximunPossibillity)
@@ -26,6 +31,8 @@ public class SpawnLightPegOnDestroy : MonoBehaviour
 			tempNumberOfPegs = Random.Range(m_MinimumPossibillity, m_MaximunPossibillity);
 		}
 
-		m_Manager.SpawnLightPegAtLocation (this.gameObject, tempNumberOfPegs);
+	//	Debug.Log (tempNumberOfPegs);
+
+	//	m_Manager.SpawnLightPegAtLocation (this.gameObject, tempNumberOfPegs);
 	}
 }
