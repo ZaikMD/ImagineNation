@@ -65,13 +65,14 @@ public class CollectableManager : MonoBehaviour {
     }
 
 #region Spawn a light peg at random location
+
 	/// <summary>
 	/// Spawns the light peg at location.
 	/// </summary>
 	/// <param name="position">Position.</param>
 	public void SpawnLightPegAtLocation(Vector3 position, int numberOfPegs)
 	{
-		for(int i = 0; i > numberOfPegs; i++)
+		for(int i = 0; i < numberOfPegs; i++)
 		{
 			GameObject newLightPeg = (GameObject)Instantiate(m_LightPegPrefab);
 
@@ -90,6 +91,12 @@ public class CollectableManager : MonoBehaviour {
 	{
 		SpawnLightPegAtLocation(position.position, numberOfPegs);
 	}
+
+	public void SpawnLightPegAtLocation(MonoBehaviour Script, int numberOfPegs)
+	{
+		SpawnLightPegAtLocation (Script.transform.position, numberOfPegs);	
+	}
+
 #endregion
 
     void SpawnLightPegs()
