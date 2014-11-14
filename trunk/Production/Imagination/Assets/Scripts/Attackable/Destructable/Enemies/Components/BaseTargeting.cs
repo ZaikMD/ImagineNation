@@ -1,18 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BaseTargeting : MonoBehaviour 
+public abstract class BaseTargeting : MonoBehaviour 
 {
-
-	// Use this for initialization
-	void Start () 
-	{
-	
-	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-	
-	}
+	protected abstract void Targeting();
 }
