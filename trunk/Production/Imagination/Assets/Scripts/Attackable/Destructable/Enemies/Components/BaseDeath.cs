@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BaseDeath : MonoBehaviour 
+public abstract class BaseDeath : MonoBehaviour 
 {
-
-	protected abstract void BaseDeath();
+	protected abstract void Death();
 }

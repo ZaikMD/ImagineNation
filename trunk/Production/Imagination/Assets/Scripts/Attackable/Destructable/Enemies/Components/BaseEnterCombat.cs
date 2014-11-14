@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BaseEnterCombat : MonoBehaviour 
+public abstract class BaseEnterCombat : MonoBehaviour 
 {
 
-	protected abstract void BaseEnterCombat();
+	protected abstract void EnterCombat();
 
 }
