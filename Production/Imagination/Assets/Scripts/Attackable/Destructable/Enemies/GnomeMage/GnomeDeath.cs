@@ -13,7 +13,7 @@ using System.Collections;
  */
 #endregion
 
-public class GnomeDeath : BaseBehaviour 
+public class GnomeDeath : MonoBehaviour 
 {
 
 	// Use this for initialization

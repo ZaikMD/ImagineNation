@@ -13,7 +13,7 @@ using System.Collections;
  */
 #endregion
 
-public class GnomeCombat : BaseBehaviour 
+public class GnomeCombat : MonoBehaviour 
 {
 
 	// Use this for initialization

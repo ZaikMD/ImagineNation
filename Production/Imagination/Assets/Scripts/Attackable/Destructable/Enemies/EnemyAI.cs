@@ -4,7 +4,8 @@
  */ 
 #region ChangeLog
 /* 
- * 
+ * Changed to BaseIdleBehaviour, BaseChaseBehaviour,
+ * BaseAttackBehaviour, BaseDeadBehaviour
  */
 #endregion
 
@@ -28,14 +29,14 @@ public class EnemyAI : Destructable
 	int m_NoUpdateStates = 0;
 
 	//The behavoirs of this enemy
-	public BaseBehaviour m_IdleBehavoir;
-	public BaseBehaviour m_ChaseBehavoir;
-	public BaseBehaviour m_AttackBehavoir;
-	public BaseBehaviour m_DeadBehavoir;
+	public BaseIdleBehaviour m_IdleBehavoir;
+	public BaseChaseBehaviour m_ChaseBehavoir;
+	public BaseAttackBehaviour m_AttackBehavoir;
+	public BaseDeadBehaviour m_DeadBehavoir;
 
 
 	//Choose a Behavoir to update
-	void Update ()
+	void FixedUpdate ()
 	{
 		if(((int)m_State & m_NoUpdateStates) != 0)
 		{
@@ -45,19 +46,19 @@ public class EnemyAI : Destructable
 		//Call a behavoir based on our state
 		if (m_State == EnemyState.Idle)
 		{
-			m_IdleBehavoir.Update();
+			m_IdleBehavoir.update();
 		}
 		else if (m_State == EnemyState.Chase)
 		{
-			m_ChaseBehavoir.Update();
+			m_ChaseBehavoir.update();
 		}
 		else if (m_State == EnemyState.Attack)
 		{
-			m_AttackBehavoir.Update();
+			m_AttackBehavoir.update();
 		}
 		else if (m_State == EnemyState.Dead)
 		{
-			m_DeadBehavoir.Update();
+			m_DeadBehavoir.update();
 		}
 	}
 

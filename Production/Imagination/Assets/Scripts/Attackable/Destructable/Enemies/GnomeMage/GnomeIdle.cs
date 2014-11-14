@@ -14,7 +14,7 @@ using System.Collections;
  */
 #endregion
 
-public class GnomeIdle : BaseBehaviour 
+public class GnomeIdle : BaseIdleBehaviour 
 {
 	public BaseMovement m_Movement;
 	public BaseEnterCombat m_EnterCombat;
@@ -26,7 +26,7 @@ public class GnomeIdle : BaseBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () 
+	public override void update()
 	{
 		m_Movement.Movement ();
 

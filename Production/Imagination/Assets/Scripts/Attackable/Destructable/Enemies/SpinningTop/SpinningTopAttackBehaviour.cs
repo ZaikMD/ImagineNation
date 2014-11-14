@@ -1,15 +1,22 @@
-﻿using UnityEngine;
+﻿/*
+ * Created by Joe Burchill November 14/2014
+ * Attack Behaviour for the Spin Top, calls
+ * Attack Component
+ */
+
+#region ChangeLog
+/*
+ * 
+ */
+#endregion
+
+using UnityEngine;
 using System.Collections;
 
-public class SpinningTopAttackBehaviour : MonoBehaviour {
+public class SpinningTopAttackBehaviour : BaseAttackBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+	public override void update()
+	{
+		
 	}
 }
