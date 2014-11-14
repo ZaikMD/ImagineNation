@@ -14,6 +14,7 @@
  * 27/10/2014 - Fixed stuck on the wall bug and pre-accelerating while on the wall - Jason Hein
  * 27/10/2014 - Added getter function for jumping and falling variables - Jason Hein
  * 29/10/2014 - Added Rotation to the player when jumping off the wall - Joe Burchill
+ * 14/11/2014 - Complete redesign of Derek's movement. Derek now has a grapple hook instead of double jump
  */
 #endregion
 
@@ -22,7 +23,8 @@ using System.Collections;
 
 public class DerekMovement : BaseMovementAbility
 {
-    //Const that affect the speed of the player when on the wall
+	private const float JUMP_SPEED = 6.5f;
+    /*//Const that affect the speed of the player when on the wall
 	private const float MAX_WALL_HANG = 0.4f;
 	private const float WALL_JUMP_SPEED = 11.0f;
     private const float WALL_FALL_SPEED = 0.8f;
@@ -46,6 +48,7 @@ public class DerekMovement : BaseMovementAbility
 
     //Vector3 to track the vector that the wall raycast sends out
     Vector3 m_WallJumpDirection = Vector3.zero;
+	*/
 
 	// Use this for initialization
 	void Start () 
@@ -57,7 +60,7 @@ public class DerekMovement : BaseMovementAbility
 	// Update is called once per frame
 	void Update () 
 	{
-        //Check if we are on the wall
+      /*  //Check if we are on the wall
         if (m_OnWall)
         {
             //if we are update the timer by time
@@ -92,10 +95,11 @@ public class DerekMovement : BaseMovementAbility
             //base.update();
 			m_WallHangTimer = 0.0f;
         }
+        */
 		base.update();
 	}
 
-	//Make the player fall a little while on a wall
+/*	//Make the player fall a little while on a wall
 	void WallAirMovement()
 	{
 		m_Velocity = new Vector3 (0.0f, -WALL_FALL_SPEED, 0.0f);
@@ -142,7 +146,7 @@ public class DerekMovement : BaseMovementAbility
         }
 		return Vector3.zero;
     }
-
+*/
 	/// <summary>
 	/// Gets the players jump speed. Must be overrided by inheriting classes in order to jump.
 	/// </summary>
@@ -150,4 +154,5 @@ public class DerekMovement : BaseMovementAbility
 	{
 		return JUMP_SPEED;
 	}
+
 }
