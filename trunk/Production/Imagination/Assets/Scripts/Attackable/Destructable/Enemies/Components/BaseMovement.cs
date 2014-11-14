@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GnomeDeath : BaseBehaviour 
+public class BaseMovement : MonoBehaviour 
 {
 
 	// Use this for initialization
