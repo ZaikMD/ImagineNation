@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PauseScreen : MonoBehaviour {
+public class PauseScreen : MenuV2
+{
 
 	// Use this for initialization
-	void Start () {
+	void Start () 
+    {
 	
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+    {
 	
 	}
 }
