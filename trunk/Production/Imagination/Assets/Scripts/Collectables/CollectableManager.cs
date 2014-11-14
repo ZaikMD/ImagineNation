@@ -69,23 +69,26 @@ public class CollectableManager : MonoBehaviour {
 	/// Spawns the light peg at location.
 	/// </summary>
 	/// <param name="position">Position.</param>
-	public void SpawnLightPegAtLocation(Vector3 position)
+	public void SpawnLightPegAtLocation(Vector3 position, int numberOfPegs)
 	{
-		GameObject newLightPeg = (GameObject)Instantiate(m_LightPegPrefab);
-		//Make sure not to spawn in ground
-		position.y += 0.5f;
-		newLightPeg.transform.position = position;
-		newLightPeg.AddComponent<EnemyLightPegSpawn> ();
+		for(int i = 0; i > numberOfPegs; i++)
+		{
+			GameObject newLightPeg = (GameObject)Instantiate(m_LightPegPrefab);
+
+			position.y += 0.5f;
+			newLightPeg.transform.position = position;
+			newLightPeg.AddComponent<EnemyLightPegSpawn> ();
+		}
 	}
 
-	public void SpawnLightPegAtLocation(GameObject gameObjectSpawn)
+	public void SpawnLightPegAtLocation(GameObject gameObjectSpawn, int numberOfPegs)
 	{
-		SpawnLightPegAtLocation(gameObjectSpawn.transform.position);	
+		SpawnLightPegAtLocation(gameObjectSpawn.transform.position, numberOfPegs);	
 	}
 
-	public void SpawnLightPegAtLocation(Transform position)
+	public void SpawnLightPegAtLocation(Transform position, int numberOfPegs)
 	{
-		SpawnLightPegAtLocation(position.position);
+		SpawnLightPegAtLocation(position.position, numberOfPegs);
 	}
 #endregion
 
