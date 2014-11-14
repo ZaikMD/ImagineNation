@@ -28,10 +28,10 @@ public class BaseEnemyAI : Destructable
 	int m_NoUpdateStates = 0;
 
 	//The behavoirs of this enemy
-	public BaseBehavoir m_IdleBehavoir;
-	public BaseBehavoir m_ChaseBehavoir;
-	public BaseBehavoir m_AttackBehavoir;
-	public BaseBehavoir m_DeadBehavoir;
+	public BaseBehaviour m_IdleBehavoir;
+	public BaseBehaviour m_ChaseBehavoir;
+	public BaseBehaviour m_AttackBehavoir;
+	public BaseBehaviour m_DeadBehavoir;
 
 
 	//Choose a Behavoir to update
