@@ -59,6 +59,8 @@ public class TPCamera : ShutterCamera
         }
     }
 
+    const float SHUTTER_OFFSET = 0.2f;
+
 	//what the camera accepts input from 
     AcceptInputFrom m_AcceptInputFrom;
 
@@ -113,7 +115,8 @@ public class TPCamera : ShutterCamera
         m_Camera = gameObject.GetComponent<Camera>();
 
         //move the shutter to be slightly in front of the near clipping plane
-        ShutterRotationPoint.transform.position = m_Camera.transform.position + (m_Camera.transform.forward * (m_Camera.nearClipPlane + 0.0001f)) - transform.up + transform.right;
+        ShutterRotationPoint.transform.position = m_Camera.transform.position + (m_Camera.transform.forward * (m_Camera.nearClipPlane + 0.01f))
+                                                    - transform.up + (transform.right * SHUTTER_OFFSET);
 
         m_IgnoreLayer = m_IgnoreCounter++;
         m_Camera.cullingMask = LayerMask.GetMask(CAMERA_IGNORE_LAYERS[m_IgnoreLayer]) | m_Camera.cullingMask;
