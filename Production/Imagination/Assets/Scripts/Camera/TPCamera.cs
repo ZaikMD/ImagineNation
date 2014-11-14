@@ -20,12 +20,18 @@
 
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Camera))]
 [RequireComponent(typeof(AcceptInputFrom))]
 public class TPCamera : ShutterCamera
 {
+    //used to get all the cameras in the scene
+    public static List<TPCamera> Cameras = new List<TPCamera>();
+
+
 	const string CAMERA_IGNORE_COLLISION_LAYER = "CameraCollisionIgnore";
+    int m_RaycastMask;
 
     string[] CAMERA_IGNORE_LAYERS = { "CameraIgnore", "CameraOneIgnore", "CameraTwoIgnore"};
     int m_IgnoreLayer;
@@ -39,7 +45,7 @@ public class TPCamera : ShutterCamera
         { 
             return m_ShowShutter; 
         }
-        protected set 
+        set 
         { 
             m_ShowShutter = value;
             if(m_ShowShutter)
@@ -84,15 +90,42 @@ public class TPCamera : ShutterCamera
 	//the script that should be running on a game object at the player location (used to find action areas)
     public ActionAreaDetector ActionAreaDetect;
 
-	// Use this for initialization
-	void Start ()
+    
+    void OnDestroy()
     {
+        //removes the camera from the static list
+        for(int i = 0; i < Cameras.Count; i++)
+        {
+            if(Cameras[i] == this)
+            {
+                Cameras.RemoveAt(i);
+                break;
+            }
+        }
+    }
+
+    // Use this for initialization
+	void Start ()
+    { 
+        Cameras.Add(this);
+
 		//find the camera on this gameobject
         m_Camera = gameObject.GetComponent<Camera>();
 
-		m_Camera.cullingMask = LayerMask.GetMask ( CAMERA_IGNORE_LAYERS[m_IgnoreCounter++]) | m_Camera.cullingMask;
+        //move the shutter to be slightly in front of the near clipping plane
+        ShutterRotationPoint.transform.position = m_Camera.transform.position + (m_Camera.transform.forward * (m_Camera.nearClipPlane + 0.0001f)) - transform.up + transform.right;
+
+        m_IgnoreLayer = m_IgnoreCounter++;
+        m_Camera.cullingMask = LayerMask.GetMask(CAMERA_IGNORE_LAYERS[m_IgnoreLayer]) | m_Camera.cullingMask;
 
 		setShutterLayer (CAMERA_IGNORE_LAYERS [0]);
+
+        m_RaycastMask = LayerMask.GetMask(CAMERA_IGNORE_COLLISION_LAYER) | LayerMask.GetMask(Constants.PLAYER_STRING);
+        for(int i = 0; i < CAMERA_IGNORE_LAYERS.Length; i++)
+        {
+            m_RaycastMask = m_RaycastMask | LayerMask.GetMask(CAMERA_IGNORE_LAYERS[i]);
+        }
+        m_RaycastMask = ~m_RaycastMask;
 
 		//===================================================================
 		//find the player the camera is on
@@ -175,6 +208,9 @@ public class TPCamera : ShutterCamera
 
         //action area behaviors
         ActionArea();
+
+        //update the shutter (base class)
+        updateShutter();
 	}
 
     //=================================================================================================
@@ -406,7 +442,7 @@ public class TPCamera : ShutterCamera
 
 		//do the raycast
         RaycastHit raycastInfo;
-        Physics.Raycast(Player.transform.position, RayDirection, out raycastInfo, raycastDistance, ~(LayerMask.GetMask(Constants.PLAYER_STRING) | LayerMask.GetMask(CAMERA_IGNORE_COLLISION_LAYER)));
+        Physics.Raycast(Player.transform.position, RayDirection, out raycastInfo, raycastDistance, m_RaycastMask);
 
 		//do we need to draw debug rays
         if (DrawRays)
