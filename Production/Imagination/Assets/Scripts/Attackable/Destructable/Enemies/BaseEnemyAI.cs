@@ -37,7 +37,7 @@ public class BaseEnemyAI : Destructable
 	//Choose a Behavoir to update
 	void Update ()
 	{
-		if((int)m_State & m_NoUpdateStates != 0)
+		if(((int)m_State & m_NoUpdateStates) != 0)
 		{
 			return;
 		}
