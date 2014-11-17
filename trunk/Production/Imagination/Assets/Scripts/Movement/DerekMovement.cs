@@ -8,13 +8,20 @@
  * the wall. This is used with base movement and ray casting. 
  * 
  */
+
+/*
+ * 
+ * 
+ * 
+ * 
+ */
 #region ChangeLog
 /* 
  * 19/9/2014 - Changed to currectly use the new base class functionality - Jason Hein
  * 27/10/2014 - Fixed stuck on the wall bug and pre-accelerating while on the wall - Jason Hein
  * 27/10/2014 - Added getter function for jumping and falling variables - Jason Hein
  * 29/10/2014 - Added Rotation to the player when jumping off the wall - Joe Burchill
- * 14/11/2014 - Complete redesign of Derek's movement. Derek now has a grapple hook instead of double jump
+ * 14/11/2014 - Complete redesign of Derek's movement. Derek now has a grapple hook instead of double jump -Greg Fortier
  */
 #endregion
 
@@ -24,6 +31,11 @@ using System.Collections;
 public class DerekMovement : BaseMovementAbility
 {
 	private const float JUMP_SPEED = 6.5f;
+
+	public GameObject m_tempTarget;
+	float m_speed = 15.0f;
+
+	bool m_grapple;
     /*//Const that affect the speed of the player when on the wall
 	private const float MAX_WALL_HANG = 0.4f;
 	private const float WALL_JUMP_SPEED = 11.0f;
@@ -53,6 +65,7 @@ public class DerekMovement : BaseMovementAbility
 	// Use this for initialization
 	void Start () 
 	{ 
+		m_grapple = false;
         //Calls the base class start function
 		base.start ();
 	}
@@ -60,6 +73,28 @@ public class DerekMovement : BaseMovementAbility
 	// Update is called once per frame
 	void Update () 
 	{
+		if(GetIsGrounded() == false)
+		{
+			if(InputManager.getJumpDown(m_AcceptInputFrom.ReadInputFrom))
+			{
+				if (m_tempTarget != null)
+				{
+					m_grapple = true;
+					//this.transform.position = m_tempTarget.transform.position;
+				}
+			}
+		}
+		if(m_grapple)
+		{
+			MoveTowardsTarget();
+		}
+
+		if (Vector3.Distance(this.transform.position, m_tempTarget.transform.position) < 1.0f)
+		{
+			m_grapple = false;
+		}
+
+		base.update();
       /*  //Check if we are on the wall
         if (m_OnWall)
         {
@@ -96,7 +131,7 @@ public class DerekMovement : BaseMovementAbility
 			m_WallHangTimer = 0.0f;
         }
         */
-		base.update();
+
 	}
 
 /*	//Make the player fall a little while on a wall
@@ -153,6 +188,34 @@ public class DerekMovement : BaseMovementAbility
 	protected override float GetJumpSpeed()
 	{
 		return JUMP_SPEED;
+	}
+
+	private void MoveTowardsTarget()
+	{
+		Vector3 currentPosition = this.transform.position;
+		Vector3 targetPos = m_tempTarget.transform.position;
+
+		if(Vector3.Distance(currentPosition, targetPos) >.1f) {
+			Vector3 directionOfTravel = targetPos - currentPosition;
+
+			directionOfTravel.Normalize();
+
+			this.transform.Translate(
+				(directionOfTravel.x * m_speed * Time.deltaTime),
+				(directionOfTravel.y * m_speed * Time.deltaTime),
+				(directionOfTravel.z * m_speed * Time.deltaTime),
+				Space.World);
+			//if (m_tempTarget!= null)
+			//{
+			//	this.transform.eulerAngles = new Vector3(0, m_tempTarget.gameObject.transform.eulerAngles.y, 0);
+			//	//at the end of every update store previous position
+				//use the delta, difference between previous and currrent position to get instaneous velocity
+			//}
+		}
+		else 
+		{
+			m_grapple = false;
+		}
 	}
 
 }
