@@ -58,7 +58,8 @@ public class MenuCamera : ShutterCamera
 
 		if(IsDoneShutterMove && ShowShutter)
 		{
-			changePosition(m_NewMenu.CameraMountPoint.transform.position, m_NewMenu.transform);
+            if(m_NewMenu!= null)
+			    changePosition(m_NewMenu.CameraMountPoint.transform.position, m_NewMenu.transform);
 		}
 
         //update the position

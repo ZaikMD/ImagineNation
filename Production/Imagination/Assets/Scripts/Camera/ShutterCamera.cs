@@ -30,7 +30,7 @@ public class ShutterCamera : MonoBehaviour
     public bool ShowShutter
     {
 		get { return m_ShowShutter; }
-        protected set { m_ShowShutter = value; }
+        set { m_ShowShutter = value; }
     }
 
     //the difference in euler angles for the shutter when its shown

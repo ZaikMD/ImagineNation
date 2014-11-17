@@ -38,27 +38,6 @@ public class TPCamera : ShutterCamera
 
     static int m_IgnoreCounter = 1;
 
-    //override the base class property
-    new public bool ShowShutter
-    {
-        get 
-        { 
-            return m_ShowShutter; 
-        }
-        set 
-        { 
-            m_ShowShutter = value;
-            if(m_ShowShutter)
-			{
-				setShutterLayer(CAMERA_IGNORE_LAYERS[m_IgnoreLayer]);
-			}
-			else
-			{
-				setShutterLayer(CAMERA_IGNORE_LAYERS[0]);
-			}
-        }
-    }
-
     const float SHUTTER_OFFSET = 0.2f;
 
 	//what the camera accepts input from 
@@ -106,11 +85,14 @@ public class TPCamera : ShutterCamera
         }
     }
 
+	void Awake()
+	{
+		Cameras.Add(this);
+	}
+
     // Use this for initialization
 	void Start ()
     { 
-        Cameras.Add(this);
-
 		//find the camera on this gameobject
         m_Camera = gameObject.GetComponent<Camera>();
 
@@ -214,6 +196,20 @@ public class TPCamera : ShutterCamera
 
         //update the shutter (base class)
         updateShutter();
+	}
+
+	protected override void updateShutter ()
+	{
+		base.updateShutter ();
+
+		if(m_ShowShutter == false && m_IsDoneShutterMove == true)
+		{
+			setShutterLayer(CAMERA_IGNORE_LAYERS[0]);
+		}
+		else
+		{
+			setShutterLayer(CAMERA_IGNORE_LAYERS[m_IgnoreLayer]);
+		}
 	}
 
     //=================================================================================================
