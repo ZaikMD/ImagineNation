@@ -46,19 +46,47 @@ public class EnemyAI : Destructable
 		//Call a behavoir based on our state
 		if (m_State == EnemyState.Idle)
 		{
-			m_IdleBehavoir.update();
+			if(m_IdleBehavoir != null)
+			{
+				m_IdleBehavoir.update();
+			}
+			else
+			{
+				//debug log
+			}
 		}
 		else if (m_State == EnemyState.Chase)
 		{
-			m_ChaseBehavoir.update();
+			if(m_ChaseBehavoir != null)
+			{
+				m_ChaseBehavoir.update();
+			}
+			else
+			{
+				//debug log
+			}
 		}
 		else if (m_State == EnemyState.Attack)
 		{
-			m_AttackBehavoir.update();
+			if(m_AttackBehavoir != null)
+			{
+				m_AttackBehavoir.update();
+			}
+			else
+			{
+				//debug log
+			}
 		}
 		else if (m_State == EnemyState.Dead)
 		{
-			m_DeadBehavoir.update();
+			if(m_DeadBehavoir != null)
+			{
+				m_DeadBehavoir.update();
+			}
+			else
+			{
+				//debug log
+			}
 		}
 	}
 

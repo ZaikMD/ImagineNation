@@ -15,6 +15,8 @@ using System.Collections;
 [RequireComponent(typeof(NavMeshAgent))]
 public class EnemyWithMovement : EnemyAI
 {
+	public Transform[] PathNodes;
+
 	//Load a NavMeshAgent for the AI
 	protected NavMeshAgent m_Agent;
 	protected void LoadNavMesh ()

@@ -13,7 +13,7 @@
 using UnityEngine;
 using System.Collections;
 
-public abstract class BaseAttackBehaviour : MonoBehaviour 
+public abstract class BaseAttackBehaviour : BaseBehaviour 
 {
     protected BaseCombat m_CombatComponent;
     protected BaseTargeting m_TargetingComponent;
