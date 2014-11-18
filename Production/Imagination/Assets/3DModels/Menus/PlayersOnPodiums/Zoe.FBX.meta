@@ -1,0 +1,137 @@
+fileFormatVersion: 2
+guid: a6773995fe1e9054ba75daeedab93f05
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: Butt
+    100002: Buttons
+    100004: EyeL004
+    100006: EyeL005
+    100008: EyeLid004
+    100010: EyeLid005
+    100012: GEO-Char_Genaric_Chest004
+    100014: Object013
+    100016: Object014
+    100018: Object015
+    100020: Plane016
+    100022: Plane019
+    100024: Plane020
+    100026: Plane021
+    100028: Sphere013
+    100030: Sphere014
+    100032: //RootNode
+    400000: Butt
+    400002: Buttons
+    400004: EyeL004
+    400006: EyeL005
+    400008: EyeLid004
+    400010: EyeLid005
+    400012: GEO-Char_Genaric_Chest004
+    400014: Object013
+    400016: Object014
+    400018: Object015
+    400020: Plane016
+    400022: Plane019
+    400024: Plane020
+    400026: Plane021
+    400028: Sphere013
+    400030: Sphere014
+    400032: //RootNode
+    2300000: Butt
+    2300002: Buttons
+    2300004: EyeLid004
+    2300006: EyeLid005
+    2300008: GEO-Char_Genaric_Chest004
+    2300010: Object013
+    2300012: Object014
+    2300014: Object015
+    2300016: Plane016
+    2300018: Plane019
+    2300020: Plane020
+    2300022: Plane021
+    2300024: Sphere013
+    2300026: Sphere014
+    3300000: Butt
+    3300002: Buttons
+    3300004: EyeLid004
+    3300006: EyeLid005
+    3300008: GEO-Char_Genaric_Chest004
+    3300010: Object013
+    3300012: Object014
+    3300014: Object015
+    3300016: Plane016
+    3300018: Plane019
+    3300020: Plane020
+    3300022: Plane021
+    3300024: Sphere013
+    3300026: Sphere014
+    4300000: Butt
+    4300002: Buttons
+    4300004: Plane021
+    4300006: Object015
+    4300008: Plane020
+    4300010: Object014
+    4300012: GEO-Char_Genaric_Chest004
+    4300014: Object013
+    4300016: Plane016
+    4300018: Plane019
+    4300020: Sphere013
+    4300022: EyeLid004
+    4300024: Sphere014
+    4300026: EyeLid005
+    7400000: Take 001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  additionalBone: 0
+  userData: 

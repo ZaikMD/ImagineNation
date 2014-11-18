@@ -1,0 +1,262 @@
+fileFormatVersion: 2
+guid: f31400a30e2d621488517d52d1553eb4
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: Cylindrical Pillow 004
+    100002: Cylindrical Pillow 009
+    100004: Cylindrical Pillow 016
+    100006: Cylindrical Pillow 017
+    100008: Cylindrical Pillow 018
+    100010: Cylindrical Pillow 023
+    100012: Cylindrical Pillow 025
+    100014: //RootNode
+    100016: Plane002
+    100018: Square Pillow 009
+    100020: Square Pillow 010
+    100022: Square Pillow 011
+    100024: Square Pillow 012
+    100026: Square Pillow 014
+    100028: Square Pillow 017
+    100030: Square Pillow 019
+    100032: Square Pillow 024
+    100034: Square Pillow 025
+    100036: Square Pillow 026
+    100038: Square Pillow 027
+    100040: Square Pillow 030
+    100042: Square Pillow 031
+    100044: Square Pillow 033
+    100046: Square Pillow 034
+    100048: Square Pillow 035
+    100050: Square Pillow 036
+    100052: Square Pillow 038
+    100054: Square Pillow 042
+    100056: Square Pillow 044
+    100058: Square Pillow 048
+    100060: Square Pillow 049
+    100062: Square Pillow 055
+    100064: Square Pillow 056
+    100066: Square Pillow 058
+    100068: Square Pillow 059
+    100070: Square Pillow 060
+    100072: Square Pillow 061
+    100074: Square Pillow 062
+    100076: Square Pillow 063
+    100078: Square Pillow 064
+    100080: Square Pillow 065
+    400000: Cylindrical Pillow 004
+    400002: Cylindrical Pillow 009
+    400004: Cylindrical Pillow 016
+    400006: Cylindrical Pillow 017
+    400008: Cylindrical Pillow 018
+    400010: Cylindrical Pillow 023
+    400012: Cylindrical Pillow 025
+    400014: //RootNode
+    400016: Plane002
+    400018: Square Pillow 009
+    400020: Square Pillow 010
+    400022: Square Pillow 011
+    400024: Square Pillow 012
+    400026: Square Pillow 014
+    400028: Square Pillow 017
+    400030: Square Pillow 019
+    400032: Square Pillow 024
+    400034: Square Pillow 025
+    400036: Square Pillow 026
+    400038: Square Pillow 027
+    400040: Square Pillow 030
+    400042: Square Pillow 031
+    400044: Square Pillow 033
+    400046: Square Pillow 034
+    400048: Square Pillow 035
+    400050: Square Pillow 036
+    400052: Square Pillow 038
+    400054: Square Pillow 042
+    400056: Square Pillow 044
+    400058: Square Pillow 048
+    400060: Square Pillow 049
+    400062: Square Pillow 055
+    400064: Square Pillow 056
+    400066: Square Pillow 058
+    400068: Square Pillow 059
+    400070: Square Pillow 060
+    400072: Square Pillow 061
+    400074: Square Pillow 062
+    400076: Square Pillow 063
+    400078: Square Pillow 064
+    400080: Square Pillow 065
+    2300000: Cylindrical Pillow 004
+    2300002: Cylindrical Pillow 009
+    2300004: Cylindrical Pillow 016
+    2300006: Cylindrical Pillow 017
+    2300008: Cylindrical Pillow 018
+    2300010: Cylindrical Pillow 023
+    2300012: Cylindrical Pillow 025
+    2300014: Plane002
+    2300016: Square Pillow 009
+    2300018: Square Pillow 010
+    2300020: Square Pillow 011
+    2300022: Square Pillow 012
+    2300024: Square Pillow 014
+    2300026: Square Pillow 017
+    2300028: Square Pillow 019
+    2300030: Square Pillow 024
+    2300032: Square Pillow 025
+    2300034: Square Pillow 026
+    2300036: Square Pillow 027
+    2300038: Square Pillow 030
+    2300040: Square Pillow 031
+    2300042: Square Pillow 033
+    2300044: Square Pillow 034
+    2300046: Square Pillow 035
+    2300048: Square Pillow 036
+    2300050: Square Pillow 038
+    2300052: Square Pillow 042
+    2300054: Square Pillow 044
+    2300056: Square Pillow 048
+    2300058: Square Pillow 049
+    2300060: Square Pillow 055
+    2300062: Square Pillow 056
+    2300064: Square Pillow 058
+    2300066: Square Pillow 059
+    2300068: Square Pillow 060
+    2300070: Square Pillow 061
+    2300072: Square Pillow 062
+    2300074: Square Pillow 063
+    2300076: Square Pillow 064
+    2300078: Square Pillow 065
+    3300000: Cylindrical Pillow 004
+    3300002: Cylindrical Pillow 009
+    3300004: Cylindrical Pillow 016
+    3300006: Cylindrical Pillow 017
+    3300008: Cylindrical Pillow 018
+    3300010: Cylindrical Pillow 023
+    3300012: Cylindrical Pillow 025
+    3300014: Plane002
+    3300016: Square Pillow 009
+    3300018: Square Pillow 010
+    3300020: Square Pillow 011
+    3300022: Square Pillow 012
+    3300024: Square Pillow 014
+    3300026: Square Pillow 017
+    3300028: Square Pillow 019
+    3300030: Square Pillow 024
+    3300032: Square Pillow 025
+    3300034: Square Pillow 026
+    3300036: Square Pillow 027
+    3300038: Square Pillow 030
+    3300040: Square Pillow 031
+    3300042: Square Pillow 033
+    3300044: Square Pillow 034
+    3300046: Square Pillow 035
+    3300048: Square Pillow 036
+    3300050: Square Pillow 038
+    3300052: Square Pillow 042
+    3300054: Square Pillow 044
+    3300056: Square Pillow 048
+    3300058: Square Pillow 049
+    3300060: Square Pillow 055
+    3300062: Square Pillow 056
+    3300064: Square Pillow 058
+    3300066: Square Pillow 059
+    3300068: Square Pillow 060
+    3300070: Square Pillow 061
+    3300072: Square Pillow 062
+    3300074: Square Pillow 063
+    3300076: Square Pillow 064
+    3300078: Square Pillow 065
+    4300000: Cylindrical Pillow 023
+    4300002: Square Pillow 044
+    4300004: Square Pillow 055
+    4300006: Square Pillow 048
+    4300008: Plane002
+    4300010: Square Pillow 026
+    4300012: Square Pillow 042
+    4300014: Square Pillow 031
+    4300016: Cylindrical Pillow 018
+    4300018: Square Pillow 038
+    4300020: Square Pillow 034
+    4300022: Square Pillow 033
+    4300024: Square Pillow 036
+    4300026: Square Pillow 035
+    4300028: Cylindrical Pillow 017
+    4300030: Square Pillow 019
+    4300032: Square Pillow 024
+    4300034: Cylindrical Pillow 016
+    4300036: Square Pillow 025
+    4300038: Square Pillow 030
+    4300040: Cylindrical Pillow 009
+    4300042: Square Pillow 063
+    4300044: Square Pillow 064
+    4300046: Square Pillow 065
+    4300048: Cylindrical Pillow 025
+    4300050: Square Pillow 059
+    4300052: Square Pillow 058
+    4300054: Square Pillow 060
+    4300056: Square Pillow 061
+    4300058: Square Pillow 062
+    4300060: Square Pillow 012
+    4300062: Cylindrical Pillow 004
+    4300064: Square Pillow 014
+    4300066: Square Pillow 009
+    4300068: Square Pillow 010
+    4300070: Square Pillow 011
+    4300072: Square Pillow 017
+    4300074: Square Pillow 049
+    4300076: Square Pillow 027
+    4300078: Square Pillow 056
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
