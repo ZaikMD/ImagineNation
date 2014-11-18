@@ -93,7 +93,7 @@ Shader "Production/Glow"
 			float4 _GlowTint;
 			float _GlowSize;
 			float _GlowShowsDistance;
-			float _Offset;
+			float3 _Offset;
 			
 			
 			//What the vertex shader will recieve
@@ -116,8 +116,8 @@ Shader "Production/Glow"
 				vertexOutput output;
 				
 				//Enlarge the glow
-				input.pos += _Offset;
 				input.pos.xyz *= _GlowSize;
+				input.pos.xyz += _Offset.xyz;
 				
 				//Calculate the vertex's position according to the camera
 				output.pos = mul(UNITY_MATRIX_MVP, input.pos);
