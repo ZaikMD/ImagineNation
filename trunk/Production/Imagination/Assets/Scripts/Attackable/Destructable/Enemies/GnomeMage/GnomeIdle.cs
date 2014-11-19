@@ -25,7 +25,7 @@ public class GnomeIdle : BaseIdleBehaviour
 
 	}
 	
-	// Update is called once per frame
+	// Update is called once per frame 
 	public override void update()
 	{
 		m_Movement.Movement ();
