@@ -44,12 +44,16 @@ public class PlayerSectionV2 : MonoBehaviour
     }
 
     const float SCALE_AMOUNT = 3.0f;
-    const float SCALE_LERP_SPEED = 0.08f;
+	Vector3 m_InitialScale;
+
+    const float SCALE_LERP_SPEED = 0.12f;
     const float MOVE_LERP_SPEED = 0.12f;
 
     void Start()
     {
         m_OriginalMountpoint = transform.position;
+
+		m_InitialScale = transform.localScale;
     }
 
     void Update()
@@ -62,7 +66,7 @@ public class PlayerSectionV2 : MonoBehaviour
         else
         {
             transform.position = Vector3.Lerp(transform.position, m_OriginalMountpoint, MOVE_LERP_SPEED);
-            transform.localScale = Vector3.Lerp(transform.localScale, Vector3.one, SCALE_LERP_SPEED);
+			transform.localScale = Vector3.Lerp(transform.localScale, m_InitialScale, SCALE_LERP_SPEED);
         }
     }
 
