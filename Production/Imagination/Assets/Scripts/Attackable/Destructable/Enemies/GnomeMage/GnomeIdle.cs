@@ -32,7 +32,7 @@ public class GnomeIdle : BaseIdleBehaviour
 
 		if (m_EnterCombat.EnterCombat())
 		{
-			//switch state
+			m_EnemyAI.SetState(EnemyAI.EnemyState.Attack);
 		}
 	}
 }
