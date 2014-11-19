@@ -26,13 +26,25 @@ public class DestructableWall : Destructable
 	
 	}
 
-	public override void onHit (PlayerProjectile proj)
+	public override void onHit (HeavyProjectile proj, float damage)
 	{
 		m_Health -= 1;
-
+		
 		if(m_Health >= 0)
 			DestroyGroup (m_Groups [m_Health]);
+		
+		if (m_Health <= 0)
+			onDeath ();
+	}
 
+
+	public override void onHit (LightProjectile proj, float damage)
+	{
+		m_Health -= 1;
+		
+		if(m_Health >= 0)
+			DestroyGroup (m_Groups [m_Health]);
+		
 		if (m_Health <= 0)
 			onDeath ();
 	}

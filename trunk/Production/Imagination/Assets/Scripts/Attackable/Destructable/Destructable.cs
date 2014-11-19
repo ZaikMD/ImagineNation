@@ -27,15 +27,15 @@ public class Destructable : MonoBehaviour, Attackable
 			onDeath();
         }
 	}
-    //Onhit will get called by the PLayer and Enemy projectiles
+    //Onhit will get called by the Player and Enemy projectiles
 
-    public override void onHit(LightProjectile proj, float damage)
+    public virtual void onHit(LightProjectile proj, float damage)
     {
         if (this.tag != Constants.PLAYER_STRING)
             m_Health -= 1; 
     }
 
-    public override void onHit(HeavyProjectile proj, float damage)
+    public virtual void onHit(HeavyProjectile proj, float damage)
     {
         if (this.tag != Constants.PLAYER_STRING)
             m_Health -= 1; 
@@ -46,6 +46,8 @@ public class Destructable : MonoBehaviour, Attackable
 		if (this.tag == Constants.PLAYER_STRING)
 		m_Health -= 1;
     }
+
+
     //To instantkill the object
 	public virtual void instantKill()
 	{

@@ -121,7 +121,7 @@ public class MovingBlock : Destructable
 	}
 
     //Override the onHits 
-	public override void onHit(PlayerProjectile proj, float damage)
+	public override void onHit(LightProjectile proj, float damage)
 	{
 		return; 
 	}
@@ -130,6 +130,8 @@ public class MovingBlock : Destructable
 	{
 		return;
 	}
+
+
 
 	void OnTriggerEnter(Collider obj)
 	{
