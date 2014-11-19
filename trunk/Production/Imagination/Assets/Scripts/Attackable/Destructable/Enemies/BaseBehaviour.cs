@@ -14,7 +14,7 @@ using System.Collections;
 
 public class BaseBehaviour : MonoBehaviour 
 {
-	EnemyAI m_EnemyAI;
+	protected EnemyAI m_EnemyAI;
 	
 	void Start()
 	{
@@ -26,7 +26,28 @@ public class BaseBehaviour : MonoBehaviour
 		return m_EnemyAI.transform.position;
 	}
 
-
+	//Properties
+	public NavMeshAgent GetAgent()
+	{
+		EnemyWithMovement temp = m_EnemyAI as EnemyWithMovement;
+		
+		if(temp != null)
+		{
+			return temp.GetAgent;
+		}
+		else
+		{
+			#if DEBUG || UNITY_EDITOR
+			Debug.Log("Invalid Type");
+			#endif
+			return null;
+		}
+	}
+	
+	public EnemyAI GetAI
+	{
+		get{ return m_EnemyAI;}
+	}
 
 	public Transform[] getPathNodes()
 	{
@@ -45,25 +66,5 @@ public class BaseBehaviour : MonoBehaviour
 		}
 	}
 
-	public NavMeshAgent GetAgent()
-	{
-		EnemyWithMovement temp = m_EnemyAI as EnemyWithMovement;
-		
-		if(temp != null)
-		{
-			return temp.GetAgent;
-		}
-		else
-		{
-			#if DEBUG || UNITY_EDITOR
-			Debug.Log("Invalid Type");
-			#endif
-			return null;
-		}
-	}
 
-	public EnemyAI GetAI
-	{
-		get{ return m_EnemyAI;}
-	}
 }
