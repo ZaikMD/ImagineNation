@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BaseTargeting : MonoBehaviour 
+public abstract class BaseTargeting : BaseComponent
 {
+    public override void start(BaseBehaviour baseBehaviour)
+    {
 
+    }
 }
