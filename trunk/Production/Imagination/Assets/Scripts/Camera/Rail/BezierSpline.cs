@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿// Created by Mathieu Elias
+using UnityEngine;
 using System.Collections;
 using System;
 
 //TODO: remove all magic numbers
 
 // Enum to of the different Modes a control point can have
-public enum BezierControlPointMode 
+public enum BezierMoveMode 
 {
 	Free,
 	Aligned,
@@ -163,7 +164,7 @@ public class BezierSpline : MonoBehaviour
 	/// </summary>
 	/// <returns>The control point mode.</returns>
 	/// <param name="index">Index.</param>
-	public BezierControlPointMode GetControlPointMode (int index) 
+	public BezierMoveMode GetControlPointMode (int index) 
 	{
 		return m_Mode[(index + 1) / 3];
 	}
@@ -173,7 +174,7 @@ public class BezierSpline : MonoBehaviour
 	/// </summary>
 	/// <param name="index">Index.</param>
 	/// <param name="mode">Mode.</param>
-	public void SetControlPointMode (int index, BezierControlPointMode mode) 
+	public void SetControlPointMode (int index, BezierMoveMode mode) 
 	{
 		m_Mode[(index + 1) / 3] = mode;
 	}
@@ -187,9 +188,9 @@ public class BezierSpline : MonoBehaviour
 
 		int modeIndex = (index + 1) / 3;
 
-		BezierControlPointMode mode = m_Mode[modeIndex];
+		BezierMoveMode mode = m_Mode[modeIndex];
 		// If the mode is free or we are on the 1st or last control point then do nothing
-		if (mode == BezierControlPointMode.Free || modeIndex == 0 || modeIndex == m_Mode.Length - 1) 
+		if (mode == BezierMoveMode.Free || modeIndex == 0 || modeIndex == m_Mode.Length - 1) 
 		{
 			return;
 		}
@@ -213,7 +214,7 @@ public class BezierSpline : MonoBehaviour
 
 		Vector3 enforcedTangent = middle - m_Points[fixedIndex];
 
-		if (mode == BezierControlPointMode.Aligned) 
+		if (mode == BezierMoveMode.Aligned) 
 		{
 			enforcedTangent = enforcedTangent.normalized * Vector3.Distance(middle, m_Points[enforcedIndex]);
 		}

@@ -1,4 +1,6 @@
-﻿ using UnityEditor;
+﻿// Created by Mathieu Elias
+
+using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof(BezierSpline))]
@@ -127,7 +129,6 @@ public class BezierSplineInspector : Editor
 			Undo.RecordObject(m_Spline, "Move Point");
 			m_Spline.SetControlPoint(m_SelectedIndex, point);
 			EditorUtility.SetDirty(m_Spline);
-
 		}
 
 		EditorGUI.BeginChangeCheck();

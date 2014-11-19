@@ -22,7 +22,8 @@ public class GnomeIdle : BaseIdleBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-
+		m_Movement.start (this);
+		m_EnterCombat.start (this);
 	}
 	
 	// Update is called once per frame 
