@@ -15,8 +15,15 @@ using System.Collections;
 
 public class FurbullIdleBehaviour : BaseIdleBehaviour 
 {
-	public override void update()
+    public override void update()
 	{
-		
+        if (m_EnterCombatComponent.EnterCombat() == true)
+        {
+            m_EnemyAI.SetState(EnemyAI.EnemyState.Chase);
+        }
+        else
+        {
+            m_MovementComponent.Movement();
+        }
 	}
 }

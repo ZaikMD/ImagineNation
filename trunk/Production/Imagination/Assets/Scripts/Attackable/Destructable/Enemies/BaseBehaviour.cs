@@ -37,9 +37,9 @@ public class BaseBehaviour : MonoBehaviour
 		}
 		else
 		{
-			#if DEBUG || UNITY_EDITOR
+#if DEBUG || UNITY_EDITOR
 			Debug.Log("Invalid Type");
-			#endif
+#endif
 			return null;
 		}
 	}

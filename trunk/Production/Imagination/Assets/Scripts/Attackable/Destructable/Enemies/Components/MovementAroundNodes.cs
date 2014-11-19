@@ -32,13 +32,11 @@ public class MovementAroundNodes : BaseMovement
     //Distance value for when the enemy reaches a patrol node
     private const float REACHED_NODE_DISTANCE = 2.0f;
 
-    private void Start()
+    public override void start(BaseBehaviour baseBehaviour)
     {
-        //Set our node count to the length of the patrol nodes array
-        m_NodeCount = PatrolNodes.Length;
-
-        m_Agent = GetComponent<NavMeshAgent>();
+ 	    base.start(baseBehaviour);
     }
+
 
     public override void Movement()
     {

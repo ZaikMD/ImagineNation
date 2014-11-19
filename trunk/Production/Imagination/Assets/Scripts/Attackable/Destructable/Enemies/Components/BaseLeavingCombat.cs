@@ -14,7 +14,12 @@
 using UnityEngine;
 using System.Collections;
 
-public abstract class BaseLeavingCombat : MonoBehaviour 
+public abstract class BaseLeavingCombat : BaseComponent
 {
+    public override void start(BaseBehaviour baseBehaviour)
+    {
+
+    }
+
     public abstract bool LeaveCombat();
 }
