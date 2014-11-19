@@ -18,12 +18,13 @@
 * 
 * 24/10/2014 Edit: Now works with multiple timed launches, reduced control during initial launch, and added horiozntal launches. - Jason Hein
 * 				   Fixed falling on hills bug.
-* 27/11/2014 Edit: Fixed side jumping bug, and the bug related to gliding and trampolines.
-* 27/11/2014 Edit: Cleaned up movement code, and increase difference between held air and non-held air acceleration.
+* 27/10/2014 Edit: Fixed side jumping bug, and the bug related to gliding and trampolines.
+* 27/10/2014 Edit: Cleaned up movement code, and increase difference between held air and non-held air acceleration.
 * 				   Changed falling and jumping constants to getter function in inheriting classes.
 * 				   Seperated falling calculation into a virtual function GetVerticalMovementAfterFalling()
-* 28/11/2014 Edit: Changed a number of constants and added a setPausedMovement function.
+* 28/10/2014 Edit: Changed a number of constants and added a setPausedMovement function.
 * 
+* 19/11/2014 Edit: Added a function to stop gravity and movement control, used for grapple hooks - Greg Fortier
 * 
 * 
 */
@@ -52,6 +53,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	protected CharacterController m_CharacterController;
 	protected AcceptInputFrom m_AcceptInputFrom;
 	protected ActivatableMovingPlatform m_Platform;
+	//protected DerekMovement m_IsGrappling;
 
 	//Movement control
 	protected const float AIR_HORIZONTAL_CONTROL = 25.0f;
@@ -84,6 +86,8 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	protected bool m_CurrentlyJumping = false;
 	protected bool m_IsOnMovingPlatform = false;
 	protected bool m_PausedMovement = false;
+	
+
 
 
 
@@ -104,6 +108,8 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		Physics.IgnoreLayerCollision (LayerMask.NameToLayer (Constants.PLAYER_STRING),
 		                             LayerMask.NameToLayer (Constants.PLAYER_STRING));
 
+	//	m_IsGrappling = GetComponent<DerekMovement> ();
+
 	}
 	
 
@@ -118,6 +124,12 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		{
 			return;
 		}
+
+		//if derek is grappling this will stop all movement control and gravity of derek;
+		//if(m_IsGrappling.m_Grapple == true)
+		//{
+		//	return;
+		//}
 
 		//If at any point the jump button is released the player is no longer currently jumping
 		if(InputManager.getJumpUp(m_AcceptInputFrom.ReadInputFrom))

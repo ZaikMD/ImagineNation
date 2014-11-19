@@ -32,7 +32,7 @@ public class DerekMovement : BaseMovementAbility
 	
 	float m_Speed = 15.0f;
 
-	bool m_Grapple;
+	public bool m_Grapple;
 
 	// Use this for initialization
 	void Start () 
