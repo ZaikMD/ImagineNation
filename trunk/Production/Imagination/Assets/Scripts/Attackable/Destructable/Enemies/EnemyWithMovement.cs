@@ -18,9 +18,15 @@ public class EnemyWithMovement : EnemyAI
 	public Transform[] m_PathNodes;
 
 	//Load a NavMeshAgent for the AI
-	protected NavMeshAgent m_Agent;
-	protected void LoadNavMesh ()
+	private NavMeshAgent m_Agent;
+
+	void Start()
 	{
 		m_Agent = gameObject.GetComponent<NavMeshAgent>();
+	}
+
+	public NavMeshAgent GetAgent
+	{
+		get{ return m_Agent;}
 	}
 }

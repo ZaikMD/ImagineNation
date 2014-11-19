@@ -13,7 +13,7 @@
 using UnityEngine;
 using System.Collections;
 
-public abstract class BaseIdleBehaviour : MonoBehaviour 
+public abstract class BaseIdleBehaviour : BaseBehaviour 
 {
     protected BaseMovement m_MovementComponent;
     protected BaseEnterCombat m_EnterCombatComponent;
