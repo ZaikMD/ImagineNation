@@ -19,34 +19,27 @@ public class CombatItem : MonoBehaviour
 {
 	SFXManager m_SFX;
 	AnimationState m_AnimState;
-
-	public GameObject m_ProjectilePrefab;
+	
 	BaseAttack[] m_BaseAttacks = new BaseAttack[3]; //Array of the attacks. Combo's are 3 attacks.
 
 	int m_CurrentAttack = 0; //The current Attack
 	int m_PreviousAttack = 0;
 
+	string m_Inputs;
+
     AcceptInputFrom m_ReadInput;
 	// Use this for initialization
 	void Start () 
 	{
-		m_BaseAttacks [0] = new BaseAttack (); //Two base attacks, and one special wich is an AOE around the character
-		m_BaseAttacks [1] = new BaseAttack ();
-		m_BaseAttacks [2] = new SpecialAttack ();
+		m_BaseAttacks [0] = new LightAttack (); //Two base attacks, and one special which is an AOE around the character
+		m_BaseAttacks [1] = new LightAttack ();
+		m_BaseAttacks [2] = new HeavyAttack ();
 
 		for(int i = 0; i < m_BaseAttacks.Length; i++)
 		{
-			m_BaseAttacks[i].loadPrefab(m_ProjectilePrefab); //Loads the prefab for the projectiles
+			//m_BaseAttacks[i].loadPrefab(m_ProjectilePrefab); //Loads the prefab for the projectiles
 			m_BaseAttacks.Initialize();
 		}
-        for (int i = 0; i < m_BaseAttacks.Length; i++)
-        {
-            if (m_BaseAttacks[i].GetType() == typeof(SpecialAttack))
-            {
-                m_BaseAttacks[i].setAttackTimer(1.1f);
-            }
-        }
-
         m_ReadInput = gameObject.GetComponent<AcceptInputFrom> ();
         
 		m_SFX = GameObject.FindGameObjectWithTag(Constants.SOUND_MANAGER).GetComponent<SFXManager> ();
@@ -59,6 +52,8 @@ public class CombatItem : MonoBehaviour
 
         if (InputManager.getAttackDown(m_ReadInput.ReadInputFrom))
         {
+
+
 
             if (!m_BaseAttacks[m_PreviousAttack].getAttacking()) //Check if the character is attacking
             {
@@ -96,18 +91,13 @@ public class CombatItem : MonoBehaviour
                 }
             }
         }
-
-
-
-
-
 		for(int i = 0; i < m_BaseAttacks.Length; i++)
 		{
 			m_BaseAttacks[i].Update();
 		}
 
 	}
-
+#region Sound
 	void PlaySoundAndAnim()
 	{
 		switch(this.gameObject.name)
@@ -176,4 +166,5 @@ public class CombatItem : MonoBehaviour
 			break;
 		}
 	}
+#endregion
 }

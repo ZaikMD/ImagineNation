@@ -16,10 +16,15 @@ using System.Collections;
 */
 #endregion
 
-
 public class PlayerProjectile : BaseProjectile 
 {
 
+	float m_Damage;
+
+	public void setDamage(float damage)
+	{
+		m_Damage = damage;
+	}
 
 	void OnTriggerEnter( Collider obj)
 	{

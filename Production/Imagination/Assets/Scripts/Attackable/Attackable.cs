@@ -15,7 +15,11 @@ using System.Collections;
 #endregion
 public interface Attackable
 {
-     void onHit(PlayerProjectile proj); //Two overloaded function so whatever inherits from Attackable can choose what they can be attacked by, Players or Enemies
+	//three overloaded function so whatever inherits from Attackable can choose what they can be attacked by, Players or Enemies
 
-     void onHit(EnemyProjectile proj);
+    void onHit(EnemyProjectile proj);
+
+	void onHit(LightProjectile proj, float m_Damage);
+
+	void onHit(HeavyProjectile proj, float m_Damage);
 }

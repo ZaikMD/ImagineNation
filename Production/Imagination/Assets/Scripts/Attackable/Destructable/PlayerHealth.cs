@@ -186,10 +186,15 @@ public class PlayerHealth : Destructable
 		}
 	}
 
-	public override void onHit(PlayerProjectile proj)
+	public override void onHit(LightProjectile proj, float damage)
 	{        
 		return;
 	}
+
+    public override void onHit(HeavyProjectile proj, float damage)
+    {
+        return;
+    }
 	
 	public override void onHit(EnemyProjectile proj)
 	{
