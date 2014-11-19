@@ -13,7 +13,7 @@
 using UnityEngine;
 using System.Collections;
 
-public abstract class BaseChaseBehaviour : MonoBehaviour 
+public abstract class BaseChaseBehaviour : BaseBehaviour 
 {
     protected BaseMovement m_MovementComponent;
     protected BaseTargeting m_TargetingComponent;

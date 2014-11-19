@@ -42,4 +42,21 @@ public class BaseBehaviour : MonoBehaviour
 			return null;
 		}
 	}
+
+	protected NavMeshAgent GetAgent()
+	{
+		EnemyWithMovement temp = m_EnemyAI as EnemyWithMovement;
+		
+		if(temp != null)
+		{
+			return temp.GetAgent;
+		}
+		else
+		{
+			#if DEBUG || UNITY_EDITOR
+			Debug.Log("Invalid Type");
+			#endif
+			return null;
+		}
+	}
 }

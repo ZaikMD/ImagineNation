@@ -13,7 +13,7 @@
 using UnityEngine;
 using System.Collections;
 
-public abstract class BaseDeadBehaviour : MonoBehaviour 
+public abstract class BaseDeadBehaviour : BaseBehaviour 
 {
     protected BaseDeath m_DeathComponent;
 
