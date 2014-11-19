@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿// created by Mathieu Elias
+using UnityEngine;
 using System.Collections;
 
 public static class Bezier 
 {
-	// Cubic bezier curve
+	// Cubic bezier curve equation to get a point on the spline based on time or percentage
 	public static Vector3 GetPoint (Vector3 point0, Vector3 point1, Vector3 point2, Vector3 point3, float time) 
 	{
 		time = Mathf.Clamp01(time);

@@ -13,18 +13,33 @@ using System.Collections;
  */
 #endregion
 
-public class GnomeChase : MonoBehaviour 
+public class GnomeChase : BaseChaseBehaviour 
 {
+	BaseCombat m_Combat;
+
+	BaseTargeting m_Targeting;
+	GameObject m_TargetPlayer;
+
+	BaseLeavingCombat m_LeaveCombat;
 
 	// Use this for initialization
 	void Start () 
 	{
-	
+		m_Combat.start ();
+		m_LeaveCombat.start ();
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-	
+		if (m_LeaveCombat.LeaveCombat())
+			m_EnemyAI.SetState(EnemyAI.EnemyState.Idle);
+
+		m_Combat.Combat ();
+
+		float dist = Vector3.Distance (transform.position, m_Targeting.CurrentTarget ()); 
+		if (dist <= Constants.MAGE_ATTACK_RANGE)
+			m_EnemyAI.SetState(EnemyAI.EnemyState.Attack);
+
 	}
 }
