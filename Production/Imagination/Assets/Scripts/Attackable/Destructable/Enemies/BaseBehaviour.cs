@@ -25,8 +25,10 @@ public class BaseBehaviour : MonoBehaviour
 	{
 		return m_EnemyAI.transform.position;
 	}
-	
-	protected Transform[] getPathNodes()
+
+
+
+	public Transform[] getPathNodes()
 	{
 		EnemyWithMovement temp = m_EnemyAI as EnemyWithMovement;
 		
@@ -43,7 +45,7 @@ public class BaseBehaviour : MonoBehaviour
 		}
 	}
 
-	protected NavMeshAgent GetAgent()
+	public NavMeshAgent GetAgent()
 	{
 		EnemyWithMovement temp = m_EnemyAI as EnemyWithMovement;
 		
@@ -58,5 +60,10 @@ public class BaseBehaviour : MonoBehaviour
 			#endif
 			return null;
 		}
+	}
+
+	public EnemyAI GetAI
+	{
+		get{ return m_EnemyAI;}
 	}
 }
