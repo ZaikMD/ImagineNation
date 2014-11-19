@@ -28,10 +28,17 @@ public class Destructable : MonoBehaviour, Attackable
         }
 	}
     //Onhit will get called by the PLayer and Enemy projectiles
-    public virtual void onHit(PlayerProjectile proj)
-    {       
-		if (this.tag != Constants.PLAYER_STRING)
-        m_Health -= 1;        
+
+    public override void onHit(LightProjectile proj, float damage)
+    {
+        if (this.tag != Constants.PLAYER_STRING)
+            m_Health -= 1; 
+    }
+
+    public override void onHit(HeavyProjectile proj, float damage)
+    {
+        if (this.tag != Constants.PLAYER_STRING)
+            m_Health -= 1; 
     }
 
     public virtual void onHit(EnemyProjectile proj)

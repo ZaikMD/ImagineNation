@@ -121,7 +121,7 @@ public class MovingBlock : Destructable
 	}
 
     //Override the onHits 
-	public override void onHit(PlayerProjectile proj)
+	public override void onHit(PlayerProjectile proj, float damage)
 	{
 		return; 
 	}

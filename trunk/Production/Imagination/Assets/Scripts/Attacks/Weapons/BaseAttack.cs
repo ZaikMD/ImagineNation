@@ -15,10 +15,10 @@ using System.Collections;
 #endregion
 public class BaseAttack
 {
-	protected GameObject m_Projectile;
+	protected BaseProjectile m_Projectile;
 
-	float m_AttackTimer = 0.5f; //The animation Timer 
-	float m_GraceTimer = 0.8f; //How long the player will have to combo the attack, starts .2 seconds before m_AttackTimer ends
+	protected float m_AttackTimer = 0.6f; //The animation Timer 
+	protected float m_GraceTimer = 0.8f; //How long the player will have to combo the attack, starts .2 seconds before m_AttackTimer ends
 
 	bool m_Attacking = false;
 	bool m_GraceCountdown = false;
@@ -26,6 +26,7 @@ public class BaseAttack
 	protected float m_SaveAttackTimer = 0.6f;
 	protected float m_SaveGraceTimer = 0.8f;
     protected float m_StartGraceTimerTimer = 0.2f;
+	protected float m_Damage;
 
 	protected Vector3 m_InitialPosition;
 	protected Quaternion m_InitialRotation;
@@ -62,7 +63,7 @@ public class BaseAttack
 
 	public void loadPrefab( GameObject prefab)
 	{
-		m_Projectile = prefab;
+		//m_Projectile = prefab;
 	}
 
 	public void startAttack(Vector3 pos, Quaternion rotation)
@@ -74,8 +75,6 @@ public class BaseAttack
 
 		m_InitialPosition = pos;
 		m_InitialRotation = rotation;
-		//Start Animation
-		//TODO Animation
 
 		createProjectile ();
 		m_Attacking = true;
@@ -114,6 +113,10 @@ public class BaseAttack
 
 	public virtual void createProjectile()
 	{
-		GameObject.Instantiate (m_Projectile,new Vector3(m_InitialPosition.x, m_InitialPosition.y + m_FirePointYOffSet, m_InitialPosition.z), m_InitialRotation);
+		//GameObject.Instantiate (m_Projectile,
+		                      //  new Vector3(m_InitialPosition.x, 
+		                      //  m_InitialPosition.y + m_FirePointYOffSet,
+		                      //  m_InitialPosition.z), 
+		                     //    m_InitialRotation);
 	}
 }
