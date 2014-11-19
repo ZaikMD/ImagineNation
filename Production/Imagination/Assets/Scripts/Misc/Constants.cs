@@ -130,5 +130,6 @@ public static class Constants
 
 	}
 
-
+	// Enemy Constants
+	public const float MAGE_ATTACK_RANGE = 10.0f;
 }
