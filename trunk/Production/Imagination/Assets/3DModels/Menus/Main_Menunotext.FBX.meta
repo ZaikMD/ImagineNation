@@ -1,13 +1,40 @@
 fileFormatVersion: 2
-guid: c04ac76eb626f7842b270b98f33d2d36
+guid: c3a4b39bf72bb5041a77a2897bfa96de
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Menu
+    100004: Plane001
+    100006: Plane002
+    100008: Plane003
+    100010: Rectangle001
+    100012: Text012
     400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Line002
+    400002: Menu
+    400004: Plane001
+    400006: Plane002
+    400008: Plane003
+    400010: Rectangle001
+    400012: Text012
+    2300000: Menu
+    2300002: Plane001
+    2300004: Plane002
+    2300006: Plane003
+    2300008: Rectangle001
+    2300010: Text012
+    3300000: Menu
+    3300002: Plane001
+    3300004: Plane002
+    3300006: Plane003
+    3300008: Rectangle001
+    3300010: Text012
+    4300000: Plane002
+    4300002: Menu
+    4300004: Plane003
+    4300006: Plane001
+    4300008: Rectangle001
+    4300010: Text012
     9500000: //RootNode
   materials:
     importMaterials: 1
