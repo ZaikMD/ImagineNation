@@ -30,7 +30,8 @@ public class DestructableWall : Destructable
 	{
 		m_Health -= 1;
 
-		DestroyGroup (m_Groups [m_Health]);
+		if(m_Health >= 0)
+			DestroyGroup (m_Groups [m_Health]);
 
 		if (m_Health <= 0)
 			onDeath ();

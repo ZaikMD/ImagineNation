@@ -4,7 +4,12 @@ using System.Collections.Generic;
 
 public class PauseScreen : MenuV2
 {
-    bool m_GameIsPaused = false;
+    static bool m_GameIsPaused = false;
+    public static bool IsGamePaused
+    {
+        get { return m_GameIsPaused; }
+    }
+
 
     bool m_IsSwapping = false;
 
@@ -13,6 +18,7 @@ public class PauseScreen : MenuV2
 
     CameraSet m_MenuCamera;
     CameraSet m_PlayerCameras;
+
 	// Use this for initialization
 	protected override void start()
     {

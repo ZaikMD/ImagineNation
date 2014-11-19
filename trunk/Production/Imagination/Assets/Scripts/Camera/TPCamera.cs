@@ -71,6 +71,8 @@ public class TPCamera : ShutterCamera
 	//the script that should be running on a game object at the player location (used to find action areas)
     public ActionAreaDetector ActionAreaDetect;
 
+
+    public bool m_IsPaused { get; set; }
     
     void OnDestroy()
     {
@@ -157,6 +159,9 @@ public class TPCamera : ShutterCamera
 		//==================================================================================
         //get the accept input from script on the camera game object
 		m_AcceptInputFrom = gameObject.GetComponent<AcceptInputFrom>();
+
+
+		m_IsPaused = false;
 	}
 
 	void setShutterLayer(string layer)
@@ -171,10 +176,14 @@ public class TPCamera : ShutterCamera
 	// Update is called once per frame
 	void Update ()
     {
+        //update the shutter (base class)
+        updateShutter();
+
+        if (m_IsPaused)
+            return;
+
 		//move the rotation points position to the player
         RotationPoint.transform.position = Vector3.Lerp(RotationPoint.transform.position, Player.transform.position, LERP_AMOUNT);
-
-        
 
 		//update rotation
         Rotation2();
@@ -193,9 +202,6 @@ public class TPCamera : ShutterCamera
 
         //action area behaviors
         ActionArea();
-
-        //update the shutter (base class)
-        updateShutter();
 	}
 
 	protected override void updateShutter ()
