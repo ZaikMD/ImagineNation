@@ -12,6 +12,9 @@
 ///
 
 #region Change Log 
+/*
+ * 11/19/2014 Cleaned and optimized code - Jason Hein
+ */
 #endregion
 
 using UnityEngine;
@@ -24,31 +27,24 @@ public class ActivatableMovingPlatform : Activatable
 {
 	//Constants
 	const float MIN_DIST_TO_NEXT_PLATFORM = 0.3f;
-	const float PLATFORM_SPEED = 2.5f;
-	const float TIME_AT_PLATFORM_DEST = 3.0f;
+	const float TIME_PAUSED_AT_PLATFORM_DESTINATION = 3.0f;
 
-	public GameObject[] m_Destinations;
-	public bool m_CanReverse;
-	public bool m_IsGate;
+	public Transform[] m_Destinations;
+	public bool m_Loops = false;
+	public float m_PlatformSpeed = 2.5f;
 
-	//States
-	bool m_IsActive = true;
-	bool m_AtFinalDestination;
-	bool m_AtDestination;
-	bool m_IsReversing;
-	bool m_AtLastDest = false;
+	//Only necassary for sound que (fix with a sound manager in future)
+	public bool m_IsGate = false;
 
 	//Timers
-	float m_AtDestinationTimer;
+	float m_AtDestinationTimer = -1.0f;
 	float m_DistanceToNextPlatform;
 
 	//GameObjects
-	GameObject m_CurrentDestination;
-	GameObject m_NextDestination;
-	int m_DestinationCounter = 0;
+	int m_DestinationIndex = 0;
 
 	//Amount to move the player
-	Vector3 m_AmountToMovePlayer;
+	Vector3 m_AmountToMovePlayer = Vector3.zero;
 
 	//Sound manager
 	SFXManager m_SFX;
@@ -63,87 +59,60 @@ public class ActivatableMovingPlatform : Activatable
 	void Update () 
 	{
 		//Play a stopping sound
-		if(!CheckSwitches() || m_AtLastDest)
+		if(!CheckSwitches() || (m_Loops == false && m_DestinationIndex == m_Destinations.Length - 1))
 		{
 			m_SFX.stopSound(this.gameObject);
+			return;
 		}
 
 		//Platforms can only move if the switches are active
 		if(CheckSwitches())
 		{
 			//If the platform is moving from one destination to another
-			if(m_IsActive)
+			if(m_AtDestinationTimer < 0.0f)
 			{
-				//if this is a gate then play gate sound
-				if(m_IsGate)
-				{
-					m_SFX.playSound(this.gameObject, Sounds.GateOpen);
-				}
-				MoveToDestination();//Move the platform toward its destination
+				CheckPlayGateSound();
+
+				//Move the platform toward its destination
+				MoveToDestination();
 
 				//If the distance to the next platform is smaller than then the minimum required distance
-				if(m_DistanceToNextPlatform <= MIN_DIST_TO_NEXT_PLATFORM)
+				if(m_DistanceToNextPlatform < MIN_DIST_TO_NEXT_PLATFORM)
 				{
+					//Set the platform to be directly at the destination
+					transform.position = m_Destinations[m_DestinationIndex].position;
 
-					//Check if the current destination is at the last element,
-					//if it is start reversing.
-					if(m_DestinationCounter == (m_Destinations.Length -1))
+					//Set the destination timer
+					m_AtDestinationTimer = TIME_PAUSED_AT_PLATFORM_DESTINATION;
+
+					//Check if we are looping, or if we should increment the destination
+					if(m_DestinationIndex == (m_Destinations.Length -1) && m_Loops)
 					{
-						m_AtLastDest = true;
-						if(m_CanReverse)
-						{
-							m_IsReversing = true;
-						}
+						m_DestinationIndex = 0;
 					}
-
-					//If the current destination is the first element,
-					//then move the platform forwards through the array
-					if(m_DestinationCounter == 0)
+					else if (m_DestinationIndex < m_Destinations.Length -1)
 					{
-						m_IsReversing = false;
+						m_DestinationIndex++;
 					}
-
-					//Set inactive, and allow the platform to pause at each destination
-					m_IsActive = false;
 				}
 			}
-			else //If the platform is at destination
+
+			//If the platform is at the destination
+			else
 			{
-
-
-				if(m_AtLastDest == true && m_CanReverse == false)
-				{
-					return;
-				}
 				//Increment the timer while at the destination
-				m_AtDestinationTimer += Time.deltaTime;
+				m_AtDestinationTimer -= Time.deltaTime;
 
-				m_AmountToMovePlayer = Vector3.zero;
-
-				//If the timer reached the limit
-				if(m_AtDestinationTimer >= TIME_AT_PLATFORM_DEST)
+				//Do not move the player while the platform is not moving
+				if (m_AmountToMovePlayer != Vector3.zero)
 				{
-					//Reset the timer
-					m_AtDestinationTimer = 0.0f;
-
-					//Determine whether to increment or decrement
-					//the destination based on whether the path is 
-					//going forwards or reversing.
-					if(!m_IsReversing)
-					{
-						m_DestinationCounter++;
-					}
-					else
-					{
-						m_DestinationCounter--;
-					}
-
-					//Set to active and start moving the platform to the next destination
-					m_IsActive = true;
+					m_AmountToMovePlayer = Vector3.zero;
 				}
 			}
 		}
-		else if(m_IsActive)
+
+		//If The switch has not on, do not move the player
+		else if (m_AmountToMovePlayer != Vector3.zero)
 		{
 			m_AmountToMovePlayer = Vector3.zero;
 		}
@@ -152,21 +121,18 @@ public class ActivatableMovingPlatform : Activatable
 	//Moves the platform towards the next destination
 	void MoveToDestination()
 	{
-		//Get the two positions required for calculation, the platforms current position
-		//and the next destinations position
-		Vector3 currentPosition = transform.position;
-		Vector3 destinationPosition = m_Destinations [m_DestinationCounter].transform.position;
+		//Get the the next destinations position
+		Vector3 destinationPosition = m_Destinations [m_DestinationIndex].position;
 
 		//Get the direction vector between them
-		Vector3 destinationDirection = destinationPosition - currentPosition;
+		Vector3 destinationDirection = destinationPosition - transform.position;
 
 		//Get the magnitude of that direction to use for a proximity check once close enough
 		m_DistanceToNextPlatform = destinationDirection.magnitude;
 
 		//Move the platform along that direction over time
-		m_AmountToMovePlayer = destinationDirection.normalized * PLATFORM_SPEED * Time.deltaTime;
+		m_AmountToMovePlayer = destinationDirection.normalized * m_PlatformSpeed * Time.deltaTime;
 		transform.position += m_AmountToMovePlayer;
-
 	}
 
 	/// <summary>
@@ -176,5 +142,14 @@ public class ActivatableMovingPlatform : Activatable
 	public Vector3 GetAmountToMovePlayer()
 	{
 		return m_AmountToMovePlayer;
+	}
+
+	//If this is a gate then play gate sound
+	void CheckPlayGateSound()
+	{
+		if(m_IsGate)
+		{
+			m_SFX.playSound(this.gameObject, Sounds.GateOpen);
+		}
 	}
 }
