@@ -15,6 +15,9 @@ public class Weapon : MonoBehaviour
     BaseAttack m_CurrentAttack;//The current Attack
     BaseAttack m_PreviousAttack;
 
+    public GameObject m_LightProjectilePrefab;
+    public GameObject m_HeavyProjectilePrefab;
+
     string m_Inputs;
     //The constants for the inputs of the attacks, as well as the 
     //combos the players can do. L = light attack  H = Heavy attack
@@ -47,16 +50,26 @@ public class Weapon : MonoBehaviour
     {
         if (InputManager.getAttackDown(m_ReadInput.ReadInputFrom))
         {
+            m_LastInput = "";
             m_Inputs += L;
             m_LastInput += L;
         }
 
-        switch(m_Inputs)
+        updateAttacks();
+	}
+
+    void setCurrentAttack()
+    {
+
+        m_PreviousAttack = m_CurrentAttack;
+        switch (m_Inputs)
         {
             case L:
                 {
                     LightAttack attack = new LightAttack();
+                    attack.loadPrefab(m_LightProjectilePrefab);
                     attack.startAttack(transform.position, transform.rotation);
+                    m_CurrentAttack = attack;
                 }
 
                 break;
@@ -64,60 +77,97 @@ public class Weapon : MonoBehaviour
             case LL:
                 {
                     LightAttack attack = new LightAttack();
+                    attack.loadPrefab(m_LightProjectilePrefab);
                     attack.startAttack(transform.position, transform.rotation);
+                    m_CurrentAttack = attack;
                 }
                 break;
 
             case DOUBLEHIT:
                 {
-                   
+
                 }
-            break;
+                break;
 
             case LH:
-            {
-                HeavyAttack attack = new HeavyAttack();
-                attack.startAttack(transform.position, transform.rotation);
-            }
-            break;
+                {
+                    HeavyAttack attack = new HeavyAttack();
+                    attack.loadPrefab(m_HeavyProjectilePrefab);
+                    attack.startAttack(transform.position, transform.rotation);
+                    m_CurrentAttack = attack;
+                }
+                break;
 
             case AOE:
-            {
-                
-            }
-            break;
+                {
+
+                }
+                break;
 
             case FRONTLINE:
-            {
-            }
-            break;
+                {
+                }
+                break;
 
             case H:
-            {
-                HeavyAttack attack = new HeavyAttack();
-                attack.startAttack(transform.position, transform.rotation);
-            }
-            break;
+                {
+                    HeavyAttack attack = new HeavyAttack();
+                    attack.loadPrefab(m_HeavyProjectilePrefab);
+                    attack.startAttack(transform.position, transform.rotation);
+                    m_CurrentAttack = attack;
+                }
+                break;
 
             case HH:
-            {
-                HeavyAttack attack = new HeavyAttack();
-                attack.startAttack(transform.position, transform.rotation);
-            }
-            break;
+                {
+                    HeavyAttack attack = new HeavyAttack();
+                    attack.loadPrefab(m_HeavyProjectilePrefab);
+                    attack.startAttack(transform.position, transform.rotation);
+                    m_CurrentAttack = attack;
+                }
+                break;
 
             case FRONTCONE:
-            {
-                
-            }
-            break;
+                {
+
+                }
+                break;
 
             default:
+                {
+                    m_Inputs = m_LastInput;
+                }
+                break;
+        }
+    }
+
+    void updateAttacks()
+    {
+        if (m_PreviousAttack != null)
+        {
+            if (!m_PreviousAttack.getAttacking()) //Check if the character is attacking
             {
-                m_Inputs = m_LastInput;
+                if (m_PreviousAttack.getGraceTimer() <= 0.0f) //Check if the grace timer is over
+                {
+                    m_CurrentAttack = null; //If so, the combo gets reset
+                    m_PreviousAttack.resetGraceTimer();
+                }
+
+
+                else
+                {
+                    setCurrentAttack();
+                    // PlaySoundAndAnim();
+                }
             }
-            break;
+
+            m_CurrentAttack.Update();
+            m_PreviousAttack.Update();
         }
 
-	}
+        else
+        {
+            setCurrentAttack();
+        }
+    }
 }

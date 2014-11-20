@@ -12,7 +12,6 @@ public class LightAttack : BaseAttack
 	void Start()
 	{
 		m_Damage = 0.5f;
-		m_Projectile = new LightProjectile ();
 		m_AttackTimer = 0.4f;
 		m_SaveAttackTimer = m_AttackTimer;
 		m_GraceTimer = 0.5f;

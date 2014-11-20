@@ -26,17 +26,17 @@ public class PlayerProjectile : BaseProjectile
 		m_Damage = damage;
 	}
 
-	void OnTriggerEnter( Collider obj)
+	/*void OnTriggerEnter( Collider obj)
 	{
         if (obj.gameObject.GetComponent(typeof(Attackable)) as Attackable != null)//checks to see if the object that has been hit is attackable
 		{
             Attackable attackable = obj.gameObject.GetComponent(typeof(Attackable)) as Attackable; //if so call the onhit function and pass in the gameobject
 			
-			attackable.onHit(this);
+			attackable.onHit(this, m_Damage);
 			if(obj.gameObject.tag != Constants.PLAYER_STRING)
 			{
 				Destroy(this.gameObject);
 			}
 		} 
-	}
+	} */
 }
