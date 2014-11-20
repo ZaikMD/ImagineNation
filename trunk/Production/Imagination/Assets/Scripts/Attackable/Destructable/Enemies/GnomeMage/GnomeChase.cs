@@ -25,8 +25,8 @@ public class GnomeChase : BaseChaseBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		m_Combat.start ();
-		m_LeaveCombat.start ();
+		m_Combat.start (this);
+		m_LeaveCombat.start (this);
 	}
 	
 	// Update is called once per frame
