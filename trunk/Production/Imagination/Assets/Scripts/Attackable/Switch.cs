@@ -128,7 +128,7 @@ public class Switch : SwitchBaseClass, Attackable
 		m_Timer = m_SaveTimer;
 	}
 
-    public void onHit(PlayerProjectile proj) //If the player hits the switch, set activated to true
+    public void onHit(LightProjectile proj, float damage) //If the player hits the switch, set activated to true
     {
 		if(!m_WillPauseForCamera)
 		{
@@ -138,6 +138,18 @@ public class Switch : SwitchBaseClass, Attackable
 		{
 			m_BeenHit = true;
 		}
+    }
+
+    public void onHit(HeavyProjectile proj, float damage) //If the player hits the switch, set activated to true
+    {
+        if (!m_WillPauseForCamera)
+        {
+            m_Activated = true;
+        }
+        else
+        {
+            m_BeenHit = true;
+        }
     }
 
     public void onHit(EnemyProjectile proj) //Ignore enemys

@@ -13,7 +13,6 @@ public class HeavyAttack : BaseAttack
 	void Start()
 	{
 		m_Damage = 1.0f;
-		m_Projectile = new HeavyProjectile ();
 		m_AttackTimer = 0.8f;
 		m_SaveAttackTimer = m_AttackTimer;
 		m_GraceTimer = 0.8f;

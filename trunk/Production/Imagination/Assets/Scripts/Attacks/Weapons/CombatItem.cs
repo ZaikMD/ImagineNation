@@ -49,12 +49,8 @@ public class CombatItem : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-
         if (InputManager.getAttackDown(m_ReadInput.ReadInputFrom))
         {
-
-
-
             if (!m_BaseAttacks[m_PreviousAttack].getAttacking()) //Check if the character is attacking
             {
                 if (m_BaseAttacks[m_PreviousAttack].getGraceTimer() <= 0.0f) //Check if the grace timer is over

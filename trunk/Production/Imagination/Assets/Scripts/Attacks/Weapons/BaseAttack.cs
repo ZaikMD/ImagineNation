@@ -15,7 +15,7 @@ using System.Collections;
 #endregion
 public class BaseAttack
 {
-	protected BaseProjectile m_Projectile;
+	protected GameObject m_Projectile;
 
 	protected float m_AttackTimer = 0.6f; //The animation Timer 
 	protected float m_GraceTimer = 0.8f; //How long the player will have to combo the attack, starts .2 seconds before m_AttackTimer ends
@@ -63,7 +63,7 @@ public class BaseAttack
 
 	public void loadPrefab( GameObject prefab)
 	{
-		//m_Projectile = prefab;
+		m_Projectile = prefab;
 	}
 
 	public void startAttack(Vector3 pos, Quaternion rotation)
