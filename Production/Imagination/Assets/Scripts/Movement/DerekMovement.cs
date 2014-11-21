@@ -25,7 +25,9 @@ public class DerekMovement : BaseMovementAbility
 {
 	private const float JUMP_SPEED = 6.5f;
 
-	public GameObject m_TempTarget;
+	//public GameObject m_TempTarget;
+
+	private Targeting m_target;
 
 	private Quaternion m_LookRotation;
 	private Vector3 m_Direction;
@@ -38,6 +40,7 @@ public class DerekMovement : BaseMovementAbility
 	void Start () 
 	{ 
 		m_Grapple = false;
+		m_target = GetComponent<Targeting>();
         //Calls the base class start function
 		base.start ();
 	}
@@ -45,7 +48,7 @@ public class DerekMovement : BaseMovementAbility
 	// Update is called once per frame
 	void Update () 
 	{
-		if (m_TempTarget != null)
+		if (m_target.GetCurrentTarget() != null)
 		{
 			if(GetIsGrounded() == false)
 			{
@@ -60,12 +63,17 @@ public class DerekMovement : BaseMovementAbility
 				MoveTowardsTarget();
 			}
 
-			if(Vector3.Distance(this.transform.position, m_TempTarget.transform.position) < 1.0f)
+			if(Vector3.Distance(this.transform.position, m_target.GetCurrentTarget().transform.position) < 1.0f)
 			{
 				m_Grapple = false;
 			}
 		}
 		//if derek is grappling this will stop all movement control and gravity of derek;
+		if(m_Grapple == true)
+		{
+			return;
+		}
+
 		if(m_Grapple == true)
 		{
 			return;
@@ -77,7 +85,7 @@ public class DerekMovement : BaseMovementAbility
 	private void MoveTowardsTarget()
 	{
 		Vector3 currentPosition = this.transform.position;
-		Vector3 targetPosition = m_TempTarget.transform.position;
+		Vector3 targetPosition = m_target.GetCurrentTarget().transform.position;
 
 		if(Vector3.Distance(currentPosition, targetPosition) > 0.0f)
 		{
@@ -90,10 +98,10 @@ public class DerekMovement : BaseMovementAbility
 				(directionOfTravel.z * m_Speed * Time.deltaTime),
 				Space.World);
 
-			if(m_TempTarget != null)
+			if(m_target.GetCurrentTarget() != null)
 			{
 				//finds the vector pointing from our position to the target
-				m_Direction = (m_TempTarget.transform.position - this.transform.position).normalized;
+				m_Direction = (targetPosition - this.transform.position).normalized;
 
 				//creates the rotation we need to be in to look at the target
 				m_LookRotation = Quaternion.LookRotation(m_Direction);

@@ -32,7 +32,18 @@ public class Targeting : MonoBehaviour {
 	void Start ()
     {
         m_PossibleTargets = new List<GameObject>();
-        m_Collider.radius = m_ViewableDistance;
+//		m_LayerMask = LayerMask.GetMask(Constants.PLAYER_STRING);
+//		m_LayerMask = ~m_LayerMask;
+		for (int i = 0; i < m_TargetableTags.Length; i++)
+		{
+			GameObject[] objectsToAdd = GameObject.FindGameObjectsWithTag(m_TargetableTags[i]);
+        
+			for(int n = 0; n < objectsToAdd.Length; n++)
+			{
+				m_PossibleTargets.Add(objectsToAdd[n]);
+			}
+		}
+		m_Collider.radius = m_ViewableDistance;
         m_LayerMask = LayerMask.GetMask(Constants.PLAYER_STRING);
         m_LayerMask = ~m_LayerMask;
     }
@@ -41,7 +52,7 @@ public class Targeting : MonoBehaviour {
 	void Update () 
     {
 	//	CheckDistanceOfTargets();
-		Debug.Log (m_PossibleTargets.Count);
+	//	Debug.Log (m_PossibleTargets.Count);
 		CalcCurrentTarget();
         PaintTarget();    
     }
@@ -77,11 +88,11 @@ public class Targeting : MonoBehaviour {
             Ray rayToObject = new Ray();
             RaycastHit HitInfo;
 
-            rayToObject.direction = LookVector;
+            rayToObject.direction = DirectionOfTarget;
             rayToObject.origin = m_Camera.transform.position;
-			Debug.DrawRay(rayToObject.origin, rayToObject.direction);
+			//Debug.DrawRay(rayToObject.origin, rayToObject.direction);
 
-            if (Physics.Raycast(rayToObject, out HitInfo, m_ViewableDistance, m_LayerMask))
+            if (Physics.Raycast(rayToObject, out HitInfo, 500, m_LayerMask))
             {
 				Debug.DrawRay(rayToObject.origin, rayToObject.direction);
 
@@ -91,12 +102,14 @@ public class Targeting : MonoBehaviour {
                     continue;
                 }
 
-                Debug.Log("What we got");
+              //  Debug.Log("What we got");
 
                 //Object was hit, has better angle, and is within range
                 m_CurrentTarget = m_PossibleTargets[i];
                 AngleOfCurrentTarget = Angle;
             }
+
+			//Debug.Log(HitInfo.collider);
         }
 
         //have we found anything?
@@ -142,9 +155,14 @@ public class Targeting : MonoBehaviour {
 			}
 		}
 	}
-
+/*
     void OnTriggerEnter(Collider other)
     {
+		if(other.tag == "Targetable")
+		{
+			m_PossibleTargets.Add(other.gameObject);
+			other.renderer.material.color = m_TargetColor;
+		}
         for (int i = 0; i < m_TargetableTags.Length; i++)
         {
             if (other.tag == m_TargetableTags[i])
@@ -162,7 +180,5 @@ public class Targeting : MonoBehaviour {
 			m_PossibleTargets.Remove(other.gameObject);
 		}
 	}
-
-
-
+*/
 }
