@@ -30,14 +30,14 @@ public class GnomeChase : BaseChaseBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () 
+	public override void update () 
 	{
 		if (m_LeaveCombat.LeaveCombat())
 			m_EnemyAI.SetState(EnemyAI.EnemyState.Idle);
 
 		m_Combat.Combat ();
 
-		float dist = Vector3.Distance (transform.position, m_Targeting.CurrentTarget ()); 
+		float dist = Vector3.Distance (transform.position, m_Targeting.CurrentTarget ().transform.position); 
 		if (dist <= Constants.MAGE_ATTACK_RANGE)
 			m_EnemyAI.SetState(EnemyAI.EnemyState.Attack);
 

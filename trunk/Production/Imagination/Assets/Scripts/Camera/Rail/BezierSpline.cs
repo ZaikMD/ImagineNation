@@ -27,10 +27,10 @@ public class BezierSpline : MonoBehaviour
 
 	
 	[SerializeField]
-	private BezierMoveMode[] m_Mode = new BezierControlPointMode[]
+	private BezierMoveMode[] m_Mode = new BezierMoveMode[]
 	{
-		BezierControlPointMode.Free,
-		BezierControlPointMode.Free
+		BezierMoveMode.Free,
+		BezierMoveMode.Free
 	
 	};
 

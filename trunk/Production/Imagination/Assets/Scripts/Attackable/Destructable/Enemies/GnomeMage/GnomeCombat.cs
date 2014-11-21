@@ -30,7 +30,7 @@ public class GnomeCombat : BaseBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		float dist = Vector3.Distance (transform.position, m_Targeting.CurrentTarget ()); 
+		float dist = Vector3.Distance (transform.position, m_Targeting.CurrentTarget ().transform.position); 
 		if (dist >= Constants.MAGE_ATTACK_RANGE)
 			m_EnemyAI.SetState(EnemyAI.EnemyState.Chase);
 
