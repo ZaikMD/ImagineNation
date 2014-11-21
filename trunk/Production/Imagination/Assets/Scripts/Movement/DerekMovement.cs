@@ -65,6 +65,11 @@ public class DerekMovement : BaseMovementAbility
 				m_Grapple = false;
 			}
 		}
+		//if derek is grappling this will stop all movement control and gravity of derek;
+		if(m_Grapple == true)
+		{
+			return;
+		}
 
 		base.update();
 	}

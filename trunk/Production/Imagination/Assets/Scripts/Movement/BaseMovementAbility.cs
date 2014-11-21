@@ -24,7 +24,6 @@
 * 				   Seperated falling calculation into a virtual function GetVerticalMovementAfterFalling()
 * 28/10/2014 Edit: Changed a number of constants and added a setPausedMovement function.
 * 
-* 19/11/2014 Edit: Added a function to stop gravity and movement control, used for grapple hooks - Greg Fortier
 * 
 * 
 */
@@ -53,7 +52,6 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	protected CharacterController m_CharacterController;
 	protected AcceptInputFrom m_AcceptInputFrom;
 	protected ActivatableMovingPlatform m_Platform;
-	//protected DerekMovement m_IsGrappling;
 
 	//Movement control
 	protected const float AIR_HORIZONTAL_CONTROL = 25.0f;
@@ -124,12 +122,6 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		{
 			return;
 		}
-
-		//if derek is grappling this will stop all movement control and gravity of derek;
-		//if(m_IsGrappling.m_Grapple == true)
-		//{
-		//	return;
-		//}
 
 		//If at any point the jump button is released the player is no longer currently jumping
 		if(InputManager.getJumpUp(m_AcceptInputFrom.ReadInputFrom))
