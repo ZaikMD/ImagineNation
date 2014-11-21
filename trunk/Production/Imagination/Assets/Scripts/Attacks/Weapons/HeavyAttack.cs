@@ -15,14 +15,14 @@ public class HeavyAttack : BaseAttack
 		m_Damage = 1.0f;
 		m_AttackTimer = 0.8f;
 		m_SaveAttackTimer = m_AttackTimer;
-		m_GraceTimer = 0.8f;
+		m_GraceTimer = 0.5f;
 		m_SaveGraceTimer = m_GraceTimer;
 	}
 	
 	public override void createProjectile ()
 	{
-		HeavyProjectile proj =  (HeavyProjectile)GameObject.Instantiate (m_Projectile,new Vector3(m_InitialPosition.x, m_InitialPosition.y + m_FirePointYOffSet, m_InitialPosition.z), m_InitialRotation);
-		
-		proj.setDamage (m_Damage);
+		GameObject proj = (GameObject)GameObject.Instantiate (m_Projectile,new Vector3(m_InitialPosition.x, m_InitialPosition.y + m_FirePointYOffSet, m_InitialPosition.z), m_InitialRotation);
+		HeavyProjectile projS = proj.GetComponent (typeof(HeavyProjectile)) as HeavyProjectile;
+		projS.setDamage (m_Damage);
 	}
 }

@@ -23,7 +23,14 @@ public class SpecialAttack : BaseAttack
 
 
 	Quaternion m_Rotation;
-
+	void Start()
+	{
+		m_Damage = 0.5f;
+		m_AttackTimer = 0.4f;
+		m_SaveAttackTimer = m_AttackTimer;
+		m_GraceTimer = 0.5f;
+		m_SaveGraceTimer = m_GraceTimer;
+	}
 
 	public override void createProjectile ()
 	{
