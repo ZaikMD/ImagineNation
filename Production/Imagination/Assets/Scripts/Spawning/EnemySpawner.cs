@@ -4,7 +4,7 @@ using System.Collections;
 public class EnemySpawner : MonoBehaviour 
 {
 
-	public BaseEnemy m_Enemy;
+	//public BaseEnemy m_Enemy;
 	public CheckPoint m_MyCheckpoint;
 
 
@@ -18,13 +18,13 @@ public class EnemySpawner : MonoBehaviour
 	{
 		if (GameData.Instance.CurrentCheckPoint <= m_MyCheckpoint.m_Value)
 		{
-			m_Enemy.Reset();
+			//m_Enemy.Reset();
 
 		}
 
 		else 
 		{
-			m_Enemy.SetIsActive(false);
+			//m_Enemy.SetIsActive(false);
 		}
 	}
 	
@@ -36,7 +36,7 @@ public class EnemySpawner : MonoBehaviour
 
 	public bool GetIsAlive()
 	{
-		return m_Enemy.GetIsAlive ();
+		//return m_Enemy.GetIsAlive ();
 	}
 
 }
