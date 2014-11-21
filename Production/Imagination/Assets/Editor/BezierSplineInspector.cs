@@ -132,7 +132,7 @@ public class BezierSplineInspector : Editor
 		}
 
 		EditorGUI.BeginChangeCheck();
-		BezierControlPointMode mode = (BezierControlPointMode)
+		BezierMoveMode mode = (BezierMoveMode)
 			EditorGUILayout.EnumPopup("Mode", m_Spline.GetControlPointMode(m_SelectedIndex));
 
 		if (EditorGUI.EndChangeCheck()) 
