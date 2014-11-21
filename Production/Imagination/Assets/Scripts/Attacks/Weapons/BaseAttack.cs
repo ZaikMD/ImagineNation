@@ -17,15 +17,15 @@ public class BaseAttack
 {
 	protected GameObject m_Projectile;
 
-	protected float m_AttackTimer = 0.6f; //The animation Timer 
-	protected float m_GraceTimer = 0.8f; //How long the player will have to combo the attack, starts .2 seconds before m_AttackTimer ends
+	protected float m_AttackTimer = 0.4f; //The animation Timer 
+	protected float m_GraceTimer = 0.5f; //How long the player will have to combo the attack, starts .2 seconds before m_AttackTimer ends
 
 	bool m_Attacking = false;
 	bool m_GraceCountdown = false;
 
-	protected float m_SaveAttackTimer = 0.6f;
-	protected float m_SaveGraceTimer = 0.8f;
-    protected float m_StartGraceTimerTimer = 0.2f;
+	protected float m_SaveAttackTimer = 0.4f;
+	protected float m_SaveGraceTimer = 0.5f;
+    protected float m_StartGraceTimerTimer = 0.0f;
 	protected float m_Damage;
 
 	protected Vector3 m_InitialPosition;
