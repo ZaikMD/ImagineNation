@@ -1,19 +1,14 @@
 ﻿/*
- * Created by Joe Burchill
- * Date: Sept, 12, 2014
+ * Created by Greg Fortier
+ * Date: Nov, 14th, 2014
  *  
  * This script specifically handles the movement ability of Derek:
- * to wall jump. It checks if the player has jumped at a wall and
- * then forces them off the wall if they have jumped again while on
- * the wall. This is used with base movement and ray casting. 
+ * to grapple hook. It checks if the player has hit the jump button twice
+ * and transforms Derek's position to the position of the grapple point.
  * 
  */
 #region ChangeLog
 /* 
- * 19/9/2014 - Changed to currectly use the new base class functionality - Jason Hein
- * 27/10/2014 - Fixed stuck on the wall bug and pre-accelerating while on the wall - Jason Hein
- * 27/10/2014 - Added getter function for jumping and falling variables - Jason Hein
- * 29/10/2014 - Added Rotation to the player when jumping off the wall - Joe Burchill
  * 14/11/2014 - Complete redesign of Derek's movement. Derek now has a grapple hook instead of double jump - Greg Fortier
  */
 #endregion
@@ -23,57 +18,59 @@ using System.Collections;
 
 public class DerekMovement : BaseMovementAbility
 {
-	private const float JUMP_SPEED = 6.5f;
-
-	//public GameObject m_TempTarget;
-
 	private Targeting m_target;
-
+	private GameObject m_CurrentTarget;
 	private Quaternion m_LookRotation;
 	private Vector3 m_Direction;
+	private const float JUMP_SPEED = 6.5f;
 	
-	float m_Speed = 15.0f;
+	float m_GrappleSpeed = 15.0f;
+	float m_DistBeforeFalling = 1.0f;
 
-	public bool m_Grapple;
+
+
+	bool m_Grapple;
 
 	// Use this for initialization
 	void Start () 
 	{ 
 		m_Grapple = false;
 		m_target = GetComponent<Targeting>();
-        //Calls the base class start function
+       
+		//Calls the base class start function
 		base.start ();
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
+		//checks if there is a target in sight
 		if (m_target.GetCurrentTarget() != null)
 		{
+			//checks if player is on ground, he can't not grapple if on ground
 			if(GetIsGrounded() == false)
 			{
+				//Checks for input, if jump has been pressed then m_Grapple = true;
 				if(InputManager.getJumpDown(m_AcceptInputFrom.ReadInputFrom))
 				{
 					m_Grapple = true;
+					m_CurrentTarget = m_target.GetCurrentTarget();
 				}
 			}
 
+			//if m_Grapple == true, then call MoveTowardsTarget()
 			if(m_Grapple)
 			{
 				MoveTowardsTarget();
 			}
 
-			if(Vector3.Distance(this.transform.position, m_target.GetCurrentTarget().transform.position) < 1.0f)
+			//checks the distance between the player and the target, if it's smaller than m_DistBeforeFalling, you will fall
+			if(Vector3.Distance(this.transform.position, m_target.GetCurrentTarget().transform.position) < m_DistBeforeFalling)
 			{
 				m_Grapple = false;
 			}
 		}
 		//if derek is grappling this will stop all movement control and gravity of derek;
-		if(m_Grapple == true)
-		{
-			return;
-		}
-
 		if(m_Grapple == true)
 		{
 			return;
@@ -85,7 +82,7 @@ public class DerekMovement : BaseMovementAbility
 	private void MoveTowardsTarget()
 	{
 		Vector3 currentPosition = this.transform.position;
-		Vector3 targetPosition = m_target.GetCurrentTarget().transform.position;
+		Vector3 targetPosition = m_CurrentTarget.transform.position;
 
 		if(Vector3.Distance(currentPosition, targetPosition) > 0.0f)
 		{
@@ -93,12 +90,12 @@ public class DerekMovement : BaseMovementAbility
 			directionOfTravel.Normalize();
 
 			this.transform.Translate(
-				(directionOfTravel.x * m_Speed * Time.deltaTime),
-				(directionOfTravel.y * m_Speed * Time.deltaTime),
-				(directionOfTravel.z * m_Speed * Time.deltaTime),
+				(directionOfTravel.x * m_GrappleSpeed * Time.deltaTime),
+				(directionOfTravel.y * m_GrappleSpeed * Time.deltaTime),
+				(directionOfTravel.z * m_GrappleSpeed * Time.deltaTime),
 				Space.World);
 
-			if(m_target.GetCurrentTarget() != null)
+			if(m_CurrentTarget != null)
 			{
 				//finds the vector pointing from our position to the target
 				m_Direction = (targetPosition - this.transform.position).normalized;
@@ -109,7 +106,7 @@ public class DerekMovement : BaseMovementAbility
 				m_LookRotation.z = 0.0f;
 
 				//rotates the player over time according to speed until we are in required rotation
-				this.transform.rotation = Quaternion.Slerp(this.transform.rotation, m_LookRotation, Time.deltaTime * m_Speed);
+				this.transform.rotation = Quaternion.Slerp(this.transform.rotation, m_LookRotation, Time.deltaTime * m_GrappleSpeed);
 
 			}
 		}
