@@ -10,7 +10,7 @@ using System.Collections;
 public class HeavyAttack : BaseAttack
 {
 
-	void Start()
+	public  HeavyAttack()
 	{
 		m_Damage = 1.0f;
 		m_AttackTimer = 0.8f;

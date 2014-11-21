@@ -9,12 +9,12 @@ using System.Collections;
 /// </summary>
 public class LightAttack : BaseAttack
 {
-	void Start()
+	public LightAttack()
 	{
 		m_Damage = 0.5f;
-		m_AttackTimer = 0.5f;
+		m_AttackTimer = 1.0f;
 		m_SaveAttackTimer = m_AttackTimer;
-		m_GraceTimer = 0.3f;
+		m_GraceTimer = 0.8f;
 		m_SaveGraceTimer = m_GraceTimer;
 	}
 
