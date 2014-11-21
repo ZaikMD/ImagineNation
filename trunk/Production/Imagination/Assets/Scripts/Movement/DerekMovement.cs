@@ -30,6 +30,7 @@ public class DerekMovement : BaseMovementAbility
 
 
 	bool m_Grapple;
+	bool m_CanGrapple;
 
 	// Use this for initialization
 	void Start () 
@@ -44,16 +45,22 @@ public class DerekMovement : BaseMovementAbility
 	// Update is called once per frame
 	void Update () 
 	{
+		if(GetIsGrounded())
+		{
+			m_CanGrapple = true;
+		}
+
 		//checks if there is a target in sight
 		if (m_target.GetCurrentTarget() != null && m_Grapple == false)
 		{
 			//checks if player is on ground, he can't not grapple if on ground
-			if(GetIsGrounded() == false)
+			if(CanGrapple())
 			{
 				//Checks for input, if jump has been pressed then m_Grapple = true;
 				if(InputManager.getJumpDown(m_AcceptInputFrom.ReadInputFrom))
 				{
 					m_Grapple = true;
+					m_CanGrapple = false;
 					m_CurrentTarget = m_target.GetCurrentTarget();
 				}
 			}
@@ -86,6 +93,16 @@ public class DerekMovement : BaseMovementAbility
 		}
 
 		base.update();
+	}
+
+	private bool CanGrapple()
+	{
+		if(GetIsGrounded() == false && m_CanGrapple == true)
+		{
+			return true;
+		}
+
+		return false;	
 	}
 
 	private void MoveTowardsTarget()
