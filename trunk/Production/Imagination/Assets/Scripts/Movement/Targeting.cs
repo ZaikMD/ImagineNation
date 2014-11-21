@@ -20,7 +20,6 @@ public class Targeting : MonoBehaviour {
     public float m_ViewableDistance;
     public Color m_TargetColor;
 
-    public SphereCollider m_Collider;
     public Camera m_Camera;
     private Color m_CurrentTargetOriginalColor;
     private GameObject m_CurrentTarget;
@@ -31,19 +30,20 @@ public class Targeting : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+		//set up our list of possible targets
         m_PossibleTargets = new List<GameObject>();
-//		m_LayerMask = LayerMask.GetMask(Constants.PLAYER_STRING);
-//		m_LayerMask = ~m_LayerMask;
 		for (int i = 0; i < m_TargetableTags.Length; i++)
 		{
+			//create an array of all the objects of the tag at our current index
 			GameObject[] objectsToAdd = GameObject.FindGameObjectsWithTag(m_TargetableTags[i]);
         
+			//Loop through and add to our list
 			for(int n = 0; n < objectsToAdd.Length; n++)
 			{
 				m_PossibleTargets.Add(objectsToAdd[n]);
 			}
 		}
-		m_Collider.radius = m_ViewableDistance;
+		//setting our layer mask to ignore the player
         m_LayerMask = LayerMask.GetMask(Constants.PLAYER_STRING);
         m_LayerMask = ~m_LayerMask;
     }
@@ -92,7 +92,7 @@ public class Targeting : MonoBehaviour {
             rayToObject.origin = m_Camera.transform.position;
 			//Debug.DrawRay(rayToObject.origin, rayToObject.direction);
 
-            if (Physics.Raycast(rayToObject, out HitInfo, 500, m_LayerMask))
+            if (Physics.Raycast(rayToObject, out HitInfo, m_ViewableDistance, m_LayerMask))
             {
 				Debug.DrawRay(rayToObject.origin, rayToObject.direction);
 
@@ -109,7 +109,7 @@ public class Targeting : MonoBehaviour {
                 AngleOfCurrentTarget = Angle;
             }
 
-			//Debug.Log(HitInfo.collider);
+//			Debug.Log(HitInfo.collider);
         }
 
         //have we found anything?
@@ -134,8 +134,6 @@ public class Targeting : MonoBehaviour {
         {
             return;
         }
-
-
         m_CurrentTargetOriginalColor = m_CurrentTarget.renderer.material.color;
         m_CurrentTarget.renderer.material.color = m_TargetColor;
     }
@@ -144,41 +142,4 @@ public class Targeting : MonoBehaviour {
     {
         return m_Camera.transform.forward;
     }
-
-	void CheckDistanceOfTargets()
-	{
-		for(int i = 0; i < m_PossibleTargets.Count; i++)
-		{
-			if(10 < Vector3.Distance(m_PossibleTargets[i].transform.position, this.transform.position))
-			{
-				m_PossibleTargets.RemoveAt(i);
-			}
-		}
-	}
-/*
-    void OnTriggerEnter(Collider other)
-    {
-		if(other.tag == "Targetable")
-		{
-			m_PossibleTargets.Add(other.gameObject);
-			other.renderer.material.color = m_TargetColor;
-		}
-        for (int i = 0; i < m_TargetableTags.Length; i++)
-        {
-            if (other.tag == m_TargetableTags[i])
-            {
-                m_PossibleTargets.Add(other.gameObject);
-                other.renderer.material.color = m_TargetColor;
-            }
-        }
-    }
-
-	void OnTriggerExit(Collider other)
-	{
-		if(m_PossibleTargets.Contains(other.gameObject))
-		{	
-			m_PossibleTargets.Remove(other.gameObject);
-		}
-	}
-*/
 }
