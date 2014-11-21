@@ -25,7 +25,7 @@ public class BaseAttack
 
 	protected float m_SaveAttackTimer = 0.4f;
 	protected float m_SaveGraceTimer = 0.5f;
-    protected float m_StartGraceTimerTimer = 0.0f;
+    protected float m_StartGraceTimerTimer = 0.1f;
 	protected float m_Damage;
 
 	protected Vector3 m_InitialPosition;
@@ -34,6 +34,11 @@ public class BaseAttack
 	protected float m_FirePointYOffSet = 0.5f;
 	
 	// Update is called once per frame
+
+	void Start()
+	{
+
+	}
 	public void Update ()
 	{
 		if(m_Attacking)
@@ -113,10 +118,6 @@ public class BaseAttack
 
 	public virtual void createProjectile()
 	{
-		//GameObject.Instantiate (m_Projectile,
-		                      //  new Vector3(m_InitialPosition.x, 
-		                      //  m_InitialPosition.y + m_FirePointYOffSet,
-		                      //  m_InitialPosition.z), 
-		                     //    m_InitialRotation);
+
 	}
 }
