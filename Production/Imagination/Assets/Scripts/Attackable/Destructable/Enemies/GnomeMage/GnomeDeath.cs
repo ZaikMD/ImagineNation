@@ -13,9 +13,8 @@ using System.Collections;
  */
 #endregion
 
-public class GnomeDeath : MonoBehaviour 
+public class GnomeDeath : BaseDeadBehaviour 
 {
-
 	// Use this for initialization
 	void Start () 
 	{
@@ -23,9 +22,9 @@ public class GnomeDeath : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () 
+	public override void update ()
 	{
-	
+
 	}
 
 }
