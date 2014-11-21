@@ -45,7 +45,7 @@ public class DerekMovement : BaseMovementAbility
 	void Update () 
 	{
 		//checks if there is a target in sight
-		if (m_target.GetCurrentTarget() != null)
+		if (m_target.GetCurrentTarget() != null && m_Grapple == false)
 		{
 			//checks if player is on ground, he can't not grapple if on ground
 			if(GetIsGrounded() == false)
@@ -70,9 +70,18 @@ public class DerekMovement : BaseMovementAbility
 				m_Grapple = false;
 			}
 		}
-		//if derek is grappling this will stop all movement control and gravity of derek;
-		if(m_Grapple == true)
+
+		//checks the distance between the player and the target, if it's smaller than m_DistBeforeFalling, you will fall
+		if (m_CurrentTarget != null)
 		{
+			if(Vector3.Distance(this.transform.position, m_CurrentTarget.transform.position) < m_DistBeforeFalling)
+			{
+				m_Grapple = false;
+			}
+		}
+		if(m_Grapple)
+		{
+			MoveTowardsTarget();
 			return;
 		}
 
