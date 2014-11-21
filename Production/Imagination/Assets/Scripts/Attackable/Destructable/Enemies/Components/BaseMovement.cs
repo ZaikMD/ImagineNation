@@ -3,8 +3,7 @@ using System.Collections;
 
 public abstract class BaseMovement : BaseComponent
 {
-	NavMeshAgent m_Agent;
-
+	protected NavMeshAgent m_Agent;
 
     public override void start(BaseBehaviour baseBehaviour)
     {
