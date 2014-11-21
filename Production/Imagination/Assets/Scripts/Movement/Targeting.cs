@@ -43,8 +43,9 @@ public class Targeting : MonoBehaviour {
 				m_PossibleTargets.Add(objectsToAdd[n]);
 			}
 		}
-		//setting our layer mask to ignore the player
+		//getting the mask of the player
         m_LayerMask = LayerMask.GetMask(Constants.PLAYER_STRING);
+		//setting our layermask to the inverse of players
         m_LayerMask = ~m_LayerMask;
     }
 	
@@ -57,6 +58,7 @@ public class Targeting : MonoBehaviour {
         PaintTarget();    
     }
 
+	//find the current target
     void CalcCurrentTarget()
     {
         //reset our current target
@@ -88,40 +90,27 @@ public class Targeting : MonoBehaviour {
             Ray rayToObject = new Ray();
             RaycastHit HitInfo;
 
+			//setting our raycast direction settings
             rayToObject.direction = DirectionOfTarget;
             rayToObject.origin = m_Camera.transform.position;
-			//Debug.DrawRay(rayToObject.origin, rayToObject.direction);
 
-            if (Physics.Raycast(rayToObject, out HitInfo, m_ViewableDistance, m_LayerMask))
+			//Raycasting to see if there is anything between us and the object we want to head, 
+			//we are also passing in our viewable distance to see if they are within range
+            if(Physics.Raycast(rayToObject, out HitInfo, m_ViewableDistance, m_LayerMask))
             {
-				Debug.DrawRay(rayToObject.origin, rayToObject.direction);
-
-                //Check if object hit is ours
+				//Check if object hit is ours
                 if (HitInfo.collider.gameObject != m_PossibleTargets[i])
                 {
                     continue;
                 }
-
-              //  Debug.Log("What we got");
-
-                //Object was hit, has better angle, and is within range
+				//Object was hit, has better angle, and is within range
                 m_CurrentTarget = m_PossibleTargets[i];
                 AngleOfCurrentTarget = Angle;
             }
-
-//			Debug.Log(HitInfo.collider);
         }
-
-        //have we found anything?
-        if(m_CurrentTarget == null)
-        {
-            { 
-                //We have not found anything. 
-            }
-        }
-
     }
 
+	//Returns our current target
     public GameObject GetCurrentTarget()
     {
         return m_CurrentTarget;
@@ -130,14 +119,18 @@ public class Targeting : MonoBehaviour {
     //change color of target
     void PaintTarget()
     {
+		//safety check if we have a target
         if (m_CurrentTarget == null)
         {
             return;
         }
+		//get the objects color so we can reset it
         m_CurrentTargetOriginalColor = m_CurrentTarget.renderer.material.color;
-        m_CurrentTarget.renderer.material.color = m_TargetColor;
+        //change the color so we know what is our target
+		m_CurrentTarget.renderer.material.color = m_TargetColor;
     }
 
+	//get the cameras forward vector
     Vector3 GetCameraForward()
     {
         return m_Camera.transform.forward;
