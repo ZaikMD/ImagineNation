@@ -23,8 +23,6 @@ public class MovementAroundNodes : BaseMovement
     //Target for the enemy to move to
     private Transform m_Target;
 
-    private NavMeshAgent m_Agent;
-
     //Min and max patrol speed for randomization
     private const float MIN_PATROL_SPEED = 3.0f;
     private const float MAX_PATROL_SPEED = 5.0f;
