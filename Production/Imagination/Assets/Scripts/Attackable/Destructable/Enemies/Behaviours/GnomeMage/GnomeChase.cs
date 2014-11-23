@@ -15,6 +15,8 @@ using System.Collections;
 
 public class GnomeChase : BaseChaseBehaviour 
 {
+	BaseMovement m_Movement;
+
 	BaseCombat m_Combat;
 
 	BaseTargeting m_Targeting;
@@ -46,11 +48,14 @@ public class GnomeChase : BaseChaseBehaviour
 			return; 
 		}
 
-		m_Combat.Combat ();
-
 		float dist = Vector3.Distance (transform.position, m_TargetPlayer.transform.position); 
 		if (dist <= Constants.MAGE_ATTACK_RANGE)
+		{
 			m_EnemyAI.SetState(EnemyAI.EnemyState.Attack);
+			return;
+		}
 
+		m_Movement.Movement ();
+		m_Combat.Combat ();
 	}
 }

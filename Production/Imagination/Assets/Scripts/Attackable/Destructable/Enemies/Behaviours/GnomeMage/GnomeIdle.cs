@@ -29,11 +29,11 @@ public class GnomeIdle : BaseIdleBehaviour
 	// Update is called once per frame 
 	public override void update()
 	{
-		m_Movement.Movement ();
+		if (m_Movement != null)
+			m_Movement.Movement ();
 
 		if (m_EnterCombat.EnterCombat())
-		{
-			m_EnemyAI.SetState(EnemyAI.EnemyState.Chase);
-		}
+			m_EnemyAI.SetState(EnemyAI.EnemyState.Chase);		
+
 	}
 }
