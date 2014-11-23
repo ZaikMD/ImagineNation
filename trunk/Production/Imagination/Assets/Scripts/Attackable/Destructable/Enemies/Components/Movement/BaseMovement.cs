@@ -10,10 +10,18 @@ public abstract class BaseMovement : BaseComponent
 		m_Agent = baseBehaviour.GetAgent ();
     }
 
-	public abstract void Movement();
-
-	public virtual void Movement(Vector3 targetLocation)
+	public virtual void Movement()
 	{
-		m_Agent.SetDestination (targetLocation);
+
+	}
+
+	public virtual void Movement(Transform target)
+	{
+
+	}
+
+	public virtual void Movement(Vector3 moveLocation)
+	{
+		m_Agent.SetDestination (moveLocation);
 	}
 }
