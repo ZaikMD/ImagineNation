@@ -13,6 +13,9 @@
 * 24/10/2014 Edit: Took out m_StopRegenHealthTimer and made it so m_HealthRegenTimer resets when the player is hit
 * 
 * 7/11/2014 Edit: added varible to determine if we are player one or two - Kole 
+* 
+* 24/11/2014 Edit: Added functionality to be able to get the player - Greg
+* 
 */
 #endregion
 
@@ -57,6 +60,13 @@ public class PlayerHealth : Destructable
 	}
 
 	public TPCamera PlayerCamera;
+
+	//get the players in the scene
+	static List<PlayerHealth> m_PlayersList = new List<PlayerHealth>();
+	public static List<PlayerHealth> Cameras
+	{
+		get { return m_PlayersList; }
+	}
 
 	// Use this for initialization
 	void Start () 
@@ -149,6 +159,24 @@ public class PlayerHealth : Destructable
 		m_GUITexture.texture = textures [m_Health];
 
 		m_GUITexture.pixelInset = new Rect (0.0f, Screen.height - textures [m_Health].height * TEXTURE_SCALE, textures [m_Health].width * TEXTURE_SCALE, textures [m_Health].height * TEXTURE_SCALE);
+	}
+
+	void OnDestroy()
+	{
+		//removes the camera from the static list
+		for(int i = 0; i < m_PlayersList.Count; i++)
+		{
+			if(m_PlayersList[i] == this)
+			{
+				m_PlayersList.RemoveAt(i);
+				break;
+			}
+		}
+	}
+	
+	void Awake()
+	{
+		m_PlayersList.Add(this);
 	}
 	
 	// Update is called once per frame
