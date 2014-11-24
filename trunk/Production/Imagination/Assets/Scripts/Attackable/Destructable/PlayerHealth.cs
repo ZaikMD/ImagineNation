@@ -63,7 +63,7 @@ public class PlayerHealth : Destructable
 
 	//get the players in the scene
 	static List<PlayerHealth> m_PlayersList = new List<PlayerHealth>();
-	public static List<PlayerHealth> Cameras
+	public static List<PlayerHealth> PlayerHealthList
 	{
 		get { return m_PlayersList; }
 	}
