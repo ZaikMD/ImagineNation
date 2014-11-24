@@ -13,7 +13,8 @@
 
 #region Change Log 
 /*
- * 11/19/2014 Cleaned and optimized code - Jason Hein
+ * 11/19/2014 - Cleaned and optimized code - Jason Hein
+ * 11/24/2014 - Added functionality to push to player - Jason Hein
  */
 #endregion
 
@@ -151,5 +152,54 @@ public class ActivatableMovingPlatform : Activatable
 		{
 			m_SFX.playSound(this.gameObject, Sounds.GateOpen);
 		}
+	}
+
+	//When the player collides with this platform
+	void OnCollisionStay (Collision collision)
+	{
+		//Only move players
+		if (collision.gameObject.tag != Constants.PLAYER_STRING)
+		{
+			return;
+		}
+
+		//Null check for the movement ability
+		BaseMovementAbility movement = (BaseMovementAbility)collision.transform.parent.gameObject.GetComponent<BaseMovementAbility> ();
+		if (movement == null)
+		{
+			return;
+		}
+
+		//Get the average direction that the player has collided with the moving platform
+		ContactPoint[] contacts = collision.contacts;
+		Vector3 averageNormal = Vector3.zero;
+		foreach (ContactPoint contactPoint in contacts)
+		{
+			averageNormal += contactPoint.normal;
+			Debug.DrawRay(contactPoint.point, contactPoint.normal, Color.white);
+		}
+		averageNormal /= -contacts.Length;
+
+		//Calculate the amount to move the player
+		Vector3 amountToMove = Vector3.zero;
+
+		//Check if the player is on top of the platform
+		if (Vector3.Dot(Vector3.up, averageNormal) > 0.5f)
+		{
+			//Move the player as much at this platform is moving
+			amountToMove = m_AmountToMovePlayer * 1.2f;
+		}
+		//Check if we are in front of the platform
+		else if (Vector3.Dot(m_AmountToMovePlayer, averageNormal) > 0.0f)
+		{
+			//Move the layer based on how much we are overlapping the player
+			Vector3 playerMovement = movement.GetMovementThisFrame();
+			playerMovement.y = 0.0f;
+			amountToMove = Vector3.Scale(averageNormal, m_AmountToMovePlayer * 1.2f - playerMovement);
+			amountToMove.y = 0.0f;
+		}
+
+		//Move the player
+		movement.RequestInstantMovement(amountToMove);
 	}
 }

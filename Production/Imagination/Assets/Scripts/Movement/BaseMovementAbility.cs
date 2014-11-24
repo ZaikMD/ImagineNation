@@ -51,7 +51,6 @@ public abstract class BaseMovementAbility : MonoBehaviour
     protected SFXManager m_SFX;
 	protected CharacterController m_CharacterController;
 	protected AcceptInputFrom m_AcceptInputFrom;
-	protected ActivatableMovingPlatform m_Platform;
 
 	//Movement control
 	protected const float AIR_HORIZONTAL_CONTROL = 25.0f;
@@ -82,9 +81,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 
 	//States
 	protected bool m_CurrentlyJumping = false;
-	protected bool m_IsOnMovingPlatform = false;
 	protected bool m_PausedMovement = false;
-	
 
 
 
@@ -106,8 +103,18 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		Physics.IgnoreLayerCollision (LayerMask.NameToLayer (Constants.PLAYER_STRING),
 		                             LayerMask.NameToLayer (Constants.PLAYER_STRING));
 
-	//	m_IsGrappling = GetComponent<DerekMovement> ();
+		//Moving platform collision
 
+		//Players ignores moving platform collider inside each other
+		Physics.IgnoreLayerCollision (LayerMask.NameToLayer (Constants.PLAYER_STRING),
+		                              LayerMask.NameToLayer (Constants.COLLIDE_WITH_MOVING_PLATFORM_LAYER_STRING));
+
+		//Moving platform collider inside player collides with nothing except moving platforms
+		Physics.IgnoreLayerCollision (LayerMask.NameToLayer (Constants.COLLIDE_WITH_MOVING_PLATFORM_LAYER_STRING),
+		                              Physics.AllLayers);
+		Physics.IgnoreLayerCollision (LayerMask.NameToLayer (Constants.COLLIDE_WITH_MOVING_PLATFORM_LAYER_STRING),
+		                              LayerMask.NameToLayer (Constants.MOVING_PLATFORM_LAYER_STRING),
+		                              false);
 	}
 	
 
@@ -131,7 +138,6 @@ public abstract class BaseMovementAbility : MonoBehaviour
 
 		//Initialize states
 		GetIsGrounded ();
-		IsOnMovingPlatform ();
 
 		//External movement
 		InstantExternalMovement ();
@@ -491,47 +497,6 @@ public abstract class BaseMovementAbility : MonoBehaviour
 
 
 
-	//Moving Platforms
-
-	//Return if this character is on a platform
-	bool IsOnMovingPlatform()
-	{
-		RaycastHit hitInfo;
-		return IsOnMovingPlatform (out hitInfo);
-	}
-
-	//Return if this character is on a platform, and give back the hitinfo
-	bool IsOnMovingPlatform(out RaycastHit hitInfo)
-	{
-		if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hitInfo, 0.5f))
-		{
-			if(hitInfo.transform != null)
-			{
-				if(hitInfo.collider.gameObject.tag == Constants.MOVING_PLATFORM_TAG_STRING)
-				{
-					m_IsOnMovingPlatform = true;
-					m_Platform = hitInfo.transform.gameObject.GetComponent<ActivatableMovingPlatform>();
-					PlatformMovement();
-					return true;
-				}
-				else
-				{
-					m_IsOnMovingPlatform = false;
-				}
-			}
-		}
-		return false;
-	}
-
-	//Platforms request platform movement
-	void PlatformMovement()
-	{
-		RequestInstantMovement (m_Platform.GetAmountToMovePlayer ());
-	}
-
-
-
-
 	//Animation
 
 	//Plays a walking animation
@@ -551,5 +516,21 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		{
 			m_AnimState.AddAnimRequest(AnimationStates.Run);
 		}        
-	}	
+	}
+
+	/// <summary>
+	/// Gets the velocity of the player.
+	/// </summary>
+	public Vector3 GetVelocity()
+	{
+		return m_Velocity;
+	}
+
+	/// <summary>
+	/// Gets the players movement for this frame.
+	/// </summary>
+	public Vector3 GetMovementThisFrame()
+	{
+		return m_Velocity * Time.deltaTime;
+	}
 }
