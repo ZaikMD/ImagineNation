@@ -27,8 +27,11 @@ using System.Collections.Generic;
 public class TPCamera : ShutterCamera
 {
     //used to get all the cameras in the scene
-    public static List<TPCamera> Cameras = new List<TPCamera>();
-
+    static List<TPCamera> m_Cameras = new List<TPCamera>();
+    public static List<TPCamera> Cameras
+    {
+        get { return m_Cameras; }
+    }
 
 	const string CAMERA_IGNORE_COLLISION_LAYER = "CameraCollisionIgnore";
     int m_RaycastMask;
@@ -77,11 +80,11 @@ public class TPCamera : ShutterCamera
     void OnDestroy()
     {
         //removes the camera from the static list
-        for(int i = 0; i < Cameras.Count; i++)
+        for(int i = 0; i < m_Cameras.Count; i++)
         {
-            if(Cameras[i] == this)
+            if(m_Cameras[i] == this)
             {
-                Cameras.RemoveAt(i);
+                m_Cameras.RemoveAt(i);
                 break;
             }
         }
@@ -89,7 +92,7 @@ public class TPCamera : ShutterCamera
 
 	void Awake()
 	{
-		Cameras.Add(this);
+		m_Cameras.Add(this);
 	}
 
     // Use this for initialization
