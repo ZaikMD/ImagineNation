@@ -15,26 +15,23 @@ using System.Collections;
 
 public class GnomeChase : BaseChaseBehaviour 
 {
-	BaseMovement m_Movement;
-
-	BaseCombat m_Combat;
-
-	BaseTargeting m_Targeting;
 	GameObject m_TargetPlayer;
 
-	BaseLeavingCombat m_LeaveCombat;
+	BaseCombat m_CombatComponent;
 
 	// Use this for initialization
 	void Start () 
 	{
-		m_Combat.start (this);
-		m_LeaveCombat.start (this);
+		m_CombatComponent.start (this);
+		m_LeavingCombatComponent.start (this);
+		m_MovementComponent.start (this);
+		m_TargetingComponent.start (this);
 	}
 	
 	// Update is called once per frame
 	public override void update () 
 	{
-		m_TargetPlayer = m_Targeting.CurrentTarget ();
+		m_TargetPlayer = Target ();
 
 		if (m_TargetPlayer == null)
 		{
@@ -42,7 +39,7 @@ public class GnomeChase : BaseChaseBehaviour
 			return;
 		}
 
-		if (m_LeaveCombat.LeaveCombat())
+		if (LeaveCombat())
 		{
 			m_EnemyAI.SetState(EnemyAI.EnemyState.Idle);
 			return; 
@@ -55,7 +52,9 @@ public class GnomeChase : BaseChaseBehaviour
 			return;
 		}
 
-		m_Movement.Movement ();
-		m_Combat.Combat ();
+		Movement ();
+
+		if (m_EnemyAI.m_UCombat)
+			m_CombatComponent.Combat ();
 	}
 }

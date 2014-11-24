@@ -22,12 +22,8 @@ public class GnomeCombat : BaseAttackBehaviour
 		Cloned
 	}
 	CombatStates m_CurrentCombatState = CombatStates.Regular;
-
-	BaseTargeting m_Targeting;
-	GameObject m_Target;
-
-	BaseCombat m_RegularCombat;
-	BaseMovement m_RegularMovement;
+	
+	GameObject m_Target;	
 
 	BaseMovement m_CloningMovement;
 
@@ -42,10 +38,10 @@ public class GnomeCombat : BaseAttackBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		m_Targeting.start (this);
+		m_TargetingComponent.start (this);
 
-		m_RegularCombat.start (this);
-		m_RegularMovement.start (this);
+		m_CombatComponent.start (this);
+		m_MovementComponent.start (this);
 
 		m_ClonedCombat.start (this);
 		m_ClonedMovement.start (this);
@@ -56,7 +52,7 @@ public class GnomeCombat : BaseAttackBehaviour
 	// Update is called once per frame
 	public override void update ()
 	{
-		m_Target = m_Targeting.CurrentTarget ();
+		m_Target = Target ();
 
 		if (m_Target == null)
 		{
@@ -86,10 +82,8 @@ public class GnomeCombat : BaseAttackBehaviour
 
 	void Regular()
 	{
-		if (m_RegularMovement != null)
-		m_RegularMovement.Movement ();
-
-		m_ClonedCombat.Combat ();
+		Movement ();
+		Combat ();
 
 		if (m_EnemyAI.m_Health == 1)
 		{
@@ -100,9 +94,7 @@ public class GnomeCombat : BaseAttackBehaviour
 
 	void Cloning()
 	{
-		if (m_CloningMovement != null)
-		m_CloningMovement.Movement ();
-
+		Movement ();
 		CreateClones ();
 	}
 
@@ -111,10 +103,8 @@ public class GnomeCombat : BaseAttackBehaviour
 		if (m_ClonedTimer <= 0)
 			m_CurrentCombatState = CombatStates.Regular;		
 
-		if (m_ClonedMovement != null)
-			m_ClonedMovement.Movement ();
-
-		m_ClonedCombat.Combat ();
+		Movement ();
+		Combat ();
 		m_ClonedTimer -= Time.deltaTime;
 	}
 
@@ -127,5 +117,48 @@ public class GnomeCombat : BaseAttackBehaviour
 	void DeactivateShield()
 	{
 		m_Shield.DeactivateShield (m_ClonedTime);
+	}
+
+	protected override void Movement ()
+	{
+		if (m_EnemyAI.m_UMovement)
+		{
+			switch (m_CurrentCombatState)
+			{
+			case CombatStates.Regular:
+				if (m_MovementComponent != null)			
+					m_MovementComponent.Movement();
+				break;
+				
+			case CombatStates.Cloning:
+				if (m_CloningMovement != null)	
+					m_CloningMovement.Movement();
+				break;
+				
+			case CombatStates.Cloned:
+				if (m_ClonedMovement != null)	
+					m_ClonedMovement.Movement();				
+				break;
+			}
+		}
+	}
+
+	protected override void Combat ()
+	{
+		if (m_EnemyAI.m_UCombat)
+		{
+			switch (m_CurrentCombatState)
+			{
+			case CombatStates.Regular:
+				if (m_CombatComponent != null)
+					m_CombatComponent.Combat();				
+				break;
+				
+			case CombatStates.Cloned:
+				if (m_ClonedCombat != null)
+					m_ClonedCombat.Combat();		
+				break;
+			}
+		}
 	}
 }
