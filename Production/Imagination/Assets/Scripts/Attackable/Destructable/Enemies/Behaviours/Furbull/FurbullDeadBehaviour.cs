@@ -13,10 +13,15 @@
 using UnityEngine;
 using System.Collections;
 
-public class FurbullDeadBehaviour : BaseDeadBehaviour {
+public class FurbullDeadBehaviour : BaseDeadBehaviour 
+{
+    void Start()
+    {
+        m_DeathComponent.start(this);
+    }
 
 	public override void update()
 	{
-		
+		//Add in Death Functionality
 	}
 }

@@ -132,4 +132,6 @@ public static class Constants
 
 	// Enemy Constants
 	public const float MAGE_ATTACK_RANGE = 10.0f;
+    public const float FURBULL_ATTACK_RANGE = 1.5f;
+    public const float SPIN_TOP_ATTACK_RANGE = 10.0f;
 }
