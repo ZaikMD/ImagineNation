@@ -15,10 +15,16 @@ public class Hud : MonoBehaviour {
 	//bool's to determine to show things
     bool m_ShowCheckPoint;
     bool m_ShowHiddenHud;
+	bool m_ShowLightPegs;
+	bool m_ShowLifes;
+	bool m_ShowPuzzlePieces;
 
    	//Time for showing and hiding hud
     float m_HudDisplayLength;
     float m_HudDisplayTimer;
+	float m_LightPegTimer;
+	float m_PuzzlePieceTimer;
+	float m_LifeTimer;
     float m_CheckPointDisplayTimer;
 
     //Varibles to display
@@ -54,8 +60,14 @@ public class Hud : MonoBehaviour {
         m_HudDisplayLength = Constants.HUD_ON_SCREEN_TIME;
         m_HudDisplayTimer = 0;
         m_CheckPointDisplayTimer = 0;
+		m_LightPegTimer = 0;
+		m_PuzzlePieceTimer = 0;
+		m_LifeTimer = 0;
         m_ShowCheckPoint = false;
         m_ShowHiddenHud = false;
+		m_ShowLightPegs = false;
+		m_ShowLifes = false;
+		m_ShowPuzzlePieces = false;
 
 
 		switch(GameData.Instance.PlayerOneCharacter)
@@ -92,6 +104,11 @@ public class Hud : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+		if(InputManager.getShowHud())
+		{
+			ShowHiddenHud();
+		}
+
         if (m_HudDisplayTimer > 0)
         {
             m_HudDisplayTimer -= Time.deltaTime;
@@ -111,6 +128,38 @@ public class Hud : MonoBehaviour {
             m_CheckPointDisplayTimer = 0;
             m_ShowCheckPoint = false;
         }
+
+		if (m_LightPegTimer > 0)
+		{
+			m_LightPegTimer -= Time.deltaTime;
+		}
+		else
+		{
+			m_LightPegTimer = 0;
+			m_ShowLightPegs = false;
+		}
+
+		if (m_PuzzlePieceTimer > 0)
+		{
+			m_PuzzlePieceTimer -= Time.deltaTime;
+		}
+		else
+		{
+			m_PuzzlePieceTimer = 0;
+			m_ShowPuzzlePieces = false;
+		}
+
+		if (m_LifeTimer > 0)
+		{
+			m_LifeTimer -= Time.deltaTime;
+		}
+		else
+		{
+			m_LifeTimer = 0;
+			m_ShowLifes = false;
+		}
+
+
 	}
 
 	public void SetHealth(int Health, int Player)
@@ -132,8 +181,29 @@ public class Hud : MonoBehaviour {
         m_CheckPointDisplayTimer = m_HudDisplayLength;
     }
 
+	public void ShowLightPegs()
+	{
+		m_ShowLightPegs = true;
+		m_LightPegTimer = m_HudDisplayLength;
+	}
+
+	public void ShowPuzzlePieces()
+	{
+		m_ShowPuzzlePieces = true;
+		m_PuzzlePieceTimer = m_HudDisplayLength;
+	}
+
+	public void ShowLifes()
+	{
+		m_ShowLifes = true;
+		m_LifeTimer = m_HudDisplayLength;		
+	}
+
     public void ShowHiddenHud()
     {
+		m_ShowLightPegs = false;
+		m_ShowLifes = false;
+		m_ShowPuzzlePieces = false;
         m_ShowHiddenHud = true;
         m_HudDisplayTimer = m_HudDisplayLength;
     }
@@ -141,7 +211,7 @@ public class Hud : MonoBehaviour {
     public void UpdateLightPegs(int NumberOfLightPegs)
     {
         LightPegCollected = NumberOfLightPegs;
-        ShowHiddenHud();
+		ShowLightPegs();
     }
 
     //All our graphics have to be done in on gui
@@ -154,7 +224,8 @@ public class Hud : MonoBehaviour {
 		//Hidden hud elements such as collectables and Lives remaining
         if(m_ShowHiddenHud)
         {
-			GUI.skin.label.fontSize = 144;
+			//this will scale our font to the approximite size
+			GUI.skin.label.fontSize = Screen.width/12;
 
             //Light Pegs
          	GUI.DrawTexture(PositionRect, m_LightPegHudImage);
@@ -191,6 +262,51 @@ public class Hud : MonoBehaviour {
 				//GUI.Label(PositionRect, LightPegCollected.ToString());
 			}
         }
+
+		//Light Pegs by themselves
+		if(m_ShowLightPegs)
+		{
+			PositionRect.Set(0, 0, SizeOfHudElements, SizeOfHudElements);
+			GUI.DrawTexture(PositionRect, m_LightPegHudImage);
+
+			PositionRect.Set(PositionRect.width, 0, SizeOfHudElements, SizeOfHudElements);
+			if (LightPegCollected < 10)
+			{
+				GUI.Label(PositionRect, "0" + LightPegCollected.ToString());
+			}
+			else
+			{
+				GUI.Label(PositionRect, LightPegCollected.ToString());
+			}
+		}
+
+		if(m_ShowLifes)
+		{
+			//Life Counter image
+			PositionRect.Set(Screen.width - SizeOfHudElements, 0, SizeOfHudElements, SizeOfHudElements);
+			GUI.DrawTexture(PositionRect, m_LifeCounterImage);
+			
+			//Number repersenting lives remaining;
+			PositionRect.Set(Screen.width - SizeOfHudElements * 2, 0, SizeOfHudElements, SizeOfHudElements);
+			if(NumberOfLives < 10)
+			{
+				//No Lifes implemented yet
+				//GUI.Label(PositionRect, "0" + LightPegCollected.ToString());
+			}
+			else
+			{
+				//No Lives imlemented yet
+				//GUI.Label(PositionRect, LightPegCollected.ToString());
+			}
+		}
+
+		if(m_ShowPuzzlePieces)
+		{
+			/* no Puzzle piece texture yet
+			//PuzzlePieces
+			PositionRect.Set( Screen.width /2 - SizeOfHudElements, 0, SizeOfHudElements * 2, SizeOfHudElements);
+			GUI.DrawTexture(PositionRect, m_PuzzlePieceHudImages[PuzzlePiecesCollected]);  */
+		}
 
 		//CheckPoints
 		if(m_ShowCheckPoint)
