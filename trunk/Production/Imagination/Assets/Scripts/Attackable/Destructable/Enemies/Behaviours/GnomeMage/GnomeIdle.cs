@@ -16,23 +16,20 @@ using System.Collections;
 
 public class GnomeIdle : BaseIdleBehaviour 
 {
-	public BaseMovement m_Movement;
-	public BaseEnterCombat m_EnterCombat;
-
 	// Use this for initialization
 	void Start () 
 	{
-		m_Movement.start (this);
-		m_EnterCombat.start (this);
+		m_MovementComponent.start (this);
+		m_EnterCombatComponent.start (this);
 	}
 	
 	// Update is called once per frame 
 	public override void update()
 	{
-		if (m_Movement != null)
-			m_Movement.Movement ();
+		if (m_MovementComponent != null)
+			Movement ();
 
-		if (m_EnterCombat.EnterCombat())
+		if (EnterCombat())
 			m_EnemyAI.SetState(EnemyAI.EnemyState.Chase);		
 
 	}
