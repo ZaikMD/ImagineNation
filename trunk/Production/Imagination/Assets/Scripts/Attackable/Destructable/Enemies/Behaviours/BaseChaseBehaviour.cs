@@ -20,4 +20,24 @@ public abstract class BaseChaseBehaviour : BaseBehaviour
     protected BaseLeavingCombat m_LeavingCombatComponent;
 
     public abstract void update();
+
+	protected virtual void Movement()
+	{
+		if (m_EnemyAI.m_UMovement)
+			m_MovementComponent.Movement ();
+	}
+	protected virtual GameObject Target()
+	{
+		if (m_EnemyAI.m_UTargeting)
+			return m_TargetingComponent.CurrentTarget ();
+
+		return null;
+	}
+	protected virtual bool LeaveCombat()
+	{
+		if (m_EnemyAI.m_ULeaveCombat)
+			return m_LeavingCombatComponent.LeaveCombat ();
+
+		return false;
+	}
 }

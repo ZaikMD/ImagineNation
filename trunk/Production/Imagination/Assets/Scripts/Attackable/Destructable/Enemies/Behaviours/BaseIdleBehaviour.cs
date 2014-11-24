@@ -19,4 +19,17 @@ public abstract class BaseIdleBehaviour : BaseBehaviour
     protected BaseEnterCombat m_EnterCombatComponent;
 
     public abstract void update(); 
+
+	protected virtual bool EnterCombat()
+	{
+		if (m_EnemyAI.m_UEnterCombat)
+			return m_EnterCombatComponent.EnterCombat ();
+
+		return false;
+	}
+	protected virtual void Movement()
+	{
+		if (m_EnemyAI.m_UMovement)
+			m_MovementComponent.Movement ();
+	}
 }

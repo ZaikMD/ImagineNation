@@ -17,7 +17,28 @@ public abstract class BaseAttackBehaviour : BaseBehaviour
 {
     protected BaseCombat m_CombatComponent;
     protected BaseTargeting m_TargetingComponent;
-    protected BaseMovement m_MovementComponenet;
+    protected BaseMovement m_MovementComponent;
 
     public abstract void update();
+
+	protected virtual void Combat()
+	{
+		if (m_EnemyAI.m_UCombat)
+			m_CombatComponent.Combat();
+	}
+
+	protected virtual GameObject Target()
+	{
+		if (m_EnemyAI.m_UTargeting)
+			return m_TargetingComponent.CurrentTarget ();
+
+		return null;
+	}
+
+	protected virtual void Movement()
+	{
+		if (m_EnemyAI.m_UMovement)
+			m_MovementComponent.Movement ();
+	}
+
 }

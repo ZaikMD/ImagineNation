@@ -34,6 +34,14 @@ public class EnemyAI : Destructable
 	public BaseAttackBehaviour m_AttackBehavoir;
 	public BaseDeadBehaviour m_DeadBehavoir;
 
+	//UpdateComponent
+	//TODO: switch to gets
+	public bool m_UMovement = true;
+	public bool m_UCombat = true;
+	public bool m_UTargeting = true;
+	public bool m_UEnterCombat = true;
+	public bool m_ULeaveCombat = true;
+
 
 	//Choose a Behavoir to update
 	void FixedUpdate ()
