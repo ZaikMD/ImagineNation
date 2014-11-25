@@ -15,8 +15,6 @@ using System.Collections;
 
 public class GnomeChase : BaseChaseBehaviour 
 {
-	GameObject m_TargetPlayer;
-
 	BaseCombat m_CombatComponent;
 
 	// Use this for initialization
@@ -33,9 +31,9 @@ public class GnomeChase : BaseChaseBehaviour
 	{ 
         if (PauseScreen.IsGamePaused){return;}
 
-		m_TargetPlayer = Target ();
+		m_Target = Target ();
 
-		if (m_TargetPlayer == null)
+		if (m_Target == null)
 		{
 			m_EnemyAI.SetState(EnemyAI.EnemyState.Idle);
 			return;
@@ -47,7 +45,7 @@ public class GnomeChase : BaseChaseBehaviour
 			return; 
 		}
 
-		float dist = Vector3.Distance (transform.position, m_TargetPlayer.transform.position); 
+		float dist = Vector3.Distance (transform.position, m_Target.transform.position); 
 		if (dist <= Constants.MAGE_ATTACK_RANGE)
 		{
 			m_EnemyAI.SetState(EnemyAI.EnemyState.Attack);

@@ -17,13 +17,14 @@ public abstract class BaseIdleBehaviour : BaseBehaviour
 {
 	public BaseMovement m_MovementComponent;
 	public BaseEnterCombat m_EnterCombatComponent;
+	public BaseTargeting m_TargetingComponent;	
 
     public abstract void update(); 
 
-	protected virtual bool EnterCombat()
+	protected virtual bool EnterCombat(Transform target)
 	{
 		if (m_EnemyAI.m_UEnterCombat)
-			return m_EnterCombatComponent.EnterCombat ();
+			return m_EnterCombatComponent.EnterCombat (target);
 
 		return false;
 	}
@@ -31,5 +32,13 @@ public abstract class BaseIdleBehaviour : BaseBehaviour
 	{
 		if (m_EnemyAI.m_UMovement)
 			m_MovementComponent.Movement ();
+	}
+
+	protected virtual GameObject Target()
+	{
+		if (m_EnemyAI.m_UTargeting)
+			return m_TargetingComponent.CurrentTarget ();
+		
+		return null;
 	}
 }

@@ -4,11 +4,10 @@ using System.Collections;
 public class ProximityAggro : BaseEnterCombat 
 {
     public float AggroRange = 20.0f;
-    BaseTargeting m_Targeting;
 
-    public override bool EnterCombat()
+    public override bool EnterCombat(Transform target)
     {
-        if (Vector3.Distance(transform.position, m_Targeting.CurrentTarget().transform.position) < AggroRange)
+		if (Vector3.Distance(transform.position, target.position) < AggroRange)
         {
             return true;
         }

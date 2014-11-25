@@ -69,6 +69,8 @@ public static class Constants
 	public const string LEVEL1_SECTION2 = "Level1_Section2";
 	public const string LEVEL1_SECTION3 = "Level1_Section3";
 
+	public const string NAV_AGENT = "NavMeshAgent";
+
 	public const float LIGHT_PEG_FORCE = 60.0f;
 
 	public struct Animations

@@ -22,8 +22,6 @@ public class GnomeCombat : BaseAttackBehaviour
 		Cloned
 	}
 	CombatStates m_CurrentCombatState = CombatStates.Regular;
-	
-	GameObject m_Target;	
 
 	BaseMovement m_CloningMovement;
 
