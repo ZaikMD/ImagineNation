@@ -220,7 +220,7 @@ public class ActivatableMovingPlatform : Activatable
 	void OnCollisionStay (Collision collision)
 	{
 		//Only move players
-		if (collision.gameObject.tag != Constants.PLAYER_STRING)
+		if (collision.gameObject.tag != Constants.COLLIDE_WITH_MOVING_PLATFORM_STRING)
 		{
 			return;
 		}

@@ -101,20 +101,13 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		m_AcceptInputFrom = gameObject.GetComponent<AcceptInputFrom> ();
 
 		Physics.IgnoreLayerCollision (LayerMask.NameToLayer (Constants.PLAYER_STRING),
-		                             LayerMask.NameToLayer (Constants.PLAYER_STRING));
+		                              (LayerMask.NameToLayer (Constants.PLAYER_STRING)));
 
 		//Moving platform collision
 
 		//Players ignores moving platform collider inside each other
 		Physics.IgnoreLayerCollision (LayerMask.NameToLayer (Constants.PLAYER_STRING),
 		                              LayerMask.NameToLayer (Constants.COLLIDE_WITH_MOVING_PLATFORM_LAYER_STRING));
-
-		//Moving platform collider inside player collides with nothing except moving platforms
-		Physics.IgnoreLayerCollision (LayerMask.NameToLayer (Constants.COLLIDE_WITH_MOVING_PLATFORM_LAYER_STRING),
-		                              Physics.AllLayers);
-		Physics.IgnoreLayerCollision (LayerMask.NameToLayer (Constants.COLLIDE_WITH_MOVING_PLATFORM_LAYER_STRING),
-		                              LayerMask.NameToLayer (Constants.MOVING_PLATFORM_LAYER_STRING),
-		                              false);
 	}
 	
 
