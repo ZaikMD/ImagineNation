@@ -15,8 +15,8 @@ using System.Collections;
 
 public abstract class BaseIdleBehaviour : BaseBehaviour 
 {
-    protected BaseMovement m_MovementComponent;
-    protected BaseEnterCombat m_EnterCombatComponent;
+	public BaseMovement m_MovementComponent;
+	public BaseEnterCombat m_EnterCombatComponent;
 
     public abstract void update(); 
 
