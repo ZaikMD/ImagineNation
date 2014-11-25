@@ -60,7 +60,8 @@ public class RailCamera : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () 
-	{
+	{ 
+        if (PauseScreen.IsGamePaused){return;}
 
 		// Calculate the lookpos which should be midway between both characters
 		Vector3 point1 = m_Player [0].transform.position;

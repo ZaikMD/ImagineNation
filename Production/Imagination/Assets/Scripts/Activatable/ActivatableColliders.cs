@@ -11,7 +11,9 @@ public class ActivatableColliders : Activatable
 
 	// Update is called once per frame
 	void Update () 
-	{
+	{ 
+        if (PauseScreen.IsGamePaused){return;}
+
 		if(CheckSwitches()) //If checkSwitches() returns true, destroy all colliders
 		{
 			for(int i = 0; i < m_Colliders.Length; i++)

@@ -31,7 +31,7 @@ public class AlexMovementMoonBoots : BaseMovementAbility
 	void Update ()
 	{
 		//then calls base Update script from BaseMovementAbility
-		base.update ();
+		base.Update ();
 	
 	}
 

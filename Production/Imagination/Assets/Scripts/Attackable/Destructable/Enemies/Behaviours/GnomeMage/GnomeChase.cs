@@ -30,7 +30,9 @@ public class GnomeChase : BaseChaseBehaviour
 	
 	// Update is called once per frame
 	public override void update () 
-	{
+	{ 
+        if (PauseScreen.IsGamePaused){return;}
+
 		m_TargetPlayer = Target ();
 
 		if (m_TargetPlayer == null)

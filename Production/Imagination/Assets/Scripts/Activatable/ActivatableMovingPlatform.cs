@@ -76,7 +76,8 @@ public class ActivatableMovingPlatform : Activatable
 
 	//Update the moving platform
 	void Update () 
-	{
+	{ 
+        if (PauseScreen.IsGamePaused){return;}
 		//Play a stopping sound
 		if(!CheckSwitches() || (m_Loops == false && m_DestinationIndex == m_Destinations.Length - 1))
 		{

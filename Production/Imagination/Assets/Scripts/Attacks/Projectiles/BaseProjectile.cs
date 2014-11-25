@@ -44,7 +44,9 @@ public class BaseProjectile : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () 
-	{
+	{ 
+        if (PauseScreen.IsGamePaused){return;}
+
 		transform.position += transform.forward * m_MoveSpeed * Time.deltaTime; //Move the projectile
 
 		float distance = Vector3.Distance (m_InitialPosition, transform.position); //Get the distanace it's travelled

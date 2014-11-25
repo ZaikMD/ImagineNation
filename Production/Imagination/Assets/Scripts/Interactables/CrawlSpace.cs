@@ -57,7 +57,9 @@ public class CrawlSpace : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () 
-	{
+	{ 
+        if (PauseScreen.IsGamePaused){return;}
+
 		//null check on hiding spot and m_otherCrawlSpace
 		if(m_OtherCrawlSpace != null && m_TemporaryHidingSpot != null)
 		{

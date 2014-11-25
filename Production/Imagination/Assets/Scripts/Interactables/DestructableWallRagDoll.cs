@@ -14,7 +14,10 @@ public class DestructableWallRagDoll : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () 
-	{
+	{ 
+        if (PauseScreen.IsGamePaused){return;}
+
+
 				m_DestroyTime -= Time.deltaTime;
 
 				if (m_DestroyTime <= 0)

@@ -22,7 +22,8 @@ public class DestructableWall : Destructable
 	
 	// Update is called once per frame
 	void Update () 
-	{
+	{ 
+        if (PauseScreen.IsGamePaused){return;}
 	
 	}
 

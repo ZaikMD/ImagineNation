@@ -33,7 +33,9 @@ public class ActivatableLight : Activatable
 	}
 	
 	void Update () 
-	{
+	{ 
+        if (PauseScreen.IsGamePaused){return;}
+
 		//Check to see if the switch is already active or not
 		if(!m_IsActive)
 		{

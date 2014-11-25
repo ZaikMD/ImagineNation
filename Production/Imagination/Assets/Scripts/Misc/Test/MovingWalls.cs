@@ -50,7 +50,9 @@ public class MovingWalls : MonoBehaviour
 
 	//Update the pusher
 	void Update () 
-	{
+	{ 
+        if (PauseScreen.IsGamePaused){return;}
+
 		//Either the platform is moving forward or backward
 		//pass in the correct destination based on current direction
 		if(m_MovingForward)

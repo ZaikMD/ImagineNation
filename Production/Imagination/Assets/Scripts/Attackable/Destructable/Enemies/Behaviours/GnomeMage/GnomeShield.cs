@@ -17,7 +17,9 @@ public class GnomeShield : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () 
-	{
+	{ 
+        if (PauseScreen.IsGamePaused){return;}
+
 		if (!m_ShieldActive)
 		{
 			if (m_DeactiveTimer <= 0)

@@ -181,7 +181,9 @@ public class PlayerHealth : Destructable
 	
 	// Update is called once per frame
 	protected void Update () 
-	{	
+	{ 
+        if (PauseScreen.IsGamePaused){return;}	
+
         if(m_InvulnerabilityTimer > 0)
 		{
 			m_InvulnerabilityTimer -= Time.deltaTime;

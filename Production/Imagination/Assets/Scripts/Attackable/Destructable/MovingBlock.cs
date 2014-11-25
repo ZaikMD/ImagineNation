@@ -73,7 +73,9 @@ public class MovingBlock : Destructable
 	
 	// Update is called once per frame
 	void Update () 
-	{
+	{ 
+        if (PauseScreen.IsGamePaused){return;}
+
         //If the box is dead, respawn it
 		if(m_Health <= 0)
 		{

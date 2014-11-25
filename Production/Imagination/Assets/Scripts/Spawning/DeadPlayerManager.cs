@@ -116,7 +116,9 @@ public class DeadPlayerManager : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () 
-	{
+	{ 
+        if (PauseScreen.IsGamePaused){return;}
+
 		checkPlayersAlive (); //See if players are alive or dead
 
 		respawnPlayer ();//Respawn the players
