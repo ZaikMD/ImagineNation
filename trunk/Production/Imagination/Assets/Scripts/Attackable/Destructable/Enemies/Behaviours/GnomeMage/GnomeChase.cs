@@ -39,7 +39,7 @@ public class GnomeChase : BaseChaseBehaviour
 			return;
 		}
 
-		if (LeaveCombat())
+		if (LeaveCombat(m_Target.transform))
 		{
 			m_EnemyAI.SetState(EnemyAI.EnemyState.Idle);
 			return; 

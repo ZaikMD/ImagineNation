@@ -15,8 +15,6 @@ using System.Collections;
 
 public class FurbullChaseBehaviour : BaseChaseBehaviour 
 {
-    GameObject m_Target;
-
     void Start()
     {
         m_LeavingCombatComponent.start(this);
@@ -34,7 +32,7 @@ public class FurbullChaseBehaviour : BaseChaseBehaviour
             return;
         }
 
-        if (LeaveCombat())
+        if (LeaveCombat(m_Target.transform))
         {
             m_EnemyAI.SetState(EnemyAI.EnemyState.Idle);
             return;
