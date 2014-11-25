@@ -15,6 +15,8 @@ using System.Collections;
 public class BaseBehaviour : MonoBehaviour 
 {
 	protected EnemyAI m_EnemyAI;
+
+	protected GameObject m_Target;
 	
 	void Start()
 	{
@@ -37,9 +39,9 @@ public class BaseBehaviour : MonoBehaviour
 		}
 		else
 		{
-#if DEBUG || UNITY_EDITOR
+			#if DEBUG || UNITY_EDITOR
 			Debug.Log("Invalid Type");
-#endif
+			#endif
 			return null;
 		}
 	}

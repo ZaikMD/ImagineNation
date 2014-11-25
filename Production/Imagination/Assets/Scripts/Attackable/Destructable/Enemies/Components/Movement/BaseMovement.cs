@@ -24,4 +24,9 @@ public abstract class BaseMovement : BaseComponent
 	{
 		m_Agent.SetDestination (moveLocation);
 	}
+
+	public void SetAgent(NavMeshAgent navAgent)
+	{
+		m_Agent = navAgent;
+	}
 }

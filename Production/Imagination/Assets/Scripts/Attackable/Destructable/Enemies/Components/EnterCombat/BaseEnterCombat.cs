@@ -7,5 +7,5 @@ public abstract class BaseEnterCombat : BaseComponent
     {
 
     }
-	public abstract bool EnterCombat();
+	public abstract bool EnterCombat(Transform target);
 }
