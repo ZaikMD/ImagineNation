@@ -44,8 +44,9 @@ public static class Constants
 	public const string DEREK_WITH_MOVEMENT_STRING = "Derek With Movement";
 	public const string ZOE_WITH_MOVEMENT_STRING = "Zoe With Movement";
 
-	public const string MOVING_PLATFORM_LAYER_STRING = "MovingPlatform";
-	public const string COLLIDE_WITH_MOVING_PLATFORM_LAYER_STRING = "CollideWithMovingPlatform";
+	public const string MOVING_PLATFORM_LAYER_STRING = "MovingPlatformLayer";
+	public const string COLLIDE_WITH_MOVING_PLATFORM_LAYER_STRING = "CollideWithPlatform";
+	public const string COLLIDE_WITH_MOVING_PLATFORM_STRING = "CollideWithMovingPlatforms";
 
 	public const string PLAYER_PROJECTILE_STRING = "PlayerProjectile";
 	public const string ENEMY_PROJECTILE_STRING = "EnemyProjectile";
