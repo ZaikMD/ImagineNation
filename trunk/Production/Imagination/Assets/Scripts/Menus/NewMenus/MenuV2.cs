@@ -164,7 +164,7 @@ public class MenuV2 : MonoBehaviour
             {
                 m_Camera.changeMenu(m_LastMenu);
                 m_IsActiveMenu = false;
-                m_LastMenu.m_IsActiveMenu = true;
+                m_LastMenu.IsActiveMenu = true;
                 m_LastMenu = null;
             }
         }

@@ -44,9 +44,12 @@ public class PauseScreen : MenuV2
         if (!m_IsActiveMenu)
             return;
 
+		if(!m_Camera.IsDoneShutterMove)
+			return;
+
         if (!m_IsSwapping)
         {
-            if (InputManager.getMenuStartDown())
+			if (InputManager.getMenuStartDown(m_ReadInputFrom) || InputManager.getMenuBackDown(m_ReadInputFrom))
             {
                 m_GameIsPaused = !m_GameIsPaused;
 
