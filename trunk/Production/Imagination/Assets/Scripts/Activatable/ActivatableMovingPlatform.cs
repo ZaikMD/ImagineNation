@@ -15,6 +15,7 @@
 /*
  * 11/19/2014 - Cleaned and optimized code - Jason Hein
  * 11/24/2014 - Added functionality to push to player - Jason Hein
+ * 11/25/2014 - Fixed gate bug, fixed potential bug for player on top of a platform when it stops
  */
 #endregion
 
@@ -78,12 +79,6 @@ public class ActivatableMovingPlatform : Activatable
 	void Update () 
 	{ 
         if (PauseScreen.IsGamePaused){return;}
-		//Play a stopping sound
-		if(!CheckSwitches() || (m_Loops == false && m_DestinationIndex == m_Destinations.Length - 1))
-		{
-			m_SFX.stopSound(this.gameObject);
-			return;
-		}
 
 		//Platforms can only move if the switches are active
 		if(CheckSwitches())
@@ -100,7 +95,25 @@ public class ActivatableMovingPlatform : Activatable
 				if(m_DistanceToNextPlatform < MIN_DIST_TO_NEXT_PLATFORM)
 				{
 					//Set the platform to be directly at the destination
-					transform.position = m_Destinations[m_DestinationIndex].position;
+					Vector3 amountToMove = m_Destinations[m_DestinationIndex].position - transform.position;
+					transform.position += amountToMove;
+					//Check if their are any players on the platform
+					if (m_PlayersToMove.Count > 0)
+					{
+						for (int i = 0; i < m_PlayersToMove.Count; i++)
+						{
+							//Check if the player is on top of the platform
+							if (Vector3.Dot(Vector3.up, m_PlayersToMove[i].normal) > 0.5f)
+							{
+								//Make absolutly sure that the player is still above the platform
+								amountToMove.y += 0.01f;
+
+								//Move the player as much at this platform is moving
+								m_PlayersToMove[i].movement.RequestInstantMovement(amountToMove);
+							}
+
+						}
+					}
 
 					//Set the destination timer
 					m_AtDestinationTimer = TIME_PAUSED_AT_PLATFORM_DESTINATION;
@@ -110,9 +123,16 @@ public class ActivatableMovingPlatform : Activatable
 					{
 						m_DestinationIndex = 0;
 					}
+					//Choose next destination
 					else if (m_DestinationIndex < m_Destinations.Length -1)
 					{
 						m_DestinationIndex++;
+					}
+					//We are supposed to go no further
+					else
+					{
+						//Play a stopping sound
+						m_SFX.stopSound(this.gameObject);
 					}
 				}
 			}
