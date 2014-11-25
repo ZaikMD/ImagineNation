@@ -15,9 +15,9 @@ using System.Collections;
 
 public abstract class BaseChaseBehaviour : BaseBehaviour 
 {
-    protected BaseMovement m_MovementComponent;
-    protected BaseTargeting m_TargetingComponent;
-    protected BaseLeavingCombat m_LeavingCombatComponent;
+	public BaseMovement m_MovementComponent;
+	public BaseTargeting m_TargetingComponent;
+	public BaseLeavingCombat m_LeavingCombatComponent;
 
     public abstract void update();
 

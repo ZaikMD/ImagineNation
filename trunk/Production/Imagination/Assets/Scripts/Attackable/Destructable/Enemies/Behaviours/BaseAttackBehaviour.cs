@@ -15,9 +15,9 @@ using System.Collections;
 
 public abstract class BaseAttackBehaviour : BaseBehaviour 
 {
-    protected BaseCombat m_CombatComponent;
-    protected BaseTargeting m_TargetingComponent;
-    protected BaseMovement m_MovementComponent;
+    public BaseCombat m_CombatComponent;
+	public BaseTargeting m_TargetingComponent;
+	public BaseMovement m_MovementComponent;
 
     public abstract void update();
 

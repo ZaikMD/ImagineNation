@@ -15,7 +15,7 @@ using System.Collections;
 
 public abstract class BaseDeadBehaviour : BaseBehaviour 
 {
-    protected BaseDeath m_DeathComponent;
+	public BaseDeath m_DeathComponent;
 
     public abstract void update();
 }
