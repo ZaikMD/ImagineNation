@@ -32,7 +32,7 @@ public class GameData : MonoBehaviour
     
     //ID is used to ensure that the older GamaData is kept in the case of duplicates
 	static int m_InstanceCounter = 0;
-    int m_ID = int.MaxValue;
+    public int m_ID = int.MaxValue;
     public int ID
     {
         get { return m_ID; }
@@ -50,6 +50,7 @@ public class GameData : MonoBehaviour
             {
                 //destroy all other instances
                 Destroy(gameObject);
+				return;
             }
             else
             {
@@ -123,6 +124,40 @@ public class GameData : MonoBehaviour
 	CheckPoints m_CurrentCheckPoint = CheckPoints.CheckPoint_1;
     bool m_FirstTimePlayingLevel = true; 
 
+	//========================================
+	//settings
+	//cant make a vector2 const
+	private Vector2 m_DefaultCameraRotationScale = new Vector2 (-2.5f, -1.5f);
+	Vector2 m_CameraRotationScaleModifyer = new Vector2 (1.0f, 1.0f);
+	public Vector2 CameraRotationScaleModifyer
+	{
+		get { return m_CameraRotationScaleModifyer;}
+		set 
+		{ 
+			m_CameraRotationScaleModifyer = value;
+			for(int i = 0; i < TPCamera.Cameras.Count; i++)
+			{
+				TPCamera.Cameras[i].RotationScale = new Vector2(m_DefaultCameraRotationScale.x * m_CameraRotationScaleModifyer.x,
+				                                                m_DefaultCameraRotationScale.y * m_CameraRotationScaleModifyer.y);
+			}
+		}
+	}
+
+	public Material i_Brightness;
+	float m_Brightness = 1.0f;
+	public float Brightness
+	{
+		get{ return m_Brightness;}
+		set
+		{ 
+			m_Brightness = value;
+			if(i_Brightness != null)
+				i_Brightness.SetFloat(Constants.BRIGHTNESS_PROPERTY_NAME, 1.0f * m_Brightness);
+		}
+	}
+
+	//========================================
+
 	public Levels CurrentLevel
 	{
 		get {return m_CurrentLevel;}
@@ -155,6 +190,11 @@ public class GameData : MonoBehaviour
 
 			}
 		}
+	}
+
+	public void Start()
+	{
+		Brightness = Constants.BRIGHTNESS_DEFAULT;
 	}
 
 	public void resetCheckPoint()

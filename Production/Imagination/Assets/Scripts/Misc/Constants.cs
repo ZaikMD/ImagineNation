@@ -33,6 +33,12 @@ public static class Constants
 		}
 	}
 
+	public const string BRIGHTNESS_PROPERTY_NAME = "_Brightness";
+	public const float BRIGHTNESS_INCREMENT = 0.1f;
+	public const float BRIGHTNESS_MIN = 0.1f;
+	public const float BRIGHTNESS_MAX = 2.0f;
+	public const float BRIGHTNESS_DEFAULT = 1.0f;
+
     //This will control how long the hud is displayed for
     public const float HUD_ON_SCREEN_TIME = 3.0f;
 
