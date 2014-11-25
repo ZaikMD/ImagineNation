@@ -15,10 +15,10 @@ using System.Collections;
 
 public class GnomeChase : BaseChaseBehaviour 
 {
-	BaseCombat m_CombatComponent;
+	public BaseCombat m_CombatComponent;
 
 	// Use this for initialization
-	void Start () 
+	protected override void start ()
 	{
 		m_CombatComponent.start (this);
 		m_LeavingCombatComponent.start (this);

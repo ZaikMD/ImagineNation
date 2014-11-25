@@ -26,8 +26,10 @@ public class ArcWhileMovingBackwards : BaseMovement
 
 
 
-	public override void Movement (Transform target)
+	public override void Movement (GameObject target)
 	{
+		if (target != null)
+		{
 			// Update the switch rotation timer
 			m_SwitchRotTimer -= Time.deltaTime;
 			
@@ -40,10 +42,11 @@ public class ArcWhileMovingBackwards : BaseMovement
 			}
 			
 			// Apply the rotation while trying to stay a certain dist from the player
-			Vector3 point = RotateAboutOrigin (transform.position, target.position, m_MoveAngle);
-			point += (transform.position - target.position).normalized * m_MoveDist;
+			Vector3 point = RotateAboutOrigin (transform.position, target.transform.position, m_MoveAngle);
+			point += (transform.position - target.transform.position).normalized * m_MoveDist;
 
 			m_Agent.SetDestination(point);
+		}
 	}
 
 

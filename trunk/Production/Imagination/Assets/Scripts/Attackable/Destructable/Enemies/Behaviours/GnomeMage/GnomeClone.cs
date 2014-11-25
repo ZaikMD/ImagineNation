@@ -10,8 +10,11 @@ public class GnomeClone : Destructable
 
 	NavMeshAgent m_Agent;
 
-	public void Create(BaseMovement moveComponent, BaseCombat combatComponent, Vector3 startingPos, float activeTime)
+	GameObject m_Target;
+
+	public void Create(BaseMovement moveComponent, BaseCombat combatComponent, Vector3 startingPos, float activeTime, GameObject target)
 	{
+		m_Target = target;
 		m_Agent = (NavMeshAgent) gameObject.AddComponent (Constants.NAV_AGENT);
 
 		System.Type movementType = moveComponent.GetType ();
@@ -40,7 +43,7 @@ public class GnomeClone : Destructable
 		}
 
 		m_CombatComponent.Combat ();
-		m_MovementComponent.Movement ();
+		m_MovementComponent.Movement (m_Target);
 
 		m_ActiveTimer -= Time.deltaTime;
 	}
