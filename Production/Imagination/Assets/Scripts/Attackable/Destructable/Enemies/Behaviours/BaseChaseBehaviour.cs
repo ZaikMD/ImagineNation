@@ -24,7 +24,7 @@ public abstract class BaseChaseBehaviour : BaseBehaviour
 	protected virtual void Movement()
 	{
 		if (m_EnemyAI.m_UMovement)
-			m_MovementComponent.Movement ();
+			m_MovementComponent.Movement (m_Target);
 	}
 	protected virtual GameObject Target()
 	{

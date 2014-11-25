@@ -36,7 +36,7 @@ public class MovementAroundNodes : BaseMovement
     }
 
 
-    public override void Movement()
+	public override void Movement(GameObject target)
     {
         //Set stopping Distance to reach node without stopping short
         m_Agent.stoppingDistance = 0;

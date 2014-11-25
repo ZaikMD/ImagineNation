@@ -17,7 +17,7 @@ using System.Collections;
 public class GnomeIdle : BaseIdleBehaviour 
 {
 	// Use this for initialization
-	void Start () 
+	protected override void start ()
 	{
 		m_MovementComponent.start (this);
 		m_EnterCombatComponent.start (this);

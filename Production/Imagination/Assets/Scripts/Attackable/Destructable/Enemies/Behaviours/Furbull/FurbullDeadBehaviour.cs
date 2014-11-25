@@ -15,7 +15,7 @@ using System.Collections;
 
 public class FurbullDeadBehaviour : BaseDeadBehaviour 
 {
-    void Start()
+	protected override void start ()
     {
         m_DeathComponent.start(this);
     }

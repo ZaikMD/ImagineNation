@@ -23,10 +23,10 @@ public class GnomeCombat : BaseAttackBehaviour
 	}
 	CombatStates m_CurrentCombatState = CombatStates.Regular;
 
-	BaseMovement m_CloningMovement;
+	public BaseMovement m_CloningMovement;
 
-	BaseCombat m_ClonedCombat;
-	BaseMovement m_ClonedMovement;
+	public BaseCombat m_ClonedCombat;
+	public BaseMovement m_ClonedMovement;
 
 	public const float m_ClonedTime = 3.0f;
 	float m_ClonedTimer = 0.0f;
@@ -34,7 +34,7 @@ public class GnomeCombat : BaseAttackBehaviour
 	GnomeShield m_Shield;
 
 	// Use this for initialization
-	void Start () 
+	protected override void start ()
 	{
 		m_TargetingComponent.start (this);
 
@@ -125,17 +125,17 @@ public class GnomeCombat : BaseAttackBehaviour
 			{
 			case CombatStates.Regular:
 				if (m_MovementComponent != null)			
-					m_MovementComponent.Movement();
+					m_MovementComponent.Movement(m_Target);
 				break;
 				
 			case CombatStates.Cloning:
 				if (m_CloningMovement != null)	
-					m_CloningMovement.Movement();
+					m_CloningMovement.Movement(m_Target);
 				break;
 				
 			case CombatStates.Cloned:
 				if (m_ClonedMovement != null)	
-					m_ClonedMovement.Movement();				
+					m_ClonedMovement.Movement(m_Target);				
 				break;
 			}
 		}

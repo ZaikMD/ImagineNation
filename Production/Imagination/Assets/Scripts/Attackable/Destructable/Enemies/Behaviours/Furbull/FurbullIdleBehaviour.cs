@@ -16,7 +16,7 @@ using System.Collections;
 public class FurbullIdleBehaviour : BaseIdleBehaviour 
 {
 
-    void Start()
+	protected override void start ()
     {
         m_MovementComponent.start(this);
         m_EnterCombatComponent.start(this);
@@ -29,7 +29,7 @@ public class FurbullIdleBehaviour : BaseIdleBehaviour
 
         if (m_MovementComponent != null)
         {
-            m_MovementComponent.Movement();
+			Movement();
         }
 
 

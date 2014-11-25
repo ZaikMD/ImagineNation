@@ -20,9 +20,15 @@ public class BaseBehaviour : MonoBehaviour
 	
 	void Start()
 	{
-		m_EnemyAI = GetComponentInParent<EnemyAI> ();
+		m_EnemyAI = GetComponentInParent<EnemyWithMovement> ();
+		start ();
 	}
-	
+
+	protected virtual void start ()
+	{
+
+	}
+
 	protected Vector3 getPosition()
 	{
 		return m_EnemyAI.transform.position;

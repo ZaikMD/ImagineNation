@@ -15,7 +15,7 @@ using System.Collections;
 
 public class FurbullChaseBehaviour : BaseChaseBehaviour 
 {
-    void Start()
+	protected override void start ()
     {
         m_LeavingCombatComponent.start(this);
         m_MovementComponent.start(this);

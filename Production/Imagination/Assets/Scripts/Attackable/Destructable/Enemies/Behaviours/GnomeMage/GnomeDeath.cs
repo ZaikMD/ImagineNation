@@ -15,11 +15,6 @@ using System.Collections;
 
 public class GnomeDeath : BaseDeadBehaviour 
 {
-	// Use this for initialization
-	void Start () 
-	{
-	
-	}
 	
 	// Update is called once per frame
 	public override void update ()

@@ -27,6 +27,6 @@ public class EnemyWithMovement : EnemyAI
 
 	public NavMeshAgent GetAgent
 	{
-		get{ return m_Agent;}
+		get{ return gameObject.GetComponent<NavMeshAgent>();}
 	}
 }
