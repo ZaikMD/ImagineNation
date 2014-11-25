@@ -49,7 +49,9 @@ public class ZoeMovement : BaseMovementAbility
 	
 	// Update is called once per frame
 	void Update () 
-	{  
+	{ 
+        if (PauseScreen.IsGamePaused){return;}  
+
 		//When grounded ensure that the variables CanGlide,
 		//NumberOfJumps, and IsGliding are set appropriately
 		if(GetIsGrounded())
@@ -99,7 +101,7 @@ public class ZoeMovement : BaseMovementAbility
 		{
 			StopGlidingWhileAirborne();
 		}
-		base.update ();
+		base.Update ();
 	}
 
 	//Set all gliding variables to a standard airborne state

@@ -65,7 +65,9 @@ public class AnimationState : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () 
-	{
+	{ 
+        if (PauseScreen.IsGamePaused){return;}
+
 		//these control timers for animations that need them.
 		if(m_Jumping)
 		{

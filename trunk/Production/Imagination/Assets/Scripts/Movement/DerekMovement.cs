@@ -44,7 +44,9 @@ public class DerekMovement : BaseMovementAbility
 	
 	// Update is called once per frame
 	void Update () 
-	{
+	{ 
+        if (PauseScreen.IsGamePaused){return;}
+
 		if(GetIsGrounded())
 		{
 			m_CanGrapple = true;
@@ -92,7 +94,7 @@ public class DerekMovement : BaseMovementAbility
 			return;
 		}
 
-		base.update();
+		base.Update();
 	}
 
 	private bool CanGrapple()

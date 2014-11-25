@@ -32,7 +32,8 @@ public class PressurePlates : SwitchBaseClass
 	
 	// Update is called once per frame
 	void Update () 
-	{
+	{ 
+        if (PauseScreen.IsGamePaused){return;}
 	}
 
 	void OnTriggerEnter(Collider obj)

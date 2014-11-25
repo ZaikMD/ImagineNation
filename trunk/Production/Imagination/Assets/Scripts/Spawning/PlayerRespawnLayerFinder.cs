@@ -35,7 +35,8 @@ public class PlayerRespawnLayerFinder : MonoBehaviour
 	}
 	
 	void Update () 
-	{
+	{ 
+        if (PauseScreen.IsGamePaused){return;}
 
 		if(m_SearchForRespawnLayer == true)
 		{

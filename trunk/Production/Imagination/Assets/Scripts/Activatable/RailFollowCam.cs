@@ -29,7 +29,9 @@ public class RailFollowCam : Activatable
 	
 	// Update is called once per frame
 	void Update () 
-	{
+	{ 
+        if (PauseScreen.IsGamePaused){return;}
+
 		if (!m_IsDone)
 		{
 			if (!m_Active)

@@ -48,7 +48,9 @@ public class CombatItem : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () 
-	{
+	{ 
+        if (PauseScreen.IsGamePaused){return;}
+
         if (InputManager.getAttackDown(m_ReadInput.ReadInputFrom))
         {
             if (!m_BaseAttacks[m_PreviousAttack].getAttacking()) //Check if the character is attacking
