@@ -19,7 +19,7 @@
 #endregion
 
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 /// <summary>
 /// Activatable moving platform.
@@ -47,6 +47,23 @@ public class ActivatableMovingPlatform : Activatable
 	//Amount to move the player
 	Vector3 m_AmountToMovePlayer = Vector3.zero;
 
+	//For moving the player
+	struct PlayersToMove
+	{
+		public BaseMovementAbility movement;
+		public Vector3 normal;
+		public bool foundLastFrame;
+
+		public PlayersToMove (BaseMovementAbility aMovement, Vector3 aNormal, bool wasFoundLastFrame)
+		{
+			movement = aMovement;
+			normal = aNormal;
+			foundLastFrame = wasFoundLastFrame;
+		}
+	}
+	List<PlayersToMove> m_PlayersToMove;
+
+
 	//Sound manager
 	SFXManager m_SFX;
 
@@ -54,6 +71,7 @@ public class ActivatableMovingPlatform : Activatable
 	void Start () 
 	{
 		m_SFX = GameObject.FindGameObjectWithTag(Constants.SOUND_MANAGER).GetComponent<SFXManager>();
+		m_PlayersToMove = new List<PlayersToMove> ();
 	}
 
 	//Update the moving platform
@@ -134,6 +152,49 @@ public class ActivatableMovingPlatform : Activatable
 		//Move the platform along that direction over time
 		m_AmountToMovePlayer = destinationDirection.normalized * m_PlatformSpeed * Time.deltaTime;
 		transform.position += m_AmountToMovePlayer;
+
+		//Check if their are any players on the platform
+		if (m_PlayersToMove.Count > 0)
+		{
+			for (int i =0; i < m_PlayersToMove.Count; i++)
+			{
+				//Calculate the amount to move the player
+				Vector3 amountToMove = Vector3.zero;
+
+				//Get related variables from the struct
+				BaseMovementAbility movement = m_PlayersToMove[i].movement;
+				Vector3 normal = m_PlayersToMove[i].normal;
+				
+				//Check if the player is on top of the platform
+				if (Vector3.Dot(Vector3.up, normal) > 0.5f)
+				{
+					//Move the player as much at this platform is moving
+					amountToMove = m_AmountToMovePlayer;
+				}
+				//Check if we are in front of the platform
+				else if (Vector3.Dot(m_AmountToMovePlayer, normal) > 0.0f)
+				{
+					//Move the layer based on how much we are overlapping the player
+					Vector3 playerMovement = movement.GetMovementThisFrame();
+					playerMovement.y = 0.0f;
+					amountToMove = Vector3.Scale(normal, m_AmountToMovePlayer - playerMovement);
+					amountToMove.y = 0.0f;
+				}
+				
+				//Move the player
+				movement.RequestInstantMovement(amountToMove);
+
+				//Check if the player should be removed from the array or flaged to be removed next frame
+				if (m_PlayersToMove[i].foundLastFrame == true)
+				{
+					m_PlayersToMove[i] = new PlayersToMove(movement, normal, false);
+				}
+				else
+				{
+					m_PlayersToMove.RemoveAt(i);
+				}
+			}
+		}
 	}
 
 	/// <summary>
@@ -180,26 +241,19 @@ public class ActivatableMovingPlatform : Activatable
 		}
 		averageNormal /= -contacts.Length;
 
-		//Calculate the amount to move the player
-		Vector3 amountToMove = Vector3.zero;
-
-		//Check if the player is on top of the platform
-		if (Vector3.Dot(Vector3.up, averageNormal) > 0.5f)
+		//Check if the player should be added or changed
+		bool found = false;
+		for (int i =0; i < m_PlayersToMove.Count; i++)
 		{
-			//Move the player as much at this platform is moving
-			amountToMove = m_AmountToMovePlayer * 1.2f;
+			if (movement == m_PlayersToMove[i].movement)
+			{
+				m_PlayersToMove[i] = new PlayersToMove(movement, averageNormal, true);
+				found = true;
+			}
 		}
-		//Check if we are in front of the platform
-		else if (Vector3.Dot(m_AmountToMovePlayer, averageNormal) > 0.0f)
+		if (found == false)
 		{
-			//Move the layer based on how much we are overlapping the player
-			Vector3 playerMovement = movement.GetMovementThisFrame();
-			playerMovement.y = 0.0f;
-			amountToMove = Vector3.Scale(averageNormal, m_AmountToMovePlayer * 1.2f - playerMovement);
-			amountToMove.y = 0.0f;
+			m_PlayersToMove.Add(new PlayersToMove(movement, averageNormal, true));	
 		}
-
-		//Move the player
-		movement.RequestInstantMovement(amountToMove);
 	}
 }
