@@ -266,6 +266,8 @@ public class Hud : MonoBehaviour {
 		//Light Pegs by themselves
 		if(m_ShowLightPegs)
 		{
+			GUI.skin.label.fontSize = Screen.width/12;
+
 			PositionRect.Set(0, 0, SizeOfHudElements, SizeOfHudElements);
 			GUI.DrawTexture(PositionRect, m_LightPegHudImage);
 

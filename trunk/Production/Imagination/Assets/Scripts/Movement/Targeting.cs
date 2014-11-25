@@ -30,6 +30,11 @@ public class Targeting : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+		//getting the mask of the player
+		m_LayerMask = LayerMask.GetMask(Constants.PLAYER_STRING);
+		//setting our layermask to the inverse of players
+		m_LayerMask = ~m_LayerMask;
+
 		//set up our list of possible targets
         m_PossibleTargets = new List<GameObject>();
 		for (int i = 0; i < m_TargetableTags.Length; i++)
@@ -43,17 +48,12 @@ public class Targeting : MonoBehaviour {
 				m_PossibleTargets.Add(objectsToAdd[n]);
 			}
 		}
-		//getting the mask of the player
-        m_LayerMask = LayerMask.GetMask(Constants.PLAYER_STRING);
-		//setting our layermask to the inverse of players
-        m_LayerMask = ~m_LayerMask;
+
     }
 	
 	// Update is called once per frame
 	void Update () 
     {
-	//	CheckDistanceOfTargets();
-	//	Debug.Log (m_PossibleTargets.Count);
 		CalcCurrentTarget();
         PaintTarget();    
     }
