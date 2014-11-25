@@ -21,5 +21,5 @@ public abstract class BaseLeavingCombat : BaseComponent
 
     }
 
-    public abstract bool LeaveCombat();
+    public abstract bool LeaveCombat(Transform target);
 }

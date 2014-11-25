@@ -15,8 +15,6 @@ using System.Collections;
 
 public class FurbullAttackBehaviour : BaseAttackBehaviour 
 {
-    GameObject m_Target;
-
     void Start()
     {
         m_CombatComponent.start(this);

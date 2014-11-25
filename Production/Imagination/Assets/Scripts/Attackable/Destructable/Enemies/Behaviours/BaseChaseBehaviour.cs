@@ -33,10 +33,10 @@ public abstract class BaseChaseBehaviour : BaseBehaviour
 
 		return null;
 	}
-	protected virtual bool LeaveCombat()
+	protected virtual bool LeaveCombat(Transform target)
 	{
 		if (m_EnemyAI.m_ULeaveCombat)
-			return m_LeavingCombatComponent.LeaveCombat ();
+			return m_LeavingCombatComponent.LeaveCombat (target);
 
 		return false;
 	}
