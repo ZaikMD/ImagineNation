@@ -26,10 +26,11 @@ public class ArcWhileMovingBackwards : BaseMovement
 
 
 
-	public override void Movement (GameObject target)
+	public override Vector3 Movement (GameObject target)
 	{
 		if (target != null)
 		{
+			m_Agent.speed = m_BackUpSpeed;
 			// Update the switch rotation timer
 			m_SwitchRotTimer -= Time.deltaTime;
 			
@@ -46,22 +47,9 @@ public class ArcWhileMovingBackwards : BaseMovement
 			point += (transform.position - target.transform.position).normalized * m_MoveDist;
 
 			m_Agent.SetDestination(point);
+
+			return point;
 		}
+		return Vector3.zero;
 	}
-
-
-
-	private Vector3 RotateAboutOrigin(Vector3 point, Vector3 origin, float angle)
-	{
-			// Convert the angle to radians
-			angle = angle * (Mathf.PI / 180);
-			
-			// Find out the new x and z locations 
-			float rotatedX = Mathf.Cos (angle) * (point.x - origin.x) - Mathf.Sin (angle) * (point.z - origin.z) + origin.x;
-			float rotatedZ = Mathf.Sin (angle) * (point.x - origin.x) - Mathf.Cos (angle) * (point.z - origin.z) + origin.z;
-			
-			return new Vector3(rotatedX, point.y, rotatedZ);
-	} 
-
-
 }
