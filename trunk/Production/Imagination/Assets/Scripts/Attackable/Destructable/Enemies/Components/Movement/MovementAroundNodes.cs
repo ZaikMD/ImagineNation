@@ -33,6 +33,7 @@ public class MovementAroundNodes : BaseMovement
     public override void start(BaseBehaviour baseBehaviour)
     {
  	    base.start(baseBehaviour);
+		PatrolNodes = baseBehaviour.getPathNodes ();
     }
 
 
