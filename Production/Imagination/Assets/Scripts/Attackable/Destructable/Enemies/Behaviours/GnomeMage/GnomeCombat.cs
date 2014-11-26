@@ -24,6 +24,7 @@ public class GnomeCombat : BaseAttackBehaviour
 	CombatStates m_CurrentCombatState = CombatStates.Regular;
 
 	public BaseMovement m_CloningMovement;
+	bool m_JumpedBack = false;
 
 	public BaseCombat m_ClonedCombat;
 	public BaseMovement m_ClonedMovement;
@@ -96,6 +97,7 @@ public class GnomeCombat : BaseAttackBehaviour
 
 	void Cloning()
 	{
+		if (!m_JumpedBack)
 		Movement ();
 
 		Vector3 pos1 = new Vector3 (transform.position.x, 0, transform.position.z);
@@ -103,7 +105,7 @@ public class GnomeCombat : BaseAttackBehaviour
 
 		float dist = Vector3.Distance (pos1, pos2);
 
-		if (dist <= 1.0f)
+		if (dist <= 2.0f)
 		CreateClones ();
 	}
 
@@ -142,6 +144,7 @@ public class GnomeCombat : BaseAttackBehaviour
 			case CombatStates.Cloning:
 				if (m_CloningMovement != null)	
 					m_Destination = m_CloningMovement.Movement(m_Target);
+					m_JumpedBack = true;
 				break;
 				
 			case CombatStates.Cloned:
