@@ -21,9 +21,7 @@ public class CollectableManager : MonoBehaviour {
     public GameObject[] m_LightPegsForCheckPointTwo;
     public GameObject[] m_LightPegsForCheckPointThree;
 
-	public GameObject[] m_PuzzlePieceForCheckPointOne;
-	public GameObject[] m_PuzzlePieceForCheckPointTwo;
-	public GameObject[] m_PuzzlePieceForCheckPointThree;
+	public GameObject[] m_PuzzlePieceForSection;
    
     bool[] m_LightPegCollected;
 	bool[] m_PuzzlePieceCollected;
@@ -44,11 +42,26 @@ public class CollectableManager : MonoBehaviour {
         m_NumberOfLightPegsCollect = 0;
 
         int lengthOfLightPegCollected = m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length + m_LightPegsForCheckPointThree.Length;
-		int lengthOPuzzlePieceCollected = m_PuzzlePieceForCheckPointOne.Length + m_PuzzlePieceForCheckPointTwo.Length + m_LightPegsForCheckPointThree.Length;
+		int lengthOPuzzlePieceCollected = m_PuzzlePieceForSection.Length;
         m_LightPegCollected = new bool[lengthOfLightPegCollected];
 		m_PuzzlePieceCollected = new bool[lengthOPuzzlePieceCollected];
 
+		short[] GameDataPuzzlePieceCollect = GameData.Instance.GetCollectedPuzzlePeices();
+		
+		for(int n = 0; n > GameDataPuzzlePieceCollect.Length; n++)
+		{
+			if(GameDataPuzzlePieceCollect[n] == 1)
+			{
+				m_PuzzlePieceCollected[n] = true; 
+			}
+			else
+			{
+				m_PuzzlePieceCollected[n] = false;
+			}
+		}
+
 		SpawnLightPegs();
+		SpawnPuzzlePieces();
 	}
 	
     // Update is called once per frame
@@ -99,7 +112,22 @@ public class CollectableManager : MonoBehaviour {
 
 #endregion
 
-    void SpawnLightPegs()
+	void SpawnPuzzlePieces()
+	{
+		for(int i = 0; i < m_PuzzlePieceForSection.Length; i++)
+		{
+			if(m_PuzzlePieceCollected[i])
+			{
+				GameObject newPuzzlePiece = (GameObject)Instantiate(m_PuzzlePiecePrefab);
+				newPuzzlePiece.transform.position = m_PuzzlePieceForSection[i].transform.position;
+				Destroy(m_PuzzlePieceForSection[i].gameObject);
+				m_PuzzlePieceForSection[i] = newPuzzlePiece;
+				newPuzzlePiece.GetComponent<PuzzlePiece>().SetInfo(i);
+			}
+		}
+	}
+
+	void SpawnLightPegs()
     {
         if (GameData.Instance.FirstTimePlayingLevel)
         {
@@ -129,7 +157,7 @@ public class CollectableManager : MonoBehaviour {
 				}
 			}
         }
-        
+
         //Check which CheckPoint we are starting at
         switch(GameData.Instance.CurrentCheckPoint)
         {
@@ -164,34 +192,6 @@ case CheckPoints.CheckPoint_1:
 				Destroy(m_LightPegsForCheckPointThree[i].gameObject);
 				m_LightPegsForCheckPointThree[i] = newLightPeg;
 				newLightPeg.GetComponent<LightPeg>().SetInfo(i + m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length);
-			}
-
-//puzzle pieces 
-			for(int i = 0; i < m_PuzzlePieceForCheckPointOne.Length; i++)
-			{
-				GameObject newPuzzlePiece = (GameObject)Instantiate(m_PuzzlePiecePrefab);
-				newPuzzlePiece.transform.position = m_PuzzlePieceForCheckPointOne[i].transform.position;
-				Destroy(m_PuzzlePieceForCheckPointOne[i].gameObject);
-				m_PuzzlePieceForCheckPointOne[i] = newPuzzlePiece;
-				newPuzzlePiece.GetComponent<PuzzlePiece>().SetInfo(i);
-			}
-
-			for(int i = 0; i < m_PuzzlePieceForCheckPointTwo.Length; i++)
-			{
-				GameObject newPuzzlePiece = (GameObject)Instantiate(m_PuzzlePiecePrefab);
-				newPuzzlePiece.transform.position = m_PuzzlePieceForCheckPointTwo[i].transform.position;
-				Destroy(m_PuzzlePieceForCheckPointTwo[i].gameObject);
-				m_PuzzlePieceForCheckPointTwo[i] = newPuzzlePiece;
-				newPuzzlePiece.GetComponent<PuzzlePiece>().SetInfo(i + m_PuzzlePieceForCheckPointOne.Length);
-			}
-
-			for(int i = 0; i < m_PuzzlePieceForCheckPointThree.Length; i++)
-			{
-				GameObject newPuzzlePiece = (GameObject)Instantiate(m_PuzzlePiecePrefab);
-				newPuzzlePiece.transform.position = m_PuzzlePieceForCheckPointThree[i].transform.position;
-				Destroy(m_PuzzlePieceForCheckPointThree[i].gameObject);
-				m_PuzzlePieceForCheckPointThree[i] = newPuzzlePiece;
-				newPuzzlePiece.GetComponent<PuzzlePiece>().SetInfo(i + m_PuzzlePieceForCheckPointOne.Length + m_PuzzlePieceForCheckPointTwo.Length);
 			}
 
             //Set counter to 0
@@ -246,52 +246,6 @@ case CheckPoints.CheckPoint_2:
 				newLightPeg.GetComponent<LightPeg>().SetInfo(i + m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length);
 				GameData.Instance.ResetCollectedPeg(i + m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length);  
 			}
-
-//Puzzle pieces for check point two
-
-			for(int i = 0; i < m_PuzzlePieceForCheckPointOne.Length; i++)
-			{
-				if (m_PuzzlePieceCollected[i])
-				{
-					//This light peg is collected
-					//don't spawn
-					//increment counter
-					Destroy(m_PuzzlePieceForCheckPointOne[i].gameObject);
-					m_PuzzlePieceForCheckPointOne[i] = null;
-					m_NumberOfPuzzlePiecesCollected++;
-				}
-				else
-				{ 
-					//this light peg is not collected 
-					//Spawn light peg
-					
-					GameObject newLightPeg = (GameObject)Instantiate(m_LightPegPrefab);
-					newLightPeg.transform.position = m_PuzzlePieceForCheckPointOne[i].transform.position;
-					Destroy(m_PuzzlePieceForCheckPointOne[i].gameObject);
-					m_PuzzlePieceForCheckPointOne[i] = newLightPeg;
-				}           
-			}
-
-
-			for(int i = 0; i < m_PuzzlePieceForCheckPointTwo.Length; i++)
-			{
-				GameObject newPuzzlePiece = (GameObject)Instantiate(m_PuzzlePiecePrefab);
-				newPuzzlePiece.transform.position = m_PuzzlePieceForCheckPointTwo[i].transform.position;
-				Destroy(m_PuzzlePieceForCheckPointTwo[i].gameObject);
-				m_PuzzlePieceForCheckPointTwo[i] = newPuzzlePiece;
-				newPuzzlePiece.GetComponent<PuzzlePiece>().SetInfo(i + m_PuzzlePieceForCheckPointOne.Length);
-			}
-
-			for(int i = 0; i < m_LightPegsForCheckPointThree.Length; i++)
-			{
-				GameObject newLightPeg = (GameObject)Instantiate(m_LightPegPrefab);
-				newLightPeg.transform.position = m_LightPegsForCheckPointThree[i].transform.position;
-				Destroy(m_LightPegsForCheckPointThree[i].gameObject);
-				m_LightPegsForCheckPointThree[i] = newLightPeg;
-				newLightPeg.GetComponent<LightPeg>().SetInfo(i + m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length);
-				GameData.Instance.ResetCollectedPeg(i + m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length);  
-			}
-
                 break;
 #endregion
 #region CheckPoint Three
