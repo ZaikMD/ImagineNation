@@ -77,6 +77,9 @@ public class Targeting : MonoBehaviour {
         //Loop through all of the possible targets and see if its the most viable
         for(int i = 0; i < m_PossibleTargets.Count; i++)
         {
+			if(m_PossibleTargets[i].gameObject == null)
+				continue;
+
 			Vector3 DirectionOfTarget = m_PossibleTargets[i].transform.position - m_Camera.transform.position;
             //set angle to the angle between our facing angle and the other object
             float Angle = Vector3.Angle(LookVector, DirectionOfTarget);
