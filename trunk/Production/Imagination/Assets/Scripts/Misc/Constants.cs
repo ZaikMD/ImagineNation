@@ -32,6 +32,8 @@ public static class Constants
 			return m_PLAYER_INPUT_ARRAY;
 		}
 	}
+	public const int LIVE_INITIAL_COUNT = 3;
+	public const int LIVES_MAX = 99;
 
 	public const string BRIGHTNESS_PROPERTY_NAME = "_Brightness";
 	public const float BRIGHTNESS_INCREMENT = 0.1f;

@@ -88,6 +88,8 @@ public class TPCamera : ShutterCamera
                 break;
             }
         }
+
+		m_IgnoreCounter--;
     }
 
 	void Awake()

@@ -13,6 +13,7 @@ using System.Collections;
 /*
 * 8/10/2014 Edit: Fully Commented and changed strings to constants- Zach Dubuc
 *
+*26/11/2014 Edit: Added functionality for lives
 * 
 */
 #endregion
@@ -61,7 +62,6 @@ public class DeadPlayerManager : MonoBehaviour
 
 	//RespawnLocation
 	Vector3 m_RespawnLocation;
-
 
 
 	// Use this for initialization
@@ -125,6 +125,20 @@ public class DeadPlayerManager : MonoBehaviour
 
 		if(m_TwoPlayersDead)
 		{
+			//if the team of players still have lives left in their pool, it gets decremented
+			if(GameData.Instance.CurrentLives > 0)
+			{
+				GameData.Instance.DecrementLives();
+				Debug.Log (GameData.Instance.CurrentLives);
+			}
+
+			else
+			{
+				GameData.Instance.ResetLives();
+				GameData.Instance.resetCheckPoint();
+				Debug.Log ("out of lives");
+			}
+
 			Application.LoadLevel(Application.loadedLevelName); //If both players are dead, reset the scene
 		}
 	}

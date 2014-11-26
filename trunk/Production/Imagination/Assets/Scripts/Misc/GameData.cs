@@ -195,7 +195,17 @@ public class GameData : MonoBehaviour
 		}
 	}
 
-	public void Start()
+	//when saving and loading happens, this needs to be loaded in
+	int m_Lives = Constants.LIVE_INITIAL_COUNT;
+
+	public int CurrentLives
+	{
+		get { return m_Lives; }
+
+		set { m_Lives = value;}
+	}
+
+	void Start()
 	{
 		Brightness = Constants.BRIGHTNESS_DEFAULT;
 	}
@@ -296,6 +306,23 @@ public class GameData : MonoBehaviour
 	public void ResetPuzzlePiece(int id)
 	{
 		m_PuzzlePieceCollectedInLevel[(int)m_CurrentLevel][(int)m_CurrentSection][ID] = 0;
+	}
+
+
+	public void IncrementLives()
+	{
+		if(m_Lives < Constants.LIVES_MAX)
+			m_Lives++;
+	}
+
+	public void DecrementLives()
+	{
+		m_Lives--;
+	}
+
+	public void ResetLives()
+	{
+		m_Lives = Constants.LIVE_INITIAL_COUNT;
 	}
 
 }
