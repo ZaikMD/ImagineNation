@@ -63,8 +63,12 @@ public class Targeting : MonoBehaviour {
     {
         //reset our current target
         if(m_CurrentTarget != null)
-        m_CurrentTarget.renderer.material.color = m_CurrentTargetOriginalColor;
-
+		{
+			if( m_CurrentTarget.renderer != null)
+			{
+				m_CurrentTarget.renderer.material.color = m_CurrentTargetOriginalColor;
+			}
+		}
         //Set our target to null so if we can't see our target anymore, we know
         m_CurrentTarget = null;
 
@@ -127,6 +131,12 @@ public class Targeting : MonoBehaviour {
         {
             return;
         }
+
+		if(m_CurrentTarget.renderer == null)
+		{
+			return;
+		}
+
 		//get the objects color so we can reset it
         m_CurrentTargetOriginalColor = m_CurrentTarget.renderer.material.color;
         //change the color so we know what is our target

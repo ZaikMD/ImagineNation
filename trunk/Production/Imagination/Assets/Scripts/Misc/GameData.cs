@@ -19,6 +19,8 @@
 * 17/10/2014 Edit: Zach Dubuc - Added in a reset checkpoint Function
 * 
 * 30/10/2014 Edit: Kole - Added collectable code, so collectables would reset right 
+* 
+* 26/11/2014 Edit: Kole - Added a varible to save and load for puzzle pieces.
 */
 #endregion
 
@@ -119,6 +121,7 @@ public class GameData : MonoBehaviour
 	public bool m_GameIsRunnging = false;
 
 	//current level, section, and checkpoint
+	short m_NumberOfLevels = Constants.NUMBER_OF_LEVELS;
 	Levels m_CurrentLevel = Levels.Level_1;
 	Sections m_CurrentSection = Sections.Sections_1;
 	CheckPoints m_CurrentCheckPoint = CheckPoints.CheckPoint_1;
@@ -213,16 +216,17 @@ public class GameData : MonoBehaviour
     }
     
     bool[] m_LightPegsCollectedInLevel;
-	bool[] m_PuzzlePieceCollectedInLevel;
+	//the first element will be level, second section, and the will be the puzzle piece in question. 
+	short[][][] m_PuzzlePieceCollectedInLevel; // puzzle pieces will be treated like a bool.
 
     public bool[] CollectedLightPegs()
     {
         return m_LightPegsCollectedInLevel;
     }
 
-	public bool[] CollectedPuzzlePiece()
+	public short[] CollectedPuzzlePiece()
 	{
-		return m_PuzzlePieceCollectedInLevel;
+		return m_PuzzlePieceCollectedInLevel[(int)m_CurrentLevel][(int)m_CurrentSection];
 	}
 
     public void SetCollectedPegs(int length)
@@ -235,13 +239,42 @@ public class GameData : MonoBehaviour
         }
     }
 
-	public void SetCollectedPuzzlePieces(int length)
+	public void SetCollectedPuzzlePieces(bool[] m_PuzzlePeiceCollected)
 	{
-		m_PuzzlePieceCollectedInLevel = new bool[length];
-		
-		for (int i = 0; i < length; i++)
+		if(m_PuzzlePieceCollectedInLevel == null)
 		{
-			m_PuzzlePieceCollectedInLevel[i] = false;   
+//			m_PuzzlePieceCollectedInLevel = new short[1][3][2];
+		}
+
+		for (int i = 0; i < m_PuzzlePeiceCollected.Length; i++)
+		{
+			if(m_PuzzlePeiceCollected[i])
+			{
+				m_PuzzlePieceCollectedInLevel[(int)m_CurrentLevel][(int)m_CurrentSection][i] = 1;   
+			}
+			else
+			{
+				m_PuzzlePieceCollectedInLevel[(int)m_CurrentLevel][(int)m_CurrentSection][i] = 0;
+			}
+		}
+	}
+
+	public short[] GetCollectedPuzzlePeices()
+	{
+		if(m_PuzzlePieceCollectedInLevel[(int)m_CurrentLevel][(int)m_CurrentSection] == null)
+		{
+			return m_PuzzlePieceCollectedInLevel[(int)m_CurrentLevel][(int)m_CurrentSection];	
+		}
+		else
+		{
+			bool[] newBool = new bool[2];
+			for(int i = 0; i > newBool.Length; i++)
+			{
+				newBool[i] = false;
+			}
+
+			SetCollectedPuzzlePieces(newBool);
+			return m_PuzzlePieceCollectedInLevel[(int)m_CurrentLevel][(int)m_CurrentSection];	
 		}
 	}
 
@@ -257,12 +290,12 @@ public class GameData : MonoBehaviour
 
 	public void PuzzlePieceCollected(int ID)
 	{
-		m_PuzzlePieceCollectedInLevel[ID] = true;
+		m_PuzzlePieceCollectedInLevel[(int)m_CurrentLevel][(int)m_CurrentSection][ID] = 1; 
 	}
 	
 	public void ResetPuzzlePiece(int id)
 	{
-		m_PuzzlePieceCollectedInLevel[id] = false;
+		m_PuzzlePieceCollectedInLevel[(int)m_CurrentLevel][(int)m_CurrentSection][ID] = 0;
 	}
 
 }

@@ -106,14 +106,28 @@ public class CollectableManager : MonoBehaviour {
             //first time the level is being played
             //We need to set gamedatas light pegs collected to all false
             GameData.Instance.SetCollectedPegs(m_LightPegCollected.Length);
-			GameData.Instance.SetCollectedPuzzlePieces(m_PuzzlePieceCollected.Length);
+			GameData.Instance.SetCollectedPuzzlePieces(m_PuzzlePieceCollected);
 			GameData.Instance.FirstTimePlayingLevel = false;
         }
         else
         { 
             //Played this level before
             m_LightPegCollected = GameData.Instance.CollectedLightPegs();
-			m_PuzzlePieceCollected = GameData.Instance.CollectedPuzzlePiece();
+
+			short[] temp = GameData.Instance.CollectedPuzzlePiece();
+			m_PuzzlePieceCollected = new bool[temp.Length + 1];
+
+			for (int i = 0; i < temp.Length; i++)
+			{
+				if(temp[i] == 1)
+				{
+					m_PuzzlePieceCollected[i] = true;   
+				}
+				else
+				{
+					m_PuzzlePieceCollected[i] = false;
+				}
+			}
         }
         
         //Check which CheckPoint we are starting at
@@ -356,7 +370,7 @@ case CheckPoints.CheckPoint_3:
 
 	void Load()
 	{
-		//load by level name and index number of 
+		//GameData.Instance.GetCollectedPuzzlePeices();
 	
 	}
 
