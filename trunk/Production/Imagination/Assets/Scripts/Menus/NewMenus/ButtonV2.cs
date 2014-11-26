@@ -38,7 +38,7 @@ public abstract class ButtonV2 : MonoBehaviour
         Disabled
     };
 
-    protected ButtonStates m_ButtonState;
+    protected ButtonStates m_ButtonState = ButtonStates.Default;
     public ButtonStates ButtonState
     {
         get { return m_ButtonState; }
