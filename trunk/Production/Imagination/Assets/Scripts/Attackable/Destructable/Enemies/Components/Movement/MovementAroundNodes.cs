@@ -16,7 +16,7 @@ using System.Collections;
 public class MovementAroundNodes : BaseMovement 
 {
     //Patrol Node Variables
-    public Transform[] PatrolNodes;
+    private Transform[] PatrolNodes;
     private int m_NodeCount;
     private int m_CurrentPatrolNode = 0;
 

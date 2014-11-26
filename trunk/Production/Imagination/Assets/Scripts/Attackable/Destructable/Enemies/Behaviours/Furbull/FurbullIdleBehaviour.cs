@@ -32,7 +32,6 @@ public class FurbullIdleBehaviour : BaseIdleBehaviour
 			Movement();
         }
 
-
 		if (m_Target != null)
 		{
         	if (m_EnterCombatComponent.EnterCombat(m_Target.transform) == true)
