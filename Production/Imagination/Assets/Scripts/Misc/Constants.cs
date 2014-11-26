@@ -75,6 +75,8 @@ public static class Constants
     public const string MOVING_PLATFORM_TAG_STRING = "MovingPlatform";
 	public const string MOVING_BLOCK_TAG_STRING = "MovingBlock";
 
+	public const short NUMBER_OF_LEVELS = 1;
+
 	public const string LOADING_SCREEN = "LoadingScreen";
 	public const string LEVEL1_SECTION1 = "Level1_Section1";
 	public const string LEVEL1_SECTION2 = "Level1_Section2";
