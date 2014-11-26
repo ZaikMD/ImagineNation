@@ -128,8 +128,8 @@ public class GameData : MonoBehaviour
 	//settings
 	//cant make a vector2 const
 	private Vector2 m_DefaultCameraRotationScale = new Vector2 (-2.5f, -1.5f);
-	Vector2 m_CameraRotationScaleModifyer = new Vector2 (1.0f, 1.0f);
-	public Vector2 CameraRotationScaleModifyer
+	float m_CameraRotationScaleModifyer = 1.0f;
+	public float CameraRotationScaleModifyer
 	{
 		get { return m_CameraRotationScaleModifyer;}
 		set 
@@ -137,8 +137,8 @@ public class GameData : MonoBehaviour
 			m_CameraRotationScaleModifyer = value;
 			for(int i = 0; i < TPCamera.Cameras.Count; i++)
 			{
-				TPCamera.Cameras[i].RotationScale = new Vector2(m_DefaultCameraRotationScale.x * m_CameraRotationScaleModifyer.x,
-				                                                m_DefaultCameraRotationScale.y * m_CameraRotationScaleModifyer.y);
+				TPCamera.Cameras[i].RotationScale = new Vector2(m_DefaultCameraRotationScale.x * m_CameraRotationScaleModifyer,
+				                                                m_DefaultCameraRotationScale.y * m_CameraRotationScaleModifyer);
 			}
 		}
 	}

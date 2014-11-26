@@ -39,6 +39,11 @@ public static class Constants
 	public const float BRIGHTNESS_MAX = 2.0f;
 	public const float BRIGHTNESS_DEFAULT = 1.0f;
 
+	public const float CAMERA_ROTATE_SPEED_MIN = 0.5f;
+	public const float CAMERA_ROTATE_SPEED_MAX = 2.0f;
+	public const float CAMERA_ROTATE_SPEED_DEFAULT = 1.0f;
+	public const float CAMERA_ROTATE_SPEED_INCREMENT = 0.1f;
+
     //This will control how long the hud is displayed for
     public const float HUD_ON_SCREEN_TIME = 3.0f;
 
