@@ -24,7 +24,7 @@ public class ButtonChangeMenuV2 : ButtonV2
     static MenuCamera m_Camera;
 
 	// Use this for initialization
-	void Start () 
+	protected override void start () 
     {
         #if DEBUG || UNITY_EDITOR
             if (NextMenu == null)
