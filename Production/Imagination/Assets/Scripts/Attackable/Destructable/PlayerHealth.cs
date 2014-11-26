@@ -16,6 +16,7 @@
 * 
 * 24/11/2014 Edit: Added functionality to be able to get the player - Greg
 * 
+* 
 */
 #endregion
 
@@ -44,6 +45,8 @@ public class PlayerHealth : Destructable
 
 	//Used to know which player we are
 	int m_Player;
+
+
 
 	const float TEXTURE_SCALE = 0.45f;
 
