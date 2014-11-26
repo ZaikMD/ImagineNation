@@ -17,7 +17,10 @@ public class FurbullDeadBehaviour : BaseDeadBehaviour
 {
 	protected override void start ()
     {
-        m_DeathComponent.start(this);
+		if(m_DeathComponent != null)
+		{
+        	m_DeathComponent.start(this);
+		}
     }
 
 	public override void update()
