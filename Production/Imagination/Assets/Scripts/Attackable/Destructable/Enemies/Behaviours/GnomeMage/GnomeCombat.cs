@@ -31,6 +31,8 @@ public class GnomeCombat : BaseAttackBehaviour
 	public const float m_ClonedTime = 3.0f;
 	float m_ClonedTimer = 0.0f;
 
+	Vector3 m_Destination;
+
 	GnomeShield m_Shield;
 
 	// Use this for initialization
@@ -40,6 +42,8 @@ public class GnomeCombat : BaseAttackBehaviour
 
 		m_CombatComponent.start (this);
 		m_MovementComponent.start (this);
+
+		m_CloningMovement.start (this);
 
 		m_ClonedCombat.start (this);
 		m_ClonedMovement.start (this);
@@ -93,6 +97,13 @@ public class GnomeCombat : BaseAttackBehaviour
 	void Cloning()
 	{
 		Movement ();
+
+		Vector3 pos1 = new Vector3 (transform.position.x, 0, transform.position.z);
+		Vector3 pos2 = new Vector3 (m_Destination.x, 0, m_Destination.z);
+
+		float dist = Vector3.Distance (pos1, pos2);
+
+		if (dist <= 1.0f)
 		CreateClones ();
 	}
 
@@ -130,7 +141,7 @@ public class GnomeCombat : BaseAttackBehaviour
 				
 			case CombatStates.Cloning:
 				if (m_CloningMovement != null)	
-					m_CloningMovement.Movement(m_Target);
+					m_Destination = m_CloningMovement.Movement(m_Target);
 				break;
 				
 			case CombatStates.Cloned:

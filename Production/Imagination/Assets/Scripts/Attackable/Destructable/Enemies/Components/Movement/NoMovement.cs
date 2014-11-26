@@ -3,8 +3,9 @@ using System.Collections;
 
 public class NoMovement : BaseMovement 
 {
-	public override void Movement (GameObject target)
+	public override Vector3 Movement (GameObject target)
 	{
 		//Do Nothing
+		return Vector3.zero;
 	}
 }

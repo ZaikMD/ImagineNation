@@ -34,10 +34,11 @@ public class MovementAroundNodes : BaseMovement
     {
  	    base.start(baseBehaviour);
 		PatrolNodes = baseBehaviour.getPathNodes ();
+		m_NodeCount = PatrolNodes.Length;
     }
 
 
-	public override void Movement(GameObject target)
+	public override Vector3 Movement(GameObject target)
     {
         //Set stopping Distance to reach node without stopping short
         m_Agent.stoppingDistance = 0;
@@ -54,7 +55,6 @@ public class MovementAroundNodes : BaseMovement
             //Randomize enemy speed between the 2 constants after reaching each node, organic feel
             float randomSpeed = Random.Range(MIN_PATROL_SPEED, MAX_PATROL_SPEED);
             m_Agent.speed = randomSpeed;
-
 
             //Check if we have reached our node count, if so we reset the current
             //path node and set our target again
@@ -74,10 +74,15 @@ public class MovementAroundNodes : BaseMovement
                 m_Agent.SetDestination(m_Target.position);
             }
         }
+
+		return m_Target.position;
     }
 
     private float GetDistanceToTarget()
     {
+		Vector3 dist1 = new Vector3 (transform.position.x, 0, transform.position.z);
+		Vector3 dist2 = new Vector3 (m_Target.transform.position.x, 0, m_Target.transform.position.z);
+
         return Vector3.Distance(transform.position, m_Target.transform.position);
     }
 }
