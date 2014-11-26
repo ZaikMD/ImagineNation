@@ -354,6 +354,18 @@ case CheckPoints.CheckPoint_3:
 
     }
 
+	void Load()
+	{
+		//load by level name and index number of 
+	
+	}
+
+	void Save()
+	{
+
+
+	}
+
     public void IncrementCounter()
     {
         m_NumberOfLightPegsCollect ++;
