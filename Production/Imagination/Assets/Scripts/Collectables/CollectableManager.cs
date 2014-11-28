@@ -116,7 +116,7 @@ public class CollectableManager : MonoBehaviour {
 	{
 		for(int i = 0; i < m_PuzzlePieceForSection.Length; i++)
 		{
-			if(m_PuzzlePieceCollected[i])
+			if(!m_PuzzlePieceCollected[i])
 			{
 				GameObject newPuzzlePiece = (GameObject)Instantiate(m_PuzzlePiecePrefab);
 				newPuzzlePiece.transform.position = m_PuzzlePieceForSection[i].transform.position;
