@@ -115,7 +115,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//Update movement
 
 	//The default update all characters should use
-	protected void Update () 
+	protected void UpdateVelocity () 
 	{ 
         if (PauseScreen.IsGamePaused){return;}
 

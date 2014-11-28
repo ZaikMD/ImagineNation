@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Created by Greg Fortier
  * Date: Nov, 14th, 2014
  *  
@@ -94,7 +94,7 @@ public class DerekMovement : BaseMovementAbility
 			return;
 		}
 
-		base.Update();
+		base.UpdateVelocity();
 	}
 
 	private bool CanGrapple()
