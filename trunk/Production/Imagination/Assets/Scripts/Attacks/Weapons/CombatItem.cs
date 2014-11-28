@@ -63,7 +63,7 @@ public class CombatItem : MonoBehaviour
 
                 else
                 {
-                    m_BaseAttacks[m_CurrentAttack].startAttack(transform.position, transform.rotation); //Call attack function
+                   // m_BaseAttacks[m_CurrentAttack].startAttack(transform.position, transform.rotation); //Call attack function
 					PlaySoundAndAnim();
                     m_PreviousAttack = m_CurrentAttack;//Set the previous attack to the current attack, then increment the current attack
                     m_CurrentAttack++;
