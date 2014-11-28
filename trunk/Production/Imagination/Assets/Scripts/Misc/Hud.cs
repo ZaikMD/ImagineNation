@@ -201,7 +201,12 @@ public class Hud : MonoBehaviour {
 		m_LifeTimer = m_HudDisplayLength;		
 	}
 
-    public void ShowHiddenHud()
+	public void GetNumberOfLifes()
+	{
+		NumberOfLives = GameData.Instance.GetLivesRemaining();
+	}
+
+	public void ShowHiddenHud()
     {
 		m_ShowLightPegs = false;
 		m_ShowLifes = false;
@@ -219,6 +224,9 @@ public class Hud : MonoBehaviour {
     //All our graphics have to be done in on gui
     void OnGUI()
     {
+		if (PauseScreen.IsGamePaused) { return; }
+
+
 		float SizeOfHudElements = Screen.width / 10;
 		Rect PositionRect = new Rect(0, 0, SizeOfHudElements, SizeOfHudElements);
 		//Need to fix the custom fonts.
@@ -226,6 +234,8 @@ public class Hud : MonoBehaviour {
 		//Hidden hud elements such as collectables and Lives remaining
         if(m_ShowHiddenHud)
         {
+			GetNumberOfLifes();
+
 			//this will scale our font to the approximite size
 			GUI.skin.label.fontSize = Screen.width/12;
 
@@ -256,12 +266,12 @@ public class Hud : MonoBehaviour {
 			if(NumberOfLives < 10)
 			{
 				//No Lifes implemented yet
-				//GUI.Label(PositionRect, "0" + LightPegCollected.ToString());
+				GUI.Label(PositionRect, "0" + NumberOfLives.ToString());
 			}
 			else
 			{
 				//No Lives imlemented yet
-				//GUI.Label(PositionRect, LightPegCollected.ToString());
+				GUI.Label(PositionRect, NumberOfLives.ToString());
 			}
         }
 
@@ -286,6 +296,8 @@ public class Hud : MonoBehaviour {
 
 		if(m_ShowLifes)
 		{
+			GetNumberOfLifes();
+
 			//Life Counter image
 			PositionRect.Set(Screen.width - SizeOfHudElements, 0, SizeOfHudElements, SizeOfHudElements);
 			GUI.DrawTexture(PositionRect, m_LifeCounterImage);
@@ -295,12 +307,12 @@ public class Hud : MonoBehaviour {
 			if(NumberOfLives < 10)
 			{
 				//No Lifes implemented yet
-				//GUI.Label(PositionRect, "0" + LightPegCollected.ToString());
+				GUI.Label(PositionRect, "0" + NumberOfLives.ToString());
 			}
 			else
 			{
 				//No Lives imlemented yet
-				//GUI.Label(PositionRect, LightPegCollected.ToString());
+				GUI.Label(PositionRect, NumberOfLives.ToString());
 			}
 		}
 

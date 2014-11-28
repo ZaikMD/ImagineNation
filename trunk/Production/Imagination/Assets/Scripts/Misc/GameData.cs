@@ -344,16 +344,23 @@ public class GameData : MonoBehaviour
 	{
 		if(m_Lives < Constants.LIVES_MAX)
 			m_Lives++;
+		//Update hud
 	}
 
 	public void DecrementLives()
 	{
 		m_Lives--;
+		//update hud
 	}
 
 	public void ResetLives()
 	{
 		m_Lives = Constants.LIVE_INITIAL_COUNT;
+		//update hud
 	}
 
+	public int GetLivesRemaining()
+	{
+		return m_Lives;
+	}
 }
