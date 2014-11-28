@@ -71,10 +71,6 @@ public class TPCamera : ShutterCamera
 	//the auto lerp amount
     const float AUTO_LERP_BASE_AMOUNT = 0.08f;
 
-	//the script that should be running on a game object at the player location (used to find action areas)
-    public ActionAreaDetector ActionAreaDetect;
-
-
     public bool m_IsPaused { get; set; }
     
     void OnDestroy()
@@ -204,9 +200,6 @@ public class TPCamera : ShutterCamera
         
         //check for collision
         Collision();
-
-        //action area behaviors
-        ActionArea();
 	}
 
 	protected override void updateShutter ()
@@ -245,29 +238,11 @@ public class TPCamera : ShutterCamera
 		}
 	}
 
-    void ActionArea()
-    {
-		//checks if the player is in an action area
-		if(ActionAreaDetect.m_CurrentActionArea != null)
-		{
-			//rotates to match the action area camera mount points rotation
-            transform.forward = Helpers.lerpVector3(transform.forward, ActionAreaDetect.m_CurrentActionArea.CameraMountPoint.transform.forward, AUTO_LERP_BASE_AMOUNT * 2.0f);
-
-			//moves to the action area camera mount points position
-            gameObject.transform.position = Helpers.lerpVector3(transform.position, ActionAreaDetect.m_CurrentActionArea.CameraMountPoint.transform.position, LERP_AMOUNT / 2.0f);
-        }
-	}
-
     //=================================================================================================
 
 	//behaviour that handles auto rotation and player rotation of the camera
     void Rotation()
     {
-		//return if an action area has been found
-		if (ActionAreaDetect.m_CurrentActionArea != null)
-		{
-			return;
-		}
 
         //get the input for camera Rotation
         Vector2 rotationInput = InputManager.getCamera(m_AcceptInputFrom.ReadInputFrom);
@@ -300,12 +275,6 @@ public class TPCamera : ShutterCamera
 	// second behaviour for rotation (note: only use one rotation beaviour)
     void Rotation2()
 	{
-		//return idf an action area has been found
-		if (ActionAreaDetect.m_CurrentActionArea != null)
-		{
-			return;
-		}
-
 		//get the input for camera Rotation
 		Vector2 rotationInput = InputManager.getCamera(m_AcceptInputFrom.ReadInputFrom);
 
@@ -365,11 +334,6 @@ public class TPCamera : ShutterCamera
 	//lerp the cameras position
     void LerpToPosition()
     {
-		//if an action area has been found return
-		if (ActionAreaDetect.m_CurrentActionArea != null)
-		{
-			return;
-		}
         //lerp to the target position
         gameObject.transform.position = Vector3.Lerp(transform.position, LerpTo.transform.position, LERP_AMOUNT);
     }
@@ -379,12 +343,6 @@ public class TPCamera : ShutterCamera
 	//the look at behaviour
     void LookAt()
     {
-		//if an action area has been found return
-		if (ActionAreaDetect.m_CurrentActionArea != null)
-		{
-			return;
-		}
-
         //for now just look at the rotaion point
         transform.LookAt(RotationPoint.transform.position);
     }
@@ -394,12 +352,6 @@ public class TPCamera : ShutterCamera
 	//behaviour for camera collision
     void Collision()
     {
-		//if an action area has been found return
-		if (ActionAreaDetect.m_CurrentActionArea != null)
-		{
-			return;
-		}
-
 		//raycast four times to areas around the cameras point based off the rotation of the camera and the offset
 		//each function returns the minimum distance (whether or not its ray cast hit an object first
         float minDist = float.MaxValue;
