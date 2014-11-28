@@ -38,7 +38,6 @@ public class BaseBehaviour : MonoBehaviour
 	public NavMeshAgent GetAgent()
 	{
 		EnemyWithMovement temp = m_EnemyAI as EnemyWithMovement;
-		
 		if(temp != null)
 		{
 			return temp.GetAgent;
