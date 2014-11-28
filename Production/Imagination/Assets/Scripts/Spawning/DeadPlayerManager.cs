@@ -129,14 +129,12 @@ public class DeadPlayerManager : MonoBehaviour
 			if(GameData.Instance.CurrentLives > 0)
 			{
 				GameData.Instance.DecrementLives();
-				Debug.Log (GameData.Instance.CurrentLives);
 			}
 
 			else
 			{
 				GameData.Instance.ResetLives();
 				GameData.Instance.resetCheckPoint();
-				Debug.Log ("out of lives");
 			}
 
 			Application.LoadLevel(Application.loadedLevelName); //If both players are dead, reset the scene
