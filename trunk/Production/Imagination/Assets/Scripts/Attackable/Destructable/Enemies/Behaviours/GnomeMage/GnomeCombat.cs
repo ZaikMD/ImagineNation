@@ -38,7 +38,12 @@ public class GnomeCombat : BaseAttackBehaviour
 
 	const int m_NumberOfClones = 2;
 	List<GnomeClone> m_Clones;
-	const float m_ClonePosDist = 5.0f;
+	const float m_ClonePosDist = 3.0f;
+
+	const float m_TimeBetweenShots = 100.5f;
+	float m_ShotTimer;
+
+	Vector3 m_PrevPos;
 
 	//prefabs
 	public GameObject m_GnomeClonePrefab;
@@ -58,6 +63,7 @@ public class GnomeCombat : BaseAttackBehaviour
 		m_ClonedMovement.start (this);
 
 		m_Shield = GetComponentInParent<GnomeShield> ();
+		m_Clones = new List<GnomeClone> ();
 	}
 	
 	// Update is called once per frame
@@ -89,6 +95,8 @@ public class GnomeCombat : BaseAttackBehaviour
 			Cloned();
 			break;
 		}
+
+		m_ShotTimer -= Time.deltaTime;
 	}
 
 	void Regular()
@@ -113,8 +121,13 @@ public class GnomeCombat : BaseAttackBehaviour
 
 		float dist = Vector3.Distance (pos1, pos2);
 
-		if (dist <= 2.0f)
-		CreateClones ();
+		if (dist <= 2.0f || m_PrevPos == transform.position)
+		{
+			CreateClones ();
+			m_ClonedTimer = m_ClonedTime;
+			m_CurrentCombatState = CombatStates.Cloned;
+		}
+		m_PrevPos = transform.position;
 	}
 
 	void Cloned()
@@ -132,8 +145,6 @@ public class GnomeCombat : BaseAttackBehaviour
 
 	void CreateClones()
 	{
-		m_ClonedTimer = m_ClonedTime;
-
 		Vector3[] positions = new Vector3[m_NumberOfClones + 1];
 		
 		for (int i = 0; i < positions.Length; i++)
@@ -152,11 +163,11 @@ public class GnomeCombat : BaseAttackBehaviour
 			GameObject clone =(GameObject) Instantiate((Object) m_GnomeClonePrefab, transform.position, transform.rotation);
 			GnomeClone gnomeClone = clone.GetComponent<GnomeClone>();
 
-			gnomeClone.Create(m_ClonedMovement, m_ClonedCombat, positions[i], m_ClonedTime, m_Target);
+			gnomeClone.Create(m_ClonedMovement, m_ClonedCombat, positions[i], m_ClonedTime, m_Target, getProjectilePrefab());
 			m_Clones.Add(gnomeClone);
 		}
 
-		m_CurrentCombatState = CombatStates.Cloned;
+		m_MovementComponent.Movement (positions [positions.Length - 1]);
 	}
 
 	void DeactivateShield()
@@ -191,23 +202,29 @@ public class GnomeCombat : BaseAttackBehaviour
 
 	protected override void Combat ()
 	{
-		if(m_Target != null)
-			transform.LookAt (m_Target.transform.position);
-
-		if (m_EnemyAI.m_UCombat)
+		if (m_ShotTimer <= 0)
 		{
-			switch (m_CurrentCombatState)
+			if(m_Target == null)
+				return;
+
+			transform.LookAt (m_Target.transform.position);			
+			if (m_EnemyAI.m_UCombat)
 			{
-			case CombatStates.Regular:
-				if (m_CombatComponent != null)
-					m_CombatComponent.Combat();				
-				break;
-				
-			case CombatStates.Cloned:
-				if (m_ClonedCombat != null)
-					m_ClonedCombat.Combat();		
-				break;
+				switch (m_CurrentCombatState)
+				{
+				case CombatStates.Regular:
+					if (m_CombatComponent != null)
+						m_CombatComponent.Combat();				
+					break;
+					
+				case CombatStates.Cloned:
+					if (m_ClonedCombat != null)
+						m_ClonedCombat.Combat();		
+					break;
+				}
 			}
+
+			m_ShotTimer = m_TimeBetweenShots;
 		}
 	}
 }

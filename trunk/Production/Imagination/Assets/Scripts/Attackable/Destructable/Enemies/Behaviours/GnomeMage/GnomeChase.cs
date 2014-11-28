@@ -17,6 +17,9 @@ public class GnomeChase : BaseChaseBehaviour
 {
 	public BaseCombat m_CombatComponent;
 
+	const float m_TimeBetweenShots = 1.5f;
+	float m_ShotTimer;
+
 	// Use this for initialization
 	protected override void start ()
 	{
@@ -54,7 +57,13 @@ public class GnomeChase : BaseChaseBehaviour
 
 		Movement ();
 
-		if (m_EnemyAI.m_UCombat)
-			m_CombatComponent.Combat ();
+		if (m_ShotTimer <= 0)
+		{
+			if (m_EnemyAI.m_UCombat)
+				m_CombatComponent.Combat ();
+			m_ShotTimer = m_TimeBetweenShots;
+		}
+
+		m_ShotTimer -= Time.deltaTime;
 	}
 }

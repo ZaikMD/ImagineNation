@@ -13,7 +13,11 @@ public class GnomeClone : Destructable
 	GameObject m_Target;
 	public bool m_OriginalIsDead = false;
 
-	public void Create(BaseMovement moveComponent, BaseCombat combatComponent, Vector3 startingPos, float activeTime, GameObject target)
+	const float m_TimeBetweenShots = 1.0f;
+	float m_ShotTimer = 0.0f;
+
+	public void Create(BaseMovement moveComponent, BaseCombat combatComponent, Vector3 startingPos, 
+	                   float activeTime, GameObject target, GameObject projectilePrefab)
 	{
 		m_Target = target;
 		m_Agent = (NavMeshAgent) gameObject.AddComponent (Constants.NAV_AGENT);
@@ -27,6 +31,8 @@ public class GnomeClone : Destructable
 		System.Type combatType = combatComponent.GetType ();
 		string comType = combatType.ToString ();
 		m_CombatComponent = (BaseCombat) gameObject.AddComponent (comType);
+
+		m_CombatComponent.SetProjectilePrefab (projectilePrefab);
 
 		m_ActiveTimer = activeTime;
 
@@ -43,7 +49,15 @@ public class GnomeClone : Destructable
 			instantKill();
 		}
 
-		m_CombatComponent.Combat ();
+		if (m_Target != null)
+			transform.LookAt (m_Target.transform.position);
+
+		if (m_ShotTimer <= 0)
+		{
+			m_CombatComponent.Combat ();
+			m_ShotTimer = m_TimeBetweenShots;
+		}
+
 		m_MovementComponent.Movement (m_Target);
 
 		m_ActiveTimer -= Time.deltaTime;
