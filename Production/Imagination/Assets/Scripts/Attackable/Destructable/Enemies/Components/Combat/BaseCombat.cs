@@ -9,5 +9,9 @@ public abstract class BaseCombat : BaseComponent
 		m_ProjectilePrefab = baseBehaviour.getProjectilePrefab ();
     }
 
+	public void SetProjectilePrefab(GameObject prefab)
+	{
+		m_ProjectilePrefab = prefab;
+	}
 	public abstract void Combat();
 }
