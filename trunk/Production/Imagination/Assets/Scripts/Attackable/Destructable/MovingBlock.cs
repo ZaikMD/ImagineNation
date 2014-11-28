@@ -13,7 +13,7 @@ using System.Collections;
 #region ChangeLog
 /*
 * 8/10/2014 Edit: Fully Commented and changed strings to constants- Zach Dubuc
-*
+* 28/11/2014 Edit: Removed unused variable (m_Moving, ).
 * 
 */
 #endregion
@@ -37,7 +37,6 @@ public class MovingBlock : Destructable
 
     //Bools
 	bool m_Hit = false;
-	bool m_Moving = false;
 
     //The health of the block
 	protected int m_SaveHealth;
@@ -52,7 +51,7 @@ public class MovingBlock : Destructable
 	public GameObject m_BoxPrefab;
     
     //Gravity for when the block needs to fall
-	float m_Gravity = -10.0f;
+	float m_Gravity = 10.0f;
 
 
 
@@ -229,7 +228,7 @@ public class MovingBlock : Destructable
 		
 		RaycastHit rayHit;
 
-		Physics.Raycast (ray, out rayHit, 10.0f);
+		Physics.Raycast (ray, out rayHit, m_Gravity);
 
 		m_Destination.y = rayHit.point.y;
 	}
