@@ -20,7 +20,8 @@
 using UnityEngine;
 using System.Collections;
 
-public class BaseGoal : MonoBehaviour {
+public class BaseGoal : MonoBehaviour 
+{
 
 	//public Transform m_LevelEnd;
 	public string m_NextScene;
@@ -46,6 +47,8 @@ public class BaseGoal : MonoBehaviour {
 
 	void Update()
 	{
+        if (PauseScreen.IsGamePaused) { return; }
+
 		//if element 1 of array m_AtEnd equals true than load the next level. Because element 1 would be player2
 		if (m_AtEnd[1])
 			{
@@ -103,6 +106,4 @@ public class BaseGoal : MonoBehaviour {
 	{
 		m_PlayerWaitingToExit++;
 	}
-
-
 }

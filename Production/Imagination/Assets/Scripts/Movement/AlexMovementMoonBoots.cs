@@ -30,6 +30,8 @@ public class AlexMovementMoonBoots : BaseMovementAbility
 	// Just calls the base update
 	void Update ()
 	{
+        if (PauseScreen.IsGamePaused) { return; }
+
 		//then calls base Update script from BaseMovementAbility
 		base.UpdateVelocity ();
 	

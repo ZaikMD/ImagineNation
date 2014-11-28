@@ -32,6 +32,8 @@ public class DarknessDamage : MonoBehaviour
 	//OnTriggerStay damage the destructable if there is one
     void OnTriggerStay(Collider obj)
     {
+        if (PauseScreen.IsGamePaused) { return; }
+
         Destructable objDestructable = (Destructable)obj.GetComponentInChildren<Destructable>();
         if (objDestructable != null)
         {

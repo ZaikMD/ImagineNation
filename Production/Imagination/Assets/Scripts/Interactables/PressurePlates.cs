@@ -29,12 +29,6 @@ public class PressurePlates : SwitchBaseClass
 	{
 		m_List = new ArrayList ();
 	}
-	
-	// Update is called once per frame
-	void Update () 
-	{ 
-        if (PauseScreen.IsGamePaused){return;}
-	}
 
 	void OnTriggerEnter(Collider obj)
 	{

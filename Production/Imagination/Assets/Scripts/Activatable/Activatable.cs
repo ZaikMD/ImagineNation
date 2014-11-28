@@ -19,7 +19,7 @@ public class Activatable : MonoBehaviour
 {
     public SwitchBaseClass[] m_Switches;
 	public bool m_OnlyOneSwitchNeeded = false;
-	public EnemySpawner[] m_Spawners;
+	public EnemyAI[] m_Enemies;
 	protected bool m_AllSwitchesActive;
 	public bool m_ActivatesOnEnemiesDeath = false;
 	bool m_AllEnemiesDead;
@@ -83,9 +83,9 @@ public class Activatable : MonoBehaviour
 	bool CheckSpawners() 
 	{
 
-		for(int i = 0; i < m_Spawners.Length; i++)
+		for(int i = 0; i < m_Enemies.Length; i++)
 		{
-			if(m_Spawners[i].GetIsAlive() == true)
+			if(m_Enemies[i] != null)
 			{
 				return false;
 			}

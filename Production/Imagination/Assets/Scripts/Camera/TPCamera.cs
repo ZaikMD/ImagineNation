@@ -70,8 +70,6 @@ public class TPCamera : ShutterCamera
 
 	//the auto lerp amount
     const float AUTO_LERP_BASE_AMOUNT = 0.08f;
-
-    public bool m_IsPaused { get; set; }
     
     void OnDestroy()
     {
@@ -160,9 +158,6 @@ public class TPCamera : ShutterCamera
 		//==================================================================================
         //get the accept input from script on the camera game object
 		m_AcceptInputFrom = gameObject.GetComponent<AcceptInputFrom>();
-
-
-		m_IsPaused = false;
 	}
 
 	void setShutterLayer(string layer)
@@ -180,8 +175,7 @@ public class TPCamera : ShutterCamera
         //update the shutter (base class)
         updateShutter();
 
-        if (m_IsPaused)
-            return;
+        if (PauseScreen.IsGamePaused) { return; }
 
 		//move the rotation points position to the player
         RotationPoint.transform.position = Vector3.Lerp(RotationPoint.transform.position, Player.transform.position, LERP_AMOUNT);
