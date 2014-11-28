@@ -66,6 +66,7 @@ public class Switch : SwitchBaseClass, Attackable
 	// Update is called once per frame
 	void Update () 
     {
+        if (PauseScreen.IsGamePaused) { return; }
 
 		if(m_WillPauseForCamera) //If the switch will pause for the camera to show something
 		{

@@ -48,6 +48,9 @@ public class Perception : MonoBehaviour
 
     void Update()
     {
+
+        if (PauseScreen.IsGamePaused) { return; }
+
         for (int i = 0; i < m_Players.Length; i++)
         {
             m_Players[i].update();
