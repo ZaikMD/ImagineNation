@@ -10,6 +10,8 @@
 #region ChangeLog
 /* 
  * 14/11/2014 - Complete redesign of Derek's movement. Derek now has a grapple hook instead of double jump - Greg Fortier
+ * 
+ * 28/11/2014 - Fixed commenting, made sure it was up to date - Greg Fortier
  */
 #endregion
 
@@ -47,6 +49,8 @@ public class DerekMovement : BaseMovementAbility
 	{ 
         if (PauseScreen.IsGamePaused){return;}
 
+		//sets m_CanGrapple to true when the players lands on the ground, this is necessary so the player can not keep grappling without ever touching the
+		//ground.
 		if(GetIsGrounded())
 		{
 			m_CanGrapple = true;
@@ -88,6 +92,8 @@ public class DerekMovement : BaseMovementAbility
 				m_Grapple = false;
 			}
 		}
+
+		//if you should be grappling move to your target
 		if(m_Grapple)
 		{
 			MoveTowardsTarget();
@@ -97,6 +103,7 @@ public class DerekMovement : BaseMovementAbility
 		base.UpdateVelocity();
 	}
 
+	//checks if you can grapple
 	private bool CanGrapple()
 	{
 		if(GetIsGrounded() == false && m_CanGrapple == true)
@@ -107,21 +114,24 @@ public class DerekMovement : BaseMovementAbility
 		return false;	
 	}
 
+	//Moves you towards your target
 	private void MoveTowardsTarget()
 	{
+		//gets your position and the target's position
 		Vector3 currentPosition = this.transform.position;
 		Vector3 targetPosition = m_CurrentTarget.transform.position;
 
+		// if the distance between you and your target is greater than 0
 		if(Vector3.Distance(currentPosition, targetPosition) > 0.0f)
 		{
+			//create a vector 3 that will hold the direction you must go towards and then normalize it
 			Vector3 directionOfTravel = targetPosition - currentPosition;
 			directionOfTravel.Normalize();
 
+			//translate the position at the direction of travel times the speed and deltatime
 			this.transform.Translate(
-				(directionOfTravel.x * m_GrappleSpeed * Time.deltaTime),
-				(directionOfTravel.y * m_GrappleSpeed * Time.deltaTime),
-				(directionOfTravel.z * m_GrappleSpeed * Time.deltaTime),
-				Space.World);
+				(directionOfTravel * m_GrappleSpeed * Time.deltaTime),Space.World);
+
 
 			if(m_CurrentTarget != null)
 			{
