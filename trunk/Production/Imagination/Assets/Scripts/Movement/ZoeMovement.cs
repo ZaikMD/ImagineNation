@@ -101,7 +101,7 @@ public class ZoeMovement : BaseMovementAbility
 		{
 			StopGlidingWhileAirborne();
 		}
-		base.Update ();
+		base.UpdateVelocity ();
 	}
 
 	//Set all gliding variables to a standard airborne state
