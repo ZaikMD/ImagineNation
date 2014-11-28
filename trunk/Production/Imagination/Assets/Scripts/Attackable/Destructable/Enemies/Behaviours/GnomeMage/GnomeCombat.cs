@@ -36,11 +36,12 @@ public class GnomeCombat : BaseAttackBehaviour
 
 	GnomeShield m_Shield;
 
-	const int m_numberOfClones = 2;
+	const int m_NumberOfClones = 2;
 	List<GnomeClone> m_Clones;
+	const float m_ClonePosDist = 5.0f;
 
 	//prefabs
-	public GameObject m_GnomeClone;
+	public GameObject m_GnomeClonePrefab;
 
 
 	// Use this for initialization
@@ -119,7 +120,10 @@ public class GnomeCombat : BaseAttackBehaviour
 	void Cloned()
 	{
 		if (m_ClonedTimer <= 0)
-			m_CurrentCombatState = CombatStates.Regular;		
+		{
+			m_CurrentCombatState = CombatStates.Regular;	
+			m_Clones.Clear();
+		}
 
 		Movement ();
 		Combat ();
@@ -129,6 +133,28 @@ public class GnomeCombat : BaseAttackBehaviour
 	void CreateClones()
 	{
 		m_ClonedTimer = m_ClonedTime;
+
+		Vector3[] positions = new Vector3[m_NumberOfClones + 1];
+		
+		for (int i = 0; i < positions.Length; i++)
+		{			
+			float angle = UnityEngine.Random.Range(0.0f, 2.0f * Mathf.PI);
+			
+			Vector3 loc = new Vector3( Mathf.Cos(angle),0,Mathf.Sin(angle));
+			if (m_Target != null)
+				loc = (loc.normalized * m_ClonePosDist) + m_Target.transform.position;
+			
+			positions[i] = loc;				
+		}
+
+		for (int i = 0; i < m_NumberOfClones; i++)
+		{
+			GameObject clone =(GameObject) Instantiate((Object) m_GnomeClonePrefab, transform.position, transform.rotation);
+			GnomeClone gnomeClone = clone.GetComponent<GnomeClone>();
+
+			gnomeClone.Create(m_ClonedMovement, m_ClonedCombat, positions[i], m_ClonedTime, m_Target);
+			m_Clones.Add(gnomeClone);
+		}
 
 		m_CurrentCombatState = CombatStates.Cloned;
 	}
@@ -165,6 +191,9 @@ public class GnomeCombat : BaseAttackBehaviour
 
 	protected override void Combat ()
 	{
+		if(m_Target != null)
+			transform.LookAt (m_Target.transform.position);
+
 		if (m_EnemyAI.m_UCombat)
 		{
 			switch (m_CurrentCombatState)
