@@ -47,6 +47,9 @@ public class EnemyAI : Destructable
 	//Choose a Behavoir to update
 	void FixedUpdate ()
 	{
+		if (PauseScreen.IsGamePaused)
+						return;
+
 		if(((int)m_State & m_NoUpdateStates) != 0)
 		{
 			return;

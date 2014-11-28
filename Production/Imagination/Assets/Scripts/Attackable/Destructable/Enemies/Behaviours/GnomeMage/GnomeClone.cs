@@ -11,6 +11,7 @@ public class GnomeClone : Destructable
 	NavMeshAgent m_Agent;
 
 	GameObject m_Target;
+	public bool m_OriginalIsDead = false;
 
 	public void Create(BaseMovement moveComponent, BaseCombat combatComponent, Vector3 startingPos, float activeTime, GameObject target)
 	{
@@ -37,7 +38,7 @@ public class GnomeClone : Destructable
 	{ 
         if (PauseScreen.IsGamePaused){return;}
 	
-		if (m_ActiveTimer <= 0.0f)
+		if (m_ActiveTimer <= 0.0f || m_OriginalIsDead)
 		{
 			instantKill();
 		}
