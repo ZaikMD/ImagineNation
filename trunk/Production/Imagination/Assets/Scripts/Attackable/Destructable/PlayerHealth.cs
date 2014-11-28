@@ -14,8 +14,7 @@
 * 
 * 7/11/2014 Edit: added varible to determine if we are player one or two - Kole 
 * 
-* 24/11/2014 Edit: Added functionality to be able to get the player - Greg
-* 
+* 28/11/2014 Edit: Removed anything to do with textures - Greg
 * 
 */
 #endregion
@@ -26,12 +25,6 @@ using System.Collections.Generic;
 
 public class PlayerHealth : Destructable 
 {
-    //the textures used for the health bar
-	public Texture[] textures;
-
-    //the gui texture used to display the textures
-	public GUITexture m_GUITexture;
-
     //how long it takes to regen health and the timer
 	public float HealthRegenTime = 15.0f;
 	float m_HealthRegenTimer;
@@ -45,10 +38,6 @@ public class PlayerHealth : Destructable
 
 	//Used to know which player we are
 	int m_Player;
-
-
-
-	const float TEXTURE_SCALE = 0.45f;
 
 	//used to make sound calls
 	SFXManager m_SFX;
@@ -110,45 +99,7 @@ public class PlayerHealth : Destructable
 		//Gets reference to hud
 		m_Hud = GameObject.FindGameObjectWithTag(Constants.HUD).GetComponent<Hud>();
 
-		//this block zeros out the parent game object and the health bar GUITexture so health displays properly
-		List<Transform> childrenOfParent = new List<Transform> ();
-
-		//this loop gets all the children of the parent
-		for(int i = 0; i < transform.parent.transform.childCount; i++)
-		{
-			Transform child = gameObject.transform.parent.transform.GetChild(i);
-
-			if(child != null)
-			{
-				childrenOfParent.Add(child);
-			}
-		}
-
-		//this stores all of the original positions
-		Vector3[] originalPositions = new Vector3[childrenOfParent.Count];
-
-		//storeing all the positions
-		for(int i = 0; i < childrenOfParent.Count; i++)
-		{
-			originalPositions[i] = new Vector3(childrenOfParent[i].position.x, childrenOfParent[i].position.y, childrenOfParent[i].position.z);
-		}
-
-		//zero out the parent
-		this.gameObject.transform.parent.transform.position = Vector3.zero;
-		//xero out the healthbar GUITexture
-		m_GUITexture.gameObject.gameObject.transform.position = Vector3.zero;
-
-		//move all the children back if they are not the GUITexture
-		for(int i = 0; i < childrenOfParent.Count; i++)
-		{
-			if(childrenOfParent[i].gameObject != m_GUITexture.gameObject)
-			{
-				childrenOfParent[i].position = originalPositions[i];
-			}
-		}
-
-
-        //setting initial values for the timers
+		//setting initial values for the timers
 		m_HealthRegenTimer = HealthRegenTime;
 		m_InvulnerabilityTimer = InvulnerabilityTimer;
 
@@ -157,11 +108,6 @@ public class PlayerHealth : Destructable
 
 		//Set Health in hud
 		m_Hud.SetHealth (m_TotalHealth, m_Player);
-
-        //setting the current texture
-		m_GUITexture.texture = textures [m_Health];
-
-		m_GUITexture.pixelInset = new Rect (0.0f, Screen.height - textures [m_Health].height * TEXTURE_SCALE, textures [m_Health].width * TEXTURE_SCALE, textures [m_Health].height * TEXTURE_SCALE);
 	}
 
 	void OnDestroy()
@@ -208,7 +154,6 @@ public class PlayerHealth : Destructable
 					{
 						m_Health++;
 						m_HealthRegenTimer = HealthRegenTime;
- 						m_GUITexture.texture = textures[m_Health];
 					}
 					else
 					{
@@ -245,7 +190,6 @@ public class PlayerHealth : Destructable
 			m_InvulnerabilityTimer = InvulnerabilityTimer;
             //update health bar
 			m_Hud.SetHealth (m_Health, m_Player);
-			m_GUITexture.texture = textures[m_Health];
 		}
 	}
 
@@ -266,7 +210,6 @@ public class PlayerHealth : Destructable
 	{
 		base.instantKill ();
         //update the health
-		m_GUITexture.texture = textures [m_Health];
 	}
 
 	public void resetHealth()
@@ -276,7 +219,6 @@ public class PlayerHealth : Destructable
 		m_Health = m_TotalHealth;
 		m_InvulnerabilityTimer = InvulnerabilityTimer;
 		m_HealthRegenTimer = HealthRegenTime;
-		m_GUITexture.texture = textures[m_Health];
 		m_Hud.SetHealth (m_Health, m_Player);
 		PlayerCamera.Player = this.gameObject.transform.FindChild("\"Centre Point\"").gameObject;
 	}
