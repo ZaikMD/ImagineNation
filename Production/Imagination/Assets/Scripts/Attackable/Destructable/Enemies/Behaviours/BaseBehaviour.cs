@@ -74,5 +74,18 @@ public class BaseBehaviour : MonoBehaviour
 		}
 	}
 
+	public GameObject getProjectilePrefab()
+	{
+		if (m_EnemyAI != null)
+		{
+			return m_EnemyAI.GetProjectilePrefab();
+		}
+
+		#if DEBUG || UNITY_EDITOR
+		Debug.Log("No EnemyAI Script");
+		#endif
+		return null;
+	}
+
 
 }

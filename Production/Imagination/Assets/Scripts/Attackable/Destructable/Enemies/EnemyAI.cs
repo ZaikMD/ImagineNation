@@ -42,6 +42,7 @@ public class EnemyAI : Destructable
 	public bool m_UEnterCombat = true;
 	public bool m_ULeaveCombat = true;
 
+	public GameObject m_ProjectilePrefab;
 
 	//Choose a Behavoir to update
 	void FixedUpdate ()
@@ -123,5 +124,10 @@ public class EnemyAI : Destructable
 	public virtual void removeNoUpdateState(EnemyState state)
 	{
 		removeNoUpdateState ((int)state);
+	}
+
+	public GameObject GetProjectilePrefab()
+	{
+		return m_ProjectilePrefab;
 	}
 }

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 /*
  * Created by Mathieu Elias
  * Date: Nov 14, 2014
@@ -35,6 +35,13 @@ public class GnomeCombat : BaseAttackBehaviour
 	Vector3 m_Destination;
 
 	GnomeShield m_Shield;
+
+	const int m_numberOfClones = 2;
+	List<GnomeClone> m_Clones;
+
+	//prefabs
+	public GameObject m_GnomeClone;
+
 
 	// Use this for initialization
 	protected override void start ()
@@ -122,6 +129,7 @@ public class GnomeCombat : BaseAttackBehaviour
 	void CreateClones()
 	{
 		m_ClonedTimer = m_ClonedTime;
+
 		m_CurrentCombatState = CombatStates.Cloned;
 	}
 
