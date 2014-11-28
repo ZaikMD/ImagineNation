@@ -91,7 +91,7 @@ public class CheckPoint : MonoBehaviour
             if (m_TimerGUI > 0.0f)
             {
                 m_Texture.transform.parent.gameObject.GetComponentInChildren<GUITexture>();
-                m_Texture.pixelInset = new Rect(0, 0, (m_Texture.texture.width * TextureScale.x) / m_DivideByTwo, (m_Texture.texture.height * TextureScale.y) / m_DivideByTwo);
+//                m_Texture.pixelInset = new Rect(0, 0, (m_Texture.texture.width * TextureScale.x) / m_DivideByTwo, (m_Texture.texture.height * TextureScale.y) / m_DivideByTwo);
                 m_TimerGUI -= Time.deltaTime;
                 m_Texture.enabled = true;
    //             Debug.Log(m_TimerGUI);
