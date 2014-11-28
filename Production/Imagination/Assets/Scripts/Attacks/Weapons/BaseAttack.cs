@@ -29,7 +29,7 @@ public class BaseAttack
 	protected float m_Damage;
 
 	protected Vector3 m_InitialPosition;
-	protected Quaternion m_InitialRotation;
+	protected Vector3 m_InitialRotation;
 
 	protected float m_FirePointYOffSet = 0.5f;
 	
@@ -71,7 +71,7 @@ public class BaseAttack
 		m_Projectile = prefab;
 	}
 
-	public void startAttack(Vector3 pos, Quaternion rotation)
+	public void startAttack(Vector3 pos, Vector3 rotation)
 	{
 		//Reset Timers
 		m_AttackTimer = m_SaveAttackTimer;

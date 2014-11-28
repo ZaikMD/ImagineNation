@@ -20,7 +20,7 @@ public class LightAttack : BaseAttack
 
 	public override void createProjectile ()
 	{
-		GameObject proj =  (GameObject)GameObject.Instantiate (m_Projectile,new Vector3(m_InitialPosition.x, m_InitialPosition.y + m_FirePointYOffSet, m_InitialPosition.z), m_InitialRotation);
+		GameObject proj =  (GameObject)GameObject.Instantiate (m_Projectile,new Vector3(m_InitialPosition.x, m_InitialPosition.y + m_FirePointYOffSet, m_InitialPosition.z), Quaternion.Euler(m_InitialRotation));
 
 		LightProjectile projS = proj.GetComponent (typeof(LightProjectile)) as LightProjectile;
 	
