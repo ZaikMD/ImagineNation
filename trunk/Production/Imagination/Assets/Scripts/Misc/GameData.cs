@@ -249,14 +249,34 @@ public class GameData : MonoBehaviour
         }
     }
 
+	void intianlizePuzzlePieceArray()
+	{
+		m_PuzzlePieceCollectedInLevel = new short[1][][];
+		for(int i = 0; i < (int)Levels.Count; i++)
+		{
+			m_PuzzlePieceCollectedInLevel[i] = new short[3][];
+			for(int n = 0; n < (int)Sections.Count; n++)
+			{
+				m_PuzzlePieceCollectedInLevel[i][n] = new short[2];
+
+				for(int x = 0; x < 2; x++)
+				{
+					m_PuzzlePieceCollectedInLevel[i][n][x] = 0;
+				}
+			}
+		}	
+	}
+
+
 	public void SetCollectedPuzzlePieces(bool[] m_PuzzlePeiceCollected)
 	{
+		//If m_PuzzlePeicesCollectedInLevel is not initialized
 		if(m_PuzzlePieceCollectedInLevel == null)
 		{
-//			m_PuzzlePieceCollectedInLevel = new short[1][3][2];
+			intianlizePuzzlePieceArray();
 		}
 
-		for (int i = 0; i < m_PuzzlePeiceCollected.Length; i++)
+		for (int i = 0; i > m_PuzzlePeiceCollected.Length; i++)
 		{
 			if(m_PuzzlePeiceCollected[i])
 			{
@@ -271,9 +291,17 @@ public class GameData : MonoBehaviour
 
 	public short[] GetCollectedPuzzlePeices()
 	{
-		if(m_PuzzlePieceCollectedInLevel[(int)m_CurrentLevel][(int)m_CurrentSection] == null)
+		if(m_PuzzlePieceCollectedInLevel == null)
 		{
-			return m_PuzzlePieceCollectedInLevel[(int)m_CurrentLevel][(int)m_CurrentSection];	
+			intianlizePuzzlePieceArray();
+		}
+
+		if(m_PuzzlePieceCollectedInLevel[(int)m_CurrentLevel][(int)m_CurrentSection][1] != null)
+		{
+			short[] temp = new short[2];
+			temp[0] = m_PuzzlePieceCollectedInLevel[(int)m_CurrentLevel][(int)m_CurrentSection][0];
+			temp[1] = m_PuzzlePieceCollectedInLevel[(int)m_CurrentLevel][(int)m_CurrentSection][1];
+			return temp;	
 		}
 		else
 		{
@@ -284,7 +312,10 @@ public class GameData : MonoBehaviour
 			}
 
 			SetCollectedPuzzlePieces(newBool);
-			return m_PuzzlePieceCollectedInLevel[(int)m_CurrentLevel][(int)m_CurrentSection];	
+			short[] temp = new short[2];
+			temp[0] = m_PuzzlePieceCollectedInLevel[(int)m_CurrentLevel][(int)m_CurrentSection][0];
+			temp[1] = m_PuzzlePieceCollectedInLevel[(int)m_CurrentLevel][(int)m_CurrentSection][1];
+			return temp;	
 		}
 	}
 

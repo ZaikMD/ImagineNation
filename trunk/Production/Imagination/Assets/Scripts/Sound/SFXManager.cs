@@ -196,7 +196,6 @@ public class SFXManager : MonoBehaviour
 	void Start ()
     {
 		//TODO: load which players are player one and two
-
 		m_PlayerOne = getPlayerTransform (GameData.Instance.PlayerOneCharacter);
 		m_PlayerTwo = getPlayerTransform (GameData.Instance.PlayerTwoCharacter);
 
