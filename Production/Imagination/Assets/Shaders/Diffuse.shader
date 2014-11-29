@@ -175,7 +175,7 @@ Shader "Production/Diffuse"
          		//Additional Lighting (vertex lights)
          		output.vertexLighting = float3 (0.0, 0.0, 0.0);
          		#ifdef VERTEXLIGHT_ON
-            	for (int index = 0; index < 4; index++)
+            	for (int index = 0; index < 3; index++)
             	{    
                		float3 vertexToLightSource = unity_LightPosition[index].xyz - output.posWorld.xyz; 
               	 	float distShading = 1.0 / pow(vertexToLightSource, 2) * _PointLightIllumination;

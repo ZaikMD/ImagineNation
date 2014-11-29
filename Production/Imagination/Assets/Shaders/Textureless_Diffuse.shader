@@ -9,14 +9,12 @@
 // Created by Jason Hein
 
 
-Shader "Production/Diffuse_Specular"
+Shader "Production/Textureless_Diffuse"
 {
 	//Properties that can be set by designers
 	Properties
     {
-    	_MainTex ("Texture", 2D) = "white" {} 
-    	_SpecColor ("Specular Light Color", Color) = (0.3,0.3,0.3,1.0) 
-    	_Shininess ("Shininess", Float) = 10.0
+    	_Color ("Color", Color) = (1.0,1.0,1.0,1.0)
     	_PointLightIllumination("Point Light Illumination", Float) = 10.0
     	_PointLightMaximumIllumination("Point Light Max Illumination", Float) = 0.35
     }
@@ -42,16 +40,14 @@ Shader "Production/Diffuse_Specular"
          	//World Light Colour (from "UnityCG.cginc")
          	float4 _LightColor0;
          	
-         	//Public Uniforms
-         	sampler2D _MainTex;
-         	float4 _MainTex_ST;
+         	//Color of the object
+         	float4 _Color;
          	
          	//What the vertex shader will recieve
          	struct vertInput
          	{
             	float4 pos : POSITION0;
             	float3 normal : NORMAL;
-            	half2 uv : TEXCOORD0;
        		};
        		
        		//What the fragment shader will recieve
@@ -60,7 +56,6 @@ Shader "Production/Diffuse_Specular"
             	float4 pos : POSITION0;
             	float4 posWorld : POSITION1;
             	float3 normalDir : TEXCOORD0;
-            	half2 uv : TEXCOORD1;
         	};
          	
          	//Vertex Shader
@@ -78,9 +73,6 @@ Shader "Production/Diffuse_Specular"
          		//Calculate the direction of our surface normal
          		output.normalDir = normalize(mul(float4(input.normal, 0.0), _World2Object).xyz);
          		
-         		//Give output the texture colour
-         		output.uv = input.uv * _MainTex_ST.xy + _MainTex_ST.zw;
-         		
          		//Return our output
          		return output;
          	}
@@ -96,15 +88,12 @@ Shader "Production/Diffuse_Specular"
             	
             	//Direction of our light, for dot product calculations
             	float3 lightDirection = normalize(_WorldSpaceLightPos0.xyz);
- 				
- 				//Base colour of this fragment
-            	float4 textureColor = tex2D(_MainTex, output.uv);
             	
             	//Calculate ambient light
-            	float3 ambientLight = textureColor.xyz * UNITY_LIGHTMODEL_AMBIENT.xyz;
+            	float3 ambientLight = _Color.xyz * UNITY_LIGHTMODEL_AMBIENT.xyz;
             	
             	//Calculate the base colour of the fragment with lighting
-            	float3 diffuseLighting = textureColor.xyz * _LightColor0.xyz * max(0.0, dot(normalDirection, lightDirection));
+            	float3 diffuseLighting = _Color.xyz * _LightColor0.xyz * max(0.0, dot(normalDirection, lightDirection));
 
          		//Return the final colour of the fragment
          		return float4(ambientLight + diffuseLighting, 1.0);
@@ -132,11 +121,10 @@ Shader "Production/Diffuse_Specular"
          	//World Light Colour (from "UnityCG.cginc")
          	float4 _LightColor0;
          	
+         	//Color of the  object
+         	float4 _Color;
+         	
          	//Public Uniforms
-         	sampler2D _MainTex;
-         	float4 _MainTex_ST;
-         	float4 _SpecColor;
-         	float _Shininess;
          	float _PointLightIllumination;
          	float _PointLightMaximumIllumination;
          	
@@ -145,7 +133,6 @@ Shader "Production/Diffuse_Specular"
          	{
             	float4 pos : POSITION0;
             	float3 normal : NORMAL;
-            	half2 uv : TEXCOORD0;
        		};
        		
        		//What the fragment shader willl recieve
@@ -154,7 +141,6 @@ Shader "Production/Diffuse_Specular"
             	float4 pos : POSITION0;
             	float4 posWorld : POSITION1;
             	float3 normalDir : TEXCOORD0;
-            	half2 uv : TEXCOORD1;
             	float3 vertexLighting : TEXCOORD2;
         	};
         	
@@ -172,9 +158,6 @@ Shader "Production/Diffuse_Specular"
          		
          		//Calculate the direction of our surface normal
          		output.normalDir = normalize(mul(float4(input.normal, 0.0), _World2Object).xyz);
-         		
-         		//Give output the texture colour
-         		output.uv = input.uv * _MainTex_ST.xy + _MainTex_ST.zw;
          		
          		//Additional Lighting (vertex lights)
          		output.vertexLighting = float3 (0.0, 0.0, 0.0);
@@ -210,9 +193,6 @@ Shader "Production/Diffuse_Specular"
             	
             	//Direction of our light, for dot product calculations
             	float3 lightDirection = normalize(_WorldSpaceLightPos0.xyz - output.posWorld.xyz);
- 				
- 				//Base colour of this fragment
-            	float4 textureColor = tex2D(_MainTex, output.uv);
             	
             	//Calculate shading based off our distance from the lights
             	float distShading = 1.0 / pow(length(_WorldSpaceLightPos0.xyz - output.posWorld.xyz), 2.0) * _PointLightIllumination;
@@ -222,27 +202,10 @@ Shader "Production/Diffuse_Specular"
             	}
             	
             	//Calculate the base colour of the fragment with lighting
-            	float3 fragmentColour = textureColor.xyz * _LightColor0.xyz * distShading * max(0.0, dot(normalDirection, lightDirection));
-            	
-            	
-            	//Specular reflection
-            	float3 specularReflection;
-            	
-            	//If we are facing the light, so calculate specular lighting
-            	if (_SpecColor.a > 0.0 && dot(normalDirection, lightDirection) > 0.0)
-            	{
-            		specularReflection = _LightColor0.xyz * _SpecColor.xyz * _SpecColor.a * distShading * textureColor.a *
-            		pow(max(0.0, dot(reflect(-lightDirection, normalDirection), viewDirection)), _Shininess);
-            	}
-            	
-            	//Otherwise their is no specular lighting
-            	else
-            	{
-            		specularReflection = float3(0.0, 0.0, 0.0);
-            	}
+            	float3 fragmentColour = _Color.xyz * _LightColor0.xyz * distShading * max(0.0, dot(normalDirection, lightDirection));
 
          		//Return the final colour of the fragment
-         		return float4(fragmentColour + specularReflection + output.vertexLighting, 1.0);
+         		return float4(fragmentColour + output.vertexLighting, 1.0);
          	}
          	
          	//End the cg shader
