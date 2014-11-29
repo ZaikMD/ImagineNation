@@ -131,8 +131,9 @@ public class ActivatableMovingPlatform : Activatable
 					//We are supposed to go no further
 					else
 					{
-						//Play a stopping sound
-						m_SFX.stopSound(this.gameObject);
+						//Stop the platform forever
+						m_SFX.stopSound(gameObject);
+						Destroy(this);
 					}
 				}
 			}
@@ -177,7 +178,7 @@ public class ActivatableMovingPlatform : Activatable
 		//Check if their are any players on the platform
 		if (m_PlayersToMove.Count > 0)
 		{
-			for (int i =0; i < m_PlayersToMove.Count; i++)
+			for (int i = 0; i < m_PlayersToMove.Count; i++)
 			{
 				//Calculate the amount to move the player
 				Vector3 amountToMove = Vector3.zero;
@@ -232,7 +233,7 @@ public class ActivatableMovingPlatform : Activatable
 	{
 		if(m_IsGate)
 		{
-			m_SFX.playSound(this.gameObject, Sounds.GateOpen);
+			m_SFX.playSound(gameObject, Sounds.GateOpen);
 		}
 	}
 

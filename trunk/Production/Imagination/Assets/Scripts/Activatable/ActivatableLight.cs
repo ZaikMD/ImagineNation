@@ -10,6 +10,7 @@
 
 #region Change Log
 /// EDIT: 26/09/14 - Added functionality to toggle Darkness' activity - Matthew Whitlaw
+/// EDIT: 28/11/14 - Added public variable to set the new light intensity after activating it - Jason Hein
 #endregion
 
 using UnityEngine;
@@ -19,6 +20,9 @@ using System.Collections;
 public class ActivatableLight : Activatable 
 {
 	public GameObject m_Darkness;
+	public float m_NewIntensity = 1.0f;
+
+
 	bool m_IsActive;
 	Light m_Light;
 	float m_OriginalIntensity;
@@ -69,7 +73,7 @@ public class ActivatableLight : Activatable
 	//Simply set the light's intensity to zero
 	void TurnOnLight()
 	{
-		m_Light.intensity = 1.0f;
+		m_Light.intensity = m_NewIntensity;
 	}
 
 	//Reset the light's intensity back to it's original

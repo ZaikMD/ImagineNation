@@ -86,7 +86,7 @@ public class CrawlSpace : MonoBehaviour
 					if (m_OtherCrawlModelRotation != null)
 					{
 						//only moves on the y axis so that the player only rotates the way he's facing
-						m_Players[i].transform.eulerAngles= new Vector3(0, m_OtherCrawlModelRotation.gameObject.transform.eulerAngles.y, 0);
+						m_Players[i].transform.eulerAngles = new Vector3(0, m_OtherCrawlModelRotation.gameObject.transform.eulerAngles.y, 0);
 
 						//camera snap is used to force the camera to be behind the player when the player exits a crawlspace
 						m_Players[i].transform.parent.gameObject.GetComponentInChildren<TPCamera>().CameraSnap(true);
