@@ -83,6 +83,6 @@ public class MovementAroundNodes : BaseMovement
 		Vector3 dist1 = new Vector3 (transform.position.x, 0, transform.position.z);
 		Vector3 dist2 = new Vector3 (m_Target.transform.position.x, 0, m_Target.transform.position.z);
 
-        return Vector3.Distance(transform.position, m_Target.transform.position);
+        return Vector3.Distance(dist1, dist2);
     }
 }

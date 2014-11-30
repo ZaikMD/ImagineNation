@@ -1,4 +1,16 @@
-﻿using UnityEngine;
+﻿/*
+ * Created by Mathieu Elias November 17/2014
+ * 
+ * This LeaveCombat component uses aggrorange to decide when it is time to leave combat
+ * 
+ */
+
+#region ChangeLog
+/*
+ * 
+ */
+#endregion
+using UnityEngine;
 using System.Collections;
 
 public class ProximityAggroLeave : BaseLeavingCombat

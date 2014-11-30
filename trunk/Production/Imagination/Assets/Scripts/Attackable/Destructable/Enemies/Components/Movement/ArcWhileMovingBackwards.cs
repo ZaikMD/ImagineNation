@@ -25,7 +25,7 @@ public class ArcWhileMovingBackwards : BaseMovement
 	public float m_MaxSwitchRotTime = 3.0f;
 
 
-
+	// override of the abstract movement function
 	public override Vector3 Movement (GameObject target)
 	{
 		if (target != null)

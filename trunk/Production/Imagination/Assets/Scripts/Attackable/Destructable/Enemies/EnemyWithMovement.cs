@@ -17,14 +17,12 @@ public class EnemyWithMovement : EnemyAI
 {
 	public Transform[] m_PathNodes;
 
-	//Load a NavMeshAgent for the AI
-	private NavMeshAgent m_Agent;
-
 	void Start()
 	{
-		m_Agent = gameObject.GetComponent<NavMeshAgent>();
+
 	}
 
+	//Returns the nav mesh agent
 	public NavMeshAgent GetAgent
 	{
 		get { return gameObject.GetComponent<NavMeshAgent>();}

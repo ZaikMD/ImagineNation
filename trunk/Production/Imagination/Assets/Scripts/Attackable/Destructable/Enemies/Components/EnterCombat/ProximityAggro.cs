@@ -1,4 +1,16 @@
-﻿using UnityEngine;
+﻿/*
+ * Created by Joe Burchill November 17/2014
+ * 
+ * This EnterCombat component uses an aggro range to decide if it is time to enter combat
+ * 
+ */
+
+#region ChangeLog
+/*
+ * 
+ */
+#endregion
+using UnityEngine;
 using System.Collections;
 
 public class ProximityAggro : BaseEnterCombat 

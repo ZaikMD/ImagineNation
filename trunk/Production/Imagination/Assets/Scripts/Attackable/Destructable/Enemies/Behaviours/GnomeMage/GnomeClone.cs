@@ -40,7 +40,7 @@ public class GnomeClone : Destructable
 	}
 	
 	// Update is called once per frame
-	void Update () 
+	new void Update () 
 	{ 
         if (PauseScreen.IsGamePaused){return;}
 	
