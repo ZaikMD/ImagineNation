@@ -15,28 +15,40 @@ using System.Collections;
 
 public abstract class BaseChaseBehaviour : BaseBehaviour 
 {
+	//The components all chase behaviours must have
 	public BaseMovement m_MovementComponent;
 	public BaseTargeting m_TargetingComponent;
 	public BaseLeavingCombat m_LeavingCombatComponent;
 
     public abstract void update();
 
+// The following functions must be called to update any of the components in order to make sure the 
+// enemy controller hasn't taken control of any of them
 	protected virtual void Movement()
 	{
 		if (m_EnemyAI.m_UMovement)
-			m_MovementComponent.Movement (m_Target);
+		{
+			if(m_MovementComponent != null)
+				m_MovementComponent.Movement (m_Target);
+		}
 	}
 	protected virtual GameObject Target()
 	{
 		if (m_EnemyAI.m_UTargeting)
-			return m_TargetingComponent.CurrentTarget ();
+		{
+			if(m_TargetingComponent != null)
+				return m_TargetingComponent.CurrentTarget ();
+		}
 
 		return null;
 	}
 	protected virtual bool LeaveCombat(Transform target)
 	{
 		if (m_EnemyAI.m_ULeaveCombat)
-			return m_LeavingCombatComponent.LeaveCombat (target);
+		{
+			if(m_LeavingCombatComponent != null)
+				return m_LeavingCombatComponent.LeaveCombat (target);
+		}
 
 		return false;
 	}

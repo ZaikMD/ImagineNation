@@ -15,6 +15,7 @@ using System.Collections;
 
 public abstract class BaseDeadBehaviour : BaseBehaviour 
 {
+	//The component all death behaviours must have
 	public BaseDeath m_DeathComponent;
 
     public abstract void update();

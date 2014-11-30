@@ -4,7 +4,7 @@ using System.Collections;
  * Created by Mathieu Elias
  * Date: Nov 14, 2014
  *  
- * This script handles the functionality of the Gnome Mage enemy
+ * This script handles the Chase functionality of the Gnome Mage enemy
  * 
  */
 #region ChangeLog
@@ -23,6 +23,7 @@ public class GnomeChase : BaseChaseBehaviour
 	// Use this for initialization
 	protected override void start ()
 	{
+		//initialise all the components
 		m_CombatComponent.start (this);
 		m_LeavingCombatComponent.start (this);
 		m_MovementComponent.start (this);
@@ -31,23 +32,20 @@ public class GnomeChase : BaseChaseBehaviour
 	
 	// Update is called once per frame
 	public override void update () 
-	{ 
-        if (PauseScreen.IsGamePaused){return;}
-
+	{  
+		//Grab the current target
 		m_Target = Target ();
 
-		if (m_Target == null)
+		// If there is no target either the player is dead, gone or something went wront so switch to the idle state
+		// OR
+		// If its time to leave combat set the current state to idle
+		if (m_Target == null || LeaveCombat(m_Target.transform))
 		{
 			m_EnemyAI.SetState(EnemyAI.EnemyState.Idle);
 			return;
 		}
 
-		if (LeaveCombat(m_Target.transform))
-		{
-			m_EnemyAI.SetState(EnemyAI.EnemyState.Idle);
-			return; 
-		}
-
+		// If we are in attack range switch to the attack state
 		float dist = Vector3.Distance (transform.position, m_Target.transform.position); 
 		if (dist <= Constants.MAGE_ATTACK_RANGE)
 		{
@@ -55,10 +53,12 @@ public class GnomeChase : BaseChaseBehaviour
 			return;
 		}
 
+		// move
 		Movement ();
 
 		if (m_ShotTimer <= 0)
 		{
+			// Manually doing the check if the controller has taken over combat because the base does not have combat included
 			if (m_EnemyAI.m_UCombat)
 				m_CombatComponent.Combat ();
 			m_ShotTimer = m_TimeBetweenShots;

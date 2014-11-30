@@ -15,29 +15,40 @@ using System.Collections;
 
 public abstract class BaseIdleBehaviour : BaseBehaviour 
 {
+	//Components all idle behaviours must have
 	public BaseMovement m_MovementComponent;
 	public BaseEnterCombat m_EnterCombatComponent;
 	public BaseTargeting m_TargetingComponent;	
 
     public abstract void update(); 
 
+	// The following functions must be called to update any of the components in order to make sure the 
+	// enemy controller hasn't taken control of any of them
 	protected virtual bool EnterCombat(Transform target)
 	{
 		if (m_EnemyAI.m_UEnterCombat)
-			return m_EnterCombatComponent.EnterCombat (target);
+		{
+			if(m_EnterCombatComponent != null)
+				return m_EnterCombatComponent.EnterCombat (target);
+		}
 
 		return false;
 	}
 	protected virtual void Movement()
 	{
 		if (m_EnemyAI.m_UMovement)
-			m_MovementComponent.Movement (m_Target);
+		{
+			if(m_MovementComponent != null)
+				m_MovementComponent.Movement (m_Target);
+		}
 	}
-
 	protected virtual GameObject Target()
 	{
 		if (m_EnemyAI.m_UTargeting)
-			return m_TargetingComponent.CurrentTarget ();
+		{
+			if(m_TargetingComponent != null)
+				return m_TargetingComponent.CurrentTarget ();
+		}
 		
 		return null;
 	}

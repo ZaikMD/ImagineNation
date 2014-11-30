@@ -1,4 +1,16 @@
-﻿using UnityEngine;
+﻿/*
+ * Created by Mathieu Elias
+ * Date: Nov 14, 2014
+ *  
+ * This script takes care of the shield asset on the gnome mage
+ * 
+ */
+#region ChangeLog
+/*
+ * 
+ */
+#endregion
+using UnityEngine;
 using System.Collections;
 
 public class GnomeShield : MonoBehaviour 
@@ -34,6 +46,7 @@ public class GnomeShield : MonoBehaviour
 		}
 	}
 
+	// deactivate the shield
 	public void DeactivateShield(float time)
 	{
 		m_DeactiveTimer = time;
