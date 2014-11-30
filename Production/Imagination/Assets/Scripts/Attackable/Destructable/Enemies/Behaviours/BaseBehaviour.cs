@@ -1,6 +1,7 @@
 ﻿/*
  * Created by Joe Burchill & Mathieu Elias November 17/2014
  * 
+ * All Behaviours must inherit from this class
  * 
  */
 
@@ -29,41 +30,22 @@ public class BaseBehaviour : MonoBehaviour
 
 	}
 
-	protected Vector3 getPosition()
-	{
-		return m_EnemyAI.transform.position;
-	}
-
-	//Properties
-	public NavMeshAgent GetAgent()
-	{
-		EnemyWithMovement temp = m_EnemyAI as EnemyWithMovement;
-		if(temp != null)
-		{
-			return temp.GetAgent;
-		}
-		else
-		{
-			#if DEBUG || UNITY_EDITOR
-			Debug.Log("Invalid Type");
-			#endif
-			return null;
-		}
-	}
-	
+	//Properties	
 	public EnemyAI GetAI
 	{
 		get{ return m_EnemyAI;}
 	}
 
-	public Transform[] getPathNodes()
+	//Returns the navmesh agent
+	public NavMeshAgent GetAgent()
 	{
+		// If the enemy Ai is an enemy ai with movement return the navmesh agent
 		EnemyWithMovement temp = m_EnemyAI as EnemyWithMovement;
-		
 		if(temp != null)
 		{
-			return temp.m_PathNodes;
+			return temp.GetAgent;
 		}
+		// else the enemy shouldn't have a navmesh agent so return null
 		else
 		{
 			#if DEBUG || UNITY_EDITOR
@@ -73,6 +55,26 @@ public class BaseBehaviour : MonoBehaviour
 		}
 	}
 
+	// Returns the path nodes used for patrolling
+	public Transform[] getPathNodes()
+	{
+		// If the enemy ai is an enemy ai with movement return the pathnodes
+		EnemyWithMovement temp = m_EnemyAI as EnemyWithMovement;		
+		if(temp != null)
+		{
+			return temp.m_PathNodes;
+		}
+		// else it shouldn't have any so return null
+		else
+		{
+			#if DEBUG || UNITY_EDITOR
+			Debug.Log("Invalid Type");
+			#endif
+			return null;
+		}
+	}
+
+	//Returns the prefab used for the combat projectile
 	public GameObject getProjectilePrefab()
 	{
 		if (m_EnemyAI != null)
