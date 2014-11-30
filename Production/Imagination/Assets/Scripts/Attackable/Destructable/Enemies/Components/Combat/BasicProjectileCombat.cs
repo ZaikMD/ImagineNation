@@ -1,4 +1,16 @@
-﻿using UnityEngine;
+﻿/*
+ * Created by Mathieu Elias November 17/2014
+ * 
+ * This Combat component just launches a projectile from the enemies position in the direction he is facing
+ * 
+ */
+
+#region ChangeLog
+/*
+ * 
+ */
+#endregion
+using UnityEngine;
 using System.Collections;
 
 public class BasicProjectileCombat : BaseCombat 

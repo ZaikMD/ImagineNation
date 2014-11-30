@@ -1,4 +1,17 @@
-﻿using UnityEngine;
+﻿/*
+ * Created by Joe Burchill & Mathieu Elias November 17/2014
+ * 
+ * The base class for all movement components
+ * The movement components decide how to move the enemy and then move it
+ * 
+ */
+
+#region ChangeLog
+/*
+ * 
+ */
+#endregion
+using UnityEngine;
 using System.Collections;
 
 public abstract class BaseMovement : BaseComponent
@@ -10,19 +23,23 @@ public abstract class BaseMovement : BaseComponent
 		m_Agent = baseBehaviour.GetAgent ();
     }
 
+	// Every Movement component must use this movement function to decide how to move the enemy and then move it
 	public abstract Vector3 Movement (GameObject target);
 
-
+	// An override of the movement function incase you just want to 
+	// move to a specific location
 	public virtual void Movement(Vector3 moveLocation)
 	{
 		m_Agent.SetDestination (moveLocation);
 	}
 
+	// Set the navAgent
 	public void SetAgent(NavMeshAgent navAgent)
 	{
 		m_Agent = navAgent;
 	}
 
+	// Returns a location along the rotation of an object
 	protected Vector3 RotateAboutOrigin(Vector3 point, Vector3 origin, float angle)
 	{
 		// Convert the angle to radians

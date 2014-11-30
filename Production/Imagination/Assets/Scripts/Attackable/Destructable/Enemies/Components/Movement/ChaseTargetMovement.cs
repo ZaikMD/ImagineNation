@@ -1,4 +1,15 @@
-﻿using UnityEngine;
+﻿/*
+ * Created by Joe Burchill November 27/2014
+ * 
+ * 
+ */
+
+#region ChangeLog
+/*
+ * 
+ */
+#endregion
+using UnityEngine;
 using System.Collections;
 
 public class ChaseTargetMovement : BaseMovement 
