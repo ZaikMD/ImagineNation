@@ -18,6 +18,8 @@ public class BaseBehaviour : MonoBehaviour
 	protected EnemyAI m_EnemyAI;
 
 	protected GameObject m_Target;
+
+	protected bool m_ControllerSet = false;
 	
 	void Start()
 	{

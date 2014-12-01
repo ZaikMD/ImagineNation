@@ -20,7 +20,12 @@ public abstract class BaseIdleBehaviour : BaseBehaviour
 	public BaseEnterCombat m_EnterCombatComponent;
 	public BaseTargeting m_TargetingComponent;	
 
-    public abstract void update(); 
+    public virtual void update()
+	{
+		EnemyController controller = m_EnemyAI.GetController();
+		if (controller != null && m_ControllerSet == true)
+			controller.AggroGroup (false, m_Target);
+	}
 
 	// The following functions must be called to update any of the components in order to make sure the 
 	// enemy controller hasn't taken control of any of them
