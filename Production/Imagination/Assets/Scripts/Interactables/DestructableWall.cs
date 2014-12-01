@@ -19,13 +19,6 @@ public class DestructableWall : Destructable
 		m_Groups[1] = m_GroupTwo;
 		m_Groups[2] = m_GroupOne;
 	}
-	
-	// Update is called once per frame
-	new void Update () 
-	{ 
-        if (PauseScreen.IsGamePaused){return;}
-	
-	}
 
 	public override void onHit (HeavyProjectile proj, float damage)
 	{
@@ -42,7 +35,7 @@ public class DestructableWall : Destructable
 	public override void onHit (LightProjectile proj, float damage)
 	{
 		m_Health -= 1;
-		
+		 
 		if(m_Health >= 0)
 			DestroyGroup (m_Groups [m_Health]);
 		
