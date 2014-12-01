@@ -24,5 +24,6 @@ public class HeavyAttack : BaseAttack
 		GameObject proj = (GameObject)GameObject.Instantiate (m_Projectile,new Vector3(m_InitialPosition.x, m_InitialPosition.y + m_FirePointYOffSet, m_InitialPosition.z), Quaternion.Euler(m_InitialRotation));
 		HeavyProjectile projS = proj.GetComponent (typeof(HeavyProjectile)) as HeavyProjectile;
 		projS.setDamage (m_Damage);
+		projS.setCharacter (m_Character);
 	}
 }

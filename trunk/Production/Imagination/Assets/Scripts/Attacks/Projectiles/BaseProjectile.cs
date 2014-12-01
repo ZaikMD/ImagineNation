@@ -28,6 +28,8 @@ public class BaseProjectile : MonoBehaviour
 
 	public bool m_Hidden = false;
 
+	Characters m_Character;
+
 
 
 	// Use this for initialization
@@ -55,6 +57,17 @@ public class BaseProjectile : MonoBehaviour
 		{
 			Destroy(this.gameObject); //Check the range, if it the distance travelled is greater than it's range, destroy it
 		}
+	}
+
+	public void setCharacter(Characters character)
+	{
+		m_Character = character;
+	}
+
+
+	public Characters getCharacter()
+	{
+		return m_Character;
 	}
 
 

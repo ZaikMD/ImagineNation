@@ -45,6 +45,9 @@ public class Weapon : MonoBehaviour
 	
 	BaseMovementAbility m_BaseMovementAbility;
     AcceptInputFrom m_ReadInput;
+	Characters m_Character;
+
+	PlayerInfo playerinfo;
 	// Use this for initialization
 	void Start () 
     {
@@ -57,6 +60,10 @@ public class Weapon : MonoBehaviour
 		DOUBLE_HIT_TIMER = m_DoubleHitTimer;
 
 		m_BaseMovementAbility = gameObject.GetComponent (typeof(BaseMovementAbility)) as BaseMovementAbility;
+
+		playerinfo = gameObject.GetComponent (typeof(PlayerInfo)) as PlayerInfo;
+		m_Character = playerinfo.i_Character;
+
 	}
 	
 	// Update is called once per frame
@@ -85,7 +92,7 @@ public class Weapon : MonoBehaviour
 		{
 			LightAttack attack = new LightAttack ();
 			attack.loadPrefab (m_LightProjectilePrefab);
-			attack.startAttack (transform.position, transform.eulerAngles);
+			attack.startAttack (transform.position, transform.eulerAngles, m_Character);
 			m_CurrentAttack = attack;
 			m_LastInput = "";
 			m_DoubleHitTimer = DOUBLE_HIT_TIMER;
@@ -137,7 +144,7 @@ public class Weapon : MonoBehaviour
 					{
 						LightAttack attack = new LightAttack ();
 						attack.loadPrefab (m_LightProjectilePrefab);
-						attack.startAttack (transform.position, transform.eulerAngles);
+						attack.startAttack (transform.position, transform.eulerAngles, m_Character);
 						m_CurrentAttack = attack;
 						m_LastInput = "";
 						}
@@ -148,7 +155,7 @@ public class Weapon : MonoBehaviour
 					{
 						LightAttack attack = new LightAttack ();
 						attack.loadPrefab (m_LightProjectilePrefab);
-						attack.startAttack (transform.position, transform.eulerAngles);
+						attack.startAttack (transform.position, transform.eulerAngles, m_Character);
 						m_CurrentAttack = attack;
 						m_LastInput = "";
 					}
@@ -158,7 +165,7 @@ public class Weapon : MonoBehaviour
 					{
 						LightAttack attack = new LightAttack ();
 						attack.loadPrefab (m_LightProjectilePrefab);
-						attack.startAttack (transform.position, transform.eulerAngles);
+						attack.startAttack (transform.position, transform.eulerAngles, m_Character);
 						m_CurrentAttack = attack;
 						m_LastInput = "";
 						m_DoubleHitActivated = true;
@@ -169,7 +176,7 @@ public class Weapon : MonoBehaviour
 					{
 						HeavyAttack attack = new HeavyAttack ();
 						attack.loadPrefab (m_HeavyProjectilePrefab);
-						attack.startAttack (transform.position, transform.eulerAngles);
+						attack.startAttack (transform.position, transform.eulerAngles, m_Character);
 						m_CurrentAttack = attack;
 						m_LastInput = "";
 
@@ -180,7 +187,7 @@ public class Weapon : MonoBehaviour
 					{					
 						SpecialAttack attack = new SpecialAttack();
 						attack.loadPrefab (m_LightProjectilePrefab);
-						attack.startAttack(transform.position, transform.eulerAngles);
+						attack.startAttack(transform.position, transform.eulerAngles, m_Character);
 						m_CurrentAttack = attack;
 						m_LastInput = "";
 						m_Inputs = "";
@@ -192,7 +199,7 @@ public class Weapon : MonoBehaviour
 				    {
 						FrontalLine attack = new FrontalLine ();
 						attack.loadPrefab (m_LightProjectilePrefab);
-						attack.startAttack (transform.position, transform.eulerAngles);
+						attack.startAttack (transform.position, transform.eulerAngles, m_Character);
 						m_CurrentAttack = attack;
 						m_LastInput = "";
 						m_FinishedCombo = true;
@@ -203,7 +210,7 @@ public class Weapon : MonoBehaviour
 					{
 						HeavyAttack attack = new HeavyAttack ();
 						attack.loadPrefab (m_HeavyProjectilePrefab);
-						attack.startAttack (transform.position, transform.eulerAngles);
+						attack.startAttack (transform.position, transform.eulerAngles, m_Character);
 						m_CurrentAttack = attack;
 						m_LastInput = "";
 					}
@@ -213,7 +220,7 @@ public class Weapon : MonoBehaviour
 					{
 						HeavyAttack attack = new HeavyAttack ();
 						attack.loadPrefab (m_HeavyProjectilePrefab);
-						attack.startAttack (transform.position, transform.eulerAngles);
+						attack.startAttack (transform.position, transform.eulerAngles, m_Character);
 						m_CurrentAttack = attack;
 						m_LastInput = "";	
 					}
@@ -223,7 +230,7 @@ public class Weapon : MonoBehaviour
 					{
 						FrontalConeAttack attack = new FrontalConeAttack ();
 						attack.loadPrefab (m_HeavyProjectilePrefab);
-						attack.startAttack (transform.position, transform.eulerAngles);
+						attack.startAttack (transform.position, transform.eulerAngles, m_Character);
 						m_CurrentAttack = attack;
 						m_LastInput = "";
 						m_FinishedCombo = true;
