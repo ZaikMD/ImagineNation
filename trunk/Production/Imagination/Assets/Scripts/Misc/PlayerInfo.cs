@@ -63,7 +63,7 @@ public class PlayerInfo : MonoBehaviour
         return null;
     }
 
-    public static PlayerInfo getCharacter(Characters character)
+    public static PlayerInfo getPlayer(Characters character)
     {
         for (int i = 0; i < m_Players.Count; i++)
         {
@@ -74,7 +74,7 @@ public class PlayerInfo : MonoBehaviour
         return null;
     }
 
-    public static PlayerInfo getCharacter(PlayerInput input)
+    public static PlayerInfo getPlayer(PlayerInput input)
     {
         for (int i = 0; i < m_Players.Count; i++)
         {
