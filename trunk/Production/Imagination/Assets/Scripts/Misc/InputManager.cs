@@ -28,6 +28,9 @@ public static class InputManager
 	const string MOUSE_X_STRING = "Mouse X";
 	const string MOUSE_Y_STRING = "Mouse Y";
 
+    const int MOUSE_LEFT = 0;
+    const int MOUSE_RIGHT = 1;
+
 	//each input follows the following format
 
 	//Generic functions that read all input for get, down, and up
@@ -200,7 +203,7 @@ public static class InputManager
     #region Generic Inputs
     public static bool getAttack()
     {
-        if (Input.GetMouseButton(0) || GamePad.GetButton(GamePad.Button.X, GamePad.Index.Any))
+        if (Input.GetMouseButton(MOUSE_LEFT) || GamePad.GetButton(GamePad.Button.X, GamePad.Index.Any))
         {
             return true;
         }
@@ -209,7 +212,7 @@ public static class InputManager
 
     public static bool getAttackDown()
     {
-        if (Input.GetMouseButtonDown(0) || GamePad.GetButtonDown(GamePad.Button.X, GamePad.Index.Any))
+        if (Input.GetMouseButtonDown(MOUSE_LEFT) || GamePad.GetButtonDown(GamePad.Button.X, GamePad.Index.Any))
         {
             return true;
         }
@@ -218,7 +221,7 @@ public static class InputManager
 
     public static bool getAttackUp()
     {
-        if (Input.GetMouseButtonUp(0) || GamePad.GetButtonUp(GamePad.Button.X, GamePad.Index.Any))
+        if (Input.GetMouseButtonUp(MOUSE_LEFT) || GamePad.GetButtonUp(GamePad.Button.X, GamePad.Index.Any))
         {
             return true;
         }
@@ -232,7 +235,7 @@ public static class InputManager
 		switch(inputToRead)
 		{
 		case PlayerInput.Keyboard:
-			return Input.GetMouseButton(0);
+            return Input.GetMouseButton(MOUSE_LEFT);
 			
 		case PlayerInput.GamePadOne:
 			return GamePad.GetButton(GamePad.Button.X, GamePad.Index.One);
@@ -257,7 +260,7 @@ public static class InputManager
 		switch(inputToRead)
 		{
 		case PlayerInput.Keyboard:
-			return Input.GetMouseButtonDown(0);
+            return Input.GetMouseButtonDown(MOUSE_LEFT);
 			
 		case PlayerInput.GamePadOne:
 			return GamePad.GetButtonDown(GamePad.Button.X, GamePad.Index.One);
@@ -282,7 +285,7 @@ public static class InputManager
 		switch(inputToRead)
 		{
 		case PlayerInput.Keyboard:
-			return Input.GetMouseButtonUp(0);
+            return Input.GetMouseButtonUp(MOUSE_LEFT);
 			
 		case PlayerInput.GamePadOne:
 			return GamePad.GetButtonUp(GamePad.Button.X, GamePad.Index.One);
@@ -353,29 +356,29 @@ public static class InputManager
     //=====================================================================================================
 	#endregion
 
-    #region Character Switch
+    #region Heavy attack
     #region Generic Inputs
-    public static bool getCharacterSwitch()
+    public static bool getHeavyAttack()
     {
-        if (Input.GetKey(KeyCode.Tab) || GamePad.GetButton(GamePad.Button.Y, GamePad.Index.Any))
+        if (Input.GetMouseButton(MOUSE_RIGHT) || GamePad.GetButton(GamePad.Button.Y, GamePad.Index.Any))
         {
             return true;
         }
         return false;
     }
 
-    public static bool getCharacterSwitchDown()
+    public static bool getHeavyAttackDown()
     {
-        if (Input.GetKeyDown(KeyCode.Tab) || GamePad.GetButtonDown(GamePad.Button.Y, GamePad.Index.Any))
+        if (Input.GetMouseButtonDown(MOUSE_RIGHT) || GamePad.GetButtonDown(GamePad.Button.Y, GamePad.Index.Any))
         {
             return true;
         }
         return false;
     }
 
-    public static bool getCharacterSwitchUp()
+    public static bool getHeavyAttackUp()
     {
-        if (Input.GetKeyUp(KeyCode.Tab) || GamePad.GetButtonUp(GamePad.Button.Y, GamePad.Index.Any))
+        if (Input.GetMouseButtonUp(MOUSE_RIGHT) || GamePad.GetButtonUp(GamePad.Button.Y, GamePad.Index.Any))
         {
             return true;
         }
@@ -385,12 +388,12 @@ public static class InputManager
 
     //=====================================================================================================
     #region Specific Input
-    public static bool getCharacterSwitch(PlayerInput inputToRead)
+    public static bool getHeavyAttack(PlayerInput inputToRead)
 	{
 		switch(inputToRead)
 		{
 		case PlayerInput.Keyboard:
-			return Input.GetKey(KeyCode.Tab);
+			return Input.GetMouseButton(MOUSE_RIGHT);
 			
 		case PlayerInput.GamePadOne:
 			return GamePad.GetButton(GamePad.Button.Y, GamePad.Index.One);
@@ -405,17 +408,17 @@ public static class InputManager
 			return GamePad.GetButton(GamePad.Button.Y, GamePad.Index.Four);
 
 		case PlayerInput.All:
-			return getCharacterSwitch();
+            return getHeavyAttack();
 		}
 		return false;
 	}
-	
-	public static bool getCharacterSwitchDown(PlayerInput inputToRead)
+
+    public static bool getHeavyAttackDown(PlayerInput inputToRead)
 	{
 		switch(inputToRead)
 		{
 		case PlayerInput.Keyboard:
-			return Input.GetKeyDown(KeyCode.Tab);
+                return Input.GetMouseButtonDown(MOUSE_RIGHT);
 			
 		case PlayerInput.GamePadOne:
 			return GamePad.GetButtonDown(GamePad.Button.Y, GamePad.Index.One);
@@ -430,17 +433,17 @@ public static class InputManager
 			return GamePad.GetButtonDown(GamePad.Button.Y, GamePad.Index.Four);
 
 		case PlayerInput.All:
-			return getCharacterSwitchDown();
+            return getHeavyAttackDown();
 		}
 		return false;
 	}
-	
-	public static bool getCharacterSwitchUp(PlayerInput inputToRead)
+
+    public static bool getHeavyAttackUp(PlayerInput inputToRead)
 	{
 		switch(inputToRead)
 		{
 		case PlayerInput.Keyboard:
-			return Input.GetKeyUp(KeyCode.Tab);
+                return Input.GetMouseButtonUp(MOUSE_RIGHT);
 			
 		case PlayerInput.GamePadOne:
 			return GamePad.GetButtonUp(GamePad.Button.Y, GamePad.Index.One);
@@ -455,20 +458,20 @@ public static class InputManager
 			return GamePad.GetButtonUp(GamePad.Button.Y, GamePad.Index.Four);
 
 		case PlayerInput.All:
-			return getCharacterSwitchUp();
+            return getHeavyAttackUp();
 		}
 		return false;
 	}
     #endregion
     //=====================================================================================================
     #region Bits
-    public static bool getCharacterSwitch(int bitsToRead)
+    public static bool getHeavyAttack(int bitsToRead)
     {
         for (int i = 0; i < (int)PlayerInput.Count; i++)
         {
             if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
             {
-                if (getCharacterSwitch(Constants.PLAYER_INPUT_ARRAY[i]))
+                if (getHeavyAttack(Constants.PLAYER_INPUT_ARRAY[i]))
                 {
                     return true;
                 }
@@ -477,13 +480,13 @@ public static class InputManager
         return false;
     }
 
-    public static bool getCharacterSwitchDown(int bitsToRead)
+    public static bool getHeavyAttackDown(int bitsToRead)
     {
         for (int i = 0; i < (int)PlayerInput.Count; i++)
         {
             if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
             {
-                if (getCharacterSwitchDown(Constants.PLAYER_INPUT_ARRAY[i]))
+                if (getHeavyAttackDown(Constants.PLAYER_INPUT_ARRAY[i]))
                 {
                     return true;
                 }
@@ -492,13 +495,13 @@ public static class InputManager
         return false;
     }
 
-    public static bool getCharacterSwitchUp(int bitsToRead)
+    public static bool getHeavyAttackUp(int bitsToRead)
     {
         for (int i = 0; i < (int)PlayerInput.Count; i++)
         {
             if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
             {
-                if (getCharacterSwitchUp(Constants.PLAYER_INPUT_ARRAY[i]))
+                if (getHeavyAttackUp(Constants.PLAYER_INPUT_ARRAY[i]))
                 {
                     return true;
                 }
