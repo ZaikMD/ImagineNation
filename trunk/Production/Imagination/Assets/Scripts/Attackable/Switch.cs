@@ -26,13 +26,6 @@ public class Switch : SwitchBaseClass, Attackable
     //Save for the timer
 	protected float m_SaveTimer;
 
-    //Materials for the switch
-	public Material m_ActiveMaterial;
-	public Material m_InactiveMaterial;
-
-    //Gameobject to hold the switch prefab that will change colours
-	public GameObject m_ColorChangeObject;
-
 	public GameObject m_MovingPiece;
 
 	//Variables for Rotation/Movement
@@ -51,7 +44,7 @@ public class Switch : SwitchBaseClass, Attackable
     {
 		m_SaveTimer = m_Timer;
 
-		m_Angle.Set(0,
+		m_Angle.Set(60,
 		            m_MovingPiece.transform.rotation.y,
 		            m_MovingPiece.transform.rotation.z,
 		            m_MovingPiece.transform.rotation.w);
@@ -83,7 +76,6 @@ public class Switch : SwitchBaseClass, Attackable
 					m_CameraPauseTimer -= Time.deltaTime; //OtherWise countdown
 				}
 			}
-			
 		}
 
 		if(m_Activated) //If the lever is activated
@@ -101,12 +93,6 @@ public class Switch : SwitchBaseClass, Attackable
 					m_Timer -= Time.deltaTime; //Otherwise decrement the timer
 				}
 			}
-			m_ColorChangeObject.renderer.material = m_ActiveMaterial; //Change the colour of the switch is it is activate
-		}
-
-		else
-		{
-			m_ColorChangeObject.renderer.material = m_InactiveMaterial; //Else change the colour if it isn't activated
 		}
 	}
 
