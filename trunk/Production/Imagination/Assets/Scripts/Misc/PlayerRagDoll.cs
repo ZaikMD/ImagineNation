@@ -50,7 +50,7 @@ public class PlayerRagDoll : MonoBehaviour
 		}
 
 		m_Timer -= Time.deltaTime;
-		if(m_Timer < 0.0f)
+		if(m_Timer < 0.0f && DeadPlayerManager.Instance.areBothPlayersAlive())
 		{
 			//time to despawn the ghost and get rid of the game object
 			Destroy(m_Ghost);
