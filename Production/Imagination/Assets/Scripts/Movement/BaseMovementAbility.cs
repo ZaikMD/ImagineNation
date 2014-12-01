@@ -78,10 +78,10 @@ public abstract class BaseMovementAbility : MonoBehaviour
 
 	//List of Laanch movements
 	protected List<LaunchMovement> m_LaunchExternalMovement = new List<LaunchMovement>();
-
+		
 	//States
 	protected bool m_CurrentlyJumping = false;
-	protected bool m_PausedMovement = false;
+	public bool m_PausedMovement = false;
 
 
 

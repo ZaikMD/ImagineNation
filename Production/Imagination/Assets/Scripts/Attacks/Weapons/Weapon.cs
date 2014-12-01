@@ -28,6 +28,7 @@ public class Weapon : MonoBehaviour
 	bool m_FinishedCombo = false;
 
     string m_Inputs;
+
     //The constants for the inputs of the attacks, as well as the 
     //combos the players can do. L = light attack  H = Heavy attack
     const string L = " L";
@@ -41,7 +42,8 @@ public class Weapon : MonoBehaviour
     const string FRONTCONE = " H H H";
 
     string m_LastInput;
-
+	
+	BaseMovementAbility m_BaseMovementAbility;
     AcceptInputFrom m_ReadInput;
 	// Use this for initialization
 	void Start () 
@@ -53,6 +55,8 @@ public class Weapon : MonoBehaviour
 		DOWN_TIME = m_DownTime;
 
 		DOUBLE_HIT_TIMER = m_DoubleHitTimer;
+
+		m_BaseMovementAbility = gameObject.GetComponent (typeof(BaseMovementAbility)) as BaseMovementAbility;
 	}
 	
 	// Update is called once per frame
@@ -88,12 +92,28 @@ public class Weapon : MonoBehaviour
 			m_DoubleHitActivated = false;
 		}
 
+		if(m_CurrentAttack != null)
+		{
+			if(m_CurrentAttack.getAttacking() || m_PreviousAttack.getAttacking())
+			{
+				if(m_BaseMovementAbility.GetIsGrounded())
+				{
+
+				}
+			}
+
+			else
+			{
+
+			}
+		}
+
 
 	}
 
     void setCurrentAttack()
     {
-		if (InputManager.getAttackDown (m_ReadInput.ReadInputFrom) || InputManager.getCharacterSwitchDown(m_ReadInput.ReadInputFrom))
+		if (InputManager.getAttackDown (m_ReadInput.ReadInputFrom) || InputManager.getHeavyAttackDown(m_ReadInput.ReadInputFrom))
 		{
 			if(InputManager.getAttackDown(m_ReadInput.ReadInputFrom))
 			{
@@ -101,7 +121,7 @@ public class Weapon : MonoBehaviour
 				m_LastInput = L;
 			}
 
-			if(InputManager.getCharacterSwitchDown(m_ReadInput.ReadInputFrom))
+			if(InputManager.getHeavyAttackDown(m_ReadInput.ReadInputFrom))
 			{
 				m_Inputs += H;
 				m_LastInput = H;
@@ -224,6 +244,7 @@ public class Weapon : MonoBehaviour
         {
             if (!m_PreviousAttack.getAttacking()) //Check if the character is attacking
             {
+				m_BaseMovementAbility.m_PausedMovement = false;
                 if (m_PreviousAttack.getGraceTimer() <= 0.0f) //Check if the grace timer is over
                 {
 					m_Inputs = "";
