@@ -10,6 +10,7 @@ public class PauseScreen : MenuV2
         get { return m_GameIsPaused; }
     }
 
+    int m_OriginalReadInputFrom;
 
     bool m_IsSwapping = false;
 
@@ -49,9 +50,20 @@ public class PauseScreen : MenuV2
 
         if (!m_IsSwapping)
         {
-			if (InputManager.getMenuStartDown(m_ReadInputFrom) || (InputManager.getMenuBackDown(m_ReadInputFrom) && m_GameIsPaused))
+            PlayerInput input;
+            if (InputManager.getMenuStartDown(m_ReadInputFrom, out input) || (InputManager.getMenuBackDown(m_ReadInputFrom) && m_GameIsPaused))
             {
                 m_GameIsPaused = !m_GameIsPaused;
+
+                if (m_GameIsPaused)
+                {
+                    m_OriginalReadInputFrom = m_ReadInputFrom;
+                    m_ReadInputFrom = (int)input;
+                }
+                else
+                {
+                     m_ReadInputFrom = m_OriginalReadInputFrom;
+                }
 
                 m_IsSwapping = true;
                 m_Set1.setShutterState(true);

@@ -19,7 +19,7 @@ public class ButtonChangeMenuAndSetLevelData : ButtonChangeMenuV2
 	public Sections SectionSetting = Sections.None;
 	public CheckPoints checkPointSetting = CheckPoints.None;
 
-	public override void use ()
+	public override void use (PlayerInput usedBy = PlayerInput.None)
 	{
 		base.use ();
 

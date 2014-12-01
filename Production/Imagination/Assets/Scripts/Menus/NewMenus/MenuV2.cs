@@ -139,11 +139,12 @@ public class MenuV2 : MonoBehaviour
 
     protected virtual bool useButton()
     {
-        if (InputManager.getMenuAcceptDown(m_ReadInputFrom))//check if "A" was hit
+        PlayerInput inputRead;
+        if (InputManager.getMenuAcceptDown(m_ReadInputFrom, out inputRead))//check if "A" was hit
         {
             if (m_CurrentButtonSelection != null)
             {
-                m_CurrentButtonSelection.use();
+                m_CurrentButtonSelection.use(inputRead);
             }
             else
             {
@@ -258,5 +259,10 @@ public class MenuV2 : MonoBehaviour
 
     protected virtual void OnActivated()
     {
+    }
+
+    public void setInputsToRead(int inputs)
+    {
+        m_ReadInputFrom = inputs;
     }
 }

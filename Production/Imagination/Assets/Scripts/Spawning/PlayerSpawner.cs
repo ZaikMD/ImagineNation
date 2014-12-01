@@ -85,8 +85,8 @@ public class PlayerSpawner : MonoBehaviour
 			character.name = Constants.ALEX_STRING;
 			break;
 		}
-		//finds the players gameObject using the health script (the player game object is a subObject in the prefab)
-		GameObject player = character.GetComponentInChildren (typeof(PlayerHealth)).gameObject;
+		//finds the players gameObject using the playerinfo (the player game object is a subObject in the prefab)
+		GameObject player = character.GetComponentInChildren (typeof(PlayerInfo)).gameObject;
 
 		//moves the player to the correct position
 		player.transform.position = spawnPoint.transform.position;
