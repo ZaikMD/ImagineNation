@@ -1168,6 +1168,23 @@ public static class InputManager
         }
         return Vector2.zero;
     }
+
+    public static Vector2 getMenuChangeSelection(int bitsToRead, out PlayerInput input)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getMenuChangeSelection(Constants.PLAYER_INPUT_ARRAY[i]) != Vector2.zero)
+                {
+                    input = (PlayerInput)Constants.PLAYER_INPUT_ARRAY[i];
+                    return getMenuChangeSelection(Constants.PLAYER_INPUT_ARRAY[i]);
+                }
+            }
+        }
+        input = PlayerInput.None;
+        return Vector2.zero;
+    }
     #endregion
     #endregion
    
@@ -1314,6 +1331,58 @@ public static class InputManager
         return false;
     }
 
+    //=====================================================================================================
+
+    public static bool getMenuStart(int bitsToRead, out PlayerInput input)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getMenuStart(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    input = (PlayerInput)Constants.PLAYER_INPUT_ARRAY[i];
+                    return true;
+                }
+            }
+        }
+        input = PlayerInput.None;
+        return false;
+    }
+
+    public static bool getMenuStartDown(int bitsToRead, out PlayerInput input)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getMenuStartDown(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    input = (PlayerInput)Constants.PLAYER_INPUT_ARRAY[i];
+                    return true;
+                }
+            }
+        }
+        input = PlayerInput.None;
+        return false;
+    }
+
+    public static bool getMenuStartUp(int bitsToRead, out PlayerInput input)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getMenuStartUp(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    input = (PlayerInput)Constants.PLAYER_INPUT_ARRAY[i];
+                    return true;
+                }
+            }
+        }
+        input = PlayerInput.None;
+        return false;
+    }
     #endregion
     #endregion
 
@@ -1459,7 +1528,58 @@ public static class InputManager
         }
         return false;
     }
+    //=====================================================================================================
 
+    public static bool getMenuAccept(int bitsToRead, out PlayerInput input)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getMenuAccept(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    input = (PlayerInput)Constants.PLAYER_INPUT_ARRAY[i];
+                    return true;
+                }
+            }
+        }
+        input = PlayerInput.None;
+        return false;
+    }
+
+    public static bool getMenuAcceptDown(int bitsToRead, out PlayerInput input)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getMenuAcceptDown(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    input = (PlayerInput)Constants.PLAYER_INPUT_ARRAY[i];
+                    return true;
+                }
+            }
+        }
+        input = PlayerInput.None;
+        return false;
+    }
+
+    public static bool getMenuAcceptUp(int bitsToRead, out PlayerInput input)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getMenuAcceptUp(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    input = (PlayerInput)Constants.PLAYER_INPUT_ARRAY[i];
+                    return true;
+                }
+            }
+        }
+        input = PlayerInput.None;
+        return false;
+    }
     #endregion
     #endregion
 
@@ -1605,7 +1725,58 @@ public static class InputManager
         }
         return false;
     }
+    //=====================================================================================================
 
+    public static bool getMenuBack(int bitsToRead, out PlayerInput input)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getMenuBack(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    input = (PlayerInput)Constants.PLAYER_INPUT_ARRAY[i];
+                    return true;
+                }
+            }
+        }
+        input = PlayerInput.None;
+        return false;
+    }
+
+    public static bool getMenuBackDown(int bitsToRead, out PlayerInput input)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getMenuBackDown(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    input = (PlayerInput)Constants.PLAYER_INPUT_ARRAY[i];
+                    return true;
+                }
+            }
+        }
+        input = PlayerInput.None;
+        return false;
+    }
+
+    public static bool getMenuBackUp(int bitsToRead, out PlayerInput input)
+    {
+        for (int i = 0; i < (int)PlayerInput.Count; i++)
+        {
+            if (((int)Constants.PLAYER_INPUT_ARRAY[i] & bitsToRead) > 0)
+            {
+                if (getMenuBackUp(Constants.PLAYER_INPUT_ARRAY[i]))
+                {
+                    input = (PlayerInput)Constants.PLAYER_INPUT_ARRAY[i];
+                    return true;
+                }
+            }
+        }
+        input = PlayerInput.None;
+        return false;
+    }
     #endregion
     #endregion
 }

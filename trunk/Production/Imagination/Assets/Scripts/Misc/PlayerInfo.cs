@@ -12,6 +12,9 @@ public class PlayerInfo : MonoBehaviour
 
     public Characters i_Character;
     public Players m_Player { get; protected set; }
+    public PlayerInput m_PlayerInput { get; protected set; }
+
+    public TPCamera m_PlayerCamera { get; protected set; }
 
     void Awake()
     {
@@ -32,6 +35,9 @@ public class PlayerInfo : MonoBehaviour
         {
             //error
         }
+
+        m_PlayerInput = gameObject.GetComponent<AcceptInputFrom>().ReadInputFrom;
+        m_PlayerCamera = transform.parent.GetComponentInChildren<TPCamera>();
     }
 
     void OnDestroy()
@@ -62,6 +68,17 @@ public class PlayerInfo : MonoBehaviour
         for (int i = 0; i < m_Players.Count; i++)
         {
             if (m_Players[i].i_Character == character)
+                return m_Players[i];
+        }
+        //error
+        return null;
+    }
+
+    public static PlayerInfo getCharacter(PlayerInput input)
+    {
+        for (int i = 0; i < m_Players.Count; i++)
+        {
+            if (m_Players[i].m_PlayerInput == input)
                 return m_Players[i];
         }
         //error

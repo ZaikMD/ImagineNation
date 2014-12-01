@@ -16,7 +16,7 @@ public class ButtonV2CameraRotationSpeed : ButtonV2
 		i_Slider.Value = Constants.CAMERA_ROTATE_SPEED_DEFAULT;
 	}
 
-	public override void use ()
+	public override void use (PlayerInput usedBy = PlayerInput.None)
 	{
 		GameData.Instance.CameraRotationScaleModifyer = Mathf.Clamp(GameData.Instance.CameraRotationScaleModifyer + m_Increment,
 		                                                            Constants.CAMERA_ROTATE_SPEED_MIN, 

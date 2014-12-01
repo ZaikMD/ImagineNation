@@ -23,6 +23,8 @@ public class ButtonChangeMenuV2 : ButtonV2
 
     static MenuCamera m_Camera;
 
+    public bool i_PassInputToNextMenu = false;
+
 	// Use this for initialization
 	protected override void start () 
     {
@@ -46,11 +48,22 @@ public class ButtonChangeMenuV2 : ButtonV2
         }
 	}
 
-    public override void use()
+	public override void use(PlayerInput usedBy = PlayerInput.None)
     {
         m_Camera.changeMenu(NextMenu);
 		NextMenu.LastMenu = ParentMenu;
         ParentMenu.IsActiveMenu = false;
         NextMenu.IsActiveMenu = true;
+
+        if (i_PassInputToNextMenu)
+        {
+            if (usedBy == PlayerInput.None)
+                return;
+
+            if (usedBy == PlayerInput.Count)
+                return;
+
+            NextMenu.setInputsToRead((int)usedBy);
+        }        
     }
 }

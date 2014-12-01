@@ -15,7 +15,7 @@ public class ButtonV2Brightness : ButtonV2
 		i_Slider.Value = GameData.Instance.Brightness;
 	}
 	
-	public override void use ()
+	public override void use (PlayerInput usedBy = PlayerInput.None)
 	{
 		GameData.Instance.Brightness = Mathf.Clamp(GameData.Instance.Brightness + m_Increment,
 		                                           Constants.BRIGHTNESS_MIN,

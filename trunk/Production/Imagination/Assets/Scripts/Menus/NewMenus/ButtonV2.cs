@@ -285,5 +285,5 @@ public abstract class ButtonV2 : MonoBehaviour
 
     //--------------------------------------------------
     //the function that 
-    public abstract void use();
+    public abstract void use(PlayerInput usedBy = PlayerInput.None);
 }
