@@ -21,7 +21,7 @@ public class Weapon : MonoBehaviour
 	float m_DownTime = 0.5f;
 	float DOWN_TIME;
 
-	float m_DoubleHitTimer = 0.4f;
+	float m_DoubleHitTimer = 0.2f;
 	float DOUBLE_HIT_TIMER;
 	bool m_DoubleHitActivated = false;
 
@@ -94,17 +94,17 @@ public class Weapon : MonoBehaviour
 
 		if(m_CurrentAttack != null)
 		{
-			if(m_CurrentAttack.getAttacking() || m_PreviousAttack.getAttacking())
+			if(m_CurrentAttack.getAttacking())
 			{
 				if(m_BaseMovementAbility.GetIsGrounded())
 				{
-
+					m_BaseMovementAbility.m_PausedMovement = true;
 				}
 			}
 
 			else
 			{
-
+				m_BaseMovementAbility.m_PausedMovement = false;
 			}
 		}
 
@@ -113,126 +113,129 @@ public class Weapon : MonoBehaviour
 
     void setCurrentAttack()
     {
-		if (InputManager.getAttackDown (m_ReadInput.ReadInputFrom) || InputManager.getHeavyAttackDown(m_ReadInput.ReadInputFrom))
+		if(m_BaseMovementAbility.GetIsGrounded())
 		{
-			if(InputManager.getAttackDown(m_ReadInput.ReadInputFrom))
+			if (InputManager.getAttackDown (m_ReadInput.ReadInputFrom) || InputManager.getHeavyAttackDown(m_ReadInput.ReadInputFrom))
 			{
-				m_Inputs += L;
-				m_LastInput = L;
-			}
-
-			if(InputManager.getHeavyAttackDown(m_ReadInput.ReadInputFrom))
-			{
-				m_Inputs += H;
-				m_LastInput = H;
-			}
-
-		
-			m_PreviousAttack = m_CurrentAttack;
-			switch (m_Inputs) 
-			{
-				case L:
+				if(InputManager.getAttackDown(m_ReadInput.ReadInputFrom))
 				{
-					LightAttack attack = new LightAttack ();
-					attack.loadPrefab (m_LightProjectilePrefab);
-					attack.startAttack (transform.position, transform.eulerAngles);
-					m_CurrentAttack = attack;
-					m_LastInput = "";
+					m_Inputs += L;
+					m_LastInput = L;
+				}
+
+				if(InputManager.getHeavyAttackDown(m_ReadInput.ReadInputFrom))
+				{
+					m_Inputs += H;
+					m_LastInput = H;
+				}
+
+			
+				m_PreviousAttack = m_CurrentAttack;
+				switch (m_Inputs) 
+				{
+					case L:
+					{
+						LightAttack attack = new LightAttack ();
+						attack.loadPrefab (m_LightProjectilePrefab);
+						attack.startAttack (transform.position, transform.eulerAngles);
+						m_CurrentAttack = attack;
+						m_LastInput = "";
+						}
+
+						break;
+
+					case LL:
+					{
+						LightAttack attack = new LightAttack ();
+						attack.loadPrefab (m_LightProjectilePrefab);
+						attack.startAttack (transform.position, transform.eulerAngles);
+						m_CurrentAttack = attack;
+						m_LastInput = "";
 					}
+						break;
 
-					break;
+					case DOUBLEHIT:
+					{
+						LightAttack attack = new LightAttack ();
+						attack.loadPrefab (m_LightProjectilePrefab);
+						attack.startAttack (transform.position, transform.eulerAngles);
+						m_CurrentAttack = attack;
+						m_LastInput = "";
+						m_DoubleHitActivated = true;
+					}
+						break;
 
-				case LL:
-				{
-					LightAttack attack = new LightAttack ();
-					attack.loadPrefab (m_LightProjectilePrefab);
-					attack.startAttack (transform.position, transform.eulerAngles);
-					m_CurrentAttack = attack;
-					m_LastInput = "";
+					case LH:
+					{
+						HeavyAttack attack = new HeavyAttack ();
+						attack.loadPrefab (m_HeavyProjectilePrefab);
+						attack.startAttack (transform.position, transform.eulerAngles);
+						m_CurrentAttack = attack;
+						m_LastInput = "";
+
+					}
+						break;
+
+					case AOE:
+					{					
+						SpecialAttack attack = new SpecialAttack();
+						attack.loadPrefab (m_LightProjectilePrefab);
+						attack.startAttack(transform.position, transform.eulerAngles);
+						m_CurrentAttack = attack;
+						m_LastInput = "";
+						m_Inputs = "";
+						m_FinishedCombo = true;
+					}
+						break;
+
+					case FRONTLINE:
+				    {
+						FrontalLine attack = new FrontalLine ();
+						attack.loadPrefab (m_LightProjectilePrefab);
+						attack.startAttack (transform.position, transform.eulerAngles);
+						m_CurrentAttack = attack;
+						m_LastInput = "";
+						m_FinishedCombo = true;
+					}
+						break;
+
+					case H:
+					{
+						HeavyAttack attack = new HeavyAttack ();
+						attack.loadPrefab (m_HeavyProjectilePrefab);
+						attack.startAttack (transform.position, transform.eulerAngles);
+						m_CurrentAttack = attack;
+						m_LastInput = "";
+					}
+						break;
+
+					case HH:
+					{
+						HeavyAttack attack = new HeavyAttack ();
+						attack.loadPrefab (m_HeavyProjectilePrefab);
+						attack.startAttack (transform.position, transform.eulerAngles);
+						m_CurrentAttack = attack;
+						m_LastInput = "";	
+					}
+						break;
+
+					case FRONTCONE:
+					{
+						FrontalConeAttack attack = new FrontalConeAttack ();
+						attack.loadPrefab (m_HeavyProjectilePrefab);
+						attack.startAttack (transform.position, transform.eulerAngles);
+						m_CurrentAttack = attack;
+						m_LastInput = "";
+						m_FinishedCombo = true;
+					}
+						break;
+
+					default:
+					{
+						m_Inputs = m_LastInput;
+					}
+						break;
 				}
-					break;
-
-				case DOUBLEHIT:
-				{
-					LightAttack attack = new LightAttack ();
-					attack.loadPrefab (m_LightProjectilePrefab);
-					attack.startAttack (transform.position, transform.eulerAngles);
-					m_CurrentAttack = attack;
-					m_LastInput = "";
-					m_DoubleHitActivated = true;
-				}
-					break;
-
-				case LH:
-				{
-					HeavyAttack attack = new HeavyAttack ();
-					attack.loadPrefab (m_HeavyProjectilePrefab);
-				attack.startAttack (transform.position, transform.eulerAngles);
-					m_CurrentAttack = attack;
-					m_LastInput = "";
-
-				}
-					break;
-
-				case AOE:
-				{					
-					SpecialAttack attack = new SpecialAttack();
-					attack.loadPrefab (m_LightProjectilePrefab);
-				attack.startAttack(transform.position, transform.eulerAngles);
-					m_CurrentAttack = attack;
-					m_LastInput = "";
-					m_Inputs = "";
-					m_FinishedCombo = true;
-				}
-					break;
-
-				case FRONTLINE:
-			    {
-					FrontalLine attack = new FrontalLine ();
-					attack.loadPrefab (m_LightProjectilePrefab);
-				attack.startAttack (transform.position, transform.eulerAngles);
-					m_CurrentAttack = attack;
-					m_LastInput = "";
-					m_FinishedCombo = true;
-				}
-					break;
-
-				case H:
-				{
-					HeavyAttack attack = new HeavyAttack ();
-					attack.loadPrefab (m_HeavyProjectilePrefab);
-				attack.startAttack (transform.position, transform.eulerAngles);
-					m_CurrentAttack = attack;
-					m_LastInput = "";
-				}
-					break;
-
-				case HH:
-				{
-					HeavyAttack attack = new HeavyAttack ();
-					attack.loadPrefab (m_HeavyProjectilePrefab);
-				attack.startAttack (transform.position, transform.eulerAngles);
-					m_CurrentAttack = attack;
-					m_LastInput = "";	
-				}
-					break;
-
-				case FRONTCONE:
-				{
-					FrontalConeAttack attack = new FrontalConeAttack ();
-					attack.loadPrefab (m_HeavyProjectilePrefab);
-					attack.startAttack (transform.position, transform.eulerAngles);
-					m_CurrentAttack = attack;
-					m_LastInput = "";
-					m_FinishedCombo = true;
-				}
-					break;
-
-				default:
-				{
-					m_Inputs = m_LastInput;
-				}
-					break;
 			}
 		}
     }
@@ -240,16 +243,16 @@ public class Weapon : MonoBehaviour
     void updateAttacks()
     {
 
-        if (m_PreviousAttack != null)
+		if (m_CurrentAttack != null)
         {
-            if (!m_PreviousAttack.getAttacking()) //Check if the character is attacking
+            if (!m_CurrentAttack.getAttacking()) //Check if the character is attacking
             {
-				m_BaseMovementAbility.m_PausedMovement = false;
-                if (m_PreviousAttack.getGraceTimer() <= 0.0f) //Check if the grace timer is over
+
+				if (m_CurrentAttack.getGraceTimer() <= 0.0f) //Check if the grace timer is over
                 {
 					m_Inputs = "";
 					m_LastInput = "";
-                   // m_CurrentAttack = null; //If so, the combo gets reset
+                   //If so, the combo gets reset
 					if(!m_FinishedCombo)
 					{
 						setCurrentAttack();

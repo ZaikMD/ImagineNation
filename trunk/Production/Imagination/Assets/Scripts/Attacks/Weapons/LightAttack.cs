@@ -12,9 +12,9 @@ public class LightAttack : BaseAttack
 	public LightAttack()
 	{
 		m_Damage = 0.5f;
-		m_AttackTimer = 1.0f;
+		m_AttackTimer = 0.4f;
 		m_SaveAttackTimer = m_AttackTimer;
-		m_GraceTimer = 0.8f;
+		m_GraceTimer = 0.4f;
 		m_SaveGraceTimer = m_GraceTimer;
 	}
 
