@@ -25,5 +25,6 @@ public class LightAttack : BaseAttack
 		LightProjectile projS = proj.GetComponent (typeof(LightProjectile)) as LightProjectile;
 	
 		projS.setDamage (m_Damage);
+		projS.setCharacter (m_Character);
 	}
 }

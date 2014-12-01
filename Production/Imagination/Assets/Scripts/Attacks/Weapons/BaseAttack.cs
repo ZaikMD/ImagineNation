@@ -32,6 +32,8 @@ public class BaseAttack
 	protected Vector3 m_InitialRotation;
 
 	protected float m_FirePointYOffSet = 0.5f;
+
+	protected Characters m_Character;
 	
 	// Update is called once per frame
 
@@ -71,12 +73,12 @@ public class BaseAttack
 		m_Projectile = prefab;
 	}
 
-	public void startAttack(Vector3 pos, Vector3 rotation)
+	public void startAttack(Vector3 pos, Vector3 rotation, Characters character)
 	{
 		//Reset Timers
 		m_AttackTimer = m_SaveAttackTimer;
 		m_GraceTimer = m_SaveGraceTimer;
-
+		m_Character = character;
 
 		m_InitialPosition = pos;
 		m_InitialRotation = rotation;

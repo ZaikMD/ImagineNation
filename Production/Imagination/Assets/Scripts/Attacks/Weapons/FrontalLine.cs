@@ -10,5 +10,6 @@ public class FrontalLine : BaseAttack
 		LightProjectile projS = proj.GetComponent (typeof(LightProjectile)) as LightProjectile;
 		projS.setRange (m_Range);
 		projS.setDamage (m_Damage);
+		projS.setCharacter (m_Character);
 	}
 }
