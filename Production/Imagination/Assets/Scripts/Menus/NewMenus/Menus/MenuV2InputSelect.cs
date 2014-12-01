@@ -104,6 +104,12 @@ public class MenuV2InputSelect : MenuV2
                 m_InputSelects[index].resetMountPoint();
                 return;
             }
+            else if(InputManager.getMenuBackDown(m_InputSelects[index].InputType))
+            {//unmount
+                m_CurrentlyMounted[0] = -1;
+                m_InputSelects[index].resetMountPoint();
+                return;
+            }
 
             //mounted and not trying to unmount
             //check if accepting
