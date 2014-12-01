@@ -44,10 +44,10 @@ public class Switch : SwitchBaseClass, Attackable
     {
 		m_SaveTimer = m_Timer;
 
-		m_Angle.Set(60,
-		            m_MovingPiece.transform.rotation.y,
-		            m_MovingPiece.transform.rotation.z,
-		            m_MovingPiece.transform.rotation.w);
+		m_Angle.Set(0,
+		            m_MovingPiece.transform.localRotation.y,
+		            m_MovingPiece.transform.localRotation.z,
+		            m_MovingPiece.transform.localRotation.w);
 
 		m_MoveToPoint = new Vector3(m_MovingPiece.transform.position.x,
 		                            m_MovingPiece.transform.position.y,
@@ -100,7 +100,7 @@ public class Switch : SwitchBaseClass, Attackable
 	{
 		if(m_Rotate)
 		{ //If the switch Rotates, then rotate it to the Angle
-			m_MovingPiece.transform.rotation = Quaternion.Lerp(m_MovingPiece.transform.rotation, m_Angle, m_LerpTime);
+			m_MovingPiece.transform.localRotation = Quaternion.Lerp(m_MovingPiece.transform.localRotation, m_Angle, m_LerpTime);
 		}
 		if(!m_Rotate)
 		{//Else it moves and is a button, so move it back a bit

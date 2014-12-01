@@ -25,6 +25,11 @@ public class HeavyProjectile : BaseProjectile
 	{
 		m_Damage = damage;
 	}
+
+	public void setRange(float range)
+	{
+		m_Range = range;
+	}
 	
 	void OnTriggerEnter( Collider obj)
 	{
