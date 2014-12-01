@@ -125,19 +125,21 @@ public class DeadPlayerManager : MonoBehaviour
 
 		if(m_TwoPlayersDead)
 		{
+			GameData.Instance.DecrementLives();
+
 			//if the team of players still have lives left in their pool, it gets decremented
-			if(GameData.Instance.CurrentLives > 0)
-			{
-				GameData.Instance.DecrementLives();
-			}
+//			if(GameData.Instance.CurrentLives > 0)
+//			{
+//				GameData.Instance.DecrementLives();
+//			}
 
-			else
-			{
-				GameData.Instance.ResetLives();
-				GameData.Instance.resetCheckPoint();
-			}
+//			else
+//			{
+//				GameData.Instance.ResetLives();
+//				GameData.Instance.resetCheckPoint();
+//			}
 
-			Application.LoadLevel(Application.loadedLevelName); //If both players are dead, reset the scene
+//			Application.LoadLevel(Application.loadedLevelName); //If both players are dead, reset the scene
 		}
 	}
 

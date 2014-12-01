@@ -337,13 +337,19 @@ case CheckPoints.CheckPoint_3:
     public void IncrementCounter()
     {
         m_NumberOfLightPegsCollect ++;
+
+		if(m_NumberOfLightPegsCollect >= Constants.LIGHT_PEGS_NEEDED_TO_GAIN_LIVES)
+		{
+			GameData.Instance.IncrementLives();
+			m_Hud.ShowLifes();
+			m_NumberOfLightPegsCollect = 0;
+		}
         m_Hud.UpdateLightPegs(m_NumberOfLightPegsCollect);
     }
 
 	public void IncrementPuzzleCounter()
 	{
-		m_NumberOfPuzzlePiecesCollected ++;
-        
+		m_NumberOfPuzzlePiecesCollected ++;        
 	}
 	
 	void DisplayCounter()
