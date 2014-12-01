@@ -13,7 +13,7 @@ using System.Collections;
 /*
 * 8/10/2014 Edit: Fully Commented and changed strings to constants- Zach Dubuc
 *
-*26/11/2014 Edit: Added functionality for lives
+*26/11/2014 Edit: Added functionality for lives - Greg
 * 
 */
 #endregion
@@ -143,6 +143,10 @@ public class DeadPlayerManager : MonoBehaviour
 		}
 	}
 
+	public bool areBothPlayersAlive()
+	{
+        return (m_PlayerOneHealth.IsDead == false) && (m_PlayerTwoHealth.IsDead == false);
+	}
 
 	void checkPlayersAlive() //Function to check if the players are alive
 	{
