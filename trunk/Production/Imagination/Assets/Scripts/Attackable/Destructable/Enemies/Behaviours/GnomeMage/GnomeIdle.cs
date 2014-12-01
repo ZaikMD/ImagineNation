@@ -18,6 +18,7 @@ public class GnomeIdle : BaseIdleBehaviour
 	// Use this for initialization
 	protected override void start ()
 	{
+		base.update ();
 		//initialise all components
 		m_MovementComponent.start (this);
 		m_EnterCombatComponent.start (this);

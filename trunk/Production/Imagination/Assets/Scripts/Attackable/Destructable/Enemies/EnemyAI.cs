@@ -6,6 +6,8 @@
 /* 
  * Changed to BaseIdleBehaviour, BaseChaseBehaviour,
  * BaseAttackBehaviour, BaseDeadBehaviour
+ * 
+ * Added the controller variable along with the get and set methods - Mathieu Elias, Dec 1
  */
 #endregion
 
@@ -43,6 +45,8 @@ public class EnemyAI : Destructable
 	public bool m_ULeaveCombat = true;
 
 	public GameObject m_ProjectilePrefab;
+	
+	EnemyController m_EnemyController;
 
 	//Choose a Behavoir to update
 	void FixedUpdate ()
@@ -132,5 +136,15 @@ public class EnemyAI : Destructable
 	public GameObject GetProjectilePrefab()
 	{
 		return m_ProjectilePrefab;
+	}
+
+	public void SetController(EnemyController controller)
+	{
+		m_EnemyController = controller;
+	}
+
+	public EnemyController GetController()
+	{
+		return m_EnemyController;
 	}
 }
