@@ -9,6 +9,7 @@
 /// will act as the destinations, tag the platform as MovingPlatform, and ensure that the player
 /// is tagged as Player.
 /// 
+/// The platform must also have the MovingPlatformLayer as it's layer, and must have a rigidbody component (turn off gravity and turn on all constraints).
 ///
 
 #region Change Log 
