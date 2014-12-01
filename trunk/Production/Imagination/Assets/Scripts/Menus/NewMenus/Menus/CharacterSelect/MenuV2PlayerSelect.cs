@@ -76,13 +76,15 @@ public class MenuV2PlayerSelect : MenuV2
                     case PlayerInput.GamePadTwo: 
                     case PlayerInput.GamePadThree: 
                     case PlayerInput.GamePadFour:
-                        PlayerInstructions[PLAYER_ONE] = (GameObject)GameObject.Instantiate(GamepadInstructionsPreafab, 
+						if ( GamepadInstructionsPreafab != null)
+                        	PlayerInstructions[PLAYER_ONE] = (GameObject)GameObject.Instantiate(GamepadInstructionsPreafab, 
                                                                                             PlayerInstructionMountPoints[PLAYER_ONE].position, 
                                                                                             PlayerInstructionMountPoints[PLAYER_ONE].rotation);
                         break;
 
                     case PlayerInput.Keyboard:
-                        PlayerInstructions[PLAYER_ONE] = (GameObject)GameObject.Instantiate(KeyboardInstructionsPrefab, 
+						if ( KeyboardInstructionsPrefab != null)
+                        	PlayerInstructions[PLAYER_ONE] = (GameObject)GameObject.Instantiate(KeyboardInstructionsPrefab, 
                                                                                             PlayerInstructionMountPoints[PLAYER_ONE].position, 
                                                                                             PlayerInstructionMountPoints[PLAYER_ONE].rotation);
                         break;
@@ -97,12 +99,14 @@ public class MenuV2PlayerSelect : MenuV2
                     case PlayerInput.GamePadTwo:
                     case PlayerInput.GamePadThree:
                     case PlayerInput.GamePadFour:
-                        PlayerInstructions[PLAYER_TWO] = (GameObject)GameObject.Instantiate(GamepadInstructionsPreafab, 
+						if ( GamepadInstructionsPreafab != null)
+                        	PlayerInstructions[PLAYER_TWO] = (GameObject)GameObject.Instantiate(GamepadInstructionsPreafab, 
                                                                                             PlayerInstructionMountPoints[PLAYER_TWO].position, 
                                                                                             PlayerInstructionMountPoints[PLAYER_TWO].rotation);
                         break;
                     case PlayerInput.Keyboard:
-                        PlayerInstructions[PLAYER_TWO] = (GameObject)GameObject.Instantiate(KeyboardInstructionsPrefab, 
+						if ( KeyboardInstructionsPrefab != null)
+                       		PlayerInstructions[PLAYER_TWO] = (GameObject)GameObject.Instantiate(KeyboardInstructionsPrefab, 
                                                                                             PlayerInstructionMountPoints[PLAYER_TWO].position, 
                                                                                             PlayerInstructionMountPoints[PLAYER_TWO].rotation);
                         break;
