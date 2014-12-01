@@ -350,7 +350,15 @@ public class GameData : MonoBehaviour
 	public void DecrementLives()
 	{
 		m_Lives--;
-		//update hud
+		if(m_Lives <= 0)
+		{
+			ResetLives();
+			Application.LoadLevel("GameOverScreen");
+		}
+		else
+		{
+			Application.LoadLevel(Application.loadedLevelName); //If both players are dead, reset the scene
+		}
 	}
 
 	public void ResetLives()
