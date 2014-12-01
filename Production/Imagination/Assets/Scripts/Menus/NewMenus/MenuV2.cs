@@ -44,6 +44,10 @@ public class MenuV2 : MonoBehaviour
     public PlayerInput[] ReadInputFrom;
     //the input to read combined (using |)
     protected int m_ReadInputFrom = 0;
+    public int ReadInputFromBits
+    {
+        get { return m_ReadInputFrom; }
+    }
 
     //current/ starting button
     public ButtonV2 m_CurrentButtonSelection = null;

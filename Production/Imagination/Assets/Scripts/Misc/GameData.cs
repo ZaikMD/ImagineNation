@@ -131,20 +131,30 @@ public class GameData : MonoBehaviour
 	//settings
 	//cant make a vector2 const
 	private Vector2 m_DefaultCameraRotationScale = new Vector2 (-2.5f, -1.5f);
-	float m_CameraRotationScaleModifyer = 1.0f;
-	public float CameraRotationScaleModifyer
+    float m_PlayerOneCameraRotationScaleModifyer = 1.0f;
+    public float PlayerOneCameraRotationScaleModifyer
 	{
-		get { return m_CameraRotationScaleModifyer;}
+        get { return m_PlayerOneCameraRotationScaleModifyer; }
 		set 
-		{ 
-			m_CameraRotationScaleModifyer = value;
-			for(int i = 0; i < TPCamera.Cameras.Count; i++)
-			{
-				TPCamera.Cameras[i].RotationScale = new Vector2(m_DefaultCameraRotationScale.x * m_CameraRotationScaleModifyer,
-				                                                m_DefaultCameraRotationScale.y * m_CameraRotationScaleModifyer);
-			}
+		{
+            m_PlayerOneCameraRotationScaleModifyer = value;
+            PlayerInfo.getPlayer(Players.PlayerTwo).m_PlayerCamera.RotationScale = new Vector2(m_DefaultCameraRotationScale.x * m_PlayerOneCameraRotationScaleModifyer,
+                                                                                                m_DefaultCameraRotationScale.y * m_PlayerOneCameraRotationScaleModifyer);
 		}
 	}
+
+    float m_PlayerTwoCameraRotationScaleModifyer = 1.0f;
+    public float PlayerTwoCameraRotationScaleModifyer
+    {
+        get { return PlayerTwoCameraRotationScaleModifyer; }
+        set
+        {
+            PlayerTwoCameraRotationScaleModifyer = value;
+
+            PlayerInfo.getPlayer(Players.PlayerTwo).m_PlayerCamera.RotationScale = new Vector2(m_DefaultCameraRotationScale.x * m_PlayerTwoCameraRotationScaleModifyer,
+                                                                                                m_DefaultCameraRotationScale.y * m_PlayerTwoCameraRotationScaleModifyer);
+        }
+    }
 
 	public Material i_Brightness;
 	float m_Brightness = 1.0f;
