@@ -349,7 +349,8 @@ case CheckPoints.CheckPoint_3:
 
 	public void IncrementPuzzleCounter()
 	{
-		m_NumberOfPuzzlePiecesCollected ++;        
+		m_NumberOfPuzzlePiecesCollected ++;   
+		m_Hud.ShowPuzzlePieces ();
 	}
 	
 	void DisplayCounter()
