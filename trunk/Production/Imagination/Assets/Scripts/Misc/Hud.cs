@@ -193,6 +193,8 @@ public class Hud : MonoBehaviour {
 	{
 		m_ShowPuzzlePieces = true;
 		m_PuzzlePieceTimer = m_HudDisplayLength;
+
+		PuzzlePiecesCollected = GameData.Instance.CalcPuzzlePieces();
 	}
 
 	public void ShowLifes()
@@ -252,11 +254,11 @@ public class Hud : MonoBehaviour {
                 GUI.Label(PositionRect, LightPegCollected.ToString());
             }
 
-/* no Puzzle piece texture yet
+// no Puzzle piece texture yet
 			//PuzzlePieces
 			PositionRect.Set( Screen.width /2 - SizeOfHudElements, 0, SizeOfHudElements * 2, SizeOfHudElements);
 			GUI.DrawTexture(PositionRect, m_PuzzlePieceHudImages[PuzzlePiecesCollected]);
-*/
+
 			//Life Counter image
 			PositionRect.Set(Screen.width - SizeOfHudElements, 0, SizeOfHudElements, SizeOfHudElements);
 			GUI.DrawTexture(PositionRect, m_LifeCounterImage);
@@ -318,10 +320,10 @@ public class Hud : MonoBehaviour {
 
 		if(m_ShowPuzzlePieces)
 		{
-			/* no Puzzle piece texture yet
+			// no Puzzle piece texture yet
 			//PuzzlePieces
 			PositionRect.Set( Screen.width /2 - SizeOfHudElements, 0, SizeOfHudElements * 2, SizeOfHudElements);
-			GUI.DrawTexture(PositionRect, m_PuzzlePieceHudImages[PuzzlePiecesCollected]);  */
+			GUI.DrawTexture(PositionRect, m_PuzzlePieceHudImages[PuzzlePiecesCollected]);
 		}
 
 		//CheckPoints

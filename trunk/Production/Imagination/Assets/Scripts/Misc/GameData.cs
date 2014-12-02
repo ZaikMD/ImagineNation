@@ -349,6 +349,19 @@ public class GameData : MonoBehaviour
 		m_PuzzlePieceCollectedInLevel[(int)m_CurrentLevel][(int)m_CurrentSection][ID] = 0;
 	}
 
+	public int CalcPuzzlePieces()
+	{
+		int PuzzlePiecesCollected = 0;
+	
+		for(int i = 0; i < 3; i++)
+		{
+			for(int n = 0; n < 2; n++)
+			{
+				PuzzlePiecesCollected += m_PuzzlePieceCollectedInLevel[(int)m_CurrentLevel][i][n];
+			}
+		}
+		return PuzzlePiecesCollected;
+	}
 
 	public void IncrementLives()
 	{
