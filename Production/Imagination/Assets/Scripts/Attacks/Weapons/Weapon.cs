@@ -105,13 +105,13 @@ public class Weapon : MonoBehaviour
 			{
 				if(m_BaseMovementAbility.GetIsGrounded())
 				{
-					m_BaseMovementAbility.m_PausedMovement = true;
+					m_BaseMovementAbility.m_IsAttacking = true;
 				}
 			}
 
 			else
 			{
-				m_BaseMovementAbility.m_PausedMovement = false;
+				m_BaseMovementAbility.m_IsAttacking = false;
 			}
 		}
 
