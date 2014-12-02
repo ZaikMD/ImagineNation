@@ -23,7 +23,8 @@
 * 				   Changed falling and jumping constants to getter function in inheriting classes.
 * 				   Seperated falling calculation into a virtual function GetVerticalMovementAfterFalling()
 * 28/10/2014 Edit: Changed a number of constants and added a setPausedMovement function.
-* 
+* 2/12/2014 Edit:  Provided functionality to attacking to allow you to force a direction of movement. - Jason Hein
+* 				   Enabled other classes to multiply the speed of the characters movement to slow or speed up the player.
 * 
 * 
 */
