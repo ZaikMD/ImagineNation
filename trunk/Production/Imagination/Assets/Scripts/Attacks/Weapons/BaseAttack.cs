@@ -10,7 +10,8 @@ using System.Collections;
 /*
 * 8/10/2014 Edit: Fully Commented and changed strings to constants- Zach Dubuc
 *
-* 
+* 1/12/14 Edit: Added m_Character to be passed to the projectile so
+* the enemies know who attacked them
 */
 #endregion
 public class BaseAttack
