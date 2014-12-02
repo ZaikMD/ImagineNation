@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿#region ChangeLog
+/* 
+ * //Commented out the raycasting in getDistanceThreat. Will get a better fix later.Dec 2 - Mathieu Elias
+ */
+#endregion
+using UnityEngine;
 using System.Collections;
 
 public class Perception : MonoBehaviour
@@ -53,6 +58,7 @@ public class Perception : MonoBehaviour
         for (int i = 0; i < m_Players.Length; i++)
         {
             m_Players[i].update();
+			//Debug.Log("player" + i + ": " + getThreat(m_Players[i]));
         }
     }
 
@@ -109,7 +115,7 @@ public class Perception : MonoBehaviour
             if (raycastData.collider.tag != Constants.PLAYER_STRING)
             {
 				//Debug.DrawLine(transform.position,player.Player.position - transform.position, Color.red);
-                return 0.0f;
+                //return 0.0f;
             }
         }
 
