@@ -38,7 +38,6 @@ public class Perception : MonoBehaviour
 
     void Start()
     {
-		string test = gameObject.name;
         m_Players = new Perception_Player[PlayerInfo.PlayerList.Count];
         for (int i = 0; i < m_Players.Length; i++)
         {
@@ -101,7 +100,7 @@ public class Perception : MonoBehaviour
         RaycastHit raycastData;
         if (!Physics.Raycast(transform.position, player.Player.position - transform.position, out raycastData, distance +1.0f, ~LayerMask.GetMask("Enemy")))// TODO: replace with constant
         {
-			Debug.DrawLine(transform.position,player.Player.position - transform.position, Color.red);
+			//Debug.DrawLine(transform.position,player.Player.position - transform.position, Color.red);
             return 0.0f;
         }
         else
@@ -109,7 +108,7 @@ public class Perception : MonoBehaviour
             //did we hit the player?
             if (raycastData.collider.tag != Constants.PLAYER_STRING)
             {
-				Debug.DrawLine(transform.position,player.Player.position - transform.position, Color.red);
+				//Debug.DrawLine(transform.position,player.Player.position - transform.position, Color.red);
                 return 0.0f;
             }
         }
@@ -126,7 +125,7 @@ public class Perception : MonoBehaviour
         //we can see the player
         player.playerSeen(i_ResidualThreatTimerSight);
 
-        return Mathf.Clamp(((i_ViewDist * i_PerfectVisionPercent) / distance), 0.0f, i_FOVD_RT);
+        return Mathf.Clamp(((i_ViewDist * i_PerfectVisionPercent) / distance), 0.0f, 1.0f);
     }
 
     float getResidualDistanceThreat(Perception_Player player)
