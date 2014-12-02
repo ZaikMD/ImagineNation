@@ -2,7 +2,10 @@ fileFormatVersion: 2
 guid: 2490f3f9e43083b40859c4b64d322cd0
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - m_LightPegPrefab: {fileID: 100002, guid: 258db7b9b4ca4ab4d80a9684f6725e67, type: 2}
+  - m_PuzzlePiecePrefab: {fileID: 100000, guid: e2a0377bd18b32646835ef690b8b34b5,
+      type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
