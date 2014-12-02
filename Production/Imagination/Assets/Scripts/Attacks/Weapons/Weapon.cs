@@ -6,6 +6,9 @@ using System.Collections;
 /// 
 /// Handles the combos for players, and calls the attack function from the attacks
 /// 
+/// ChangeLog:
+/// 1/12/14: Fully commented - Zach Dubuc
+/// 
 /// </summary>
 public class Weapon : MonoBehaviour
 {
@@ -13,21 +16,20 @@ public class Weapon : MonoBehaviour
     AnimationState m_AnimState;
 
     BaseAttack m_CurrentAttack;//The current Attack
-    BaseAttack m_PreviousAttack;
 
-    public GameObject m_LightProjectilePrefab;
+    public GameObject m_LightProjectilePrefab; //Prefabs for the projectiles
     public GameObject m_HeavyProjectilePrefab;
 
-	float m_DownTime = 0.5f;
+	float m_DownTime = 0.5f; //Downtime between the end and start of new combos
 	float DOWN_TIME;
 
-	float m_DoubleHitTimer = 0.2f;
+	float m_DoubleHitTimer = 0.2f; //The timer for the double hit finisher
 	float DOUBLE_HIT_TIMER;
-	bool m_DoubleHitActivated = false;
+	bool m_DoubleHitActivated = false; //Bool for if it is activated 
+	bool m_FinishedCombo = false; //Bool for when a combo has been pulled off
 
-	bool m_FinishedCombo = false;
-
-    string m_Inputs;
+    string m_Inputs; //String that holds all the inputs
+	string m_LastInput; //String that holds the last input the player used
 
     //The constants for the inputs of the attacks, as well as the 
     //combos the players can do. L = light attack  H = Heavy attack
@@ -41,153 +43,159 @@ public class Weapon : MonoBehaviour
     const string HH = " H H";
     const string FRONTCONE = " H H H";
 
-    string m_LastInput;
+    
 	
-	BaseMovementAbility m_BaseMovementAbility;
-    AcceptInputFrom m_ReadInput;
-	Characters m_Character;
+	BaseMovementAbility m_BaseMovementAbility; //For access to the players BaseMovementAbility so they can stop moving 
+											   //When they are attacking
+    AcceptInputFrom m_ReadInput;  //To get the input
+	PlayerInfo playerinfo; //Info for the players
 
-	PlayerInfo playerinfo;
-	// Use this for initialization
 	void Start () 
     {
-        m_ReadInput = gameObject.GetComponent<AcceptInputFrom>();
+        m_ReadInput = gameObject.GetComponent<AcceptInputFrom>(); //Get the input
 
-        m_SFX = GameObject.FindGameObjectWithTag(Constants.SOUND_MANAGER).GetComponent<SFXManager>();
+        m_SFX = GameObject.FindGameObjectWithTag(Constants.SOUND_MANAGER).GetComponent<SFXManager>(); //Sound stuff
         m_AnimState = GetComponent<AnimationState>();
-		DOWN_TIME = m_DownTime;
-
-		DOUBLE_HIT_TIMER = m_DoubleHitTimer;
-
-		m_BaseMovementAbility = gameObject.GetComponent (typeof(BaseMovementAbility)) as BaseMovementAbility;
-
-		playerinfo = gameObject.GetComponent (typeof(PlayerInfo)) as PlayerInfo;
-		m_Character = playerinfo.i_Character;
+		DOWN_TIME = m_DownTime; //Set reference for the down time timer
+		DOUBLE_HIT_TIMER = m_DoubleHitTimer; //Set the reference for the double hit timer
+		m_BaseMovementAbility = gameObject.GetComponent (typeof(BaseMovementAbility)) as BaseMovementAbility; //Get the movement
+		playerinfo = gameObject.GetComponent (typeof(PlayerInfo)) as PlayerInfo; //Get player infor
 
 	}
 	
 	// Update is called once per frame
 	void Update () 
     {
-		if(m_FinishedCombo)
+		if(m_FinishedCombo) //If the combo is finished
 		{
-			if(m_DownTime > 0.0f)
+			if(m_DownTime > 0.0f) //If there is still down time
 			{
-				m_DownTime -= Time.deltaTime;
+				m_DownTime -= Time.deltaTime; //Decrement
 			}
 
 			else
-			{
+			{ //Otherwise reset DownTime and m_FinishedCombo
 				m_DownTime = DOWN_TIME;
 				m_FinishedCombo = false;
 			}
 		}
-        updateAttacks();
-		if(m_DoubleHitActivated)
+        updateAttacks(); //Call update for attacks
+
+		if(m_DoubleHitActivated) //If the player did a double hit combo
 		{
-			m_DoubleHitTimer -= Time.deltaTime;
+			m_DoubleHitTimer -= Time.deltaTime; //Decrement the timer
 		}
 
-		if(m_DoubleHitTimer < 0.0f)
+		if(m_DoubleHitTimer < 0.0f) //If the timer is done, create the second projectile
 		{
-			LightAttack attack = new LightAttack ();
-			attack.loadPrefab (m_LightProjectilePrefab);
-			attack.startAttack (transform.position, transform.eulerAngles, m_Character);
-			m_CurrentAttack = attack;
-			m_LastInput = "";
-			m_DoubleHitTimer = DOUBLE_HIT_TIMER;
-			m_DoubleHitActivated = false;
+			LightAttack attack = new LightAttack (); //Make the attack
+			attack.loadPrefab (m_LightProjectilePrefab);//Load the prefab and call startAttack.
+			attack.startAttack (transform.position, transform.eulerAngles, playerinfo.i_Character);
+			m_CurrentAttack = attack;//Set the current attack
+			m_LastInput = ""; //Reset last input
+			m_DoubleHitTimer = DOUBLE_HIT_TIMER; //Set the double hit timer
+			m_DoubleHitActivated = false; //Double hit is now false
 		}
 
-		if(m_CurrentAttack != null)
+		if(m_CurrentAttack != null) //Null check for CurrentAttack
 		{
-			if(m_CurrentAttack.getAttacking())
+			if(m_CurrentAttack.getAttacking()) //If the current attack is attacking
 			{
-				if(m_BaseMovementAbility.GetIsGrounded())
+				if(m_BaseMovementAbility.GetIsGrounded()) //If the player is grounded
 				{
-					m_BaseMovementAbility.m_IsAttacking = true;
+					m_BaseMovementAbility.m_IsAttacking = true; //Stop player movement
 				}
 			}
 
-			else
+			else //Otherwise the player can move
 			{
 				m_BaseMovementAbility.m_IsAttacking = false;
 			}
 		}
-
-
 	}
 
+	/// <summary>
+	/// Sets the current attack.
+	/// Checks to see what input the player used, then adds it to the input string. Then goes through
+	/// a switch statement to determine what attack to use. If no combo is found that matches the string
+	/// the input string is reset and last input is added to it. The switch statement goes through again.
+	/// </summary>
     void setCurrentAttack()
     {
-		if(m_BaseMovementAbility.GetIsGrounded())
+		if(m_BaseMovementAbility.GetIsGrounded()) //If the player is grounded
 		{
+			//If one of the attack buttons was pressed
 			if (InputManager.getAttackDown (m_ReadInput.ReadInputFrom) || InputManager.getHeavyAttackDown(m_ReadInput.ReadInputFrom))
 			{
 				if(InputManager.getAttackDown(m_ReadInput.ReadInputFrom))
 				{
+					//If X or left click was pressed, then it's a light attack.
+					//Add the L string to the input string
 					m_Inputs += L;
-					m_LastInput = L;
+					m_LastInput = L; //Set last input
 				}
 
 				if(InputManager.getHeavyAttackDown(m_ReadInput.ReadInputFrom))
 				{
+					//If Y or Right click was pressed, then it's a heavy attack.
+					//Add the H string to the input string.
 					m_Inputs += H;
-					m_LastInput = H;
+					m_LastInput = H; //Set last input
 				}
 
-			
-				m_PreviousAttack = m_CurrentAttack;
+				//Switch statement for the string. It will go through and see if the input string matches
+				//Any of the cases. IF it does, then it will start the corresponding attack. If not, it
+				//resets the input string and goes through again using the last input the player did.
 				switch (m_Inputs) 
 				{
-					case L:
+					case L:  //A Light attack
 					{
 						LightAttack attack = new LightAttack ();
 						attack.loadPrefab (m_LightProjectilePrefab);
-						attack.startAttack (transform.position, transform.eulerAngles, m_Character);
+						attack.startAttack (transform.position, transform.eulerAngles, playerinfo.i_Character);
 						m_CurrentAttack = attack;
 						m_LastInput = "";
 						}
 
 						break;
 
-					case LL:
+					case LL: //A Light attack
 					{
 						LightAttack attack = new LightAttack ();
 						attack.loadPrefab (m_LightProjectilePrefab);
-						attack.startAttack (transform.position, transform.eulerAngles, m_Character);
+						attack.startAttack (transform.position, transform.eulerAngles, playerinfo.i_Character);
 						m_CurrentAttack = attack;
 						m_LastInput = "";
 					}
 						break;
 
-					case DOUBLEHIT:
+					case DOUBLEHIT: //Two light attacks in fast concession
 					{
 						LightAttack attack = new LightAttack ();
 						attack.loadPrefab (m_LightProjectilePrefab);
-						attack.startAttack (transform.position, transform.eulerAngles, m_Character);
+						attack.startAttack (transform.position, transform.eulerAngles, playerinfo.i_Character);
 						m_CurrentAttack = attack;
 						m_LastInput = "";
 						m_DoubleHitActivated = true;
 					}
 						break;
 
-					case LH:
+					case LH: //A heavy attack
 					{
 						HeavyAttack attack = new HeavyAttack ();
 						attack.loadPrefab (m_HeavyProjectilePrefab);
-						attack.startAttack (transform.position, transform.eulerAngles, m_Character);
+						attack.startAttack (transform.position, transform.eulerAngles, playerinfo.i_Character);
 						m_CurrentAttack = attack;
 						m_LastInput = "";
 
 					}
 						break;
 
-					case AOE:
+					case AOE: //Light attacks in a circle around the player
 					{					
 						SpecialAttack attack = new SpecialAttack();
 						attack.loadPrefab (m_LightProjectilePrefab);
-						attack.startAttack(transform.position, transform.eulerAngles, m_Character);
+						attack.startAttack(transform.position, transform.eulerAngles, playerinfo.i_Character);
 						m_CurrentAttack = attack;
 						m_LastInput = "";
 						m_Inputs = "";
@@ -195,42 +203,42 @@ public class Weapon : MonoBehaviour
 					}
 						break;
 
-					case FRONTLINE:
+					case FRONTLINE: //Light attack that goes for a ways infront of the player
 				    {
 						FrontalLine attack = new FrontalLine ();
 						attack.loadPrefab (m_LightProjectilePrefab);
-						attack.startAttack (transform.position, transform.eulerAngles, m_Character);
+						attack.startAttack (transform.position, transform.eulerAngles, playerinfo.i_Character);
 						m_CurrentAttack = attack;
 						m_LastInput = "";
 						m_FinishedCombo = true;
 					}
 						break;
 
-					case H:
+					case H: //A Heavy attack
 					{
 						HeavyAttack attack = new HeavyAttack ();
 						attack.loadPrefab (m_HeavyProjectilePrefab);
-						attack.startAttack (transform.position, transform.eulerAngles, m_Character);
+						attack.startAttack (transform.position, transform.eulerAngles, playerinfo.i_Character);
 						m_CurrentAttack = attack;
 						m_LastInput = "";
 					}
 						break;
 
-					case HH:
+					case HH: //A heavy attack
 					{
 						HeavyAttack attack = new HeavyAttack ();
 						attack.loadPrefab (m_HeavyProjectilePrefab);
-						attack.startAttack (transform.position, transform.eulerAngles, m_Character);
+						attack.startAttack (transform.position, transform.eulerAngles, playerinfo.i_Character);
 						m_CurrentAttack = attack;
 						m_LastInput = "";	
 					}
 						break;
 
-					case FRONTCONE:
+					case FRONTCONE: //A cone of heavy attacks in front of the player
 					{
 						FrontalConeAttack attack = new FrontalConeAttack ();
 						attack.loadPrefab (m_HeavyProjectilePrefab);
-						attack.startAttack (transform.position, transform.eulerAngles, m_Character);
+						attack.startAttack (transform.position, transform.eulerAngles, playerinfo.i_Character);
 						m_CurrentAttack = attack;
 						m_LastInput = "";
 						m_FinishedCombo = true;
@@ -239,7 +247,7 @@ public class Weapon : MonoBehaviour
 
 					default:
 					{
-						m_Inputs = m_LastInput;
+						m_Inputs = m_LastInput; //Default
 					}
 						break;
 				}
@@ -250,47 +258,41 @@ public class Weapon : MonoBehaviour
     void updateAttacks()
     {
 
-		if (m_CurrentAttack != null)
+		if (m_CurrentAttack != null) //Null check for the current attack
         {
             if (!m_CurrentAttack.getAttacking()) //Check if the character is attacking
             {
 
 				if (m_CurrentAttack.getGraceTimer() <= 0.0f) //Check if the grace timer is over
                 {
-					m_Inputs = "";
+					m_Inputs = ""; //Reset the strings
 					m_LastInput = "";
-                   //If so, the combo gets reset
 					if(!m_FinishedCombo)
 					{
-						setCurrentAttack();
+						setCurrentAttack(); //If the player didn't finish a combo, then call setCurrentAttack
 					}
                 }
 
 
-                else
+                else //Otherwise
                 {
-					if(!m_FinishedCombo)
+					if(!m_FinishedCombo) //If a combo wasn't finished
 					{
-						setCurrentAttack();
+						setCurrentAttack(); //Call setCurrentAttack
 					}
-                    // PlaySoundAndAnim();
                 }
             }
-			if(m_CurrentAttack != null)
+			if(m_CurrentAttack != null) //Null check
 			{
-          		m_CurrentAttack.Update();
-			}
-			if(m_PreviousAttack != null)
-			{
-           	 	m_PreviousAttack.Update();
+          		m_CurrentAttack.Update(); //Update the current attack
 			}
         }
 
-        else
+        else //Otherwsie
         {
 			if(!m_FinishedCombo)
 			{
-           		 setCurrentAttack();
+           		 setCurrentAttack(); //Call setCurrentAttack
 			}
         }
     }
