@@ -84,6 +84,8 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	public bool m_PausedMovement = false;
 
 
+	public bool m_IsAttacking;
+
 
 
 	//Intitialization
@@ -162,8 +164,16 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			//Otherwise do normal ground movement, and reset our air movement
 			else
 			{
-				m_AnimState.m_Grounded = true;
-				GroundMovement();
+				if(!m_IsAttacking)
+				{
+					m_AnimState.m_Grounded = true;
+					GroundMovement();
+				}
+
+				else
+				{
+					m_Velocity = Vector3.zero;
+				}
 			}
 		}
 		//If we are not on the ground, we must be airborne, so do air movement
