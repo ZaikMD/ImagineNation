@@ -19,7 +19,9 @@ public class ProximityAggro : BaseEnterCombat
 
     public override bool EnterCombat(Transform target)
     {
-		if (Vector3.Distance(transform.position, target.position) < AggroRange)
+		float dist = Vector3.Distance (transform.position, target.position);
+
+		if (dist < AggroRange)
         {
             return true;
         }
