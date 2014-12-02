@@ -43,6 +43,10 @@ public class Weapon : MonoBehaviour
     const string HH = " H H";
     const string FRONTCONE = " H H H";
 
+	//Attack movement speed
+	const float ATTACK_MOVE_SPEED = 0.6f;
+
+
     
 	
 	BaseMovementAbility m_BaseMovementAbility; //For access to the players BaseMovementAbility so they can stop moving 
@@ -103,13 +107,28 @@ public class Weapon : MonoBehaviour
 			{
 				if(m_BaseMovementAbility.GetIsGrounded()) //If the player is grounded
 				{
-					m_BaseMovementAbility.m_IsAttacking = true; //Stop player movement
+					//Calculate forced input for the step of the attack
+					Vector3 forcedInput = m_BaseMovementAbility.GetProjection();
+
+					//If their is no input, we instead choose the forward direction of the player
+					if (forcedInput == Vector3.zero)
+					{
+						forcedInput = transform.forward;
+						forcedInput.y = 0.0f;
+					}
+
+					//Set the direction to move while attacking
+					m_BaseMovementAbility.SetForcedInput (forcedInput);
+
+					//Set the player to move more slowly
+					m_BaseMovementAbility.SetSpeedMultiplier(ATTACK_MOVE_SPEED);
 				}
 			}
 
 			else //Otherwise the player can move
 			{
-				m_BaseMovementAbility.m_IsAttacking = false;
+				m_BaseMovementAbility.SetForcedInput (Vector3.zero);
+				m_BaseMovementAbility.SetSpeedMultiplier(BaseMovementAbility.DEFAULT_SPEED_MULTIPLIER);
 			}
 		}
 	}

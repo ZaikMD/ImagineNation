@@ -83,9 +83,15 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	protected bool m_CurrentlyJumping = false;
 	public bool m_PausedMovement = false;
 
+	//When the character is attacking
+	Vector3 m_ForcedInput = Vector3.zero;
 
-	public bool m_IsAttacking;
+	//Allows other classes to multiply the characters movement, thus slowing or speeding them up
+	public const float DEFAULT_SPEED_MULTIPLIER = 1.0f;
+	float m_SpeedMultiplier = DEFAULT_SPEED_MULTIPLIER;
 
+	//Current Projection of players movement
+	Vector3 m_Projection = Vector3.zero;
 
 
 	//Intitialization
@@ -148,7 +154,17 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		InstantExternalMovement ();
 		HandleExternalLaunchTimers ();
 
-		//If the player is grounded 
+		//Get the projection of the player
+		if (m_ForcedInput == Vector3.zero)
+		{
+			m_Projection = GetInputRelativeToTheCamera ();
+		}
+		else if (m_Projection != m_ForcedInput)
+		{
+			m_Projection = m_ForcedInput;
+		}
+
+		//If the player is still grounded after the instant movement
 		if(GetIsGrounded())
 		{
 			//Reset any launch movement that reset when we touch the ground
@@ -164,16 +180,8 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			//Otherwise do normal ground movement, and reset our air movement
 			else
 			{
-				if(!m_IsAttacking)
-				{
-					m_AnimState.m_Grounded = true;
-					GroundMovement();
-				}
-
-				else
-				{
-					m_Velocity = Vector3.zero;
-				}
+				m_AnimState.m_Grounded = true;
+				GroundMovement();
 			}
 		}
 		//If we are not on the ground, we must be airborne, so do air movement
@@ -183,7 +191,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			AirMovement();			
 		}
 
-		m_CharacterController.Move ((m_Velocity + GetLaunchVelocity()) * Time.deltaTime);
+		m_CharacterController.Move ((m_Velocity + GetLaunchVelocity()) * m_SpeedMultiplier * Time.deltaTime);
 
 		m_Anim.Play (m_AnimState.GetAnimation());
 	}
@@ -196,17 +204,14 @@ public abstract class BaseMovementAbility : MonoBehaviour
 
 		//Horizontal movement
 		Vector2 horizontalVelocity = new Vector2 (m_Velocity.x, m_Velocity.z);
-		if (InputManager.getMove(m_AcceptInputFrom.ReadInputFrom) != Vector2.zero)
+		if (InputManager.getMove(m_AcceptInputFrom.ReadInputFrom) != Vector2.zero || m_ForcedInput != Vector3.zero)
 		{
-			//Get the current projection from input and camera
-			Vector3 projection = GetProjection();
-			
 			//Calc the direction to look and move
-			horizontalVelocity = new Vector2(projection.x * MAX_GROUND_RUNSPEED,
-			                                 projection.z * MAX_GROUND_RUNSPEED);
+			horizontalVelocity = new Vector2(m_Projection.x * MAX_GROUND_RUNSPEED,
+			                                 m_Projection.z * MAX_GROUND_RUNSPEED);
 
 			//Have the player look where the player is going
-			transform.LookAt(transform.position + projection);
+			transform.LookAt(transform.position + m_Projection);
 		}
 		else
 		{
@@ -239,17 +244,14 @@ public abstract class BaseMovementAbility : MonoBehaviour
 
 		//Horizontal movement
 		Vector2 horizontalAirVelocity = new Vector2 (m_Velocity.x, m_Velocity.z);
-		if (InputManager.getMove(m_AcceptInputFrom.ReadInputFrom) != Vector2.zero)
+		if (InputManager.getMove(m_AcceptInputFrom.ReadInputFrom) != Vector2.zero || m_ForcedInput != Vector3.zero)
 		{
-			//Get the current projection from input and camera
-			Vector3 projection = GetProjection();
-			
 			//Calc the direction to look and move
-			horizontalAirVelocity += new Vector2(projection.x * AIR_HORIZONTAL_CONTROL * Time.deltaTime,
-			                                     projection.z * AIR_HORIZONTAL_CONTROL * Time.deltaTime);
+			horizontalAirVelocity += new Vector2(m_Projection.x * AIR_HORIZONTAL_CONTROL * Time.deltaTime,
+			                                     m_Projection.z * AIR_HORIZONTAL_CONTROL * Time.deltaTime);
 
 			//Have the player look where the player is going
-			transform.LookAt(transform.position + projection);
+			transform.LookAt(transform.position + m_Projection);
 			
 			//Cap the horizontal movement speed
 			float horizontalVelocityMagnitude = Mathf.Abs(horizontalAirVelocity.magnitude);
@@ -393,18 +395,49 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Allows other objects to force moving in a certain direction, such as for an attack.
+	/// </summary>
+	/// <param name="dir">Dir.</param>
+	public void SetForcedInput (Vector3 dir)
+	{
+		if (m_ForcedInput != dir)
+		{
+			m_ForcedInput = dir;
+		}
+	}
+	
+	/// <summary>
+	/// Call to multiply the horizontal speed of the player. 1 is default.
+	/// </summary>
+	public void SetSpeedMultiplier (float multiplier)
+	{
+		if (m_SpeedMultiplier != multiplier)
+		{
+			m_SpeedMultiplier = multiplier;
+		}
+	}
+
 
 
 	//Helper functions
 
 	//Gets a vector3 for the direction we should be getting input based of off the cameras facing angle
-	protected Vector3 GetProjection()
+	protected Vector3 GetInputRelativeToTheCamera()
 	{
 		Vector3 projection = m_Camera.forward * InputManager.getMove(m_AcceptInputFrom.ReadInputFrom).y;
 		projection += m_Camera.right * InputManager.getMove(m_AcceptInputFrom.ReadInputFrom).x;
 		
 		projection.y = 0;
 		return projection.normalized;
+	}
+
+	/// <summary>
+	/// Returns the current projection of the players input
+	/// </summary>
+	public Vector3 GetProjection()
+	{
+		return m_Projection;
 	}
 
 	//Getter for if the character is grounded based on character controller

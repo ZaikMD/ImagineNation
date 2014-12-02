@@ -23,16 +23,16 @@ public class Spin : MonoBehaviour
 	public Vector3 Speed;
 
 	//the euler angles 
-	Vector3 m_EulerAngles;
+	protected Vector3 m_EulerAngles;
 
-	void Start()
+	protected void Start()
 	{
 		//set the initial euler angles
 		m_EulerAngles = transform.eulerAngles;
 	}
 
 	// Update is called once per frame
-	void Update () 
+	protected void Update () 
 	{
 		//update the euler angles
 		m_EulerAngles += (Speed * Time.deltaTime);
