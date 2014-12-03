@@ -65,7 +65,7 @@ public class DerekMovement : BaseMovementAbility
 			if(CanGrapple())
 			{
 				//Checks for input, if jump has been pressed then m_Grappling = true;
-				if(InputManager.getJumpDown(m_AcceptInputFrom.ReadInputFrom))
+				if(InputManager.getJumpDown(m_AcceptInputFrom.ReadInputFrom) && m_PlayerHealth.IsDead != true)
 				{
 					m_Grappling = true;
 					m_CanGrapple = false;
@@ -102,7 +102,7 @@ public class DerekMovement : BaseMovementAbility
 			return;
 		}
 
-		if (m_PlayerHealth.IsDead == true)
+		if (m_PlayerHealth.IsDead)
 		{
 			m_target.SetCurrentTarget(null);
 		}
@@ -135,8 +135,9 @@ public class DerekMovement : BaseMovementAbility
 		Vector3 currentPosition = this.transform.position;
 		Vector3 targetPosition = m_CurrentTarget.transform.position;
 
+
 		// if the distance between you and your target is greater than 0
-		if(Vector3.Distance(currentPosition, targetPosition) > 0.0f)
+		if(Vector3.Distance(currentPosition, targetPosition) > 0.0f && targetPosition != null)
 		{
 			//create a vector 3 that will hold the direction you must go towards and then normalize it
 			Vector3 directionOfTravel = targetPosition - currentPosition;
