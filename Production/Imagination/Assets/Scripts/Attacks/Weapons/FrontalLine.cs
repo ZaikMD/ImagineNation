@@ -12,6 +12,17 @@ using System.Collections;
 public class FrontalLine : BaseAttack 
 {
 	float m_Range = 10.0f;//The range of the projectile
+
+	public FrontalLine()
+	{
+		m_Damage = 0.5f;//Damage
+		m_AttackTimer = 0.8f; //Time it takes to attack
+		m_SaveAttackTimer = m_AttackTimer;
+		m_GraceTimer = 0.4f; //Time players have to attack again
+		m_SaveGraceTimer = m_GraceTimer;
+		m_AttackMoveSpeed = 0.0f; //Attack movement speed
+		m_ForceInput = true;
+	}
 	public override void createProjectile ()
 	{
 		GameObject proj = (GameObject)GameObject.Instantiate (m_Projectile,

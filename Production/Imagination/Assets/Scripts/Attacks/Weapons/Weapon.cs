@@ -44,7 +44,7 @@ public class Weapon : MonoBehaviour
     const string FRONTCONE = " H H H";
 
 	//Attack movement speed
-	protected float m_AttackMoveSpeed = 0.8f;
+	protected float m_AttackMoveSpeed = 0.2f;
 
 
     

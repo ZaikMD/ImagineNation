@@ -16,12 +16,12 @@ public class LightAttack : BaseAttack
 	public LightAttack()
 	{
 		m_Damage = 0.5f;//Damage
-		m_AttackTimer = 0.15f; //Time it takes to attack
+		m_AttackTimer = 0.2f; //Time it takes to attack
 		m_SaveAttackTimer = m_AttackTimer;
 		m_GraceTimer = 0.4f; //Time players have to attack again
 		m_SaveGraceTimer = m_GraceTimer;
-		m_AttackMoveSpeed = 1.5f; //Attack movement speed
-		m_ForceInput = false;
+		m_AttackMoveSpeed = 0.2f; //Attack movement speed
+		m_ForceInput = true;
 	}
 
 	public override void createProjectile ()
