@@ -125,6 +125,11 @@ public class Targeting : MonoBehaviour {
         return m_CurrentTarget;
     }
 
+	public void SetCurrentTarget(GameObject currentTarget)
+	{
+		m_CurrentTarget = currentTarget;
+	}
+
     //change color of target
     void PaintTarget()
     {
