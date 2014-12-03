@@ -27,8 +27,7 @@ public static class Constants
                                                                                  PlayerInput.GamePadOne, 
                                                                                  PlayerInput.GamePadTwo, 
                                                                                  PlayerInput.GamePadThree, 
-                                                                                 PlayerInput.GamePadFour, 
-                                                                                 PlayerInput.All };
+                                                                                 PlayerInput.GamePadFour};
 			}
 			return m_PLAYER_INPUT_ARRAY;
 		}
