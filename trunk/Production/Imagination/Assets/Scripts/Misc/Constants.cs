@@ -10,6 +10,7 @@ using System.Collections;
  * Added Sound Constants
  * 
  *  23/10/2014 kris Matis : added the playerinput[] constant (had to do work arounds)
+ *  
  * 
  */
 
@@ -155,4 +156,5 @@ public static class Constants
 	public const float MAGE_ATTACK_RANGE = 10.0f;
     public const float FURBULL_ATTACK_RANGE = 1.5f;
     public const float SPIN_TOP_ATTACK_RANGE = 10.0f;
+    public const float KNOCKBACK_MULTIPLIER = 20.0f;
 }

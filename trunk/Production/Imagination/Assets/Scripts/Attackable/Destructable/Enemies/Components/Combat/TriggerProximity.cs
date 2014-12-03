@@ -12,14 +12,6 @@ public class TriggerProximity : BaseCombat
     {
         if (other.tag == Constants.PLAYER_STRING)
         {
-           
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.tag == Constants.PLAYER_STRING)
-        {
 
         }
     }
