@@ -6,7 +6,7 @@
 
 #region ChangeLog
 /*
- * 
+ * // Added the agent stopping distance. Dec 3. - Mathieu Elias
  */
 #endregion
 using UnityEngine;
@@ -18,6 +18,7 @@ public class ChaseTargetMovement : BaseMovement
     {
         if (target != null)
         {
+			m_Agent.stoppingDistance = 2.0f;
             m_Agent.SetDestination(target.transform.position);
 
 			return target.transform.position;
