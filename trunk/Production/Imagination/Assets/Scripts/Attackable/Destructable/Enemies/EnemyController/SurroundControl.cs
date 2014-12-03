@@ -35,18 +35,19 @@ public class SurroundControl : BaseControlType
 
 	public override void update ()
 	{
+
 		float angle = 360 / m_EnemyGroup.Length;
 
 		float currentAngle = 0;
 
 		for (int i = 0; i < m_SurroundLocations.Length; i ++)
 		{
-			m_SurroundLocations[i] = RotateAboutOrigin( Vector3.zero, m_Target.transform.position, angle);
+			m_SurroundLocations[i] = RotateAboutOrigin( transform.position , m_Target.transform.position, angle);
 			currentAngle += angle;
 		}
 
 		for (int i = 0; i < m_EnemyGroup.Length; i++)
-		{
+		{ c
 			EnemyWithMovement temp = m_EnemyGroup[i] as EnemyWithMovement;		
 			if(temp != null)
 			{

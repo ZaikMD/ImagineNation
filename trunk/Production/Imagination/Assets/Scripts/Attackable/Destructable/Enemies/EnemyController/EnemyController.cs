@@ -17,7 +17,7 @@ public class EnemyController : MonoBehaviour
 
 	bool m_IsGroupAggro;
 
-	BaseControlType m_ControlType;
+	public BaseControlType m_ControlType;
 	GameObject m_Target;
 	
 	// Use this for initialization
@@ -48,14 +48,13 @@ public class EnemyController : MonoBehaviour
 
 	public void AggroGroup(bool aggroGroup, GameObject target)
 	{
+		m_IsGroupAggro = aggroGroup;
+		m_Target = target;
+
 		if (m_IsGroupAggro)
 			m_ControlType.start (m_EnemyGroup, target);
 
 		else
 			m_ControlType.end ();
-
-		m_IsGroupAggro = aggroGroup;
-		m_Target = target;
-
 	}
 }

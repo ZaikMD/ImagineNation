@@ -37,6 +37,8 @@ public class FurbullAttackBehaviour : BaseAttackBehaviour
             m_EnemyAI.SetState(EnemyAI.EnemyState.Chase);
         }
 
+		transform.LookAt (m_Target.transform.position);
+
         Movement();
 
         Combat();

@@ -25,8 +25,6 @@ public class FurbullChaseBehaviour : BaseChaseBehaviour
 
 	public override void update()
 	{
-		base.update ();
-
         m_Target = Target();
 
         if (m_Target == null)
@@ -47,6 +45,7 @@ public class FurbullChaseBehaviour : BaseChaseBehaviour
         }
 
         Movement();
+		base.update ();
 	}
 
     private float GetDistanceToTarget()
