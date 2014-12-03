@@ -63,6 +63,9 @@ public class ButtonChangeMenuV2 : ButtonV2
             if (usedBy == PlayerInput.Count)
                 return;
 
+			if (usedBy == PlayerInput.All)
+				return;
+
             NextMenu.setInputsToRead((int)usedBy);
         }        
     }

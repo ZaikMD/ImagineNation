@@ -36,14 +36,9 @@ public class ButtonV2CameraRotationSpeed : ButtonV2
     protected override void defaultState()
     {
         base.defaultState();
-        updateSlider();
+       	updateSlider();
     }
 
-    protected override void highlightedState()
-    {
-        base.highlightedState();
-        updateSlider();
-    }
 
     protected void updateSlider()
     {
