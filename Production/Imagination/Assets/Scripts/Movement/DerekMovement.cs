@@ -104,7 +104,7 @@ public class DerekMovement : BaseMovementAbility
 
 		if (m_PlayerHealth.IsDead == true)
 		{
-			m_target.GetCurrentTarget() = null;
+			m_target.SetCurrentTarget(null);
 		}
 
 		//Used to make sure that the player stops trying to grapple if his target gets destroyed
