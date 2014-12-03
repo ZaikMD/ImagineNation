@@ -27,7 +27,7 @@ public enum PlayerInput
 	GamePadThree = 8,
 	GamePadFour = 16,
     All = Keyboard | GamePadOne | GamePadTwo | GamePadThree | GamePadFour,
-    Count = 6,// <============== IT IS CRITICAL TO UPDATE THIS IF THE NUMBER CHANGES,     ALSO UPDATE THE CONSTANT ARRAY
+    Count = 5,// <============== IT IS CRITICAL TO UPDATE THIS IF THE NUMBER CHANGES,     ALSO UPDATE THE CONSTANT ARRAY
     None = 0
 }
 
