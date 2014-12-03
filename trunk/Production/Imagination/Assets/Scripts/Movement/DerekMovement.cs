@@ -24,6 +24,7 @@ public class DerekMovement : BaseMovementAbility
 	private GameObject m_CurrentTarget;
 	private Quaternion m_LookRotation;
 	private Vector3 m_Direction;
+	private PlayerHealth m_PlayerHealth;
 	private const float JUMP_SPEED = 6.5f;
 	
 	float m_GrappleSpeed = 15.0f;
@@ -31,14 +32,15 @@ public class DerekMovement : BaseMovementAbility
 
 
 
-	bool m_Grapple;
+	bool m_Grappling;
 	bool m_CanGrapple;
 
 	// Use this for initialization
 	void Start () 
 	{ 
-		m_Grapple = false;
+		m_Grappling = false;
 		m_target = GetComponent<Targeting>();
+		m_PlayerHealth = GetComponent<PlayerHealth> ();
        
 		//Calls the base class start function
 		base.start ();
@@ -57,22 +59,22 @@ public class DerekMovement : BaseMovementAbility
 		}
 
 		//checks if there is a target in sight
-		if (m_target.GetCurrentTarget() != null && m_Grapple == false)
+		if (m_target.GetCurrentTarget() != null && m_Grappling == false)
 		{
-			//checks if player is on ground, he can't not grapple if on ground
+			//checks if player is on ground, he can't grapple if on ground
 			if(CanGrapple())
 			{
-				//Checks for input, if jump has been pressed then m_Grapple = true;
+				//Checks for input, if jump has been pressed then m_Grappling = true;
 				if(InputManager.getJumpDown(m_AcceptInputFrom.ReadInputFrom))
 				{
-					m_Grapple = true;
+					m_Grappling = true;
 					m_CanGrapple = false;
 					m_CurrentTarget = m_target.GetCurrentTarget();
 				}
 			}
 
-			//if m_Grapple == true, then call MoveTowardsTarget()
-			if(m_Grapple)
+			//if m_Grappling == true, then call MoveTowardsTarget()
+			if(m_Grappling)
 			{
 				MoveTowardsTarget();
 			}
@@ -80,7 +82,7 @@ public class DerekMovement : BaseMovementAbility
 			//checks the distance between the player and the target, if it's smaller than m_DistBeforeFalling, you will fall
 			if(Vector3.Distance(this.transform.position, m_target.GetCurrentTarget().transform.position) < m_DistBeforeFalling)
 			{
-				m_Grapple = false;
+				m_Grappling = false;
 			}
 		}
 
@@ -89,16 +91,28 @@ public class DerekMovement : BaseMovementAbility
 		{
 			if(Vector3.Distance(this.transform.position, m_CurrentTarget.transform.position) < m_DistBeforeFalling)
 			{
-				m_Grapple = false;
+				m_Grappling = false;
 			}
 		}
 
 		//if you should be grappling move to your target
-		if(m_Grapple)
+		if(m_Grappling)
 		{
 			MoveTowardsTarget();
 			return;
 		}
+
+		if (m_PlayerHealth.IsDead == true)
+		{
+			m_target.GetCurrentTarget() = null;
+		}
+
+		//Used to make sure that the player stops trying to grapple if his target gets destroyed
+		if (m_target.GetCurrentTarget() == null )
+		{
+			m_Grappling = false;
+		}
+
 
 		base.UpdateVelocity();
 	}
@@ -151,7 +165,7 @@ public class DerekMovement : BaseMovementAbility
 
 		else
 		{
-			m_Grapple = false;
+			m_Grappling = false;
 		}
 
 
