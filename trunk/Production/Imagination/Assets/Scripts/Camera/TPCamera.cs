@@ -96,7 +96,8 @@ public class TPCamera : ShutterCamera
     { 
 		//find the camera on this gameobject
         m_Camera = gameObject.GetComponent<Camera>();
-
+        
+        //===================================================================
         //move the shutter to be slightly in front of the near clipping plane
         ShutterRotationPoint.transform.position = m_Camera.transform.position + (m_Camera.transform.forward * (m_Camera.nearClipPlane + 0.01f))
                                                     - transform.up + (transform.right * SHUTTER_OFFSET);
@@ -150,14 +151,22 @@ public class TPCamera : ShutterCamera
 		if (GameData.Instance.PlayerOneCharacter == currentCharacter)
 		{
 			m_Camera.rect = new Rect(0.0f, 0.0f, 0.5f, 1.0f);
+
+            //make sure that game data updates our rotation scale modifyer
+            GameData.Instance.PlayerOneCameraRotationScaleModifyer = GameData.Instance.PlayerOneCameraRotationScaleModifyer;
 		}
 		else
 		{
 			m_Camera.rect = new Rect(0.5f, 0.0f, 0.5f, 1.0f);
+
+            //make sure that game data updates our rotation scale modifyer
+            GameData.Instance.PlayerTwoCameraRotationScaleModifyer = GameData.Instance.PlayerTwoCameraRotationScaleModifyer;
 		}
 		//==================================================================================
         //get the accept input from script on the camera game object
 		m_AcceptInputFrom = gameObject.GetComponent<AcceptInputFrom>();
+
+        //===================================================================
 	}
 
 	void setShutterLayer(string layer)
