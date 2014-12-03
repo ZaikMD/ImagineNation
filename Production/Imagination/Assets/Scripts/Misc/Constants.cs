@@ -57,6 +57,7 @@ public static class Constants
 	public const string ALEX_WITH_MOVEMENT_STRING = "Alex With Movement";
 	public const string DEREK_WITH_MOVEMENT_STRING = "Derek With Movement";
 	public const string ZOE_WITH_MOVEMENT_STRING = "Zoe With Movement";
+	public const string PLAYER_CENTRE_POINT = "\"Centre Point\"";
 
 	public const string MOVING_PLATFORM_LAYER_STRING = "MovingPlatformLayer";
 	public const string COLLIDE_WITH_MOVING_PLATFORM_LAYER_STRING = "CollideWithPlatform";
@@ -154,6 +155,6 @@ public static class Constants
 	// Enemy Constants
 	public const float MAGE_ATTACK_RANGE = 10.0f;
     public const float FURBULL_ATTACK_RANGE = 1.5f;
-    public const float SPIN_TOP_ATTACK_RANGE = 10.0f;
+    public const float SPIN_TOP_ATTACK_RANGE = 15.0f;
     public const float KNOCKBACK_MULTIPLIER = 20.0f;
 }
