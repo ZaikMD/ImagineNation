@@ -78,7 +78,7 @@ public class PlayerInfo : MonoBehaviour
     {
         for (int i = 0; i < m_Players.Count; i++)
         {
-            if (m_Players[i].m_PlayerInput == input)
+            if ((m_Players[i].m_PlayerInput & input) > 0)
                 return m_Players[i];
         }
         //error

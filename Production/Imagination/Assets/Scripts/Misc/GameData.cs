@@ -138,7 +138,7 @@ public class GameData : MonoBehaviour
 		set 
 		{
             m_PlayerOneCameraRotationScaleModifyer = value;
-            PlayerInfo.getPlayer(Players.PlayerTwo).m_PlayerCamera.RotationScale = new Vector2(m_DefaultCameraRotationScale.x * m_PlayerOneCameraRotationScaleModifyer,
+            PlayerInfo.getPlayer(Players.PlayerOne).m_PlayerCamera.RotationScale = new Vector2(m_DefaultCameraRotationScale.x * m_PlayerOneCameraRotationScaleModifyer,
                                                                                                 m_DefaultCameraRotationScale.y * m_PlayerOneCameraRotationScaleModifyer);
 		}
 	}
@@ -146,10 +146,10 @@ public class GameData : MonoBehaviour
     float m_PlayerTwoCameraRotationScaleModifyer = 1.0f;
     public float PlayerTwoCameraRotationScaleModifyer
     {
-        get { return PlayerTwoCameraRotationScaleModifyer; }
+		get {return m_PlayerTwoCameraRotationScaleModifyer; }
         set
         {
-            PlayerTwoCameraRotationScaleModifyer = value;
+            m_PlayerTwoCameraRotationScaleModifyer = value;
 
             PlayerInfo.getPlayer(Players.PlayerTwo).m_PlayerCamera.RotationScale = new Vector2(m_DefaultCameraRotationScale.x * m_PlayerTwoCameraRotationScaleModifyer,
                                                                                                 m_DefaultCameraRotationScale.y * m_PlayerTwoCameraRotationScaleModifyer);
