@@ -24,7 +24,7 @@ public class BaseAttack
 	bool m_Attacking = false;
 	bool m_GraceCountdown = false;
 
-	protected float m_SaveAttackTimer = 0.4f;
+	protected float m_SaveAttackTimer = 0.2f;
 	protected float m_SaveGraceTimer = 0.5f;
     protected float m_StartGraceTimerTimer = 0.1f;
 	protected float m_Damage;
@@ -35,8 +35,14 @@ public class BaseAttack
 	protected float m_FirePointYOffSet = 0.5f;
 
 	protected Characters m_Character;
-	
-	// Update is called once per frame
+
+	//Attack movement speed
+	protected float m_AttackMoveSpeed = 1.0f;
+
+	//Whether or not to force input
+	protected bool m_ForceInput = false;
+
+
 
 	void Start()
 	{
@@ -122,5 +128,15 @@ public class BaseAttack
 	public virtual void createProjectile()
 	{
 
+	}
+
+	public virtual float getAttackMoveSpeed()
+	{
+		return m_AttackMoveSpeed;
+	}
+
+	public bool getForceInput()
+	{
+		return m_ForceInput;
 	}
 }
