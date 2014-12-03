@@ -48,6 +48,8 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour
 
     private bool m_PlayerHit;
 
+	private float m_ReachedTargetDistance;
+
     protected override void start()
     {
         m_CombatComponent.start(this);
@@ -65,11 +67,14 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour
         m_HitByPlayerTimer = MaxTimeAfterHitByPlayer;
         m_ChargeTimer = 0.0f;
         m_IsCharging = false;
+		m_ReachedTargetDistance = 2.0f;
     }
 
     public override void update()
     {
         m_Target = Target();
+
+		Combat ();
 
         if (m_Target == null)
         {
@@ -125,7 +130,10 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour
 
         if (!m_PlayerHit)
         {
-            m_CombatState = CombatStates.Wobble;
+			if(GetDistanceToTarget() < m_ReachedTargetDistance)
+			{
+            	m_CombatState = CombatStates.Wobble;
+			}
         }
         else
         {
@@ -137,7 +145,7 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour
     {
         if (m_ChargeTimer < CHARGE_BUILD_UP_TIME)
         {
-            //TODO: Set Destination to Self
+			m_BuildingChargeMovement.Movement(transform.position);
             m_ChargeTimer += Time.deltaTime;
         }
         else
@@ -164,6 +172,8 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour
 
     private void HitByPlayer()
     {
+		m_HitByPlayerMovement.Movement (transform.position);
+
         if (m_HitByPlayerTimer > 0.0f)
         {
             m_HitByPlayerTimer -= Time.deltaTime;

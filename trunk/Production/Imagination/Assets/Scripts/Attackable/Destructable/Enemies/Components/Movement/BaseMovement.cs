@@ -28,7 +28,7 @@ public abstract class BaseMovement : BaseComponent
 
 	// An override of the movement function incase you just want to 
 	// move to a specific location
-	public virtual void Movement(Vector3 moveLocation)
+	public void Movement(Vector3 moveLocation)
 	{
 		m_Agent.SetDestination (moveLocation);
 	}
