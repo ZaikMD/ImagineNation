@@ -32,6 +32,20 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour
     public BaseMovement m_KnockedBackMovement;
     public BaseMovement m_HitByPlayerMovement;
 
+    private float m_WobbleTimer;
+    public float MaxWobbleTime;
+
+    private float m_KnockBackTimer;
+    public float MaxKnockBackTime;
+
+    private float m_HitByPlayerTimer;
+    public float MaxTimeAfterHitByPlayer;
+
+    private float m_ChargeTimer;
+    private const float CHARGE_BUILD_UP_TIME = 0.25f;
+    private const float PERCENT_CHARGE_PAST_PLAYER = 1.5f;
+    private bool m_IsCharging;
+
     private bool m_PlayerHit;
 
     protected override void start()
@@ -44,6 +58,13 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour
         m_BuildingChargeMovement.start(this);
         m_KnockedBackMovement.start(this);
         m_HitByPlayerMovement.start(this);
+
+        m_CombatState = CombatStates.BuildingUpCharge;
+        m_WobbleTimer = MaxWobbleTime;
+        m_KnockBackTimer = MaxKnockBackTime;
+        m_HitByPlayerTimer = MaxTimeAfterHitByPlayer;
+        m_ChargeTimer = 0.0f;
+        m_IsCharging = false;
     }
 
     public override void update()
@@ -85,27 +106,118 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour
 
     private void Wobble()
     {
+        Movement();
 
+        if (m_WobbleTimer > 0.0f)
+        {
+            m_WobbleTimer -= Time.deltaTime;
+        }
+        else
+        {
+            m_CombatState = CombatStates.BuildingUpCharge;
+            m_WobbleTimer = MaxWobbleTime;
+        }
     }
 
     private void Charge()
     {
+        Movement();
 
+        if (!m_PlayerHit)
+        {
+            m_CombatState = CombatStates.Wobble;
+        }
+        else
+        {
+            m_CombatState = CombatStates.KnockedBack;
+        }
     }
 
     private void BuildingUpCharge()
     {
-
+        if (m_ChargeTimer < CHARGE_BUILD_UP_TIME)
+        {
+            //TODO: Set Destination to Self
+            m_ChargeTimer += Time.deltaTime;
+        }
+        else
+        {
+            Movement();
+            m_ChargeTimer = 0.0f;
+            m_CombatState = CombatStates.Charge;
+        }
     }
 
     private void KnockedBack()
     {
-
+        if (m_KnockBackTimer > 0.0f)
+        {
+            m_KnockBackTimer -= Time.deltaTime;
+            Movement();
+        }
+        else
+        {
+            m_KnockBackTimer = MaxKnockBackTime;
+            m_CombatState = CombatStates.BuildingUpCharge;
+        }
     }
 
     private void HitByPlayer()
     {
+        if (m_HitByPlayerTimer > 0.0f)
+        {
+            m_HitByPlayerTimer -= Time.deltaTime;
+            Movement();
+        }
+        else
+        {
+            m_HitByPlayerTimer = MaxTimeAfterHitByPlayer;
+            m_CombatState = CombatStates.BuildingUpCharge;
+        }
+    }
 
+    protected override void Movement()
+    {
+        if (m_EnemyAI.m_UMovement)
+        {
+            switch (m_CombatState)
+            {
+                case CombatStates.Wobble:
+                    if (m_WobbleMovement != null)
+                    {
+                        m_WobbleMovement.Movement(m_Target);
+                    }
+                break;
+
+                case CombatStates.Charge:
+                    if (m_ChargeMovement != null)
+                    {
+                        m_ChargeMovement.Movement(m_Target);
+                    }
+                break;
+
+                case CombatStates.BuildingUpCharge:
+                    if (m_BuildingChargeMovement != null)
+                    {
+                        m_BuildingChargeMovement.Movement(m_Target);
+                    }
+                break;
+
+                case CombatStates.KnockedBack:
+                    if (m_KnockedBackMovement != null)
+                    {
+                        m_KnockedBackMovement.Movement(m_Target);
+                    }
+                break;
+
+                case CombatStates.HitByPlayer:
+                    if (m_HitByPlayerMovement != null)
+                    {
+                        m_HitByPlayerMovement.Movement(m_Target);
+                    }
+                break;
+            }
+        }
     }
 
     private float GetDistanceToTarget()
