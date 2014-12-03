@@ -26,10 +26,12 @@ public class SpecialAttack : BaseAttack
 	void Start()
 	{
 		m_Damage = 0.5f;
-		m_AttackTimer = 0.4f;
+		m_AttackTimer = 0.3f;
 		m_SaveAttackTimer = m_AttackTimer;
 		m_GraceTimer = 0.5f;
 		m_SaveGraceTimer = m_GraceTimer;
+		m_AttackMoveSpeed = 0.5f; //Attack movement speed
+		m_ForceInput = true;
 	}
 
 	public override void createProjectile ()
@@ -48,7 +50,11 @@ public class SpecialAttack : BaseAttack
 			projS.setDamage (m_Damage);
 			projS.setCharacter (m_Character);
 		}
+	}
 
-
+	public virtual float getAttackMoveSpeed()
+	{
+		float speed = m_AttackMoveSpeed * Mathf.Pow(m_SaveAttackTimer / m_AttackTimer, 3.0f);
+		return speed;
 	}
 }

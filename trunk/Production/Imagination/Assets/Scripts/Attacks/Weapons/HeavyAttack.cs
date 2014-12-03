@@ -17,10 +17,12 @@ public class HeavyAttack : BaseAttack
 	public  HeavyAttack()
 	{
 		m_Damage = 1.0f; // Damage
-		m_AttackTimer = 0.8f; //Time it takes to attack
+		m_AttackTimer = 0.5f; //Time it takes to attack
 		m_SaveAttackTimer = m_AttackTimer;
 		m_GraceTimer = 0.5f; //Time players have to attack again
 		m_SaveGraceTimer = m_GraceTimer;
+		m_AttackMoveSpeed = 0.5f; //Attack movement speed
+		m_ForceInput = true;
 	}
 	
 	public override void createProjectile ()
@@ -34,5 +36,11 @@ public class HeavyAttack : BaseAttack
 		HeavyProjectile projS = proj.GetComponent (typeof(HeavyProjectile)) as HeavyProjectile;
 		projS.setDamage (m_Damage);
 		projS.setCharacter (m_Character);
+	}
+
+	public virtual float getAttackMoveSpeed()
+	{
+		float speed = m_AttackMoveSpeed * Mathf.Pow(m_SaveAttackTimer / m_AttackTimer, 3.0f);
+		return speed;
 	}
 }

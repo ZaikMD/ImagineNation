@@ -44,7 +44,7 @@ public class Weapon : MonoBehaviour
     const string FRONTCONE = " H H H";
 
 	//Attack movement speed
-	const float ATTACK_MOVE_SPEED = 0.6f;
+	protected float m_AttackMoveSpeed = 0.8f;
 
 
     
@@ -118,10 +118,13 @@ public class Weapon : MonoBehaviour
 					}
 
 					//Set the direction to move while attacking
-					m_BaseMovementAbility.SetForcedInput (forcedInput);
+					if (m_CurrentAttack.getForceInput())
+					{
+						m_BaseMovementAbility.SetForcedInput (forcedInput);
+					}
 
 					//Set the player to move more slowly
-					m_BaseMovementAbility.SetSpeedMultiplier(ATTACK_MOVE_SPEED);
+					m_BaseMovementAbility.SetSpeedMultiplier(m_CurrentAttack.getAttackMoveSpeed());
 				}
 			}
 

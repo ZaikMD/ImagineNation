@@ -23,6 +23,8 @@ public class FrontalConeAttack : BaseAttack
 		m_SaveAttackTimer = m_AttackTimer; //Set the reference for the Attack Timer
 		m_GraceTimer = 0.5f; //Set the grace period timer
 		m_SaveGraceTimer = m_GraceTimer; //Set the reference for it
+		m_AttackMoveSpeed = 0.5f; //Attack movement speed
+		m_ForceInput = true;
 	}
 	
 	public override void createProjectile ()
@@ -46,5 +48,11 @@ public class FrontalConeAttack : BaseAttack
 
 			m_Rotation.y -= (m_Angle); //Change the angle
 		}		
+	}
+
+	public virtual float getAttackMoveSpeed()
+	{
+		float speed = m_AttackMoveSpeed * Mathf.Pow(m_SaveAttackTimer / m_AttackTimer, 3.0f);
+		return speed;
 	}
 }
