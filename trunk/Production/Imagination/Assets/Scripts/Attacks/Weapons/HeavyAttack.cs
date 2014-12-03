@@ -21,7 +21,7 @@ public class HeavyAttack : BaseAttack
 		m_SaveAttackTimer = m_AttackTimer;
 		m_GraceTimer = 0.5f; //Time players have to attack again
 		m_SaveGraceTimer = m_GraceTimer;
-		m_AttackMoveSpeed = 0.5f; //Attack movement speed
+		m_AttackMoveSpeed = 0.2f; //Attack movement speed
 		m_ForceInput = true;
 	}
 	

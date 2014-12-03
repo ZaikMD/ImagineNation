@@ -13,17 +13,18 @@ public class FrontalConeAttack : BaseAttack
 {
 
 	float m_NumberOfProjectiles = 6; //The number of projectiles to spawn
-	float m_Angle = 45;  //The angle between the projectiles
+	float m_Angle = 15;  //The angle between the projectiles
 	Vector3 m_Rotation; //The rotation for the projectiles
+	float m_AngleOffSet = 45;
 
-	void Start()
+	public FrontalConeAttack()
 	{
 		m_Damage = 1.0f; //Set the damage
-		m_AttackTimer = 0.4f; //Set the timer
+		m_AttackTimer = 0.8f; //Set the timer
 		m_SaveAttackTimer = m_AttackTimer; //Set the reference for the Attack Timer
 		m_GraceTimer = 0.5f; //Set the grace period timer
 		m_SaveGraceTimer = m_GraceTimer; //Set the reference for it
-		m_AttackMoveSpeed = 0.5f; //Attack movement speed
+		m_AttackMoveSpeed = 0.0f; //Attack movement speed
 		m_ForceInput = true;
 	}
 	
@@ -31,7 +32,7 @@ public class FrontalConeAttack : BaseAttack
 	{
 		//offet this to be at one end of the cone
 		m_Rotation = m_InitialRotation; //Set the rotation
-		m_Rotation.y += m_Angle; //Add the angle to the rotations y
+		m_Rotation.y += m_AngleOffSet; //Add the angle to the rotations y
 
 		for(int i = 0; i < m_NumberOfProjectiles; i++)
 		{

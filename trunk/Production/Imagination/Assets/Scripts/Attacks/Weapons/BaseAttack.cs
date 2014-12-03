@@ -37,7 +37,7 @@ public class BaseAttack
 	protected Characters m_Character;
 
 	//Attack movement speed
-	protected float m_AttackMoveSpeed = 1.0f;
+	protected float m_AttackMoveSpeed = 0.2f;
 
 	//Whether or not to force input
 	protected bool m_ForceInput = false;
