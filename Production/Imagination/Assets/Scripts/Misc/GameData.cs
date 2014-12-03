@@ -132,15 +132,18 @@ public class GameData : MonoBehaviour
 	//cant make a vector2 const
 	private Vector2 m_DefaultCameraRotationScale = new Vector2 (-2.5f, -1.5f);
     float m_PlayerOneCameraRotationScaleModifyer = 1.0f;
+
+    Vector2 PlayerOneInvert = new Vector2(1.0f, 1.0f);
+    Vector2 PlayerTwoInvert = new Vector2(1.0f, 1.0f);
+
     public float PlayerOneCameraRotationScaleModifyer
 	{
         get { return m_PlayerOneCameraRotationScaleModifyer; }
 		set 
 		{
             m_PlayerOneCameraRotationScaleModifyer = value;
-            PlayerInfo.getPlayer(Players.PlayerOne).m_PlayerCamera.RotationScale = new Vector2(m_DefaultCameraRotationScale.x * m_PlayerOneCameraRotationScaleModifyer,
-                                                                                                m_DefaultCameraRotationScale.y * m_PlayerOneCameraRotationScaleModifyer);
-		}
+            updatePlayerOneCameraRotationSpeed();
+         }
 	}
 
     float m_PlayerTwoCameraRotationScaleModifyer = 1.0f;
@@ -150,10 +153,52 @@ public class GameData : MonoBehaviour
         set
         {
             m_PlayerTwoCameraRotationScaleModifyer = value;
-
-            PlayerInfo.getPlayer(Players.PlayerTwo).m_PlayerCamera.RotationScale = new Vector2(m_DefaultCameraRotationScale.x * m_PlayerTwoCameraRotationScaleModifyer,
-                                                                                                m_DefaultCameraRotationScale.y * m_PlayerTwoCameraRotationScaleModifyer);
+            updatePlayerTwoCameraRotationSpeed();
         }
+    }
+
+    public void invertPlayerOneX()
+    {
+        PlayerOneInvert.x *= -1.0f;
+        updatePlayerOneCameraRotationSpeed();
+    }
+
+    public void invertPlayerOneY()
+    {
+        PlayerOneInvert.y *= -1.0f;
+        updatePlayerOneCameraRotationSpeed();
+    }
+
+    public void invertPlayerTwoX()
+    {
+        PlayerTwoInvert.x *= -1.0f;
+        updatePlayerTwoCameraRotationSpeed();
+    }
+
+    public void invertPlayerTwoY()
+    {
+        PlayerTwoInvert.y *= -1.0f;
+        updatePlayerTwoCameraRotationSpeed();
+    }
+
+    public void updateCameraRotationSpeeds()
+    {
+        updatePlayerOneCameraRotationSpeed();
+        updatePlayerTwoCameraRotationSpeed();
+    }
+
+    void updatePlayerOneCameraRotationSpeed()
+    {
+        PlayerInfo.getPlayer(Players.PlayerOne).m_PlayerCamera.RotationScale = new Vector2(m_DefaultCameraRotationScale.x * m_PlayerOneCameraRotationScaleModifyer * PlayerOneInvert.x,
+                                                                                           m_DefaultCameraRotationScale.y * m_PlayerOneCameraRotationScaleModifyer * PlayerOneInvert.y);
+		
+    }
+
+    void updatePlayerTwoCameraRotationSpeed()
+    {
+        PlayerInfo.getPlayer(Players.PlayerTwo).m_PlayerCamera.RotationScale = new Vector2(m_DefaultCameraRotationScale.x * m_PlayerTwoCameraRotationScaleModifyer * PlayerTwoInvert.x,
+                                                                                           m_DefaultCameraRotationScale.y * m_PlayerTwoCameraRotationScaleModifyer * PlayerTwoInvert.y);
+        
     }
 
 	public Material i_Brightness;
