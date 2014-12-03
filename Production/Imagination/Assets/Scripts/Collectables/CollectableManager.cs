@@ -14,8 +14,10 @@ public class CollectableManager : MonoBehaviour {
 
     Hud m_Hud;
  
-    public GameObject m_LightPegPrefab;
+	public GameObject m_LightPegPrefab;
 	public GameObject m_PuzzlePiecePrefab;
+
+	public Material[] m_Materials;
 
     public GameObject[] m_LightPegsForCheckPointOne;
     public GameObject[] m_LightPegsForCheckPointTwo;
@@ -172,6 +174,7 @@ case CheckPoints.CheckPoint_1:
 				Destroy(m_LightPegsForCheckPointOne[i].gameObject);
 				m_LightPegsForCheckPointOne[i] = newLightPeg;
 				newLightPeg.GetComponent<LightPeg>().SetInfo(i);
+				SetNewMaterial(newLightPeg);
 			}
 
 
@@ -182,6 +185,7 @@ case CheckPoints.CheckPoint_1:
 				Destroy(m_LightPegsForCheckPointTwo[i].gameObject);
 				m_LightPegsForCheckPointTwo[i] = newLightPeg;
 				newLightPeg.GetComponent<LightPeg>().SetInfo(i + m_LightPegsForCheckPointOne.Length);
+				SetNewMaterial(newLightPeg);
 			}
 
 
@@ -192,6 +196,7 @@ case CheckPoints.CheckPoint_1:
 				Destroy(m_LightPegsForCheckPointThree[i].gameObject);
 				m_LightPegsForCheckPointThree[i] = newLightPeg;
 				newLightPeg.GetComponent<LightPeg>().SetInfo(i + m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length);
+				SetNewMaterial(newLightPeg);
 			}
 
             //Set counter to 0
@@ -224,6 +229,7 @@ case CheckPoints.CheckPoint_2:
                     newLightPeg.transform.position = m_LightPegsForCheckPointOne[i].transform.position;
                     Destroy(m_LightPegsForCheckPointOne[i].gameObject);
                     m_LightPegsForCheckPointOne[i] = newLightPeg;
+					SetNewMaterial(newLightPeg);
                 }           
             }
 
@@ -234,7 +240,8 @@ case CheckPoints.CheckPoint_2:
 				Destroy(m_LightPegsForCheckPointTwo[i].gameObject);
 				m_LightPegsForCheckPointTwo[i] = newLightPeg;
 				newLightPeg.GetComponent<LightPeg>().SetInfo(i + m_LightPegsForCheckPointOne.Length);
-				GameData.Instance.ResetCollectedPeg(i + m_LightPegsForCheckPointOne.Length);            
+				GameData.Instance.ResetCollectedPeg(i + m_LightPegsForCheckPointOne.Length);
+				SetNewMaterial(newLightPeg);
             }
 
 			for(int i = 0; i < m_LightPegsForCheckPointThree.Length; i++)
@@ -245,6 +252,7 @@ case CheckPoints.CheckPoint_2:
 				m_LightPegsForCheckPointThree[i] = newLightPeg;
 				newLightPeg.GetComponent<LightPeg>().SetInfo(i + m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length);
 				GameData.Instance.ResetCollectedPeg(i + m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length);  
+				SetNewMaterial(newLightPeg);
 			}
                 break;
 #endregion
@@ -275,6 +283,7 @@ case CheckPoints.CheckPoint_3:
 					m_LightPegsForCheckPointOne[i] = newLightPeg;
 					newLightPeg.GetComponent<LightPeg>().SetInfo(i);
 					GameData.Instance.ResetCollectedPeg(i);
+					SetNewMaterial(newLightPeg);
 				}           
 			}
 
@@ -298,7 +307,8 @@ case CheckPoints.CheckPoint_3:
 					Destroy(m_LightPegsForCheckPointTwo[i].gameObject);
 					m_LightPegsForCheckPointTwo[i] = newLightPeg;
 					newLightPeg.GetComponent<LightPeg>().SetInfo(i + m_LightPegsForCheckPointOne.Length);
-					GameData.Instance.ResetCollectedPeg(i + m_LightPegsForCheckPointOne.Length);      
+					GameData.Instance.ResetCollectedPeg(i + m_LightPegsForCheckPointOne.Length);    
+					SetNewMaterial(newLightPeg);
 				}           
 			}
 
@@ -311,6 +321,7 @@ case CheckPoints.CheckPoint_3:
 				m_LightPegsForCheckPointThree[i] = newLightPeg;
 				newLightPeg.GetComponent<LightPeg>().SetInfo(i + m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length);
 				GameData.Instance.ResetCollectedPeg(i + m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length);  
+				SetNewMaterial(newLightPeg);
 			}
 
 			break;
@@ -360,7 +371,10 @@ case CheckPoints.CheckPoint_3:
         m_Timer = OnScreenTime;
     }
 
-    /// <summary>
-    /// Displays the current amount of pegs and puzzle pieces collected
-    /// </summary>
+	void SetNewMaterial(GameObject objectToChange)  
+	{
+		int materialNumber = Random.Range(0, m_Materials.Length - 1);
+
+		objectToChange.transform.GetChild(0).renderer.material = m_Materials[materialNumber];
+	}
 }

@@ -47,7 +47,7 @@ public class SurroundControl : BaseControlType
 		}
 
 		for (int i = 0; i < m_EnemyGroup.Length; i++)
-		{ c
+		{ 
 			EnemyWithMovement temp = m_EnemyGroup[i] as EnemyWithMovement;		
 			if(temp != null)
 			{
