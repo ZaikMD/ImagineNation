@@ -78,9 +78,9 @@ public class PlayerHealth : Destructable
 			currentCharacter = Characters.Zoe;
 			break;
 		default:
-			#if DEBUG || UNITY_EDITOR
+#if DEBUG || UNITY_EDITOR
 			Debug.LogError("parent is named wrong");
-			#endif
+#endif
 			currentCharacter = Characters.Zoe;
 			break;
 		}
@@ -135,14 +135,14 @@ public class PlayerHealth : Destructable
 	{ 
         if (PauseScreen.IsGamePaused){return;}	
 
-        if(m_InvulnerabilityTimer > 0)
+        if(m_InvulnerabilityTimer > 0.0f)
 		{
 			m_InvulnerabilityTimer -= Time.deltaTime;
 		}
 		
         if(!m_IsDead)
 		{
-			if (m_Health <= 0)
+			if (m_Health <= 0.0f)
 			{
 				onDeath();//you died
 			}
@@ -152,7 +152,7 @@ public class PlayerHealth : Destructable
 				if(m_Health < m_TotalHealth)
 				{
                     //need to regen health
-					if(m_HealthRegenTimer <= 0)
+					if(m_HealthRegenTimer <= 0.0f)
 					{
 						m_Health++;
 						m_HealthRegenTimer = HealthRegenTime;
@@ -178,12 +178,12 @@ public class PlayerHealth : Destructable
 	
 	public override void onHit(EnemyProjectile proj)
 	{
-		if(m_InvulnerabilityTimer <= 0)
+		if(m_InvulnerabilityTimer <= 0.0f)
 		{
             //not invulnerable so take damage
-			if(m_Health > 0)
+			if(m_Health > 0.0f)
 			{
-				m_Health -= 1; 
+				m_Health -= ENEMY_DAMAGE; 
 
 				//play sound
 				playSound();
@@ -232,7 +232,7 @@ public class PlayerHealth : Destructable
 		{
 			case Constants.ALEX_WITH_MOVEMENT_STRING:
 			//first we check we have any health left, if not, were dead, and should play death sound
-			if(m_Health <= 0)
+			if(m_Health <= 0.0f)
 			{
 				m_SFX.playSound(transform.position, Sounds.AlexDeath);
 			}
@@ -244,7 +244,7 @@ public class PlayerHealth : Destructable
 			break;
 
 			case Constants.DEREK_WITH_MOVEMENT_STRING:
-			if(m_Health <= 0)
+			if(m_Health <= 0.0f)
 			{
 				m_SFX.playSound(transform.position, Sounds.DerekDeath);
 			}
@@ -256,7 +256,7 @@ public class PlayerHealth : Destructable
 			break;
 
 			case Constants.ZOE_WITH_MOVEMENT_STRING:
-			if(m_Health <= 0)
+			if(m_Health <= 0.0f)
 			{
 				m_SFX.playSound(transform.position, Sounds.ZoeyDeath);
 			}

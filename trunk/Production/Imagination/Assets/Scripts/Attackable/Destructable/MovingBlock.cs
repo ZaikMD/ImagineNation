@@ -15,6 +15,7 @@ using System.Collections;
 * 8/10/2014 Edit: Fully Commented and changed strings to constants- Zach Dubuc
 * 28/11/2014 Edit: Removed unused variable (m_Moving, ).
 * 03/12/2014 Edit: Changed Health to float value, to coincide with damage - Joe Burchill
+* 04/12/2014 Edit: Changed 0 to 0.0f for new float data type.
 * 
 */
 #endregion
@@ -77,7 +78,7 @@ public class MovingBlock : Destructable
         if (PauseScreen.IsGamePaused){return;}
 
         //If the box is dead, respawn it
-		if(m_Health <= 0)
+		if(m_Health <= 0.0f)
 		{
 			respawn();
 		}

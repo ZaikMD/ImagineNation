@@ -15,12 +15,16 @@ using System.Collections;
 * 23/11/2014 Edit: Added the set health function because I need to raise one of the enemys health while he is fighting - Mathieu Elias
 * 
 * 03/12/2014 Edit: Changed Health to float value, to coincide with damage - Joe Burchill
+* 
+* 04/12/2014 Edit: Changed Enemy Damage to a const float for Enemy Projectile onHit.
 */
 #endregion
 public class Destructable : MonoBehaviour, Attackable
 {
     public float m_Health;
     public GameObject m_Ragdoll;
+
+	protected const float ENEMY_DAMAGE = 1.0f;
 
 	// Update is called once per frame
 	protected void Update () 
@@ -47,7 +51,7 @@ public class Destructable : MonoBehaviour, Attackable
     public virtual void onHit(EnemyProjectile proj)
     {
 		if (this.tag == Constants.PLAYER_STRING)
-		m_Health -= 1;
+		m_Health -= ENEMY_DAMAGE;
     }
 
 
