@@ -25,6 +25,7 @@
 * 28/10/2014 Edit: Changed a number of constants and added a setPausedMovement function.
 * 2/12/2014 Edit:  Provided functionality to attacking to allow you to force a direction of movement. - Jason Hein
 * 				   Enabled other classes to multiply the speed of the characters movement to slow or speed up the player.
+* 4/12/2014 Edit:  GetIsGrounded renamed to SetIsGrounded, and now sets a flag that is checked by other classes with the new GetIsGrounded function. - Jason Hein
 * 
 * 
 */
@@ -72,7 +73,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	protected const float GROUND_DECCELERATION_LERP_VALUE_PREDELTA = 6.5f;
 
 	//Distances
-	protected const float GETGROUNDED_RAYCAST_DISTANCE = 0.80f;
+	protected const float GETGROUNDED_RAYCAST_DISTANCE = 0.35f;
 
 	//Movement that other classes have requested
 	protected Vector3 m_InstantExternalMovement = Vector3.zero;
@@ -94,8 +95,8 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//Current Projection of players movement
 	Vector3 m_Projection = Vector3.zero;
 
-	bool m_CheckedGroundedThisFrame = false;
-	bool m_GroundedThisFrame = false;
+	//If the player is currently grounded
+	bool m_IsGrounded = false;
 
 	//Intitialization
 
@@ -150,12 +151,14 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			m_CurrentlyJumping = false;
 		}
 
-		//Initialize states
-		GetIsGrounded ();
-
-		//External movement
+		//Move from other objects first first
 		InstantExternalMovement ();
+
+		//Launching timers
 		HandleExternalLaunchTimers ();
+
+		//Initialize states
+		m_IsGrounded = SetIsGrounded ();
 
 		//Get the projection of the player
 		if (m_ForcedInput == Vector3.zero)
@@ -168,7 +171,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		}
 
 		//If the player is still grounded after the instant movement
-		if(GetIsGrounded())
+		if(m_IsGrounded)
 		{
 			//Reset any launch movement that reset when we touch the ground
 			ResetGroundedLaunchMovement();
@@ -446,18 +449,15 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//Getter for if the character is grounded based on character controller
 	//
 	//If we are supposed to still be grounded but aren't according to our character controller, we are still considered grounded due to a raycast downwards
-	public bool GetIsGrounded()
+	public bool SetIsGrounded()
 	{
-		if(m_CheckedGroundedThisFrame)
-		{
-			return m_GroundedThisFrame;
-		}
-
+		//If the player is moving up, we should not be grounded
 		if((m_Velocity + GetLaunchVelocity ()).y > 0.0f)
 		{
 			return false;
 		}
 
+		//Raycast hit for checking the ground below us
 		RaycastHit hit;
 
 		//If we should be grounded, set our vertical velocity to 0
@@ -470,13 +470,16 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			return true;
 		}
 		//If we should be grounded but are above the ground, we teleport down to match the ground
-		else if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, GETGROUNDED_RAYCAST_DISTANCE) && m_Velocity.y == 0.0f)
+		else if (Physics.Raycast(transform.position, Vector3.down, out hit, GETGROUNDED_RAYCAST_DISTANCE - GetMovementThisFrame().y))
 		{
+			if(m_Velocity.y < 0.0f)
+			{
+				m_Velocity.y = 0.0f;
+			}
 			m_CharacterController.Move(hit.point - transform.position);
 			return true;
 		}
 
-		m_CheckedGroundedThisFrame = true;
 		//Otherwise return that we are airborne
 		return false;
 	}
@@ -595,8 +598,11 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		return m_Velocity * Time.deltaTime;
 	}
 
-	void LateUpdate()
+	/// <summary>
+	/// Returns if the player was grounded this frame.
+	/// </summary>
+	public bool GetIsGrounded()
 	{
-		m_CheckedGroundedThisFrame = false;
+		return m_IsGrounded;
 	}
 }
