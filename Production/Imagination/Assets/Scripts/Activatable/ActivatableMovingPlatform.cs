@@ -208,6 +208,7 @@ public class ActivatableMovingPlatform : Activatable
 				{
 					//Move the player as much at this platform is moving
 					amountToMove = move;
+					amountToMove.y *= 1.01f;
 				}
 				//Check if we are in front of the platform
 				else if (Vector3.Dot(move, normal) > 0.0f)
