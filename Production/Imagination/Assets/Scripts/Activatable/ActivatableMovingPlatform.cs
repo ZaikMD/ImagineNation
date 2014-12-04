@@ -110,7 +110,7 @@ public class ActivatableMovingPlatform : Activatable
 								amountToMove.y += 0.01f;
 
 								//Move the player as much at this platform is moving
-								m_PlayersToMove[i].movement.RequestInstantMovement(amountToMove);
+								m_PlayersToMove[i].movement.RequestInstantMovement(amountToMove + Vector3.up * 0.02f);
 							}
 
 						}
