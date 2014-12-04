@@ -131,9 +131,9 @@ public static class Constants
 		public const string DEREK_FIRST_WEAPON_HIT  =  "Sounds/Derek/Derek_First_Hit";
 		public const string DEREK_SECOND_WEAPON_HIT =  "Sounds/Derek/Derek_Second_Hit";
 		public const string DEREK_THIRD_WEAPON_HIT =  "Sounds/Derek/Derek_Third_Hit";
-		public const string DEREK_HURT =  "Sounds/Common/Derek_Painful_Grunt";
+		public const string DEREK_HURT =  "Sounds/Derek/Derek_Painful_Grunt";
 		public const string DEREK_JUMP = "Sounds/Derek/Derek_Jump";
-		public const string DEREK_DEATH = "Sound/Derek/Derek_Death";
+		public const string DEREK_DEATH = "Sounds/Derek/Derek_Death";
 
 		//Zoey Sounds
 		public const string ZOEY_FIRST_WEAPON_HIT = "Sounds/Zoey/Zoey_First_Hit";

@@ -247,7 +247,7 @@ public class GameData : MonoBehaviour
 			if(value > m_CurrentCheckPoint)
 			{
 				m_CurrentCheckPoint = value;
-
+                m_LightPegsCollectedSinceLastCheckPoint = 0;
 			}
 		}
 	}
@@ -281,10 +281,23 @@ public class GameData : MonoBehaviour
             m_FirstTimePlayingLevel = value;
         }
     }
-    
-    bool[] m_LightPegsCollectedInLevel;
+
+    int m_LightPegsCollectedSinceLastCheckPoint = 0;
+    static int m_TotalLightPegCount = 0;
+    static bool[] m_LightPegsCollectedInLevel;
 	//the first element will be level, second section, and the will be the puzzle piece in question. 
-	short[][][] m_PuzzlePieceCollectedInLevel; // puzzle pieces will be treated like a bool.
+	static short[][][] m_PuzzlePieceCollectedInLevel; // puzzle pieces will be treated like a bool.
+
+    public int TotalLightPegs()
+    {
+        return m_TotalLightPegCount;
+    }
+
+    public void incrementTotalLightPegs()
+    {
+        m_TotalLightPegCount++;
+        m_LightPegsCollectedSinceLastCheckPoint++;
+    }
 
     public bool[] CollectedLightPegs()
     {
@@ -414,12 +427,16 @@ public class GameData : MonoBehaviour
 	{
 		if(m_Lives < Constants.LIVES_MAX)
 			m_Lives++;
+
+        m_TotalLightPegCount -= Constants.LIGHT_PEGS_NEEDED_TO_GAIN_LIVES;
 		//Update hud
 	}
 
 	public void DecrementLives()
 	{
 		m_Lives--;
+        m_TotalLightPegCount -= m_LightPegsCollectedSinceLastCheckPoint;
+        m_LightPegsCollectedSinceLastCheckPoint = 0;
 		if(m_Lives <= 0)
 		{
 			ResetLives();

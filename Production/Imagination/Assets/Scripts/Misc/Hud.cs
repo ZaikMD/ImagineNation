@@ -187,6 +187,7 @@ public class Hud : MonoBehaviour {
 	{
 		m_ShowLightPegs = true;
 		m_LightPegTimer = m_HudDisplayLength;
+        LightPegCollected = GameData.Instance.TotalLightPegs();
 	}
 
 	public void ShowPuzzlePieces()
@@ -215,6 +216,8 @@ public class Hud : MonoBehaviour {
 		m_ShowPuzzlePieces = false;
         m_ShowHiddenHud = true;
         m_HudDisplayTimer = m_HudDisplayLength;
+        PuzzlePiecesCollected = GameData.Instance.CalcPuzzlePieces();
+        LightPegCollected = GameData.Instance.TotalLightPegs();
     }
 
     public void UpdateLightPegs(int NumberOfLightPegs)
