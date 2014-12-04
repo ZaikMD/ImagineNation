@@ -151,22 +151,18 @@ public class TPCamera : ShutterCamera
 		if (GameData.Instance.PlayerOneCharacter == currentCharacter)
 		{
 			m_Camera.rect = new Rect(0.0f, 0.0f, 0.5f, 1.0f);
-
-            //make sure that game data updates our rotation scale modifyer
-            GameData.Instance.PlayerOneCameraRotationScaleModifyer = GameData.Instance.PlayerOneCameraRotationScaleModifyer;
 		}
 		else
 		{
 			m_Camera.rect = new Rect(0.5f, 0.0f, 0.5f, 1.0f);
-
-            //make sure that game data updates our rotation scale modifyer
-            GameData.Instance.PlayerTwoCameraRotationScaleModifyer = GameData.Instance.PlayerTwoCameraRotationScaleModifyer;
 		}
 		//==================================================================================
         //get the accept input from script on the camera game object
 		m_AcceptInputFrom = gameObject.GetComponent<AcceptInputFrom>();
 
         //===================================================================
+		//make sure that game data updates our rotation scale modifyer
+		GameData.Instance.updateCameraRotationSpeeds();
 	}
 
 	void setShutterLayer(string layer)
