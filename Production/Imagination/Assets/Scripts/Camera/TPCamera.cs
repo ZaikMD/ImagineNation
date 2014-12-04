@@ -377,7 +377,7 @@ public class TPCamera : ShutterCamera
         if (DrawRays)
         {
 			#if DEBUG || UNITY_EDITOR
-                Debug.DrawRay(Player.transform.position, direction * minDist, Color.black);
+                Debug.DrawRay(Player.transform.position, direction * minDist, Color.red);
 			#endif
         }
 
@@ -415,11 +415,11 @@ public class TPCamera : ShutterCamera
 			#if DEBUG || UNITY_EDITOR
 	            if (raycastInfo.collider != null)
 	            {
-	                Debug.DrawRay(Player.transform.position, raycastInfo.point - Player.transform.position, Color.cyan);
+	                Debug.DrawRay(Player.transform.position, raycastInfo.point - Player.transform.position, Color.yellow);
 	            }
 	            else
 	            {
-	                Debug.DrawRay(Player.transform.position, transform.position + offsetX + offsetY - Player.transform.position, Color.blue);
+	                Debug.DrawRay(Player.transform.position, transform.position + offsetX + offsetY - Player.transform.position, Color.green);
 	            }
 			#endif
         }
