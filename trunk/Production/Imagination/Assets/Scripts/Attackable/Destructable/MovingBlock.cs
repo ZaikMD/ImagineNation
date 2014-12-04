@@ -14,6 +14,7 @@ using System.Collections;
 /*
 * 8/10/2014 Edit: Fully Commented and changed strings to constants- Zach Dubuc
 * 28/11/2014 Edit: Removed unused variable (m_Moving, ).
+* 03/12/2014 Edit: Changed Health to float value, to coincide with damage - Joe Burchill
 * 
 */
 #endregion

@@ -17,6 +17,7 @@ public class SpinningTopIdleBehaviour : BaseIdleBehaviour
 {
     protected override void start()
     {
+		//Call the start for each of the Idle Components
         m_MovementComponent.start(this);
         m_EnterCombatComponent.start(this);
         m_TargetingComponent.start(this);
@@ -24,13 +25,16 @@ public class SpinningTopIdleBehaviour : BaseIdleBehaviour
 
 	public override void update()
 	{
+		//Set the target
         m_Target = Target();
 
+		//Call Movement
         if (m_MovementComponent != null)
         {
             Movement();
         }
 
+		//Set state to chase if the enter combat is called
         if (m_Target != null)
         {
             if (m_EnterCombatComponent.EnterCombat(m_Target.transform) == true)

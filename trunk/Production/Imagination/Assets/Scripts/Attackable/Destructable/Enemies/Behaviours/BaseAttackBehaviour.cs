@@ -22,8 +22,8 @@ public abstract class BaseAttackBehaviour : BaseBehaviour
 
     public abstract void update();
 
-// The following functions must be called to update any of the components in order to make sure the 
-// enemy controller hasn't taken control of any of them
+	// The following functions must be called to update any of the components in order to make sure the 
+	// enemy controller hasn't taken control of any of them
 	protected virtual void Combat()
 	{
 		if (m_EnemyAI.m_UCombat)

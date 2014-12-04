@@ -15,10 +15,13 @@ using System.Collections;
 [RequireComponent(typeof(NavMeshAgent))]
 public class EnemyWithMovement : EnemyAI
 {
+	//Public Transform to add PathNodes to the object
 	public Transform[] m_PathNodes;
 
+	//FixedUpdate to go by time
 	public override void FixedUpdate ()
 	{
+		//Freeze enemies if the game is paused
 		if (PauseScreen.IsGamePaused)
 		{
 			GetAgent.SetDestination(transform.position);

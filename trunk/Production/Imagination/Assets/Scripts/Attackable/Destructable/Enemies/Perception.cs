@@ -58,7 +58,6 @@ public class Perception : MonoBehaviour
         for (int i = 0; i < m_Players.Length; i++)
         {
             m_Players[i].update();
-			//Debug.Log("player" + i + ": " + getThreat(m_Players[i]));
         }
     }
 
@@ -104,7 +103,7 @@ public class Perception : MonoBehaviour
 
         // is the player behind something?
         RaycastHit raycastData;
-        if (!Physics.Raycast(transform.position, player.Player.position - transform.position, out raycastData, distance +1.0f, ~LayerMask.GetMask("Enemy")))// TODO: replace with constant
+        if (!Physics.Raycast(transform.position, player.Player.position - transform.position, out raycastData, distance +1.0f, ~LayerMask.GetMask(Constants.ENEMY_STRING)))// TODO: replace with constant
         {
 			//Debug.DrawLine(transform.position,player.Player.position - transform.position, Color.red);
             return 0.0f;
@@ -175,7 +174,7 @@ public class Perception_Player
     PlayerInfo m_Player;
     public Transform Player
     {
-		get { return m_Player.transform.FindChild("\"Centre Point\""); }
+		get { return m_Player.transform.FindChild(Constants.PLAYER_CENTRE_POINT); }
     }
 
 	public PlayerInfo PlayerInfo

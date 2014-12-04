@@ -13,6 +13,8 @@ using System.Collections;
 * 15/10/2014 Edit: Added the tag check in onHit - Mathieu Elias
 * 
 * 23/11/2014 Edit: Added the set health function because I need to raise one of the enemys health while he is fighting - Mathieu Elias
+* 
+* 03/12/2014 Edit: Changed Health to float value, to coincide with damage - Joe Burchill
 */
 #endregion
 public class Destructable : MonoBehaviour, Attackable
