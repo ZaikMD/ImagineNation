@@ -42,8 +42,6 @@ public class CollectableManager : MonoBehaviour
     {
         m_Hud = GameObject.FindGameObjectWithTag(Constants.HUD).GetComponent<Hud>();
 
-        Debug.Log(GameData.Instance.ID);
-
         m_Timer = OnScreenTime;
         m_NumberOfLightPegsCollect = 0;
 
