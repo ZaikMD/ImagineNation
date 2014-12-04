@@ -107,7 +107,7 @@ public class TPCamera : ShutterCamera
 
 		setShutterLayer (CAMERA_IGNORE_LAYERS [0]);
 
-        m_RaycastMask = LayerMask.GetMask(CAMERA_IGNORE_COLLISION_LAYER) | LayerMask.GetMask(Constants.PLAYER_STRING);
+        m_RaycastMask = LayerMask.GetMask(CAMERA_IGNORE_COLLISION_LAYER) | LayerMask.GetMask(Constants.PLAYER_STRING) | LayerMask.GetMask(Constants.COLLIDE_WITH_MOVING_PLATFORM_LAYER_STRING);
         for(int i = 0; i < CAMERA_IGNORE_LAYERS.Length; i++)
         {
             m_RaycastMask = m_RaycastMask | LayerMask.GetMask(CAMERA_IGNORE_LAYERS[i]);
