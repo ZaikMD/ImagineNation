@@ -94,6 +94,9 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//Current Projection of players movement
 	Vector3 m_Projection = Vector3.zero;
 
+	bool m_CheckedGroundedThisFrame = false;
+	bool m_GroundedThisFrame = false;
+
 	//Intitialization
 
 	//Called at the start of the program
@@ -445,6 +448,11 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//If we are supposed to still be grounded but aren't according to our character controller, we are still considered grounded due to a raycast downwards
 	public bool GetIsGrounded()
 	{
+		if(m_CheckedGroundedThisFrame)
+		{
+			return m_GroundedThisFrame;
+		}
+
 		if((m_Velocity + GetLaunchVelocity ()).y > 0.0f)
 		{
 			return false;
@@ -468,6 +476,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			return true;
 		}
 
+		m_CheckedGroundedThisFrame = true;
 		//Otherwise return that we are airborne
 		return false;
 	}
@@ -584,5 +593,10 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	public Vector3 GetMovementThisFrame()
 	{
 		return m_Velocity * Time.deltaTime;
+	}
+
+	void LateUpdate()
+	{
+		m_CheckedGroundedThisFrame = false;
 	}
 }
