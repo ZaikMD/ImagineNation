@@ -58,6 +58,13 @@ public class DerekMovement : BaseMovementAbility
 			m_CanGrapple = true;
 		}
 
+		if (m_PlayerHealth.IsDead)
+		{
+			m_target.SetCurrentTarget(null);
+			m_Grappling = false;
+			m_CanGrapple = false;
+		}
+
 		//checks if there is a target in sight
 		if (m_target.GetCurrentTarget() != null && m_Grappling == false)
 		{
@@ -88,12 +95,6 @@ public class DerekMovement : BaseMovementAbility
 		{
 			MoveTowardsTarget();
 			return;
-		}
-
-		if (m_PlayerHealth.IsDead)
-		{
-			m_target.SetCurrentTarget(null);
-            m_Grappling = false;
 		}
 
 		//Used to make sure that the player stops trying to grapple if his target gets destroyed
