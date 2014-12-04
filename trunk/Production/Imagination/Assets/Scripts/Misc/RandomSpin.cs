@@ -63,7 +63,7 @@ public class RandomSpin : MonoBehaviour
 		if(RandomizeYAxis)
 		{
 			Y = Random.Range (0.0f, 360.0f);
-			Debug.Log(Y);
+			//Debug.Log(Y);
 		}
 		else
 		{
