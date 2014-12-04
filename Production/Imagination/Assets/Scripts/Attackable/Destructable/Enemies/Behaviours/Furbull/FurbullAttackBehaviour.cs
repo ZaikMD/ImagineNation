@@ -28,7 +28,7 @@ public class FurbullAttackBehaviour : BaseAttackBehaviour
 
         if (m_Target == null)
         {
-            m_EnemyAI.SetState(EnemyAI.EnemyState.Idle);
+              m_EnemyAI.SetState(EnemyAI.EnemyState.Idle);
             return;
         }
 

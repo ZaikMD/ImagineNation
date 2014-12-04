@@ -13,8 +13,7 @@ using System.Collections;
 
 public class SurroundControl : BaseControlType 
 {
-	Vector3[] m_SurroundLocations;
-
+	float m_StoppingDist = 2.0f;
 	public override void start (EnemyAI[] enemies, GameObject target)
 	{
 		m_EnemyGroup = enemies;
@@ -29,8 +28,6 @@ public class SurroundControl : BaseControlType
 
 			m_EnemyGroup[i].SetState(EnemyAI.EnemyState.Attack);
 		}
-
-		m_SurroundLocations = new Vector3[m_EnemyGroup.Length];
 	}
 
 	public override void update ()
@@ -40,19 +37,20 @@ public class SurroundControl : BaseControlType
 
 		float currentAngle = 0;
 
-		for (int i = 0; i < m_SurroundLocations.Length; i ++)
-		{
-			m_SurroundLocations[i] = RotateAboutOrigin( transform.position , m_Target.transform.position, angle);
-			currentAngle += angle;
-		}
-
 		for (int i = 0; i < m_EnemyGroup.Length; i++)
 		{ 
-			EnemyWithMovement temp = m_EnemyGroup[i] as EnemyWithMovement;		
-			if(temp != null)
+			if (m_EnemyGroup[i] != null)
 			{
-				NavMeshAgent agent =  temp.GetAgent;
-				agent.SetDestination(m_SurroundLocations[i]);
+				Vector3 surroundLocation = RotateAboutOrigin( m_EnemyGroup[i].transform.position , m_Target.transform.position, angle);
+				
+				EnemyWithMovement temp = m_EnemyGroup[i] as EnemyWithMovement;		
+				if(temp != null)
+				{
+					NavMeshAgent agent =  temp.GetAgent;
+					agent.stoppingDistance = 2.0f;
+					agent.SetDestination(surroundLocation);
+				}
+				currentAngle += angle;
 			}
 		}
 	}
@@ -66,7 +64,6 @@ public class SurroundControl : BaseControlType
 			m_EnemyGroup[i].m_UTargeting = true;
 		}
 		m_EnemyGroup = null;
-		m_SurroundLocations = null;
 	}
 
 	// Returns a location along the rotation of an object
