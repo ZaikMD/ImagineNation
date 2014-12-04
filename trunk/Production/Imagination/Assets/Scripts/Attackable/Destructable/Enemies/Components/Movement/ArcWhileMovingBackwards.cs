@@ -16,7 +16,7 @@ using System.Collections;
 public class ArcWhileMovingBackwards : BaseMovement 
 {
 
-	public float m_BackUpSpeed = 3f;
+	public float m_BackUpSpeed = 2.0f;
 	private float m_SwitchRotTimer;
 	public float m_MoveDist = 7.0f;
 	private int m_MoveAngle = 90;
