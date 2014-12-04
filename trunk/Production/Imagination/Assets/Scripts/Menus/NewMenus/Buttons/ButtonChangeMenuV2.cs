@@ -30,8 +30,8 @@ public class ButtonChangeMenuV2 : ButtonV2
     {
         #if DEBUG || UNITY_EDITOR
             if (NextMenu == null)
-            {
-                Debug.LogError("NO MENU SET");
+			{	
+                Debug.LogError(gameObject.name + "   " + "NO MENU SET");
             }
         #endif
 
