@@ -32,6 +32,10 @@ Shader "Production/Textureless_Diffuse"
 			
 			//Allows us to get ambient lighting
 			#include "UnityCG.cginc"
+			
+			//Shadows
+			#include "AutoLight.cginc"
+			#pragma multi_compile_fwdbase
  			
  			//Define the shaders
          	#pragma vertex vertShader
@@ -56,6 +60,7 @@ Shader "Production/Textureless_Diffuse"
             	float4 pos : POSITION0;
             	float4 posWorld : POSITION1;
             	float3 normalDir : TEXCOORD0;
+            	LIGHTING_COORDS(1,2)
         	};
          	
          	//Vertex Shader
@@ -72,6 +77,9 @@ Shader "Production/Textureless_Diffuse"
          		
          		//Calculate the direction of our surface normal
          		output.normalDir = normalize(mul(float4(input.normal, 0.0), _World2Object).xyz);
+         		
+         		//Transfer the shadow to the fragment shadow
+         		TRANSFER_VERTEX_TO_FRAGMENT(output);
          		
          		//Return our output
          		return output;
@@ -92,8 +100,11 @@ Shader "Production/Textureless_Diffuse"
             	//Calculate ambient light
             	float3 ambientLight = _Color.xyz * UNITY_LIGHTMODEL_AMBIENT.xyz;
             	
+            	//Shadows
+            	float attenuation = LIGHT_ATTENUATION(output);
+            	
             	//Calculate the base colour of the fragment with lighting
-            	float3 diffuseLighting = _Color.xyz * _LightColor0.xyz * max(0.0, dot(normalDirection, lightDirection));
+            	float3 diffuseLighting = _Color.xyz * _LightColor0.xyz * attenuation * max(0.0, dot(normalDirection, lightDirection));
 
          		//Return the final colour of the fragment
          		return float4(ambientLight + diffuseLighting, 1.0);
@@ -210,6 +221,81 @@ Shader "Production/Textureless_Diffuse"
          	
          	//End the cg shader
  			ENDCG
+		}
+		
+		
+		// Pass to render object as a shadow caster
+		Pass 
+		{
+			Name "ShadowCaster"
+			Tags { "LightMode" = "ShadowCaster" }
+			
+			Fog {Mode Off}
+			ZWrite On ZTest LEqual Cull Off
+			Offset 1, 1
+
+			CGPROGRAM
+			#pragma vertex vert
+			#pragma fragment frag
+			#pragma multi_compile_shadowcaster
+			#include "UnityCG.cginc"
+
+			struct v2f { 
+				V2F_SHADOW_CASTER;
+			};
+
+			v2f vert( appdata_base v )
+			{
+				v2f o;
+				TRANSFER_SHADOW_CASTER(o)
+				return o;
+			}
+
+			float4 frag( v2f i ) : SV_Target
+			{
+				SHADOW_CASTER_FRAGMENT(i)
+			}
+			ENDCG
+		}
+		
+		// Pass to render object as a shadow collector
+		// note: editor needs this pass as it has a collector pass.
+		Pass
+		{
+			Name "ShadowCollector"
+			Tags { "LightMode" = "ShadowCollector" }
+			
+			Fog {Mode Off}
+			ZWrite On ZTest LEqual
+
+			CGPROGRAM
+			#pragma vertex vert
+			#pragma fragment frag
+			#pragma multi_compile_shadowcollector
+
+			#define SHADOW_COLLECTOR_PASS
+			#include "UnityCG.cginc"
+
+			struct appdata {
+				float4 vertex : POSITION;
+			};
+
+			struct v2f {
+				V2F_SHADOW_COLLECTOR;
+			};
+
+			v2f vert (appdata v)
+			{
+				v2f o;
+				TRANSFER_SHADOW_COLLECTOR(o)
+				return o;
+			}
+
+			fixed4 frag (v2f i) : SV_Target
+			{
+				SHADOW_COLLECTOR_FRAGMENT(i)
+			}
+			ENDCG
 		}
 	}
 }
