@@ -94,7 +94,6 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//Current Projection of players movement
 	Vector3 m_Projection = Vector3.zero;
 
-
 	//Intitialization
 
 	//Called at the start of the program
@@ -446,6 +445,11 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//If we are supposed to still be grounded but aren't according to our character controller, we are still considered grounded due to a raycast downwards
 	public bool GetIsGrounded()
 	{
+		if((m_Velocity + GetLaunchVelocity ()).y > 0.0f)
+		{
+			return false;
+		}
+
 		RaycastHit hit;
 
 		//If we should be grounded, set our vertical velocity to 0
@@ -540,6 +544,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		m_CurrentlyJumping = true;
 		m_Velocity.y = 1.0f;
 		Launch(jump, launchTimer, true);
+		Debug.Log ("launch");
 	}
 
 
