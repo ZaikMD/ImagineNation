@@ -42,6 +42,8 @@ public class CollectableManager : MonoBehaviour
     {
         m_Hud = GameObject.FindGameObjectWithTag(Constants.HUD).GetComponent<Hud>();
 
+        Debug.Log(GameData.Instance.ID);
+
         m_Timer = OnScreenTime;
         m_NumberOfLightPegsCollect = 0;
 
@@ -349,8 +351,9 @@ case CheckPoints.CheckPoint_3:
     public void IncrementCounter()
     {
         m_NumberOfLightPegsCollect ++;
+        GameData.Instance.incrementTotalLightPegs();
 
-		if(m_NumberOfLightPegsCollect >= Constants.LIGHT_PEGS_NEEDED_TO_GAIN_LIVES)
+		if(GameData.Instance.TotalLightPegs() >= Constants.LIGHT_PEGS_NEEDED_TO_GAIN_LIVES)
 		{
 			GameData.Instance.IncrementLives();
 			m_Hud.ShowLifes();
