@@ -26,15 +26,15 @@ public class KnockedBackMovement : BaseMovement
 		//m_DestinationPosition = currentDirection * m_KnockbackDistance;
 		m_DestinationPosition = target.transform.forward * -m_KnockbackDistance;
 
-		Debug.DrawRay (transform.position, m_DestinationPosition, Color.green, 1.0f);
+//		Debug.DrawRay (transform.position, m_DestinationPosition, Color.green, 1.0f);
 
-		Debug.Log ("Agent1: " + m_Agent.destination);
+//		Debug.Log ("Agent1: " + m_Agent.destination);
 		m_Agent.SetDestination (m_DestinationPosition);
 		//m_Agent.destination = m_DestinationPosition;
 
-		Debug.Log ("Dest: "+m_DestinationPosition);
-		Debug.Log ("Agent2: " + m_Agent.destination);
-		Debug.Log ("CurrentPos: "+transform.position);
+//		Debug.Log ("Dest: "+m_DestinationPosition);
+//		Debug.Log ("Agent2: " + m_Agent.destination);
+//		Debug.Log ("CurrentPos: "+transform.position);
 
         return m_DestinationPosition;
     }
