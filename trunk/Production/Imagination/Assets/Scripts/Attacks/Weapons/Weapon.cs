@@ -42,6 +42,7 @@ public class Weapon : MonoBehaviour
     const string H = " H";
     const string HH = " H H";
     const string FRONTCONE = " H H H";
+	const string STRING_RESET = "";
 
 	//Attack movement speed
 	protected float m_AttackMoveSpeed = 0.2f;
@@ -176,7 +177,7 @@ public class Weapon : MonoBehaviour
 						attack.loadPrefab (m_LightProjectilePrefab);
 						attack.startAttack (transform.position, transform.eulerAngles, playerinfo.i_Character);
 						m_CurrentAttack = attack;
-						m_LastInput = "";
+						m_LastInput = STRING_RESET;
 						}
 
 						break;
@@ -187,7 +188,7 @@ public class Weapon : MonoBehaviour
 						attack.loadPrefab (m_LightProjectilePrefab);
 						attack.startAttack (transform.position, transform.eulerAngles, playerinfo.i_Character);
 						m_CurrentAttack = attack;
-						m_LastInput = "";
+						m_LastInput = STRING_RESET;
 					}
 						break;
 
@@ -197,7 +198,7 @@ public class Weapon : MonoBehaviour
 						attack.loadPrefab (m_LightProjectilePrefab);
 						attack.startAttack (transform.position, transform.eulerAngles, playerinfo.i_Character);
 						m_CurrentAttack = attack;
-						m_LastInput = "";
+						m_LastInput = STRING_RESET;
 						m_DoubleHitActivated = true;
 					}
 						break;
@@ -208,7 +209,7 @@ public class Weapon : MonoBehaviour
 						attack.loadPrefab (m_HeavyProjectilePrefab);
 						attack.startAttack (transform.position, transform.eulerAngles, playerinfo.i_Character);
 						m_CurrentAttack = attack;
-						m_LastInput = "";
+						m_LastInput = STRING_RESET;
 
 					}
 						break;
@@ -219,8 +220,8 @@ public class Weapon : MonoBehaviour
 						attack.loadPrefab (m_LightProjectilePrefab);
 						attack.startAttack(transform.position, transform.eulerAngles, playerinfo.i_Character);
 						m_CurrentAttack = attack;
-						m_LastInput = "";
-						m_Inputs = "";
+						m_LastInput = STRING_RESET;
+						m_Inputs = STRING_RESET;
 						m_FinishedCombo = true;
 					}
 						break;
@@ -231,7 +232,7 @@ public class Weapon : MonoBehaviour
 						attack.loadPrefab (m_LightProjectilePrefab);
 						attack.startAttack (transform.position, transform.eulerAngles, playerinfo.i_Character);
 						m_CurrentAttack = attack;
-						m_LastInput = "";
+						m_LastInput = STRING_RESET;
 						m_FinishedCombo = true;
 					}
 						break;
@@ -242,7 +243,7 @@ public class Weapon : MonoBehaviour
 						attack.loadPrefab (m_HeavyProjectilePrefab);
 						attack.startAttack (transform.position, transform.eulerAngles, playerinfo.i_Character);
 						m_CurrentAttack = attack;
-						m_LastInput = "";
+						m_LastInput = STRING_RESET;
 					}
 						break;
 
@@ -252,7 +253,7 @@ public class Weapon : MonoBehaviour
 						attack.loadPrefab (m_HeavyProjectilePrefab);
 						attack.startAttack (transform.position, transform.eulerAngles, playerinfo.i_Character);
 						m_CurrentAttack = attack;
-						m_LastInput = "";	
+						m_LastInput = STRING_RESET;	
 					}
 						break;
 
@@ -262,7 +263,7 @@ public class Weapon : MonoBehaviour
 						attack.loadPrefab (m_HeavyProjectilePrefab);
 						attack.startAttack (transform.position, transform.eulerAngles, playerinfo.i_Character);
 						m_CurrentAttack = attack;
-						m_LastInput = "";
+						m_LastInput = STRING_RESET;
 						m_FinishedCombo = true;
 					}
 						break;
@@ -287,8 +288,8 @@ public class Weapon : MonoBehaviour
 
 				if (m_CurrentAttack.getGraceTimer() <= 0.0f) //Check if the grace timer is over
                 {
-					m_Inputs = ""; //Reset the strings
-					m_LastInput = "";
+					m_Inputs = STRING_RESET; //Reset the strings
+					m_LastInput = STRING_RESET;
 					if(!m_FinishedCombo)
 					{
 						setCurrentAttack(); //If the player didn't finish a combo, then call setCurrentAttack
