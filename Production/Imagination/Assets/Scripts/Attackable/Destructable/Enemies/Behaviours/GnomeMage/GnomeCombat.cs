@@ -25,6 +25,9 @@ public class GnomeCombat : BaseAttackBehaviour, INotifyHit
 
 	GnomeShield m_Shield;
 
+	const float SHIELD_HEALTH = 2.0f;
+	float m_ShieldHealth;
+
 	const float m_MaxTimeBetweenShots = 2.8f;
 	const float m_MinTimeBetweenShots = 1.5f;
 	float m_ShotTimer;
@@ -56,6 +59,9 @@ public class GnomeCombat : BaseAttackBehaviour, INotifyHit
 	// Use this for initialization
 	protected override void start ()
 	{
+		m_EnemyAI.m_IsInvincible = true;
+		m_ShieldHealth = SHIELD_HEALTH;
+
 		//Initialise all of the components
 		m_TargetingComponent.start (this);
 		m_CombatComponent.start (this);
@@ -146,6 +152,9 @@ public class GnomeCombat : BaseAttackBehaviour, INotifyHit
 		{
 			m_CurrentCombatState = CombatStates.Regular;	
 			m_Clones.Clear();
+
+			m_ShieldHealth = SHIELD_HEALTH;
+			m_EnemyAI.m_IsInvincible = true;
 		}
 
 		// Move, attack and decrement the cloned timer
@@ -250,12 +259,12 @@ public class GnomeCombat : BaseAttackBehaviour, INotifyHit
 
 	public void NotifyHit()
 	{
-		// If health is equal to one, deactivate the shield and switch to cloning combat state
-		if (m_EnemyAI.m_Health <= 1)
+		m_ShieldHealth--;
+
+		if (m_ShieldHealth <= 0)
 		{
-			m_EnemyAI.m_IsInvincible = true;
-			DeactivateShield();
 			m_CurrentCombatState = CombatStates.Cloning;
+			DeactivateShield();
 		}
 	}
 }
