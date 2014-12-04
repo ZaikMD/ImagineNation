@@ -8,6 +8,9 @@
  * BaseAttackBehaviour, BaseDeadBehaviour
  * 
  * Added the controller variable along with the get and set methods - Mathieu Elias, Dec 1
+ * 
+ * Changed FixedUpdate to virtual - Joe Burchill Dec 3, 2014
+ * 
  */
 #endregion
 
@@ -30,7 +33,8 @@ public class EnemyAI : Destructable
 	EnemyState m_State = EnemyState.Idle;
 	int m_NoUpdateStates = 0;
 
-	 List<INotifyHit> m_NotifyHit = new List<INotifyHit>();
+	//List of NotifyHits
+	List<INotifyHit> m_NotifyHit = new List<INotifyHit>();
 
 	//The behavoirs of this enemy
 	public BaseIdleBehaviour m_IdleBehavoir;
@@ -46,6 +50,7 @@ public class EnemyAI : Destructable
 	public bool m_UEnterCombat = true;
 	public bool m_ULeaveCombat = true;
 
+	//public projectile prefab
 	public GameObject m_ProjectilePrefab;
 	
 	EnemyController m_EnemyController;
@@ -115,6 +120,7 @@ public class EnemyAI : Destructable
 		m_NoUpdateStates = m_NoUpdateStates | state;
 	}
 
+	//Removes the NoUpdate State by passing in an integer
 	public virtual void removeNoUpdateState(int state)
 	{
 		m_NoUpdateStates = m_NoUpdateStates ^ state;
@@ -131,40 +137,50 @@ public class EnemyAI : Destructable
 	{
 		addNoUpdateState ((int)state);
 	}
-	
+
+	//Removes the NoUpdate State by passing in an EnemyState
 	public virtual void removeNoUpdateState(EnemyState state)
 	{
 		removeNoUpdateState ((int)state);
 	}
 
+	//Returns the Projectile Prefab
 	public GameObject GetProjectilePrefab()
 	{
 		return m_ProjectilePrefab;
 	}
 
+	//Sets the Enemy Controller
 	public void SetController(EnemyController controller)
 	{
 		m_EnemyController = controller;
 	}
 
+	//Returns the Enemy Controller
 	public EnemyController GetController()
 	{
 		return m_EnemyController;
 	}
 
+	//Overridden OnHit function for the player's light projectile attack
 	public override void onHit(LightProjectile proj, float damage)
 	{
+		//Check if the enemy is invincible
 		if(!m_IsInvincible)
 		{
+			//Call the notifyHit function to let the enemy's know when it gets hit
 			NotifyHit();
 			base.onHit(proj, damage);
 		}
 	}
 
+	//Overridden OnHit function for the player's heavy projectile attack
 	public override void onHit(HeavyProjectile proj, float damage)
 	{
+		//Check if the enemy is invincible
 		if(!m_IsInvincible)
 		{
+			//Call the notifyHit function to let the enemy's know when it gets hit
 			NotifyHit();
 			base.onHit(proj, damage);
 		}
@@ -172,6 +188,7 @@ public class EnemyAI : Destructable
 
  	private void NotifyHit()
 	{
+		//Loop through the list of NotifyHits and call the function for all of them
 		for(int i = 0; i < m_NotifyHit.Count; i++)
 		{
 			m_NotifyHit[i].NotifyHit();
@@ -180,6 +197,7 @@ public class EnemyAI : Destructable
 
 	public void addNotifyHit(INotifyHit notifyHit)
 	{
+		//public function to add a NotifyHit to the list
 		m_NotifyHit.Add (notifyHit);
 	}
 	

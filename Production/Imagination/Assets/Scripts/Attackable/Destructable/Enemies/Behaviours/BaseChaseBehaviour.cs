@@ -27,8 +27,8 @@ public abstract class BaseChaseBehaviour : BaseBehaviour
 			controller.AggroGroup (true, m_Target);
 	}
 
-// The following functions must be called to update any of the components in order to make sure the 
-// enemy controller hasn't taken control of any of them
+	// The following functions must be called to update any of the components in order to make sure the 
+	// enemy controller hasn't taken control of any of them
 	protected virtual void Movement()
 	{
 		if (m_EnemyAI.m_UMovement)

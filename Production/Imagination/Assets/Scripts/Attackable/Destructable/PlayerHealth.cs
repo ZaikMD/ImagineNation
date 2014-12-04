@@ -16,6 +16,8 @@
 * 
 * 28/11/2014 Edit: Removed anything to do with textures - Greg
 * 
+* 03/12/2014 Edit: Changed Health to float value, to coincide with damage - Joe Burchill
+* 
 */
 #endregion
 
