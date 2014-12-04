@@ -23,17 +23,19 @@ public class PlayerInfo : MonoBehaviour
 		if (i_Character == GameData.Instance.PlayerOneCharacter)
 		{
 			m_Player = Players.PlayerOne;
+			m_PlayerInput = GameData.Instance.m_PlayerOneInput;
 		}
 		else if (i_Character == GameData.Instance.PlayerTwoCharacter)
 		{
 			m_Player = Players.PlayerTwo;
+			m_PlayerInput = GameData.Instance.m_PlayerTwoInput;
 		}
 		else
 		{
 			//error
 		}
 		
-		m_PlayerInput = gameObject.GetComponent<AcceptInputFrom>().ReadInputFrom;
+
 		m_PlayerCamera = transform.parent.GetComponentInChildren<TPCamera>();
     }
 
