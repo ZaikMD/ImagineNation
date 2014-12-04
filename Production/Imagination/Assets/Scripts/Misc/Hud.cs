@@ -45,7 +45,7 @@ public class Hud : MonoBehaviour {
 	public Texture[] m_AlexHealthImages;
 	public Texture[] m_ZoeyHealthImages;
 
-
+    //arrays for our players health images
 	Texture[] m_PlayerOneHealthImages;
 	Texture[] m_PlayerTwoHealthImages;
 
