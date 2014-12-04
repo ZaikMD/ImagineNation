@@ -7,9 +7,10 @@
 //
 
 #region Change Log
-/*19/9/2014 - Changed to currectly use the new base class functionality - Jason Hein
- * 27/11/2014 - Added getter function for jumping and falling variables - Jason Hein
- * 				Zoe now overrides a function GetVerticalMovementAfterFalling to set the players vertical gliding velocity
+/*19/9/2014 - Changed to currectly use the new base class functionality. - Jason Hein
+ * 27/11/2014 - Added getter function for jumping and falling variables. - Jason Hein
+ * 				Zoe now overrides a function GetVerticalMovementAfterFalling to set the players vertical gliding velocity.
+ * 4/12/2014 - Changed gliding to only check jumping input while airborne. - Jason Hein
  * 
  * 
  */
@@ -25,7 +26,7 @@ public class ZoeMovement : BaseMovementAbility
 	public bool m_CanGlide;
 
 	//Int to keep track if we are entering or exiting glide based off of jump input
-	private int m_NumberOfJumps;
+	private int m_NumberOfAirborneJumps;
 
 	//Timer for how long we can glide
 	public float m_Timer;
@@ -43,7 +44,7 @@ public class ZoeMovement : BaseMovementAbility
 	{
 		base.start ();
 		m_CanGlide = true;
-		m_NumberOfJumps = 0;
+		m_NumberOfAirborneJumps = 0;
 		m_Timer = -2.0f;
 	}
 	
@@ -62,22 +63,22 @@ public class ZoeMovement : BaseMovementAbility
 				m_Timer = -2.0f;
 			}
 			m_CanGlide = true;
-			m_NumberOfJumps = 0;
+			m_NumberOfAirborneJumps = 0;
 		}
 
 		//When the jump input is pressed increment the number of jumps and check how many jumps have been recieved
 		if(InputManager.getJumpDown(m_AcceptInputFrom.ReadInputFrom))
 		{
-			m_NumberOfJumps++;
+			m_NumberOfAirborneJumps++;
 
-			//Only on the second jump input recieved can Zoe use gliding
-			if(m_NumberOfJumps == 2 && m_CanGlide == true)
+			//When you press the jump button in the air, start gliding
+			if(m_NumberOfAirborneJumps == 1 && m_CanGlide == true)
 			{
 				m_Timer = MAX_GLIDE_TIME;
 			}
 
 			//On the third jump we exit gliding
-			else if(m_NumberOfJumps >= 3)
+			else if(m_NumberOfAirborneJumps >= 2)
 			{ 
 				StopGlidingWhileAirborne();
 			}
