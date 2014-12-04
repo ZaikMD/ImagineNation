@@ -15,8 +15,14 @@ using System.Collections;
 
 public class FurbullAttackBehaviour : BaseAttackBehaviour 
 {
+	const float m_MinChargeUpTime = 0.2f;
+	const float m_MaxChargeUpTime = 0.6f;
+	float m_ChargeUpTimer;
+
 	protected override void start ()
     {
+		m_ChargeUpTimer = Random.Range (m_MinChargeUpTime, m_MaxChargeUpTime);
+
         m_CombatComponent.start(this);
         m_TargetingComponent.start(this);
         m_MovementComponent.start(this);
@@ -41,7 +47,13 @@ public class FurbullAttackBehaviour : BaseAttackBehaviour
 
         Movement();
 
-        Combat();
+		if (m_ChargeUpTimer <= 0)
+		{
+       	    Combat();
+			m_ChargeUpTimer = Random.Range (m_MinChargeUpTime, m_MaxChargeUpTime);
+		}
+
+		m_ChargeUpTimer -= Time.deltaTime;
 	}
 
     private float GetDistanceToTarget()
