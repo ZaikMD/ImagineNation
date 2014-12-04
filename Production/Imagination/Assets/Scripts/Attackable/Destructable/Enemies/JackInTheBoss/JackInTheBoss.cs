@@ -36,12 +36,12 @@ public class JackInTheBoss : MonoBehaviour
 	void Start ()
 	{
 		m_AttackStates = new JackInTheBossState[(int)JackInTheBossStates.TotalStates];
-		m_AttackStates[(int)JackInTheBossStates.PreFight] = new PreFight();
-		m_AttackStates[(int)JackInTheBossStates.Idle] = new PreFight();
-		m_AttackStates[(int)JackInTheBossStates.Vulnerable] = new PreFight();
-		m_AttackStates[(int)JackInTheBossStates.SpringForward] = new PreFight();
-		m_AttackStates[(int)JackInTheBossStates.Spin] = new PreFight();
-		m_AttackStates[(int)JackInTheBossStates.Slap] = new PreFight();
+		m_AttackStates[(int)JackInTheBossStates.PreFight] = new JackBossStatePreFight();
+		m_AttackStates[(int)JackInTheBossStates.Idle] = new JackBossStateIdle();
+		m_AttackStates[(int)JackInTheBossStates.Vulnerable] = new JackBossStateVulnerable();
+		m_AttackStates[(int)JackInTheBossStates.SpringForward] = new JackBossStateSpringForward();
+		m_AttackStates[(int)JackInTheBossStates.Spin] = new JackBossStateSpin();
+		m_AttackStates[(int)JackInTheBossStates.Slap] = new JackBossStateSlap();
 	}
 	
 	//Update the jack in the boss
