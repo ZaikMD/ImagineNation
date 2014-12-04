@@ -14,7 +14,7 @@ public class TESTSetGameData : MonoBehaviour
 	public CheckPoints m_CurrentCheckPoint = CheckPoints.CheckPoint_1;
 
 	// Use this for initialization
-	void Start () 
+	void Awake () 
 	{
 		GameData.Instance.m_PlayerOneInput = PlayerOneInput;
 		GameData.Instance.m_PlayerTwoInput = PlayerTwoInput;
