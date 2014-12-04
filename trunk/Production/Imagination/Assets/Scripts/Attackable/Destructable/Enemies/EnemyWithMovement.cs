@@ -17,9 +17,14 @@ public class EnemyWithMovement : EnemyAI
 {
 	public Transform[] m_PathNodes;
 
-	void Start()
+	public override void FixedUpdate ()
 	{
-
+		if (PauseScreen.IsGamePaused)
+		{
+			GetAgent.SetDestination(transform.position);
+			return;
+		}
+		base.FixedUpdate ();
 	}
 
 	//Returns the nav mesh agent
