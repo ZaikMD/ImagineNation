@@ -15,6 +15,8 @@ using System.Collections;
 
 public class JumpBackMovement : BaseMovement 
 {
+	public float m_JumpBackSpeed = 7.0f;
+
 	// Distance to jump back
 	public float m_JumpBackDistance = 5.0f;
 	// Target to jump back from
@@ -25,6 +27,8 @@ public class JumpBackMovement : BaseMovement
 	// The override of the abstract movement function
 	public override Vector3 Movement (GameObject target)
 	{
+		m_Agent.speed = m_JumpBackSpeed;
+
 		m_Target = target.transform;
 
 		transform.LookAt (m_Target.position);		
