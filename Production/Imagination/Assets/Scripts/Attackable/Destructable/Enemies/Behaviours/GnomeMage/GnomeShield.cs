@@ -16,7 +16,6 @@ using System.Collections;
 public class GnomeShield : MonoBehaviour 
 {
 	public GameObject m_ShieldAsset;
-	private EnemyAI m_EnemyAI;
 
 	float m_DeactiveTimer = 0.0f;
 	bool m_ShieldActive;
@@ -24,7 +23,6 @@ public class GnomeShield : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		m_EnemyAI = GetComponentInParent<EnemyAI> ();
 	}
 	
 	// Update is called once per frame
