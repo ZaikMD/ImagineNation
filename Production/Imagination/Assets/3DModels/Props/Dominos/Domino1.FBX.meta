@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 21aa650ff08a06240a060d6424384331
+guid: 776bcc3ec7bd62b4ab0b3e1714909655
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -8,6 +8,7 @@ ModelImporter:
     2300000: //RootNode
     3300000: //RootNode
     4300000: ChamferBox032
+    6400000: //RootNode
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -30,7 +31,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: .00999999978
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
@@ -60,6 +61,6 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   additionalBone: 0
   userData: 
