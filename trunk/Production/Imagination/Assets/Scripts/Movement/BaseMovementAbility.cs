@@ -75,7 +75,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 
 	//Distances
 	protected const float GETGROUNDED_RAYCAST_DISTANCE = 0.35f;
-	protected const float GETGROUNDED_SPHERECAST_DISTANCE = 0.1f;
+	protected const float GETGROUNDED_SPHERECAST_DISTANCE = 0.15f;
 
 	//Movement that other classes have requested
 	protected Vector3 m_InstantExternalMovement = Vector3.zero;
