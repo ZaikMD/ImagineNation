@@ -66,8 +66,7 @@ public class ActivatableMovingPlatform : Activatable
 		}
 	}
 	List<PlayersToMove> m_PlayersToMove;
-
-
+	
 	//Sound manager
 	SFXManager m_SFX;
 
