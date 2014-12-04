@@ -75,6 +75,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 
 	//Distances
 	protected const float GETGROUNDED_RAYCAST_DISTANCE = 0.35f;
+	protected const float GETGROUNDED_SPHERECAST_DISTANCE = 0.1f;
 
 	//Movement that other classes have requested
 	protected Vector3 m_InstantExternalMovement = Vector3.zero;
@@ -489,8 +490,17 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			return true;
 		}
 		//CFix grounded character controller bug
-		else if (m_Velocity.y == 0.0f && Physics.SphereCast(transform.position, 1.0f, Vector3.down, out hit, GETGROUNDED_RAYCAST_DISTANCE - GetMovementThisFrame().y))
+		else if (m_Velocity.y == 0.0f && Physics.SphereCast(transform.position, 1.0f, Vector3.down, out hit, GETGROUNDED_SPHERECAST_DISTANCE - GetMovementThisFrame().y))
 		{
+			//Move us directly onto the ground
+			m_CharacterController.Move(Vector3.down);
+
+			//If we should be grounded, set our vertical velocity to 0
+			if(m_Velocity.y < 0.0f)
+			{
+				m_Velocity.y = 0.0f;
+			}
+
 			//Return that we are grounded
 			return true;
 		}
