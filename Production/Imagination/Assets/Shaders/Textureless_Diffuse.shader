@@ -47,6 +47,10 @@ Shader "Production/Textureless_Diffuse"
          	//Color of the object
          	float4 _Color;
          	
+         	//Vertex lights
+         	float _PointLightIllumination;
+         	float _PointLightMaximumIllumination;
+         	
          	//What the vertex shader will recieve
          	struct vertInput
          	{
@@ -60,7 +64,8 @@ Shader "Production/Textureless_Diffuse"
             	float4 pos : POSITION0;
             	float4 posWorld : POSITION1;
             	float3 normalDir : TEXCOORD0;
-            	LIGHTING_COORDS(1,2)
+            	float3 vertexLighting : TEXCOORD1;
+            	LIGHTING_COORDS(2,3)
         	};
          	
          	//Vertex Shader
@@ -77,6 +82,27 @@ Shader "Production/Textureless_Diffuse"
          		
          		//Calculate the direction of our surface normal
          		output.normalDir = normalize(mul(float4(input.normal, 0.0), _World2Object).xyz);
+         		
+         		//Additional Lighting (vertex lights)
+         		output.vertexLighting = float3 (0.0, 0.0, 0.0);
+         		#ifdef VERTEXLIGHT_ON
+            	for (int index = 0; index < 3; index++)
+            	{    
+            		//Get the vertex light position from unity
+               		float3 lightPosition = float3(unity_4LightPosX0[index],  unity_4LightPosY0[index], unity_4LightPosZ0[index]);
+               		
+               		//Shading calculations
+               		float3 vertexToLightSource = lightPosition - output.posWorld.xyz; 
+              	 	float distShading = 1.0 / pow(vertexToLightSource, 2) * _PointLightIllumination;
+              	 	if (distShading > _PointLightMaximumIllumination)
+            		{
+            			distShading = _PointLightMaximumIllumination;
+            		}
+              	 	
+              	 	//Add this light to our vertex light
+               		output.vertexLighting += distShading * unity_LightColor[index].rgb * max(0.0, dot(output.normalDir, normalize(vertexToLightSource)));         
+            	}
+           	 	#endif
          		
          		//Transfer the shadow to the fragment shadow
          		TRANSFER_VERTEX_TO_FRAGMENT(output);
@@ -97,17 +123,11 @@ Shader "Production/Textureless_Diffuse"
             	//Direction of our light, for dot product calculations
             	float3 lightDirection = normalize(_WorldSpaceLightPos0.xyz);
             	
-            	//Calculate ambient light
-            	float3 ambientLight = _Color.xyz * UNITY_LIGHTMODEL_AMBIENT.xyz;
-            	
-            	//Shadows
-            	float attenuation = LIGHT_ATTENUATION(output);
-            	
-            	//Calculate the base colour of the fragment with lighting
-            	float3 diffuseLighting = _Color.xyz * _LightColor0.xyz * attenuation * max(0.0, dot(normalDirection, lightDirection));
+            	//Calculate the colour of the fragments diffuse lighting
+            	float3 diffuseLighting = _LightColor0.xyz * LIGHT_ATTENUATION(output) * max(0.0, dot(normalDirection, lightDirection));
 
          		//Return the final colour of the fragment
-         		return float4(ambientLight + diffuseLighting, 1.0);
+         		return float4((UNITY_LIGHTMODEL_AMBIENT.xyz + diffuseLighting + output.vertexLighting) * _Color.xyz, 1.0);
          	}
          	
  			//End the cg shader
@@ -152,7 +172,6 @@ Shader "Production/Textureless_Diffuse"
             	float4 pos : POSITION0;
             	float4 posWorld : POSITION1;
             	float3 normalDir : TEXCOORD0;
-            	float3 vertexLighting : TEXCOORD2;
         	};
         	
         	//Vertex Shader
@@ -169,25 +188,6 @@ Shader "Production/Textureless_Diffuse"
          		
          		//Calculate the direction of our surface normal
          		output.normalDir = normalize(mul(float4(input.normal, 0.0), _World2Object).xyz);
-         		
-         		//Additional Lighting (vertex lights)
-         		output.vertexLighting = float3 (0.0, 0.0, 0.0);
-         		#ifdef VERTEXLIGHT_ON
-            	for (int index = 0; index < 3; index++)
-            	{    
-               		float3 vertexToLightSource = unity_LightPosition[index].xyz - output.posWorld.xyz; 
-              	 	float distShading = 1.0 / pow(vertexToLightSource, 2) * _PointLightIllumination;
-              	 	if (distShading > _PointLightMaximumIllumination)
-            		{
-            			distShading = _PointLightMaximumIllumination;
-            		}
-              	 	
-               		float3 vertexLightIllumination = distShading * unity_LightColor[index].rgb *
-               		tex2D(_MainTex, output.uv).rgb * max(0.0, dot(output.normalDir, normalize(vertexToLightSource)));         
- 
-               		output.vertexLighting += vertexLightIllumination;
-            	}
-           	 	#endif
          		
          		//Return our output
          		return output;
@@ -212,11 +212,11 @@ Shader "Production/Textureless_Diffuse"
             		distShading = _PointLightMaximumIllumination;
             	}
             	
-            	//Calculate the base colour of the fragment with lighting
-            	float3 fragmentColour = _Color.xyz * _LightColor0.xyz * distShading * max(0.0, dot(normalDirection, lightDirection));
+            	//Calculate the colour of the fragments diffuse lighting
+            	float3 diffuseLighting = _LightColor0.xyz * distShading * max(0.0, dot(normalDirection, lightDirection));
 
          		//Return the final colour of the fragment
-         		return float4(fragmentColour + output.vertexLighting, 1.0);
+         		return float4(diffuseLighting * _Color.xyz, 1.0);
          	}
          	
          	//End the cg shader
