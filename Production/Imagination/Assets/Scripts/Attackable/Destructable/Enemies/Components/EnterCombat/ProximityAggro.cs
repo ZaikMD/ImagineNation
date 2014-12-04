@@ -15,12 +15,16 @@ using System.Collections;
 
 public class ProximityAggro : BaseEnterCombat 
 {
+	//Public aggro range, customizable in the inspector
     public float AggroRange = 20.0f;
 
+	//Override Enter Combat
     public override bool EnterCombat(Transform target)
     {
+		//Check distance between target and position
 		float dist = Vector3.Distance (transform.position, target.position);
 
+		//Return true if distance is less than aggro range
 		if (dist < AggroRange)
         {
             return true;

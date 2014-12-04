@@ -16,12 +16,15 @@ using System.Collections;
 
 public abstract class BaseCombat : BaseComponent
 {
+	//Projectile Prefab to pass through combat
 	protected GameObject m_ProjectilePrefab;
     public override void start(BaseBehaviour baseBehaviour)
     {
+		//Get our base behaviour projectile
 		m_ProjectilePrefab = baseBehaviour.getProjectilePrefab ();
     }
 
+	//Function in order to set the projectile prefab
 	public void SetProjectilePrefab(GameObject prefab)
 	{
 		m_ProjectilePrefab = prefab;
