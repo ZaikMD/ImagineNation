@@ -21,6 +21,8 @@
 * 30/10/2014 Edit: Kole - Added collectable code, so collectables would reset right 
 * 
 * 26/11/2014 Edit: Kole - Added a varible to save and load for puzzle pieces.
+* 
+* 28/11/2014 Edit: Greg- Added live functionality 
 */
 #endregion
 
@@ -441,6 +443,7 @@ public class GameData : MonoBehaviour
 		{
 			ResetLives();
 			Application.LoadLevel("GameOverScreen");
+			resetCheckPoint();
 		}
 		else
 		{
