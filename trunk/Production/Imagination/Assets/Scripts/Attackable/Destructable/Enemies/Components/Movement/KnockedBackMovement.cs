@@ -27,6 +27,6 @@ public class KnockedBackMovement : BaseMovement
 
         transform.position -= m_Direction.normalized * Time.deltaTime * Constants.KNOCKBACK_MULTIPLIER;
 
-        return target.transform.position;
+        return transform.position;
     }
 }

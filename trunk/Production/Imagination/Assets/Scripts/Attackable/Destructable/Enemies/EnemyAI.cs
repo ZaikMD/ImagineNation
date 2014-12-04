@@ -30,6 +30,8 @@ public class EnemyAI : Destructable
 	EnemyState m_State = EnemyState.Idle;
 	int m_NoUpdateStates = 0;
 
+	public List<INotifyHit> m_NotifyHit = new List<INotifyHit>();
+
 	//The behavoirs of this enemy
 	public BaseIdleBehaviour m_IdleBehavoir;
 	public BaseChaseBehaviour m_ChaseBehavoir;
@@ -51,7 +53,7 @@ public class EnemyAI : Destructable
 	public bool m_IsInvincible { get; set; }
 
 	//Choose a Behavoir to update
-	void FixedUpdate ()
+	public virtual void FixedUpdate ()
 	{
 		if (PauseScreen.IsGamePaused)
 						return;
@@ -154,6 +156,7 @@ public class EnemyAI : Destructable
 	{
 		if(!m_IsInvincible)
 		{
+			NotifyHit();
 			base.onHit(proj, damage);
 		}
 	}
@@ -162,7 +165,22 @@ public class EnemyAI : Destructable
 	{
 		if(!m_IsInvincible)
 		{
+			NotifyHit();
 			base.onHit(proj, damage);
 		}
 	}
+
+ 	private void NotifyHit()
+	{
+		for(int i = 0; i < m_NotifyHit.Count; i++)
+		{
+			m_NotifyHit[i].NotifyHit();
+		}
+	}
+
+	public void addNotifyHit(INotifyHit notifyHit)
+	{
+		m_NotifyHit.Add (notifyHit);
+	}
+	
 }

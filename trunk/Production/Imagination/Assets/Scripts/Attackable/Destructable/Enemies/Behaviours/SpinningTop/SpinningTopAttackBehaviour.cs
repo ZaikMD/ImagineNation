@@ -13,7 +13,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class SpinningTopAttackBehaviour : BaseAttackBehaviour 
+public class SpinningTopAttackBehaviour : BaseAttackBehaviour, INotifyHit 
 {
     private enum CombatStates
     {
@@ -70,6 +70,7 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour
 		m_ReachedTargetDistance = 2.0f;
 
 		m_EnemyAI.m_IsInvincible = true;
+		m_EnemyAI.addNotifyHit (this);
     }
 
     public override void update()
@@ -258,7 +259,10 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour
         {
             m_PlayerHit = false;
         }
-    }
+	}
 
-
+	public void NotifyHit()
+	{
+		m_CombatState = CombatStates.HitByPlayer;
+	}
 }
