@@ -17,7 +17,7 @@ using System.Collections;
 #endregion
 public class Destructable : MonoBehaviour, Attackable
 {
-    public int m_Health;
+    public float m_Health;
     public GameObject m_Ragdoll;
 
 	// Update is called once per frame
@@ -33,13 +33,13 @@ public class Destructable : MonoBehaviour, Attackable
     public virtual void onHit(LightProjectile proj, float damage)
     {
         if (this.tag != Constants.PLAYER_STRING)
-            m_Health -= 1; 
+            m_Health -= damage; 
     }
 
     public virtual void onHit(HeavyProjectile proj, float damage)
     {
         if (this.tag != Constants.PLAYER_STRING)
-            m_Health -= 1; 
+            m_Health -= damage; 
     }
 
     public virtual void onHit(EnemyProjectile proj)

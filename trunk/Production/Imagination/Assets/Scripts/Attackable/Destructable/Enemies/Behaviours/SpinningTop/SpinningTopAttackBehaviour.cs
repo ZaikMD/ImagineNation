@@ -68,6 +68,8 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour
         m_ChargeTimer = 0.0f;
         m_IsCharging = false;
 		m_ReachedTargetDistance = 2.0f;
+
+		m_EnemyAI.m_IsInvincible = true;
     }
 
     public override void update()
@@ -110,7 +112,9 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour
     }
 
     private void Wobble()
-    {
+	{
+		m_EnemyAI.m_IsInvincible = false;
+
         Movement();
 
         if (m_WobbleTimer > 0.0f)
@@ -255,4 +259,6 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour
             m_PlayerHit = false;
         }
     }
+
+
 }

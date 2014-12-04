@@ -39,7 +39,7 @@ public class MovingBlock : Destructable
 	bool m_Hit = false;
 
     //The health of the block
-	protected int m_SaveHealth;
+	protected float m_SaveHealth;
 
     //Timer for in between hits
 	float m_HitTimer = 1.0f;

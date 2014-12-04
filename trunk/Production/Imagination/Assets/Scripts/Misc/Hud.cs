@@ -30,8 +30,8 @@ public class Hud : MonoBehaviour {
     //Varibles to display
     int LightPegCollected;
     int PuzzlePiecesCollected;
-	int PlayerOneHealth;
-	int PlayerTwoHealth;
+	float PlayerOneHealth;
+	float PlayerTwoHealth;
 	int NumberOfLives;
 
 	//Images for our hud
@@ -164,7 +164,7 @@ public class Hud : MonoBehaviour {
 
 	}
 
-	public void SetHealth(int Health, int Player)
+	public void SetHealth(float Health, int Player)
 	{
 		if(Player == 1)
 		{
@@ -336,12 +336,12 @@ public class Hud : MonoBehaviour {
 		//Health
 		PositionRect.Set (0, Screen.height - SizeOfHudElements, SizeOfHudElements, SizeOfHudElements);
 
-		GUI.DrawTexture(PositionRect, m_PlayerOneHealthImages[PlayerOneHealth]);
+		GUI.DrawTexture(PositionRect, m_PlayerOneHealthImages[(int)PlayerOneHealth]);
 		GUI.DrawTexture (PositionRect, m_LeftHealthBoarder);
 
 		PositionRect.Set (Screen.width - SizeOfHudElements, Screen.height - SizeOfHudElements, SizeOfHudElements, SizeOfHudElements);
 
-		GUI.DrawTexture(PositionRect, m_PlayerTwoHealthImages[PlayerTwoHealth]);
+		GUI.DrawTexture(PositionRect, m_PlayerTwoHealthImages[(int)PlayerTwoHealth]);
 		GUI.DrawTexture (PositionRect, m_RightHealthBoarder);
     }
 }
