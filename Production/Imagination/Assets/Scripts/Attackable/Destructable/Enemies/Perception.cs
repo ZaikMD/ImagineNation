@@ -1,6 +1,9 @@
 ﻿#region ChangeLog
 /* 
  * //Commented out the raycasting in getDistanceThreat. Will get a better fix later.Dec 2 - Mathieu Elias
+ * 
+ * Added Constant for Angle Multiplier - Dec. 4/2014 - Joe Burchill
+ * 
  */
 #endregion
 using UnityEngine;
@@ -40,6 +43,8 @@ public class Perception : MonoBehaviour
     float i_ThreatThreshold = 0.65f;
 
     Perception_Player[] m_Players;
+
+	private const float ANGLE_MULTIPLIER = 100.0f;
 
     void Start()
     {
@@ -120,7 +125,7 @@ public class Perception : MonoBehaviour
 
         //in the field of view?
         float dot = Vector3.Dot(transform.forward.normalized, (player.Player.position - transform.position).normalized);
-        float angle = Mathf.Acos(dot / (transform.forward.normalized.magnitude * (player.Player.position - transform.position).normalized.magnitude)) * 100.0f;
+		float angle = Mathf.Acos(dot / (transform.forward.normalized.magnitude * (player.Player.position - transform.position).normalized.magnitude)) * ANGLE_MULTIPLIER;
 
         if (i_FieldOfView < angle)
         {
