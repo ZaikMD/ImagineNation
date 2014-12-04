@@ -25,7 +25,8 @@ public class GnomeCombat : BaseAttackBehaviour, INotifyHit
 
 	GnomeShield m_Shield;
 
-	const float m_TimeBetweenShots = 1.5f;
+	const float m_MaxTimeBetweenShots = 2.0f;
+	const float m_MinTimeBetweenShots = 1.0f;
 	float m_ShotTimer;
 	
 	Vector3 m_PrevPos;
@@ -243,7 +244,7 @@ public class GnomeCombat : BaseAttackBehaviour, INotifyHit
 				}
 			}
 
-			m_ShotTimer = m_TimeBetweenShots;
+			m_ShotTimer = Random.Range(m_MinTimeBetweenShots, m_MaxTimeBetweenShots);
 		}
 	}
 
