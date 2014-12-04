@@ -14,19 +14,28 @@ using System.Collections;
 
 public class KnockedBackMovement : BaseMovement 
 {
-    private Vector3 m_Direction;
+	private Vector3 m_DestinationPosition;
+	private float m_KnockbackDistance = 2.0f;
 
     public override Vector3 Movement(GameObject target)
     {
-        Vector3 currentPosition = transform.position;
-        Vector3 destinationPosition = target.transform.position;
+		Vector3 currentDirection = target.transform.position - transform.position;
+		currentDirection = currentDirection.normalized;
+		//transform.LookAt (target.transform.position);
 
-        //Get the direction vector between then and zero out the y axis
-        m_Direction = destinationPosition - currentPosition;
-        m_Direction.y = 0.0f;
+		//m_DestinationPosition = currentDirection * m_KnockbackDistance;
+		m_DestinationPosition = target.transform.forward * -m_KnockbackDistance;
 
-        transform.position -= m_Direction.normalized * Time.deltaTime * Constants.KNOCKBACK_MULTIPLIER;
+		Debug.DrawRay (transform.position, m_DestinationPosition, Color.green, 1.0f);
 
-        return transform.position;
+		Debug.Log ("Agent1: " + m_Agent.destination);
+		m_Agent.SetDestination (m_DestinationPosition);
+		//m_Agent.destination = m_DestinationPosition;
+
+		Debug.Log ("Dest: "+m_DestinationPosition);
+		Debug.Log ("Agent2: " + m_Agent.destination);
+		Debug.Log ("CurrentPos: "+transform.position);
+
+        return m_DestinationPosition;
     }
 }
