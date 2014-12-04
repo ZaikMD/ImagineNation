@@ -48,6 +48,8 @@ public class EnemyAI : Destructable
 	
 	EnemyController m_EnemyController;
 
+	public bool m_IsInvincible { get; set; }
+
 	//Choose a Behavoir to update
 	void FixedUpdate ()
 	{
@@ -146,5 +148,21 @@ public class EnemyAI : Destructable
 	public EnemyController GetController()
 	{
 		return m_EnemyController;
+	}
+
+	public override void onHit(LightProjectile proj, float damage)
+	{
+		if(!m_IsInvincible)
+		{
+			base.onHit(proj, damage);
+		}
+	}
+
+	public override void onHit(HeavyProjectile proj, float damage)
+	{
+		if(!m_IsInvincible)
+		{
+			base.onHit(proj, damage);
+		}
 	}
 }

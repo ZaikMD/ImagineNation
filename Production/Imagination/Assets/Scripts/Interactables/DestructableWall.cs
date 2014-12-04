@@ -25,7 +25,7 @@ public class DestructableWall : Destructable
 		m_Health -= 1;
 		
 		if(m_Health >= 0)
-			DestroyGroup (m_Groups [m_Health]);
+			DestroyGroup (m_Groups [(int)m_Health]);
 		
 		if (m_Health <= 0)
 			onDeath ();
@@ -37,7 +37,7 @@ public class DestructableWall : Destructable
 		m_Health -= 1;
 		 
 		if(m_Health >= 0)
-			DestroyGroup (m_Groups [m_Health]);
+			DestroyGroup (m_Groups [(int)m_Health]);
 		
 		if (m_Health <= 0)
 			onDeath ();

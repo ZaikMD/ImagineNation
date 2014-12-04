@@ -34,7 +34,7 @@ public class PlayerHealth : Destructable
 	float m_InvulnerabilityTimer;
 
     //used to reset the health
-	int m_TotalHealth;
+	float m_TotalHealth;
 
 	//Used to know which player we are
 	int m_Player;
