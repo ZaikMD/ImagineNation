@@ -48,6 +48,8 @@ public class ActivatableMovingPlatform : Activatable
 
 	//Amount to move the player
 	Vector3 m_AmountToMovePlayer = Vector3.zero;
+	Vector3 m_TargetMove = Vector3.zero;
+	public float i_MoveLerpAmount = 0.05f;
 
 	//For moving the player
 	struct PlayersToMove
@@ -96,8 +98,12 @@ public class ActivatableMovingPlatform : Activatable
 				if(m_DistanceToNextPlatform < MIN_DIST_TO_NEXT_PLATFORM)
 				{
 					//Set the platform to be directly at the destination
-					Vector3 amountToMove = m_Destinations[m_DestinationIndex].position - transform.position;
-					transform.position += amountToMove;
+					//Vector3 amountToMove = m_Destinations[m_DestinationIndex].position - transform.position;
+
+					m_TargetMove = Vector3.zero;
+
+					//transform.position += amountToMove;
+
 					//Check if their are any players on the platform
 					if (m_PlayersToMove.Count > 0)
 					{
@@ -107,10 +113,10 @@ public class ActivatableMovingPlatform : Activatable
 							if (Vector3.Dot(Vector3.up, m_PlayersToMove[i].normal) > 0.4f)
 							{
 								//Make absolutly sure that the player is still above the platform
-								amountToMove.y += 0.01f;
+								//amountToMove.y += 0.01f;
 
 								//Move the player as much at this platform is moving
-								m_PlayersToMove[i].movement.RequestInstantMovement(amountToMove);
+								m_PlayersToMove[i].movement.RequestInstantMovement(Vector3.up * 0.01f);
 							}
 
 						}
@@ -174,7 +180,17 @@ public class ActivatableMovingPlatform : Activatable
 
 		//Move the platform along that direction over time
 		m_AmountToMovePlayer = destinationDirection.normalized * m_PlatformSpeed * Time.deltaTime;
-		transform.position += m_AmountToMovePlayer;
+		if(m_AmountToMovePlayer.magnitude > m_DistanceToNextPlatform)
+		{
+			m_AmountToMovePlayer = m_AmountToMovePlayer.normalized * m_DistanceToNextPlatform;
+		}
+
+		m_TargetMove += m_AmountToMovePlayer;
+
+		Vector3 move = Vector3.Lerp(Vector3.zero, m_TargetMove, i_MoveLerpAmount);
+		transform.position += move;
+		m_TargetMove -= move;
+
 
 		//Check if their are any players on the platform
 		if (m_PlayersToMove.Count > 0)
@@ -192,15 +208,15 @@ public class ActivatableMovingPlatform : Activatable
 				if (Vector3.Dot(Vector3.up, normal) > 0.5f)
 				{
 					//Move the player as much at this platform is moving
-					amountToMove = m_AmountToMovePlayer;
+					amountToMove = move;
 				}
 				//Check if we are in front of the platform
-				else if (Vector3.Dot(m_AmountToMovePlayer, normal) > 0.0f)
+				else if (Vector3.Dot(move, normal) > 0.0f)
 				{
 					//Move the layer based on how much we are overlapping the player
 					Vector3 playerMovement = movement.GetMovementThisFrame();
 					playerMovement.y = 0.0f;
-					amountToMove = Vector3.Scale(normal, m_AmountToMovePlayer - playerMovement);
+					amountToMove = Vector3.Scale(normal, move - playerMovement);
 					amountToMove.y = 0.0f;
 				}
 				
