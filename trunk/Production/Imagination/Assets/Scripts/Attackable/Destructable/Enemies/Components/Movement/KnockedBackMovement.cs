@@ -19,23 +19,20 @@ public class KnockedBackMovement : BaseMovement
 
     public override Vector3 Movement(GameObject target)
     {
+		//Get Current Direction and normalize it
 		Vector3 currentDirection = target.transform.position - transform.position;
 		currentDirection = currentDirection.normalized;
-		//transform.LookAt (target.transform.position);
 
-		//m_DestinationPosition = currentDirection * m_KnockbackDistance;
+		//Get our destination position
 		m_DestinationPosition = target.transform.forward * -m_KnockbackDistance;
 
-//		Debug.DrawRay (transform.position, m_DestinationPosition, Color.green, 1.0f);
+#if DEBUG || UNITY_EDITOR
+		Debug.DrawRay (transform.position, m_DestinationPosition, Color.green, 1.0f);
+#endif
 
-//		Debug.Log ("Agent1: " + m_Agent.destination);
+		//Set Destination to the agent
 		m_Agent.SetDestination (m_DestinationPosition);
-		//m_Agent.destination = m_DestinationPosition;
 
-//		Debug.Log ("Dest: "+m_DestinationPosition);
-//		Debug.Log ("Agent2: " + m_Agent.destination);
-//		Debug.Log ("CurrentPos: "+transform.position);
-
-        return m_DestinationPosition;
+		return m_DestinationPosition;
     }
 }
