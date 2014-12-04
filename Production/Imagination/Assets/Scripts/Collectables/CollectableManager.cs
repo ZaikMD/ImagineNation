@@ -10,7 +10,8 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class CollectableManager : MonoBehaviour {
+public class CollectableManager : MonoBehaviour 
+{
 
     Hud m_Hud;
  
@@ -18,6 +19,7 @@ public class CollectableManager : MonoBehaviour {
 	public GameObject m_PuzzlePiecePrefab;
 
 	public Material[] m_Materials;
+	public Material m_Outline;
 
     public GameObject[] m_LightPegsForCheckPointOne;
     public GameObject[] m_LightPegsForCheckPointTwo;
@@ -90,7 +92,6 @@ public class CollectableManager : MonoBehaviour {
 		for(int i = 0; i < numberOfPegs; i++)
 		{
 			GameObject newLightPeg = (GameObject)Instantiate(m_LightPegPrefab);
-
 			position.y += 0.5f;
 			newLightPeg.transform.position = position;
 			newLightPeg.AddComponent<EnemyLightPegSpawn> ();
@@ -373,8 +374,9 @@ case CheckPoints.CheckPoint_3:
 
 	void SetNewMaterial(GameObject objectToChange)  
 	{
-		int materialNumber = Random.Range(0, m_Materials.Length - 1);
+		//int materialNumber = Random.Range(0, m_Materials.Length - 1);
 
-		objectToChange.transform.GetChild(0).renderer.material = m_Materials[materialNumber];
+		//objectToChange.transform.GetChild(0).renderer.material = m_Materials[materialNumber];
+		objectToChange.GetComponentInChildren<MeshRenderer>().materials = new Material[]{m_Materials[Random.Range(0,m_Materials.Length)], m_Outline};
 	}
 }
