@@ -165,11 +165,11 @@ public class EnemyAI : Destructable
 	//Overridden OnHit function for the player's light projectile attack
 	public override void onHit(LightProjectile proj, float damage)
 	{
+		//Call the notifyHit function to let the enemy's know when it gets hit
+		NotifyHit();
 		//Check if the enemy is invincible
 		if(!m_IsInvincible)
 		{
-			//Call the notifyHit function to let the enemy's know when it gets hit
-			NotifyHit();
 			base.onHit(proj, damage);
 		}
 	}
@@ -177,11 +177,12 @@ public class EnemyAI : Destructable
 	//Overridden OnHit function for the player's heavy projectile attack
 	public override void onHit(HeavyProjectile proj, float damage)
 	{
+		//Call the notifyHit function to let the enemy's know when it gets hit
+		NotifyHit();
+
 		//Check if the enemy is invincible
 		if(!m_IsInvincible)
 		{
-			//Call the notifyHit function to let the enemy's know when it gets hit
-			NotifyHit();
 			base.onHit(proj, damage);
 		}
 	}
