@@ -223,12 +223,7 @@ public class ActivatableMovingPlatform : Activatable
 				//Move the player
 				movement.RequestInstantMovement(amountToMove);
 
-				//Check if the player should be removed from the array or flaged to be removed next frame
-				if (m_PlayersToMove[i].foundLastFrame == true)
-				{
-					m_PlayersToMove[i] = new PlayersToMove(movement, normal, false);
-				}
-				else
+				if (m_PlayersToMove[i].foundLastFrame == false)
 				{
 					m_PlayersToMove.RemoveAt(i);
 				}
@@ -293,6 +288,39 @@ public class ActivatableMovingPlatform : Activatable
 		if (found == false)
 		{
 			m_PlayersToMove.Add(new PlayersToMove(movement, averageNormal, true));	
+		}
+	}
+
+	void OnCollisionExit (Collision collision)
+	{
+		//Only move players
+		if (collision.gameObject.tag != Constants.COLLIDE_WITH_MOVING_PLATFORM_STRING)
+		{
+			return;
+		}
+		
+		//Null check for the movement ability
+		BaseMovementAbility movement = (BaseMovementAbility)collision.transform.parent.gameObject.GetComponent<BaseMovementAbility> ();
+		if (movement == null)
+		{
+			return;
+		}
+		
+		//Check if the player should be added or changed
+		for (int i =0; i < m_PlayersToMove.Count; i++)
+		{
+			if (movement == m_PlayersToMove[i].movement)
+			{
+				//Check if the player should be removed from the array or flaged to be removed next frame
+				if (m_PlayersToMove[i].foundLastFrame == true)
+				{
+					m_PlayersToMove[i] = new PlayersToMove(m_PlayersToMove[i].movement, m_PlayersToMove[i].normal, false);
+				}
+				else
+				{
+					m_PlayersToMove.RemoveAt(i);
+				}
+			}
 		}
 	}
 }
