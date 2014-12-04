@@ -92,8 +92,10 @@ public class TPCamera : ShutterCamera
 	}
 
     // Use this for initialization
-	void Start ()
+	protected override void Start ()
     { 
+		base.Start ();
+
 		//find the camera on this gameobject
         m_Camera = gameObject.GetComponent<Camera>();
         
