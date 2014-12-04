@@ -13,7 +13,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class GnomeCombat : BaseAttackBehaviour 
+public class GnomeCombat : BaseAttackBehaviour, INotifyHit
 {
 	enum CombatStates
 	{
@@ -65,6 +65,8 @@ public class GnomeCombat : BaseAttackBehaviour
 
 		m_Shield = GetComponentInParent<GnomeShield> ();
 		m_Clones = new List<GnomeClone> ();
+
+		m_EnemyAI.addNotifyHit (this);
 	}
 	
 	// Update is called once per frame
@@ -111,13 +113,6 @@ public class GnomeCombat : BaseAttackBehaviour
 		// Call movement and combat
 		Movement ();
 		Combat ();
-
-		// If health is equal to one, deactivate the shield and switch to cloning combat state
-		if (m_EnemyAI.m_Health == 1)
-		{
-			DeactivateShield();
-			m_CurrentCombatState = CombatStates.Cloning;
-		}
 	}
 
 	// Cloning combat update
@@ -167,7 +162,7 @@ public class GnomeCombat : BaseAttackBehaviour
 		{			
 			float angle = UnityEngine.Random.Range(0.0f, 2.0f * Mathf.PI);
 			
-			Vector3 loc = new Vector3( Mathf.Cos(angle),0,Mathf.Sin(angle));
+			Vector3 loc = new Vector3( Mathf.Cos(angle),0,Mathf.Sin(angle)); 
 			if (m_Target != null)
 				loc = (loc.normalized * m_ClonePosDist) + m_Target.transform.position;
 			
@@ -186,6 +181,8 @@ public class GnomeCombat : BaseAttackBehaviour
 
 		// Move to the last chosen location to attack from
 		m_MovementComponent.Movement (positions [positions.Length - 1]);
+
+		m_EnemyAI.m_IsInvincible = false;
 	}
 
 	// Deactivate the gnomes shield
@@ -247,6 +244,17 @@ public class GnomeCombat : BaseAttackBehaviour
 			}
 
 			m_ShotTimer = m_TimeBetweenShots;
+		}
+	}
+
+	public void NotifyHit()
+	{
+		// If health is equal to one, deactivate the shield and switch to cloning combat state
+		if (m_EnemyAI.m_Health <= 1)
+		{
+			m_EnemyAI.m_IsInvincible = true;
+			DeactivateShield();
+			m_CurrentCombatState = CombatStates.Cloning;
 		}
 	}
 }
