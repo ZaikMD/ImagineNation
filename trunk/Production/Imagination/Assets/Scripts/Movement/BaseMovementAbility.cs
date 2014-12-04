@@ -26,6 +26,7 @@
 * 2/12/2014 Edit:  Provided functionality to attacking to allow you to force a direction of movement. - Jason Hein
 * 				   Enabled other classes to multiply the speed of the characters movement to slow or speed up the player.
 * 4/12/2014 Edit:  GetIsGrounded renamed to SetIsGrounded, and now sets a flag that is checked by other classes with the new GetIsGrounded function. - Jason Hein
+* 				   Fixed ground-air glitchyness around platform corners.
 * 
 * 
 */
@@ -460,23 +461,37 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		//Raycast hit for checking the ground below us
 		RaycastHit hit;
 
-		//If we should be grounded, set our vertical velocity to 0
+		//Check if we are grounded
 		if (m_CharacterController.isGrounded)
 		{
+			//If we should be grounded, set our vertical velocity to 0
 			if(m_Velocity.y < 0.0f)
 			{
 				m_Velocity.y = 0.0f;
 			}
+
+			//Return that we are grounded
 			return true;
 		}
-		//If we should be grounded but are above the ground, we teleport down to match the ground
+		//Check if we may be grounded anyway
 		else if (Physics.Raycast(transform.position, Vector3.down, out hit, GETGROUNDED_RAYCAST_DISTANCE - GetMovementThisFrame().y))
 		{
+			//Move us directly onto the ground
+			m_CharacterController.Move(Vector3.down);
+			
+			//If we should be grounded, set our vertical velocity to 0
 			if(m_Velocity.y < 0.0f)
 			{
 				m_Velocity.y = 0.0f;
 			}
-			m_CharacterController.Move(hit.point - transform.position);
+			
+			//Return that we are grounded
+			return true;
+		}
+		//CFix grounded character controller bug
+		else if (m_Velocity.y == 0.0f && Physics.SphereCast(transform.position, 1.0f, Vector3.down, out hit, GETGROUNDED_RAYCAST_DISTANCE - GetMovementThisFrame().y))
+		{
+			//Return that we are grounded
 			return true;
 		}
 
