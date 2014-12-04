@@ -259,12 +259,15 @@ public class GnomeCombat : BaseAttackBehaviour, INotifyHit
 
 	public void NotifyHit()
 	{
-		m_ShieldHealth--;
-
-		if (m_ShieldHealth <= 0)
+		if (m_CurrentCombatState == CombatStates.Regular)
 		{
-			m_CurrentCombatState = CombatStates.Cloning;
-			DeactivateShield();
+			m_ShieldHealth--;
+
+			if (m_ShieldHealth <= 0)
+			{
+				m_CurrentCombatState = CombatStates.Cloning;
+				DeactivateShield();
+			}
 		}
 	}
 }
