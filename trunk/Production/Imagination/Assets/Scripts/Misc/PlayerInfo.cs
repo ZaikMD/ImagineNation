@@ -19,25 +19,22 @@ public class PlayerInfo : MonoBehaviour
     void Awake()
     {
         m_Players.Add(this);
-    }
 
-    void Start()
-    {
-        if (i_Character == GameData.Instance.PlayerOneCharacter)
-        {
-            m_Player = Players.PlayerOne;
-        }
-        else if (i_Character == GameData.Instance.PlayerTwoCharacter)
-        {
-            m_Player = Players.PlayerTwo;
-        }
-        else
-        {
-            //error
-        }
-
-        m_PlayerInput = gameObject.GetComponent<AcceptInputFrom>().ReadInputFrom;
-        m_PlayerCamera = transform.parent.GetComponentInChildren<TPCamera>();
+		if (i_Character == GameData.Instance.PlayerOneCharacter)
+		{
+			m_Player = Players.PlayerOne;
+		}
+		else if (i_Character == GameData.Instance.PlayerTwoCharacter)
+		{
+			m_Player = Players.PlayerTwo;
+		}
+		else
+		{
+			//error
+		}
+		
+		m_PlayerInput = gameObject.GetComponent<AcceptInputFrom>().ReadInputFrom;
+		m_PlayerCamera = transform.parent.GetComponentInChildren<TPCamera>();
     }
 
     void OnDestroy()

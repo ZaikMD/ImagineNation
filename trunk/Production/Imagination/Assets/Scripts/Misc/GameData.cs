@@ -189,6 +189,8 @@ public class GameData : MonoBehaviour
 
     void updatePlayerOneCameraRotationSpeed()
     {
+		PlayerInfo test = PlayerInfo.getPlayer (Players.PlayerOne);
+
         PlayerInfo.getPlayer(Players.PlayerOne).m_PlayerCamera.RotationScale = new Vector2(m_DefaultCameraRotationScale.x * m_PlayerOneCameraRotationScaleModifyer * PlayerOneInvert.x,
                                                                                            m_DefaultCameraRotationScale.y * m_PlayerOneCameraRotationScaleModifyer * PlayerOneInvert.y);
 		
@@ -197,7 +199,7 @@ public class GameData : MonoBehaviour
     void updatePlayerTwoCameraRotationSpeed()
     {
         PlayerInfo.getPlayer(Players.PlayerTwo).m_PlayerCamera.RotationScale = new Vector2(m_DefaultCameraRotationScale.x * m_PlayerTwoCameraRotationScaleModifyer * PlayerTwoInvert.x,
-                                                                                           m_DefaultCameraRotationScale.y * m_PlayerTwoCameraRotationScaleModifyer * PlayerTwoInvert.y);
+                                                                                          m_DefaultCameraRotationScale.y * m_PlayerTwoCameraRotationScaleModifyer * PlayerTwoInvert.y);
         
     }
 
