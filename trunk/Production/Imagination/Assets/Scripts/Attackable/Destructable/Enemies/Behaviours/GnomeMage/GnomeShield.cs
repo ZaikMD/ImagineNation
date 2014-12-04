@@ -4,9 +4,12 @@
  *  
  * This script takes care of the shield asset on the gnome mage
  * 
+ * 
  */
 #region ChangeLog
 /*
+ * 
+ * Added Const for Max Health - Joe Burchill Dec.4/2014
  * 
  */
 #endregion
@@ -20,6 +23,8 @@ public class GnomeShield : MonoBehaviour
 
 	float m_DeactiveTimer = 0.0f;
 	bool m_ShieldActive;
+
+	private const float MAX_HEALTH = 3.0f;
 
 	// Use this for initialization
 	void Start () 
@@ -39,7 +44,7 @@ public class GnomeShield : MonoBehaviour
 				m_ShieldAsset.SetActive(true);
 				m_ShieldActive = true;
 				//TODO: Change to valid health number
-				m_EnemyAI.SetHealth(3);
+				m_EnemyAI.SetHealth(MAX_HEALTH);
 			}
 
 			m_DeactiveTimer -= Time.deltaTime;

@@ -16,7 +16,7 @@ using System.Collections;
 * 
 * 03/12/2014 Edit: Changed Health to float value, to coincide with damage - Joe Burchill
 * 
-* 04/12/2014 Edit: Changed Enemy Damage to a const float for Enemy Projectile onHit.
+* 04/12/2014 Edit: Changed Enemy Damage to a const float for Enemy Projectile onHit. - Joe Burchill
 */
 #endregion
 public class Destructable : MonoBehaviour, Attackable
@@ -71,7 +71,7 @@ public class Destructable : MonoBehaviour, Attackable
 		Destroy(this.gameObject);
 	}
 
-	public void SetHealth(int health)
+	public void SetHealth(float health)
 	{
 		m_Health = health;
 	}
