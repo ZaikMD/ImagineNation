@@ -26,7 +26,6 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour, INotifyHit
 
     private CombatStates m_CombatState = CombatStates.BuildingUpCharge;
 
-    public BaseMovement m_WobbleMovement;
     public BaseMovement m_ChargeMovement;
     public BaseMovement m_BuildingChargeMovement;
     public BaseMovement m_KnockedBackMovement;
@@ -55,7 +54,6 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour, INotifyHit
         m_CombatComponent.start(this);
         m_TargetingComponent.start(this);
         m_MovementComponent.start(this);
-        m_WobbleMovement.start(this);
         m_ChargeMovement.start(this);
         m_BuildingChargeMovement.start(this);
         m_KnockedBackMovement.start(this);
@@ -123,7 +121,7 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour, INotifyHit
             m_WobbleTimer -= Time.deltaTime;
         }
         else
-        {
+		{
             m_CombatState = CombatStates.BuildingUpCharge;
             m_WobbleTimer = MaxWobbleTime;
         }
@@ -150,7 +148,7 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour, INotifyHit
     {
         if (m_ChargeTimer < CHARGE_BUILD_UP_TIME)
         {
-			m_BuildingChargeMovement.Movement(transform.position);
+			//m_BuildingChargeMovement.Movement(transform.position);
             m_ChargeTimer += Time.deltaTime;
         }
         else
@@ -177,7 +175,7 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour, INotifyHit
 
     private void HitByPlayer()
     {
-		m_HitByPlayerMovement.Movement (transform.position);
+		//m_HitByPlayerMovement.Movement (transform.position);
 
         if (m_HitByPlayerTimer > 0.0f)
         {
@@ -198,9 +196,9 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour, INotifyHit
             switch (m_CombatState)
             {
                 case CombatStates.Wobble:
-                    if (m_WobbleMovement != null)
+                    if (m_MovementComponent != null)
                     {
-                        m_WobbleMovement.Movement(m_Target);
+                        m_MovementComponent.Movement(m_Target);
                     }
                 break;
 
@@ -263,6 +261,7 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour, INotifyHit
 
 	public void NotifyHit()
 	{
+		m_HitByPlayerMovement.Movement(m_Target);
 		m_CombatState = CombatStates.HitByPlayer;
 	}
 }
