@@ -40,6 +40,7 @@ public class HeavyAttack : BaseAttack
 
 	public virtual float getAttackMoveSpeed()
 	{
+		//Speed is cubed using Power function
 		float speed = m_AttackMoveSpeed * Mathf.Pow(m_SaveAttackTimer / m_AttackTimer, 3.0f);
 		return speed;
 	}

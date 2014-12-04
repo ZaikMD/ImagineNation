@@ -37,6 +37,7 @@ public class LightAttack : BaseAttack
 
 	public virtual float getAttackMoveSpeed()
 	{
+		//Speed is cubed using Power function
 		float speed = m_AttackMoveSpeed * Mathf.Pow(m_AttackTimer / m_SaveAttackTimer, 3.0f);
 		return speed;
 	}
