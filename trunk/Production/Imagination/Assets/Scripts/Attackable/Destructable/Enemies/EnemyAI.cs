@@ -30,7 +30,7 @@ public class EnemyAI : Destructable
 	EnemyState m_State = EnemyState.Idle;
 	int m_NoUpdateStates = 0;
 
-	public List<INotifyHit> m_NotifyHit = new List<INotifyHit>();
+	 List<INotifyHit> m_NotifyHit = new List<INotifyHit>();
 
 	//The behavoirs of this enemy
 	public BaseIdleBehaviour m_IdleBehavoir;

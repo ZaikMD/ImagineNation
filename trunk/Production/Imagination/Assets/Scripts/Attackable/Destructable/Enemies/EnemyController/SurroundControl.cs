@@ -14,6 +14,7 @@ using System.Collections;
 public class SurroundControl : BaseControlType 
 {
 	float m_StoppingDist = 2.0f;
+
 	public override void start (EnemyAI[] enemies, GameObject target)
 	{
 		m_EnemyGroup = enemies;
@@ -59,9 +60,12 @@ public class SurroundControl : BaseControlType
 	{
 		for (int i = 0; i < m_EnemyGroup.Length; i++)
 		{
-			// Stop all the enemies in the group form updating their movement
-			m_EnemyGroup[i].m_UMovement = true;
-			m_EnemyGroup[i].m_UTargeting = true;
+			if (m_EnemyGroup[i] != null)
+			{
+				// Stop all the enemies in the group form updating their movement
+				m_EnemyGroup[i].m_UMovement = true;
+				m_EnemyGroup[i].m_UTargeting = true;
+			}
 		}
 		m_EnemyGroup = null;
 	}
