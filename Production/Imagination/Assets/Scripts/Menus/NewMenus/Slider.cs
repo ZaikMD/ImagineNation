@@ -35,6 +35,6 @@ public class Slider : MonoBehaviour
 
 	void updatePointerPos ()
 	{
-		i_Pointer.position = i_MinPos.position + ((i_MaxPos.position - i_MinPos.position) * (m_Value / m_MaxValue));
+		i_Pointer.position = i_MinPos.position + ((i_MaxPos.position - i_MinPos.position) * ((m_Value - m_MinValue) / (m_MaxValue - m_MinValue)));
 	}
 }
