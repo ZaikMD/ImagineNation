@@ -104,10 +104,10 @@ public class ActivatableMovingPlatform : Activatable
 						for (int i = 0; i < m_PlayersToMove.Count; i++)
 						{
 							//Check if the player is on top of the platform
-							if (Vector3.Dot(Vector3.up, m_PlayersToMove[i].normal) > 0.5f)
+							if (Vector3.Dot(Vector3.up, m_PlayersToMove[i].normal) > 0.4f)
 							{
 								//Make absolutly sure that the player is still above the platform
-								amountToMove.y += 0.05f;
+								amountToMove.y += 0.01f;
 
 								//Move the player as much at this platform is moving
 								m_PlayersToMove[i].movement.RequestInstantMovement(amountToMove);
