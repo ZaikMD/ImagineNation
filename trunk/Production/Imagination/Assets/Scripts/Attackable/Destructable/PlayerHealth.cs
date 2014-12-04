@@ -156,6 +156,7 @@ public class PlayerHealth : Destructable
 					{
 						m_Health++;
 						m_HealthRegenTimer = HealthRegenTime;
+                        m_Hud.SetHealth(m_Health, m_Player);
 					}
 					else
 					{

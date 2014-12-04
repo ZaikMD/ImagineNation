@@ -40,20 +40,26 @@ public class CollectableManager : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
+        //initializing our varible.
         m_Hud = GameObject.FindGameObjectWithTag(Constants.HUD).GetComponent<Hud>();
-
+        //setting our timer.
         m_Timer = OnScreenTime;
         m_NumberOfLightPegsCollect = 0;
 
+        //Getting length to create of our arrays.
         int lengthOfLightPegCollected = m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length + m_LightPegsForCheckPointThree.Length;
 		int lengthOPuzzlePieceCollected = m_PuzzlePieceForSection.Length;
+        //initializing our arrays.
         m_LightPegCollected = new bool[lengthOfLightPegCollected];
 		m_PuzzlePieceCollected = new bool[lengthOPuzzlePieceCollected];
 
+        //Create a list of puzzle pieces for intializing our list.
 		short[] GameDataPuzzlePieceCollect = GameData.Instance.GetCollectedPuzzlePeices();
 		
+        //Looping through and switching our shorts to bools.
 		for(int n = 0; n > GameDataPuzzlePieceCollect.Length; n++)
 		{
+            //1 = true, 0 = false;
 			if(GameDataPuzzlePieceCollect[n] == 1)
 			{
 				m_PuzzlePieceCollected[n] = true; 
@@ -63,7 +69,7 @@ public class CollectableManager : MonoBehaviour
 				m_PuzzlePieceCollected[n] = false;
 			}
 		}
-
+        //Call our spawn functions.
 		SpawnLightPegs();
 		SpawnPuzzlePieces();
 	}
@@ -71,6 +77,7 @@ public class CollectableManager : MonoBehaviour
     // Update is called once per frame
 	void Update () 
     {
+        //update timer
         if (m_Timer > 0)
         {
             m_Timer -= Time.deltaTime;
@@ -81,35 +88,56 @@ public class CollectableManager : MonoBehaviour
         }
     }
 
-#region Spawn a light peg at random location
+#region Spawn a light peg at a location
 
 	/// <summary>
-	/// Spawns the light peg at location.
+	/// Spawns lightpegs at location specifed.
 	/// </summary>
-	/// <param name="position">Position.</param>
+	/// <param name="position">The position of the spawnning light pegs.</param>
+    /// <param name="numberOfPegs">The number of Light pegs to spawn.</param>
 	public void SpawnLightPegAtLocation(Vector3 position, int numberOfPegs)
 	{
+        //Loops for the number of pegs we have and spawns a light peg.
 		for(int i = 0; i < numberOfPegs; i++)
 		{
+            //instantiates a new object and moves to new position. adds component
 			GameObject newLightPeg = (GameObject)Instantiate(m_LightPegPrefab);
-			position.y += 0.5f;
+			position.y += 0.5f; 
 			newLightPeg.transform.position = position;
 			newLightPeg.AddComponent<EnemyLightPegSpawn> ();
 		}
 	}
 
+    /// <summary>
+    /// Spawns LightPegs at the location of a passed in gameobject.
+    /// </summary>
+    /// <param name="gameObjectSpawn">The game object that the light pegs will spawn at.</param>
+    /// <param name="numberOfPegs">The number of light pegs to spawn.</param>
 	public void SpawnLightPegAtLocation(GameObject gameObjectSpawn, int numberOfPegs)
 	{
+        //Passes relavinte information to root function
 		SpawnLightPegAtLocation(gameObjectSpawn.transform.position, numberOfPegs);	
 	}
 
+    /// <summary>
+    /// Spawns a specified number of Lightpegs at the location indicated by the passed in transform.
+    /// </summary>
+    /// <param name="position">The transform of the object you want to spawn light pegs.</param>
+    /// <param name="numberOfPegs">The number of Lightpegs you want to spawn at location.</param>
 	public void SpawnLightPegAtLocation(Transform position, int numberOfPegs)
 	{
+        //Passes relavinte information to root function
 		SpawnLightPegAtLocation(position.position, numberOfPegs);
 	}
 
+    /// <summary>
+    /// Spawn a light peg from this scripts gameobjects position.
+    /// </summary>
+    /// <param name="Script">The current script for the location</param>
+    /// <param name="numberOfPegs">Number of light pegs to be spawnned at location</param>
 	public void SpawnLightPegAtLocation(MonoBehaviour Script, int numberOfPegs)
 	{
+        //Passes relavinte information to root function
 		SpawnLightPegAtLocation (Script.transform.position, numberOfPegs);	
 	}
 
