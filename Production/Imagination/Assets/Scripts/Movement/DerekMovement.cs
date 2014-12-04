@@ -72,18 +72,6 @@ public class DerekMovement : BaseMovementAbility
 					m_CurrentTarget = m_target.GetCurrentTarget();
 				}
 			}
-
-			//if m_Grappling == true, then call MoveTowardsTarget()
-			if(m_Grappling)
-			{
-				MoveTowardsTarget();
-			}
-
-			//checks the distance between the player and the target, if it's smaller than m_DistBeforeFalling, you will fall
-			if(Vector3.Distance(this.transform.position, m_target.GetCurrentTarget().transform.position) < m_DistBeforeFalling)
-			{
-				m_Grappling = false;
-			}
 		}
 
 		//checks the distance between the player and the target, if it's smaller than m_DistBeforeFalling, you will fall
@@ -105,6 +93,7 @@ public class DerekMovement : BaseMovementAbility
 		if (m_PlayerHealth.IsDead)
 		{
 			m_target.SetCurrentTarget(null);
+            m_Grappling = false;
 		}
 
 		//Used to make sure that the player stops trying to grapple if his target gets destroyed
@@ -131,13 +120,20 @@ public class DerekMovement : BaseMovementAbility
 	//Moves you towards your target
 	private void MoveTowardsTarget()
 	{
+		if(m_CurrentTarget == null)
+		{
+			m_target.SetCurrentTarget(null);
+			m_Grappling = false;
+			return;
+		}
+
 		//gets your position and the target's position
 		Vector3 currentPosition = this.transform.position;
 		Vector3 targetPosition = m_CurrentTarget.transform.position;
 
 
 		// if the distance between you and your target is greater than 0
-		if(Vector3.Distance(currentPosition, targetPosition) > 0.0f && targetPosition != null)
+        if (targetPosition != null && Vector3.Distance(currentPosition, targetPosition) > 0.0f)
 		{
 			//create a vector 3 that will hold the direction you must go towards and then normalize it
 			Vector3 directionOfTravel = targetPosition - currentPosition;
