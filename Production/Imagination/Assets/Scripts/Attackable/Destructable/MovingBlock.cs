@@ -16,6 +16,7 @@ using System.Collections;
 * 28/11/2014 Edit: Removed unused variable (m_Moving, ).
 * 03/12/2014 Edit: Changed Health to float value, to coincide with damage - Joe Burchill
 * 04/12/2014 Edit: Changed 0 to 0.0f for new float data type.
+* 04/12/2014 Edit: Made the block lerp towards its destination.
 * 
 */
 #endregion
@@ -44,7 +45,7 @@ public class MovingBlock : Destructable
 	protected float m_SaveHealth;
 
     //Timer for in between hits
-	float m_HitTimer = 1.0f;
+	float m_HitTimer = 3.0f;
 
     //The reset for the hit timer
 	protected float m_SaveHitTimer;
@@ -69,7 +70,6 @@ public class MovingBlock : Destructable
 		m_Destination = transform.position;
 
 		m_SaveHitTimer = m_HitTimer;
-
 	}
 	
 	// Update is called once per frame
@@ -89,24 +89,20 @@ public class MovingBlock : Destructable
         //Get the direction the box is moving
 		Vector3 direction = m_Destination - transform.position;
 
-        //If the direction is not zero, move the block
-        if (direction != Vector3.zero)
-		{
-			controller.Move(direction * m_Speed* Time.deltaTime);
-
-		} 
-
         //If the block has been hit, decrement the hit timer
 		if(m_Hit)
 		{
+			controller.Move(direction * m_Speed * Time.deltaTime * Mathf.Pow(Mathf.Min (m_HitTimer * 2.0f / m_SaveHitTimer, 1.0f), 3.0f));
 			m_HitTimer -= Time.deltaTime;
 		}
+
         //If the hit timer is less than zero, the block can be hit again
-		if(m_HitTimer <= 0.0f)
+		if(m_HitTimer < 0.0f)
 		{
 			m_Hit = false;
 			m_HitTimer = m_SaveHitTimer;
-
+			direction = Vector3.zero;
+			transform.position = new Vector3(m_Destination.x, transform.position.y, m_Destination.z);
 		}
 
         //Call the fall function
@@ -142,7 +138,6 @@ public class MovingBlock : Destructable
 		{
 			if(obj.gameObject.tag == Constants.PLAYER_PROJECTILE_STRING) //If the object is a playerProjectile, call setDestination and pass in the gameobject
 			{
-				
 				setDestination (obj.gameObject);
 			}
 		}
@@ -210,9 +205,9 @@ public class MovingBlock : Destructable
 		{
 			m_CurrentMaterial = 0;
 		}
+
 		m_BoxPrefab.renderer.material = m_Materials [m_CurrentMaterial]; //Set the current material
 		m_Hit = true; //The block has been hit
-
 	}
 
 	public void setPressurePlateDestination(Vector3 destination)
