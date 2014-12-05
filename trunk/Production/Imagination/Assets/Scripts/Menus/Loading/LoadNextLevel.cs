@@ -58,6 +58,10 @@ public class LoadNextLevel : MonoBehaviour
 			case Sections.Sections_3:
 				m_Async = Application.LoadLevelAsync(Constants.LEVEL1_SECTION3);
 				break;
+
+			case Sections.Sections_Boss:
+				m_Async = Application.LoadLevelAsync(Constants.LEVEL1_SECTIONBOSS);
+				break;
 			}
 
 			break;

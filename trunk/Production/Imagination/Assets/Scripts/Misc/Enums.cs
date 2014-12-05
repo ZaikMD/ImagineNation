@@ -56,6 +56,7 @@ public enum Sections
 	Sections_1,
 	Sections_2,
 	Sections_3,
+	Sections_Boss,
 	Count,
 	None
 }
