@@ -1,6 +1,6 @@
 ﻿/*
  * Created by Mathieu Elias December 1, 2014
- * Will take over certain actions of a specified group of enemies
+ * Base class for control types for groups of enemies
  */ 
 #region ChangeLog
 /* 
