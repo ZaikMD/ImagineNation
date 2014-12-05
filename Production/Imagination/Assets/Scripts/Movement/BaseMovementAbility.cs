@@ -581,7 +581,9 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		m_CurrentlyJumping = true;
 		m_Velocity.y = 1.0f;
 		Launch(jump, launchTimer, true);
+#if DEBUG || UNITY_EDITOR
 		Debug.Log ("launch");
+#endif
 	}
 
 

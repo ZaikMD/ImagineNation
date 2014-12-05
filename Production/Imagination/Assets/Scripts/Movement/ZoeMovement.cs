@@ -60,7 +60,7 @@ public class ZoeMovement : BaseMovementAbility
 			if (m_Timer > 0.0f)
 			{
 				//Allow the player to glide again
-				m_Timer = -2.0f;
+				m_Timer = -MAX_GLIDE_TIME;
 			}
 			m_CanGlide = true;
 			m_NumberOfAirborneJumps = 0;
@@ -108,7 +108,7 @@ public class ZoeMovement : BaseMovementAbility
 	//Set all gliding variables to a standard airborne state
 	void StopGlidingWhileAirborne()
 	{
-		m_Timer = -2.0f;
+		m_Timer = -MAX_GLIDE_TIME;
 		m_CanGlide = false;
 	}
 

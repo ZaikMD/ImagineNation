@@ -30,9 +30,5 @@ public class SpawnLightPegOnDestroy : MonoBehaviour
 		{
 			tempNumberOfPegs = Random.Range(m_MinimumPossibillity, m_MaximunPossibillity);
 		}
-
-	//	Debug.Log (tempNumberOfPegs);
-
-	//	m_Manager.SpawnLightPegAtLocation (this.gameObject, tempNumberOfPegs);
 	}
 }
