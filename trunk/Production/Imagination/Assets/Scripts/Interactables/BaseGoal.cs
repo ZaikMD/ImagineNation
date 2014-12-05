@@ -22,10 +22,6 @@ using System.Collections;
 
 public class BaseGoal : MonoBehaviour 
 {
-
-	//public Transform m_LevelEnd;
-	public string m_NextScene;
-
 	public Levels m_NextLevel;
 	public Sections m_NextSection;
 

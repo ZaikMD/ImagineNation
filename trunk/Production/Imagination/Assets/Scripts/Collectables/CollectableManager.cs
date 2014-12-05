@@ -406,6 +406,6 @@ case CheckPoints.CheckPoint_3:
 		//int materialNumber = Random.Range(0, m_Materials.Length - 1);
 
 		//objectToChange.transform.GetChild(0).renderer.material = m_Materials[materialNumber];
-		objectToChange.GetComponentInChildren<MeshRenderer>().materials = new Material[]{m_Materials[Random.Range(0,m_Materials.Length)], m_Outline};
+		//objectToChange.GetComponentInChildren<MeshRenderer>().materials = new Material[]{m_Materials[Random.Range(0,m_Materials.Length)], m_Outline};
 	}
 }
