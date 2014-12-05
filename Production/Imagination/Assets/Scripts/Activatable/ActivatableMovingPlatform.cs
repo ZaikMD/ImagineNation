@@ -208,7 +208,7 @@ public class ActivatableMovingPlatform : Activatable
 				{
 					//Move the player as much at this platform is moving
 					amountToMove = move;
-					amountToMove.y *= 1.01f;
+					amountToMove.y += 0.01f;
 				}
 				//Check if we are in front of the platform
 				else if (Vector3.Dot(move, normal) > 0.0f)
@@ -225,6 +225,7 @@ public class ActivatableMovingPlatform : Activatable
 
 				if (m_PlayersToMove[i].foundLastFrame == false)
 				{
+					Debug.Log("removing: " + m_PlayersToMove[i].movement.gameObject.name);
 					m_PlayersToMove.RemoveAt(i);
 				}
 			}
@@ -288,6 +289,7 @@ public class ActivatableMovingPlatform : Activatable
 		if (found == false)
 		{
 			m_PlayersToMove.Add(new PlayersToMove(movement, averageNormal, true));	
+			Debug.Log(m_PlayersToMove[m_PlayersToMove.Count-1].movement.gameObject.name+ "   added");
 		}
 	}
 
@@ -318,7 +320,8 @@ public class ActivatableMovingPlatform : Activatable
 				}
 				else
 				{
-					m_PlayersToMove.RemoveAt(i);
+					//Debug.Log(m_PlayersToMove[i].movement.gameObject.name+ "   removed");
+					//m_PlayersToMove.RemoveAt(i);
 				}
 			}
 		}
