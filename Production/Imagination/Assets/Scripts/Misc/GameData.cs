@@ -228,6 +228,7 @@ public class GameData : MonoBehaviour
 			m_CurrentLevel = value;
 			m_CurrentSection = Sections.Sections_1;
 			m_CurrentCheckPoint = CheckPoints.CheckPoint_1;
+            m_LightPegsCollectedSinceLastCheckPoint = 0;
 		}
 	}
 
@@ -238,6 +239,7 @@ public class GameData : MonoBehaviour
 		{
 			m_CurrentSection = value;
 			m_CurrentCheckPoint = CheckPoints.CheckPoint_1;
+            m_LightPegsCollectedSinceLastCheckPoint = 0;
 		}
 	}
 
@@ -323,14 +325,19 @@ public class GameData : MonoBehaviour
 
 	void intianlizePuzzlePieceArray()
 	{
-		m_PuzzlePieceCollectedInLevel = new short[1][][];
+        //the first array is our level.
+		m_PuzzlePieceCollectedInLevel = new short[(int)Levels.Count][][];
 		for(int i = 0; i < (int)Levels.Count; i++)
 		{
-			m_PuzzlePieceCollectedInLevel[i] = new short[3][];
+            //our second array is our section
+			m_PuzzlePieceCollectedInLevel[i] = new short[(int)Sections.Count][];
 			for(int n = 0; n < (int)Sections.Count; n++)
 			{
+                //our third is which puzzle piece
+                //There is only ever two puzzle pieces per level
 				m_PuzzlePieceCollectedInLevel[i][n] = new short[2];
 
+                //If we are initializing, this has just started, so it is false.
 				for(int x = 0; x < 2; x++)
 				{
 					m_PuzzlePieceCollectedInLevel[i][n][x] = 0;
