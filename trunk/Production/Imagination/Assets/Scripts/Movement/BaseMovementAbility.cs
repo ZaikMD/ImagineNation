@@ -74,7 +74,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	protected const float GROUND_DECCELERATION_LERP_VALUE_PREDELTA = 6.5f;
 
 	//Distances
-	protected const float GETGROUNDED_RAYCAST_DISTANCE = 0.35f;
+	protected const float GETGROUNDED_RAYCAST_DISTANCE = 0.2f;
 	protected const float GETGROUNDED_SPHERECAST_DISTANCE = 0.15f;
 
 	//Movement that other classes have requested
