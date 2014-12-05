@@ -82,7 +82,7 @@ public class GnomeClone : Destructable
 		if (m_ShotTimer <= 0)
 		{
 			if (m_CombatComponent != null)
-				m_CombatComponent.Combat ();
+				m_CombatComponent.Combat (m_Target);
 
 			m_ShotTimer = m_TimeBetweenShots;
 		}

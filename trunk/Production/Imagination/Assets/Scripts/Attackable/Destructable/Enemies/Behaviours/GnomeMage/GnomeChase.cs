@@ -60,7 +60,7 @@ public class GnomeChase : BaseChaseBehaviour
 		{
 			// Manually doing the check if the controller has taken over combat because the base does not have combat included
 			if (m_EnemyAI.m_UCombat)
-				m_CombatComponent.Combat ();
+				m_CombatComponent.Combat (m_Target);
 			m_ShotTimer = m_TimeBetweenShots;
 		}
 

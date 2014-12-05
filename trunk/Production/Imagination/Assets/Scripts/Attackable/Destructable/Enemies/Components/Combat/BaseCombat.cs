@@ -8,7 +8,7 @@
 
 #region ChangeLog
 /*
- * 
+ * Added GameObject as a argument to combat function. Dec 4 - Mathieu Elias
  */
 #endregion
 using UnityEngine;
@@ -31,5 +31,5 @@ public abstract class BaseCombat : BaseComponent
 	}
 
 	// All combat components must use this function to attack
-	public abstract void Combat();
+	public abstract void Combat(GameObject target);
 }
