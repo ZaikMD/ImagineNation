@@ -438,6 +438,7 @@ public class GameData : MonoBehaviour
 			m_Lives++;
 
         m_TotalLightPegCount -= Constants.LIGHT_PEGS_NEEDED_TO_GAIN_LIVES;
+        m_LightPegsCollectedSinceLastCheckPoint = 0;
 		//Update hud
 	}
 

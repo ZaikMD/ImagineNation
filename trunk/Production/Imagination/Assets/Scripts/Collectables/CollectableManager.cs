@@ -53,22 +53,6 @@ public class CollectableManager : MonoBehaviour
         m_LightPegCollected = new bool[lengthOfLightPegCollected];
 		m_PuzzlePieceCollected = new bool[lengthOPuzzlePieceCollected];
 
-        //Create a list of puzzle pieces for intializing our list.
-		short[] GameDataPuzzlePieceCollect = GameData.Instance.GetCollectedPuzzlePeices();
-		
-        //Looping through and switching our shorts to bools.
-		for(int n = 0; n > GameDataPuzzlePieceCollect.Length; n++)
-		{
-            //1 = true, 0 = false;
-			if(GameDataPuzzlePieceCollect[n] == 1)
-			{
-				m_PuzzlePieceCollected[n] = true; 
-			}
-			else
-			{
-				m_PuzzlePieceCollected[n] = false;
-			}
-		}
         //Call our spawn functions.
 		SpawnLightPegs();
 		SpawnPuzzlePieces();
@@ -145,6 +129,23 @@ public class CollectableManager : MonoBehaviour
 
 	void SpawnPuzzlePieces()
 	{
+        //Create a list of puzzle pieces for intializing our list.
+        short[] GameDataPuzzlePieceCollect = GameData.Instance.GetCollectedPuzzlePeices();
+
+        //Looping through and switching our shorts to bools.
+        for (int n = 0; n > GameDataPuzzlePieceCollect.Length; n++)
+        {
+            //1 = true, 0 = false;
+            if (GameDataPuzzlePieceCollect[n + (int)GameData.Instance.CurrentSection * 2] == 1)
+            {
+                m_PuzzlePieceCollected[n] = true;
+            }
+            else
+            {
+                m_PuzzlePieceCollected[n] = false;
+            }
+        }
+
 		for(int i = 0; i < m_PuzzlePieceForSection.Length; i++)
 		{
 			if(!m_PuzzlePieceCollected[i])
@@ -403,9 +404,9 @@ case CheckPoints.CheckPoint_3:
 
 	void SetNewMaterial(GameObject objectToChange)  
 	{
-		//int materialNumber = Random.Range(0, m_Materials.Length - 1);
+		int materialNumber = Random.Range(0, m_Materials.Length - 1);
 
-		//objectToChange.transform.GetChild(0).renderer.material = m_Materials[materialNumber];
-		//objectToChange.GetComponentInChildren<MeshRenderer>().materials = new Material[]{m_Materials[Random.Range(0,m_Materials.Length)], m_Outline};
+		objectToChange.transform.GetChild(0).renderer.material = m_Materials[materialNumber];
+		objectToChange.GetComponentInChildren<MeshRenderer>().materials = new Material[]{m_Materials[Random.Range(0,m_Materials.Length)], m_Outline};
 	}
 }
