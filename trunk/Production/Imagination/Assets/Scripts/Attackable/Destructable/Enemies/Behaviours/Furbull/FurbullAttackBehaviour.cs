@@ -21,6 +21,7 @@ public class FurbullAttackBehaviour : BaseAttackBehaviour
 
 	protected override void start ()
     {
+		m_EnemyAI.m_Health = 2.0f;
 		//Setting Random Charge up timer
 		m_ChargeUpTimer = Random.Range (MIN_CHARGE_UP_TIME, MAX_CHARGE_UP_TIME);
 
