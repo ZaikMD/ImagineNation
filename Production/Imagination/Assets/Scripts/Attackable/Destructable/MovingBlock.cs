@@ -45,10 +45,13 @@ public class MovingBlock : Destructable
 	protected float m_SaveHealth;
 
     //Timer for in between hits
-	float m_HitTimer = 3.0f;
+	float m_HitTimer;
 
     //The reset for the hit timer
-	protected float m_SaveHitTimer;
+	protected float m_SaveHitTimer = 1.0f;
+
+	//Distance to stop moving
+	const float DISTANCE_TO_STOP = 0.1f;
 
     //Prefab for the box
 	public GameObject m_BoxPrefab;
@@ -69,7 +72,7 @@ public class MovingBlock : Destructable
 
 		m_Destination = transform.position;
 
-		m_SaveHitTimer = m_HitTimer;
+		m_HitTimer = m_SaveHitTimer;
 	}
 	
 	// Update is called once per frame
@@ -90,10 +93,14 @@ public class MovingBlock : Destructable
 		Vector3 direction = m_Destination - transform.position;
 
         //If the block has been hit, decrement the hit timer
-		if(m_Hit)
+		if(direction.magnitude > DISTANCE_TO_STOP)
 		{
-			controller.Move(direction * m_Speed * Time.deltaTime * Mathf.Pow(Mathf.Min (m_HitTimer * 2.0f / m_SaveHitTimer, 1.0f), 3.0f));
+			controller.Move(direction * m_Speed * Time.deltaTime);
 			m_HitTimer -= Time.deltaTime;
+		}
+		else
+		{
+			transform.position = new Vector3(m_Destination.x, transform.position.y, m_Destination.z);
 		}
 
         //If the hit timer is less than zero, the block can be hit again
@@ -101,8 +108,6 @@ public class MovingBlock : Destructable
 		{
 			m_Hit = false;
 			m_HitTimer = m_SaveHitTimer;
-			direction = Vector3.zero;
-			transform.position = new Vector3(m_Destination.x, transform.position.y, m_Destination.z);
 		}
 
         //Call the fall function
