@@ -59,7 +59,7 @@ public class AnimationState : MonoBehaviour {
 	{
 		//Initializing functions that need to be initialized.
 		m_CurrentStates = new List<AnimationStates>();
-		m_SFX = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SFXManager>();
+		m_SFX = GameObject.FindGameObjectWithTag(Constants.SOUND_MANAGER).GetComponent<SFXManager>();
 		m_AnimTimer = m_Jump.length;
 	}
 	

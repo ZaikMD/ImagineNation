@@ -25,7 +25,6 @@ public class EnemyLightPegSpawn : MonoBehaviour {
 	{
 		if(m_Timer < 0)
 		{
-		//	m_RigidBody.isKinematic = true;
 			Destroy(this);
 			Destroy(m_RigidBody);
 		}

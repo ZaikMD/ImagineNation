@@ -442,7 +442,7 @@ public class GameData : MonoBehaviour
 		if(m_Lives <= 0)
 		{
 			ResetLives();
-			Application.LoadLevel("GameOverScreen");
+			Application.LoadLevel(Constants.GAME_OVER_SCREEN);
 			resetCheckPoint();
 		}
 		else
