@@ -42,7 +42,7 @@ public class ShutterCamera : MonoBehaviour
     public GameObject ShutterRotationPoint;
 
     //timer for the shutter and constant for the shutter speed
-    protected const float SHUTTER_SPEED = 0.25f;
+    protected const float SHUTTER_SPEED = 0.5f;
     protected float m_ShutterTimer = SHUTTER_SPEED;
     #endregion
 
