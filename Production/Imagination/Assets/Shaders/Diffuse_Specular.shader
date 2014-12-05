@@ -108,7 +108,7 @@ Shader "Production/Diffuse_Specular"
             		}
               	 	
               	 	//Add this light to our vertex light
-               		output.vertexLighting += distShading * unity_LightColor[index].rgb * max(0.0, dot(output.normalDir, normalize(vertexToLightSource)));         
+               		output.vertexLighting += distShading * unity_LightColor[index].rgb * max(0.0, dot(output.normalDir, normalize(vertexToLightSource))) / 2.0;         
             	}
            	 	#endif
          		

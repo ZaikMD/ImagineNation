@@ -101,14 +101,14 @@ Shader "Production/Diffuse"
                		
                		//Shading calculations
                		float3 vertexToLightSource = lightPosition - output.posWorld.xyz; 
-              	 	float distShading = 1.0 / pow(vertexToLightSource, 2) * _PointLightIllumination;
+              	 	float distShading = 1.0 / pow(length(vertexToLightSource), 2) * _PointLightIllumination;
               	 	if (distShading > _PointLightMaximumIllumination)
             		{
             			distShading = _PointLightMaximumIllumination;
             		}
               	 	
               	 	//Add this light to our vertex light
-               		output.vertexLighting += distShading * unity_LightColor[index].rgb * max(0.0, dot(output.normalDir, normalize(vertexToLightSource)));         
+               		output.vertexLighting += distShading * unity_LightColor[index].rgb * max(0.0, dot(output.normalDir, normalize(vertexToLightSource))) / 2.0;         
             	}
            	 	#endif
            	 	
