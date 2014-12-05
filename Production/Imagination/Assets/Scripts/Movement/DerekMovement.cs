@@ -30,6 +30,11 @@ public class DerekMovement : BaseMovementAbility
 	float m_GrappleSpeed = 15.0f;
 	float m_DistBeforeFalling = 1.0f;
 
+	//Position of the point to grapple from on the player
+	Vector3 GRAPPLE_FROM_POSITION = new Vector3(0.0f, 1.5f, 0.0f);
+
+	public Transform m_GrappleHook;
+
 
 
 	bool m_Grappling;
@@ -41,6 +46,7 @@ public class DerekMovement : BaseMovementAbility
 		m_Grappling = false;
 		m_target = GetComponent<Targeting>();
 		m_PlayerHealth = GetComponent<PlayerHealth> ();
+		m_GrappleHook.renderer.enabled = true;
        
 		//Calls the base class start function
 		base.start ();
@@ -76,6 +82,7 @@ public class DerekMovement : BaseMovementAbility
 				{
 					m_Grappling = true;
 					m_CanGrapple = false;
+					m_GrappleHook.renderer.enabled = true;
 					m_CurrentTarget = m_target.GetCurrentTarget();
 				}
 			}
@@ -87,6 +94,7 @@ public class DerekMovement : BaseMovementAbility
 			if(Vector3.Distance(this.transform.position, m_CurrentTarget.transform.position) < m_DistBeforeFalling)
 			{
 				m_Grappling = false;
+				m_GrappleHook.renderer.enabled = false;
 			}
 		}
 
@@ -94,6 +102,7 @@ public class DerekMovement : BaseMovementAbility
 		if(m_Grappling)
 		{
 			MoveTowardsTarget();
+			SetGrappleTransform ();
 			return;
 		}
 
@@ -167,6 +176,15 @@ public class DerekMovement : BaseMovementAbility
 		}
 
 
+	}
+
+	//Sets the grapple to be between the player and their target
+	void SetGrappleTransform ()
+	{
+		Vector3 distanceHalfed = (m_CurrentTarget.transform.position - transform.position - GRAPPLE_FROM_POSITION) / 2.0f;
+		m_GrappleHook.position = transform.position + GRAPPLE_FROM_POSITION + distanceHalfed;
+		m_GrappleHook.localScale = new Vector3 (m_GrappleHook.localScale.x, distanceHalfed.magnitude, m_GrappleHook.localScale.z);
+		m_GrappleHook.rotation = Quaternion.FromToRotation (Vector3.up, distanceHalfed.normalized);
 	}
 
 	protected override float GetJumpSpeed()
