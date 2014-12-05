@@ -34,8 +34,10 @@ public class EnemyController : MonoBehaviour
 		if (PauseScreen.IsGamePaused)
 			return;
 
+		// If the group is aggro then update them
 		if (m_IsGroupAggro)
 		{
+			// If the target is null then he it is dead or there is a problem, either way end the control type and unaggro the group
 			if (m_Target = null)
 			{
 				m_ControlType.end ();
@@ -46,14 +48,17 @@ public class EnemyController : MonoBehaviour
 		}
 	}
 
+	// Set wether or not the group is aggro'd. 
 	public void AggroGroup(bool aggroGroup, GameObject target)
 	{
 		m_IsGroupAggro = aggroGroup;
 		m_Target = target;
 
+		// If group is aggro, call the start for the control type
 		if (m_IsGroupAggro)
 			m_ControlType.start (m_EnemyGroup, target);
 
+		// If group is not aggro call the end for control type
 		else
 			m_ControlType.end ();
 	}

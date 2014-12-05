@@ -1,6 +1,6 @@
 ﻿/*
  * Created by Mathieu Elias December 1, 2014
- * Will take over certain actions of a specified group of enemies
+ * Control type which makes the group surround their target
  */ 
 #region ChangeLog
 /* 
@@ -15,6 +15,7 @@ public class SurroundControl : BaseControlType
 {
 	float m_StoppingDist = 2.0f;
 
+	// Gets the group of enemies ready to be controlled
 	public override void start (EnemyAI[] enemies, GameObject target)
 	{
 		m_EnemyGroup = enemies;
@@ -23,10 +24,11 @@ public class SurroundControl : BaseControlType
 
 		for (int i = 0; i < m_EnemyGroup.Length; i++)
 		{
-			// Stop all the enemies in the group form updating their movement
+			// Stop all the enemies in the group from updating their movement ad targeting
 			m_EnemyGroup[i].m_UMovement = false;
 			m_EnemyGroup[i].m_UTargeting = false;
 
+			// Make sure all their states are set to attack
 			m_EnemyGroup[i].SetState(EnemyAI.EnemyState.Attack);
 		}
 	}
@@ -34,6 +36,7 @@ public class SurroundControl : BaseControlType
 	public override void update ()
 	{
 
+		// Get the angles at which the enemies will come at their target
 		float angle = 360 / m_EnemyGroup.Length;
 
 		float currentAngle = 0;
@@ -42,6 +45,7 @@ public class SurroundControl : BaseControlType
 		{ 
 			if (m_EnemyGroup[i] != null)
 			{
+				// Choose the enemies surrond location
 				Vector3 surroundLocation = RotateAboutOrigin( m_EnemyGroup[i].transform.position , m_Target.transform.position, angle);
 				
 				EnemyWithMovement temp = m_EnemyGroup[i] as EnemyWithMovement;		
