@@ -243,12 +243,12 @@ public class GnomeCombat : BaseAttackBehaviour, INotifyHit
 				{
 				case CombatStates.Regular:
 					if (m_CombatComponent != null)
-						m_CombatComponent.Combat();				
+						m_CombatComponent.Combat(m_Target);				
 					break;
 					
 				case CombatStates.Cloned:
 					if (m_ClonedCombat != null)
-						m_ClonedCombat.Combat();		
+						m_ClonedCombat.Combat(m_Target);		
 					break;
 				}
 			}

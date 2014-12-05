@@ -40,18 +40,19 @@ public class CollisionCombat : BaseCombat
 	{
 		base.start (baseBehaviour);
 
-		//Find our Player objects and set our ray distance, get the player layer
-		m_PlayerCenterPoint = GameObject.Find (Constants.PLAYER_CENTRE_POINT);
-		m_Player = GameObject.FindGameObjectWithTag (Constants.PLAYER_STRING);
 		m_RayDistance = RAY_DISTANCE;
 		m_LayerMask = ~LayerMask.GetMask (Constants.PLAYER_STRING);
 	}
 
-	public override void Combat()
+	public override void Combat(GameObject target)
 	{
+		if (target == null)
+			return;
+
+		Vector3 targetsCenter = target.transform.FindChild (Constants.PLAYER_CENTRE_POINT).position;
 		//Set our ray's origin and direction
 		m_RayOrigin = transform.position;
-		m_RayDirection = m_PlayerCenterPoint.transform.position - transform.position;
+		m_RayDirection = targetsCenter - transform.position;
 
 		//Check our timer
 		if(m_AttackTimer > ATTACK_DELAY)
@@ -59,7 +60,7 @@ public class CollisionCombat : BaseCombat
 			//if raycast is true then call onhit for the player
 			if(Raycast())
 			{
-				Attackable attackable = m_Player.gameObject.GetComponent(typeof(Attackable)) as Attackable; //if so call the onhit function and pass in the gameobject
+				Attackable attackable = target.GetComponent(typeof(Attackable)) as Attackable; //if so call the onhit function and pass in the gameobject
 			
 				attackable.onHit(m_EnemyProjectile);
 				m_AttackTimer = 0.0f;
@@ -76,12 +77,9 @@ public class CollisionCombat : BaseCombat
 	{
 		//Check Raycast and return based on results
 		if(Physics.Raycast(m_RayOrigin, m_RayDirection, m_RayDistance, m_LayerMask))
-		{
 			return true;
-		}
-		else
-		{
-			return false;
-		}
+
+		return false;
+
 	}
 }

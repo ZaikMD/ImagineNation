@@ -15,7 +15,7 @@ using System.Collections;
 
 public class BasicProjectileCombat : BaseCombat 
 {
-	public override void Combat ()
+	public override void Combat (GameObject target)
 	{
 		//If our prefab is not null then instantiate it at the enemy's position and rotation.
 		if (m_ProjectilePrefab != null)
