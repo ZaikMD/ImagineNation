@@ -126,9 +126,6 @@ Shader "Production/Outline"
 			//Fragment Shader
 			float4 fragShader (vertexOutput output) : COLOR
 			{				
-				//Calculate a new opacity
-				float newOpacity = _GlowTint.a;
-				
 				//Return the colour of the first pass's fragment
 				return _GlowTint;
 			}
