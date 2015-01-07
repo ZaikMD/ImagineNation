@@ -51,6 +51,9 @@ public class ActivatableMovingPlatform : Activatable
 	Vector3 m_TargetMove = Vector3.zero;
 	public float i_MoveLerpAmount = 0.05f;
 
+
+	const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
+
 	//For moving the player
 	struct PlayersToMove
 	{
@@ -80,7 +83,7 @@ public class ActivatableMovingPlatform : Activatable
 	//Update the moving platform
 	void Update () 
 	{ 
-        if (PauseScreen.IsGamePaused){return;}
+		if (PauseScreen.shouldPause(PAUSE_LEVEL)){return;}
 
 		//Platforms can only move if the switches are active
 		if(CheckSwitches())

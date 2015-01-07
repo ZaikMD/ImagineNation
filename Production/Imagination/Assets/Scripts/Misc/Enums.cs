@@ -19,6 +19,12 @@
 using UnityEngine;
 using System.Collections;
 
+public enum ScriptPauseLevel
+{
+	PauseMenu,
+	Cutscene
+};
+
 public enum PlayerInput
 {
 	Keyboard = 1,

@@ -5,10 +5,17 @@ using System.Collections.Generic;
 public class PauseScreen : MenuV2
 {
     static bool m_GameIsPaused = false;
+	static bool m_InCutscene = false;
+
     public static bool IsGamePaused
     {
         get { return m_GameIsPaused; }
     }
+
+	public static bool InCutscene
+	{
+		get { return m_InCutscene; }
+	}
 
     int m_OriginalReadInputFrom;
 
@@ -38,7 +45,22 @@ public class PauseScreen : MenuV2
         m_Set1 = m_PlayerCameras;
         m_Set2 = m_MenuCamera;
 	}
-	
+
+	public static bool shouldPause(ScriptPauseLevel pauseLevel)
+	{
+		switch(pauseLevel)
+		{
+		case ScriptPauseLevel.Cutscene:
+			return m_GameIsPaused || m_InCutscene;
+			break;
+		case ScriptPauseLevel.PauseMenu:
+			return m_GameIsPaused;
+			break;
+		default:
+			return false;
+		}
+	}
+
 	// Update is called once per frame
     protected override void Update() 
     {
