@@ -14,7 +14,7 @@ public class RailFollowCam : Activatable
 	bool m_IsDone = false;
 	float m_Loc = 0.0f;
 
-
+	const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.PauseMenu;
 
 	// Use this for initialization
 	void Start () 
@@ -30,7 +30,7 @@ public class RailFollowCam : Activatable
 	// Update is called once per frame
 	void Update () 
 	{ 
-        if (PauseScreen.IsGamePaused){return;}
+		if (PauseScreen.shouldPause(PAUSE_LEVEL)){return;}
 
 		if (!m_IsDone)
 		{
