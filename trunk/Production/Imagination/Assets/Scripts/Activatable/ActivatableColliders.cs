@@ -8,11 +8,11 @@ public class ActivatableColliders : Activatable
 {
 	//The array of colliders so there can be more than one
 	public GameObject[] m_Colliders;
-
+	const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
 	// Update is called once per frame
 	void Update () 
 	{ 
-        if (PauseScreen.IsGamePaused){return;}
+		if (PauseScreen.shouldPause(PAUSE_LEVEL)){return;}
 
 		if(CheckSwitches()) //If checkSwitches() returns true, destroy all colliders
 		{

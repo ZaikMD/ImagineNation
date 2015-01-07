@@ -22,6 +22,7 @@ public class ActivatableLight : Activatable
 	public GameObject m_Darkness;
 	public float m_NewIntensity = 1.0f;
 
+	const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
 
 	bool m_IsActive;
 	Light m_Light;
@@ -38,7 +39,7 @@ public class ActivatableLight : Activatable
 	
 	void Update () 
 	{ 
-        if (PauseScreen.IsGamePaused){return;}
+		if (PauseScreen.shouldPause(PAUSE_LEVEL)){return;}
 
 		//Check to see if the switch is already active or not
 		if(!m_IsActive)
