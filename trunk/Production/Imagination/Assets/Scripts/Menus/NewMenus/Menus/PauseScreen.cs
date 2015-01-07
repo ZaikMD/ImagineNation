@@ -14,6 +14,7 @@ public class PauseScreen : MenuV2
 
 	public static bool InCutscene
 	{
+		set { m_InCutscene = value; }
 		get { return m_InCutscene; }
 	}
 
