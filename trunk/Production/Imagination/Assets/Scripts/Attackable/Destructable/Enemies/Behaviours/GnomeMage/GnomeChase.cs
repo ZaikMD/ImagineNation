@@ -34,19 +34,19 @@ public class GnomeChase : BaseChaseBehaviour
 	public override void update () 
 	{  
 		//Grab the current target
-		m_Target = Target ();
+		setTarget(Target ());
 
 		// If there is no target either the player is dead, gone or something went wront so switch to the idle state
 		// OR
 		// If its time to leave combat set the current state to idle
-		if (m_Target == null || LeaveCombat(m_Target.transform))
+		if (getTarget() == null || LeaveCombat(getTarget().transform))
 		{
 			m_EnemyAI.SetState(EnemyAI.EnemyState.Idle);
 			return;
 		}
 
 		// If we are in attack range switch to the attack state
-		float dist = Vector3.Distance (transform.position, m_Target.transform.position); 
+		float dist = Vector3.Distance (transform.position, getTarget().transform.position); 
 		if (dist <= Constants.MAGE_ATTACK_RANGE)
 		{
 			m_EnemyAI.SetState(EnemyAI.EnemyState.Attack);
@@ -60,7 +60,7 @@ public class GnomeChase : BaseChaseBehaviour
 		{
 			// Manually doing the check if the controller has taken over combat because the base does not have combat included
 			if (m_EnemyAI.m_UCombat)
-				m_CombatComponent.Combat (m_Target);
+				m_CombatComponent.Combat (getTarget());
 			m_ShotTimer = m_TimeBetweenShots;
 		}
 

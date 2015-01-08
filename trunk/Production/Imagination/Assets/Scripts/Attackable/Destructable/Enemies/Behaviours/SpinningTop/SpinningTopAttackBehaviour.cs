@@ -92,12 +92,12 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour, INotifyHit
     public override void update()
     {
 		//Set our target each update
-        m_Target = Target();
+        setTarget(Target());
 		//Call our Combat functionality
 		Combat ();
 
 		//If our target is null then set back to idle
-        if (m_Target == null)
+		if (getTarget() == null)
         {
             m_EnemyAI.SetState(EnemyAI.EnemyState.Idle);
             return;
@@ -241,35 +241,35 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour, INotifyHit
                 case CombatStates.Wobble:
                     if (m_MovementComponent != null)
                     {
-                        m_MovementComponent.Movement(m_Target);
+					m_MovementComponent.Movement(getTarget());
                     }
                 break;
 
                 case CombatStates.Charge:
                     if (m_ChargeMovement != null)
                     {
-                        m_ChargeMovement.Movement(m_Target);
+					m_ChargeMovement.Movement(getTarget());
                     }
                 break;
 
                 case CombatStates.BuildingUpCharge:
                     if (m_BuildingChargeMovement != null)
                     {
-                        m_BuildingChargeMovement.Movement(m_Target);
+					m_BuildingChargeMovement.Movement(getTarget());
                     }
                 break;
 
                 case CombatStates.KnockedBack:
                     if (m_KnockedBackMovement != null)
                     {
-                        m_KnockedBackMovement.Movement(m_Target);
+					m_KnockedBackMovement.Movement(getTarget());
                     }
                 break;
 
                 case CombatStates.HitByPlayer:
                     if (m_HitByPlayerMovement != null)
                     {
-                        m_HitByPlayerMovement.Movement(m_Target);
+					m_HitByPlayerMovement.Movement(getTarget());
                     }
                 break;
             }
@@ -279,7 +279,7 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour, INotifyHit
 	//Returns distance between target and enemy
     private float GetDistanceToTarget()
     {
-        return Vector3.Distance(transform.position, m_Target.transform.position);
+		return Vector3.Distance(transform.position, getTarget().transform.position);
     }
 
 	//Check if it has run into the player in any state other than wobble
@@ -309,7 +309,7 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour, INotifyHit
 	public void NotifyHit()
 	{
 		//Call Hit ByPlayer movement
-		m_HitByPlayerMovement.Movement(m_Target);
+		m_HitByPlayerMovement.Movement(getTarget());
 		//Switch to the Hit player state
 		m_CombatState = CombatStates.HitByPlayer;
 	}

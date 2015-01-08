@@ -24,7 +24,7 @@ public abstract class BaseIdleBehaviour : BaseBehaviour
 	{
 		EnemyController controller = m_EnemyAI.GetController();
 		if (controller != null && m_ControllerSet == true)
-			controller.AggroGroup (false, m_Target);
+			controller.AggroGroup (false, getTarget());
 	}
 
 	// The following functions must be called to update any of the components in order to make sure the 
@@ -44,7 +44,7 @@ public abstract class BaseIdleBehaviour : BaseBehaviour
 		if (m_EnemyAI.m_UMovement)
 		{
 			if(m_MovementComponent != null)
-				m_MovementComponent.Movement (m_Target);
+				m_MovementComponent.Movement (getTarget());
 		}
 	}
 	protected virtual GameObject Target()

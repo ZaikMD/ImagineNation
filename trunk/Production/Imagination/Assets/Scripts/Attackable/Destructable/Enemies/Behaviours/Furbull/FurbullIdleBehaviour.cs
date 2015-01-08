@@ -30,7 +30,7 @@ public class FurbullIdleBehaviour : BaseIdleBehaviour
 		base.update ();
 
 		//Set the target
-		m_Target = Target ();
+		setTarget(Target ());
 
 		//If we have a movement component call movement
         if (m_MovementComponent != null)
@@ -39,9 +39,9 @@ public class FurbullIdleBehaviour : BaseIdleBehaviour
         }
 
 		//If we enter combat switch to the chase state
-		if (m_Target != null)
+		if (getTarget() != null)
 		{
-        	if (m_EnterCombatComponent.EnterCombat(m_Target.transform) == true)
+			if (m_EnterCombatComponent.EnterCombat(getTarget().transform) == true)
         	{
         	    m_EnemyAI.SetState(EnemyAI.EnemyState.Chase);
         	}

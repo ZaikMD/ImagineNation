@@ -80,18 +80,18 @@ public class GnomeCombat : BaseAttackBehaviour, INotifyHit
 	public override void update ()
 	{
 		// Grab the current target
-		m_Target = Target ();
+		setTarget (Target ());
 
 		// If we no longuer have a target the players are either dead, gone or something went wrong
 		//return to idle state which doesnt require a target
-		if (m_Target == null)
+		if (getTarget() == null)
 		{
 			m_EnemyAI.SetState (EnemyAI.EnemyState.Idle);
 			return;
 		}
 
 		// If we are no longuer in attack range go back to chase
-		float dist = Vector3.Distance (transform.position, m_Target.transform.position); 
+		float dist = Vector3.Distance (transform.position, getTarget().transform.position); 
 		if (dist >= Constants.MAGE_ATTACK_RANGE)
 			m_EnemyAI.SetState(EnemyAI.EnemyState.Chase);
 
@@ -173,8 +173,8 @@ public class GnomeCombat : BaseAttackBehaviour, INotifyHit
 			float angle = UnityEngine.Random.Range(0.0f, 2.0f * Mathf.PI);
 			
 			Vector3 loc = new Vector3( Mathf.Cos(angle),0,Mathf.Sin(angle)); 
-			if (m_Target != null)
-				loc = (loc.normalized * m_ClonePosDist) + m_Target.transform.position;
+			if (getTarget() != null)
+				loc = (loc.normalized * m_ClonePosDist) + getTarget().transform.position;
 			
 			positions[i] = loc;				
 		}
@@ -185,7 +185,7 @@ public class GnomeCombat : BaseAttackBehaviour, INotifyHit
 			GameObject clone =(GameObject) Instantiate((Object) m_GnomeClonePrefab, transform.position, transform.rotation);
 			GnomeClone gnomeClone = clone.GetComponent<GnomeClone>();
 
-			gnomeClone.Create(m_ClonedMovement, m_ClonedCombat, positions[i], m_ClonedTime, m_Target, getProjectilePrefab());
+			gnomeClone.Create(m_ClonedMovement, m_ClonedCombat, positions[i], m_ClonedTime, getTarget(), getProjectilePrefab());
 			m_Clones.Add(gnomeClone);
 		}
 
@@ -211,18 +211,18 @@ public class GnomeCombat : BaseAttackBehaviour, INotifyHit
 			{
 			case CombatStates.Regular:
 				if (m_MovementComponent != null)			
-					m_MovementComponent.Movement(m_Target);
+					m_MovementComponent.Movement(getTarget());
 				break;
 				
 			case CombatStates.Cloning:
 				if (m_CloningMovement != null)	
-					m_Destination = m_CloningMovement.Movement(m_Target);
+					m_Destination = m_CloningMovement.Movement(getTarget());
 					m_JumpedBack = true;
 				break;
 				
 			case CombatStates.Cloned:
 				if (m_ClonedMovement != null)	
-					m_ClonedMovement.Movement(m_Target);				
+					m_ClonedMovement.Movement(getTarget());				
 				break;
 			}
 		}
@@ -233,22 +233,22 @@ public class GnomeCombat : BaseAttackBehaviour, INotifyHit
 	{
 		if (m_ShotTimer <= 0)
 		{
-			if(m_Target == null)
+			if(getTarget() == null)
 				return;
 
-			transform.LookAt (m_Target.transform.position);			
+			transform.LookAt (getTarget().transform.position);			
 			if (m_EnemyAI.m_UCombat)
 			{
 				switch (m_CurrentCombatState)
 				{
 				case CombatStates.Regular:
 					if (m_CombatComponent != null)
-						m_CombatComponent.Combat(m_Target);				
+						m_CombatComponent.Combat(getTarget());				
 					break;
 					
 				case CombatStates.Cloned:
 					if (m_ClonedCombat != null)
-						m_ClonedCombat.Combat(m_Target);		
+						m_ClonedCombat.Combat(getTarget());		
 					break;
 				}
 			}

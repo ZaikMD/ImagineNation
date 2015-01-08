@@ -29,7 +29,7 @@ public abstract class BaseAttackBehaviour : BaseBehaviour
 		if (m_EnemyAI.m_UCombat)
 		{
 			if(m_CombatComponent != null)
-				m_CombatComponent.Combat(m_Target);
+				m_CombatComponent.Combat(getTarget());
 		}
 	}
 	protected virtual GameObject Target()
@@ -47,7 +47,7 @@ public abstract class BaseAttackBehaviour : BaseBehaviour
 		if (m_EnemyAI.m_UMovement)
 		{
 			if(m_MovementComponent != null)
-				m_MovementComponent.Movement (m_Target);
+				m_MovementComponent.Movement (getTarget());
 		}
 	}
 

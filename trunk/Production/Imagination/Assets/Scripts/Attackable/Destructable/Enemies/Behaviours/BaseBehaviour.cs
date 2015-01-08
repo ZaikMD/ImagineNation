@@ -7,7 +7,7 @@
 
 #region ChangeLog
 /*
- * 
+ * Removed the m_Target variable in order to switch it to the enemyAI class, in order to keep the target consistent through all behaviours - Mathieu Elias, Jan 8 2015
  */
 #endregion
 using UnityEngine;
@@ -16,8 +16,6 @@ using System.Collections;
 public class BaseBehaviour : MonoBehaviour 
 {
 	protected EnemyAI m_EnemyAI;
-
-	protected GameObject m_Target;
 
 	protected bool m_ControllerSet = false;
 	
@@ -90,5 +88,23 @@ public class BaseBehaviour : MonoBehaviour
 		return null;
 	}
 
+	// Returns the enemyAI's target
+	protected GameObject getTarget()
+	{
+		if (m_EnemyAI != null)
+		{
+			return m_EnemyAI.Target;
+		}
 
+		return null;
+	}
+
+	//Sets the enemyAI's target
+	protected void setTarget(GameObject target)
+	{
+		if (m_EnemyAI != null)
+		{
+		    m_EnemyAI.Target = target;
+		}
+	}
 }

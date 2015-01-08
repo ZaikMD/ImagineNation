@@ -34,10 +34,10 @@ public class FurbullAttackBehaviour : BaseAttackBehaviour
 	public override void update()
 	{
         //Set the target
-        m_Target = Target();
+        setTarget(Target());
 
         //if we dont have a target switch to idle
-        if (m_Target == null)
+		if (getTarget() == null)
         {
             m_EnemyAI.SetState(EnemyAI.EnemyState.Idle);
             return;
@@ -50,7 +50,7 @@ public class FurbullAttackBehaviour : BaseAttackBehaviour
         }
 
         //look at the target
-		transform.LookAt (m_Target.transform.position);
+		transform.LookAt (getTarget().transform.position);
 
         //Call the movement
         Movement();
@@ -69,6 +69,6 @@ public class FurbullAttackBehaviour : BaseAttackBehaviour
     private float GetDistanceToTarget()
     {
         //Return Distance between target and current position
-        return Vector3.Distance(transform.position, m_Target.transform.position);
+		return Vector3.Distance(transform.position, getTarget().transform.position);
     }
 }

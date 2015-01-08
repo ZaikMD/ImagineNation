@@ -26,17 +26,17 @@ public class SpinningTopChaseBehaviour : BaseChaseBehaviour
 	public override void update()
 	{
 		//Set Target
-        m_Target = Target();
+        setTarget(Target());
 
 		//If Target is null then enter idle state
-        if (m_Target == null)
+		if (getTarget() == null)
         {
             m_EnemyAI.SetState(EnemyAI.EnemyState.Idle);
             return;
         }
 
 		//Set state to idle if we need to leave combat
-        if (LeaveCombat(m_Target.transform))
+		if (LeaveCombat(getTarget().transform))
         {
             m_EnemyAI.SetState(EnemyAI.EnemyState.Idle);
             return;
@@ -55,6 +55,6 @@ public class SpinningTopChaseBehaviour : BaseChaseBehaviour
 	//Return distance between target and the enemy
     private float GetDistanceToTarget()
     {
-        return Vector3.Distance(transform.position, m_Target.transform.position);
+		return Vector3.Distance(transform.position, getTarget().transform.position);
     }
 }

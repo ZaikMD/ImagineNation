@@ -29,15 +29,15 @@ public class GnomeIdle : BaseIdleBehaviour
 	public override void update()
 	{
 		//Grab current target
-		m_Target = Target ();
+		setTarget(Target ());
 
 		//move
 		Movement ();
 
 		// If we have a target and its time to enter combat switch the state to chase
-		if (m_Target != null)
+		if (getTarget() != null)
 		{
-			if (EnterCombat(m_Target.transform))
+			if (EnterCombat(getTarget().transform))
 				m_EnemyAI.SetState(EnemyAI.EnemyState.Chase);
 		}
 	}
