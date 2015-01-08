@@ -11,6 +11,8 @@
  * 
  * Changed FixedUpdate to virtual - Joe Burchill Dec 3, 2014
  * 
+ * Added the target variable as well as property - Mathieu Elias, Jan 8 2015
+ * 
  */
 #endregion
 
@@ -56,6 +58,8 @@ public class EnemyAI : Destructable
 	EnemyController m_EnemyController;
 
 	public bool m_IsInvincible { get; set; }
+
+	protected GameObject m_Target;
 
 	//Choose a Behavoir to update
 	public virtual void FixedUpdate ()
@@ -200,6 +204,12 @@ public class EnemyAI : Destructable
 	{
 		//public function to add a NotifyHit to the list
 		m_NotifyHit.Add (notifyHit);
+	}
+
+	public GameObject Target
+	{
+		get { return m_Target;}
+		set {m_Target = value;}
 	}
 	
 }

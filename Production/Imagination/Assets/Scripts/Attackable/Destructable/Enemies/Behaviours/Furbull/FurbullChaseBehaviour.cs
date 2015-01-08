@@ -27,17 +27,17 @@ public class FurbullChaseBehaviour : BaseChaseBehaviour
 	public override void update()
 	{
         //Set the target
-        m_Target = Target();
+		setTarget(Target());
 
         //Set state to idle if the target is null
-        if (m_Target == null)
+		if (getTarget() == null)
         {
             m_EnemyAI.SetState(EnemyAI.EnemyState.Idle);
             return;
         }
 
         //If we leave combat set the state to idle
-        if (LeaveCombat(m_Target.transform))
+		if (LeaveCombat(getTarget().transform))
         {
             m_EnemyAI.SetState(EnemyAI.EnemyState.Idle);
             return;
@@ -56,6 +56,6 @@ public class FurbullChaseBehaviour : BaseChaseBehaviour
 
     private float GetDistanceToTarget()
     {
-        return Vector3.Distance(transform.position, m_Target.transform.position);
+		return Vector3.Distance(transform.position, getTarget().transform.position);
     }
 }

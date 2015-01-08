@@ -26,7 +26,7 @@ public class SpinningTopIdleBehaviour : BaseIdleBehaviour
 	public override void update()
 	{
 		//Set the target
-        m_Target = Target();
+        setTarget(Target());
 
 		//Call Movement
         if (m_MovementComponent != null)
@@ -35,9 +35,9 @@ public class SpinningTopIdleBehaviour : BaseIdleBehaviour
         }
 
 		//Set state to chase if the enter combat is called
-        if (m_Target != null)
+		if (getTarget() != null)
         {
-            if (m_EnterCombatComponent.EnterCombat(m_Target.transform) == true)
+			if (m_EnterCombatComponent.EnterCombat(getTarget().transform) == true)
             {
                 m_EnemyAI.SetState(EnemyAI.EnemyState.Chase);
             }
