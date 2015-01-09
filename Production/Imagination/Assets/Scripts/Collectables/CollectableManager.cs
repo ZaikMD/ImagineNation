@@ -26,7 +26,9 @@ public class CollectableManager : MonoBehaviour
     public GameObject[] m_LightPegsForCheckPointThree;
 
 	public GameObject[] m_PuzzlePieceForSection;
-   
+
+	public float DistanceFromGround;
+
     bool[] m_LightPegCollected;
 	bool[] m_PuzzlePieceCollected;
 
@@ -375,6 +377,7 @@ case CheckPoints.CheckPoint_3:
 
 	}
 
+//Error is here
     public void IncrementCounter()
     {
         m_NumberOfLightPegsCollect ++;
