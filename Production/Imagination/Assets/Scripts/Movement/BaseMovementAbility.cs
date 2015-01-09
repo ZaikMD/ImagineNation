@@ -129,7 +129,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//Update movement
 
 	//The default update all characters should use
-	protected void UpdateVelocity () 
+	protected virtual void UpdateVelocity () 
 	{ 
         if (PauseScreen.IsGamePaused)
 		{
@@ -141,7 +141,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			m_Anim.enabled = true;
 		}
 
-		//Do not move if we are paused
+		//Do not move if we are paused (used by other classes to pause the movement)
 		if (m_PausedMovement)
 		{
 			return;
@@ -205,7 +205,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	}
 
 	//Moves the player based on the facing angle of the camera and the players input
-	protected void GroundMovement()
+	protected virtual void GroundMovement()
 	{
 		//Do animation logic
 		OnGroundAnimLogic ();
