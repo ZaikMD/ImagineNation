@@ -28,6 +28,9 @@ public class CombatItem : MonoBehaviour
 	string m_Inputs;
 
     AcceptInputFrom m_ReadInput;
+
+    const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -48,8 +51,8 @@ public class CombatItem : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () 
-	{ 
-        if (PauseScreen.IsGamePaused){return;}
+	{
+        if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 
         if (InputManager.getAttackDown(m_ReadInput.ReadInputFrom))
         {

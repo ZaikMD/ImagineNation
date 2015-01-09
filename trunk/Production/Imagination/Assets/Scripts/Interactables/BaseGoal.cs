@@ -30,6 +30,8 @@ public class BaseGoal : MonoBehaviour
 
 	int m_PlayerWaitingToExit = 0;
 
+    const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
+
 	//Initialize values
 	void Start()
 	{
@@ -43,7 +45,7 @@ public class BaseGoal : MonoBehaviour
 
 	void Update()
 	{
-        if (PauseScreen.IsGamePaused) { return; }
+        if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 
 		//if element 1 of array m_AtEnd equals true than load the next level. Because element 1 would be player2
 		if (m_AtEnd[1])

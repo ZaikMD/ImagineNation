@@ -35,6 +35,7 @@ public class MovingWalls : MonoBehaviour
 	//States
 	private bool m_MovingForward;
 
+    const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.PauseMenu;
 
 	//Initialization
 	void Start () 
@@ -50,8 +51,8 @@ public class MovingWalls : MonoBehaviour
 
 	//Update the pusher
 	void Update () 
-	{ 
-        if (PauseScreen.IsGamePaused){return;}
+	{
+        if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 
 		//Either the platform is moving forward or backward
 		//pass in the correct destination based on current direction

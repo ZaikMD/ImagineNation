@@ -39,6 +39,8 @@ public class Switch : SwitchBaseClass, Attackable
 	public bool m_WillPauseForCamera;
 	public float m_CameraPauseTimer;
 
+    const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
+
 	// Use this for initialization
 	void Start () 
     {
@@ -59,7 +61,7 @@ public class Switch : SwitchBaseClass, Attackable
 	// Update is called once per frame
 	void Update () 
     {
-        if (PauseScreen.IsGamePaused) { return; }
+        if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 
 		if(m_WillPauseForCamera) //If the switch will pause for the camera to show something
 		{

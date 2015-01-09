@@ -20,6 +20,8 @@ public class GnomeShield : MonoBehaviour
 	float m_DeactiveTimer = 0.0f;
 	bool m_ShieldActive;
 
+    const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -27,8 +29,8 @@ public class GnomeShield : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () 
-	{ 
-        if (PauseScreen.IsGamePaused){return;}
+	{
+        if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 
 		if (!m_ShieldActive)
 		{

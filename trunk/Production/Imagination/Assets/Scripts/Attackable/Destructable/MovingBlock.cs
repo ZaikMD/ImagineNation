@@ -59,7 +59,7 @@ public class MovingBlock : Destructable
     //Gravity for when the block needs to fall
 	float m_Gravity = 10.0f;
 
-
+    const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
 
 	// Use this for initialization
 	void Start () 
@@ -77,8 +77,8 @@ public class MovingBlock : Destructable
 	
 	// Update is called once per frame
 	void Update () 
-	{ 
-        if (PauseScreen.IsGamePaused){return;}
+	{
+        if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 
         //If the box is dead, respawn it
 		if(m_Health <= 0.0f)

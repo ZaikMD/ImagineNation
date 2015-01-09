@@ -39,6 +39,7 @@ public class CrawlSpace : MonoBehaviour
 
 	TPCamera m_CameraSnapper;
 
+    const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
 
 	//increments m_InComingPlayer
 	public void addIncomingPlayer()
@@ -57,8 +58,8 @@ public class CrawlSpace : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () 
-	{ 
-        if (PauseScreen.IsGamePaused){return;}
+	{
+        if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 
 		//null check on hiding spot and m_otherCrawlSpace
 		if(m_OtherCrawlSpace != null && m_TemporaryHidingSpot != null)

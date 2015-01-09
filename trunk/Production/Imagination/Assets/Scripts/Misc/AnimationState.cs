@@ -54,6 +54,8 @@ public class AnimationState : MonoBehaviour {
 	public AnimationClip m_Slash;
 	public AnimationClip m_DoubleSlash;
 
+    const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -65,12 +67,8 @@ public class AnimationState : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () 
-	{ 
-        if (PauseScreen.IsGamePaused)
-		{
-
-			return;
-		}
+	{
+        if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 
 		//these control timers for animations that need them.
 		if(m_Jumping)

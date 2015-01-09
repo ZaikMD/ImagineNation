@@ -27,6 +27,8 @@ public class Targeting : MonoBehaviour {
 
     private int m_LayerMask;
 
+    const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -54,7 +56,7 @@ public class Targeting : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
-        if (PauseScreen.IsGamePaused) { return; }
+        if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 
 		CalcCurrentTarget();
         PaintTarget();    
