@@ -16,10 +16,10 @@ using System.Collections;
 
 public class ShaderTools : EditorWindow
 {
-	bool lightMenuToggle;
+	bool m_LightMenuToggle;
 
 	//Creates the window
-	[MenuItem ("Tools/ShaderTools")]
+	[MenuItem ("Tools/Shader Tools")]
 	static void Init () {
 		ShaderTools window = (ShaderTools)EditorWindow.GetWindow(typeof(ShaderTools));
 	}
@@ -27,11 +27,8 @@ public class ShaderTools : EditorWindow
 	//Draws the window
 	void OnGUI ()
 	{
-		GUILayout.Label ("Shader Tools", EditorStyles.boldLabel);
-
-		lightMenuToggle = EditorGUILayout.BeginToggleGroup ("Lights", lightMenuToggle);
-
-		if (lightMenuToggle)
+		m_LightMenuToggle = EditorGUILayout.Foldout (m_LightMenuToggle, "Shadows");
+		if (m_LightMenuToggle)
 		{
 			if(GUILayout.Button("No Shadows"))
 			{
@@ -46,7 +43,6 @@ public class ShaderTools : EditorWindow
 				SetShadowsOfAllLights(LightShadows.Hard);
 			}
 		}
-		EditorGUILayout.EndToggleGroup ();
 	}
 
 	//Sets the shadows for all of the lights to none, soft or hard
