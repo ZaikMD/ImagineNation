@@ -48,10 +48,11 @@ public class ShutterCamera : MonoBehaviour
 
     protected virtual void Start()
     {
+#if !UNITY_EDITOR && !DEBUG
         //hide th cursor (no better spot to call this
         Screen.showCursor = false;
 		Screen.lockCursor = true;
-
+#endif
         //set the inital euler angles for the shutter
         m_ShutterInitialEuler = ShutterRotationPoint.transform.eulerAngles;
     }
