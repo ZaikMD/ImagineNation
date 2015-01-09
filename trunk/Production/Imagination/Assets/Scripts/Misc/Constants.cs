@@ -109,6 +109,44 @@ public static class Constants
 		public const string GLIDING = "Gliding";
 	}
 
+	public struct HudImages
+	{
+
+//standard hud images
+		public const string LIGHT_PEG_HUD_IMAGE = "HUD_textures/Light_Bright";
+		public const string LIFE_COUNT_IMAGE = "HUD_textures/heart";
+		public const string CHECKPOINT_IMAGE = "HUD_textures/Checkpoint";
+		public const string LEFT_HEALTH_BOARDER = "HUD_textures/HealthBoarders/PortraitBorderLeft";
+		public const string RIGHT_HEALTH_BOARDER = "HUD_textures/HealthBoarders/PortraitBorderRight";
+
+//Alex hud images
+		public const string ALEX_FULL_HEALTH_IMAGE = "HUD_textures/PlayerHealth/Alex/Alex";
+		public const string ALEX_INJURED_HEALTH_IMAGE = "HUD_textures/PlayerHealth/Alex/AlexInjured";
+		public const string ALEX_CRITICAL_HEALTH_IMAGE = "HUD_textures/PlayerHealth/Alex/AlexCritical";
+		public const string ALEX_DEAD_HEALTH_IMAGE = "HUD_textures/PlayerHealth/Alex/AlexDead";
+
+//derek hud images
+		public const string DEREK_FULL_HEALTH_IMAGE = "HUD_textures/PlayerHealth/Derek/Derek";
+		public const string DEREK_INJURED_HEALTH_IMAGE = "HUD_textures/PlayerHealth/Derek/DerekInjured";
+		public const string DEREK_CRITICAL_HEALTH_IMAGE = "HUD_textures/PlayerHealth/Derek/DerekCritical";
+		public const string DEREK_DEAD_HEALTH_IMAGE = "HUD_textures/PlayerHealth/Derek/DerekDead";
+
+//zoey hud images
+		public const string ZOEY_FULL_HEALTH_IMAGE = "HUD_textures/PlayerHealth/Zoe/Zoe";
+		public const string ZOEY_INJURED_HEALTH_IMAGE = "HUD_textures/PlayerHealth/Zoe/ZoeInjured";
+		public const string ZOEY_CRITICAL_HEALTH_IMAGE = "HUD_textures/PlayerHealth/Zoe/ZoeCritical";
+		public const string ZOEY_DEAD_HEALTH_IMAGE = "HUD_textures/PlayerHealth/Zoe/ZoeDead";
+
+//Puzzle pieces
+		public const string PUZZLEPIECE_ZERO_IMAGE = "HUD_textures/Puzzle/Puzzle01";
+		public const string PUZZLEPIECE_ONE_IMAGE = "HUD_textures/Puzzle/Puzzle02";
+		public const string PUZZLEPIECE_TWO_IMAGE = "HUD_textures/Puzzle/Puzzle03";
+		public const string PUZZLEPIECE_THREE_IMAGE = "HUD_textures/Puzzle/Puzzle04";
+		public const string PUZZLEPIECE_FOUR_IMAGE = "HUD_textures/Puzzle/Puzzle05";
+		public const string PUZZLEPIECE_FIVE_IMAGE = "HUD_textures/Puzzle/Puzzle06";
+		public const string PUZZLEPIECE_SIX_IMAGE = "HUD_textures/Puzzle/Puzzle07";
+	}
+
 	public struct Sounds
 	{
 		 

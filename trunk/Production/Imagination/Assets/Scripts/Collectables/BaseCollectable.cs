@@ -9,8 +9,6 @@ using System.Collections;
  * 
  */
 
-[RequireComponent(typeof(CharacterController))]
-
 public abstract class BaseCollectable : MonoBehaviour {
 
 	// used so we know which element of the array we are;
@@ -18,25 +16,32 @@ public abstract class BaseCollectable : MonoBehaviour {
 
 	//References to other Components.
 	protected SFXManager m_SFX;
-	protected CharacterController m_Controller;	
 	protected CollectableManager m_CollectableManager;
 
 	void Start ()
 	{
 		//Setting our references
 		m_SFX = GameObject.FindGameObjectWithTag (Constants.SOUND_MANAGER).GetComponent<SFXManager>();
-		m_Controller = gameObject.GetComponent<CharacterController>();
 		m_CollectableManager = GameObject.FindGameObjectWithTag(Constants.COLLECTABLE_MANAGER).GetComponent<CollectableManager>();
+
+		SetOnGround();
 	}
 
-	void Update()
+	void SetOnGround()
 	{
-		if(this.GetComponent<EnemyLightPegSpawn>() == null)
-		{
-		//This will apply gravity for us
-		Vector3 speed = Vector3.zero;
-		m_Controller.SimpleMove(speed);
-		}
+		//This will later be handle by a tool. 
+		//RayCast Down, and place object at loction plus our desired height retrived from collectable manager
+
+		Vector3 StartingPlace = transform.position;
+		Vector3 StraightDown = transform.up * -1;
+		Vector3 DistanceFromGround = new Vector3(0, m_CollectableManager.DistanceFromGround, 0);
+
+		Ray Direction = new Ray(StartingPlace, StraightDown);
+		RaycastHit HitInfo;
+
+		Physics.Raycast (Direction, out HitInfo);
+
+		transform.position = HitInfo.point + DistanceFromGround;
 	}
 
 	//Sets our if and Type

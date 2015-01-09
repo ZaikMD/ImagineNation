@@ -35,15 +35,15 @@ public class Hud : MonoBehaviour {
 	int NumberOfLives;
 
 	//Images for our hud
-    public Texture m_LightPegHudImage;
-    public Texture[] m_PuzzlePieceHudImages;
-    public Texture m_LifeCounterImage;
-    public Texture m_CheckpointImage;
-	public Texture m_LeftHealthBoarder;
-	public Texture m_RightHealthBoarder;
-	public Texture[] m_DerekHealthImages;
-	public Texture[] m_AlexHealthImages;
-	public Texture[] m_ZoeyHealthImages;
+    Texture m_LightPegHudImage;
+    Texture[] m_PuzzlePieceHudImages;
+    Texture m_LifeCounterImage;
+    Texture m_CheckpointImage;
+	Texture m_LeftHealthBoarder;
+	Texture m_RightHealthBoarder;
+	Texture[] m_DerekHealthImages;
+	Texture[] m_AlexHealthImages;
+	Texture[] m_ZoeyHealthImages;
 
     //arrays for our players health images
 	Texture[] m_PlayerOneHealthImages;
@@ -52,6 +52,10 @@ public class Hud : MonoBehaviour {
     //Font for numbers
     public Font m_NumberFont;
 
+	void OnLoad()
+	{
+		LoadHudImage();
+	}
 
     const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
 
@@ -71,6 +75,7 @@ public class Hud : MonoBehaviour {
 		m_ShowLifes = false;
 		m_ShowPuzzlePieces = false;
 
+		LoadHudImage ();
 
 		switch(GameData.Instance.PlayerOneCharacter)
 		{
@@ -101,8 +106,51 @@ public class Hud : MonoBehaviour {
 			m_PlayerTwoHealthImages = m_ZoeyHealthImages;
 			break;
 		}
+
+		ShowHiddenHud();
 	}
-	
+
+	void LoadHudImage()
+	{
+		m_LightPegHudImage = (Texture)Resources.Load(Constants.HudImages.LIGHT_PEG_HUD_IMAGE);
+		if(m_LightPegHudImage == null)
+		{
+			Debug.Log("Failure");
+		}
+		m_LifeCounterImage = (Texture)Resources.Load(Constants.HudImages.LIFE_COUNT_IMAGE);
+		m_CheckpointImage = (Texture)Resources.Load(Constants.HudImages.CHECKPOINT_IMAGE);
+		m_LeftHealthBoarder = (Texture)Resources.Load(Constants.HudImages.LEFT_HEALTH_BOARDER);
+		m_RightHealthBoarder = (Texture)Resources.Load(Constants.HudImages.RIGHT_HEALTH_BOARDER);
+
+		m_AlexHealthImages = new Texture[4];
+		m_ZoeyHealthImages = new Texture[4];
+		m_DerekHealthImages = new Texture[4];
+		m_PuzzlePieceHudImages = new Texture[7];
+
+		m_AlexHealthImages[3] = (Texture)Resources.Load(Constants.HudImages.ALEX_FULL_HEALTH_IMAGE);
+		m_AlexHealthImages[2] = (Texture)Resources.Load(Constants.HudImages.ALEX_INJURED_HEALTH_IMAGE);
+		m_AlexHealthImages[1] = (Texture)Resources.Load(Constants.HudImages.ALEX_CRITICAL_HEALTH_IMAGE);
+		m_AlexHealthImages[0] = (Texture)Resources.Load(Constants.HudImages.ALEX_DEAD_HEALTH_IMAGE);
+
+		m_DerekHealthImages[3] = (Texture)Resources.Load(Constants.HudImages.DEREK_FULL_HEALTH_IMAGE);
+		m_DerekHealthImages[2] = (Texture)Resources.Load(Constants.HudImages.DEREK_INJURED_HEALTH_IMAGE);
+		m_DerekHealthImages[1] = (Texture)Resources.Load(Constants.HudImages.DEREK_CRITICAL_HEALTH_IMAGE);
+		m_DerekHealthImages[0] = (Texture)Resources.Load(Constants.HudImages.DEREK_DEAD_HEALTH_IMAGE);
+
+		m_ZoeyHealthImages[3] = (Texture)Resources.Load(Constants.HudImages.ZOEY_FULL_HEALTH_IMAGE);
+		m_ZoeyHealthImages[2] = (Texture)Resources.Load(Constants.HudImages.ZOEY_INJURED_HEALTH_IMAGE);
+		m_ZoeyHealthImages[1] = (Texture)Resources.Load(Constants.HudImages.ZOEY_CRITICAL_HEALTH_IMAGE);
+		m_ZoeyHealthImages[0] = (Texture)Resources.Load(Constants.HudImages.ZOEY_DEAD_HEALTH_IMAGE);
+
+		m_PuzzlePieceHudImages[0] = (Texture)Resources.Load(Constants.HudImages.PUZZLEPIECE_ZERO_IMAGE);
+		m_PuzzlePieceHudImages[1] = (Texture)Resources.Load(Constants.HudImages.PUZZLEPIECE_ONE_IMAGE);
+		m_PuzzlePieceHudImages[2] = (Texture)Resources.Load(Constants.HudImages.PUZZLEPIECE_TWO_IMAGE);
+		m_PuzzlePieceHudImages[3] = (Texture)Resources.Load(Constants.HudImages.PUZZLEPIECE_THREE_IMAGE);
+		m_PuzzlePieceHudImages[4] = (Texture)Resources.Load(Constants.HudImages.PUZZLEPIECE_FOUR_IMAGE);
+		m_PuzzlePieceHudImages[5] = (Texture)Resources.Load(Constants.HudImages.PUZZLEPIECE_FIVE_IMAGE);
+		m_PuzzlePieceHudImages[6] = (Texture)Resources.Load(Constants.HudImages.PUZZLEPIECE_SIX_IMAGE);
+	}
+
 	// Update is called once per frame
 	void Update ()
     {
@@ -232,7 +280,6 @@ public class Hud : MonoBehaviour {
     void OnGUI()
     {
         if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
-
 
 		float SizeOfHudElements = Screen.width / 10;
 		Rect PositionRect = new Rect(0, 0, SizeOfHudElements, SizeOfHudElements);
