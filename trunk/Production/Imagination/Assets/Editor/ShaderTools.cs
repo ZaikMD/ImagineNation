@@ -19,7 +19,7 @@ public class ShaderTools : EditorWindow
 	bool lightMenuToggle;
 
 	//Creates the window
-	[MenuItem ("Tools/ShaderSettings")]
+	[MenuItem ("Tools/ShaderTools")]
 	static void Init () {
 		ShaderTools window = (ShaderTools)EditorWindow.GetWindow(typeof(ShaderTools));
 	}
