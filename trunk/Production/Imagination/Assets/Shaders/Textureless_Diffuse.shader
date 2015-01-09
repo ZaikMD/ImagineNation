@@ -11,6 +11,43 @@
 
 Shader "Production/Textureless_Diffuse"
 {
+	Properties 
+	{
+		_Color ("Color", Color) = (1.0,1.0,1.0,1.0)
+	}
+	SubShader 
+	{
+		Tags { "RenderType"="Opaque" }
+		LOD 200
+		
+		CGPROGRAM
+		#pragma surface surf MyDiffuse
+
+		float4 _Color;
+
+		struct Input
+		{
+			float2 uv_MainTex;
+		};
+
+		void surf (Input IN, inout SurfaceOutput o)
+		{
+			o.Albedo = _Color.rgb;
+			o.Alpha = _Color.a;
+		}
+		
+		float4 LightingMyDiffuse_PrePass(SurfaceOutput i, float4 light)
+		{
+			return float4(i.Albedo * light.rgb, 1.0);
+		}
+		
+		ENDCG
+	}
+	Fallback "Diffuse"
+}
+
+/*Shader "Production/Textureless_Diffuse"
+{
 	//Properties that can be set by designers
 	Properties
     {
@@ -299,3 +336,4 @@ Shader "Production/Textureless_Diffuse"
 		}
 	}
 }
+*/

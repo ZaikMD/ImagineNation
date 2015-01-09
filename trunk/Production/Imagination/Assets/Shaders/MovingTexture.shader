@@ -10,10 +10,64 @@
 
 Shader "Production/MovingTexture"
 {
+	Properties 
+	{
+		_MainTex ("Base (RGB)", 2D) = "white" {}
+		_Speed("Speed", Vector) = (1.0, 1.0, 0.0, 0.0)
+    	_BobbingAmount("Bobbing Amount (0-1)", Float) = 0.0
+	}
+	SubShader 
+	{
+		Tags { "RenderType"="Opaque" }
+		LOD 200
+		
+		CGPROGRAM
+		#pragma surface surf MyDiffuse
+
+		sampler2D _MainTex;
+		float4 _Speed;
+		float _BobbingAmount;
+
+		struct Input
+		{
+			float2 uv_MainTex;
+		};
+
+		void surf (Input IN, inout SurfaceOutput o)
+		{
+			float2 uv = IN.uv_MainTex;
+			uv.x += _Time.x * _Speed.x;
+	 		uv.y += _Time.x * _Speed.y;
+	 		
+	 		if (_BobbingAmount > 0)
+	 		{
+	 			uv.x += cos(_Time.x * _Speed.z / _BobbingAmount) * _BobbingAmount;
+	 			uv.y += cos(_Time.x * _Speed.w / _BobbingAmount) * _BobbingAmount;
+	 		}
+	 		
+			half4 c = tex2D (_MainTex, uv);
+			o.Albedo = c.rgb;
+			o.Alpha = c.a;
+		}
+		
+		float4 LightingMyDiffuse_PrePass(SurfaceOutput i, float4 light)
+		{
+			return float4(i.Albedo * light.rgb, 1.0);
+		}
+		
+		ENDCG
+	}
+	Fallback "Diffuse"
+}
+
+
+
+/*Shader "Production/MovingTexture"
+{
 	//Properties that can be set by designers
 	Properties
     {
-    	_MainTex ("Texture", 2D) = "white" {} 
+    	_MainTex ("Texture", 2D) = "white" {}
     	_PointLightIllumination("Point Light Illumination", Float) = 10.0
     	_PointLightMaximumIllumination("Point Light Max Illumination", Float) = 0.35
     	_Speed("Speed", Vector) = (1.0, 1.0, 0.0, 0.0)
@@ -333,4 +387,4 @@ Shader "Production/MovingTexture"
 			ENDCG
 		}
 	}
-}
+}*/

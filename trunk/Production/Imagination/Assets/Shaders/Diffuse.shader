@@ -8,8 +8,45 @@
 //
 // Created by Jason Hein
 
-
 Shader "Production/Diffuse"
+{
+	Properties 
+	{
+		_MainTex ("Base (RGB)", 2D) = "white" {}
+	}
+	SubShader 
+	{
+		Tags { "RenderType"="Opaque" }
+		LOD 200
+		
+		CGPROGRAM
+		#pragma surface surf MyDiffuse
+
+		sampler2D _MainTex;
+
+		struct Input
+		{
+			float2 uv_MainTex;
+		};
+
+		void surf (Input IN, inout SurfaceOutput o)
+		{
+			half4 c = tex2D (_MainTex, IN.uv_MainTex);
+			o.Albedo = c.rgb;
+			o.Alpha = c.a;
+		}
+		
+		float4 LightingMyDiffuse_PrePass(SurfaceOutput i, float4 light)
+		{
+			return float4(i.Albedo * light.rgb, 1.0);
+		}
+		
+		ENDCG
+	}
+	Fallback "Diffuse"
+}
+
+/*Shader "Production/Diffuse"
 {
 	//Properties that can be set by designers
 	Properties
@@ -27,7 +64,7 @@ Shader "Production/Diffuse"
 		//Pass for directional and ambient lighting
 		Pass 
 		{
-			Tags { "LightMode" = "ForwardBase" } 
+			//Tags { "LightMode" = "ForwardBase" } 
 			
 			//This is a CG shader
 			CGPROGRAM
@@ -148,7 +185,7 @@ Shader "Production/Diffuse"
 		//Pass for additional lighting
 		Pass
 		{
-			Tags { "LightMode" = "ForwardAdd" }
+			//Tags { "LightMode" = "ForwardAdd" }
 			
 			//Add the the colour we had already
 			Blend One One
@@ -241,40 +278,6 @@ Shader "Production/Diffuse"
  			ENDCG
 		}
 		
-		// Pass to render object as a shadow caster
-		Pass 
-		{
-			Name "ShadowCaster"
-			Tags { "LightMode" = "ShadowCaster" }
-			
-			Fog {Mode Off}
-			ZWrite On ZTest LEqual Cull Off
-			Offset 1, 1
-
-			CGPROGRAM
-			#pragma vertex vert
-			#pragma fragment frag
-			#pragma multi_compile_shadowcaster
-			#include "UnityCG.cginc"
-
-			struct v2f { 
-				V2F_SHADOW_CASTER;
-			};
-
-			v2f vert( appdata_base v )
-			{
-				v2f o;
-				TRANSFER_SHADOW_CASTER(o)
-				return o;
-			}
-
-			float4 frag( v2f i ) : SV_Target
-			{
-				SHADOW_CASTER_FRAGMENT(i)
-			}
-			ENDCG
-		}
-		
 		// Pass to render object as a shadow collector
 		// note: editor needs this pass as it has a collector pass.
 		Pass
@@ -315,4 +318,5 @@ Shader "Production/Diffuse"
 			ENDCG
 		}
 	}
-}
+	Fallback "Diffuse"
+}*/
