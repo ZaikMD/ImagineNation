@@ -19,47 +19,38 @@ using System.Collections;
 
 public class ObjectTools : EditorWindow
 {
-	bool lightMenuToggle;
+	bool cameraMenuToggle;
 	
 	//Creates the window
-	[MenuItem ("Tools/ShaderSettings")]
+	[MenuItem ("Tools/ObjectTools")]
 	static void Init () {
-		ShaderSettings window = (ShaderSettings)EditorWindow.GetWindow(typeof(ShaderSettings));
+		ObjectTools window = (ObjectTools)EditorWindow.GetWindow(typeof(ObjectTools));
 	}
 	
 	//Draws the window
 	void OnGUI ()
 	{
-		GUILayout.Label ("Shader Settings", EditorStyles.boldLabel);
+		GUILayout.Label ("Object Tools", EditorStyles.boldLabel);
 		
-		lightMenuToggle = EditorGUILayout.BeginToggleGroup ("Lights", lightMenuToggle);
+		cameraMenuToggle = EditorGUILayout.BeginToggleGroup ("EdtitorCamera", cameraMenuToggle);
 		
-		if (lightMenuToggle)
+		if (cameraMenuToggle)
 		{
-			if(GUILayout.Button("No Shadows"))
+			if(GUILayout.Button("Jump To Object"))
 			{
-				SetShadowsOfAllLights(LightShadows.None);
-			}
-			if(GUILayout.Button("Soft Shadows"))
-			{
-				SetShadowsOfAllLights(LightShadows.Soft);
-			}
-			if(GUILayout.Button("Hard Shadows"))
-			{
-				SetShadowsOfAllLights(LightShadows.Hard);
+				JumpEditorCameraToObject ();
 			}
 		}
 		EditorGUILayout.EndToggleGroup ();
 	}
 	
 	//Sets the shadows for all of the lights to none, soft or hard
-	void SetShadowsOfAllLights (LightShadows lightShadows)
+	void JumpEditorCameraToObject ()
 	{
-		Light[] lights = Object.FindObjectsOfType<Light> ();
-		foreach (Light light in lights)
-		{
-			light.shadows = lightShadows;
-		}
+		Vector3 position = SceneView.lastActiveSceneView.pivot;
+		position.z -= 10.0f;
+		SceneView.lastActiveSceneView.pivot = position;
+		SceneView.lastActiveSceneView.Repaint();
 	}
 }
 
