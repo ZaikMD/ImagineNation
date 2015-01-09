@@ -1,4 +1,7 @@
-﻿//Created by Jason Hein on Jan 9th 2015
+﻿using UnityEngine;
+using System.Collections;
+
+//Created by Jason Hein on Jan 9th 2015
 //
 //
 //Can be found in the Tools Tab
@@ -14,23 +17,23 @@ using UnityEngine;
 using UnityEditor;
 using System.Collections;
 
-public class ShaderSettings : EditorWindow
+public class ObjectTools : EditorWindow
 {
 	bool lightMenuToggle;
-
+	
 	//Creates the window
 	[MenuItem ("Tools/ShaderSettings")]
 	static void Init () {
 		ShaderSettings window = (ShaderSettings)EditorWindow.GetWindow(typeof(ShaderSettings));
 	}
-
+	
 	//Draws the window
 	void OnGUI ()
 	{
 		GUILayout.Label ("Shader Settings", EditorStyles.boldLabel);
-
+		
 		lightMenuToggle = EditorGUILayout.BeginToggleGroup ("Lights", lightMenuToggle);
-
+		
 		if (lightMenuToggle)
 		{
 			if(GUILayout.Button("No Shadows"))
@@ -48,7 +51,7 @@ public class ShaderSettings : EditorWindow
 		}
 		EditorGUILayout.EndToggleGroup ();
 	}
-
+	
 	//Sets the shadows for all of the lights to none, soft or hard
 	void SetShadowsOfAllLights (LightShadows lightShadows)
 	{
@@ -59,3 +62,6 @@ public class ShaderSettings : EditorWindow
 		}
 	}
 }
+
+
+
