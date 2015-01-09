@@ -28,6 +28,8 @@ public class GnomeClone : Destructable
 	const float m_TimeBetweenShots = 1.0f;
 	float m_ShotTimer = 0.0f;
 
+    const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
+
 	// The function to call when creating a clone to initialise everything
 	public void Create(BaseMovement moveComponent, BaseCombat combatComponent, Vector3 startingPos, 
 	                   float activeTime, GameObject target, GameObject projectilePrefab)
@@ -65,8 +67,8 @@ public class GnomeClone : Destructable
 	
 	// Update is called once per frame
 	new void Update () 
-	{ 
-        if (PauseScreen.IsGamePaused){return;}
+	{
+        if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 	
 		// If the clones active timer is done or if the original is dead then kill it off
 		if (m_ActiveTimer <= 0.0f || m_OriginalIsDead)

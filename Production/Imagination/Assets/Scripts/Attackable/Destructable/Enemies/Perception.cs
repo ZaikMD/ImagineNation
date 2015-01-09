@@ -46,6 +46,8 @@ public class Perception : MonoBehaviour
 
 	private const float ANGLE_MULTIPLIER = 100.0f;
 
+    const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
+
     void Start()
     {
         m_Players = new Perception_Player[PlayerInfo.PlayerList.Count];
@@ -57,8 +59,7 @@ public class Perception : MonoBehaviour
 
     void Update()
     {
-
-        if (PauseScreen.IsGamePaused) { return; }
+        if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 
         for (int i = 0; i < m_Players.Length; i++)
         {

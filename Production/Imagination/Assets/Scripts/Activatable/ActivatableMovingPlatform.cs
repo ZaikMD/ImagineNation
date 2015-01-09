@@ -52,7 +52,7 @@ public class ActivatableMovingPlatform : Activatable
 	public float i_MoveLerpAmount = 0.05f;
 
 
-	const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
+	const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.PauseMenu;
 
 	//For moving the player
 	struct PlayersToMove

@@ -62,6 +62,8 @@ public class PlayerHealth : Destructable
 		get { return m_PlayersList; }
 	}
 
+    const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -132,8 +134,8 @@ public class PlayerHealth : Destructable
 	
 	// Update is called once per frame
 	protected void Update () 
-	{ 
-        if (PauseScreen.IsGamePaused){return;}	
+	{
+        if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 
         if(m_InvulnerabilityTimer > 0.0f)
 		{

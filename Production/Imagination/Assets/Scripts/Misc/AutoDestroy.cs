@@ -4,11 +4,12 @@ using System.Collections;
 public class AutoDestroy : MonoBehaviour {
 
 	public float timer;
+    const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
 
 	// Update is called once per frame
 	void Update ()
 	{
-        if (PauseScreen.IsGamePaused) { return; }
+        if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 
 		timer -= Time.deltaTime;
 

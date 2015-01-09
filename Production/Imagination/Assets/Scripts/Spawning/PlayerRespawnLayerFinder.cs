@@ -26,7 +26,9 @@ public class PlayerRespawnLayerFinder : MonoBehaviour
 	bool m_SearchForRespawnLayer;
 	bool m_RespawnLayerFound;
 	float m_MinDistanceFromGroundToRespawn;
-	
+
+    const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
+
 	void Start () 
 	{
 		m_SearchForRespawnLayer = true;
@@ -35,8 +37,9 @@ public class PlayerRespawnLayerFinder : MonoBehaviour
 	}
 	
 	void Update () 
-	{ 
-        if (PauseScreen.IsGamePaused){return;}
+	{
+        
+        if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 
 		if(m_SearchForRespawnLayer == true)
 		{

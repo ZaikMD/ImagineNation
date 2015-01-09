@@ -30,7 +30,7 @@ public class BaseProjectile : MonoBehaviour
 
 	Characters m_Character;
 
-
+    const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
 
 	// Use this for initialization
 	void Start () 
@@ -46,8 +46,8 @@ public class BaseProjectile : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () 
-	{ 
-        if (PauseScreen.IsGamePaused){return;}
+	{
+        if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 
 		transform.position += transform.forward * m_MoveSpeed * Time.deltaTime; //Move the projectile
 

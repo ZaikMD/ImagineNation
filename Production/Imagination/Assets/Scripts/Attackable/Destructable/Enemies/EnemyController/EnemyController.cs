@@ -19,7 +19,9 @@ public class EnemyController : MonoBehaviour
 
 	public BaseControlType m_ControlType;
 	GameObject m_Target;
-	
+
+    const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -31,8 +33,7 @@ public class EnemyController : MonoBehaviour
 
 	void Update()
 	{
-		if (PauseScreen.IsGamePaused)
-			return;
+        if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 
 		// If the group is aggro then update them
 		if (m_IsGroupAggro)

@@ -63,6 +63,7 @@ public class DeadPlayerManager : MonoBehaviour
 	//RespawnLocation
 	Vector3 m_RespawnLocation;
 
+    const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
 
 	// Use this for initialization
 	void Start () 
@@ -116,8 +117,8 @@ public class DeadPlayerManager : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () 
-	{ 
-        if (PauseScreen.IsGamePaused){return;}
+	{
+        if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 
 		checkPlayersAlive (); //See if players are alive or dead
 

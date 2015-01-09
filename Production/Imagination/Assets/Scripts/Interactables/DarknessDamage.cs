@@ -19,6 +19,8 @@ using System.Collections;
 
 public class DarknessDamage : MonoBehaviour 
 {
+    const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
+
 	//onTriggerEnter damage the destructable if there is one
     void OnTriggerEnter(Collider obj)
     {
@@ -32,7 +34,7 @@ public class DarknessDamage : MonoBehaviour
 	//OnTriggerStay damage the destructable if there is one
     void OnTriggerStay(Collider obj)
     {
-        if (PauseScreen.IsGamePaused) { return; }
+        if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 
         Destructable objDestructable = (Destructable)obj.GetComponentInChildren<Destructable>();
         if (objDestructable != null)

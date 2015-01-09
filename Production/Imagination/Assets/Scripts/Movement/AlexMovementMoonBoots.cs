@@ -23,6 +23,8 @@ public class AlexMovementMoonBoots : BaseMovementAbility
 	//Jump speeds
 	private const float JUMP_SPEED = 8.0f;
 
+    const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
+
 	// Initialization
 	void Start () {
 		base.start ();
@@ -30,7 +32,7 @@ public class AlexMovementMoonBoots : BaseMovementAbility
 	// Just calls the base update
 	void Update ()
 	{
-        if (PauseScreen.IsGamePaused) { return; }
+        if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 
 		//then calls base Update script from BaseMovementAbility
 		base.UpdateVelocity ();

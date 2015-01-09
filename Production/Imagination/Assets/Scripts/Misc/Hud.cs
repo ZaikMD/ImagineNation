@@ -53,6 +53,8 @@ public class Hud : MonoBehaviour {
     public Font m_NumberFont;
 
 
+    const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
+
     //Use this for initialization
 	void Start ()
     {
@@ -104,7 +106,7 @@ public class Hud : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if (PauseScreen.IsGamePaused) { return; }
+        if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 
 		if(InputManager.getShowHud())
 		{
@@ -229,7 +231,7 @@ public class Hud : MonoBehaviour {
     //All our graphics have to be done in on gui
     void OnGUI()
     {
-		if (PauseScreen.IsGamePaused) { return; }
+        if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 
 
 		float SizeOfHudElements = Screen.width / 10;

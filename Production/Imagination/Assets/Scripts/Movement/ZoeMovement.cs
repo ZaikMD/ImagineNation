@@ -39,6 +39,8 @@ public class ZoeMovement : BaseMovementAbility
 	//Jump speeds
 	private const float JUMP_SPEED = 6.5f;
 
+    const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
+
 	// Call the base start function and initialize all variables
 	void Start () 
 	{
@@ -50,8 +52,8 @@ public class ZoeMovement : BaseMovementAbility
 	
 	// Update is called once per frame
 	void Update () 
-	{ 
-        if (PauseScreen.IsGamePaused){return;}  
+	{
+        if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 
 		//When grounded ensure that the variables CanGlide,
 		//NumberOfJumps, and IsGliding are set appropriately

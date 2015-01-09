@@ -40,6 +40,8 @@ public class DerekMovement : BaseMovementAbility
 	bool m_Grappling;
 	bool m_CanGrapple;
 
+    const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
+
 	// Use this for initialization
 	void Start () 
 	{ 
@@ -54,8 +56,8 @@ public class DerekMovement : BaseMovementAbility
 	
 	// Update is called once per frame
 	void Update () 
-	{ 
-        if (PauseScreen.IsGamePaused){return;}
+	{
+        if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 
 		//sets m_CanGrapple to true when the players lands on the ground, this is necessary so the player can not keep grappling without ever touching the
 		//ground.

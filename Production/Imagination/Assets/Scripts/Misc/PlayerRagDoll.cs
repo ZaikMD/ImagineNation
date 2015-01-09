@@ -24,6 +24,8 @@ public class PlayerRagDoll : MonoBehaviour
 
 	public TPCamera m_PlayerCamera;
 
+    const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -39,8 +41,8 @@ public class PlayerRagDoll : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () 
-	{ 
-        if (PauseScreen.IsGamePaused){return;}
+	{
+        if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 
 		if(m_Ghost != null)
 		{

@@ -18,11 +18,13 @@ public class EnemyWithMovement : EnemyAI
 	//Public Transform to add PathNodes to the object
 	public Transform[] m_PathNodes;
 
+    const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
+
 	//FixedUpdate to go by time
 	public override void FixedUpdate ()
 	{
 		//Freeze enemies if the game is paused
-		if (PauseScreen.IsGamePaused)
+        if (PauseScreen.shouldPause(PAUSE_LEVEL))
 		{
 			GetAgent.SetDestination(transform.position);
 			return;

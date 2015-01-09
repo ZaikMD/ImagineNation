@@ -61,11 +61,12 @@ public class EnemyAI : Destructable
 
 	protected GameObject m_Target;
 
+    const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
+
 	//Choose a Behavoir to update
 	public virtual void FixedUpdate ()
 	{
-		if (PauseScreen.IsGamePaused)
-						return;
+        if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 
 		if(((int)m_State & m_NoUpdateStates) != 0)
 		{
