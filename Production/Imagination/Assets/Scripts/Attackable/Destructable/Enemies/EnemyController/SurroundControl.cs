@@ -15,6 +15,9 @@ public class SurroundControl : BaseControlType
 {
 	float m_StoppingDist = 2.0f;
 
+	float m_AngleZero;
+
+
 	// Gets the group of enemies ready to be controlled
 	public override void start (EnemyAI[] enemies, GameObject target)
 	{
@@ -26,7 +29,7 @@ public class SurroundControl : BaseControlType
 		{
 			// Stop all the enemies in the group from updating their movement ad targeting
 			m_EnemyGroup[i].m_UMovement = false;
-			m_EnemyGroup[i].m_UTargeting = false;
+			//m_EnemyGroup[i].m_UTargeting = false;
 
 			// Make sure all their states are set to attack
 			m_EnemyGroup[i].SetState(EnemyAI.EnemyState.Attack);
@@ -35,7 +38,6 @@ public class SurroundControl : BaseControlType
 
 	public override void update ()
 	{
-
 		// Get the angles at which the enemies will come at their target
 		float angle = 360 / m_EnemyGroup.Length;
 
@@ -47,6 +49,8 @@ public class SurroundControl : BaseControlType
 			{
 				// Choose the enemies surrond location
 				Vector3 surroundLocation = RotateAboutOrigin( m_EnemyGroup[i].transform.position , m_Target.transform.position, angle);
+
+				Instantiate(Resources.Load("Cube"),surroundLocation,Quaternion.identity);
 				
 				EnemyWithMovement temp = m_EnemyGroup[i] as EnemyWithMovement;		
 				if(temp != null)

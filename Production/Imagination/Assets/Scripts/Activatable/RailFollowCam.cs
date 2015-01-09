@@ -41,11 +41,13 @@ public class RailFollowCam : Activatable
 					if(m_Switches[i].beenHit() != true)
 					{
 						m_Active = false;
+						PauseScreen.InCutscene = false;
 					}
 
 					else
 					{
 						m_Active = true;
+						PauseScreen.InCutscene = true;
 					} 
 				}
 				if (m_Active)
@@ -68,6 +70,7 @@ public class RailFollowCam : Activatable
 				if (IsDone())
 				{
 					m_Camera.enabled = false;
+					PauseScreen.InCutscene = false;
 
 					for (int i = 0; i < m_PLayerCams.Length; i ++)
 					{
