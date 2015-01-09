@@ -27,7 +27,7 @@ public class ShaderTools : EditorWindow
 	//Draws the window
 	void OnGUI ()
 	{
-		GUILayout.Label ("Shader Settings", EditorStyles.boldLabel);
+		GUILayout.Label ("Shader Tools", EditorStyles.boldLabel);
 
 		lightMenuToggle = EditorGUILayout.BeginToggleGroup ("Lights", lightMenuToggle);
 
