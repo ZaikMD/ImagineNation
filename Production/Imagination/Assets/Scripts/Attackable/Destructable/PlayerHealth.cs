@@ -18,6 +18,8 @@
 * 
 * 03/12/2014 Edit: Changed Health to float value, to coincide with damage - Joe Burchill
 * 
+* 12/1/2014 Edit: Added knockback to the players by getting player movement at start, then calling launch on hit - Jason Hein
+* 
 */
 #endregion
 
@@ -47,7 +49,7 @@ public class PlayerHealth : Destructable
 
 	//Movement for knockback
 	BaseMovementAbility m_Movement;
-	const float LAUNCH_AMOUNT = 4.0f;
+	const float LAUNCH_AMOUNT = 5.0f;
 	const float LAUNCH_TIMER = 0.25f;
 
     //used to stop the script from executing and used so other scripts can tell the player is dead
@@ -198,8 +200,8 @@ public class PlayerHealth : Destructable
 				m_Health -= ENEMY_DAMAGE;
 
 				//Knockback
-				Vector3 difference = (transform.position - proj.gameObject.transform.position).normalized;
-				m_Movement.Launch(new Vector3(difference.x, 1.0f, difference.z) * LAUNCH_AMOUNT, LAUNCH_TIMER, true);
+				Vector3 direction = proj.gameObject.transform.forward;
+				m_Movement.Launch(new Vector3(direction.x, 1.0f, direction.z) * LAUNCH_AMOUNT, LAUNCH_TIMER, true);
 
 				//play sound
 				playSound();
