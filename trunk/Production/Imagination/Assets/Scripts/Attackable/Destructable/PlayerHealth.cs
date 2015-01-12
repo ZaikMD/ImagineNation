@@ -45,6 +45,11 @@ public class PlayerHealth : Destructable
 	SFXManager m_SFX;
 	Hud m_Hud;
 
+	//Movement for knockback
+	BaseMovementAbility m_Movement;
+	const float LAUNCH_AMOUNT = 4.0f;
+	const float LAUNCH_TIMER = 0.25f;
+
     //used to stop the script from executing and used so other scripts can tell the player is dead
 	bool m_IsDead = false;
     public bool IsDead
@@ -112,6 +117,9 @@ public class PlayerHealth : Destructable
 
 		//Set Health in hud
 		m_Hud.SetHealth (m_TotalHealth, m_Player);
+
+		//Get the players movement for knockback
+		m_Movement = GetComponent<BaseMovementAbility> ();
 	}
 
 	void OnDestroy()
@@ -186,11 +194,17 @@ public class PlayerHealth : Destructable
             //not invulnerable so take damage
 			if(m_Health > 0.0f)
 			{
-				m_Health -= ENEMY_DAMAGE; 
+				//Take damage
+				m_Health -= ENEMY_DAMAGE;
+
+				//Knockback
+				Vector3 difference = (transform.position - proj.gameObject.transform.position).normalized;
+				m_Movement.Launch(new Vector3(difference.x, 1.0f, difference.z) * LAUNCH_AMOUNT, LAUNCH_TIMER, true);
 
 				//play sound
 				playSound();
 			}
+
 			m_HealthRegenTimer = HealthRegenTime;
 			m_InvulnerabilityTimer = InvulnerabilityTimer;
             //update health bar
