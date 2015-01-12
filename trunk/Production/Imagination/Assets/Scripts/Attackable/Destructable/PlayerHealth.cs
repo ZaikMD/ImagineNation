@@ -71,6 +71,11 @@ public class PlayerHealth : Destructable
 
     const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
 
+    SkinnedMeshRenderer m_PlayerRenderer;
+    const float MAX_FADE = 0.5f;
+    const float FLASH_LENGTH = 0.1875f;
+
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -120,6 +125,8 @@ public class PlayerHealth : Destructable
 		//Set Health in hud
 		m_Hud.SetHealth (m_TotalHealth, m_Player);
 
+        m_PlayerRenderer = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
+
 		//Get the players movement for knockback
 		m_Movement = GetComponent<BaseMovementAbility> ();
 	}
@@ -147,11 +154,25 @@ public class PlayerHealth : Destructable
 	{
         if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 
-        if(m_InvulnerabilityTimer > 0.0f)
-		{
-			m_InvulnerabilityTimer -= Time.deltaTime;
-		}
-		
+        if (m_InvulnerabilityTimer > 0.0f)
+        {
+            m_InvulnerabilityTimer -= Time.deltaTime;
+
+            Debug.Log(Mathf.Abs(Mathf.Cos(m_InvulnerabilityTimer * 5.0f)));
+        
+            m_PlayerRenderer.materials[0].color = new Color(m_PlayerRenderer.materials[0].color.r,
+                                                            m_PlayerRenderer.materials[0].color.g,
+                                                            m_PlayerRenderer.materials[0].color.b,
+                                                            1.0f - (MAX_FADE * Mathf.Abs(Mathf.Cos((m_InvulnerabilityTimer % (FLASH_LENGTH)) / (FLASH_LENGTH)))));
+        }
+        else
+        {
+            m_PlayerRenderer.materials[0].color = new Color(m_PlayerRenderer.materials[0].color.r,
+                                                            m_PlayerRenderer.materials[0].color.g,
+                                                            m_PlayerRenderer.materials[0].color.b,
+                                                            1.0f);
+        }
+
         if(!m_IsDead)
 		{
 			if (m_Health <= 0.0f)
