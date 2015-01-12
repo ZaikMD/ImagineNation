@@ -48,7 +48,7 @@ public class SurroundControl : BaseControlType
 			if (m_EnemyGroup[i] != null)
 			{
 				// Choose the enemies surrond location
-				Vector3 surroundLocation = RotateAboutOrigin( m_EnemyGroup[i].transform.position , m_Target.transform.position, angle);
+				Vector3 surroundLocation = SurroundPoint(m_Target.transform.position, currentAngle);
 
 				Instantiate(Resources.Load("Cube"),surroundLocation,Quaternion.identity);
 				
@@ -79,15 +79,16 @@ public class SurroundControl : BaseControlType
 	}
 
 	// Returns a location along the rotation of an object
-	protected Vector3 RotateAboutOrigin(Vector3 point, Vector3 origin, float angle)
+	protected Vector3 SurroundPoint(Vector3 point, float angle)
 	{
-		// Convert the angle to radians
-		angle = angle * (Mathf.PI / 180);
+		float pointX = Mathf.Cos (angle);
+		float pointZ = Mathf.Sin (angle);
+
+		pointX += point.x;
+		pointZ += point.z;
+
+		Vector3 surroundPoint = new Vector3 (pointX, point.y, pointZ);
 		
-		// Find out the new x and z locations 
-		float rotatedX = Mathf.Cos (angle) * (point.x - origin.x) - Mathf.Sin (angle) * (point.z - origin.z) + origin.x;
-		float rotatedZ = Mathf.Sin (angle) * (point.x - origin.x) - Mathf.Cos (angle) * (point.z - origin.z) + origin.z;
-		
-		return new Vector3(rotatedX, point.y, rotatedZ);
+		return surroundPoint;
 	} 
 }
