@@ -9,8 +9,11 @@ public class InitializeScene : EditorWindow
     const string PLAYER_SPAWNER_NAME = "PlayerSpawner  DO NOT ADD TO THIS";
     const string CHECK_POINT_NAME = "Checkpoint";
 
-    //const string CHECKPOINT_PREFAB_PATH = "Assets/Prefabs/CheckpointPrefab.prefab";
-    const string CHECKPOINT_PREFAB_PATH = "test/Ground";
+    const string CHECKPOINT_PREFAB_PATH = "Prefabs/Interactables/Check Point";
+
+	const string ALEX_PREFAB_PATH = "Prefabs/Players/Alex";
+	const string DEREK_PREFAB_PATH = "Prefabs/Players/Derek";
+	const string ZOE_PREFAB_PATH = "Prefabs/Players/Zoe";
 
     [MenuItem("Tools/InitializeScene")]
     public static void ShowWindow()
@@ -51,24 +54,22 @@ public class InitializeScene : EditorWindow
 
         GameObject playerSpawner = new GameObject();
         playerSpawner.name = PLAYER_SPAWNER_NAME;
-        playerSpawner.AddComponent<PlayerSpawner>();//player spawner
+		PlayerSpawner spawner = playerSpawner.AddComponent<PlayerSpawner>();//player spawner
 
-        Object loaded = Resources.Load(CHECKPOINT_PREFAB_PATH);
+		Object loaded = Resources.Load(ALEX_PREFAB_PATH);
+		spawner.AlexPrefab = (GameObject)loaded;
+
+		loaded = Resources.Load(DEREK_PREFAB_PATH);
+		spawner.DerekPrefab = (GameObject)loaded;
+
+		loaded = Resources.Load(ZOE_PREFAB_PATH);
+		spawner.ZoeyPrefab = (GameObject)loaded;
+
+
+        loaded = Resources.Load(CHECKPOINT_PREFAB_PATH);
         GameObject test = (GameObject)Instantiate(loaded);
-       //GameObject.Instantiate(checkpoint);
-        //checkpoint.name = CHECK_POINT_NAME;
-        //checkpoint.transform.position = new Vector3(0.0f, 2.5f, 0.0f);
-
-        //CheckPoint checkpointScript = checkpoint.AddComponent<CheckPoint>();
-        //checkpointScript.m_OnMaterial = new 
-
-        GameObject[] playerSpawns = new GameObject[2];
+		test.transform.position = Vector3.zero;
 
 
-        //dead player manager /grave
-        
-        //check Point
-        
-        //pause screen
     }
 }
