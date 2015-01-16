@@ -306,7 +306,6 @@ public class Hud : MonoBehaviour {
                 GUI.Label(PositionRect, LightPegCollected.ToString());
             }
 
-// no Puzzle piece texture yet
 			//PuzzlePieces
 			PositionRect.Set( Screen.width /2 - SizeOfHudElements, 0, SizeOfHudElements * 2, SizeOfHudElements);
 			GUI.DrawTexture(PositionRect, m_PuzzlePieceHudImages[PuzzlePiecesCollected]);
