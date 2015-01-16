@@ -30,7 +30,6 @@ public class BeanBagLauncher : MonoBehaviour
 {
 	//for testing.
 	public TimingStates m_CurrentState;
-	public float m_CurrentTimerRemaining;
 
 	//Change parameters
 	public float m_AimTime;
@@ -39,6 +38,9 @@ public class BeanBagLauncher : MonoBehaviour
 	public float m_AirTimeMultiplier;
 
 	public GameObject m_CrossHairsPrefab;
+	public GameObject m_Turret;
+	public Transform m_BulletLaunchLocation;
+	public GameObject m_BulletPrefab;
 
 	private float m_CurrentAimTime;
 	private float m_CurrentChargeTime;
@@ -54,6 +56,8 @@ public class BeanBagLauncher : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		ResetTimers();
+
 		m_HasTraget = false;
 		m_CurrentState = TimingStates.Idle;
 	}
@@ -61,7 +65,6 @@ public class BeanBagLauncher : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-
 		switch(m_CurrentState)
 		{
 			case TimingStates.Idle:
@@ -110,9 +113,9 @@ public class BeanBagLauncher : MonoBehaviour
 	void UpdateAim()
 	{
 		//TODO: draw target at player position.
-		AimAtPlayer ();
-
-		if(m_CurrentReloadTime < 0)
+		AimAtPlayer();
+		AimTurret();
+		if(m_CurrentAimTime < 0)
 		{
 			ResetTimers();
 			m_CurrentState = TimingStates.Charge;
@@ -123,12 +126,11 @@ public class BeanBagLauncher : MonoBehaviour
 	
 	void UpdateCharge()
 	{
-		//TODO: draw target at saved location
-
-		if(m_CurrentReloadTime < 0)
+		AimTurret();
+		if(m_CurrentChargeTime < 0)
 		{
 			ResetTimers();
-			m_CurrentState = TimingStates.Aim;
+			m_CurrentState = TimingStates.Launch;
 			return;
 		}
 		m_CurrentChargeTime -= Time.deltaTime;
@@ -137,6 +139,8 @@ public class BeanBagLauncher : MonoBehaviour
 	void UpdateLaunch()
 	{
 		//TODO: fire projectile at Saved loction.
+
+
 
 		DeleteCurrentCrosshairs();
 		GetNextTarget ();
@@ -155,9 +159,9 @@ public class BeanBagLauncher : MonoBehaviour
 		m_LaunchLocation = m_CrossHair.transform.position;
 	}
 
-	void AimAtSavedLocation()
+	void calcLaunchVelocity()
 	{
-
+		
 	
 	}
 
@@ -179,15 +183,15 @@ public class BeanBagLauncher : MonoBehaviour
 			switch(GameData.Instance.PlayerOneCharacter)
 			{
 				case Characters.Alex:
-				currentPlayer = GameObject.FindGameObjectWithTag(Constants.ALEX_STRING);
+				return GameObject.Find(Constants.ALEX_WITH_MOVEMENT_STRING).transform;
 				break;
 
 				case Characters.Derek:
-				currentPlayer = GameObject.FindGameObjectWithTag(Constants.DEREK_STRING);
+				return GameObject.Find(Constants.DEREK_WITH_MOVEMENT_STRING).transform;
 				break;
 
 				case Characters.Zoe:
-				currentPlayer = GameObject.FindGameObjectWithTag(Constants.ZOE_STRING);
+				return GameObject.Find(Constants.ZOE_WITH_MOVEMENT_STRING).transform;
 				break;
 			}
 		}
@@ -196,15 +200,15 @@ public class BeanBagLauncher : MonoBehaviour
 			switch(GameData.Instance.PlayerTwoCharacter)
 			{
 				case Characters.Alex:
-				currentPlayer = GameObject.FindGameObjectWithTag(Constants.ALEX_STRING);
+				currentPlayer = GameObject.Find(Constants.ALEX_WITH_MOVEMENT_STRING);
 				break;
 				
 				case Characters.Derek:
-				currentPlayer = GameObject.FindGameObjectWithTag(Constants.DEREK_STRING);
+				currentPlayer = GameObject.Find(Constants.DEREK_WITH_MOVEMENT_STRING);
 				break;
 				
 				case Characters.Zoe:
-				currentPlayer = GameObject.FindGameObjectWithTag(Constants.ZOE_STRING);
+				currentPlayer = GameObject.Find(Constants.ZOE_WITH_MOVEMENT_STRING);
 				break;
 			}
 		}
@@ -271,6 +275,11 @@ public class BeanBagLauncher : MonoBehaviour
 		}
 	}
 
+	void AimTurret()
+	{
+		m_Turret.transform.LookAt(m_LaunchLocation);
+	}
+
 	void DeleteCurrentCrosshairs()
 	{
 		if(m_CrossHair == null)
@@ -298,17 +307,17 @@ public class BeanBagLauncher : MonoBehaviour
 
 		Characters OtherCharacter = Characters.Alex;
 
-		switch(other.tag)
+		switch(other.name)
 		{
-			case Constants.ALEX_STRING:
+			case Constants.ALEX_WITH_MOVEMENT_STRING:
 			OtherCharacter = Characters.Alex;
 			break;
 
-			case Constants.DEREK_STRING:
+			case Constants.DEREK_WITH_MOVEMENT_STRING:
 			OtherCharacter = Characters.Derek;
 			break;
 
-			case Constants.ZOE_STRING:
+			case Constants.ZOE_WITH_MOVEMENT_STRING:
 			OtherCharacter = Characters.Zoe;
 			break;
 		}
