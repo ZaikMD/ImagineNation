@@ -19,7 +19,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-
+[RequireComponent (typeof(CharacterController))]
 public class EnemyAI : Destructable
 {
 	//Enemy States
@@ -29,7 +29,8 @@ public class EnemyAI : Destructable
 		Chase = 2,
 		Attack = 4,
 		Dead = 8,
-		Count,
+		KnockedBack = 16,
+		Count = 5,
 		Invalid = 0
 	}
 	EnemyState m_State = EnemyState.Idle;
@@ -43,6 +44,7 @@ public class EnemyAI : Destructable
 	public BaseChaseBehaviour m_ChaseBehavoir;
 	public BaseAttackBehaviour m_AttackBehavoir;
 	public BaseDeadBehaviour m_DeadBehavoir;
+	public BaseKnockedBackBehavouir m_KnockBackBehaviour;
 
 	//UpdateComponent
 	//TODO: switch to gets
@@ -86,9 +88,22 @@ public class EnemyAI : Destructable
 		{
 			m_AttackBehavoir.update();
 		}
+		else if (m_State == EnemyState.KnockedBack)
+		{
+			m_KnockBackBehaviour.update();
+		}
 		else if (m_State == EnemyState.Dead)
 		{
 			m_DeadBehavoir.update();
+		}
+	}
+
+	//When the ai collides wtih something while falling through the air
+	void OnControllerColliderHit (ControllerColliderHit hit)
+	{
+		if (m_State == EnemyState.KnockedBack)
+		{
+			m_KnockBackBehaviour.OnCollide(hit);
 		}
 	}
 
@@ -175,6 +190,8 @@ public class EnemyAI : Destructable
 		//Check if the enemy is invincible
 		if(!m_IsInvincible)
 		{
+			SetState (EnemyState.KnockedBack);
+			m_KnockBackBehaviour.SetKnockBack(LightProjectile.KNOCKBACK, proj.transform.forward);
 			base.onHit(proj, damage);
 		}
 	}
@@ -188,6 +205,8 @@ public class EnemyAI : Destructable
 		//Check if the enemy is invincible
 		if(!m_IsInvincible)
 		{
+			SetState (EnemyState.KnockedBack);
+			m_KnockBackBehaviour.SetKnockBack(HeavyProjectile.KNOCKBACK, proj.transform.forward);
 			base.onHit(proj, damage);
 		}
 	}
@@ -212,5 +231,4 @@ public class EnemyAI : Destructable
 		get { return m_Target;}
 		set {m_Target = value;}
 	}
-	
 }

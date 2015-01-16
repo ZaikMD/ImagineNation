@@ -18,6 +18,7 @@ using System.Collections;
 
 public class HeavyProjectile : BaseProjectile 
 {
+	public const float KNOCKBACK = 1.2f;
 	
 	float m_Damage;
 	

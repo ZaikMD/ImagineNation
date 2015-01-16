@@ -49,8 +49,9 @@ public class PlayerHealth : Destructable
 
 	//Movement for knockback
 	BaseMovementAbility m_Movement;
-	const float LAUNCH_AMOUNT = 5.0f;
+	const float LAUNCH_AMOUNT = 8.0f;
 	const float LAUNCH_TIMER = 0.25f;
+	const float LAUNCH_UPWARD_DIRECTION = 0.5f;
 
     //used to stop the script from executing and used so other scripts can tell the player is dead
 	bool m_IsDead = false;
@@ -201,13 +202,15 @@ public class PlayerHealth : Destructable
 	}
 
 	public override void onHit(LightProjectile proj, float damage)
-	{        
-		return;
+	{     
+		//Knockback
+		KnockBackPlayer(proj.gameObject.transform.forward);
 	}
 
     public override void onHit(HeavyProjectile proj, float damage)
     {
-        return;
+		//Knockback
+		KnockBackPlayer(proj.gameObject.transform.forward);
     }
 	
 	public override void onHit(EnemyProjectile proj)
@@ -221,8 +224,7 @@ public class PlayerHealth : Destructable
 				m_Health -= ENEMY_DAMAGE;
 
 				//Knockback
-				Vector3 direction = proj.gameObject.transform.forward;
-				m_Movement.Launch(new Vector3(direction.x, 1.0f, direction.z) * LAUNCH_AMOUNT, LAUNCH_TIMER, true);
+				KnockBackPlayer(proj.gameObject.transform.forward);
 
 				//play sound
 				playSound();
@@ -307,6 +309,13 @@ public class PlayerHealth : Destructable
 			}
 			break;
 		}
+	}
+
+	//Causes the player to experience knockback
+	void KnockBackPlayer(Vector3 direction)
+	{
+		Vector2 newDirection = new Vector2 (direction.x, direction.z).normalized;
+		m_Movement.Launch(new Vector3(newDirection.x, LAUNCH_UPWARD_DIRECTION, newDirection.y) * LAUNCH_AMOUNT, LAUNCH_TIMER, true);
 	}
 
 }

@@ -18,6 +18,7 @@ using System.Collections;
 
 public class LightProjectile : BaseProjectile 
 {
+	public const float KNOCKBACK = 0.8f;
 	
 	float m_Damage;
 	
