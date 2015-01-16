@@ -6,7 +6,7 @@ public class FurbullKnockedBackBehaviour : BaseKnockedBackBehavouir {
 	// Use this for initialization
 	protected override void start ()
 	{
-		m_LaunchAmount = 12.0f;
+		m_LaunchAmount = 8.0f;
 		base.start ();
 	}
 }
