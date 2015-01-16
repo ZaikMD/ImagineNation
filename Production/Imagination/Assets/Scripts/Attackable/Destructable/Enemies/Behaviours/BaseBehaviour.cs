@@ -107,4 +107,10 @@ public class BaseBehaviour : MonoBehaviour
 		    m_EnemyAI.Target = target;
 		}
 	}
+
+	public virtual void ComponentInfo(out string[] names, out BaseComponent[] components)
+	{
+		names = new string[1];
+		components = new BaseComponent[1];
+	}
 }

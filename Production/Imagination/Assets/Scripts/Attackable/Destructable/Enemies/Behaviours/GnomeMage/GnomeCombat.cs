@@ -270,4 +270,25 @@ public class GnomeCombat : BaseAttackBehaviour, INotifyHit
 			}
 		}
 	}
+
+	public override void ComponentInfo (out string[] names, out BaseComponent[] components)
+	{
+		names = new string[6];
+		components = new BaseComponent[6];
+		
+		names [0] = "Combat";
+		components [0] = m_CombatComponent;
+		names [1] = "Cloned Combat";
+		components [1] = m_CombatComponent;
+		
+		names [2] = "Targeting";
+		components [2] = m_TargetingComponent;
+		
+		names [3] = "Movement";
+		components [3] = m_MovementComponent;
+		names [4] = "Cloning Movement";
+		components [4] = m_MovementComponent;
+		names [5] = "Cloned Movement";
+		components [5] = m_MovementComponent;
+	}
 }

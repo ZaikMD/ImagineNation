@@ -57,4 +57,19 @@ public abstract class BaseChaseBehaviour : BaseBehaviour
 
 		return false;
 	}
+
+	public override void ComponentInfo (out string[] names, out BaseComponent[] components)
+	{
+		names = new string[3];
+		components = new BaseComponent[3];
+		
+		names [0] = "Movement";
+		components [0] = m_MovementComponent;
+		
+		names [1] = "Targeting";
+		components [1] = m_TargetingComponent;
+		
+		names [2] = "Leave Combat";
+		components [2] = m_LeavingCombatComponent;
+	}
 }

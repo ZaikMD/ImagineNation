@@ -17,8 +17,9 @@ public abstract class BaseIdleBehaviour : BaseBehaviour
 {
 	//Components all idle behaviours must have
 	public BaseMovement m_MovementComponent;
-	public BaseEnterCombat m_EnterCombatComponent;
 	public BaseTargeting m_TargetingComponent;	
+	public BaseEnterCombat m_EnterCombatComponent;
+
 
     public virtual void update()
 	{
@@ -56,5 +57,20 @@ public abstract class BaseIdleBehaviour : BaseBehaviour
 		}
 		
 		return null;
+	}
+
+	public override void ComponentInfo (out string[] names, out BaseComponent[] components)
+	{
+		names = new string[3];
+		components = new BaseComponent[3];
+		
+		names [0] = "Movement";
+		components [0] = m_MovementComponent;
+		
+		names [1] = "Targeting";
+		components [1] = m_TargetingComponent;
+		
+		names [2] = "Enter Combat";
+		components [2] = m_EnterCombatComponent;
 	}
 }

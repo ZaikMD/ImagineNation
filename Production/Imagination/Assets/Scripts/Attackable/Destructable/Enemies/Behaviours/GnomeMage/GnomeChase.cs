@@ -66,4 +66,22 @@ public class GnomeChase : BaseChaseBehaviour
 
 		m_ShotTimer -= Time.deltaTime;
 	}
+
+	public override void ComponentInfo (out string[] names, out BaseComponent[] components)
+	{
+		names = new string[4];
+		components = new BaseComponent[4];
+		
+		names [0] = "Movement";
+		components [0] = m_MovementComponent;
+		
+		names [1] = "Targeting";
+		components [1] = m_TargetingComponent;
+		
+		names [2] = "Leave Combat";
+		components [2] = m_LeavingCombatComponent;
+
+		names [3] = "Combat";
+		components [3] = m_CombatComponent;
+	}
 }
