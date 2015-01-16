@@ -55,7 +55,7 @@ public class EnemyAITool : EditorWindow
 		if (!m_InfoRetrieved)
 		{
 			GetEnemyInfo ();
-
+			InitStringOptions();
 		}
 
 		int loc = 0;
@@ -69,7 +69,19 @@ public class EnemyAITool : EditorWindow
 				if (loc >= 3)
 					loc = 3;
 			}
-				EditorGUILayout.LabelField (m_tComponentNames[i]);
+				if (m_tComponents[i] is BaseMovement)
+					EditorGUILayout.Popup(m_tComponentNames[i],1,m_MovementComponents);
+				else if (m_tComponents[i] is BaseCombat)
+					EditorGUILayout.Popup(m_tComponentNames[i],1,m_CombatComponents);
+				else if (m_tComponents[i] is BaseDeath)
+					EditorGUILayout.Popup(m_tComponentNames[i],1,m_DeathComponents);
+				else if (m_tComponents[i] is BaseEnterCombat)
+					EditorGUILayout.Popup(m_tComponentNames[i],1,m_EnterCombatComponents);
+				else if (m_tComponents[i] is BaseLeavingCombat)
+					EditorGUILayout.Popup(m_tComponentNames[i],1,m_LeaveCombatComponents);
+				else if (m_tComponents[i] is BaseTargeting)
+					EditorGUILayout.Popup(m_tComponentNames[i],1,m_TargetingComponents);
+				
 		}
 
 	}
