@@ -28,10 +28,10 @@ public class BaseKnockedBackBehavouir : BaseBehaviour {
 	CharacterController m_Controller;
 
 	//Amount to multiply the amount knocked back for this enemy
-	protected float m_LaunchAmount = 12.0f;
+	protected float m_LaunchAmount = 8.0f;
 
 	//The enemy should move upward more than they are actually launched in order to leave the ground
-	protected float m_UpwardDirectionAmount = 0.2f;
+	protected float m_UpwardDirectionAmount = 0.5f;
 
 
 	//Loads the character controller and sets it to disabled
@@ -61,8 +61,13 @@ public class BaseKnockedBackBehavouir : BaseBehaviour {
 	{
 		if (m_Active == true)
 		{
+			//Ignore stopping velocity from collisions with enemies
+			if (hit.gameObject.CompareTag("Enemy"))
+			{
+				return;
+			}
 			//If the enemy has collided with the kill zone
-			if (hit.gameObject.name == "Kill Zone" )
+			else if (hit.gameObject.name == "Kill Zone" )
 			{
 				m_Active = false;
 				GetComponent<Destructable>().instantKill();
@@ -91,21 +96,31 @@ public class BaseKnockedBackBehavouir : BaseBehaviour {
 	/// </summary>
 	public virtual void SetKnockBack (float knockBackForce, Vector3 direction)
 	{
+		if (m_Active)
+		{
+			return;
+		}
+
+		//Activate knockback in given direction
+		m_Active = true;
+
+		//Enable the character controller on the enemy
 		m_Controller = GetComponentInParent<CharacterController> ();
 		if (!m_Controller.enabled)
 		{
 			m_Controller.enabled = true;
 		}
 
-		//Activate knockback in given direction
-		m_Active = true;
-		m_Controller.Move (Vector3.up);
-		Vector2 newDirection = new Vector2 (direction.x, direction.z).normalized;
-		m_Velocity = new Vector3 (knockBackForce * newDirection.x,
-		                          knockBackForce * m_UpwardDirectionAmount,
-		                          knockBackForce * newDirection.y);
-
-		//The enemy looks away from where they are falling
+		//Turn off the nav mesh agent to avoid errors
 		GetAgent ().enabled = false;
+
+		//Move the character above the ground
+		m_Controller.Move (Vector3.up);
+
+		//Set the velocity of the enemy
+		Vector2 newDirection = new Vector2 (direction.x, direction.z).normalized;
+		m_Velocity = new Vector3 (knockBackForce * m_LaunchAmount * newDirection.x,
+		                          knockBackForce * m_LaunchAmount * m_UpwardDirectionAmount,
+		                          knockBackForce * m_LaunchAmount * newDirection.y);
 	}
 }

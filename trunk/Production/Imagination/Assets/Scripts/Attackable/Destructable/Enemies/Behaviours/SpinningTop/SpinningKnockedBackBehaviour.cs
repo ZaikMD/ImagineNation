@@ -6,7 +6,7 @@ public class SpinningKnockedBackBehaviour : BaseKnockedBackBehavouir
 	// Use this for initialization
 	protected override void start ()
 	{
-		m_LaunchAmount = 10.0f;
+		m_LaunchAmount = 6.0f;
 		base.start ();
 	}
 }
