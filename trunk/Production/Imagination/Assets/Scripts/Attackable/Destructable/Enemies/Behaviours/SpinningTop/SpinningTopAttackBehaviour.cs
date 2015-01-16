@@ -313,4 +313,27 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour, INotifyHit
 		//Switch to the Hit player state
 		m_CombatState = CombatStates.HitByPlayer;
 	}
+
+	public override void ComponentInfo (out string[] names, out BaseComponent[] components)
+	{
+		names = new string[7];
+		components = new BaseComponent[7];
+		
+		names [0] = "Combat";
+		components [0] = m_CombatComponent;
+		
+		names [1] = "Targeting";
+		components [1] = m_TargetingComponent;
+		
+		names [2] = "Movement";
+		components [2] = m_MovementComponent;
+		names [3] = "Charge Movement";
+		components [3] = m_ChargeMovement;
+		names [4] = "Building Charge Movement";
+		components [4] = m_BuildingChargeMovement;
+		names [5] = "m_Knocked Back Movement";
+		components [5] = m_KnockedBackMovement;
+		names [6] = "Hit By Player Movement";
+		components [6] = m_HitByPlayerMovement;
+	}
 }

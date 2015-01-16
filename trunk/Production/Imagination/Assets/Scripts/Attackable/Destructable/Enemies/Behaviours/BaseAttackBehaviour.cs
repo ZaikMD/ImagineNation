@@ -50,5 +50,20 @@ public abstract class BaseAttackBehaviour : BaseBehaviour
 				m_MovementComponent.Movement (getTarget());
 		}
 	}
+	
+	public override void ComponentInfo (out string[] names, out BaseComponent[] components)
+	{
+		names = new string[3];
+		components = new BaseComponent[3];
+
+		names [0] = "Combat";
+		components [0] = m_CombatComponent;
+
+		names [1] = "Targeting";
+		components [1] = m_TargetingComponent;
+
+		names [2] = "Movement";
+		components [2] = m_MovementComponent;
+	}
 
 }
