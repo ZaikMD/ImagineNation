@@ -19,6 +19,8 @@ public interface Attackable
 
     void onHit(EnemyProjectile proj);
 
+//	void onHit(BeanBag proj);
+
 	void onHit(LightProjectile proj, float damage);
 
 	void onHit(HeavyProjectile proj, float damage);
