@@ -113,4 +113,10 @@ public class BaseBehaviour : MonoBehaviour
 		names = new string[1];
 		components = new BaseComponent[1];
 	}
+
+	public virtual string BehaviourType()
+	{
+		return "BaseBehaviour";
+	}
+
 }

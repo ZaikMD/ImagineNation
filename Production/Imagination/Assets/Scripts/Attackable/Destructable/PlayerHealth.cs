@@ -158,7 +158,7 @@ public class PlayerHealth : Destructable
         {
             m_InvulnerabilityTimer -= Time.deltaTime;
 
-            Debug.Log(Mathf.Abs(Mathf.Cos(m_InvulnerabilityTimer * 5.0f)));
+           // Debug.Log(Mathf.Abs(Mathf.Cos(m_InvulnerabilityTimer * 5.0f)));
         
             m_PlayerRenderer.materials[0].color = new Color(m_PlayerRenderer.materials[0].color.r,
                                                             m_PlayerRenderer.materials[0].color.g,

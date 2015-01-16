@@ -73,4 +73,9 @@ public abstract class BaseIdleBehaviour : BaseBehaviour
 		names [2] = "Enter Combat";
 		components [2] = m_EnterCombatComponent;
 	}
+
+	public override string BehaviourType()
+	{
+		return "Idle Behaviour";
+	}
 }
