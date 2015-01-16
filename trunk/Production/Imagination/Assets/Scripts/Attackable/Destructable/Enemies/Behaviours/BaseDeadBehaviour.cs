@@ -19,4 +19,18 @@ public abstract class BaseDeadBehaviour : BaseBehaviour
 	public BaseDeath m_DeathComponent;
 
     public abstract void update();
+
+	public override void ComponentInfo (out string[] names, out BaseComponent[] components)
+	{
+		names = new string[1];
+		components = new BaseComponent[1];
+
+		names [0] = "Death";
+		components[0] = m_DeathComponent;
+	}
+
+	public override string BehaviourType()
+	{
+		return "Death Behaviour";
+	}
 }

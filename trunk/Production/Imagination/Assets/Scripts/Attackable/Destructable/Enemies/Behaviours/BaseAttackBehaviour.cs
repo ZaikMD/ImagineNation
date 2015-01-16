@@ -66,4 +66,9 @@ public abstract class BaseAttackBehaviour : BaseBehaviour
 		components [2] = m_MovementComponent;
 	}
 
+	public override string BehaviourType()
+	{
+		return "Combat Behaviour";
+	}
+
 }

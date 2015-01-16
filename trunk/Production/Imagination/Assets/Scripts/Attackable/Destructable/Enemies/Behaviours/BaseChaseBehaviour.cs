@@ -72,4 +72,9 @@ public abstract class BaseChaseBehaviour : BaseBehaviour
 		names [2] = "Leave Combat";
 		components [2] = m_LeavingCombatComponent;
 	}
+
+	public override string BehaviourType()
+	{
+		return "Chase Behaviour";
+	}
 }
