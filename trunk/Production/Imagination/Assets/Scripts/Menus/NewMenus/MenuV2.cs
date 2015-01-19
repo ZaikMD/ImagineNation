@@ -65,7 +65,7 @@ public class MenuV2 : MonoBehaviour
     }
 
     //the menu camera 
-    protected static MenuCamera m_Camera;
+    protected static MenuCamera m_Camera = null;
 
     //the camera mount point
     public GameObject CameraMountPoint;
@@ -79,15 +79,16 @@ public class MenuV2 : MonoBehaviour
         {
             m_ReadInputFrom = m_ReadInputFrom | (int)ReadInputFrom[i];
         }
-
-        m_Camera = Camera.main.GetComponent<MenuCamera>();
-        if (m_Camera == null)
-        {
-            #if DEBUG || UNITY_EDITOR
-                Debug.LogError("NO CAMERA FOUND");
-            #endif
-        }
-
+		if(m_Camera == null)
+		{
+	        m_Camera = Camera.main.GetComponent<MenuCamera>();
+	        if (m_Camera == null)
+	        {
+	            #if DEBUG || UNITY_EDITOR
+	                Debug.LogError("NO CAMERA FOUND");
+	            #endif
+	        }
+		}
         if (m_CurrentButtonSelection != null)
         {
             m_CurrentButtonSelection.ButtonState = ButtonV2.ButtonStates.Highlightled;
