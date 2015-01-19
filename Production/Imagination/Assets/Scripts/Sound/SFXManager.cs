@@ -436,44 +436,44 @@ public class SFXManager : MonoBehaviour
     void loadOtherSounds()
     {
         //Common Sounds
-        loadSound((int)Sounds.Jump, Constants.Sounds.ALEX_JUMP);
-        loadSound((int)Sounds.Walk, Constants.Sounds.WALK);
-        loadSound((int)Sounds.Run, Constants.Sounds.RUN);
-        loadSound((int)Sounds.WeaponWoosh, Constants.Sounds.WEAPON_WOOSH);
-        loadSound((int)Sounds.Collectable, Constants.Sounds.COLLECTABLE);
-        loadSound((int)Sounds.JumpPad, Constants.Sounds.JUMPAD);
-        loadSound((int)Sounds.GateOpen, Constants.Sounds.GATE_OPEN);
+        loadSoundNow((int)Sounds.Jump, Constants.Sounds.ALEX_JUMP);
+        loadSoundNow((int)Sounds.Walk, Constants.Sounds.WALK);
+        loadSoundNow((int)Sounds.Run, Constants.Sounds.RUN);
+        loadSoundNow((int)Sounds.WeaponWoosh, Constants.Sounds.WEAPON_WOOSH);
+        loadSoundNow((int)Sounds.Collectable, Constants.Sounds.COLLECTABLE);
+        loadSoundNow((int)Sounds.JumpPad, Constants.Sounds.JUMPAD);
+        loadSoundNow((int)Sounds.GateOpen, Constants.Sounds.GATE_OPEN);
 
         //Alex Sounds
-        loadSound((int)Sounds.AlexHitOne, Constants.Sounds.ALEX_FIRST_WEAPON_HIT);
-        loadSound((int)Sounds.AlexHitTwo, Constants.Sounds.ALEX_SECOND_WEAPON_HIT);
-        loadSound((int)Sounds.AlexHitThree, Constants.Sounds.ALEX_THIRD_WEAPON_HIT);
-        loadSound((int)Sounds.AlexHurt, Constants.Sounds.ALEX_HURT);
-        loadSound((int)Sounds.AlexDeath, Constants.Sounds.ALEX_DEATH);
-        loadSound((int)Sounds.AlexJump, Constants.Sounds.ALEX_JUMP);
+        loadSoundNow((int)Sounds.AlexHitOne, Constants.Sounds.ALEX_FIRST_WEAPON_HIT);
+        loadSoundNow((int)Sounds.AlexHitTwo, Constants.Sounds.ALEX_SECOND_WEAPON_HIT);
+        loadSoundNow((int)Sounds.AlexHitThree, Constants.Sounds.ALEX_THIRD_WEAPON_HIT);
+        loadSoundNow((int)Sounds.AlexHurt, Constants.Sounds.ALEX_HURT);
+        loadSoundNow((int)Sounds.AlexDeath, Constants.Sounds.ALEX_DEATH);
+        loadSoundNow((int)Sounds.AlexJump, Constants.Sounds.ALEX_JUMP);
 
         //Derek Sounds
-        loadSound((int)Sounds.DerekHitOne, Constants.Sounds.DEREK_FIRST_WEAPON_HIT);
-        loadSound((int)Sounds.DerekHitTwo, Constants.Sounds.DEREK_SECOND_WEAPON_HIT);
-        loadSound((int)Sounds.DerekHitThree, Constants.Sounds.DEREK_THIRD_WEAPON_HIT);
-        loadSound((int)Sounds.DerekHurt, Constants.Sounds.DEREK_HURT);
-        loadSound((int)Sounds.DerekDeath, Constants.Sounds.DEREK_DEATH);
-        loadSound((int)Sounds.DerekJump, Constants.Sounds.DEREK_JUMP);
+        loadSoundNow((int)Sounds.DerekHitOne, Constants.Sounds.DEREK_FIRST_WEAPON_HIT);
+        loadSoundNow((int)Sounds.DerekHitTwo, Constants.Sounds.DEREK_SECOND_WEAPON_HIT);
+        loadSoundNow((int)Sounds.DerekHitThree, Constants.Sounds.DEREK_THIRD_WEAPON_HIT);
+        loadSoundNow((int)Sounds.DerekHurt, Constants.Sounds.DEREK_HURT);
+        loadSoundNow((int)Sounds.DerekDeath, Constants.Sounds.DEREK_DEATH);
+        loadSoundNow((int)Sounds.DerekJump, Constants.Sounds.DEREK_JUMP);
 
         //Zoey Sounds
-        loadSound((int)Sounds.ZoeyHitOne, Constants.Sounds.ZOEY_FIRST_WEAPON_HIT);
-        loadSound((int)Sounds.ZoeyHitTwo, Constants.Sounds.ZOEY_SECOND_WEAPON_HIT);
-        loadSound((int)Sounds.ZoeyHitThree, Constants.Sounds.ZOEY_THIRD_WEAPON_HIT);
-        loadSound((int)Sounds.ZoeyHurt, Constants.Sounds.ZOEY_HURT);
-        loadSound((int)Sounds.ZoeyDeath, Constants.Sounds.ZOEY_DEATH);
-        loadSound((int)Sounds.ZoeyJump, Constants.Sounds.ZOEY_JUMP);
-        loadSound((int)Sounds.ZoeyOpenWings, Constants.Sounds.ZOEY_WINGS_OPEN);
-        loadSound((int)Sounds.ZoeyCloseWings, Constants.Sounds.ZOEY_WINGS_CLOSE);
-        loadSound((int)Sounds.ZoeyDeployedWings, Constants.Sounds.ZOEY_WINGS_DEPLOY);
+        loadSoundNow((int)Sounds.ZoeyHitOne, Constants.Sounds.ZOEY_FIRST_WEAPON_HIT);
+        loadSoundNow((int)Sounds.ZoeyHitTwo, Constants.Sounds.ZOEY_SECOND_WEAPON_HIT);
+        loadSoundNow((int)Sounds.ZoeyHitThree, Constants.Sounds.ZOEY_THIRD_WEAPON_HIT);
+        loadSoundNow((int)Sounds.ZoeyHurt, Constants.Sounds.ZOEY_HURT);
+        loadSoundNow((int)Sounds.ZoeyDeath, Constants.Sounds.ZOEY_DEATH);
+        loadSoundNow((int)Sounds.ZoeyJump, Constants.Sounds.ZOEY_JUMP);
+        loadSoundNow((int)Sounds.ZoeyOpenWings, Constants.Sounds.ZOEY_WINGS_OPEN);
+        loadSoundNow((int)Sounds.ZoeyCloseWings, Constants.Sounds.ZOEY_WINGS_CLOSE);
+		loadSoundNow((int)Sounds.ZoeyDeployedWings, Constants.Sounds.ZOEY_WINGS_DEPLOY);
 
         //Enimies sounds
-        loadSound((int)Sounds.MageAttack, Constants.Sounds.MAGE_SHOOT);
-        loadSound((int)Sounds.MageHit, Constants.Sounds.MAGE_HIT);
+		loadSoundNow((int)Sounds.MageAttack, Constants.Sounds.MAGE_SHOOT);
+		loadSoundNow((int)Sounds.MageHit, Constants.Sounds.MAGE_HIT);
     }
 
     IEnumerator loadSound(int key, string filePath)
