@@ -76,7 +76,7 @@ public class ActivatableMovingPlatform : Activatable
 	//Initialization
 	void Start () 
 	{
-		m_SFX = GameObject.FindGameObjectWithTag(Constants.SOUND_MANAGER).GetComponent<SFXManager>();
+        m_SFX = SFXManager.Instance;
 		m_PlayersToMove = new List<PlayersToMove> ();
 	}
 
@@ -141,7 +141,7 @@ public class ActivatableMovingPlatform : Activatable
 					else
 					{
 						//Stop the platform forever
-						m_SFX.stopSound(gameObject);
+						m_SFX.stopSound(transform, Sounds.GateOpen, true);
 						Destroy(this);
 					}
 				}
@@ -249,7 +249,7 @@ public class ActivatableMovingPlatform : Activatable
 	{
 		if(m_IsGate)
 		{
-			m_SFX.playSound(gameObject, Sounds.GateOpen);
+			m_SFX.playSound(transform, Sounds.GateOpen);
 		}
 	}
 

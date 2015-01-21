@@ -133,13 +133,11 @@ public class SFXManager : MonoBehaviour
 
     Dictionary<int, AudioClip> m_SoundDictionary = new Dictionary<int, AudioClip>();
 	//Variables for class
-	AudioSource m_Source;
+    List<SoundSourceMover> m_NonAutoDestroySources = new List<SoundSourceMover>();
 
 //TODO: load which players are one and two
 	public Transform m_PlayerOne;
 	public Transform m_PlayerTwo;
-
-	public Object m_SoundObject;
 
 	/// <summary>
 	/// Raises the level load event.
@@ -151,9 +149,6 @@ public class SFXManager : MonoBehaviour
         loadMenuSounds();//menu sounds load instantly since they need to be used immediately
         loadOtherSounds();//other sounds load asynronously to help reduce lag on scene initilization
     }
-
-
-    int totalCoroutines = 0;
 
     /// <summary>
     /// Start this instance.
@@ -200,129 +195,74 @@ public class SFXManager : MonoBehaviour
 	}
 
 	/// <summary>
-	/// This function plays a sound from the gameObject you want it to play from.
-	/// </summary>
-	/// <param name="objectPlayingTheSound">Object playing the sound. pass in this.gameObject to have it originate from the object the script is attached</param>
-	/// <param name="sound">The sound that is played, it is an enum, to select a sound, Type Sounds.insertSoundNameHere, Sound names are all one word</param>
-   public void playSound(GameObject objectPlayingTheSound, Sounds sound)
-    {
-        if (!m_SoundDictionary.ContainsKey((int)sound))
-            return;
-
-		//this class takes the enum passed in and passes it to anouther function to get all data it needs.
-        AudioInfo tempSoundInfo = getClipFromList(sound);
-        //AudioInfo tempSoundInfo = m_SoundDictionary[(int)sound];
-
-		//Checks if there is a audio source on the player, if not adds one
-		if(objectPlayingTheSound.GetComponent<AudioSource> () == null)
-		{
-			objectPlayingTheSound.AddComponent<AudioSource>();
-		}
-
-		AudioSource tempAudioSource = objectPlayingTheSound.GetComponent<AudioSource> ();
-
-		//Safety check to make sure we have a sound
-		if (tempSoundInfo.m_AudioClip == null)
-        {
-#if DEBUG || UNITY_EDITOR
-            Debug.LogError("no Sound matching that name");
-#endif
-			return;
-        }
-
-		tempAudioSource.volume = getSoundVolume (objectPlayingTheSound.transform.position);
-		tempAudioSource.clip = tempSoundInfo.m_AudioClip;
-
-        if (tempSoundInfo.OneShot)
-        {
-			tempAudioSource.PlayOneShot(tempSoundInfo.m_AudioClip);
-        }
-        else
-        {
-			if(!tempAudioSource.isPlaying)
-				tempAudioSource.Play();
-        }
-
-    }
-	/// <summary>
 	/// This function plays a sound from the location specified
 	/// </summary>
 	/// <param name="Location">Pass in a vector3 for the location of the sound to play from don't use if it needs to move with them.</param>
 	/// <param name="The sound that is played, it is an enum, to select a sound, Type Sounds.insertSoundNameHere, Sound names are all one word">.</param>
-	public void playSound(Vector3 Location, Sounds sound)
+	public void playSound(Transform location, Sounds sound)
 	{
+        //check if the sound is done loading
         if (!m_SoundDictionary.ContainsKey((int)sound))
             return;
-
-		GameObject soundObject = (GameObject)Instantiate (m_SoundObject);
+        //create the actual source
+        GameObject soundObject = new GameObject();
+        SoundSourceMover soundSourceMover = soundObject.AddComponent<SoundSourceMover>();
 
 		//this class takes the enum passed in and passes it to anouther function to get all data it needs.
 		AudioInfo tempSoundInfo = getClipFromList(sound);
-		AudioSource tempAudioSource = soundObject.GetComponent<AudioSource> ();
-			
-		//Safety check to make sure we have a sound
-		if (tempSoundInfo.m_AudioClip == null)
-		{
-#if DEBUG || UNITY_EDITOR
-			Debug.LogError("no Sound matching that name");
-#endif
-			return;
-		}
-		soundObject.GetComponent<AutoDestroy> ().timer = tempSoundInfo.m_AudioClip.length;
 
-		tempAudioSource.volume = getSoundVolume (Location);
-				
-		tempAudioSource.clip = tempSoundInfo.m_AudioClip;
-		
+        //will the sound remove itself once done?
 		if (tempSoundInfo.OneShot)
-		{
-			tempAudioSource.PlayOneShot(tempSoundInfo.m_AudioClip);
-		}
-		else
-		{
-			if(!tempAudioSource.isPlaying)
-				tempAudioSource.Play();
-		}
+        {
+            soundSourceMover.initialize(location, transform, tempSoundInfo.m_AudioClip, tempSoundInfo.OneShot);
+        }
+        else
+        {//check to see if it already exsists
+            for(int i = 0; i < m_NonAutoDestroySources.Count; i++)
+            {
+                if (m_NonAutoDestroySources[i].AudioSource.clip == tempSoundInfo.m_AudioClip && m_NonAutoDestroySources[i].SourceObject == location)
+                {
+                    if (!m_NonAutoDestroySources[i].AudioSource.isPlaying)
+                    {
+                        m_NonAutoDestroySources[i].AudioSource.Play();
+                    }
+                    Destroy(soundObject);
+                    return;
+                }
+            }
+            //need to add it
+            soundSourceMover.initialize(location, transform, tempSoundInfo.m_AudioClip, tempSoundInfo.OneShot);
+            m_NonAutoDestroySources.Add(soundSourceMover);
+        }
 	}	
 
 	/// <summary>
 	/// Stops the sound.
 	/// </summary>
 	/// <param name="objectPlayingTheSound">Object playing the sound.</param>
-	public void stopSound(GameObject objectPlayingTheSound)
+    public void stopSound(Transform location, Sounds sound, bool destroy = false)
 	{
-		// AudioInfo tempSoundInfo = getClipFromList(sound);
-		AudioSource tempSource = objectPlayingTheSound.gameObject.GetComponent<AudioSource>();
-
-        if (tempSource == null || !tempSource.isPlaying)
-        {
+        if (!m_SoundDictionary.ContainsKey((int)sound))
             return;
-        }
-
-        tempSource.Stop();   
+        AudioInfo tempSoundInfo = getClipFromList(sound);
+        for (int i = 0; i < m_NonAutoDestroySources.Count; i++)
+        {
+            if (m_NonAutoDestroySources[i].AudioSource.clip == tempSoundInfo.m_AudioClip && m_NonAutoDestroySources[i].SourceObject == location)
+            {
+                if (!destroy)
+                {
+                    m_NonAutoDestroySources[i].AudioSource.Stop();
+                    return;
+                }
+                GameObject.Destroy(m_NonAutoDestroySources[i].gameObject);
+                m_NonAutoDestroySources.RemoveAt(i);
+                return;
+            }
+        } 
+#if DEBUG || UNITY_EDITOR
+        Debug.Log("sound not found");
+#endif
     }
-
-
-	/// <summary>
-	/// Gets the sound volume in reference to the player distance;
-	/// </summary>
-	/// <returns>The sound volume.</returns>
-	private float getSoundVolume(Vector3 SoundLocation)
-	{
-		float DisToP1 = Vector3.Distance(m_PlayerOne.position, SoundLocation);
-		float DisToP2 = Vector3.Distance(m_PlayerTwo.position, SoundLocation);
-	
-		if(DisToP1 <= DisToP2)
-		{
-			//Player one is closer to the sound, base calculation of volume of there distance;
-			return (100 - DisToP1) / 100 ;
-		}
-		else
-		{
-			//Player Two is closer, use there distance;
-			return (100 - DisToP2) / 100;
-		}
-	}
 
 	/// <summary>
 	/// Checks sent in enum, returns apropriote data 

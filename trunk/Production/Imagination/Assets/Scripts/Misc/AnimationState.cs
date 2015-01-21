@@ -61,7 +61,7 @@ public class AnimationState : MonoBehaviour {
 	{
 		//Initializing functions that need to be initialized.
 		m_CurrentStates = new List<AnimationStates>();
-		m_SFX = GameObject.FindGameObjectWithTag(Constants.SOUND_MANAGER).GetComponent<SFXManager>();
+		m_SFX = SFXManager.Instance;
 		m_AnimTimer = m_Jump.length;
 	}
 	
@@ -280,15 +280,18 @@ public class AnimationState : MonoBehaviour {
 		{
 			//no sound plays while idle
 			case Constants.Animations.IDLE:
-				m_SFX.stopSound(this.gameObject);
+			m_SFX.stopSound(transform, Sounds.Walk);
+			m_SFX.stopSound(transform, Sounds.Run);
 				break;
 		
 			case Constants.Animations.WALK:
-				m_SFX.playSound(this.gameObject, Sounds.Walk);
+			m_SFX.stopSound(transform, Sounds.Run);
+            m_SFX.playSound(transform, Sounds.Walk);
 				break;
 
 			case Constants.Animations.RUN:
-				m_SFX.playSound(this.gameObject, Sounds.Run);
+			m_SFX.stopSound(transform, Sounds.Walk);
+            m_SFX.playSound(transform, Sounds.Run);
 				break;
 
 		}

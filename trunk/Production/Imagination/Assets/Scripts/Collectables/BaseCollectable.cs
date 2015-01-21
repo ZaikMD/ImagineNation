@@ -21,7 +21,7 @@ public abstract class BaseCollectable : MonoBehaviour {
 	void Start ()
 	{
 		//Setting our references
-		m_SFX = GameObject.FindGameObjectWithTag (Constants.SOUND_MANAGER).GetComponent<SFXManager>();
+		m_SFX = SFXManager.Instance;
 		m_CollectableManager = GameObject.FindGameObjectWithTag(Constants.COLLECTABLE_MANAGER).GetComponent<CollectableManager>();
 
 		SetOnGround();
@@ -54,7 +54,7 @@ public abstract class BaseCollectable : MonoBehaviour {
 	{
 		if(m_SFX != null)
 		{
-			m_SFX.playSound(this.transform.position, Sounds.Collectable);
+			m_SFX.playSound(transform, Sounds.Collectable);
 		}
 		else
 		{
