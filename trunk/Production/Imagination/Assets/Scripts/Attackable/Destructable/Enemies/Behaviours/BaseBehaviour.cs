@@ -112,6 +112,9 @@ public class BaseBehaviour : MonoBehaviour
 	{
 		names = new string[1];
 		components = new BaseComponent[1];
+
+		names [0] = "null";
+		components [0] = NoMovement;
 	}
 
 	public virtual string BehaviourType()

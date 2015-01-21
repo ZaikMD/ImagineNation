@@ -15,7 +15,8 @@
 using UnityEngine;
 using System.Collections;
 
-public class BaseKnockedBackBehavouir : BaseBehaviour {
+public class BaseKnockedBackBehavouir : BaseBehaviour 
+{
 
 	//Whether or not the enemy is being knocked back
 	protected bool m_Active = false;

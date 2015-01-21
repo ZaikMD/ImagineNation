@@ -93,8 +93,8 @@ public class EnemyAITool : EditorWindow
 		m_tComponents = new List<BaseComponent> ();
 
 		//Init behaviour arrays
-		m_BehaviourLocs = new int[4];
-		m_BehaviourNames = new string[4];
+		m_BehaviourLocs = new int[5];
+		m_BehaviourNames = new string[5];
 
 		int prevLocs = 0;
 

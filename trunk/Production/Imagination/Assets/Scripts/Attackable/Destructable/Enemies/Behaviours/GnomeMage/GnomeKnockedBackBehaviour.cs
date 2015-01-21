@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GnomeKnockedBackBehaviour : BaseKnockedBackBehavouir {
+public class GnomeKnockedBackBehaviour : BaseKnockedBackBehavouir 
+{
 
 	// Use this for initialization
 	protected override void start ()
