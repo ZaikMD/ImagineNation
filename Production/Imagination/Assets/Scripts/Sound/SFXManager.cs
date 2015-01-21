@@ -211,6 +211,8 @@ public class SFXManager : MonoBehaviour
 		//this class takes the enum passed in and passes it to anouther function to get all data it needs.
 		AudioInfo tempSoundInfo = getClipFromList(sound);
 
+		soundObject.name = tempSoundInfo.m_AudioClip.name;
+
         //will the sound remove itself once done?
 		if (tempSoundInfo.OneShot)
         {
