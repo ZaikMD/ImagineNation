@@ -25,6 +25,8 @@ public class EnemyAITool : EditorWindow
 	string[] m_LeaveCombatComponents;
 	string[] m_TargetingComponents;
 
+	int[] m_CompIndexes;
+
 
 	[MenuItem ("Tools/EnemyAI")]
 	public static void ShowWindow()
@@ -59,7 +61,7 @@ public class EnemyAITool : EditorWindow
 		}
 
 		int loc = 0;
-
+		int index = 0;
 		for (int i = 0; i < m_tComponentNames.Count; i++)
 		{
 			if (m_BehaviourLocs[loc] == i)
@@ -69,18 +71,20 @@ public class EnemyAITool : EditorWindow
 				if (loc >= 3)
 					loc = 3;
 			}
+				index = 0;
+
 				if (m_tComponents[i] is BaseMovement)
-					EditorGUILayout.Popup(m_tComponentNames[i],1,m_MovementComponents);
+					m_CompIndexes[i] = EditorGUILayout.Popup(m_tComponentNames[i],m_CompIndexes[i],m_MovementComponents);
 				else if (m_tComponents[i] is BaseCombat)
-					EditorGUILayout.Popup(m_tComponentNames[i],1,m_CombatComponents);
+					m_CompIndexes[i] = EditorGUILayout.Popup(m_tComponentNames[i],m_CompIndexes[i],m_CombatComponents);
 				else if (m_tComponents[i] is BaseDeath)
-					EditorGUILayout.Popup(m_tComponentNames[i],1,m_DeathComponents);
+					m_CompIndexes[i] = EditorGUILayout.Popup(m_tComponentNames[i],m_CompIndexes[i],m_DeathComponents);
 				else if (m_tComponents[i] is BaseEnterCombat)
-					EditorGUILayout.Popup(m_tComponentNames[i],1,m_EnterCombatComponents);
+					m_CompIndexes[i] = EditorGUILayout.Popup(m_tComponentNames[i],m_CompIndexes[i],m_EnterCombatComponents);
 				else if (m_tComponents[i] is BaseLeavingCombat)
-					EditorGUILayout.Popup(m_tComponentNames[i],1,m_LeaveCombatComponents);
+					m_CompIndexes[i] = EditorGUILayout.Popup(m_tComponentNames[i],m_CompIndexes[i],m_LeaveCombatComponents);
 				else if (m_tComponents[i] is BaseTargeting)
-					EditorGUILayout.Popup(m_tComponentNames[i],1,m_TargetingComponents);
+					m_CompIndexes[i] = EditorGUILayout.Popup(m_tComponentNames[i],m_CompIndexes[i],m_TargetingComponents);
 				
 		}
 
@@ -117,6 +121,8 @@ public class EnemyAITool : EditorWindow
 				m_tComponents.Add(m_Components[j]);
 			}
 		}
+
+		m_CompIndexes = new int[m_tComponents.Count];
 
 		m_InfoRetrieved = true;
 	}
