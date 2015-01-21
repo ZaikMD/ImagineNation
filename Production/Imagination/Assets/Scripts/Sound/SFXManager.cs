@@ -23,9 +23,13 @@ using System.Collections.Generic;
  * Oct, 8, 2014, kole
  * Updated the class to use constants instead of strings
  * 
- * feb 16 2015 kris
+ * jan 16 2015 kris
  * made the class use a dictionary for all of the variables
  * and added loading with coroutines
+ * 
+ * jan 20 2015 kris
+ * i think i fixed loading with coroutines
+ * made script a unity styled singleton
  */
 
 
@@ -88,6 +92,44 @@ public struct AudioInfo
 /// </summary>
 public class SFXManager : MonoBehaviour
 {
+    public static SFXManager Instance { get; private set; }
+
+    //ID is used to ensure that the older GamaData is kept in the case of duplicates
+    static int m_InstanceCounter = 0;
+    public int m_ID = int.MaxValue;
+    public int ID
+    {
+        get { return m_ID; }
+        private set { m_ID = value; }
+    }
+
+    void Awake()
+    {
+        ID = m_InstanceCounter++;
+
+        //if theres another instance (there shouldnt be) destroy this
+        if (Instance != null && Instance != this)
+        {
+            if (ID > Instance.ID)
+            {
+                //destroy all other instances
+                Destroy(gameObject);
+                return;
+            }
+            else
+            {
+                Destroy(Instance.gameObject);
+            }
+        }
+
+        //set the instance
+        Instance = this;
+
+        //prevents this object being destroyed between scene loads
+        DontDestroyOnLoad(this.gameObject);
+    }
+    //================================================================================ 
+
 
     Dictionary<int, AudioClip> m_SoundDictionary = new Dictionary<int, AudioClip>();
 	//Variables for class
@@ -105,14 +147,13 @@ public class SFXManager : MonoBehaviour
 	/// </summary>
     void OnLevelLoad()
     { 
-    
         //Load all sounds
-        loadMenuSounds();
-        loadOtherSounds();
-		
+        loadMenuSounds();//menu sounds load instantly since they need to be used immediately
+        loadOtherSounds();//other sounds load asynronously to help reduce lag on scene initilization
     }
 
 
+    int totalCoroutines = 0;
 
     /// <summary>
     /// Start this instance.
@@ -165,6 +206,8 @@ public class SFXManager : MonoBehaviour
 	/// <param name="sound">The sound that is played, it is an enum, to select a sound, Type Sounds.insertSoundNameHere, Sound names are all one word</param>
    public void playSound(GameObject objectPlayingTheSound, Sounds sound)
     {
+        if (!m_SoundDictionary.ContainsKey((int)sound))
+            return;
 
 		//this class takes the enum passed in and passes it to anouther function to get all data it needs.
         AudioInfo tempSoundInfo = getClipFromList(sound);
@@ -208,6 +251,9 @@ public class SFXManager : MonoBehaviour
 	/// <param name="The sound that is played, it is an enum, to select a sound, Type Sounds.insertSoundNameHere, Sound names are all one word">.</param>
 	public void playSound(Vector3 Location, Sounds sound)
 	{
+        if (!m_SoundDictionary.ContainsKey((int)sound))
+            return;
+
 		GameObject soundObject = (GameObject)Instantiate (m_SoundObject);
 
 		//this class takes the enum passed in and passes it to anouther function to get all data it needs.
@@ -436,51 +482,65 @@ public class SFXManager : MonoBehaviour
     void loadOtherSounds()
     {
         //Common Sounds
-        loadSoundNow((int)Sounds.Jump, Constants.Sounds.ALEX_JUMP);
-        loadSoundNow((int)Sounds.Walk, Constants.Sounds.WALK);
-        loadSoundNow((int)Sounds.Run, Constants.Sounds.RUN);
-        loadSoundNow((int)Sounds.WeaponWoosh, Constants.Sounds.WEAPON_WOOSH);
-        loadSoundNow((int)Sounds.Collectable, Constants.Sounds.COLLECTABLE);
-        loadSoundNow((int)Sounds.JumpPad, Constants.Sounds.JUMPAD);
-        loadSoundNow((int)Sounds.GateOpen, Constants.Sounds.GATE_OPEN);
+        loadSound((int)Sounds.Jump, Constants.Sounds.ALEX_JUMP);
+        loadSound((int)Sounds.Walk, Constants.Sounds.WALK);
+        loadSound((int)Sounds.Run, Constants.Sounds.RUN);
+        loadSound((int)Sounds.WeaponWoosh, Constants.Sounds.WEAPON_WOOSH);
+        loadSound((int)Sounds.Collectable, Constants.Sounds.COLLECTABLE);
+        loadSound((int)Sounds.JumpPad, Constants.Sounds.JUMPAD);
+        loadSound((int)Sounds.GateOpen, Constants.Sounds.GATE_OPEN);
 
         //Alex Sounds
-        loadSoundNow((int)Sounds.AlexHitOne, Constants.Sounds.ALEX_FIRST_WEAPON_HIT);
-        loadSoundNow((int)Sounds.AlexHitTwo, Constants.Sounds.ALEX_SECOND_WEAPON_HIT);
-        loadSoundNow((int)Sounds.AlexHitThree, Constants.Sounds.ALEX_THIRD_WEAPON_HIT);
-        loadSoundNow((int)Sounds.AlexHurt, Constants.Sounds.ALEX_HURT);
-        loadSoundNow((int)Sounds.AlexDeath, Constants.Sounds.ALEX_DEATH);
-        loadSoundNow((int)Sounds.AlexJump, Constants.Sounds.ALEX_JUMP);
+        loadSound((int)Sounds.AlexHitOne, Constants.Sounds.ALEX_FIRST_WEAPON_HIT);
+        loadSound((int)Sounds.AlexHitTwo, Constants.Sounds.ALEX_SECOND_WEAPON_HIT);
+        loadSound((int)Sounds.AlexHitThree, Constants.Sounds.ALEX_THIRD_WEAPON_HIT);
+        loadSound((int)Sounds.AlexHurt, Constants.Sounds.ALEX_HURT);
+        loadSound((int)Sounds.AlexDeath, Constants.Sounds.ALEX_DEATH);
+        loadSound((int)Sounds.AlexJump, Constants.Sounds.ALEX_JUMP);
 
         //Derek Sounds
-        loadSoundNow((int)Sounds.DerekHitOne, Constants.Sounds.DEREK_FIRST_WEAPON_HIT);
-        loadSoundNow((int)Sounds.DerekHitTwo, Constants.Sounds.DEREK_SECOND_WEAPON_HIT);
-        loadSoundNow((int)Sounds.DerekHitThree, Constants.Sounds.DEREK_THIRD_WEAPON_HIT);
-        loadSoundNow((int)Sounds.DerekHurt, Constants.Sounds.DEREK_HURT);
-        loadSoundNow((int)Sounds.DerekDeath, Constants.Sounds.DEREK_DEATH);
-        loadSoundNow((int)Sounds.DerekJump, Constants.Sounds.DEREK_JUMP);
+        loadSound((int)Sounds.DerekHitOne, Constants.Sounds.DEREK_FIRST_WEAPON_HIT);
+        loadSound((int)Sounds.DerekHitTwo, Constants.Sounds.DEREK_SECOND_WEAPON_HIT);
+        loadSound((int)Sounds.DerekHitThree, Constants.Sounds.DEREK_THIRD_WEAPON_HIT);
+        loadSound((int)Sounds.DerekHurt, Constants.Sounds.DEREK_HURT);
+        loadSound((int)Sounds.DerekDeath, Constants.Sounds.DEREK_DEATH);
+        loadSound((int)Sounds.DerekJump, Constants.Sounds.DEREK_JUMP);
 
         //Zoey Sounds
-        loadSoundNow((int)Sounds.ZoeyHitOne, Constants.Sounds.ZOEY_FIRST_WEAPON_HIT);
-        loadSoundNow((int)Sounds.ZoeyHitTwo, Constants.Sounds.ZOEY_SECOND_WEAPON_HIT);
-        loadSoundNow((int)Sounds.ZoeyHitThree, Constants.Sounds.ZOEY_THIRD_WEAPON_HIT);
-        loadSoundNow((int)Sounds.ZoeyHurt, Constants.Sounds.ZOEY_HURT);
-        loadSoundNow((int)Sounds.ZoeyDeath, Constants.Sounds.ZOEY_DEATH);
-        loadSoundNow((int)Sounds.ZoeyJump, Constants.Sounds.ZOEY_JUMP);
-        loadSoundNow((int)Sounds.ZoeyOpenWings, Constants.Sounds.ZOEY_WINGS_OPEN);
-        loadSoundNow((int)Sounds.ZoeyCloseWings, Constants.Sounds.ZOEY_WINGS_CLOSE);
-		loadSoundNow((int)Sounds.ZoeyDeployedWings, Constants.Sounds.ZOEY_WINGS_DEPLOY);
+        loadSound((int)Sounds.ZoeyHitOne, Constants.Sounds.ZOEY_FIRST_WEAPON_HIT);
+        loadSound((int)Sounds.ZoeyHitTwo, Constants.Sounds.ZOEY_SECOND_WEAPON_HIT);
+        loadSound((int)Sounds.ZoeyHitThree, Constants.Sounds.ZOEY_THIRD_WEAPON_HIT);
+        loadSound((int)Sounds.ZoeyHurt, Constants.Sounds.ZOEY_HURT);
+        loadSound((int)Sounds.ZoeyDeath, Constants.Sounds.ZOEY_DEATH);
+        loadSound((int)Sounds.ZoeyJump, Constants.Sounds.ZOEY_JUMP);
+        loadSound((int)Sounds.ZoeyOpenWings, Constants.Sounds.ZOEY_WINGS_OPEN);
+        loadSound((int)Sounds.ZoeyCloseWings, Constants.Sounds.ZOEY_WINGS_CLOSE);
+		loadSound((int)Sounds.ZoeyDeployedWings, Constants.Sounds.ZOEY_WINGS_DEPLOY);
 
         //Enimies sounds
-		loadSoundNow((int)Sounds.MageAttack, Constants.Sounds.MAGE_SHOOT);
-		loadSoundNow((int)Sounds.MageHit, Constants.Sounds.MAGE_HIT);
+		loadSound((int)Sounds.MageAttack, Constants.Sounds.MAGE_SHOOT);
+		loadSound((int)Sounds.MageHit, Constants.Sounds.MAGE_HIT);
     }
 
-    IEnumerator loadSound(int key, string filePath)
+    void loadSound(int key, string filePath)
+    {
+        StartCoroutine(loadSoundAsync(key, filePath));
+    }
+
+    IEnumerator loadSoundAsync(int key, string filePath)
     {
         if (!m_SoundDictionary.ContainsKey(key))
         {
-            m_SoundDictionary.Add(key, (AudioClip)Resources.Load(filePath));
+            //Debug.Log(++totalCoroutines);
+            ResourceRequest resource = Resources.LoadAsync(filePath);
+
+            while (resource.isDone == false)
+            {
+                yield return null;
+            }
+
+            //Debug.Log(--totalCoroutines);
+            m_SoundDictionary.Add(key, (AudioClip)resource.asset);
         }
 #if UNITY_EDITOR || DEBUG
         else
