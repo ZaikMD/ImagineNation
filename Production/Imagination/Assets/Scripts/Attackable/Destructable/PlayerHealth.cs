@@ -111,7 +111,7 @@ public class PlayerHealth : Destructable
 		}
 
 		//gets reference to sound manager
-		m_SFX = GameObject.FindGameObjectWithTag(Constants.SOUND_MANAGER).GetComponent<SFXManager>();
+		m_SFX = SFXManager.Instance;
 
 		//Gets reference to hud
 		m_Hud = GameObject.FindGameObjectWithTag(Constants.HUD).GetComponent<Hud>();
@@ -276,36 +276,36 @@ public class PlayerHealth : Destructable
 			//first we check we have any health left, if not, were dead, and should play death sound
 			if(m_Health <= 0.0f)
 			{
-				m_SFX.playSound(transform.position, Sounds.AlexDeath);
+				m_SFX.playSound(transform, Sounds.AlexDeath);
 			}
 			else
 			{
 				//still have health left so just play hurt sound
-				m_SFX.playSound(transform.position, Sounds.AlexHurt);
+				m_SFX.playSound(transform, Sounds.AlexHurt);
 			}
 			break;
 
 			case Constants.DEREK_WITH_MOVEMENT_STRING:
 			if(m_Health <= 0.0f)
 			{
-				m_SFX.playSound(transform.position, Sounds.DerekDeath);
+				m_SFX.playSound(transform, Sounds.DerekDeath);
 			}
 			else
 			{
 				//still have health left so just play hurt sound
-				m_SFX.playSound(transform.position, Sounds.DerekHurt);
+				m_SFX.playSound(transform, Sounds.DerekHurt);
 			}
 			break;
 
 			case Constants.ZOE_WITH_MOVEMENT_STRING:
 			if(m_Health <= 0.0f)
 			{
-				m_SFX.playSound(transform.position, Sounds.ZoeyDeath);
+				m_SFX.playSound(transform, Sounds.ZoeyDeath);
 			}
 			else
 			{
 				//still have health left so just play hurt sound
-				m_SFX.playSound(transform.position, Sounds.ZoeyHurt);
+				m_SFX.playSound(transform, Sounds.ZoeyHurt);
 			}
 			break;
 		}

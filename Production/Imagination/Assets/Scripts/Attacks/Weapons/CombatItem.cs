@@ -45,7 +45,7 @@ public class CombatItem : MonoBehaviour
 		}
         m_ReadInput = gameObject.GetComponent<AcceptInputFrom> ();
         
-		m_SFX = GameObject.FindGameObjectWithTag(Constants.SOUND_MANAGER).GetComponent<SFXManager> ();
+		m_SFX = SFXManager.Instance;
 		m_AnimState = GetComponent<AnimationState> ();
 	}
 	
@@ -109,17 +109,17 @@ public class CombatItem : MonoBehaviour
 					//First attack, play slash one
 					case 0:
 					m_AnimState.AddAnimRequest(AnimationStates.OverHeadSlash);
-					m_SFX.playSound(this.gameObject, Sounds.AlexHitOne);		
+				m_SFX.playSound(transform, Sounds.AlexHitOne);		
 					break;
 				
 					case 1:
 					m_AnimState.AddAnimRequest(AnimationStates.OverHeadSlash);
-					m_SFX.playSound(this.gameObject, Sounds.AlexHitTwo);
+				m_SFX.playSound(transform, Sounds.AlexHitTwo);
 					break;
 				
 					case 2:
 					m_AnimState.AddAnimRequest(AnimationStates.DoubleSlash);
-					m_SFX.playSound(this.gameObject, Sounds.AlexHitThree);
+				m_SFX.playSound(transform, Sounds.AlexHitThree);
 					break;
 				}
 			break;
@@ -130,17 +130,17 @@ public class CombatItem : MonoBehaviour
 					//First attack, play punch for derek
 					case 0:
 					m_AnimState.AddAnimRequest(AnimationStates.Punch);
-					m_SFX.playSound(this.gameObject, Sounds.DerekHitOne);		
+				m_SFX.playSound(transform, Sounds.DerekHitOne);		
 					break;
 				
 					case 1:
 					m_AnimState.AddAnimRequest(AnimationStates.Punch);
-					m_SFX.playSound(this.gameObject, Sounds.DerekHitTwo);
+				m_SFX.playSound(transform, Sounds.DerekHitTwo);
 					break;
 				
 					case 2:
 					m_AnimState.AddAnimRequest(AnimationStates.DoubleSlash);
-					m_SFX.playSound(this.gameObject, Sounds.DerekHitThree);
+				m_SFX.playSound(transform, Sounds.DerekHitThree);
 					break;
 				}
 			break;
@@ -151,17 +151,17 @@ public class CombatItem : MonoBehaviour
 					//First attack, play slash one
 					case 0:
 					m_AnimState.AddAnimRequest(AnimationStates.OverHeadSlash);
-					m_SFX.playSound(this.gameObject, Sounds.ZoeyHitOne);		
+				m_SFX.playSound(transform, Sounds.ZoeyHitOne);		
 					break;
 				
 					case 1:
 					m_AnimState.AddAnimRequest(AnimationStates.OverHeadSlash);
-					m_SFX.playSound(this.gameObject, Sounds.ZoeyHitTwo);
+				m_SFX.playSound(transform, Sounds.ZoeyHitTwo);
 					break;
 				
 					case 2:
 					m_AnimState.AddAnimRequest(AnimationStates.DoubleSlash);
-					m_SFX.playSound(this.gameObject, Sounds.ZoeyHitThree);
+				m_SFX.playSound(transform, Sounds.ZoeyHitThree);
 					break;
 				}
 			break;

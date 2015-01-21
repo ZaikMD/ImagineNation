@@ -59,7 +59,7 @@ public class Weapon : MonoBehaviour
     {
         m_ReadInput = gameObject.GetComponent<AcceptInputFrom>(); //Get the input
 
-        m_SFX = GameObject.FindGameObjectWithTag(Constants.SOUND_MANAGER).GetComponent<SFXManager>(); //Sound stuff
+        m_SFX = SFXManager.Instance; //Sound stuff
         m_AnimState = GetComponent<AnimationState>();
 		DOWN_TIME = m_DownTime; //Set reference for the down time timer
 		DOUBLE_HIT_TIMER = m_DoubleHitTimer; //Set the reference for the double hit timer

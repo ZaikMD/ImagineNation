@@ -53,7 +53,9 @@ public class SoundSourceMover : MonoBehaviour
         }
     }
 
-	public void initialize(Transform sourceObject, Transform audioListener, AudioClip clip, bool isOneShot = true, bool isLooping = false)
+    bool m_AutoDestroy = true;
+
+    public void initialize(Transform sourceObject, Transform audioListener, AudioClip clip, bool isOneShot = true, bool isLooping = false, float volume = 1.0f)
     {
         m_SourceObject = sourceObject;
         m_AudioListenerTransform = audioListener;
@@ -61,14 +63,17 @@ public class SoundSourceMover : MonoBehaviour
         AudioSource = gameObject.AddComponent<AudioSource>();
         m_AudioSource.clip = clip;
         m_AudioSource.loop = isLooping;
-        if(isOneShot)
-        {
-            m_AudioSource.PlayOneShot(clip);
-        }
-        else
-        {
-            m_AudioSource.Play();
-        }
+        m_AudioSource.volume = volume;
+
+        m_AudioSource.Play();
+
+
+        m_AutoDestroy = isOneShot;
+
+		if (m_AudioSource.isPlaying && m_SourceObject!= null && m_AudioListenerTransform != null)
+		{
+			updatePos();
+		}
     }
 
 	// Update is called once per frame
@@ -76,26 +81,32 @@ public class SoundSourceMover : MonoBehaviour
     {
         if (m_AudioSource.isPlaying && m_SourceObject != null && m_AudioListenerTransform != null)
         {
-            //figure out wich is the closest player
-            PlayerInfo closestPlayer = Players[0];
-            if (Vector3.Distance(Players[0].transform.position, SourceObject.position) > Vector3.Distance(Players[1].transform.position, SourceObject.position))
-            {
-                closestPlayer = Players[1];
-            }
-
-            //moves the position of the source to be the correct distance
-            transform.position = (m_AudioListenerTransform.position + SourceObject.position - closestPlayer.transform.position);
-
-            //makes sure the sound is playing on the correct side since the players rotate but the listener does not
-            if(Vector3.Dot(m_AudioListenerTransform.forward, closestPlayer.transform.forward) < 0)
-            {
-                transform.position = -(transform.position - m_AudioListenerTransform.position);
-            }
+            updatePos();
         }
-        else
+        else if (!m_AudioSource.isPlaying && m_AutoDestroy)
         {
             //sound is no longer playering so destroy this
             GameObject.Destroy(this.gameObject);
         }
 	}
+
+    void updatePos()
+    {
+        //figure out wich is the closest player
+        PlayerInfo closestPlayer = Players[0];
+        if (Vector3.Distance(Players[0].transform.position, SourceObject.position) > Vector3.Distance(Players[1].transform.position, SourceObject.position))
+        {
+            closestPlayer = Players[1];
+        }
+
+
+        //moves the position of the source to be the correct distance
+        transform.position = (m_AudioListenerTransform.position + SourceObject.position - closestPlayer.transform.position);
+
+        //makes sure the sound is playing on the correct side since the players rotate but the listener does not
+        if (Vector3.Dot(m_AudioListenerTransform.forward, closestPlayer.transform.forward) < 0)
+        {
+            transform.position = -(transform.position - m_AudioListenerTransform.position);
+        }
+    }
 }

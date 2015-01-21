@@ -110,7 +110,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 
 		m_AnimState = GetComponent<AnimationState>();
 
-        m_SFX = GameObject.FindGameObjectWithTag(Constants.SOUND_MANAGER).GetComponent<SFXManager>();
+        m_SFX = SFXManager.Instance;
 
 		m_AcceptInputFrom = gameObject.GetComponent<AcceptInputFrom> ();
 
@@ -541,13 +541,13 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		switch(this.gameObject.name)
 		{
 		case Constants.ALEX_WITH_MOVEMENT_STRING:
-			m_SFX.playSound(this.gameObject, Sounds.AlexJump);
+			m_SFX.playSound(transform, Sounds.AlexJump);
 			break;
 		case Constants.DEREK_WITH_MOVEMENT_STRING:
-			m_SFX.playSound(this.gameObject, Sounds.DerekJump);
+			m_SFX.playSound(transform, Sounds.DerekJump);
 			break;
 		case Constants.ZOE_WITH_MOVEMENT_STRING:
-			m_SFX.playSound(this.gameObject, Sounds.ZoeyJump);
+			m_SFX.playSound(transform, Sounds.ZoeyJump);
 			break;
 		}
 
@@ -574,7 +574,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	public virtual void LaunchJump(Vector3 jump, float launchTimer)
 	{
 		//Animation and sound
-		m_SFX.playSound(this.gameObject, Sounds.JumpPad);
+		m_SFX.playSound(transform, Sounds.JumpPad);
 		m_AnimState.AddAnimRequest(AnimationStates.Jump);
 
 		//Jump
