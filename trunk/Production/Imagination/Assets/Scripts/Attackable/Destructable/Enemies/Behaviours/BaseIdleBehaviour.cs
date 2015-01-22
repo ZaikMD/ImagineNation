@@ -78,4 +78,18 @@ public abstract class BaseIdleBehaviour : BaseBehaviour
 	{
 		return "Idle Behaviour";
 	}
+
+	public override int numbComponents ()
+	{
+		return 3;
+	}
+	
+	public override void SetComponents (string[] components)
+	{
+		m_ComponentsObject = transform.FindChild ("Components").gameObject;
+		
+		m_MovementComponent = m_ComponentsObject.GetComponent (components [0]) as BaseMovement;
+		m_TargetingComponent = m_ComponentsObject.GetComponent (components [1]) as BaseTargeting;
+		m_EnterCombatComponent = m_ComponentsObject.GetComponent (components [2]) as BaseEnterCombat;
+	}
 }

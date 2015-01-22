@@ -33,4 +33,17 @@ public abstract class BaseDeadBehaviour : BaseBehaviour
 	{
 		return "Death Behaviour";
 	}
+
+	public override int numbComponents ()
+	{
+		return 1;
+	}
+	
+	public override void SetComponents (string[] components)
+	{
+		m_ComponentsObject = transform.FindChild ("Components").gameObject;
+		
+		m_DeathComponent = m_ComponentsObject.GetComponent (components [0]) as BaseDeath;
+
+	}
 }

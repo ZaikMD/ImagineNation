@@ -279,7 +279,7 @@ public class GnomeCombat : BaseAttackBehaviour, INotifyHit
 		names [0] = "Combat";
 		components [0] = m_CombatComponent;
 		names [1] = "Cloned Combat";
-		components [1] = m_CombatComponent;
+		components [1] = m_ClonedCombat;
 		
 		names [2] = "Targeting";
 		components [2] = m_TargetingComponent;
@@ -287,8 +287,27 @@ public class GnomeCombat : BaseAttackBehaviour, INotifyHit
 		names [3] = "Movement";
 		components [3] = m_MovementComponent;
 		names [4] = "Cloning Movement";
-		components [4] = m_MovementComponent;
+		components [4] = m_CloningMovement;
 		names [5] = "Cloned Movement";
-		components [5] = m_MovementComponent;
+		components [5] = m_ClonedMovement;
+	}
+
+	public override int numbComponents ()
+	{
+		return 6;
+	}
+	
+	public override void SetComponents (string[] components)
+	{
+		m_ComponentsObject = transform.FindChild ("Components").gameObject;
+		
+		m_CombatComponent = m_ComponentsObject.GetComponent (components [0]) as BaseCombat;
+		m_ClonedCombat = m_ComponentsObject.GetComponent (components [1]) as BaseCombat;
+
+		m_TargetingComponent = m_ComponentsObject.GetComponent (components [2]) as BaseTargeting;
+
+		m_MovementComponent = m_ComponentsObject.GetComponent (components [3]) as BaseMovement;
+		m_CloningMovement = m_ComponentsObject.GetComponent (components [4]) as BaseMovement;
+		m_ClonedMovement = m_ComponentsObject.GetComponent (components [5]) as BaseMovement;
 	}
 }

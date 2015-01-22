@@ -336,4 +336,23 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour, INotifyHit
 		names [6] = "Hit By Player Movement";
 		components [6] = m_HitByPlayerMovement;
 	}
+
+	public override int numbComponents ()
+	{
+		return 7;
+	}
+	
+	public override void SetComponents (string[] components)
+	{
+		m_ComponentsObject = transform.FindChild ("Components").gameObject;
+		
+		m_CombatComponent = m_ComponentsObject.GetComponent (components [0]) as BaseCombat;
+		m_TargetingComponent = m_ComponentsObject.GetComponent (components [1]) as BaseTargeting;
+
+		m_MovementComponent = m_ComponentsObject.GetComponent (components [2]) as BaseMovement;
+		m_ChargeMovement = m_ComponentsObject.GetComponent (components [3]) as BaseMovement;
+		m_BuildingChargeMovement = m_ComponentsObject.GetComponent (components [4]) as BaseMovement;
+		m_KnockedBackMovement = m_ComponentsObject.GetComponent (components [5]) as BaseMovement;
+		m_HitByPlayerMovement = m_ComponentsObject.GetComponent (components [6]) as BaseMovement;
+	}
 }
