@@ -18,6 +18,8 @@ public class BaseBehaviour : MonoBehaviour
 	protected EnemyAI m_EnemyAI;
 
 	protected bool m_ControllerSet = false;
+
+	public bool m_Altered = false;
 	
 	void Start()
 	{
@@ -120,6 +122,11 @@ public class BaseBehaviour : MonoBehaviour
 	public virtual string BehaviourType()
 	{
 		return "BaseBehaviour";
+	}
+
+	public virtual void Teststuuuffff()
+	{
+		m_Altered = true;
 	}
 
 }

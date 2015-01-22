@@ -20,6 +20,8 @@ public class GnomeChase : BaseChaseBehaviour
 	const float m_TimeBetweenShots = 1.5f;
 	float m_ShotTimer;
 
+
+
 	// Use this for initialization
 	protected override void start ()
 	{
