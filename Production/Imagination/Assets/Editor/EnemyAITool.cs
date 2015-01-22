@@ -18,7 +18,7 @@ public class EnemyAITool : EditorWindow
 	
 	int[] m_CompIndexes;
 	
-	BaseComponent[] m_SelectedComponents;
+	string[] m_SelectedComponents;
 
 	bool m_InfoRetrieved = false;
 
@@ -139,146 +139,97 @@ public class EnemyAITool : EditorWindow
 	void InitStringOptions()
 	{
 		m_MovementComponents = new string[8];
-		m_MovementComponents [0] = "Arc Backwards";
-		m_MovementComponents [1] = "Build Charge";
-		m_MovementComponents [2] = "Charge Target";
-		m_MovementComponents [3] = "Chase Target";
-		m_MovementComponents [4] = "Jump Back";
-		m_MovementComponents [5] = "Knocked Back";
-		m_MovementComponents [6] = "MoveAround Nodes";
-		m_MovementComponents [7] = "None";
+		m_MovementComponents [0] = "ArcWhileMovingBackwards";
+		m_MovementComponents [1] = "BuildUpChargeMovement";
+		m_MovementComponents [2] = "ChargeMovement";
+		m_MovementComponents [3] = "ChaseTargetMovement";
+		m_MovementComponents [4] = "JumpBackMovement";
+		m_MovementComponents [5] = "KnockedBackMovement";
+		m_MovementComponents [6] = "MovementAroundNodes";
+		m_MovementComponents [7] = "NoMovement";
 
 		m_CombatComponents = new string[3];
-		m_CombatComponents [0] = "Basic Projectile";
-		m_CombatComponents [1] = "Collision Combat";
-		m_CombatComponents [2] = "None";
+		m_CombatComponents [0] = "BasicProjectileCombat";
+		m_CombatComponents [1] = "CollisionCombat";
+	
 
 		m_DeathComponents = new string[1];
 		m_DeathComponents[0] = "None";
 
 		m_EnterCombatComponents = new string[2];
-		m_EnterCombatComponents [0] = "Proximity";
-		m_EnterCombatComponents [1] = "None";
+		m_EnterCombatComponents [0] = "ProximityAggro";
 
 		m_LeaveCombatComponents = new string[2];
-		m_LeaveCombatComponents [0] = "Proximity";
-		m_LeaveCombatComponents [1] = "None";
+		m_LeaveCombatComponents [0] = "ProximityAggroLeave";
 
 		m_TargetingComponents = new string[2];
-		m_TargetingComponents [0] = "Basic Targeting";
-		m_TargetingComponents [1] = "None";
+		m_TargetingComponents [0] = "BasicTargeting";
+
 	}
 	
 	void SetSelectedComponents()
 	{
-		m_SelectedComponents = new BaseComponent[m_CompIndexes.Length];
+		m_SelectedComponents = new string[m_CompIndexes.Length];
+		GameObject obj = m_SelectedEnemy.transform.FindChild ("Behaviours").FindChild("Components").gameObject;
+		DestroyImmediate(obj, true);
+		GameObject componentsObj = new GameObject("Components");
+		componentsObj.transform.position = m_SelectedEnemy.transform.position;
+		componentsObj.transform.parent = m_SelectedEnemy.transform.FindChild ("Behaviours").transform;
 
 		for (int i = 0; i < m_tComponentNames.Count; i++)
 		{			
-			if (m_tComponents[i] is BaseMovement)
-				switch (m_CompIndexes[i])
-				{
-				case 0:
-						m_SelectedComponents[i] = new ArcWhileMovingBackwards();
-					break;
+			if (m_tComponents[i] is BaseMovement)	
+			{
+				m_SelectedComponents[i] = m_MovementComponents[m_CompIndexes[i]];
+				componentsObj.AddComponent( m_MovementComponents[m_CompIndexes[i]]);
+			}
 
-				case 1:
-						m_SelectedComponents[i] = new BuildUpChargeMovement();
-					break;
-
-			   	case 2:
-						m_SelectedComponents[i] = new ChargeMovement();
-				   	break;
-
-			   	case 3:
-						m_SelectedComponents[i] = new ChaseTargetMovement();
-				   	break;
-
-			   	case 4:
-						m_SelectedComponents[i] = new JumpBackMovement();
-				   	break;
-
-			   	case 5:
-						m_SelectedComponents[i] = new KnockedBackMovement();
-				   	break;
-
-			   	case 6:
-						m_SelectedComponents[i] = new MovementAroundNodes();
-				   	break;
-
-			   	case 7:
-						m_SelectedComponents[i] = new NoMovement();
-				   	break;
-				}
-
-			else if (m_tComponents[i] is BaseCombat)
-				switch (m_CompIndexes[i])
-				{
-				case 0:
-						m_SelectedComponents[i] = new BasicProjectileCombat();
-					break;
-
-				case 1:
-						m_SelectedComponents[i] = new CollisionCombat();
-					break;
-
-				case 2:
-						m_SelectedComponents[i] = null;
-					break;
-				}
-
+			else if (m_tComponents[i] is BaseCombat)	
+			{
+				m_SelectedComponents[i] = m_CombatComponents[m_CompIndexes[i]];
+				componentsObj.AddComponent(m_CombatComponents[m_CompIndexes[i]]);
+			}
 			else if (m_tComponents[i] is BaseDeath)
-				switch (m_CompIndexes[i])
-				{
-				case 0:
-						m_SelectedComponents[i] = null;
-					break;
-				}
+			{
+				m_SelectedComponents[i] = m_DeathComponents[m_CompIndexes[i]];
 
+			}
 			else if (m_tComponents[i] is BaseEnterCombat)
-				switch (m_CompIndexes[i])
-				{
-				case 0:
-						m_SelectedComponents[i] = new ProximityAggro();
-					break;
-
-				case 1:
-						m_SelectedComponents[i] = null;
-					break;
-				}
-
+			{
+				m_SelectedComponents[i] = m_EnterCombatComponents[m_CompIndexes[i]];
+				componentsObj.AddComponent(m_EnterCombatComponents[m_CompIndexes[i]]);
+			}
 			else if (m_tComponents[i] is BaseLeavingCombat)
-				switch (m_CompIndexes[i])
-				{
-				case 0:
-						m_SelectedComponents[i] = new ProximityAggroLeave();
-					break;
-
-				case 1:
-						m_SelectedComponents[i] = null;
-					break;
-				}
-
+			{
+				m_SelectedComponents[i] = m_LeaveCombatComponents[m_CompIndexes[i]];
+				componentsObj.AddComponent(m_LeaveCombatComponents[m_CompIndexes[i]]);
+			}
 			else if (m_tComponents[i] is BaseTargeting)
-				switch (m_CompIndexes[i])
-				{
-				case 0:
-						m_SelectedComponents[i] = new BasicTargeting();
-					break;
-
-				case 1:
-						m_SelectedComponents[i] = null;
-					break;
-				}			
+			{
+				m_SelectedComponents[i] = m_TargetingComponents[m_CompIndexes[i]];
+				componentsObj.AddComponent(m_TargetingComponents[m_CompIndexes[i]]);
+			}
 		}
 	}
 
 	void SetEnemyComponents()
 	{
+		int loc = 0;
+
 		for (int i = 0; i < m_Behaviours.Length; i++) 
 		{
-			m_Behaviours[i].Teststuuuffff();
+			string[] comps = new string[m_Behaviours[i].numbComponents()];
+
+			for (int j = 0; j < comps.Length; j++)
+			{
+				comps[j] = m_SelectedComponents[loc];
+				loc++;
+			}
+
+			m_Behaviours[i].SetComponents(comps);
 		}
+
+		Close ();
 	}
 	
 }

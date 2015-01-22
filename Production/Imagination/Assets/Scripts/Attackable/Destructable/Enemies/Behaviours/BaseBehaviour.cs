@@ -20,6 +20,8 @@ public class BaseBehaviour : MonoBehaviour
 	protected bool m_ControllerSet = false;
 
 	public bool m_Altered = false;
+
+	public GameObject m_ComponentsObject;
 	
 	void Start()
 	{
@@ -124,9 +126,13 @@ public class BaseBehaviour : MonoBehaviour
 		return "BaseBehaviour";
 	}
 
-	public virtual void Teststuuuffff()
+	public virtual int numbComponents()
 	{
-		m_Altered = true;
+		return 0;
 	}
 
+	public virtual void SetComponents(string[] components)
+	{
+
+	}
 }

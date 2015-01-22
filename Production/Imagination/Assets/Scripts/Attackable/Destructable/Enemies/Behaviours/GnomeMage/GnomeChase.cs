@@ -86,4 +86,19 @@ public class GnomeChase : BaseChaseBehaviour
 		names [3] = "Combat";
 		components [3] = m_CombatComponent;
 	}
+
+	public override int numbComponents ()
+	{
+		return 4;
+	}
+	
+	public override void SetComponents (string[] components)
+	{
+		m_ComponentsObject = transform.FindChild ("Components").gameObject;
+		
+		m_MovementComponent = m_ComponentsObject.GetComponent (components [0]) as BaseMovement;
+		m_TargetingComponent = m_ComponentsObject.GetComponent (components [1]) as BaseTargeting;
+		m_LeavingCombatComponent = m_ComponentsObject.GetComponent (components [2]) as BaseLeavingCombat;
+		m_CombatComponent = m_ComponentsObject.GetComponent (components [3]) as BaseCombat;
+	}
 }
