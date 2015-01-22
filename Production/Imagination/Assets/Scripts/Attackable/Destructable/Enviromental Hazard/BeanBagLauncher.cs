@@ -35,22 +35,23 @@ public class BeanBagLauncher : MonoBehaviour
 	public float m_AimTime;
 	public float m_ChargeTime;
 	public float m_ReloadTime;
+	public float m_CrosshairsFlashRate;
 	public float m_AirTimeMultiplier;
 
-	public GameObject m_CrossHairsPrefab;
-	public GameObject m_Turret;
+	//public GameObject m_CrossHairsPrefab;
 	public Transform m_BulletLaunchLocation;
 	public GameObject m_BulletPrefab;
 
 	private float m_CurrentAimTime;
 	private float m_CurrentChargeTime;
 	private float m_CurrentReloadTime;
+	private float m_CurrentFlashTime;
 	private short m_CurrentTarget;
 
 	private bool m_HasTraget;
 
 	private Vector3 m_LaunchLocation;
-	private GameObject m_CrossHair;
+	public GameObject m_CrossHair;
 
 
 	// Use this for initialization
@@ -60,6 +61,7 @@ public class BeanBagLauncher : MonoBehaviour
 
 		m_HasTraget = false;
 		m_CurrentState = TimingStates.Idle;
+		m_LaunchLocation = new Vector3 (0, 0, 0);
 	}
 	
 	// Update is called once per frame
@@ -68,7 +70,7 @@ public class BeanBagLauncher : MonoBehaviour
 		switch(m_CurrentState)
 		{
 			case TimingStates.Idle:
-			//Do Nothing
+			UpdateIdle();
 			break;
 
 			case TimingStates.Aim:
@@ -96,6 +98,12 @@ public class BeanBagLauncher : MonoBehaviour
 		m_CurrentReloadTime = m_ReloadTime;	
 	}
 
+	void UpdateIdle()
+	{
+		ResetTimers();
+		TurnOffCrosshairs();
+	}
+
 	/// <summary>
 	/// this Class will update a timer and change states upon completion. 
 	/// </summary>
@@ -112,9 +120,10 @@ public class BeanBagLauncher : MonoBehaviour
 
 	void UpdateAim()
 	{
-		//TODO: draw target at player position.
+		m_HasTraget = true;
+		TurnOnCrosshairs();
 		AimAtPlayer();
-		AimTurret();
+		PaintTarget();
 		if(m_CurrentAimTime < 0)
 		{
 			ResetTimers();
@@ -126,7 +135,8 @@ public class BeanBagLauncher : MonoBehaviour
 	
 	void UpdateCharge()
 	{
-		AimTurret();
+		FlashCrosshair();
+		PaintTarget();
 		if(m_CurrentChargeTime < 0)
 		{
 			ResetTimers();
@@ -139,24 +149,14 @@ public class BeanBagLauncher : MonoBehaviour
 	void UpdateLaunch()
 	{
 		//TODO: fire projectile at Saved loction.
-
-
-
-		DeleteCurrentCrosshairs();
-		GetNextTarget ();
+		TurnOffCrosshairs();
+		GetNextTarget();
 		m_CurrentState = TimingStates.Reload;	
 	}
 
 	void AimAtPlayer()
 	{
-		if(m_CrossHair == null)
-		{
-			m_CrossHair = (GameObject)Instantiate(m_CrossHairsPrefab);
-		}
-
-		m_CrossHair.transform.position = GetAimLocation();	
-
-		m_LaunchLocation = m_CrossHair.transform.position;
+		m_LaunchLocation = GetAimLocation();
 	}
 
 	void calcLaunchVelocity()
@@ -176,119 +176,91 @@ public class BeanBagLauncher : MonoBehaviour
 
 	Transform GetPlayerLocation()
 	{
-		GameObject currentPlayer = new GameObject();
-
-		if(m_CurrentTarget == 1)
+		if (m_CurrentTarget == 1)
 		{
-			switch(GameData.Instance.PlayerOneCharacter)
-			{
-				case Characters.Alex:
-				return GameObject.Find(Constants.ALEX_WITH_MOVEMENT_STRING).transform;
-				break;
-
-				case Characters.Derek:
-				return GameObject.Find(Constants.DEREK_WITH_MOVEMENT_STRING).transform;
-				break;
-
-				case Characters.Zoe:
-				return GameObject.Find(Constants.ZOE_WITH_MOVEMENT_STRING).transform;
-				break;
-			}
+			return PlayerInfo.getPlayer(Players.PlayerOne).transform;
 		}
 		else
 		{
-			switch(GameData.Instance.PlayerTwoCharacter)
-			{
-				case Characters.Alex:
-				currentPlayer = GameObject.Find(Constants.ALEX_WITH_MOVEMENT_STRING);
-				break;
-				
-				case Characters.Derek:
-				currentPlayer = GameObject.Find(Constants.DEREK_WITH_MOVEMENT_STRING);
-				break;
-				
-				case Characters.Zoe:
-				currentPlayer = GameObject.Find(Constants.ZOE_WITH_MOVEMENT_STRING);
-				break;
-			}
+			return PlayerInfo.getPlayer(Players.PlayerTwo).transform;
 		}
-
-		return currentPlayer.transform;
 	}
 
 	void GetNextTarget()
 	{
-		GameObject OtherPlayer = new GameObject();
-
 		if(m_CurrentTarget == 1)
 		{
-			switch(GameData.Instance.PlayerTwoCharacter)
+			if(WithinRange(2))
 			{
-				case Characters.Alex:
-				OtherPlayer = GameObject.FindGameObjectWithTag(Constants.ALEX_STRING);
-				break;
-
-				case Characters.Derek:
-				OtherPlayer = GameObject.FindGameObjectWithTag(Constants.DEREK_STRING);
-				break;
-
-				case Characters.Zoe:
-				OtherPlayer = GameObject.FindGameObjectWithTag(Constants.ZOE_STRING);
-				break;
+				m_CurrentTarget = 2;
+				return;
 			}
-		}
-		else
-		{
-			switch(GameData.Instance.PlayerOneCharacter)
-			{
-				case Characters.Alex:
-				OtherPlayer = GameObject.FindGameObjectWithTag(Constants.ALEX_STRING);
-				break;
-				
-				case Characters.Derek:
-				OtherPlayer = GameObject.FindGameObjectWithTag(Constants.DEREK_STRING);
-				break;
-				
-				case Characters.Zoe:
-				OtherPlayer = GameObject.FindGameObjectWithTag(Constants.ZOE_STRING);
-				break;
-			}
-		}
-
-
-		float Distance = Vector3.Distance(this.transform.position, OtherPlayer.transform.position);
-		float Range = this.GetComponent<CapsuleCollider>().radius;
-
-		//They are out of range.
-		if(Range < Distance)
-		{
-			return;
-		}
-
-		if (m_CurrentTarget == 1) 
-		{
-			m_CurrentTarget = 2; 		
-		}
-		else
-		{
 			m_CurrentTarget = 1;
-		}
-	}
-
-	void AimTurret()
-	{
-		m_Turret.transform.LookAt(m_LaunchLocation);
-	}
-
-	void DeleteCurrentCrosshairs()
-	{
-		if(m_CrossHair == null)
-		{
 			return;
 		}
+		else
+		{
+			if(WithinRange(1))
+			{
+				m_CurrentTarget = 1;
+				return;
+			}
+			m_CurrentTarget = 2;
+			return;
+		}
+	}
 
-		Destroy(m_CrossHair);
-		m_CrossHair = null;
+	void PaintTarget()
+	{
+		Vector3 LightHeight = new Vector3 (0, 2.0f, 0);
+		m_CrossHair.transform.position = m_LaunchLocation + LightHeight;
+		m_CrossHair.transform.LookAt(m_LaunchLocation);
+	}
+
+
+	bool WithinRange(short currentTarget)
+	{
+		float Range = this.GetComponent<CapsuleCollider>().radius;
+		float Distance;
+
+		if(currentTarget == 1)
+		{
+			Distance = Vector3.Distance(this.transform.position, PlayerInfo.getPlayer(Players.PlayerOne).transform.position);
+		}
+		else
+		{
+			Distance = Vector3.Distance(this.transform.position, PlayerInfo.getPlayer(Players.PlayerTwo).transform.position);
+		}
+
+		return Range > Distance;
+	}
+
+	void FlashCrosshair()
+	{
+		if(m_CurrentFlashTime < 0)
+		{
+			m_CurrentFlashTime = m_CrosshairsFlashRate;
+
+			if(m_CrossHair.GetComponent<Light>().enabled)
+			{
+				TurnOffCrosshairs();
+			}
+			else
+			{
+				TurnOnCrosshairs();
+			}
+		}
+		m_CurrentFlashTime -= Time.deltaTime;	
+	}
+
+	void TurnOffCrosshairs()
+	{
+		m_CrossHair.GetComponent<Light>().enabled = false;
+	}
+
+	void TurnOnCrosshairs()
+	{
+		m_CrossHair.GetComponent<Light>().enabled = true;	
 	}
 
 	void OnTriggerEnter(Collider other)
@@ -296,7 +268,6 @@ public class BeanBagLauncher : MonoBehaviour
 		//check if other is player.
 		if(other.tag != Constants.PLAYER_STRING)
 			return;
-
 
 		if(m_HasTraget)
 		{
@@ -334,6 +305,30 @@ public class BeanBagLauncher : MonoBehaviour
 
 	void OnTriggerExit(Collider other)
 	{
-		m_CurrentState = TimingStates.Idle;
+		if(m_CurrentTarget == 1)
+		{
+			if(WithinRange(2))
+			{
+				m_CurrentTarget = 2;
+			}
+			else
+			{
+				m_CurrentState = TimingStates.Idle;
+				m_HasTraget = false;
+			}
+		}
+		else
+		{
+			if(WithinRange(1))
+			{
+				m_CurrentTarget = 1;
+			}
+			else
+			{
+				m_CurrentState = TimingStates.Idle;
+				m_HasTraget = false;
+			}
+		}
+
 	}
 }
