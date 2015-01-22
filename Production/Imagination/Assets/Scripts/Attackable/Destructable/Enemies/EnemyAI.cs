@@ -190,7 +190,6 @@ public class EnemyAI : Destructable
 		//Check if the enemy is invincible
 		if(!m_IsInvincible)
 		{
-			SetState (EnemyState.KnockedBack);
 			m_KnockBackBehaviour.SetKnockBack(LightProjectile.KNOCKBACK, proj.transform.forward);
 			base.onHit(proj, damage);
 		}
@@ -205,7 +204,6 @@ public class EnemyAI : Destructable
 		//Check if the enemy is invincible
 		if(!m_IsInvincible)
 		{
-			SetState (EnemyState.KnockedBack);
 			m_KnockBackBehaviour.SetKnockBack(HeavyProjectile.KNOCKBACK, proj.transform.forward);
 			base.onHit(proj, damage);
 		}
