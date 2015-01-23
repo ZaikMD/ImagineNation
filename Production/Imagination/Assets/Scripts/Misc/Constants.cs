@@ -221,4 +221,25 @@ public static class Constants
 	public const string IDLE_BEHAVIOUR_STRING = "Idle Behaviour";
 	public const string CHASE_BEHAVIOUR_STRING = "Chase Behaviour";
 	public const string DEAD_BEHAVIOUR_STRING = "Dead Behaviour";
+
+	public static string[] MOVEMENT_COMPONENTS_ARRAY = {"ArcWhileMovingBackwards",
+									 "BuildUpChargeMovement",
+									 "ChargeMovement",
+									 "ChaseTargetMovement",
+									 "JumpBackMovement",
+									 "KnockedBackMovement",
+									 "MovementAroundNodes",
+									 "NoMovement"};
+
+	public static string[] COMBAT_COMPONENTS_ARRAY = {"BasicProjectileCombat",
+								   "CollisionCombat"};
+
+	public static string[] DEATH_COMPONENTS_ARRAY = {"None"};
+
+	public static string[] ENTER_COMBAT_COMPONENTS_ARRAY = {"ProximityAggro"};
+
+	public static string[] LEAVE_COMBAT_COMPONENTS_ARRAY = {"ProximityAggroLeave"};
+
+	public static string[] TARGETING_COMPONENTS_ARRAY = {"BasicTargeting"};
+
 }
