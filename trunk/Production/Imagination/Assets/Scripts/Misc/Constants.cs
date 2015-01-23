@@ -198,4 +198,27 @@ public static class Constants
     public const float FURBULL_ATTACK_RANGE = 1.0f;
     public const float SPIN_TOP_ATTACK_RANGE = 15.0f;
     public const float KNOCKBACK_MULTIPLIER = 20.0f;
+
+
+	public const string MOVEMENT_STRING = "Movement";
+	public const string CLONING_MOVEMENT_STRING = "Cloning Movement";
+	public const string CLONED_MOVEMENT_STRING = "Cloned Movement";
+	public const string CHARGE_MOVEMENT_STRING = "Charge Movement";
+	public const string BUILDING_CHARGE_STRING = "Building Charge Movement";
+	public const string KNOCKED_BACK_MOVEMENT_STRING = "Knocked Back Movement";
+	public const string HIT_BY_PLAYER_MOVEMENT_STRING = "Hit By Player Movement";
+	public const string TARGETING_STRING = "Targeting";
+	public const string ENTER_COMBAT_STRING = "Enter Combat";
+	public const string LEAVE_COMBAT_STRING = "Leave Combat";
+	public const string COMBAT_STRING = "Combat";
+	public const string CLONED_COMBAT_STRING = "Cloned Combat";
+	public const string DEATH_STRING = "Death";
+
+	public const string COMPONENTS_STRING = "Components";
+
+	public const string BASE_BEHAVIOUR_STRING = "Base Behaviour";
+	public const string COMBAT_BEHAVIOUR_STRING = "Combat Behaviour";
+	public const string IDLE_BEHAVIOUR_STRING = "Idle Behaviour";
+	public const string CHASE_BEHAVIOUR_STRING = "Chase Behaviour";
+	public const string DEAD_BEHAVIOUR_STRING = "Dead Behaviour";
 }

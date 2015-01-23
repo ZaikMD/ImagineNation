@@ -63,6 +63,8 @@ public class GnomeClone : Destructable
 		// move to the starting attack position
 		if (m_MovementComponent != null)
 			m_MovementComponent.Movement (startingPos);
+
+		m_Health = 0.5f;
 	}
 	
 	// Update is called once per frame

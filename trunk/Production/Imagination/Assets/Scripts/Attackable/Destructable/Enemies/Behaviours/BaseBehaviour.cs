@@ -123,7 +123,7 @@ public class BaseBehaviour : MonoBehaviour
 
 	public virtual string BehaviourType()
 	{
-		return "BaseBehaviour";
+		return Constants.BASE_BEHAVIOUR_STRING;
 	}
 
 	public virtual int numbComponents()

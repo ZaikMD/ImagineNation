@@ -319,21 +319,21 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour, INotifyHit
 		names = new string[7];
 		components = new BaseComponent[7];
 		
-		names [0] = "Combat";
+		names [0] = Constants.COMBAT_STRING;
 		components [0] = m_CombatComponent;
 		
-		names [1] = "Targeting";
+		names [1] = Constants.TARGETING_STRING;
 		components [1] = m_TargetingComponent;
 		
-		names [2] = "Movement";
+		names [2] = Constants.MOVEMENT_STRING;
 		components [2] = m_MovementComponent;
-		names [3] = "Charge Movement";
+		names [3] = Constants.CHARGE_MOVEMENT_STRING;
 		components [3] = m_ChargeMovement;
-		names [4] = "Building Charge Movement";
+		names [4] = Constants.BUILDING_CHARGE_STRING;
 		components [4] = m_BuildingChargeMovement;
-		names [5] = "m_Knocked Back Movement";
+		names [5] = Constants.KNOCKED_BACK_MOVEMENT_STRING;
 		components [5] = m_KnockedBackMovement;
-		names [6] = "Hit By Player Movement";
+		names [6] = Constants.HIT_BY_PLAYER_MOVEMENT_STRING;
 		components [6] = m_HitByPlayerMovement;
 	}
 
@@ -344,7 +344,7 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour, INotifyHit
 	
 	public override void SetComponents (string[] components)
 	{
-		m_ComponentsObject = transform.FindChild ("Components").gameObject;
+		m_ComponentsObject = transform.FindChild (Constants.COMPONENTS_STRING).gameObject;
 		
 		m_CombatComponent = m_ComponentsObject.GetComponent (components [0]) as BaseCombat;
 		m_TargetingComponent = m_ComponentsObject.GetComponent (components [1]) as BaseTargeting;
