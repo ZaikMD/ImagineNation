@@ -19,7 +19,7 @@ public interface Attackable
 
     void onHit(EnemyProjectile proj);
 
-//	void onHit(BeanBag proj);
+	void onHit(EnemyProjectile proj, Vector3 KnockBackDirection);
 
 	void onHit(LightProjectile proj, float damage);
 
