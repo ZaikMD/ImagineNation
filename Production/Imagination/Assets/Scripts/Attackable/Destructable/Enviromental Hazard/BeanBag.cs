@@ -79,9 +79,10 @@ public class BeanBag : MonoBehaviour
 	/// <param name="LaunchLocation">The location where the projectile is being launched from.</param>
 	/// <param name="DestinationLocation">The location the projectile is supposed to land.</param>
 	/// <param name="NewSpeed">The speed at which the projectile will travel.</param>
-	public void SetVelocity(Vector3 LaunchLocation, Vector3 DestinationLocation, float NewSpeed)
+	public void SetVelocity(Vector3 LaunchLocation, Vector3 DestinationLocation, float NewSpeed, float NewGravity)
 	{
 		m_HorizontalSpeed = NewSpeed;
+		m_VerticalAcceleration = NewGravity;
 		m_InitialPosition = LaunchLocation;
 		m_FinalPosition = DestinationLocation;
 	}
