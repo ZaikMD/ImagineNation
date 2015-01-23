@@ -74,16 +74,16 @@ public class GnomeChase : BaseChaseBehaviour
 		names = new string[4];
 		components = new BaseComponent[4];
 		
-		names [0] = "Movement";
+		names [0] = Constants.MOVEMENT_STRING;
 		components [0] = m_MovementComponent;
 		
-		names [1] = "Targeting";
+		names [1] = Constants.TARGETING_STRING;
 		components [1] = m_TargetingComponent;
 		
-		names [2] = "Leave Combat";
+		names [2] = Constants.LEAVE_COMBAT_STRING;
 		components [2] = m_LeavingCombatComponent;
 
-		names [3] = "Combat";
+		names [3] = Constants.COMBAT_STRING;
 		components [3] = m_CombatComponent;
 	}
 
@@ -94,7 +94,7 @@ public class GnomeChase : BaseChaseBehaviour
 	
 	public override void SetComponents (string[] components)
 	{
-		m_ComponentsObject = transform.FindChild ("Components").gameObject;
+		m_ComponentsObject = transform.FindChild (Constants.COMPONENTS_STRING).gameObject;
 		
 		m_MovementComponent = m_ComponentsObject.GetComponent (components [0]) as BaseMovement;
 		m_TargetingComponent = m_ComponentsObject.GetComponent (components [1]) as BaseTargeting;

@@ -56,19 +56,19 @@ public abstract class BaseAttackBehaviour : BaseBehaviour
 		names = new string[3];
 		components = new BaseComponent[3];
 
-		names [0] = "Combat";
+		names [0] = Constants.COMBAT_STRING;
 		components [0] = m_CombatComponent;
 
-		names [1] = "Targeting";
+		names [1] = Constants.TARGETING_STRING;
 		components [1] = m_TargetingComponent;
 
-		names [2] = "Movement";
+		names [2] = Constants.MOVEMENT_STRING;
 		components [2] = m_MovementComponent;
 	}
 
 	public override string BehaviourType()
 	{
-		return "Combat Behaviour";
+		return Constants.COMBAT_BEHAVIOUR_STRING;
 	}
 
 	public override int numbComponents ()
@@ -78,7 +78,7 @@ public abstract class BaseAttackBehaviour : BaseBehaviour
 
 	public override void SetComponents (string[] components)
 	{
-		m_ComponentsObject = transform.FindChild ("Components").gameObject;
+		m_ComponentsObject = transform.FindChild (Constants.COMPONENTS_STRING).gameObject;
 
 		m_CombatComponent = m_ComponentsObject.GetComponent (components [0]) as BaseCombat;
 		m_TargetingComponent = m_ComponentsObject.GetComponent (components [1]) as BaseTargeting;

@@ -25,13 +25,13 @@ public abstract class BaseDeadBehaviour : BaseBehaviour
 		names = new string[1];
 		components = new BaseComponent[1];
 
-		names [0] = "Death";
+		names [0] = Constants.DEATH_STRING;
 		components[0] = m_DeathComponent;
 	}
 
 	public override string BehaviourType()
 	{
-		return "Death Behaviour";
+		return Constants.DEAD_BEHAVIOUR_STRING;
 	}
 
 	public override int numbComponents ()
@@ -41,7 +41,7 @@ public abstract class BaseDeadBehaviour : BaseBehaviour
 	
 	public override void SetComponents (string[] components)
 	{
-		m_ComponentsObject = transform.FindChild ("Components").gameObject;
+		m_ComponentsObject = transform.FindChild (Constants.COMPONENTS_STRING).gameObject;
 		
 		m_DeathComponent = m_ComponentsObject.GetComponent (components [0]) as BaseDeath;
 
