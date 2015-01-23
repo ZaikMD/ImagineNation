@@ -95,16 +95,16 @@ public class TPCamera : ShutterCamera
 
     // Use this for initialization
 	protected override void Start ()
-    { 
-		base.Start ();
-
-		//find the camera on this gameobject
+    { 	//find the camera on this gameobject
         m_Camera = gameObject.GetComponent<Camera>();
         
         //===================================================================
         //move the shutter to be slightly in front of the near clipping plane
-        ShutterRotationPoint.transform.position = m_Camera.transform.position + (m_Camera.transform.forward * (m_Camera.nearClipPlane + 0.01f))
+        ShutterRotationPoint.transform.forward = transform.forward;
+
+        ShutterRotationPoint.transform.position = m_Camera.transform.position + (m_Camera.transform.forward * (m_Camera.nearClipPlane + 0.1f))
                                                     - transform.up + (transform.right * SHUTTER_OFFSET);
+		base.Start ();
 
         m_IgnoreLayer = m_IgnoreCounter++;
         m_Camera.cullingMask = LayerMask.GetMask(CAMERA_IGNORE_LAYERS[m_IgnoreLayer]) | m_Camera.cullingMask;
