@@ -237,6 +237,31 @@ public class PlayerHealth : Destructable
 		}
 	}
 
+	public override void onHit(EnemyProjectile proj, Vector3 KnockBackDirection)
+	{
+		if(m_InvulnerabilityTimer <= 0.0f)
+		{
+			//not invulnerable so take damage
+			if(m_Health > 0.0f)
+			{
+				//Take damage
+				m_Health -= ENEMY_DAMAGE;
+				
+				//Knockback
+				KnockBackPlayer(KnockBackDirection);
+								
+				//play sound
+				playSound();
+			}
+			
+			m_HealthRegenTimer = HealthRegenTime;
+			m_InvulnerabilityTimer = InvulnerabilityTimer;
+			//update health bar
+			m_Hud.SetHealth (m_Health, m_Player);
+		}
+	}
+
+
 	protected override void onDeath ()
 	{
         if (!m_IsDead)

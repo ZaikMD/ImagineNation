@@ -146,6 +146,11 @@ public class Switch : SwitchBaseClass, Attackable
 		return;
     }
 
+	public void onHit(EnemyProjectile proj, Vector3 KnockBackDirection) //Ignore enemys
+	{
+		return;
+	}
+
 	public override bool beenHit()
 	{
 		return m_BeenHit;

@@ -54,6 +54,12 @@ public class Destructable : MonoBehaviour, Attackable
 		m_Health -= ENEMY_DAMAGE;
     }
 
+	public virtual void onHit(EnemyProjectile proj, Vector3 KnockBackDirection)
+	{
+		if (this.tag == Constants.PLAYER_STRING)
+			m_Health -= ENEMY_DAMAGE;
+	}
+
 
     //To instantkill the object
 	public virtual void instantKill()

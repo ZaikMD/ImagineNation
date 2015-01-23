@@ -37,8 +37,10 @@ public class BeanBagLauncher : MonoBehaviour
 	public float m_ReloadTime;
 	public float m_CrosshairsFlashRate;
 	public float m_AirTimeMultiplier;
-
-	//public GameObject m_CrossHairsPrefab;
+	public float m_ProjectileSpeed;
+	public float m_ProjectileSpread;
+	public float BeanBagAmount;
+	
 	public Transform m_BulletLaunchLocation;
 	public GameObject m_BulletPrefab;
 
@@ -52,7 +54,6 @@ public class BeanBagLauncher : MonoBehaviour
 
 	private Vector3 m_LaunchLocation;
 	public GameObject m_CrossHair;
-
 
 	// Use this for initialization
 	void Start () 
@@ -149,6 +150,7 @@ public class BeanBagLauncher : MonoBehaviour
 	void UpdateLaunch()
 	{
 		//TODO: fire projectile at Saved loction.
+		LaunchProjectile();
 		TurnOffCrosshairs();
 		GetNextTarget();
 		m_CurrentState = TimingStates.Reload;	
@@ -159,10 +161,23 @@ public class BeanBagLauncher : MonoBehaviour
 		m_LaunchLocation = GetAimLocation();
 	}
 
-	void calcLaunchVelocity()
+	void LaunchProjectile()
 	{
-		
-	
+		//Spawn new launch projectile.
+
+		for(int i = 0; i < BeanBagAmount; i++)
+		{
+			GameObject beanBag = (GameObject)Instantiate(m_BulletPrefab);
+
+			Vector2 Offset = new Vector2(Random.Range(0.0f, 1.0f) * m_ProjectileSpread, Random.Range(0.0f, 1.0f) * m_ProjectileSpread);
+
+			Vector3 StartPosition = new Vector3(m_BulletLaunchLocation.position.x + Offset.x, 
+			                                    m_BulletLaunchLocation.position.y, m_BulletLaunchLocation.position.z + Offset.y);
+			Vector3 FinalPosition = new Vector3(m_LaunchLocation.x + Offset.x, m_LaunchLocation.y, m_LaunchLocation.z + Offset.y);
+
+			beanBag.transform.position = StartPosition;
+			beanBag.GetComponent<BeanBag>().SetVelocity(StartPosition, FinalPosition, m_ProjectileSpeed);
+		}
 	}
 
 	Vector3 GetAimLocation()
@@ -305,6 +320,41 @@ public class BeanBagLauncher : MonoBehaviour
 
 	void OnTriggerExit(Collider other)
 	{
+		Characters OtherCharacter = Characters.Alex;
+		short tempCharcater;
+
+		switch(other.name)
+		{
+		case Constants.ALEX_WITH_MOVEMENT_STRING:
+			OtherCharacter = Characters.Alex;
+			break;
+			
+		case Constants.DEREK_WITH_MOVEMENT_STRING:
+			OtherCharacter = Characters.Derek;
+			break;
+			
+		case Constants.ZOE_WITH_MOVEMENT_STRING:
+			OtherCharacter = Characters.Zoe;
+			break;
+		}
+		
+		if(OtherCharacter == GameData.Instance.PlayerOneCharacter)
+		{
+			tempCharcater = 1;
+		}
+		else
+		{
+			tempCharcater = 2;
+		}
+
+		//check if the player leaving is the current target, if not, we don't need to do anything.
+		if(tempCharcater != m_CurrentTarget)
+		{
+			return;
+		}
+
+
+
 		if(m_CurrentTarget == 1)
 		{
 			if(WithinRange(2))
