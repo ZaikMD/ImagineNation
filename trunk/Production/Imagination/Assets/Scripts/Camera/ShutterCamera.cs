@@ -36,7 +36,7 @@ public class ShutterCamera : MonoBehaviour
     //the difference in euler angles for the shutter when its shown
     protected Vector3 m_ShowShutterEulers = new Vector3(0.0f, 0.0f, -90.0f);
     //the shutters initail euler angles (hidden)
-    protected Vector3 m_ShutterInitialEuler;
+    protected Vector3 m_ShutterInitialEuler = Vector3.zero;
 
     //object used to rotate the shutter
     public GameObject ShutterRotationPoint;
@@ -54,7 +54,7 @@ public class ShutterCamera : MonoBehaviour
 		Screen.lockCursor = true;
 #endif
         //set the inital euler angles for the shutter
-        m_ShutterInitialEuler = ShutterRotationPoint.transform.eulerAngles;
+        //m_ShutterInitialEuler = ShutterRotationPoint.transform.eulerAngles;
     }
 
     protected virtual void Update()
