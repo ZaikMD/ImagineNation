@@ -88,6 +88,7 @@ public class EnemyAITool : EditorWindow
 				
 		}
 
+		//If you press ok then set the components
 		if (GUILayout.Button ("OK"))
 		{
 			SetSelectedComponents();
@@ -113,14 +114,18 @@ public class EnemyAITool : EditorWindow
 		
 		for (int i = 0; i < m_Behaviours.Length; i++)
 		{
+			// Get the names and components from the behaviours
 			m_Behaviours[i].ComponentInfo(out m_ComponentNames, out m_Components);
 
+			// Get the behaviour type, to use in a label later
 			m_BehaviourNames[i] = m_Behaviours[i].BehaviourType();
 
+			// Keep track of locations for behaviour labels
 			m_BehaviourLocs[i] = prevLocs;
 
 			prevLocs += m_ComponentNames.Length;
 
+			// Add the component names and components to their respective lists
 			for (int j = 0; j < m_Components.Length; j++)
 			{
 				m_tComponentNames.Add( m_ComponentNames[j]);
@@ -135,13 +140,17 @@ public class EnemyAITool : EditorWindow
 	
 	void SetSelectedComponents()
 	{
+		//Find the components object and destroy it
 		m_SelectedComponents = new string[m_CompIndexes.Length];
 		GameObject obj = m_SelectedEnemy.transform.FindChild ("Behaviours").FindChild("Components").gameObject;
 		DestroyImmediate(obj, true);
+
+		//Create a new components object to attach the new components too
 		GameObject componentsObj = new GameObject("Components");
 		componentsObj.transform.position = m_SelectedEnemy.transform.position;
 		componentsObj.transform.parent = m_SelectedEnemy.transform.FindChild ("Behaviours").transform;
 
+		//Add the proper component to the object and add its name to an array to send back to the enemy behaviours
 		for (int i = 0; i < m_tComponentNames.Count; i++)
 		{			
 			if (m_tComponents[i] is BaseMovement)	
@@ -182,6 +191,7 @@ public class EnemyAITool : EditorWindow
 	{
 		int loc = 0;
 
+		//send the array of components that belong to each behaviour so that they can find the component and initialise it
 		for (int i = 0; i < m_Behaviours.Length; i++) 
 		{
 			string[] comps = new string[m_Behaviours[i].numbComponents()];
