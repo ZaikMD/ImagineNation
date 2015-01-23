@@ -15,6 +15,13 @@ using System.Collections;
  * at the charge loction. then the launcher will reload.
  */
 
+/*Change Log
+ * 
+ *
+ * 
+ * 
+ */
+
 
 public enum TimingStates
 {
@@ -26,7 +33,7 @@ public enum TimingStates
 }
 
 
-public class BeanBagLauncher : MonoBehaviour 
+public class BeanBagLauncher : Destructable
 {
 	//for testing.
 	public TimingStates m_CurrentState;
@@ -35,12 +42,14 @@ public class BeanBagLauncher : MonoBehaviour
 	public float m_AimTime;
 	public float m_ChargeTime;
 	public float m_ReloadTime;
+	public float m_Range;
 	public float m_CrosshairsFlashRate;
-	public float m_AirTimeMultiplier;
 	public float m_ProjectileSpeed;
+	public float m_ProjectileGravity;
 	public float m_ProjectileSpread;
-	public float BeanBagAmount;
-	
+	public float m_BeanBagAmount;
+
+	public float m_LightHeight;
 	public Transform m_BulletLaunchLocation;
 	public GameObject m_BulletPrefab;
 
@@ -68,6 +77,11 @@ public class BeanBagLauncher : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+		base.Update();
+
+		DistanceCheck();
+
+		//Checks our current state, and goes to its resperctive update
 		switch(m_CurrentState)
 		{
 			case TimingStates.Idle:
@@ -92,6 +106,7 @@ public class BeanBagLauncher : MonoBehaviour
 		}
 	}
 
+	//Resets all the timer's to there starting time
 	void ResetTimers()
 	{
 		m_CurrentAimTime = m_AimTime;
@@ -101,44 +116,46 @@ public class BeanBagLauncher : MonoBehaviour
 
 	void UpdateIdle()
 	{
+		//make sure the timers are correct, make sure light is off
 		ResetTimers();
 		TurnOffCrosshairs();
 	}
-
-	/// <summary>
-	/// this Class will update a timer and change states upon completion. 
-	/// </summary>
+	
    	void UpdateReload()
 	{
+		//Checks if we finished our reload phase
 		if(m_CurrentReloadTime < 0)
 		{
 			ResetTimers();
 			m_CurrentState = TimingStates.Aim;
 			return;
 		}
+		//updates timer
 		m_CurrentReloadTime -= Time.deltaTime;
 	}
 
 	void UpdateAim()
 	{
+		//if we are aiming we have a target
 		m_HasTraget = true;
-		TurnOnCrosshairs();
-		AimAtPlayer();
-		PaintTarget();
-		if(m_CurrentAimTime < 0)
+		TurnOnCrosshairs(); //turn on our crosshairs
+		AimAtPlayer(); //gets our player location and sets it to our launch location
+		PaintTarget(); // places the crosshairs on our launch location
+		if(m_CurrentAimTime < 0) //Have we finished our timer
 		{
+			//Reset our timers, we have reloaded, and change states
 			ResetTimers();
 			m_CurrentState = TimingStates.Charge;
 			return;
 		}
-		m_CurrentAimTime -= Time.deltaTime;
+		m_CurrentAimTime -= Time.deltaTime; // update timer
 	}
 	
 	void UpdateCharge()
 	{
-		FlashCrosshair();
-		PaintTarget();
-		if(m_CurrentChargeTime < 0)
+		FlashCrosshair(); //Turns the crosshair on and off, based on a timer.
+		PaintTarget(); // move the cross hairs to the launch location.
+		if(m_CurrentChargeTime < 0) // checks if we are done charging.
 		{
 			ResetTimers();
 			m_CurrentState = TimingStates.Launch;
@@ -149,10 +166,9 @@ public class BeanBagLauncher : MonoBehaviour
 
 	void UpdateLaunch()
 	{
-		//TODO: fire projectile at Saved loction.
 		LaunchProjectile();
 		TurnOffCrosshairs();
-		GetNextTarget();
+		GetNextTarget(); 
 		m_CurrentState = TimingStates.Reload;	
 	}
 
@@ -163,34 +179,35 @@ public class BeanBagLauncher : MonoBehaviour
 
 	void LaunchProjectile()
 	{
-		//Spawn new launch projectile.
-
-		for(int i = 0; i < BeanBagAmount; i++)
+		for(int i = 0; i < m_BeanBagAmount; i++) 
 		{
-			GameObject beanBag = (GameObject)Instantiate(m_BulletPrefab);
+			GameObject beanBag = (GameObject)Instantiate(m_BulletPrefab); // instatiates a bean bag projectile.
 
-			Vector2 Offset = new Vector2(Random.Range(0.0f, 1.0f) * m_ProjectileSpread, Random.Range(0.0f, 1.0f) * m_ProjectileSpread);
+			Vector2 Offset = new Vector2(Random.Range(0.0f, 1.0f) * m_ProjectileSpread, Random.Range(0.0f, 1.0f) * m_ProjectileSpread); // Creates and offset for the projectile
 
+			//calculates the start and final position
 			Vector3 StartPosition = new Vector3(m_BulletLaunchLocation.position.x + Offset.x, 
 			                                    m_BulletLaunchLocation.position.y, m_BulletLaunchLocation.position.z + Offset.y);
 			Vector3 FinalPosition = new Vector3(m_LaunchLocation.x + Offset.x, m_LaunchLocation.y, m_LaunchLocation.z + Offset.y);
 
+			//moves the projectile to its fire point
 			beanBag.transform.position = StartPosition;
-			beanBag.GetComponent<BeanBag>().SetVelocity(StartPosition, FinalPosition, m_ProjectileSpeed);
+			beanBag.GetComponent<BeanBag>().SetVelocity(StartPosition, FinalPosition, m_ProjectileSpeed, m_ProjectileGravity); //pass the values for velocity calculation.
 		}
 	}
 
 	Vector3 GetAimLocation()
 	{
-		Transform PlayerPosition = GetPlayerLocation();
+		Transform PlayerPosition = GetPlayerLocation(); //Gets the currently targeted plyers location
 		RaycastHit hitInfo;
-
+		//Raycast to the ground below the player.
 		Physics.Raycast(PlayerPosition.position, -PlayerPosition.up, out hitInfo);
 		return hitInfo.point;
 	}
 
 	Transform GetPlayerLocation()
 	{
+		//checks which player we are and returns there transform.
 		if (m_CurrentTarget == 1)
 		{
 			return PlayerInfo.getPlayer(Players.PlayerOne).transform;
@@ -201,6 +218,7 @@ public class BeanBagLauncher : MonoBehaviour
 		}
 	}
 
+	//a set of logic to determine if we can the next player or target current again.
 	void GetNextTarget()
 	{
 		if(m_CurrentTarget == 1)
@@ -225,14 +243,15 @@ public class BeanBagLauncher : MonoBehaviour
 		}
 	}
 
+	//places our crosshairs in place.
 	void PaintTarget()
 	{
-		Vector3 LightHeight = new Vector3 (0, 2.0f, 0);
+		Vector3 LightHeight = new Vector3 (0, m_LightHeight, 0);
 		m_CrossHair.transform.position = m_LaunchLocation + LightHeight;
 		m_CrossHair.transform.LookAt(m_LaunchLocation);
 	}
 
-
+	//preforms a distance check and compares against the size of our collider.
 	bool WithinRange(short currentTarget)
 	{
 		float Range = this.GetComponent<CapsuleCollider>().radius;
@@ -250,6 +269,7 @@ public class BeanBagLauncher : MonoBehaviour
 		return Range > Distance;
 	}
 
+	//toggles the crosshairs based off a timer.
 	void FlashCrosshair()
 	{
 		if(m_CurrentFlashTime < 0)
@@ -268,31 +288,100 @@ public class BeanBagLauncher : MonoBehaviour
 		m_CurrentFlashTime -= Time.deltaTime;	
 	}
 
+	//disables the light
 	void TurnOffCrosshairs()
 	{
 		m_CrossHair.GetComponent<Light>().enabled = false;
 	}
 
+	//Enables the crosshairs.
 	void TurnOnCrosshairs()
 	{
 		m_CrossHair.GetComponent<Light>().enabled = true;	
 	}
 
+	void DistanceCheck()
+	{
+		if(m_HasTraget)
+		{
+			float Distance;
+
+			//Check if our current target is in range,
+			if(m_CurrentTarget == 1)
+			{
+				Distance = Vector3.Distance(transform.position, PlayerInfo.getPlayer(Players.PlayerOne).transform.position);
+			}
+			else
+			{
+				Distance = Vector3.Distance(transform.position, PlayerInfo.getPlayer(Players.PlayerTwo).transform.position);
+			}
+
+			if(Distance < m_Range)
+			{
+				return;
+			}
+			else
+			{
+				short otherTarget;
+
+				if(m_CurrentTarget == 1)
+				{
+					Distance = Vector3.Distance(transform.position, PlayerInfo.getPlayer(Players.PlayerTwo).transform.position);
+					otherTarget = 2;
+				}
+				else
+				{
+					Distance = Vector3.Distance(transform.position, PlayerInfo.getPlayer(Players.PlayerOne).transform.position);
+					otherTarget = 1;
+				}
+				
+				if(Distance < m_Range)
+				{
+					m_CurrentTarget = otherTarget; 
+					return;
+				}				
+			}
+		}
+
+		float PlayerDistance = Vector3.Distance(PlayerInfo.getPlayer(Players.PlayerOne).transform.position, transform.position);
+		if(PlayerDistance < m_Range)
+		{
+			m_CurrentTarget = 1;
+			m_CurrentState = TimingStates.Aim;
+			return;
+		}
+
+		PlayerDistance = Vector3.Distance(PlayerInfo.getPlayer(Players.PlayerTwo).transform.position, transform.position);
+
+		if(PlayerDistance < m_Range)
+		{
+			m_CurrentTarget = 1;
+			m_CurrentState = TimingStates.Aim;
+			return;
+		}
+
+	}
+	
+	//if no current target, sets the player entering to current target.
 	void OnTriggerEnter(Collider other)
 	{
 		//check if other is player.
 		if(other.tag != Constants.PLAYER_STRING)
 			return;
 
+		//checks if we already have a target
 		if(m_HasTraget)
 		{
 			return;
 		}
 
+		//sets our state to aim
 		m_CurrentState = TimingStates.Aim;	
 
+		//initialize a local varible
 		Characters OtherCharacter = Characters.Alex;
 
+		//gets which player this is.
 		switch(other.name)
 		{
 			case Constants.ALEX_WITH_MOVEMENT_STRING:
@@ -308,6 +397,7 @@ public class BeanBagLauncher : MonoBehaviour
 			break;
 		}
 
+		//checks if this player one or two
 		if(OtherCharacter == GameData.Instance.PlayerOneCharacter)
 		{
 			m_CurrentTarget = 1;
@@ -318,11 +408,14 @@ public class BeanBagLauncher : MonoBehaviour
 		}
 	}
 
+
 	void OnTriggerExit(Collider other)
 	{
+		//local varibale.
 		Characters OtherCharacter = Characters.Alex;
 		short tempCharcater;
 
+		//checks which character we are
 		switch(other.name)
 		{
 		case Constants.ALEX_WITH_MOVEMENT_STRING:
@@ -337,7 +430,8 @@ public class BeanBagLauncher : MonoBehaviour
 			OtherCharacter = Characters.Zoe;
 			break;
 		}
-		
+
+		//checks which player we are
 		if(OtherCharacter == GameData.Instance.PlayerOneCharacter)
 		{
 			tempCharcater = 1;
@@ -353,9 +447,8 @@ public class BeanBagLauncher : MonoBehaviour
 			return;
 		}
 
-
-
-		if(m_CurrentTarget == 1)
+		//if our current target leaves we need to check if the other player is in range. if not we set to idle.
+		if(m_CurrentTarget == 1) 
 		{
 			if(WithinRange(2))
 			{
@@ -379,6 +472,5 @@ public class BeanBagLauncher : MonoBehaviour
 				m_HasTraget = false;
 			}
 		}
-
 	}
 }
