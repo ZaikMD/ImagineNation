@@ -23,7 +23,7 @@ public class BaseKnockedBackBehavouir : BaseBehaviour
 
 	//Velocity
 	public Vector3 m_Velocity = Vector3.zero;
-	const float ACCELERATION_DUE_TO_GRAVITY = 16.0f;
+	const float ACCELERATION_DUE_TO_GRAVITY = 20.0f;
 
 	//The character controller used for moving the enemy while being knocked back
 	CharacterController m_Controller;
@@ -33,11 +33,11 @@ public class BaseKnockedBackBehavouir : BaseBehaviour
 	protected float m_LaunchAmount = 0.0f;
 
 	//The enemy should move upward more than they are actually launched in order to leave the ground
-	protected float m_UpwardDirectionAmount = 0.4f;
+	protected float m_UpwardDirectionAmount = 0.45f;
 
 	//Collision with other enemies
-	protected const float ONCOLLISION_SLOW_SELF_MULTIPLIER = 0.4f;
-	protected const float ONCOLLISION_SLOW_ENEMY_MULTIPLIER = 0.6f;
+	protected const float ONCOLLISION_SLOW_SELF_MULTIPLIER = 0.6f;
+	protected const float ONCOLLISION_SLOW_ENEMY_MULTIPLIER = 0.8f;
 
 	//Normalized scaler value for a dot product to determine if the enemy has collided with the ground
 	protected const float ANGLE_FOR_COLLIDE_WITH_GROUND = 0.5f;
@@ -78,10 +78,23 @@ public class BaseKnockedBackBehavouir : BaseBehaviour
 				BaseKnockedBackBehavouir knockedBack = hitObject.GetComponentInChildren<BaseKnockedBackBehavouir>();
 
 				//Do not bother colliding with already flying enemies
-				if (knockedBack == null || knockedBack.isActive() || Vector3.Dot(hit.normal, Vector3.up) > ANGLE_FOR_COLLIDE_WITH_GROUND)
+				if (knockedBack == null || knockedBack.isActive())
 				{
 					return;
 				}
+
+				//If the enemy is goomba stomping another enemy
+				if (Vector3.Dot(hit.normal, Vector3.up) > 0.5f)
+				{
+					//This enemy slows down after the collision
+					m_Velocity *= -ONCOLLISION_SLOW_SELF_MULTIPLIER;
+					return;
+				}
+
+				//If we have collided head on with another enemy
+
+				//Move away from the enemy
+				m_Controller.transform.position -= m_Velocity * Time.deltaTime;
 
 				//The enemy collided with is knocked back with a slower speed
 				knockedBack.SetKnockBack(m_Velocity.magnitude * ONCOLLISION_SLOW_ENEMY_MULTIPLIER / knockedBack.getLaunchMultiplier(), m_Velocity.normalized);
