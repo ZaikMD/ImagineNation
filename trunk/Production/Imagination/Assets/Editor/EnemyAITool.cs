@@ -22,15 +22,6 @@ public class EnemyAITool : EditorWindow
 
 	bool m_InfoRetrieved = false;
 
-	string[] m_MovementComponents;
-	string[] m_CombatComponents;
-	string[] m_DeathComponents;
-	string[] m_EnterCombatComponents;
-	string[] m_LeaveCombatComponents;
-	string[] m_TargetingComponents;
-
-
-
 	[MenuItem ("Tools/EnemyAI")]
 	public static void ShowWindow()
 	{
@@ -53,41 +44,47 @@ public class EnemyAITool : EditorWindow
 
 	void OnGUI()
 	{
+		// Store the currently selected game object
 		m_SelectedEnemy = Selection.activeGameObject;
 
+		// Place a label with the enemy's name 
 		EditorGUILayout.LabelField (m_SelectedEnemy.name, EditorStyles.whiteLargeLabel);
 
+		// If we haven't done it yet then get the enemy info 
 		if (!m_InfoRetrieved)
-		{
 			GetEnemyInfo ();
-			InitStringOptions();
-		}
+
 
 		int loc = 0;
 		int index = 0;
 		for (int i = 0; i < m_tComponentNames.Count; i++)
 		{
+
+			// If we are in the location for the next behaviour
 			if (m_BehaviourLocs[loc] == i)
 			{
+				//Place the next location label
 				EditorGUILayout.LabelField (m_BehaviourNames[loc], EditorStyles.largeLabel);
+				// Increment location
 				loc++;
 				if (loc >= 3)
 					loc = 3;
 			}
 				index = 0;
 
+			// Decide which type of component it is to decide which array of strings to use in the pop up
 				if (m_tComponents[i] is BaseMovement)
-					m_CompIndexes[i] = EditorGUILayout.Popup(m_tComponentNames[i],m_CompIndexes[i],m_MovementComponents);
+				m_CompIndexes[i] = EditorGUILayout.Popup(m_tComponentNames[i],m_CompIndexes[i],Constants.MOVEMENT_COMPONENTS_ARRAY);
 				else if (m_tComponents[i] is BaseCombat)
-					m_CompIndexes[i] = EditorGUILayout.Popup(m_tComponentNames[i],m_CompIndexes[i],m_CombatComponents);
+				m_CompIndexes[i] = EditorGUILayout.Popup(m_tComponentNames[i],m_CompIndexes[i],Constants.COMBAT_COMPONENTS_ARRAY);
 				else if (m_tComponents[i] is BaseDeath)
-					m_CompIndexes[i] = EditorGUILayout.Popup(m_tComponentNames[i],m_CompIndexes[i],m_DeathComponents);
+				m_CompIndexes[i] = EditorGUILayout.Popup(m_tComponentNames[i],m_CompIndexes[i],Constants.DEATH_COMPONENTS_ARRAY);
 				else if (m_tComponents[i] is BaseEnterCombat)
-					m_CompIndexes[i] = EditorGUILayout.Popup(m_tComponentNames[i],m_CompIndexes[i],m_EnterCombatComponents);
+				m_CompIndexes[i] = EditorGUILayout.Popup(m_tComponentNames[i],m_CompIndexes[i],Constants.ENTER_COMBAT_COMPONENTS_ARRAY);
 				else if (m_tComponents[i] is BaseLeavingCombat)
-					m_CompIndexes[i] = EditorGUILayout.Popup(m_tComponentNames[i],m_CompIndexes[i],m_LeaveCombatComponents);
+				m_CompIndexes[i] = EditorGUILayout.Popup(m_tComponentNames[i],m_CompIndexes[i],Constants.LEAVE_COMBAT_COMPONENTS_ARRAY);
 				else if (m_tComponents[i] is BaseTargeting)
-					m_CompIndexes[i] = EditorGUILayout.Popup(m_tComponentNames[i],m_CompIndexes[i],m_TargetingComponents);
+				m_CompIndexes[i] = EditorGUILayout.Popup(m_tComponentNames[i],m_CompIndexes[i],Constants.TARGETING_COMPONENTS_ARRAY);
 				
 		}
 
@@ -135,37 +132,6 @@ public class EnemyAITool : EditorWindow
 
 		m_InfoRetrieved = true;
 	}
-
-	void InitStringOptions()
-	{
-		m_MovementComponents = new string[8];
-		m_MovementComponents [0] = "ArcWhileMovingBackwards";
-		m_MovementComponents [1] = "BuildUpChargeMovement";
-		m_MovementComponents [2] = "ChargeMovement";
-		m_MovementComponents [3] = "ChaseTargetMovement";
-		m_MovementComponents [4] = "JumpBackMovement";
-		m_MovementComponents [5] = "KnockedBackMovement";
-		m_MovementComponents [6] = "MovementAroundNodes";
-		m_MovementComponents [7] = "NoMovement";
-
-		m_CombatComponents = new string[3];
-		m_CombatComponents [0] = "BasicProjectileCombat";
-		m_CombatComponents [1] = "CollisionCombat";
-	
-
-		m_DeathComponents = new string[1];
-		m_DeathComponents[0] = "None";
-
-		m_EnterCombatComponents = new string[2];
-		m_EnterCombatComponents [0] = "ProximityAggro";
-
-		m_LeaveCombatComponents = new string[2];
-		m_LeaveCombatComponents [0] = "ProximityAggroLeave";
-
-		m_TargetingComponents = new string[2];
-		m_TargetingComponents [0] = "BasicTargeting";
-
-	}
 	
 	void SetSelectedComponents()
 	{
@@ -180,34 +146,34 @@ public class EnemyAITool : EditorWindow
 		{			
 			if (m_tComponents[i] is BaseMovement)	
 			{
-				m_SelectedComponents[i] = m_MovementComponents[m_CompIndexes[i]];
-				componentsObj.AddComponent( m_MovementComponents[m_CompIndexes[i]]);
+				m_SelectedComponents[i] = Constants.MOVEMENT_COMPONENTS_ARRAY[m_CompIndexes[i]];
+				componentsObj.AddComponent( Constants.MOVEMENT_COMPONENTS_ARRAY[m_CompIndexes[i]]);
 			}
 
 			else if (m_tComponents[i] is BaseCombat)	
 			{
-				m_SelectedComponents[i] = m_CombatComponents[m_CompIndexes[i]];
-				componentsObj.AddComponent(m_CombatComponents[m_CompIndexes[i]]);
+				m_SelectedComponents[i] = Constants.COMBAT_COMPONENTS_ARRAY[m_CompIndexes[i]];
+				componentsObj.AddComponent(Constants.COMBAT_COMPONENTS_ARRAY[m_CompIndexes[i]]);
 			}
 			else if (m_tComponents[i] is BaseDeath)
 			{
-				m_SelectedComponents[i] = m_DeathComponents[m_CompIndexes[i]];
+				m_SelectedComponents[i] = Constants.DEATH_COMPONENTS_ARRAY[m_CompIndexes[i]];
 
 			}
 			else if (m_tComponents[i] is BaseEnterCombat)
 			{
-				m_SelectedComponents[i] = m_EnterCombatComponents[m_CompIndexes[i]];
-				componentsObj.AddComponent(m_EnterCombatComponents[m_CompIndexes[i]]);
+				m_SelectedComponents[i] = Constants.ENTER_COMBAT_COMPONENTS_ARRAY[m_CompIndexes[i]];
+				componentsObj.AddComponent(Constants.ENTER_COMBAT_COMPONENTS_ARRAY[m_CompIndexes[i]]);
 			}
 			else if (m_tComponents[i] is BaseLeavingCombat)
 			{
-				m_SelectedComponents[i] = m_LeaveCombatComponents[m_CompIndexes[i]];
-				componentsObj.AddComponent(m_LeaveCombatComponents[m_CompIndexes[i]]);
+				m_SelectedComponents[i] = Constants.LEAVE_COMBAT_COMPONENTS_ARRAY[m_CompIndexes[i]];
+				componentsObj.AddComponent(Constants.LEAVE_COMBAT_COMPONENTS_ARRAY[m_CompIndexes[i]]);
 			}
 			else if (m_tComponents[i] is BaseTargeting)
 			{
-				m_SelectedComponents[i] = m_TargetingComponents[m_CompIndexes[i]];
-				componentsObj.AddComponent(m_TargetingComponents[m_CompIndexes[i]]);
+				m_SelectedComponents[i] = Constants.TARGETING_COMPONENTS_ARRAY[m_CompIndexes[i]];
+				componentsObj.AddComponent(Constants.TARGETING_COMPONENTS_ARRAY[m_CompIndexes[i]]);
 			}
 		}
 	}
