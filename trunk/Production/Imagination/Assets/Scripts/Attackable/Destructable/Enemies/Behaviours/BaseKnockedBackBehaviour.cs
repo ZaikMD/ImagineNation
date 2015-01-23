@@ -23,7 +23,7 @@ public class BaseKnockedBackBehavouir : BaseBehaviour
 
 	//Velocity
 	public Vector3 m_Velocity = Vector3.zero;
-	const float ACCELERATION_DUE_TO_GRAVITY = 20.0f;
+	const float ACCELERATION_DUE_TO_GRAVITY = 16.0f;
 
 	//The character controller used for moving the enemy while being knocked back
 	CharacterController m_Controller;
@@ -38,6 +38,9 @@ public class BaseKnockedBackBehavouir : BaseBehaviour
 	//Collision with other enemies
 	protected const float ONCOLLISION_SLOW_SELF_MULTIPLIER = 0.4f;
 	protected const float ONCOLLISION_SLOW_ENEMY_MULTIPLIER = 0.6f;
+
+	//Normalized scaler value for a dot product to determine if the enemy has collided with the ground
+	protected const float ANGLE_FOR_COLLIDE_WITH_GROUND = 0.5f;
 
 
 	//Loads the character controller and sets it to disabled
@@ -70,12 +73,12 @@ public class BaseKnockedBackBehavouir : BaseBehaviour
 			GameObject hitObject = hit.gameObject;
 
 			//Ignore stopping velocity from collisions with enemies
-			if (hitObject.CompareTag("Enemy"))
+			if (hitObject.CompareTag(Constants.ENEMY_STRING))
 			{
 				BaseKnockedBackBehavouir knockedBack = hitObject.GetComponentInChildren<BaseKnockedBackBehavouir>();
 
 				//Do not bother colliding with already flying enemies
-				if (knockedBack == null || knockedBack.isActive())
+				if (knockedBack == null || knockedBack.isActive() || Vector3.Dot(hit.normal, Vector3.up) > ANGLE_FOR_COLLIDE_WITH_GROUND)
 				{
 					return;
 				}
@@ -86,44 +89,41 @@ public class BaseKnockedBackBehavouir : BaseBehaviour
 				//This enemy slows down after the collision
 				m_Velocity *= ONCOLLISION_SLOW_SELF_MULTIPLIER;
 			}
-			if (hitObject.CompareTag("Player"))
+			//If the enemy collides with a player
+			else if (hitObject.CompareTag(Constants.PLAYER_STRING))
 			{
-				//Knockback the player
-				/*PlayerHealth health = hitObject.GetComponent<PlayerHealth>();
-
 				//The enemy falls
 				if (m_Velocity.y > 0.0f)
 				{
 					m_Velocity.y = -0.1f;
-				}*/
+				}
+				m_Velocity.x = 0.0f;
+				m_Velocity.z = 0.0f;
 			}
 			//If the enemy has collided with the kill zone
-			else if (hitObject.name == "Kill Zone" )
+			else if (hitObject.name == Constants.KILLZONE_STRING )
 			{
 				m_Active = false;
 				GetComponentInParent<Destructable>().instantKill();
 			}
 			//If the enemy has hit the floor
-			else if (Vector3.Dot(hit.normal, Vector3.up) > 0.4f)
+			else if (Vector3.Dot(hit.normal, Vector3.up) > ANGLE_FOR_COLLIDE_WITH_GROUND)
 			{
 				if (m_Velocity.y > 0.0f)
 				{
 					return;
 				}
 
-				//Go up slightly to avoid falling through the floor
-				m_Controller.Move(Vector3.up);
-
 				//Inactivate the character controller for now
 				m_Controller.enabled = false;
 				m_Active = false;
 				m_Velocity = Vector3.zero;
 
-				//Set enemy to continue the chase
-				GetAgent ().enabled = true;
-				m_EnemyAI.SetState(EnemyAI.EnemyState.Chase);
+				//Return the enemy to the nav mesh
+				GetAgent().enabled = true;
+				m_EnemyAI.SetState(EnemyAI.EnemyState.Idle);
 			}
-			//If the enemy has hit a wall or ceiling
+			//The enemy has hit a wall
 			else if (m_Velocity.y > 0.0f)
 			{
 				m_Velocity.y = -0.1f;

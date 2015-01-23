@@ -35,6 +35,7 @@ public static class Constants
 	public const int LIVE_INITIAL_COUNT = 3;
 	public const int LIVES_MAX = 99;
 	public const short LIGHT_PEGS_NEEDED_TO_GAIN_LIVES = 50;
+	public const string KILLZONE_STRING = "Kill Zone";
 
 	public const string BRIGHTNESS_PROPERTY_NAME = "_Brightness";
 	public const float BRIGHTNESS_INCREMENT = 0.1f;
