@@ -26,6 +26,7 @@ using System.Collections;
 public enum TimingStates
 {
 	Idle,
+	ReloadToAim,
 	Aim,
 	Charge,
 	Launch,
@@ -52,6 +53,10 @@ public class BeanBagLauncher : Destructable
 	public float m_LightHeight;
 	public Transform m_BulletLaunchLocation;
 	public GameObject m_BulletPrefab;
+	public Animation m_Anim;
+
+	public AnimationClip m_ChargeAndShoot;
+	public AnimationClip m_Death;
 
 	private float m_CurrentAimTime;
 	private float m_CurrentChargeTime;
@@ -86,6 +91,10 @@ public class BeanBagLauncher : Destructable
 		{
 			case TimingStates.Idle:
 			UpdateIdle();
+			break;
+
+			case TimingStates.ReloadToAim:
+			ReloadToAim();
 			break;
 
 			case TimingStates.Aim:
@@ -127,18 +136,25 @@ public class BeanBagLauncher : Destructable
 		if(m_CurrentReloadTime < 0)
 		{
 			ResetTimers();
-			m_CurrentState = TimingStates.Aim;
+			m_CurrentState = TimingStates.ReloadToAim;
 			return;
 		}
 		//updates timer
 		m_CurrentReloadTime -= Time.deltaTime;
 	}
 
+	void ReloadToAim()
+	{
+		//AimAtPlayer();
+		UpdateAim();
+		TurnOnCrosshairs(); //turn on our crosshairs
+		m_CurrentState = TimingStates.Aim;
+	}
+
 	void UpdateAim()
 	{
 		//if we are aiming we have a target
 		m_HasTraget = true;
-		TurnOnCrosshairs(); //turn on our crosshairs
 		AimAtPlayer(); //gets our player location and sets it to our launch location
 		PaintTarget(); // places the crosshairs on our launch location
 		if(m_CurrentAimTime < 0) //Have we finished our timer
@@ -153,6 +169,7 @@ public class BeanBagLauncher : Destructable
 	
 	void UpdateCharge()
 	{
+		m_Anim.Play("ChargeAndShoot");
 		FlashCrosshair(); //Turns the crosshair on and off, based on a timer.
 		PaintTarget(); // move the cross hairs to the launch location.
 		if(m_CurrentChargeTime < 0) // checks if we are done charging.
@@ -248,7 +265,6 @@ public class BeanBagLauncher : Destructable
 	{
 		Vector3 LightHeight = new Vector3 (0, m_LightHeight, 0);
 		m_CrossHair.transform.position = m_LaunchLocation + LightHeight;
-		m_CrossHair.transform.LookAt(m_LaunchLocation);
 	}
 
 	//preforms a distance check and compares against the size of our collider.
@@ -298,6 +314,7 @@ public class BeanBagLauncher : Destructable
 	void TurnOnCrosshairs()
 	{
 		m_CrossHair.GetComponent<Light>().enabled = true;	
+		m_CrossHair.transform.LookAt(m_LaunchLocation);
 	}
 
 	void DistanceCheck()
@@ -347,7 +364,7 @@ public class BeanBagLauncher : Destructable
 		if(PlayerDistance < m_Range)
 		{
 			m_CurrentTarget = 1;
-			m_CurrentState = TimingStates.Aim;
+			m_CurrentState = TimingStates.ReloadToAim;
 			return;
 		}
 
