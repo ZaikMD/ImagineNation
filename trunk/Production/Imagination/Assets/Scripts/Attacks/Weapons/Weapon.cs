@@ -13,7 +13,7 @@ using System.Collections;
 public class Weapon : MonoBehaviour
 {
     SFXManager m_SFX;
-    AnimationState m_AnimState;
+    PlayerAnimator m_AnimState;
 
     BaseAttack m_CurrentAttack;//The current Attack
 
@@ -60,7 +60,7 @@ public class Weapon : MonoBehaviour
         m_ReadInput = gameObject.GetComponent<AcceptInputFrom>(); //Get the input
 
         m_SFX = SFXManager.Instance; //Sound stuff
-        m_AnimState = GetComponent<AnimationState>();
+		m_AnimState = GetComponent<PlayerAnimator>();
 		DOWN_TIME = m_DownTime; //Set reference for the down time timer
 		DOUBLE_HIT_TIMER = m_DoubleHitTimer; //Set the reference for the double hit timer
 		m_BaseMovementAbility = gameObject.GetComponent (typeof(BaseMovementAbility)) as BaseMovementAbility; //Get the movement
