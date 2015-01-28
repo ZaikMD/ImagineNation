@@ -50,7 +50,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//Other objects this class needs
 	public Transform m_Camera;
 	public Animation m_Anim;
-	protected AnimationState m_AnimState;
+	protected PlayerAnimator m_AnimState;
     protected SFXManager m_SFX;
 	protected CharacterController m_CharacterController;
 	protected AcceptInputFrom m_AcceptInputFrom;
@@ -108,7 +108,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		m_CharacterController = GetComponent<CharacterController> ();
 		m_Anim = GetComponent<Animation>();
 
-		m_AnimState = GetComponent<AnimationState>();
+		m_AnimState = GetComponent<PlayerAnimator>();
 
         m_SFX = SFXManager.Instance;
 
@@ -181,27 +181,24 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			//Check if we should start jumping
 			if(InputManager.getJumpDown(m_AcceptInputFrom.ReadInputFrom))
 			{
-				m_AnimState.m_Grounded = false;
 				Jump();
 				AirMovement();
 			}
 			//Otherwise do normal ground movement, and reset our air movement
 			else
 			{
-				m_AnimState.m_Grounded = true;
 				GroundMovement();
 			}
 		}
 		//If we are not on the ground, we must be airborne, so do air movement
 		else
 		{
-			m_AnimState.m_Grounded = false;
 			AirMovement();			
 		}
 
 		m_CharacterController.Move ((m_Velocity + GetLaunchVelocity()) * m_SpeedMultiplier * Time.deltaTime);
 
-		m_Anim.Play (m_AnimState.GetAnimation());
+		//m_Anim.Play (m_AnimState.GetAnimation());
 	}
 
 	//Moves the player based on the facing angle of the camera and the players input
@@ -248,7 +245,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	protected virtual void AirMovement()
 	{
 		//if(!IsOnMovingPlatform())
-		m_AnimState.AddAnimRequest (AnimationStates.Falling);
+		m_AnimState.playAnimation(PlayerAnimator.Animations.Falling);
 
 		//Horizontal movement
 		Vector2 horizontalAirVelocity = new Vector2 (m_Velocity.x, m_Velocity.z);
@@ -533,8 +530,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//Sets the vertical velocity to a pre-determined jump speed, and our horizontal air movement to our current running speed
 	protected virtual void Jump()
 	{
-		m_AnimState.AddAnimRequest (AnimationStates.Jump);
-		m_AnimState.m_Jumping = true;
+		m_AnimState.playAnimation (PlayerAnimator.Animations.Jump);
 		m_CurrentlyJumping = true;
 
 
@@ -575,7 +571,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	{
 		//Animation and sound
 		m_SFX.playSound(transform, Sounds.JumpPad);
-		m_AnimState.AddAnimRequest(AnimationStates.Jump);
+		m_AnimState.playAnimation(PlayerAnimator.Animations.Jump);
 
 		//Jump
 		m_CurrentlyJumping = true;
@@ -597,15 +593,15 @@ public abstract class BaseMovementAbility : MonoBehaviour
 
 		if (horizontalVelocity == Vector2.zero)
         {
-			m_AnimState.AddAnimRequest(AnimationStates.Idle);           
+			m_AnimState.playAnimation(PlayerAnimator.Animations.Idle);           
         }
 		else if (horizontalVelocity.magnitude < (MAX_GROUND_RUNSPEED / 2.0f))
         {
-			m_AnimState.AddAnimRequest(AnimationStates.Walk);
+			m_AnimState.playAnimation(PlayerAnimator.Animations.Walk);
         }
 		else
 		{
-			m_AnimState.AddAnimRequest(AnimationStates.Run);
+			m_AnimState.playAnimation(PlayerAnimator.Animations.Run);
 		}        
 	}
 
