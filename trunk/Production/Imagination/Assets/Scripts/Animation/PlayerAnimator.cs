@@ -20,8 +20,13 @@ public class PlayerAnimator : BaseAnimator
         OverHeadSlash
     };
 
-    public virtual void playAnimation(Animations animationNumber, float fadeLength = DEFAULT_CROSSFADE)
+    public virtual void playAnimation(Animations animationNumber, float fadeLength = DEFAULT_FADE)
     {
         playAnimation(m_AnimationClips[(int)animationNumber].name, fadeLength);
     }
+
+	public virtual void addAnimation(Animations animationNumber, float targetWeight = DEFAULT_WEIGHT, float fadeLength = DEFAULT_FADE)
+	{
+		addAnimation(m_AnimationClips[(int)animationNumber].name, targetWeight, fadeLength);
+	}
 }
