@@ -74,7 +74,7 @@ public class GnomeClone : Destructable
 	
 		// If the clones active timer is done or if the original is dead then kill it off
 		if (m_ActiveTimer <= 0.0f || m_OriginalIsDead)
-		{
+		{ 
 			instantKill();
 		}
 
