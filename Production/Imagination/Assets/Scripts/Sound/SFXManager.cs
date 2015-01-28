@@ -131,13 +131,10 @@ public class SFXManager : MonoBehaviour
     //================================================================================ 
 
 
-    Dictionary<int, AudioClip> m_SoundDictionary = new Dictionary<int, AudioClip>();
+    Dictionary<int, List<AudioClip>> m_SoundDictionary = new Dictionary<int, List<AudioClip>>();
+    List<string> m_LoadedSounds = new List<string>();
 	//Variables for class
     List<SoundSourceMover> m_NonAutoDestroySources = new List<SoundSourceMover>();
-
-//TODO: load which players are one and two
-	public Transform m_PlayerOne;
-	public Transform m_PlayerTwo;
 
 	/// <summary>
 	/// Raises the level load event.
@@ -156,10 +153,6 @@ public class SFXManager : MonoBehaviour
     /// </summary>
 	void Start ()
     {
-		//TODO: load which players are player one and two
-		m_PlayerOne = getPlayerTransform (GameData.Instance.PlayerOneCharacter);
-		m_PlayerTwo = getPlayerTransform (GameData.Instance.PlayerTwoCharacter);
-
 #if DEBUG || UNITY_EDITOR
 		//TODO: Delete for finale product, Onload will handle. OnLoad does not run when playing scene in editor
 		//Load all sounds
@@ -168,31 +161,15 @@ public class SFXManager : MonoBehaviour
 #endif
 	}
 
-	/// <summary>
-	/// Gets the player transform by c
-	/// </summary>
-	/// <returns>The player transform.</returns>
-	/// <param name="charater">Charater.</param>
-	Transform getPlayerTransform(Characters charater)
-	{
-		switch(charater)
-		{
-			case Characters.Alex:
-			return GameObject.Find(Constants.ALEX_WITH_MOVEMENT_STRING).transform;
+    bool soundExists(Sounds key)
+    {
+        return soundExists((int)key);
+    }
 
-			case Characters.Derek:
-			return GameObject.Find(Constants.DEREK_WITH_MOVEMENT_STRING).transform;
-
-			case Characters.Zoe:
-			return GameObject.Find(Constants.ZOE_WITH_MOVEMENT_STRING).transform;
-
-			default:
-#if DEBUG || UNITY_EDITOR
-			Debug.LogError("Enum is out of range");
-#endif
-			return null;
-		}
-	}
+    bool soundExists(int key)
+    {
+        return m_SoundDictionary.ContainsKey(key) && m_SoundDictionary[key].Count > 0;
+    }
 
 	/// <summary>
 	/// This function plays a sound from the location specified
@@ -202,7 +179,7 @@ public class SFXManager : MonoBehaviour
 	public void playSound(Transform location, Sounds sound)
 	{
         //check if the sound is done loading
-        if (!m_SoundDictionary.ContainsKey((int)sound))
+        if (!soundExists(sound))
             return;
         //create the actual source
         GameObject soundObject = new GameObject();
@@ -244,7 +221,7 @@ public class SFXManager : MonoBehaviour
 	/// <param name="objectPlayingTheSound">Object playing the sound.</param>
     public void stopSound(Transform location, Sounds sound, bool destroy = false)
 	{
-        if (!m_SoundDictionary.ContainsKey((int)sound))
+        if (!soundExists(sound))
             return;
         AudioInfo tempSoundInfo = getClipFromList(sound);
         for (int i = 0; i < m_NonAutoDestroySources.Count; i++)
@@ -266,6 +243,16 @@ public class SFXManager : MonoBehaviour
 #endif
     }
 
+    AudioClip getSound(Sounds key)
+    {
+        return getSound((int)key);
+    }
+
+    AudioClip getSound(int key)
+    {
+        return m_SoundDictionary[key][Random.Range(0, m_SoundDictionary[key].Count)];
+    }
+
 	/// <summary>
 	/// Checks sent in enum, returns apropriote data 
 	/// such as if it is a one shot and the AudioClip
@@ -275,7 +262,7 @@ public class SFXManager : MonoBehaviour
     AudioInfo getClipFromList(Sounds sound)
     {
         AudioInfo tempAudioInfo = new AudioInfo();
-        tempAudioInfo.m_AudioClip = m_SoundDictionary[(int)sound];
+        tempAudioInfo.m_AudioClip = getSound(sound);
         
         switch(sound)
         {
@@ -473,21 +460,25 @@ public class SFXManager : MonoBehaviour
     {
         if (!m_SoundDictionary.ContainsKey(key))
         {
-            //Debug.Log(++totalCoroutines);
+            m_SoundDictionary.Add(key, new List<AudioClip>());
+        }
+
+        if (!filePathUsed(filePath))
+        {
+            m_LoadedSounds.Add(filePath);
+
             ResourceRequest resource = Resources.LoadAsync(filePath);
 
             while (resource.isDone == false)
             {
                 yield return null;
             }
-
-            //Debug.Log(--totalCoroutines);
-            m_SoundDictionary.Add(key, (AudioClip)resource.asset);
+            m_SoundDictionary[key].Add((AudioClip)resource.asset);
         }
 #if UNITY_EDITOR || DEBUG
         else
         {
-            Debug.Log("the key: " + key + "   for sound: " + filePath + "   already exists");
+            Debug.Log("the Path: " + filePath + "  has already been used");
         }
 #endif
         yield return null;        
@@ -497,13 +488,32 @@ public class SFXManager : MonoBehaviour
     {
         if (!m_SoundDictionary.ContainsKey(key))
         {
-            m_SoundDictionary.Add(key, (AudioClip)Resources.Load(filePath));
+            m_SoundDictionary.Add(key, new List<AudioClip>());
+        }
+
+        if (!filePathUsed(filePath))
+        {
+            m_LoadedSounds.Add(filePath);
+
+            m_SoundDictionary[key].Add((AudioClip)Resources.Load(filePath));
         }
 #if UNITY_EDITOR || DEBUG
         else
         {
-            Debug.Log("the key: " + key + "   for sound: " + filePath + "   already exists");
+            Debug.Log("the Path: " + filePath + "  has already been used");
         }
 #endif
+    }
+
+    bool filePathUsed(string filePath)
+    {
+        for(int i=0; i < m_LoadedSounds.Count; i++)
+        {
+            if(m_LoadedSounds[i].CompareTo(filePath) == 0)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

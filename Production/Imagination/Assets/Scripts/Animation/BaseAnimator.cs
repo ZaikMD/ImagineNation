@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BaseAnimator : MonoBehaviour 
 {
-    protected Animation m_Animation = null;
+    public Animation m_Animation = null;
 
     //*** the enum that will be used for keys must start at zero and not skip any values ****
     public AnimationClip[] m_AnimationClips = null;
