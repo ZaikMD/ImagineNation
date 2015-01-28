@@ -10,7 +10,8 @@ public class BaseAnimator : MonoBehaviour
 
     protected string m_CurrentClip = "";
 
-    protected const float DEFAULT_CROSSFADE = 0.1f;
+    protected const float DEFAULT_FADE = 0.1f;
+    protected const float DEFAULT_WEIGHT = 0.5f;
 
     public bool isPlaying
     {
@@ -38,12 +39,14 @@ public class BaseAnimator : MonoBehaviour
         setUp();
 	}
 
-    public virtual void playAnimation(int animationNumber, float fadeLength = DEFAULT_CROSSFADE)
+    //======================================================================================
+
+    public virtual void playAnimation(int animationNumber, float fadeLength = DEFAULT_FADE)
     {
         playAnimation(m_AnimationClips[animationNumber].name, fadeLength);
     }
 
-    public virtual void playAnimation(string animationName, float fadeLength = DEFAULT_CROSSFADE)
+    public virtual void playAnimation(string animationName, float fadeLength = DEFAULT_FADE)
     {
         if (m_CurrentClip.CompareTo(animationName) != 0)
         {
@@ -51,6 +54,22 @@ public class BaseAnimator : MonoBehaviour
             m_Animation.CrossFade(animationName, fadeLength);
         }
     }
+
+
+    //======================================================================================
+    //blend
+
+    public virtual void addAnimation(int animationNumber, float targetWeight = DEFAULT_WEIGHT, float fadeLength = DEFAULT_FADE)
+    {
+        addAnimation(m_AnimationClips[animationNumber].name, targetWeight, fadeLength);
+    }
+
+    public virtual void addAnimation(string animationName, float targetWeight = DEFAULT_WEIGHT, float fadeLength = DEFAULT_FADE)
+    {
+        m_Animation.Blend(animationName, targetWeight, fadeLength);
+    }
+
+    //======================================================================================
 
     protected virtual void setUp()
     {
