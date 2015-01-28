@@ -30,7 +30,8 @@ public enum TimingStates
 	Aim,
 	Charge,
 	Launch,
-	Reload
+	Reload,
+	Dead
 }
 
 
@@ -43,6 +44,7 @@ public class BeanBagLauncher : Destructable
 	public float m_AimTime;
 	public float m_ChargeTime;
 	public float m_ReloadTime;
+	public float m_DeathTime;
 	public float m_Range;
 	public float m_CrosshairsFlashRate;
 	public float m_ProjectileSpeed;
@@ -63,8 +65,10 @@ public class BeanBagLauncher : Destructable
 	private float m_CurrentReloadTime;
 	private float m_CurrentFlashTime;
 	private short m_CurrentTarget;
+	private float m_CurrentDeathTime;
 
 	private bool m_HasTraget;
+	private bool m_HasAlreadyDead = false;
 
 	private Vector3 m_LaunchLocation;
 	public GameObject m_CrossHair;
@@ -112,6 +116,10 @@ public class BeanBagLauncher : Destructable
 			case TimingStates.Reload:
 			UpdateReload();
 			break;
+
+			case TimingStates.Dead:
+			UpdateDead();
+			break;
 		}
 	}
 
@@ -122,6 +130,20 @@ public class BeanBagLauncher : Destructable
 		m_CurrentChargeTime = m_ChargeTime;
 		m_CurrentReloadTime = m_ReloadTime;	
 	}
+
+	void UpdateDead()
+	{
+		TurnOffCrosshairs();
+
+		if(m_CurrentDeathTime < 0)
+		{
+			Destroy(this.gameObject);
+			return;
+		}	
+
+		m_CurrentDeathTime -= Time.deltaTime;
+	}
+
 
 	void UpdateIdle()
 	{
@@ -356,7 +378,13 @@ public class BeanBagLauncher : Destructable
 				{
 					m_CurrentTarget = otherTarget; 
 					return;
-				}				
+				}
+				else
+				{
+					m_CurrentState = TimingStates.Idle;
+					m_HasTraget = false;
+					return;
+				}
 			}
 		}
 
@@ -490,4 +518,17 @@ public class BeanBagLauncher : Destructable
 			}
 		}
 	}
+
+
+	protected override void onDeath()
+	{
+		if(!m_HasAlreadyDead)
+		{
+			m_Anim.Play(m_Death.name);
+			m_CurrentState = TimingStates.Dead;
+			m_HasAlreadyDead = true;
+			m_CurrentDeathTime = m_DeathTime;
+		}
+	}
 }
+
