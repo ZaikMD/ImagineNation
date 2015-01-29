@@ -1,4 +1,4 @@
-Shader "Hidden/Internal-PrePassLighting" {
+Shader "Hidden/Internal-PrePassLighting_Original" {
 Properties {
 	_LightTexture0 ("", any) = "" {}
 	_LightTextureB0 ("", 2D) = "" {}
@@ -8,32 +8,33 @@ SubShader {
 
 CGINCLUDE
 #include "UnityCG.cginc"
-struct vertexInput
-{
-	float4 pos : POSITION0;
-	float3 norm : NORMAL0;
+struct appdata {
+	float4 vertex : POSITION;
+	float3 normal : NORMAL;
 };
 
-struct vertexOutput
-{
-	float4 pos : POSITION0;
+struct v2f {
+	float4 pos : SV_POSITION;
 	float4 uv : TEXCOORD0;
 	float3 ray : TEXCOORD1;
 };
 
 float _LightAsQuad;
 
-vertexOutput vert (vertexInput input)
+v2f vert (appdata v)
 {
-	vertexOutput output;
-	output.pos = mul(UNITY_MATRIX_MVP, input.pos);
-	output.uv = ComputeScreenPos (output.pos);
-	output.ray = mul (UNITY_MATRIX_MV, input.pos).xyz * float3(-1,-1,1);
-	output.ray = lerp(output.ray, input.norm, _LightAsQuad);
+	v2f o;
+	o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+	o.uv = ComputeScreenPos (o.pos);
+	o.ray = mul (UNITY_MATRIX_MV, v.vertex).xyz * float3(-1,-1,1);
 	
-	return output;
+	// v.normal contains a ray pointing from the camera to one of near plane's
+	// corners in camera space when we are drawing a full screen quad.
+	// Otherwise, when rendering 3D shapes, use the ray calculated here.
+	o.ray = lerp(o.ray, v.normal, _LightAsQuad);
+	
+	return o;
 }
-
 sampler2D _CameraNormalsTexture;
 sampler2D_float _CameraDepthTexture;
 float4 _LightDir;
@@ -175,10 +176,10 @@ half ComputeShadow(float3 vec, float fadeDist, float2 uv)
 	return 1.0;
 }
 
-half4 CalculateLight (vertexOutput output)
+half4 CalculateLight (v2f i)
 {
-	output.ray = output.ray * (_ProjectionParams.z / output.ray.z);
-	float2 uv = output.uv.xy / output.uv.w;
+	i.ray = i.ray * (_ProjectionParams.z / i.ray.z);
+	float2 uv = i.uv.xy / i.uv.w;
 	
 	half4 nspec = tex2D (_CameraNormalsTexture, uv);
 	half3 normal = nspec.rgb * 2 - 1;
@@ -186,7 +187,7 @@ half4 CalculateLight (vertexOutput output)
 	
 	float depth = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, uv);
 	depth = Linear01Depth (depth);
-	float4 vpos = float4(output.ray * depth,1);
+	float4 vpos = float4(i.ray * depth,1);
 	float3 wpos = mul (_CameraToWorld, vpos).xyz;
 
 	float fadeDist = ComputeFadeDistance(wpos, vpos.z);
@@ -265,9 +266,9 @@ CGPROGRAM
 #pragma glsl_no_auto_normalization
 #pragma multi_compile_lightpass
 
-fixed4 frag (vertexOutput output) : SV_Target
+fixed4 frag (v2f i) : SV_Target
 {
-	return exp2(-CalculateLight(output));
+	return exp2(-CalculateLight(i));
 }
 
 ENDCG
@@ -286,9 +287,9 @@ CGPROGRAM
 #pragma glsl_no_auto_normalization
 #pragma multi_compile_lightpass
 
-fixed4 frag (vertexOutput output) : SV_Target
+fixed4 frag (v2f i) : SV_Target
 {
-	return CalculateLight(output);
+	return CalculateLight(i);
 }
 
 ENDCG
@@ -307,9 +308,9 @@ CGPROGRAM
 #pragma glsl_no_auto_normalization
 #pragma multi_compile_lightpass
 
-fixed4 frag (vertexOutput output) : SV_Target
+fixed4 frag (v2f i) : SV_Target
 {
-	return CalculateLight(output).argb;
+	return CalculateLight(i).argb;
 }
 
 ENDCG
