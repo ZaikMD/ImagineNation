@@ -70,6 +70,8 @@ public class GnomeClone : Destructable
 	// Update is called once per frame
 	new void Update () 
 	{
+		base.Update ();
+
         if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 	
 		// If the clones active timer is done or if the original is dead then kill it off
@@ -79,8 +81,11 @@ public class GnomeClone : Destructable
 		}
 
 		// If the target is not null look at it 
+		Vector3 targetPos = new Vector3 (m_Target.transform.position.x, 0, m_Target.transform.position.z);
+		Vector3 myPos = new Vector3 (transform.position.x, 0, transform.position.z);
 		if (m_Target != null)
-			transform.LookAt (m_Target.transform.position);
+			transform.forward = targetPos - myPos;  
+			
 
 		//Attack if the shot timer is over
 		if (m_ShotTimer <= 0)

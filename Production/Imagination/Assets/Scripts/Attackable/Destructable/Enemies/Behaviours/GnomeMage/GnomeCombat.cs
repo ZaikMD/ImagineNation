@@ -28,8 +28,8 @@ public class GnomeCombat : BaseAttackBehaviour, INotifyHit
 	const float SHIELD_HEALTH = 2.0f;
 	float m_ShieldHealth;
 
-	const float m_MaxTimeBetweenShots = 2.8f;
-	const float m_MinTimeBetweenShots = 1.5f;
+	const float m_MaxTimeBetweenShots = 20.8f;
+	const float m_MinTimeBetweenShots = 10.5f;
 	float m_ShotTimer;
 	
 	Vector3 m_PrevPos;
@@ -59,7 +59,7 @@ public class GnomeCombat : BaseAttackBehaviour, INotifyHit
 	// Use this for initialization
 	protected override void start ()
 	{
-		m_EnemyAI.m_IsInvincible = true;
+		m_EnemyAI.m_IsInvincible = false;
 		m_ShieldHealth = SHIELD_HEALTH;
 
 		//Initialise all of the components
@@ -140,6 +140,7 @@ public class GnomeCombat : BaseAttackBehaviour, INotifyHit
 			CreateClones ();
 			m_ClonedTimer = m_ClonedTime;
 			m_CurrentCombatState = CombatStates.Cloned;
+			return;
 		}
 		m_PrevPos = transform.position;
 	}
@@ -154,7 +155,6 @@ public class GnomeCombat : BaseAttackBehaviour, INotifyHit
 			m_Clones.Clear();
 
 			m_ShieldHealth = SHIELD_HEALTH;
-			m_EnemyAI.m_IsInvincible = true;
 		}
 
 		// Move, attack and decrement the cloned timer
@@ -193,6 +193,7 @@ public class GnomeCombat : BaseAttackBehaviour, INotifyHit
 		m_MovementComponent.Movement (positions [positions.Length - 1]);
 
 		m_EnemyAI.m_IsInvincible = false;
+		DeactivateShield ();
 	}
 
 	// Deactivate the gnomes shield
@@ -200,6 +201,7 @@ public class GnomeCombat : BaseAttackBehaviour, INotifyHit
 	{
 		// Deactivate the gnome shield and pass how long to stay deactivated for
 		m_Shield.DeactivateShield (m_ClonedTime);
+
 	}
 
 	// Override of the Movement function since this behaviour needed extra movement components.
@@ -266,7 +268,8 @@ public class GnomeCombat : BaseAttackBehaviour, INotifyHit
 			if (m_ShieldHealth <= 0)
 			{
 				m_CurrentCombatState = CombatStates.Cloning;
-				DeactivateShield();
+				m_EnemyAI.m_IsInvincible = true;
+				m_Shield.SwitchToRed();
 			}
 		}
 	}
