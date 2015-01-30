@@ -9,6 +9,7 @@ public class DestructableWall : Destructable
 	public GameObject[] m_GroupThree;
 
 	private GameObject[][] m_Groups;
+	
 
 	// Use this for initialization
 	void Start () 
@@ -49,6 +50,7 @@ public class DestructableWall : Destructable
 		{
 			group[i].transform.parent = null;
 			group[i].AddComponent<Rigidbody>();
+			group[i].AddComponent<CapsuleCollider>();
 			group[i].GetComponent<DestructableWallRagDoll>().enabled = true;
 		}
 	}
