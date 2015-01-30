@@ -17,8 +17,7 @@ using System.Collections;
 public class PlayerRagDoll : MonoBehaviour 
 {
 	//the prefab and game object for the ghost
-	public GameObject GhostPrefab;
-	GameObject m_Ghost;
+	public GameObject m_RagdollBody;
 
 	float m_Timer = 0.0f;
 
@@ -29,14 +28,20 @@ public class PlayerRagDoll : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		//create the ghost
-		m_Ghost = (GameObject)GameObject.Instantiate (GhostPrefab, transform.position, transform.rotation);
-
+		if (m_RagdollBody != null)
+		{
+			m_PlayerCamera.Player = m_RagdollBody;
+		}
+		else
+		{
+			m_PlayerCamera.Player = this.gameObject;
+		}
 		//set the timer
-		m_Timer = DeadPlayerManager.Instance.m_RespawnTimer;
+	//	m_Timer = DeadPlayerManager.Instance.m_RespawnTimer;
+		m_Timer = 5;
 
 		//tell the camera to look at the ghost instead of the player
-		m_PlayerCamera.Player = m_Ghost;
+
 	}
 	
 	// Update is called once per frame
@@ -44,18 +49,11 @@ public class PlayerRagDoll : MonoBehaviour
 	{
         if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 
-		if(m_Ghost != null)
-		{
-			//update the ghost
-			m_Ghost.transform.Rotate (Vector3.up);
-			m_Ghost.transform.position = m_Ghost.transform.position + (Vector3.up * Time.deltaTime);
-		}
 
 		m_Timer -= Time.deltaTime;
 		if(m_Timer < 0.0f && DeadPlayerManager.Instance.areBothPlayersAlive())
 		{
 			//time to despawn the ghost and get rid of the game object
-			Destroy(m_Ghost);
 			Destroy(this.gameObject);
 		}
 	}
