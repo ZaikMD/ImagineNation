@@ -380,7 +380,7 @@ public class Hud : MonoBehaviour {
 		//CheckPoints
 		if(m_ShowCheckPoint)
 		{
-			PositionRect.Set (Screen.width/4, Screen.height/4, Screen.width/ 2 , Screen.height / 8);
+			PositionRect.Set (Screen.width/4, Screen.height/8, Screen.width/ 2 , Screen.height / 3);
 			GUI.DrawTexture(PositionRect, m_CheckpointImage);
 		}
 

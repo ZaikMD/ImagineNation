@@ -21,13 +21,21 @@ public class DarknessDamage : MonoBehaviour
 {
     const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
 
+	public float m_HitInterval;
+	private float m_Timer;
+
+	void Start()
+	{
+		m_Timer = m_HitInterval;
+	}
+
 	//onTriggerEnter damage the destructable if there is one
     void OnTriggerEnter(Collider obj)
     {
         Destructable objDestructable = (Destructable)obj.GetComponentInChildren<Destructable>();
         if (objDestructable != null)
         {
-            objDestructable.onHit(new EnemyProjectile());
+            objDestructable.onHit(new EnemyProjectile(), Vector3.zero);
         }
     }
 
@@ -36,10 +44,16 @@ public class DarknessDamage : MonoBehaviour
     {
         if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 
-        Destructable objDestructable = (Destructable)obj.GetComponentInChildren<Destructable>();
-        if (objDestructable != null)
-        {
-            objDestructable.onHit(new EnemyProjectile());
-        }
+		m_Timer -= Time.deltaTime;
+		if(m_Timer < 0)
+		{
+       		Destructable objDestructable = (Destructable)obj.GetComponentInChildren<Destructable>();
+        	if (objDestructable != null)
+       	    {
+        	   	 objDestructable.onHit(new EnemyProjectile(), Vector3.zero);
+        	}
+
+			m_Timer = m_HitInterval;
+		}
     }
 }
