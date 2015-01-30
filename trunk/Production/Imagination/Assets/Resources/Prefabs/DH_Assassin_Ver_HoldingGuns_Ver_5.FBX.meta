@@ -171,11 +171,11 @@ ModelImporter:
       takeName: Take 001
       firstFrame: 130
       lastFrame: 170
-      wrapMode: 0
+      wrapMode: 2
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
-      loop: 0
+      loop: 1
       loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
@@ -325,11 +325,11 @@ ModelImporter:
       takeName: Take 001
       firstFrame: 187
       lastFrame: 215
-      wrapMode: 0
+      wrapMode: 2
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
-      loop: 0
+      loop: 1
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
@@ -633,11 +633,11 @@ ModelImporter:
       takeName: Take 001
       firstFrame: 7
       lastFrame: 45
-      wrapMode: 0
+      wrapMode: 2
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
-      loop: 0
+      loop: 1
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
@@ -941,11 +941,11 @@ ModelImporter:
       takeName: Take 001
       firstFrame: 1149
       lastFrame: 1209
-      wrapMode: 0
+      wrapMode: 2
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
-      loop: 0
+      loop: 1
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
@@ -2019,11 +2019,11 @@ ModelImporter:
       takeName: Take 001
       firstFrame: 11639
       lastFrame: 11639
-      wrapMode: 0
+      wrapMode: 2
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
-      loop: 0
+      loop: 1
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0

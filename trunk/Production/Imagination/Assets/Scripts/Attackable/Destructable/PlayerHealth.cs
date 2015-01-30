@@ -77,6 +77,9 @@ public class PlayerHealth : Destructable
     const float FLASH_LENGTH = 0.1875f;
 
 
+    public Material i_InvulnerableMaterial;
+    Material m_DefaultMaterial;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -130,6 +133,15 @@ public class PlayerHealth : Destructable
 
 		//Get the players movement for knockback
 		m_Movement = GetComponent<BaseMovementAbility> ();
+
+#if DEBUG || UNITY_EDITOR
+        if(i_InvulnerableMaterial == null)
+        {
+            Debug.LogError("put the invulnerable material on this script");
+        }
+#endif
+
+        m_DefaultMaterial = m_PlayerRenderer.materials[0];
 	}
 
 	void OnDestroy()
@@ -159,8 +171,8 @@ public class PlayerHealth : Destructable
         {
             m_InvulnerabilityTimer -= Time.deltaTime;
 
-           // Debug.Log(Mathf.Abs(Mathf.Cos(m_InvulnerabilityTimer * 5.0f)));
-        
+            // Debug.Log(Mathf.Abs(Mathf.Cos(m_InvulnerabilityTimer * 5.0f)));
+
             m_PlayerRenderer.materials[0].color = new Color(m_PlayerRenderer.materials[0].color.r,
                                                             m_PlayerRenderer.materials[0].color.g,
                                                             m_PlayerRenderer.materials[0].color.b,
@@ -168,10 +180,7 @@ public class PlayerHealth : Destructable
         }
         else
         {
-            m_PlayerRenderer.materials[0].color = new Color(m_PlayerRenderer.materials[0].color.r,
-                                                            m_PlayerRenderer.materials[0].color.g,
-                                                            m_PlayerRenderer.materials[0].color.b,
-                                                            1.0f);
+            m_PlayerRenderer.material= m_DefaultMaterial;
         }
 
         if(!m_IsDead)
@@ -232,6 +241,8 @@ public class PlayerHealth : Destructable
 
 			m_HealthRegenTimer = HealthRegenTime;
 			m_InvulnerabilityTimer = InvulnerabilityTimer;
+
+            m_PlayerRenderer.material=i_InvulnerableMaterial;
             //update health bar
 			m_Hud.SetHealth (m_Health, m_Player);
 		}
@@ -256,6 +267,7 @@ public class PlayerHealth : Destructable
 			
 			m_HealthRegenTimer = HealthRegenTime;
 			m_InvulnerabilityTimer = InvulnerabilityTimer;
+			m_PlayerRenderer.material =  i_InvulnerableMaterial;
 			//update health bar
 			m_Hud.SetHealth (m_Health, m_Player);
 		}
