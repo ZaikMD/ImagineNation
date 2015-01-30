@@ -106,9 +106,9 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	protected void start () 
 	{
 		m_CharacterController = GetComponent<CharacterController> ();
-		m_Anim = GetComponent<Animation>();
+		m_Anim = gameObject.GetComponentInChildren<Animation>();
 
-		m_AnimState = GetComponent<PlayerAnimator>();
+		m_AnimState = gameObject.GetComponentInChildren<PlayerAnimator>();
 
         m_SFX = SFXManager.Instance;
 
@@ -133,12 +133,12 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	{ 
         if (PauseScreen.IsGamePaused)
 		{
-			m_Anim.enabled = false;
+			//m_Anim.enabled = false;
 			return;
 		}
 		else
 		{
-			m_Anim.enabled = true;
+			//m_Anim.enabled = true;
 		}
 
 		//Do not move if we are paused (used by other classes to pause the movement)
