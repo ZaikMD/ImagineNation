@@ -401,7 +401,7 @@ public class BeanBagLauncher : Destructable
 		if(PlayerDistance < m_Range)
 		{
 			m_CurrentTarget = 1;
-			m_CurrentState = TimingStates.Aim;
+			m_CurrentState = TimingStates.ReloadToAim;
 			return;
 		}
 
