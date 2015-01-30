@@ -16,15 +16,17 @@ using System.Collections;
 public class GnomeShield : MonoBehaviour 
 {
 	public GameObject m_ShieldAsset;
+	public GameObject m_ShieldInvincibleAsset;
 
 	float m_DeactiveTimer = 0.0f;
 	bool m_ShieldActive;
 
     const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
 
-	// Use this for initialization
+		// Use this for initialization
 	void Start () 
 	{
+		m_ShieldInvincibleAsset.SetActive (false);
 	}
 	
 	// Update is called once per frame
@@ -36,12 +38,18 @@ public class GnomeShield : MonoBehaviour
 		{
 			if (m_DeactiveTimer <= 0)
 			{
-				m_ShieldAsset.SetActive(true);
-				m_ShieldActive = true;
+				ReActivateShield();
 			}
 
 			m_DeactiveTimer -= Time.deltaTime;
 		}
+	}
+
+	void ReActivateShield()
+	{
+		m_ShieldAsset.SetActive(true);
+		m_ShieldActive = true;
+		m_ShieldInvincibleAsset.SetActive (false);
 	}
 
 	// deactivate the shield
@@ -49,6 +57,13 @@ public class GnomeShield : MonoBehaviour
 	{
 		m_DeactiveTimer = time;
 		m_ShieldAsset.SetActive (false);
+		m_ShieldInvincibleAsset.SetActive (false);
 		m_ShieldActive = false;
+	}
+
+	public void SwitchToRed()
+	{
+		m_ShieldInvincibleAsset.SetActive (true);
+		m_ShieldAsset.SetActive (false);
 	}
 }
