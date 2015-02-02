@@ -50,10 +50,10 @@ public class BeanBagLauncher : Destructable
 	public float m_ProjectileSpeed;
 	public float m_ProjectileGravity;
 	public float m_ProjectileSpread;
-	public float m_BeanBagAmount;
+	public GameObject[] m_BulletLaunchLocation;
+
 
 	public float m_LightHeight;
-	public Transform m_BulletLaunchLocation;
 	public GameObject m_BulletPrefab;
 	public Animation m_Anim;
 
@@ -218,15 +218,14 @@ public class BeanBagLauncher : Destructable
 
 	void LaunchProjectile()
 	{
-		for(int i = 0; i < m_BeanBagAmount; i++) 
+		for(int i = 0; i < m_BulletLaunchLocation.Length; i++) 
 		{
 			GameObject beanBag = (GameObject)Instantiate(m_BulletPrefab); // instatiates a bean bag projectile.
 
 			Vector2 Offset = new Vector2(Random.Range(0.0f, 1.0f) * m_ProjectileSpread, Random.Range(0.0f, 1.0f) * m_ProjectileSpread); // Creates and offset for the projectile
 
 			//calculates the start and final position
-			Vector3 StartPosition = new Vector3(m_BulletLaunchLocation.position.x + Offset.x, 
-			                                    m_BulletLaunchLocation.position.y, m_BulletLaunchLocation.position.z + Offset.y);
+			Vector3 StartPosition = m_BulletLaunchLocation[i].transform.position;
 			Vector3 FinalPosition = new Vector3(m_LaunchLocation.x + Offset.x, m_LaunchLocation.y, m_LaunchLocation.z + Offset.y);
 
 			//moves the projectile to its fire point
@@ -341,6 +340,9 @@ public class BeanBagLauncher : Destructable
 
 	void DistanceCheck()
 	{
+		if(m_HasAlreadyDead)
+		{return;}
+
 		if(m_HasTraget)
 		{
 			float Distance;
