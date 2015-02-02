@@ -3,9 +3,10 @@ using System.Collections;
 
 public class AnimatorController : MonoBehaviour 
 {
-    public Animator i_Animator = null;
+    [SerializeField]
+    protected Animator i_Animator = null;
 
-    protected string[] m_States = new string[]{"test","test2"};
+    protected string[] m_States;
 
     protected virtual void Start()
     {
@@ -32,18 +33,4 @@ public class AnimatorController : MonoBehaviour
     {
         i_Animator.Play(animationName);
     }
-
-
-    //======================================================================================
-    //blend
-    /*
-    public virtual void addAnimation(int animationNumber, float targetWeight = DEFAULT_WEIGHT, float fadeLength = DEFAULT_FADE)
-    {
-        addAnimation(m_AnimationClips[animationNumber].name, targetWeight, fadeLength);
-    }
-
-    public virtual void addAnimation(string animationName, float targetWeight = DEFAULT_WEIGHT, float fadeLength = DEFAULT_FADE)
-    {
-        m_Animation.Blend(animationName, targetWeight, fadeLength);
-    }*/
 }
