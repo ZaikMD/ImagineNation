@@ -18,12 +18,14 @@ public class Targeting : MonoBehaviour {
     public string[] m_TargetableTags;
     public float m_FieldOfView;
     public float m_ViewableDistance;
-    public Color m_TargetColor;
+    public GameObject m_TargetArrowPrefab;
+	public Vector3 m_TargetArrowOffset;
 
     public Camera m_Camera;
-    private Color m_CurrentTargetOriginalColor;
     private GameObject m_CurrentTarget;
     private List<GameObject> m_PossibleTargets;
+	private GameObject m_TargetArrow;
+	private GameObject m_PreviousTarget;
 
     private int m_LayerMask;
 
@@ -68,10 +70,7 @@ public class Targeting : MonoBehaviour {
         //reset our current target
         if(m_CurrentTarget != null)
 		{
-			if( m_CurrentTarget.renderer != null)
-			{
-				m_CurrentTarget.renderer.material.color = m_CurrentTargetOriginalColor;
-			}
+			m_PreviousTarget = m_CurrentTarget;
 		}
         //Set our target to null so if we can't see our target anymore, we know
         m_CurrentTarget = null;
@@ -138,18 +137,30 @@ public class Targeting : MonoBehaviour {
 		//safety check if we have a target
         if (m_CurrentTarget == null)
         {
+			if(m_TargetArrow != null)
+			{
+				Destroy(m_TargetArrow.gameObject);
+				m_PreviousTarget = null;
+			}
             return;
         }
 
-		if(m_CurrentTarget.renderer == null)
+		if(m_CurrentTarget == m_PreviousTarget)
 		{
-			return;
+			Vector3 Offset = new Vector3(m_TargetArrowOffset.x, m_CurrentTarget.collider.bounds.size.y + m_TargetArrowOffset.y, m_TargetArrowOffset.z); 
+			m_TargetArrow.transform.position = m_CurrentTarget.transform.position + Offset;
 		}
+		else
+		{
+			if(m_TargetArrow != null)
+			{
+				Destroy(m_TargetArrow.gameObject);
+			}
 
-		//get the objects color so we can reset it
-        m_CurrentTargetOriginalColor = m_CurrentTarget.renderer.material.color;
-        //change the color so we know what is our target
-		m_CurrentTarget.renderer.material.color = m_TargetColor;
+			m_TargetArrow = (GameObject)Instantiate(m_TargetArrowPrefab);
+			Vector3 Offset = new Vector3(m_TargetArrowOffset.x, m_CurrentTarget.collider.bounds.size.y + m_TargetArrowOffset.y, m_TargetArrowOffset.z); 
+			m_TargetArrow.transform.position = m_CurrentTarget.transform.position + Offset;
+		}
     }
 
 	//get the cameras forward vector
