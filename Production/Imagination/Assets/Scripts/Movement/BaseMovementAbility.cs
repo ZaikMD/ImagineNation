@@ -49,8 +49,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 {
 	//Other objects this class needs
 	public Transform m_Camera;
-	public Animation m_Anim;
-	protected PlayerAnimator m_AnimState;
+	protected AnimatorPlayers m_AnimatorController;
     protected SFXManager m_SFX;
 	protected CharacterController m_CharacterController;
 	protected AcceptInputFrom m_AcceptInputFrom;
@@ -106,9 +105,9 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	protected void start () 
 	{
 		m_CharacterController = GetComponent<CharacterController> ();
-		m_Anim = gameObject.GetComponentInChildren<Animation>();
+		//m_Anim = gameObject.GetComponentInChildren<Animation>();
 
-		m_AnimState = gameObject.GetComponentInChildren<PlayerAnimator>();
+		m_AnimatorController = gameObject.GetComponentInChildren<AnimatorPlayers>();
 
         m_SFX = SFXManager.Instance;
 
@@ -245,7 +244,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	protected virtual void AirMovement()
 	{
 		//if(!IsOnMovingPlatform())
-		m_AnimState.playAnimation(PlayerAnimator.Animations.Falling);
+		//m_AnimatorController.playAnimation(AnimatorPlayers.Animations.Falling);
 
 		//Horizontal movement
 		Vector2 horizontalAirVelocity = new Vector2 (m_Velocity.x, m_Velocity.z);
@@ -530,7 +529,8 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//Sets the vertical velocity to a pre-determined jump speed, and our horizontal air movement to our current running speed
 	protected virtual void Jump()
 	{
-		m_AnimState.playAnimation (PlayerAnimator.Animations.Jump);
+		if(m_AnimatorController != null)
+			m_AnimatorController.playAnimation (AnimatorPlayers.Animations.Jump);
 		m_CurrentlyJumping = true;
 
 
@@ -571,7 +571,8 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	{
 		//Animation and sound
 		m_SFX.playSound(transform, Sounds.JumpPad);
-		m_AnimState.playAnimation(PlayerAnimator.Animations.Jump);
+		if(m_AnimatorController != null)
+			m_AnimatorController.playAnimation(AnimatorPlayers.Animations.Jump);
 
 		//Jump
 		m_CurrentlyJumping = true;
@@ -593,15 +594,18 @@ public abstract class BaseMovementAbility : MonoBehaviour
 
 		if (horizontalVelocity == Vector2.zero)
         {
-			m_AnimState.playAnimation(PlayerAnimator.Animations.Idle);           
+			if(m_AnimatorController != null)
+				m_AnimatorController.playAnimation(AnimatorPlayers.Animations.Idle);           
         }
 		else if (horizontalVelocity.magnitude < (MAX_GROUND_RUNSPEED / 2.0f))
         {
-			m_AnimState.playAnimation(PlayerAnimator.Animations.Walk);
+			if(m_AnimatorController != null)
+				m_AnimatorController.playAnimation(AnimatorPlayers.Animations.Walk);
         }
 		else
 		{
-			m_AnimState.playAnimation(PlayerAnimator.Animations.Run);
+			if(m_AnimatorController != null)
+				m_AnimatorController.playAnimation(AnimatorPlayers.Animations.Run);
 		}        
 	}
 

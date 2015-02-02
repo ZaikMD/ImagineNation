@@ -73,6 +73,8 @@ public class TPCamera : ShutterCamera
 
     const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.PauseMenu;
 
+    const float SPLIT_AMOUNT = 0.0025f;
+
     void OnDestroy()
     {
         //removes the camera from the static list
@@ -154,11 +156,11 @@ public class TPCamera : ShutterCamera
 		//vertical split
 		if (GameData.Instance.PlayerOneCharacter == currentCharacter)
 		{
-			m_Camera.rect = new Rect(0.0f, 0.0f, 0.5f, 1.0f);
+            m_Camera.rect = new Rect(0.0f, 0.0f, 0.5f - SPLIT_AMOUNT, 1.0f);
 		}
 		else
 		{
-			m_Camera.rect = new Rect(0.5f, 0.0f, 0.5f, 1.0f);
+            m_Camera.rect = new Rect(0.5f + SPLIT_AMOUNT, 0.0f, 0.5f, 1.0f);
 		}
 		//==================================================================================
         //get the accept input from script on the camera game object
