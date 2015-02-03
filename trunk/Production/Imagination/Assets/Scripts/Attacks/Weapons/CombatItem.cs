@@ -18,7 +18,7 @@ using System.Collections;
 public class CombatItem : MonoBehaviour 
 {
 	SFXManager m_SFX;
-	PlayerAnimator m_AnimState;
+	AnimatorPlayers m_Animator;
 	
 	BaseAttack[] m_BaseAttacks = new BaseAttack[3]; //Array of the attacks. Combo's are 3 attacks.
 
@@ -46,7 +46,7 @@ public class CombatItem : MonoBehaviour
         m_ReadInput = gameObject.GetComponent<AcceptInputFrom> ();
         
 		m_SFX = SFXManager.Instance;
-		m_AnimState = GetComponent<PlayerAnimator> ();
+		m_Animator = GetComponent<AnimatorPlayers> ();
 	}
 	
 	// Update is called once per frame
@@ -108,17 +108,17 @@ public class CombatItem : MonoBehaviour
 				{
 					//First attack, play slash one
 					case 0:
-				m_AnimState.playAnimation(PlayerAnimator.Animations.OverHeadSlash);
+				m_Animator.playAnimation(AnimatorPlayers.Animations.Combo_X);
 				m_SFX.playSound(transform, Sounds.AlexHitOne);		
 					break;
 				
 					case 1:
-				m_AnimState.playAnimation(PlayerAnimator.Animations.OverHeadSlash);
+				m_Animator.playAnimation(AnimatorPlayers.Animations.Combo_X);
 				m_SFX.playSound(transform, Sounds.AlexHitTwo);
 					break;
 				
 					case 2:
-				m_AnimState.playAnimation(PlayerAnimator.Animations.DoubleSlash);
+				m_Animator.playAnimation(AnimatorPlayers.Animations.Combo_X);
 				m_SFX.playSound(transform, Sounds.AlexHitThree);
 					break;
 				}
@@ -129,17 +129,17 @@ public class CombatItem : MonoBehaviour
 				{
 					//First attack, play punch for derek
 					case 0:
-				m_AnimState.playAnimation(PlayerAnimator.Animations.Punch);
+				m_Animator.playAnimation(AnimatorPlayers.Animations.Combo_X);
 				m_SFX.playSound(transform, Sounds.DerekHitOne);		
 					break;
 				
 					case 1:
-				m_AnimState.playAnimation(PlayerAnimator.Animations.Punch);
+				m_Animator.playAnimation(AnimatorPlayers.Animations.Combo_X);
 				m_SFX.playSound(transform, Sounds.DerekHitTwo);
 					break;
 				
 					case 2:
-				m_AnimState.playAnimation(PlayerAnimator.Animations.DoubleSlash);
+				m_Animator.playAnimation(AnimatorPlayers.Animations.Combo_X);
 				m_SFX.playSound(transform, Sounds.DerekHitThree);
 					break;
 				}
@@ -150,17 +150,17 @@ public class CombatItem : MonoBehaviour
 				{
 					//First attack, play slash one
 					case 0:
-				m_AnimState.playAnimation(PlayerAnimator.Animations.OverHeadSlash);
+				m_Animator.playAnimation(AnimatorPlayers.Animations.Combo_X);
 				m_SFX.playSound(transform, Sounds.ZoeyHitOne);		
 					break;
 				
 					case 1:
-				m_AnimState.playAnimation(PlayerAnimator.Animations.OverHeadSlash);
+				m_Animator.playAnimation(AnimatorPlayers.Animations.Combo_X);
 				m_SFX.playSound(transform, Sounds.ZoeyHitTwo);
 					break;
 				
 					case 2:
-				m_AnimState.playAnimation(PlayerAnimator.Animations.DoubleSlash);
+				m_Animator.playAnimation(AnimatorPlayers.Animations.Combo_X);
 				m_SFX.playSound(transform, Sounds.ZoeyHitThree);
 					break;
 				}
