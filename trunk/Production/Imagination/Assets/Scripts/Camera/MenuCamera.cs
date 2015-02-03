@@ -36,7 +36,7 @@ public class MenuCamera : ShutterCamera
     const float MAX_TARGET_DISTANCE = 0.55f;
 
     //the speed the camera moves at
-    const float MOVE_SPEED = 0.75f;
+    const float MOVE_SPEED = 0.25f;
     #endregion
 
     public Transform LookAt;
