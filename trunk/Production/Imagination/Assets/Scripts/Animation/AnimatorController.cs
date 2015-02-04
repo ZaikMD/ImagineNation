@@ -18,7 +18,11 @@ public class AnimatorController : MonoBehaviour
             {
                 Debug.LogError("You fucked up there should be an \"Animator\" component somewhere on this object or its children");
             }
+            else
 #endif
+            {
+                
+            }
         }
     }
 
