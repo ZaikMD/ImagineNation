@@ -1,7 +1,7 @@
-//My version of a world shader
+//My version of an internal pre-pass shader shader
 //
 //
-//Created by Jason Hein on Feb 4th, 2015
+//Created by Jason Hein on Jan 27th, 2015
 
 Shader "Hidden/Internal-PrePassLighting"
 {
@@ -94,7 +94,7 @@ Shader "Hidden/Internal-PrePassLighting"
 		#endif
 		
 		//Get a shadow
-		half getSpotlightShadow (float4 aShadowUV, float fadeAMount)
+		half getSpotlightShadow (float4 aShadowUV, float fadeDistance)
 		{
 			//For softend shadows, it may be rescaled during the calculation (so we rescale it)
 			#if defined (SHADOWS_SOFT)
@@ -118,8 +118,11 @@ Shader "Hidden/Internal-PrePassLighting"
 			half shadow = 1.0;
 			#endif
 			
+			//Calculate fading based on the distance from a shadow
+			float fade = saturate(fadeDistance * _LightShadowData.z + _LightShadowData.w);
+			
 			//Return how much to shade the surface based on the shadow
-			return saturate(shadow + fadeAMount);
+			return saturate(shadow + fade);
 		}
 		#endif
 		#endif
@@ -182,55 +185,18 @@ Shader "Hidden/Internal-PrePassLighting"
 		//Directional light shadow texture for sampling
 		sampler2D _ShadowMapTexture;
 		
-		//Returns a normalized shade value for a directiona light shadow
-		half getDirectionalLightShadow (float2 uv, float fadeAmount)
+		//Returns a normalized shade value for a directional light shadow
+		half getDirectionalLightShadow (float2 uv, float fadeDistance)
 		{
-			return saturate(tex2D (_ShadowMapTexture, uv).r + fadeAmount);
-		}
-		#endif
-		#endif
-
-
-
-
-
-		//Returns how much to shade a surface based on the shadows casted on it
-		half getShadow(float3 toLight, float fadeDistance, float2 uv)
-		{
-			//Calculate how much to fade the shadow
-			#if defined(SHADOWS_DEPTH) || defined(SHADOWS_SCREEN) || defined(SHADOWS_CUBE)
+			//Calculate fading based on the distance from a shadow
 			float fade = saturate(fadeDistance * _LightShadowData.z + _LightShadowData.w);
-			#endif
-			
-			//Shading for spot lights
-			#if defined(SPOT)
-			#if defined(SHADOWS_DEPTH)
-			
-			//Make a new shadow UV with a z
-			float4 shadowUV = mul (unity_World2Shadow[0], float4(toLight, 1));
-			
-			//Returns shade for a spot light shadow
-			return getSpotlightShadow (shadowUV, fade);
-			#endif
-			#endif
-			
-			//Shading for direction lights
-			#if defined (DIRECTIONAL) || defined (DIRECTIONAL_COOKIE)
-			#if defined(SHADOWS_SCREEN)
-			return getDirectionalLightShadow(uv, fade);
-			#endif
-			#endif
-			
-			//Shading for point lights
-			#if defined (POINT) || defined (POINT_COOKIE)
-			#if defined(SHADOWS_CUBE)
-			return getPointLightShadow (toLight, (length(toLight) * _LightPositionRange.w) * 0.97);	
-			#endif
-			#endif
-			
-			//If no shadows are defined, return no shadows
-			return 1.0;
+		
+			//Return a shadow shade
+			return saturate(tex2D (_ShadowMapTexture, uv).r + fade);
 		}
+		#endif
+		#endif
+
 
 		//Returns a color based on the surfaces color and lighting
 		half4 getLightingColor (vertexOutput output)
@@ -249,80 +215,105 @@ Shader "Hidden/Internal-PrePassLighting"
 			float depth = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, uv);
 			depth = Linear01Depth (depth);
 			
-			//Positions
-			float4 vpos = float4(output.ray * depth, 1.0);
-			float3 wpos = mul (_CameraToWorld, vpos).xyz;
+			//MVP position of the fragment
+			float4 viewPosition = float4(output.ray * depth, 1.0);
+			
+			//World position of the fragment
+			float3 worldPosition = mul (_CameraToWorld, viewPosition).xyz;
 			
 			//Get the distance to check if the shadow will fade
-			float fadeDistance = lerp(vpos.z, distance(wpos, unity_ShadowFadeCenterAndType.xyz), unity_ShadowFadeCenterAndType.w);
+			float fadeDistance = lerp(viewPosition.z, distance(worldPosition, unity_ShadowFadeCenterAndType.xyz), unity_ShadowFadeCenterAndType.w);
 			
-			//If their are spot lights
+			//If any type of light is defined
+			#if defined (SPOT) ||  defined (DIRECTIONAL) || defined (DIRECTIONAL_COOKIE) || defined (POINT) || defined (POINT_COOKIE)
+			
+			//If we are a spot light
 			#if defined (SPOT)
 			
 			//Get the direction to the light
-			float3 tolight = _LightPos.xyz - wpos;
-			half3 lightDirection = normalize (tolight);
+			float3 toLight = _LightPos.xyz - worldPosition;
+			half3 lightDirection = normalize (toLight);
 			
 			//
-			float4 uvCookie = mul (_LightMatrix0, float4(wpos, 1.0));
-			float atten = tex2Dproj (_LightTexture0, UNITY_PROJ_COORD(uvCookie)).w;
-			atten *= uvCookie.w < 0.0;
-			float att = dot(tolight, tolight) * _LightPos.w;
-			atten *= tex2D (_LightTextureB0, att.rr).UNITY_ATTEN_CHANNEL;
+			float4 uvCookie = mul (_LightMatrix0, float4(worldPosition, 1.0));
+			float attenuation = tex2Dproj (_LightTexture0, UNITY_PROJ_COORD(uvCookie)).w * uvCookie.w;
+			float att = dot(toLight, toLight) * _LightPos.w;
+			attenuation *= tex2D (_LightTextureB0, att.rr).UNITY_ATTEN_CHANNEL;
 			
-			//Apply spot light shadows
-			atten *= getShadow (wpos, fadeDistance, uv);
+			//Make a new shadow UV with a z
+			float4 shadowUV = mul (unity_World2Shadow[0], float4(toLight, 1));
+			
+			//AIf their are spot light shadows
+			#if defined(SHADOWS_DEPTH)
+			
+			//Apply a shade for a spot light shadow
+			attenuation *= getSpotlightShadow (shadowUV, fadeDistance);
+			#endif
 			#endif
 			
-			//
+			
+			//If we are a directional light
 			#if defined (DIRECTIONAL) || defined (DIRECTIONAL_COOKIE)
 			
 			//Get the direction to the light
 			half3 lightDirection = -_LightDir.xyz;
 			
-			//Get directional light shadows
-			float atten = getShadow (wpos, fadeDistance, uv);
+			//If their are directiona light shadows
+			#if defined(SHADOWS_SCREEN)
 			
-			//
-			#if defined (DIRECTIONAL_COOKIE)
-			atten *= tex2D (_LightTexture0, mul(_LightMatrix0, half4(wpos, 1.0)).xy).w;
+			//Apply directional light shadows
+			float attenuation =  getDirectionalLightShadow(uv, fadeDistance);
+			
+			//Otherwise their are no shadows
+			#else
+			float attenuation =  1.0;
 			#endif
 			#endif
 			
-			//
+			
+			//If we are a point light
 			#if defined (POINT) || defined (POINT_COOKIE)
 			
 			//Get the direction to the light
-			float3 tolight = wpos - _LightPos.xyz;
-			half3 lightDirection = -normalize (tolight);
+			float3 toLight = worldPosition - _LightPos.xyz;
+			half3 lightDirection = -normalize (toLight);
 			
-			//
-			float att = dot(tolight, tolight) * _LightPos.w;
-			float atten = tex2D (_LightTextureB0, att.rr).UNITY_ATTEN_CHANNEL;
+			//Reduced intensity from being farther from the light
+			float att = dot(toLight, toLight) * _LightPos.w;
+			
+			//Intensity of the light on this surfface
+			float attenuation = tex2D (_LightTextureB0, att.rr).UNITY_ATTEN_CHANNEL;
+			
+			//If their are point light shadows
+			#if defined(SHADOWS_CUBE)
 			
 			//Apply point light shadows
-			atten *= getShadow (tolight, fadeDistance, uv);
+			attenuation *= getPointLightShadow (toLight, (length(toLight) * _LightPositionRange.w) * 0.97);
+			#endif
+			#endif
 			
-			//
-			#if defined (POINT_COOKIE)
-			atten *= texCUBE(_LightTexture0, mul(_LightMatrix0, half4(wpos, 1.0)).xyz).w;
+			
+			//If no types of light are defined, provide values so we do not get an error
+			#else
+			half3 lightDirection = float3 (1.0, 1.0, 1.0);
+			float attenuation = 1.0;
 			#endif
-			#endif
+			
 			
 			//Diffuse lighting
 			half diffuseShade = max (0.0, dot (lightDirection, normal));
-			half3 h = normalize (lightDirection - normalize(wpos-_WorldSpaceCameraPos));
 			
 			//Specular lighting
-			float specularLuminance = pow (max (0.0, dot(h, normal)), specularNormal.a * 128.0);
-			specularLuminance *= saturate(atten);
+			half3 specularDirection = normalize (lightDirection - normalize(worldPosition - _WorldSpaceCameraPos));
+			float specularLuminance = pow (max (0.0, dot(specularDirection, normal)), specularNormal.a * 128.0);
+			specularLuminance *= saturate(attenuation);
 			
 			//Make the final color of the fragment
 			half4 finalColor;
-			finalColor.xyz = _LightColor.rgb * (diffuseShade * atten);
+			finalColor.xyz = _LightColor.rgb * diffuseShade * attenuation;
 			finalColor.w = specularLuminance * Luminance (_LightColor.rgb);
 			
-			//
+			//Fade from how far away the light is
 			float fade = fadeDistance * unity_LightmapFade.z + unity_LightmapFade.w;
 			finalColor *= saturate(1.0 - fade);
 			
@@ -353,9 +344,13 @@ Shader "Hidden/Internal-PrePassLighting"
 			#pragma vertex vert
 			#pragma fragment fragShader
 			
-			//
+			//Don't render any other pre-pass shader
 			#pragma exclude_renderers noprepass
+			
+			//Don't automatically normalize normals
 			#pragma glsl_no_auto_normalization
+			
+			//Compile for each type of light source
 			#pragma multi_compile_lightpass
 
 			//Fragment shader
@@ -367,7 +362,7 @@ Shader "Hidden/Internal-PrePassLighting"
 			ENDCG
 		}
 
-		//Base lighting pass
+		//
 		Pass
 		{
 			//Don't write to the z buffer
@@ -389,9 +384,13 @@ Shader "Hidden/Internal-PrePassLighting"
 			#pragma vertex vert
 			#pragma fragment fragShader
 			
-			//
+			//Don't render any other pre-pass shader
 			#pragma exclude_renderers noprepass
+			
+			//Don't automatically normalize normals
 			#pragma glsl_no_auto_normalization
+			
+			//Compile for each type of light source
 			#pragma multi_compile_lightpass
 
 			//Fragment shader
@@ -425,9 +424,13 @@ Shader "Hidden/Internal-PrePassLighting"
 			#pragma vertex vert
 			#pragma fragment fragShader
 			
-			//
+			//Don't render any other pre-pass shader
 			#pragma exclude_renderers noprepass
+			
+			//Don't automatically normalize normals
 			#pragma glsl_no_auto_normalization
+			
+			//Compile for each type of light source
 			#pragma multi_compile_lightpass
 
 			//Fragment shader
