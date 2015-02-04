@@ -14,6 +14,7 @@ public class Weapon : MonoBehaviour
 {
     SFXManager m_SFX;
 
+    AnimatorPlayers m_Animator;
     BaseAttack m_CurrentAttack;//The current Attack
 
     public GameObject m_LightProjectilePrefab; //Prefabs for the projectiles
@@ -57,7 +58,7 @@ public class Weapon : MonoBehaviour
 	void Start () 
     {
         m_ReadInput = gameObject.GetComponent<AcceptInputFrom>(); //Get the input
-
+        m_Animator = gameObject.GetComponentInChildren<AnimatorPlayers>();
         m_SFX = SFXManager.Instance; //Sound stuff
 		DOWN_TIME = m_DownTime; //Set reference for the down time timer
 		DOUBLE_HIT_TIMER = m_DoubleHitTimer; //Set the reference for the double hit timer
@@ -272,6 +273,7 @@ public class Weapon : MonoBehaviour
 					}
 						break;
 				}
+                m_Animator.playAnimation("Combo_XXX");
 			}
 		}
     }

@@ -47,6 +47,7 @@ public class AnimatorPlayers : AnimatorController
     }
 
     const string COMBO_ = "Combo_";
+    const string ATTACK = "Attack";
 
     int m_LastAnimationPlayed = 0;
 
@@ -81,7 +82,7 @@ public class AnimatorPlayers : AnimatorController
     {
         if (!m_States[animation].Contains(COMBO_))
         {
-            if(!m_States[m_LastAnimationPlayed].Contains(COMBO_))
+            if (!i_Animator.GetCurrentAnimatorStateInfo(0).IsTag(ATTACK))
             {
                 i_Animator.Play(m_States[animation]);
                 m_LastAnimationPlayed = animation;
@@ -91,7 +92,6 @@ public class AnimatorPlayers : AnimatorController
         {
             i_Animator.Play(m_States[animation]);
             m_LastAnimationPlayed = animation;
-        }
-        Debug.Log(m_States[m_LastAnimationPlayed]);
+        }        
     }
 }
