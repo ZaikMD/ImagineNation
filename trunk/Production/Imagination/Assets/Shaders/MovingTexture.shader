@@ -3,7 +3,9 @@
 // 1. Create a material
 // 2. Place the material on the object
 // 3. Drag a texture to the "_Texture" box
-// 4. You are done.
+// 4. You may set a speed and bobbing amount for your material.
+//	  The first two speed values are for constant speed, the last two are for bobbing the texture.
+// 5. You are done.
 //
 // Created by Jason Hein
 
@@ -21,35 +23,47 @@ Shader "Production/MovingTexture"
 		Tags { "RenderType"="Opaque" }
 		LOD 200
 		
+		//This is in CG
 		CGPROGRAM
 		#pragma surface surf MyDiffuse
 
+		//Texture of our surface
 		sampler2D _MainTex;
+		
+		//Speed of the textures movement
 		float4 _Speed;
+		
+		//Amount that the texture may bob back and forth
 		float _BobbingAmount;
 
+		//What our vertex shader recieves
 		struct Input
 		{
 			float2 uv_MainTex;
 		};
 
+		//Sets values for the internal pre_pass shader
 		void surf (Input IN, inout SurfaceOutput o)
 		{
+			//Our surfaces uv for texture lookups changes each frame
 			float2 uv = IN.uv_MainTex;
 			uv.x += _Time.x * _Speed.x;
 	 		uv.y += _Time.x * _Speed.y;
 	 		
+	 		//If we are bobbing, add a certain amount based on the cosine of time to produce a bobbing effect
 	 		if (_BobbingAmount > 0)
 	 		{
 	 			uv.x += cos(_Time.x * _Speed.z / _BobbingAmount) * _BobbingAmount;
 	 			uv.y += cos(_Time.x * _Speed.w / _BobbingAmount) * _BobbingAmount;
 	 		}
 	 		
-			half4 c = tex2D (_MainTex, uv);
-			o.Albedo = c.rgb;
-			o.Alpha = c.a;
+	 		//Get a texture color at our UV
+			half4 textureColor = tex2D (_MainTex, uv);
+			o.Albedo = textureColor.rgb;
+			o.Alpha = textureColor.a;
 		}
 		
+		//Calls the internal pre_pass shader and then multiplies our texture color by the color returned
 		float4 LightingMyDiffuse_PrePass(SurfaceOutput i, float4 light)
 		{
 			return float4(i.Albedo * light.rgb, 1.0);
@@ -57,6 +71,7 @@ Shader "Production/MovingTexture"
 		
 		ENDCG
 	}
+	
 	Fallback "Diffuse"
 }
 

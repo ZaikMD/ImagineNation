@@ -19,24 +19,30 @@ Shader "Production/Diffuse"
 		Tags { "RenderType"="Opaque" }
 		LOD 200
 		
+		//This is in CG
 		CGPROGRAM
-		#pragma surface surf MyDiffuse
+		#pragma surface surf Diffuse_Shader
 
+		//Texture of our surface
 		sampler2D _MainTex;
 
+		//What our vertex shader recieves
 		struct Input
 		{
 			float2 uv_MainTex;
 		};
-
+		
+		//Sets values for the internal pre_pass shader
 		void surf (Input IN, inout SurfaceOutput o)
 		{
-			half4 c = tex2D (_MainTex, IN.uv_MainTex);
-			o.Albedo = c.rgb;
-			o.Alpha = c.a;
+			//Get a texture color at our UV
+			half4 textureColor = tex2D (_MainTex, IN.uv_MainTex);
+			o.Albedo = textureColor.rgb;
+			o.Alpha = textureColor.a;
 		}
 		
-		float4 LightingMyDiffuse_PrePass(SurfaceOutput i, float4 light)
+		//Calls the internal pre_pass shader and then multiplies our texture color by the color returned
+		float4 LightingDiffuse_Shader_PrePass(SurfaceOutput i, float4 light)
 		{
 			return float4(i.Albedo * light.rgb, 1.0);
 		}
