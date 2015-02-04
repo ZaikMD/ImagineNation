@@ -52,17 +52,17 @@ public class AnimatorPlayers : AnimatorController
 
     public virtual void playAnimation(Animations animation)
     {
-        playAnimation(m_States[(int)animation]);
+        playAnimation((int)animation);
     }
 
     public override void playAnimation(int animationNumber)
     {
-        playAnimation(m_States[animationNumber]);
+        requestAnimation(animationNumber);
     }
 
     public override void playAnimation(string animationName)
     {
-        i_Animator.Play(animationName);
+        requestAnimation(animationName);
     }
 
     void requestAnimation(string animation)
@@ -81,7 +81,17 @@ public class AnimatorPlayers : AnimatorController
     {
         if (!m_States[animation].Contains(COMBO_))
         {
-            //if()
+            if(!m_States[m_LastAnimationPlayed].Contains(COMBO_))
+            {
+                i_Animator.Play(m_States[animation]);
+                m_LastAnimationPlayed = animation;
+            }
         }
+        else
+        {
+            i_Animator.Play(m_States[animation]);
+            m_LastAnimationPlayed = animation;
+        }
+        Debug.Log(m_States[m_LastAnimationPlayed]);
     }
 }
