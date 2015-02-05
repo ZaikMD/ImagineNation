@@ -33,18 +33,16 @@ Shader "Production/Diffuse"
 		};
 		
 		//Sets values for the internal pre_pass shader
-		void surf (Input IN, inout SurfaceOutput o)
+		void surf (Input IN, inout SurfaceOutput output)
 		{
 			//Get a texture color at our UV
-			half4 textureColor = tex2D (_MainTex, IN.uv_MainTex);
-			o.Albedo = textureColor.rgb;
-			o.Alpha = textureColor.a;
+			output.Albedo = tex2D (_MainTex, IN.uv_MainTex);
 		}
 		
 		//Calls the internal pre_pass shader and then multiplies our texture color by the color returned
-		float4 LightingDiffuse_Shader_PrePass(SurfaceOutput i, float4 light)
+		float4 LightingDiffuse_Shader_PrePass(SurfaceOutput output, float4 light)
 		{
-			return float4(i.Albedo * light.rgb, 1.0);
+			return float4(output.Albedo * light.rgb, 1.0);
 		}
 		
 		ENDCG

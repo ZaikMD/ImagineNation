@@ -34,17 +34,16 @@ Shader "Production/Textureless_Diffuse"
 		};
 
 		//Sets values for the internal pre_pass shader
-		void surf (Input IN, inout SurfaceOutput o)
+		void surf (Input IN, inout SurfaceOutput output)
 		{
-			//Provide our fragment shader the fragments base color and alpa
-			o.Albedo = _Color.rgb;
-			o.Alpha = _Color.a;
+			//Get a texture color at our UV
+			output.Albedo = _Color.rgb;
 		}
 		
 		//Calls the internal pre_pass shader and then multiplies our _Color by the color returned
-		float4 LightingMyDiffuse_PrePass(SurfaceOutput i, float4 light)
+		float4 LightingMyDiffuse_PrePass(SurfaceOutput output, float4 light)
 		{
-			return float4(i.Albedo * light.rgb, 1.0);
+			return float4(output.Albedo * light.rgb, 1.0);
 		}
 		
 		ENDCG
