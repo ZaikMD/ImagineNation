@@ -90,7 +90,7 @@ public class AnimatorPlayers : AnimatorController
         }
         else
         {
-            i_Animator.Play(m_States[animation]);
+            i_Animator.Play(m_States[animation], 0 , 0);
             m_LastAnimationPlayed = animation;
         }        
     }
