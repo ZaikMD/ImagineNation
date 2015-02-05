@@ -54,7 +54,7 @@ Shader "Production/Diffuse_Specular"
 	        half diffuseAttenuation = max (0, dot (output.Normal, lightDirection));
 	        float specularLuminosity = max (0, dot (output.Normal, specularDirection));
 			
-			//Return 
+			//Return the base fragment colo and a specular color
 	        return half4 ((output.Albedo * _LightColor0.rgb * diffuseAttenuation + _LightColor0.rgb * specularLuminosity) * (attenuation * 2.0), output.Alpha);
 	    }
 	    
