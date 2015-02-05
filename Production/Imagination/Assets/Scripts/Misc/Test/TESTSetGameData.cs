@@ -3,6 +3,7 @@ using System.Collections;
 
 public class TESTSetGameData : MonoBehaviour 
 {
+#if DEBUG || UNITY_EDITOR
 	public PlayerInput PlayerOneInput = PlayerInput.None;
 	public PlayerInput PlayerTwoInput = PlayerInput.None;
 
@@ -26,4 +27,5 @@ public class TESTSetGameData : MonoBehaviour
 		GameData.Instance.CurrentSection = m_CurrentSection;
 		GameData.Instance.CurrentCheckPoint = m_CurrentCheckPoint;
 	}
+#endif
 }
