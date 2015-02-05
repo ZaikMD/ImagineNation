@@ -13,6 +13,7 @@ Shader "Production/Diffuse_Specular"
 	Properties 
 	{
 		_MainTex ("Base (RGB)", 2D) = "white" {}
+		_Gloss ("Gloss", Float) = 48.0
 	}
 	SubShader 
 	{
@@ -25,6 +26,9 @@ Shader "Production/Diffuse_Specular"
 
 		//Texture of our surface
 		sampler2D _MainTex;
+		
+		//Glossyness of this surface
+		float _Gloss;
 
 		//What our vertex shader recieves
 		struct Input
@@ -33,18 +37,32 @@ Shader "Production/Diffuse_Specular"
 		};
 
 		//Sets values for the internal pre_pass shader
-		void surf (Input IN, inout SurfaceOutput o)
+		void surf (Input IN, inout SurfaceOutput output)
 		{
 			//Get a texture color at our UV
-			half4 textureColor = tex2D (_MainTex, IN.uv_MainTex);
-			o.Albedo = textureColor.rgb;
-			o.Alpha = textureColor.a;
+			output.Albedo = tex2D (_MainTex, IN.uv_MainTex);
+  			output.Specular = _Gloss;
 		}
 		
-		//Calls the internal pre_pass shader and then multiplies our texture color by the color returned
-		float4 LightingDiffuse_Specular_Shader_PrePass(SurfaceOutput i, float4 light)
+		//Specular lighting
+		half4 LightingDiffuse_Specular_Shader (SurfaceOutput output, half3 lightDirection, half3 viewDirection, half attenuation)
 		{
-			return float4(i.Albedo * light.rgb, 1.0);
+			//Direction for detemined specular luminousity
+	        half3 specularDirection = normalize (viewDirection + lightDirection);
+
+			//Loss of intensity from diffuse lighting
+	        half diffuseAttenuation = max (0, dot (output.Normal, lightDirection));
+	        float specularLuminosity = max (0, dot (output.Normal, specularDirection));
+			
+			//Return 
+	        return half4 ((output.Albedo * _LightColor0.rgb * diffuseAttenuation + _LightColor0.rgb * specularLuminosity) * (attenuation * 2.0), output.Alpha);
+	    }
+	    
+	    //Calls the internal pre_pass shader and then multiplies our texture color by the color returned
+		float4 LightingDiffuse_Specular_Shader_PrePass(SurfaceOutput output, float4 light)
+		{
+    		return half4(	(output.Albedo + light.a) * light.rgb,
+    						 output.Alpha + light.a * _SpecColor.a);
 		}
 		
 		ENDCG
