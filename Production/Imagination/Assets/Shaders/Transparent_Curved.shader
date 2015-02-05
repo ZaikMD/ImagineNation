@@ -13,8 +13,8 @@ Shader "Production/Transparent_Curved"
 	//Properties that can be set by designers
 	Properties
 	{
-		_MainTex ("Texture", 2D) = "white" {}
-		_TransparencyGrow("Transprency Growing", Float) = 0.75
+		_Color ("Color", Color) = (1.0,0.0,0.0,1.0)
+		_TransparencyGrow("Transprency Growing", Float) = 20.0
 	}
 	
 	//Shader
@@ -40,11 +40,9 @@ Shader "Production/Transparent_Curved"
          	#pragma vertex vertShader
          	#pragma fragment fragShader
          	
-         	//Public Uniforms
-         	float4 _FogTint;
-         	float _OffsetSpeed;
+         	//Public Uniforms;
          	float _TransparencyGrow;
-         	float4 _MistTint;
+         	float4 _Color;
          	
          	//What the vertex shader will recieve
          	struct vertexInput
@@ -88,16 +86,15 @@ Shader "Production/Transparent_Curved"
             	float3 viewDirection = normalize(output.viewDir);
  
  				//Calculate a new opacity for faces that are facing away from the camera
-            	float newOpacity = pow(min(1.0, (dot(viewDirection, normalDirection) * _MistTint.a *
-            							(1.0 / _TransparencyGrow))), _TransparencyGrow);
-            	if (newOpacity < 0.02)
+ 				float affectOfColorOpacity = _Color.a * 0.05 + 0.98;
+            	float newOpacity = 	pow(min(1.0, affectOfColorOpacity - dot(viewDirection, normalDirection) * (1.0 / _TransparencyGrow)), _TransparencyGrow);
+            	if (newOpacity < 0.01)
             	{
             		discard;
             	}
             	
             	//Calculate the colour of this fragment
-            	float4 fragmentColour = float4 (_MistTint.xyz, newOpacity);
-            	
+            	float4 fragmentColour = float4 (_Color.xyz, newOpacity);
             	
             	//Return the colour of the first pass's fragment
             	return fragmentColour;

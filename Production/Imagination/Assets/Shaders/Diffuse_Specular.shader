@@ -13,7 +13,7 @@ Shader "Production/Diffuse_Specular"
 	Properties 
 	{
 		_MainTex ("Base (RGB)", 2D) = "white" {}
-		_Gloss ("Gloss", Float) = 48.0
+		_Gloss ("Gloss (0-1)", Float) = 1.0
 	}
 	SubShader 
 	{
