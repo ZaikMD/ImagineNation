@@ -1318,7 +1318,39 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: .477349728
+        functionName: AttackOver
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: da98dbbc5b52fc04facfe659e691c017,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .426024467
+        functionName: ComboTimeEnd
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: da98dbbc5b52fc04facfe659e691c017,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .3228921
+        functionName: ComboTimeStart
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: da98dbbc5b52fc04facfe659e691c017,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .365783364
+        functionName: LightAttackBegin
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: da98dbbc5b52fc04facfe659e691c017,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
