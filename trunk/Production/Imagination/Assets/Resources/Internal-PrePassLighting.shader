@@ -236,7 +236,8 @@ Shader "Hidden/Internal-PrePassLighting"
 			
 			//
 			float4 uvCookie = mul (_LightMatrix0, float4(worldPosition, 1.0));
-			float attenuation = tex2Dproj (_LightTexture0, UNITY_PROJ_COORD(uvCookie)).w * uvCookie.w;
+			float attenuation = tex2Dproj (_LightTexture0, UNITY_PROJ_COORD(uvCookie)).w;
+			attenuation *= uvCookie.w < 0;
 			float att = dot(toLight, toLight) * _LightPos.w;
 			attenuation *= tex2D (_LightTextureB0, att.rr).UNITY_ATTEN_CHANNEL;
 			
