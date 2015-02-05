@@ -177,6 +177,7 @@ public class Weapon : MonoBehaviour
 						attack.startAttack (transform.position, transform.eulerAngles, playerinfo.i_Character);
 						m_CurrentAttack = attack;
 						m_LastInput = STRING_RESET;
+                        m_Animator.playAnimation("Combo_X");
 						}
 
 						break;
@@ -188,6 +189,7 @@ public class Weapon : MonoBehaviour
 						attack.startAttack (transform.position, transform.eulerAngles, playerinfo.i_Character);
 						m_CurrentAttack = attack;
 						m_LastInput = STRING_RESET;
+                        m_Animator.playAnimation("Combo_XX");
 					}
 						break;
 
@@ -199,6 +201,7 @@ public class Weapon : MonoBehaviour
 						m_CurrentAttack = attack;
 						m_LastInput = STRING_RESET;
 						m_DoubleHitActivated = true;
+                        m_Animator.playAnimation("Combo_XXX");
 					}
 						break;
 
@@ -209,7 +212,7 @@ public class Weapon : MonoBehaviour
 						attack.startAttack (transform.position, transform.eulerAngles, playerinfo.i_Character);
 						m_CurrentAttack = attack;
 						m_LastInput = STRING_RESET;
-
+                        m_Animator.playAnimation("Combo_XY");
 					}
 						break;
 
@@ -222,6 +225,7 @@ public class Weapon : MonoBehaviour
 						m_LastInput = STRING_RESET;
 						m_Inputs = STRING_RESET;
 						m_FinishedCombo = true;
+                        m_Animator.playAnimation("Combo_XXY");
 					}
 						break;
 
@@ -233,6 +237,7 @@ public class Weapon : MonoBehaviour
 						m_CurrentAttack = attack;
 						m_LastInput = STRING_RESET;
 						m_FinishedCombo = true;
+                        m_Animator.playAnimation("Combo_XXY");
 					}
 						break;
 
@@ -243,6 +248,7 @@ public class Weapon : MonoBehaviour
 						attack.startAttack (transform.position, transform.eulerAngles, playerinfo.i_Character);
 						m_CurrentAttack = attack;
 						m_LastInput = STRING_RESET;
+                        m_Animator.playAnimation("Combo_Y");
 					}
 						break;
 
@@ -252,7 +258,8 @@ public class Weapon : MonoBehaviour
 						attack.loadPrefab (m_HeavyProjectilePrefab);
 						attack.startAttack (transform.position, transform.eulerAngles, playerinfo.i_Character);
 						m_CurrentAttack = attack;
-						m_LastInput = STRING_RESET;	
+						m_LastInput = STRING_RESET;
+                        m_Animator.playAnimation("Combo_XXY");
 					}
 						break;
 
@@ -264,6 +271,7 @@ public class Weapon : MonoBehaviour
 						m_CurrentAttack = attack;
 						m_LastInput = STRING_RESET;
 						m_FinishedCombo = true;
+                        m_Animator.playAnimation("Combo_XXY");
 					}
 						break;
 
@@ -273,7 +281,6 @@ public class Weapon : MonoBehaviour
 					}
 						break;
 				}
-                m_Animator.playAnimation("Combo_XXX");
 			}
 		}
     }
