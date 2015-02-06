@@ -11,8 +11,8 @@ Shader "Production/MenuBlur"
 	//Properties that can be set by designers
 	Properties
     {
-    	_MainTex ("Texture", 2D) = "white" {} 
-    	_Brightness("Brightness", Float) = 1.0
+    	_MainTex ("Texture", 2D) = "white" {}
+    	_BlurAmount ("Blur Amount", Float) = 0.002
     }
     
     //Shader
@@ -42,8 +42,11 @@ Shader "Production/MenuBlur"
             	half2 uv : TEXCOORD0;
         	};
         	
+        	//Main texuture
         	sampler2D _MainTex;
-        	float _Brightness;
+        	
+        	//Amount to blur
+        	float _BlurAmount;
          	
          	//Vertex Shader
          	vertOutput vertShader(vertInput input)
@@ -67,10 +70,15 @@ Shader "Production/MenuBlur"
          		//All our values are interpolated, so now we can do per-pixel calculations
  				
  				//Base colour of this fragment
-            	float4 textureColor = tex2D(_MainTex, output.uv);
+ 				float3 finalColor = tex2D(_MainTex, output.uv).xyz;
+ 				finalColor += tex2D(_MainTex, output.uv + float2(_BlurAmount, 0.0)).xyz;
+ 				finalColor += tex2D(_MainTex, output.uv + float2(0.0, _BlurAmount)).xyz;
+ 				finalColor += tex2D(_MainTex, output.uv - float2(_BlurAmount, 0.0)).xyz;
+ 				finalColor += tex2D(_MainTex, output.uv - float2(0.0, _BlurAmount)).xyz;
+ 				finalColor /= 5.0;
 
          		//Return the final colour of the fragment
-         		return float4(textureColor.xyz * _Brightness, 1.0);
+         		return float4(finalColor, 1.0);
          	}
          	
  			//End the cg shader
