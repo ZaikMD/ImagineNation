@@ -141,18 +141,25 @@ public class MovingBlock : Destructable
 		}
 		return; 
 	}
+
+	//Override the onHits 
+	public override void onHit(HeavyCollider proj, float damage)
+	{
+		if(!m_Hit)
+		{
+			if(proj.gameObject.tag == Constants.PLAYER_PROJECTILE_STRING) //If the object is a playerProjectile, call setDestination and pass in the gameobject
+			{
+				setDestination (proj.gameObject);
+			}
+		}
+		return; 
+	}
 	
 	public override void onHit(EnemyProjectile proj)
 	{
 		return;
 	}
 
-
-
-	void OnTriggerEnter(Collider obj)
-	{
-
-	}
 
     /// <summary>
     /// Set destination will raycast from obj to the blocks position. If the normal of the
