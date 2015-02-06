@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e5277d11c7fe0344696a234df768d5ff
+guid: 5934533fb79793d47bc290a363fec322
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -148,13 +148,18 @@ ModelImporter:
     7400000: Walk
     7400002: Jog
     7400004: Skip
-    7400006: Jump Start
+    7400006: Jump
     7400008: Falling
     7400010: Landing
-    7400012: Gliding
-    7400014: idle
+    7400012: Glide
+    7400014: X Attack
+    7400016: XX Attack
+    7400018: XXX Attack
+    7400020: 'Y Attack '
+    7400022: XY Attack
+    7400024: XXXY Attack
+    7400026: TEA POS
     9500000: //RootNode
-    11100000: //RootNode
     13700000: Zoey
   materials:
     importMaterials: 1
@@ -165,7 +170,7 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
@@ -177,11 +182,11 @@ ModelImporter:
       takeName: Take 001
       firstFrame: 802
       lastFrame: 834
-      wrapMode: 2
+      wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
-      loop: 1
+      loop: 0
       loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
@@ -348,11 +353,11 @@ ModelImporter:
       takeName: Take 001
       firstFrame: 842
       lastFrame: 862
-      wrapMode: 2
+      wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
-      loop: 1
+      loop: 0
       loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
@@ -519,11 +524,11 @@ ModelImporter:
       takeName: Take 001
       firstFrame: 870
       lastFrame: 908
-      wrapMode: 2
+      wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
-      loop: 1
+      loop: 0
       loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
@@ -686,7 +691,7 @@ ModelImporter:
       maskType: 0
       maskSource: {instanceID: 0}
     - serializedVersion: 16
-      name: Jump Start
+      name: Jump
       takeName: Take 001
       firstFrame: 914
       lastFrame: 918
@@ -861,11 +866,11 @@ ModelImporter:
       takeName: Take 001
       firstFrame: 918
       lastFrame: 934
-      wrapMode: 2
+      wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
-      loop: 1
+      loop: 0
       loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
@@ -1199,15 +1204,15 @@ ModelImporter:
       maskType: 0
       maskSource: {instanceID: 0}
     - serializedVersion: 16
-      name: Gliding
+      name: Glide
       takeName: Take 001
-      firstFrame: 937
-      lastFrame: 951
-      wrapMode: 2
+      firstFrame: 945
+      lastFrame: 949
+      wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
-      loop: 1
+      loop: 0
       loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
@@ -1370,16 +1375,16 @@ ModelImporter:
       maskType: 0
       maskSource: {instanceID: 0}
     - serializedVersion: 16
-      name: idle
+      name: TEA POS
       takeName: Take 001
-      firstFrame: 800
-      lastFrame: 800.099976
+      firstFrame: 970
+      lastFrame: 970.099854
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
