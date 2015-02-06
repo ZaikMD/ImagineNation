@@ -127,6 +127,13 @@ public class MovingBlock : Destructable
     //Override the onHits 
 	public override void onHit(LightCollider proj, float damage)
 	{
+		if(!m_Hit)
+		{
+			if(proj.gameObject.tag == Constants.PLAYER_PROJECTILE_STRING) //If the object is a playerProjectile, call setDestination and pass in the gameobject
+			{
+				setDestination (proj.gameObject);
+			}
+		}
 		return; 
 	}
 	
@@ -139,13 +146,7 @@ public class MovingBlock : Destructable
 
 	void OnTriggerEnter(Collider obj)
 	{
-		if(!m_Hit)
-		{
-			if(obj.gameObject.tag == Constants.PLAYER_PROJECTILE_STRING) //If the object is a playerProjectile, call setDestination and pass in the gameobject
-			{
-				setDestination (obj.gameObject);
-			}
-		}
+
 	}
 
     /// <summary>

@@ -16,8 +16,8 @@ public class DerekWeapon : BaseWeapon
 
 		for (int i = 0; i < m_LightCollider.Length; i++)
 		{
-			m_LightCollider[i].enabled = false;
-			m_HeavyCollider[i].enabled = false;
+			m_LightCollider[i].Activate(false);
+			m_HeavyCollider[i].Activate(false);
 		}
 	}
 	
