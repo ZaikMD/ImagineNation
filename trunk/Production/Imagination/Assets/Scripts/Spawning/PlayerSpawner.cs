@@ -92,6 +92,8 @@ public class PlayerSpawner : MonoBehaviour
 		player.transform.position = spawnPoint.transform.position;
         player.GetComponent<AcceptInputFrom>().ReadInputFrom = GameData.Instance.m_PlayerOneInput;
 
+		player.GetComponent<PlayerRespawnLayerFinder>().SetSearchForRespawnLayer(true);
+
 		//same stuff but for player two
 		spawnPoint = currentCheckPoint.transform.FindChild (PLAYER_TWO_SPAWN_POINT).gameObject;
 		switch(GameData.Instance.PlayerTwoCharacter)
@@ -115,6 +117,7 @@ public class PlayerSpawner : MonoBehaviour
 		player.transform.position = spawnPoint.transform.position;
         player.GetComponent<AcceptInputFrom>().ReadInputFrom = GameData.Instance.m_PlayerTwoInput;
 
+		player.GetComponent<PlayerRespawnLayerFinder>().SetSearchForRespawnLayer(true);
 		//this script has done its job and should be deleted now
 		Destroy (this.gameObject);
 	}

@@ -8,6 +8,8 @@ public class DestructableWall : Destructable
 	public GameObject[] m_GroupTwo;
 	public GameObject[] m_GroupThree;
 
+	public float RagdollMass;
+
 	private GameObject[][] m_Groups;
 	
 
@@ -52,6 +54,7 @@ public class DestructableWall : Destructable
 			group[i].AddComponent<Rigidbody>();
 			group[i].AddComponent<CapsuleCollider>();
 			group[i].GetComponent<DestructableWallRagDoll>().enabled = true;
+			group[i].GetComponent<Rigidbody>().mass = RagdollMass;
 		}
 	}
 
