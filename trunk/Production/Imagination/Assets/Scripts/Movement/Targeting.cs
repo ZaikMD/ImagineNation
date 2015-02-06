@@ -35,7 +35,7 @@ public class Targeting : MonoBehaviour {
 	void Start ()
     {
 		//getting the mask of the player
-		m_LayerMask = LayerMask.GetMask (Constants.PLAYER_STRING) + LayerMask.GetMask (Constants.IGNORE_RAYCAST);
+		m_LayerMask = LayerMask.GetMask (Constants.PLAYER_STRING) + LayerMask.GetMask (Constants.IGNORE_RAYCAST) + LayerMask.GetMask(Constants.CHECKPOINT_STRING);
 		//setting our layermask to the inverse of players
 		m_LayerMask = ~m_LayerMask;
 
