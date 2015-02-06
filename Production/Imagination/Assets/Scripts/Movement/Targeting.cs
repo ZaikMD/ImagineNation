@@ -35,7 +35,7 @@ public class Targeting : MonoBehaviour {
 	void Start ()
     {
 		//getting the mask of the player
-		m_LayerMask = LayerMask.GetMask(Constants.PLAYER_STRING);
+		m_LayerMask = LayerMask.GetMask (Constants.PLAYER_STRING) + LayerMask.GetMask (Constants.IGNORE_RAYCAST);
 		//setting our layermask to the inverse of players
 		m_LayerMask = ~m_LayerMask;
 
@@ -87,6 +87,7 @@ public class Targeting : MonoBehaviour {
 			if(m_PossibleTargets[i].gameObject == null)
 				continue;
 
+			Vector3 Offset = new Vector3(0, 0.75f, 0);
 			Vector3 DirectionOfTarget = m_PossibleTargets[i].transform.position - m_Camera.transform.position;
             //set angle to the angle between our facing angle and the other object
             float Angle = Vector3.Angle(LookVector, DirectionOfTarget);
@@ -108,6 +109,8 @@ public class Targeting : MonoBehaviour {
 			//we are also passing in our viewable distance to see if they are within range
             if(Physics.Raycast(rayToObject, out HitInfo, m_ViewableDistance, m_LayerMask))
             {
+				Debug.DrawLine(rayToObject.origin, HitInfo.point);
+
 				//Check if object hit is ours
                 if (HitInfo.collider.gameObject != m_PossibleTargets[i])
                 {
