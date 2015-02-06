@@ -24,7 +24,7 @@ public class AlexMovement : BaseMovementAbility
     const int MAX_AIR_JUMPS = 1;
     int m_TotalAirJumps = 0;
 
-
+	float m_TimeinAir;
 
     private const float JUMP_SPEED = 6.5f;
 
