@@ -7,8 +7,14 @@
 /// 
 /// IMPORTANT: When setting up a moving platform, have a series of empty game objects that
 /// will act as the destinations, tag the platform as MovingPlatform, and ensure that the player
-/// is tagged as Player.
+/// is tagged as Player. if you would like the platform to calculate its own speed based on a time,
+/// uncheck use constant speed, and input time in the time array. make the array the size of the amount
+/// of destinations array. element 0 will be the time to return to the begining. 1 onwards there 
+/// corosponding desitination.
 /// 
+///  
+/// IPORTANT: If only one desitination, in cases like gate, use constant speed.
+///  
 /// The platform must also have the MovingPlatformLayer as it's layer, and must have a rigidbody component (turn off gravity and turn on all constraints).
 ///
 
@@ -17,6 +23,7 @@
  * 11/19/2014 - Cleaned and optimized code - Jason Hein
  * 11/24/2014 - Added functionality to push to player - Jason Hein
  * 11/25/2014 - Fixed gate bug, fixed potential bug for player on top of a platform when it stops
+ * 2/6/2015   - Added ability to calculate speed based off of time. - Kole 
  */
 #endregion
 
@@ -34,7 +41,11 @@ public class ActivatableMovingPlatform : Activatable
 
 	public Transform[] m_Destinations;
 	public bool m_Loops = false;
+	public bool m_UseConstantSpeed = true;
 	public float m_PlatformSpeed = 2.5f;
+
+	public float[] m_TimeForPlatforms;
+
 
 	//Only necassary for sound que (fix with a sound manager in future)
 	public bool m_IsGate = false;
@@ -43,8 +54,9 @@ public class ActivatableMovingPlatform : Activatable
 	float m_AtDestinationTimer = -1.0f;
 	float m_DistanceToNextPlatform;
 
-	//GameObjects
-	int m_DestinationIndex = 0;
+	//Indexs
+	int m_PreviousDestinationIndex = 0;
+	int m_DestinationIndex = 1;
 
 	//Amount to move the player
 	Vector3 m_AmountToMovePlayer = Vector3.zero;
@@ -78,6 +90,11 @@ public class ActivatableMovingPlatform : Activatable
 	{
         m_SFX = SFXManager.Instance;
 		m_PlayersToMove = new List<PlayersToMove> ();
+
+		if(m_Destinations.Length < 2)
+		{
+			m_DestinationIndex = 0;
+		}
 	}
 
 	//Update the moving platform
@@ -130,11 +147,13 @@ public class ActivatableMovingPlatform : Activatable
 					//Check if we are looping, or if we should increment the destination
 					if(m_DestinationIndex == (m_Destinations.Length -1) && m_Loops)
 					{
+						m_PreviousDestinationIndex = m_DestinationIndex;
 						m_DestinationIndex = 0;
 					}
 					//Choose next destination
 					else if (m_DestinationIndex < m_Destinations.Length -1)
 					{
+						m_PreviousDestinationIndex = m_DestinationIndex;
 						m_DestinationIndex++;
 					}
 					//We are supposed to go no further
@@ -168,6 +187,12 @@ public class ActivatableMovingPlatform : Activatable
 		}
 	}
 
+	float CalculateSpeed(float timeToReach, int DestinationOne, int DestinationTwo)
+	{
+		float Distance = Vector3.Distance(m_Destinations[DestinationOne].position, m_Destinations[DestinationTwo].position);
+		return Distance / timeToReach;
+	}
+
 	//Moves the platform towards the next destination
 	void MoveToDestination()
 	{
@@ -180,8 +205,24 @@ public class ActivatableMovingPlatform : Activatable
 		//Get the magnitude of that direction to use for a proximity check once close enough
 		m_DistanceToNextPlatform = destinationDirection.magnitude;
 
+		float Speed;
+
+		if(m_UseConstantSpeed)
+		{
+			Speed = m_PlatformSpeed;
+		}
+		else
+		{
+			if(m_TimeForPlatforms.Length < m_DestinationIndex)
+			{
+				Debug.Log("Problem");
+			}
+
+			Speed = CalculateSpeed(m_TimeForPlatforms[m_DestinationIndex], m_DestinationIndex, m_PreviousDestinationIndex); 
+		}
+
 		//Move the platform along that direction over time
-		m_AmountToMovePlayer = destinationDirection.normalized * m_PlatformSpeed * Time.deltaTime;
+		m_AmountToMovePlayer = destinationDirection.normalized * Speed * Time.deltaTime;
 		if(m_AmountToMovePlayer.magnitude > m_DistanceToNextPlatform)
 		{
 			m_AmountToMovePlayer = m_AmountToMovePlayer.normalized * m_DistanceToNextPlatform;
@@ -192,7 +233,6 @@ public class ActivatableMovingPlatform : Activatable
 		Vector3 move = Vector3.Lerp(Vector3.zero, m_TargetMove, i_MoveLerpAmount);
 		transform.position += move;
 		m_TargetMove -= move;
-
 
 		//Check if their are any players on the platform
 		if (m_PlayersToMove.Count > 0)
