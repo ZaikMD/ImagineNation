@@ -1,18 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LightCollider : MonoBehaviour 
+public class LightCollider : BaseCollider 
 {
-	public const float KNOCKBACK = 0.6f;
-	
-	public float m_Damage = 0.5f;
 
-	bool m_IsActive = false;
-
-	public void Activate(bool isActive)
+	// Use this for initialization
+	void Start () 
 	{
-		m_IsActive = isActive;
+		KNOCKBACK = 0.6f;
+		
+		m_Damage = 0.5f;
 	}
+
 
 	void OnTriggerEnter( Collider obj)
 	{

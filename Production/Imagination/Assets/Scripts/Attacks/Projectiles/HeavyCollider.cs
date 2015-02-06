@@ -1,17 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HeavyCollider : MonoBehaviour 
+public class HeavyCollider : BaseCollider 
 {
-	public const float KNOCKBACK = 1.2f;
-	
-	public float m_Damage = 1.0f;
-
-	bool m_IsActive = false;
-
-	public void Activate(bool isActive)
+	// Use this for initialization
+	void Start () 
 	{
-		m_IsActive = isActive;
+		KNOCKBACK = 1.2f;
+		
+		m_Damage = 1.0f;
 	}
 
 	void OnTriggerEnter( Collider obj)
