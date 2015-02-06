@@ -1,10 +1,7 @@
 ﻿// TO USE
 //
-// 1. Make sure you have set the ambient lighting. Edit -> Render Settings -> Ambient Lighting
-// 2. Create a material
-// 3. Place the material on the object
-// 4. Drag a texture to the "_Texture" box
-// 5. You are done.
+// 1. Add a color to _Color
+// 2. You are done, and this object should have no shadows.
 //
 // Created by Jason Hein
 
