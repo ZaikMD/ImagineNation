@@ -24,6 +24,8 @@ public class AlexMovement : BaseMovementAbility
     const int MAX_AIR_JUMPS = 1;
     int m_TotalAirJumps = 0;
 
+
+
     private const float JUMP_SPEED = 6.5f;
 
 	// Initialization
@@ -42,8 +44,14 @@ public class AlexMovement : BaseMovementAbility
 
     protected override void AirMovement()
     {
-        //check if allowed to jump
-        if(m_TotalAirJumps < MAX_AIR_JUMPS + 1)//gets plus one since the input to jump will get read again when the jump is started
+		if(GetIsGrounded())
+		{
+			if(InputManager.getJumpDown(m_AcceptInputFrom.ReadInputFrom))
+			{
+				Jump();
+			}
+		}
+		else if(m_TotalAirJumps < MAX_AIR_JUMPS)//gets plus one since the input to jump will get read again when the jump is started
         {//jump if needed
             if(InputManager.getJumpDown(m_AcceptInputFrom.ReadInputFrom))
             {
