@@ -4,12 +4,21 @@ using System.Collections;
 public class DerekWeapon : BaseWeapon 
 {
 
-	public Collider[] m_GloveColliders;
+	 LightCollider[] m_LightCollider;
+	 HeavyCollider[] m_HeavyCollider;
 
 	// Use this for initialization
 	void Start () 
 	{
 		start ();
+		m_LightCollider = transform.GetComponentsInChildren<LightCollider> ();
+		m_HeavyCollider = transform.GetComponentsInChildren<HeavyCollider> ();
+
+		for (int i = 0; i < m_LightCollider.Length; i++)
+		{
+			m_LightCollider[i].enabled = false;
+			m_HeavyCollider[i].enabled = false;
+		}
 	}
 	
 	// Update is called once per frame
@@ -21,37 +30,53 @@ public class DerekWeapon : BaseWeapon
 
 	public override void LightAttackBegin ()
 	{
-		for (int i = 0; i < m_GloveColliders.Length; i++)
+		for (int i = 0; i < m_LightCollider.Length; i++)
 		{
-			m_GloveColliders[i].enabled = true;
+			m_LightCollider[i].enabled = true;
 		}
 	}
 	
 	public override void LightAttackEnd ()
 	{
-		for (int i = 0; i < m_GloveColliders.Length; i++)
+		for (int i = 0; i < m_LightCollider.Length; i++)
 		{
-			m_GloveColliders[i].enabled = false;
+			m_LightCollider[i].enabled = false;
 		}
 	}
 	
 	public override void HeavyAttackBegin ()
 	{
-		throw new System.NotImplementedException ();
+		for (int i = 0; i < m_HeavyCollider.Length; i++)
+		{
+			m_HeavyCollider[i].enabled = true;
+		}
 	}
 	
 	public override void HeavyAttackEnd ()
 	{
-		throw new System.NotImplementedException ();
+		for (int i = 0; i < m_HeavyCollider.Length; i++)
+		{
+			m_HeavyCollider[i].enabled = false;
+		}
 	}
 	
 	public override void ConeAttack ()
 	{
-		throw new System.NotImplementedException ();
+		Debug.Log ("ConeAttack");
 	}
 	
 	public override void AOEAttack ()
 	{
-		throw new System.NotImplementedException ();
+		Debug.Log ("AOEAttack");
+	}
+
+	public override void HeavyAOEAttack ()
+	{
+		Debug.Log ("HeavyAOE");
+	}
+
+	public override void LineAttack ()
+	{
+		Debug.Log ("LineAttack");
 	}
 }

@@ -36,13 +36,13 @@ public class Destructable : MonoBehaviour, Attackable
 	}
     //Onhit will get called by the Player and Enemy projectiles
 
-    public virtual void onHit(LightProjectile proj, float damage)
+    public virtual void onHit(LightCollider proj, float damage)
     {
         if (this.tag != Constants.PLAYER_STRING)
             m_Health -= damage; 
     }
 
-    public virtual void onHit(HeavyProjectile proj, float damage)
+    public virtual void onHit(HeavyCollider proj, float damage)
     {
         if (this.tag != Constants.PLAYER_STRING)
             m_Health -= damage; 
