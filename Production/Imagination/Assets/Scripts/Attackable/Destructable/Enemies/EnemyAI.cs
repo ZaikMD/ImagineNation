@@ -183,20 +183,20 @@ public class EnemyAI : Destructable
 	}
 
 	//Overridden OnHit function for the player's light projectile attack
-	public override void onHit(LightProjectile proj, float damage)
+	public override void onHit(LightCollider proj, float damage)
 	{
 		//Call the notifyHit function to let the enemy's know when it gets hit
 		NotifyHit();
 		//Check if the enemy is invincible
 		if(!m_IsInvincible)
 		{
-			m_KnockBackBehaviour.SetKnockBack(LightProjectile.KNOCKBACK, proj.transform.forward);
+			m_KnockBackBehaviour.SetKnockBack(LightCollider.KNOCKBACK, proj.transform.forward);
 			base.onHit(proj, damage);
 		}
 	}
 
 	//Overridden OnHit function for the player's heavy projectile attack
-	public override void onHit(HeavyProjectile proj, float damage)
+	public override void onHit(HeavyCollider proj, float damage)
 	{
 		//Call the notifyHit function to let the enemy's know when it gets hit
 		NotifyHit();
@@ -204,7 +204,7 @@ public class EnemyAI : Destructable
 		//Check if the enemy is invincible
 		if(!m_IsInvincible)
 		{
-			m_KnockBackBehaviour.SetKnockBack(HeavyProjectile.KNOCKBACK, proj.transform.forward);
+			m_KnockBackBehaviour.SetKnockBack(HeavyCollider.KNOCKBACK, proj.transform.forward);
 			base.onHit(proj, damage);
 		}
 	}

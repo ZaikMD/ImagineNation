@@ -210,13 +210,13 @@ public class PlayerHealth : Destructable
 		}
 	}
 
-	public override void onHit(LightProjectile proj, float damage)
+	public override void onHit(LightCollider proj, float damage)
 	{     
 		//Knockback
 		KnockBackPlayer(proj.gameObject.transform.forward);
 	}
 
-    public override void onHit(HeavyProjectile proj, float damage)
+    public override void onHit(HeavyCollider proj, float damage)
     {
 		//Knockback
 		KnockBackPlayer(proj.gameObject.transform.forward);

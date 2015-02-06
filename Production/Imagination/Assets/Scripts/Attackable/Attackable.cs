@@ -21,7 +21,7 @@ public interface Attackable
 
 	void onHit(EnemyProjectile proj, Vector3 KnockBackDirection);
 
-	void onHit(LightProjectile proj, float damage);
+	void onHit(LightCollider proj, float damage);
 
-	void onHit(HeavyProjectile proj, float damage);
+	void onHit(HeavyCollider proj, float damage);
 }

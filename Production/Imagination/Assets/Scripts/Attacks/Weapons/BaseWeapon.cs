@@ -15,7 +15,7 @@ public abstract class BaseWeapon : MonoBehaviour
 	//combos the players can do. L = light attack  H = Heavy attack
 
 	const string X = "X";
-	const string XX = "XX";
+	const string XXX = "XXX";
 	const string Y = "Y";
 	const string STRING_RESET = "Combo_";
 
@@ -30,6 +30,8 @@ public abstract class BaseWeapon : MonoBehaviour
 	public abstract void HeavyAttackEnd();
 	public abstract void ConeAttack();
 	public abstract void AOEAttack();
+	public abstract void HeavyAOEAttack();
+	public abstract void LineAttack ();
 
 	protected void start()
 	{
@@ -45,7 +47,7 @@ public abstract class BaseWeapon : MonoBehaviour
 		{
 			m_Animator.playAnimation(m_Input);
 			m_ComboSet = false;
-			m_AttackFinished = true;
+			m_AttackFinished = false;
 
 			if (m_ComboFinished )		  
 				ResetInput ();
@@ -68,10 +70,12 @@ public abstract class BaseWeapon : MonoBehaviour
 				if(InputManager.getHeavyAttackDown(m_ReadInput.ReadInputFrom))			
 					m_LastInput = Y;
 				
-				if (m_LastInput == Y || m_Input.Contains(XX) && m_LastInput == X)
+				if (m_LastInput == Y )
 					m_ComboFinished = true;
 
-				
+				else if (m_Input.Contains(XXX) && m_LastInput == X)	
+					ResetInput();
+
 				m_Input += m_LastInput;
 				m_ComboSet = true;
 				m_CanCombo = false;
@@ -103,4 +107,9 @@ public abstract class BaseWeapon : MonoBehaviour
 		m_AttackFinished = true;
 		LightAttackEnd ();
 	}
+
+	//LightAttackBegin
+	//HeavyAttackBegin
+	//ConeAttack
+	//AOEAttack
 }

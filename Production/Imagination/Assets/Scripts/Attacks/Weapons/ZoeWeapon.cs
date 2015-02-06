@@ -45,4 +45,14 @@ public class ZoeWeapon : BaseWeapon
 	{
 		throw new System.NotImplementedException ();
 	}
+
+	public override void HeavyAOEAttack ()
+	{
+		throw new System.NotImplementedException ();
+	}
+
+	public override void LineAttack ()
+	{
+		throw new System.NotImplementedException ();
+	}
 }

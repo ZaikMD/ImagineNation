@@ -1,36 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
-/// <summary>
-/// Heavy projectile.
-/// 
-/// Inherits from BaseProjectile
-/// 
-/// Makes it typeof HeavyProjectile
-/// </summary>
 
-#region ChangeLog
-/*
-* Created on 19/11/14
-*
-* 
-*/
-#endregion
-
-public class HeavyProjectile : BaseProjectile 
+public class HeavyCollider : MonoBehaviour 
 {
 	public const float KNOCKBACK = 1.2f;
 	
-	float m_Damage;
-	
-	public void setDamage(float damage)
-	{
-		m_Damage = damage;
-	}
-
-	public void setRange(float range)
-	{
-		m_Range = range;
-	}
+	public float m_Damage = 1.0f;
 	
 	void OnTriggerEnter( Collider obj)
 	{
@@ -38,7 +13,7 @@ public class HeavyProjectile : BaseProjectile
 		{
 			Attackable attackable = obj.gameObject.GetComponent(typeof(Attackable)) as Attackable; //if so call the onhit function and pass in the gameobject
 			
-			//attackable.onHit(this, m_Damage);
+			attackable.onHit(this, m_Damage);
 		} 
 	}
 }

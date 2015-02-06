@@ -1322,7 +1322,7 @@ ModelImporter:
       - time: .477349728
         functionName: AttackOver
         data: 
-        objectReferenceParameter: {fileID: 11500000, guid: da98dbbc5b52fc04facfe659e691c017,
+        objectReferenceParameter: {fileID: 11500000, guid: 9f26a6797d19a7642adb6d8f674d1c53,
           type: 3}
         floatParameter: 0
         intParameter: 0
@@ -1330,7 +1330,7 @@ ModelImporter:
       - time: .426024467
         functionName: ComboTimeEnd
         data: 
-        objectReferenceParameter: {fileID: 11500000, guid: da98dbbc5b52fc04facfe659e691c017,
+        objectReferenceParameter: {fileID: 11500000, guid: 9f26a6797d19a7642adb6d8f674d1c53,
           type: 3}
         floatParameter: 0
         intParameter: 0
@@ -1338,7 +1338,7 @@ ModelImporter:
       - time: .3228921
         functionName: ComboTimeStart
         data: 
-        objectReferenceParameter: {fileID: 11500000, guid: da98dbbc5b52fc04facfe659e691c017,
+        objectReferenceParameter: {fileID: 11500000, guid: 9f26a6797d19a7642adb6d8f674d1c53,
           type: 3}
         floatParameter: 0
         intParameter: 0
@@ -1346,7 +1346,7 @@ ModelImporter:
       - time: .365783364
         functionName: LightAttackBegin
         data: 
-        objectReferenceParameter: {fileID: 11500000, guid: da98dbbc5b52fc04facfe659e691c017,
+        objectReferenceParameter: {fileID: 11500000, guid: 9f26a6797d19a7642adb6d8f674d1c53,
           type: 3}
         floatParameter: 0
         intParameter: 0
@@ -1509,7 +1509,39 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: .324846625
+        functionName: ComboTimeStart
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 9f26a6797d19a7642adb6d8f674d1c53,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .369623154
+        functionName: LightAttackBegin
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 9f26a6797d19a7642adb6d8f674d1c53,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .460930467
+        functionName: ComboTimeEnd
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 9f26a6797d19a7642adb6d8f674d1c53,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .50746274
+        functionName: AttackOver
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 9f26a6797d19a7642adb6d8f674d1c53,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -1668,7 +1700,39 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: .244951487
+        functionName: ComboTimeStart
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 9f26a6797d19a7642adb6d8f674d1c53,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .279192001
+        functionName: LightAttackBegin
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 9f26a6797d19a7642adb6d8f674d1c53,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .522387505
+        functionName: AttackOver
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 9f26a6797d19a7642adb6d8f674d1c53,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .451273143
+        functionName: ComboTimeEnd
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 9f26a6797d19a7642adb6d8f674d1c53,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -1827,7 +1891,39 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: .313409358
+        functionName: ComboTimeStart
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 9f26a6797d19a7642adb6d8f674d1c53,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .567189038
+        functionName: ComboTimeEnd
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 9f26a6797d19a7642adb6d8f674d1c53,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .637401223
+        functionName: AOEAttack
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 9f26a6797d19a7642adb6d8f674d1c53,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .640960455
+        functionName: AttackOver
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 9f26a6797d19a7642adb6d8f674d1c53,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -1986,7 +2082,39 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: .302871317
+        functionName: ConeAttack
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 9f26a6797d19a7642adb6d8f674d1c53,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .590868652
+        functionName: AttackOver
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 9f26a6797d19a7642adb6d8f674d1c53,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .299385995
+        functionName: ComboTimeEnd
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 9f26a6797d19a7642adb6d8f674d1c53,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .195785806
+        functionName: ComboTimeStart
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 9f26a6797d19a7642adb6d8f674d1c53,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -2145,7 +2273,39 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: .431958824
+        functionName: LineAttack
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 9f26a6797d19a7642adb6d8f674d1c53,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .65496099
+        functionName: AttackOver
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 9f26a6797d19a7642adb6d8f674d1c53,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .420543343
+        functionName: ComboTimeEnd
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 9f26a6797d19a7642adb6d8f674d1c53,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .2440736
+        functionName: ComboTimeStart
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 9f26a6797d19a7642adb6d8f674d1c53,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -2304,7 +2464,39 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: .526730955
+        functionName: HeavyAOEAttack
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 9f26a6797d19a7642adb6d8f674d1c53,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .53374207
+        functionName: AttackOver
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 9f26a6797d19a7642adb6d8f674d1c53,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .202454016
+        functionName: ComboTimeStart
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 9f26a6797d19a7642adb6d8f674d1c53,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .430324525
+        functionName: ComboTimeEnd
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 9f26a6797d19a7642adb6d8f674d1c53,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1

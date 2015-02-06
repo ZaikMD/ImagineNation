@@ -117,7 +117,7 @@ public class Switch : SwitchBaseClass, Attackable
 		m_Timer = m_SaveTimer;
 	}
 
-    public void onHit(LightProjectile proj, float damage) //If the player hits the switch, set activated to true
+    public void onHit(LightCollider proj, float damage) //If the player hits the switch, set activated to true
     {
 		if(!m_WillPauseForCamera)
 		{
@@ -129,7 +129,7 @@ public class Switch : SwitchBaseClass, Attackable
 		}
     }
 
-    public void onHit(HeavyProjectile proj, float damage) //If the player hits the switch, set activated to true
+    public void onHit(HeavyCollider proj, float damage) //If the player hits the switch, set activated to true
     {
         if (!m_WillPauseForCamera)
         {

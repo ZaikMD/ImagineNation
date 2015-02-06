@@ -21,7 +21,7 @@ public class DestructableWall : Destructable
 		m_Groups[2] = m_GroupOne;
 	}
 
-	public override void onHit (HeavyProjectile proj, float damage)
+	public override void onHit (HeavyCollider proj, float damage)
 	{
 		m_Health -= 1;
 		
@@ -33,7 +33,7 @@ public class DestructableWall : Destructable
 	}
 
 
-	public override void onHit (LightProjectile proj, float damage)
+	public override void onHit (LightCollider proj, float damage)
 	{
 		m_Health -= 1;
 		 
