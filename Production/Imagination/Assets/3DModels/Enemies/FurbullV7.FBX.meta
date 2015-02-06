@@ -781,7 +781,7 @@ ModelImporter:
       name: Head Butt
       takeName: Take 001
       firstFrame: 250
-      lastFrame: 300
+      lastFrame: 270
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

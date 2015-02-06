@@ -37,4 +37,34 @@ public class AnimatorController : MonoBehaviour
     {
         i_Animator.Play(animationName);
     }
+
+    public void setFloat(string name, float value)
+    {
+        i_Animator.SetFloat(name, value);
+    }
+
+    public void setFloat(int name, float value)
+    {
+        i_Animator.SetFloat(name, value);
+    }
+
+    public void setInt(string name, int value)
+    {
+        i_Animator.SetInteger(name, value);
+    }
+
+    public void setInt(int name, int value)
+    {
+        i_Animator.SetInteger(name, value);
+    }
+
+    public void setBool(string name, bool value)
+    {
+        i_Animator.SetBool(name, value);
+    }
+
+    public void setBool(int name, bool value)
+    {
+        i_Animator.SetBool(name, value);
+    }
 }

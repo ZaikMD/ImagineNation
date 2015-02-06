@@ -22,7 +22,12 @@ public class BaseBehaviour : MonoBehaviour
 	public bool m_Altered = false;
 
 	public GameObject m_ComponentsObject;
-	
+
+    public virtual AnimatorEnemyBase EnemyAnimator
+    {
+        get { return m_EnemyAI.i_Animator; }
+    }
+
 	void Start()
 	{
 		m_EnemyAI = GetComponentInParent<EnemyWithMovement> ();

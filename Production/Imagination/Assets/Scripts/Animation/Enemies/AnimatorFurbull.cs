@@ -4,25 +4,46 @@ using System.Collections.Generic;
 
 public class AnimatorFurbull : AnimatorEnemyBase 
 {
+    public enum Animations
+    {
+        Idle,
+        Run,
+        Attack
+    };
+
+
+
 	// Use this for initialization
 	protected override void Start () 
     {
         base.Start();
 
-        m_States.Add("Idle", new List<string>());
+        m_States = new string[]
+        {
+            "Idle",
+            "Run",
+            "Attack"
+        };
 
-        m_States["Idle"].Add("Idle");
-        m_States["Idle"].Add("HeadTurn");
-        m_States["Idle"].Add("Breathing");
-        m_States["Idle"].Add("FeetStamp");
 
-        m_States.Add("Run", new List<string>());
+        m_StatesDitctionary.Add(m_States[(int)Animations.Idle], new List<string>());
 
-        m_States["Run"].Add("Run Start");
+        m_StatesDitctionary[m_States[(int)Animations.Idle]].Add("Idle");
+        m_StatesDitctionary[m_States[(int)Animations.Idle]].Add("HeadTurn");
+        m_StatesDitctionary[m_States[(int)Animations.Idle]].Add("Breathing");
+        m_StatesDitctionary[m_States[(int)Animations.Idle]].Add("FeetStamp");
 
-        m_States.Add("Attack", new List<string>());
+        m_StatesDitctionary.Add(m_States[(int)Animations.Run], new List<string>());
 
-        m_States["Attack"].Add("Head Butt");
+        m_StatesDitctionary[m_States[(int)Animations.Run]].Add("Run Start");
+
+        m_StatesDitctionary.Add(m_States[(int)Animations.Attack], new List<string>());
+
+        m_StatesDitctionary[m_States[(int)Animations.Attack]].Add("Head Butt");
 	}
 
+    public virtual void playAnimation(Animations animation)
+    {
+        playAnimation(m_States[(int)animation]);
+    }
 }
