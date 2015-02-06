@@ -1,0 +1,139 @@
+fileFormatVersion: 2
+guid: 02eefee3640a6fc4f8c43d1d4339758b
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: Bone001
+    100002: Bone002
+    100004: Bone003
+    100006: Bone004
+    100008: Bone005
+    100010: Bone006
+    100012: Bone007
+    100014: Bone008
+    100016: Bone009
+    100018: Bone010
+    100020: Bone011
+    100022: Bone012
+    100024: Bone013
+    100026: Bone014
+    100028: Bone015
+    100030: Bone016
+    100032: Bone017
+    100034: Bone018
+    100036: JumpPad
+    100038: //RootNode
+    100040: Laundry Peg
+    100042: Laundry Peg001
+    100044: Peg003
+    100046: Peg004
+    100048: Peg1
+    100050: Peg2
+    100052: Plane024
+    100054: Spring
+    100056: Spring162
+    400000: Bone001
+    400002: Bone002
+    400004: Bone003
+    400006: Bone004
+    400008: Bone005
+    400010: Bone006
+    400012: Bone007
+    400014: Bone008
+    400016: Bone009
+    400018: Bone010
+    400020: Bone011
+    400022: Bone012
+    400024: Bone013
+    400026: Bone014
+    400028: Bone015
+    400030: Bone016
+    400032: Bone017
+    400034: Bone018
+    400036: JumpPad
+    400038: //RootNode
+    400040: Laundry Peg
+    400042: Laundry Peg001
+    400044: Peg003
+    400046: Peg004
+    400048: Peg1
+    400050: Peg2
+    400052: Plane024
+    400054: Spring
+    400056: Spring162
+    2300000: Peg003
+    2300002: Peg004
+    2300004: Peg1
+    2300006: Peg2
+    2300008: Spring
+    2300010: Spring162
+    3300000: Peg003
+    3300002: Peg004
+    3300004: Peg1
+    3300006: Peg2
+    3300008: Spring
+    3300010: Spring162
+    4300000: Plane024
+    4300002: Peg2
+    4300004: Peg1
+    4300006: Spring
+    4300008: Peg003
+    4300010: Peg004
+    4300012: Spring162
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Plane024
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
