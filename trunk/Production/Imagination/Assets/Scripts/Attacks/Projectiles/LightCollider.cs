@@ -7,13 +7,23 @@ public class LightCollider : MonoBehaviour
 	
 	public float m_Damage = 0.5f;
 
+	bool m_IsActive = false;
+
+	public void Activate(bool isActive)
+	{
+		m_IsActive = isActive;
+	}
+
 	void OnTriggerEnter( Collider obj)
 	{
-		if (obj.gameObject.GetComponent(typeof(Attackable)) as Attackable != null)//checks to see if the object that has been hit is attackable
+		if (m_IsActive)
 		{
-			Attackable attackable = obj.gameObject.GetComponent(typeof(Attackable)) as Attackable; //if so call the onhit function and pass in the gameobject
-			
-			attackable.onHit(this, m_Damage);
-		} 
+			if (obj.gameObject.GetComponent(typeof(Attackable)) as Attackable != null)//checks to see if the object that has been hit is attackable
+			{
+				Attackable attackable = obj.gameObject.GetComponent(typeof(Attackable)) as Attackable; //if so call the onhit function and pass in the gameobject
+				
+				attackable.onHit(this, m_Damage);
+			} 
+		}
 	}
 }

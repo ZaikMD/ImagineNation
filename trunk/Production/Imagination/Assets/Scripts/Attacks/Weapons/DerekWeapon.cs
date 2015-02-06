@@ -32,7 +32,7 @@ public class DerekWeapon : BaseWeapon
 	{
 		for (int i = 0; i < m_LightCollider.Length; i++)
 		{
-			m_LightCollider[i].enabled = true;
+			m_LightCollider[i].Activate(true);
 		}
 	}
 	
@@ -40,7 +40,7 @@ public class DerekWeapon : BaseWeapon
 	{
 		for (int i = 0; i < m_LightCollider.Length; i++)
 		{
-			m_LightCollider[i].enabled = false;
+			m_LightCollider[i].Activate(false);
 		}
 	}
 	

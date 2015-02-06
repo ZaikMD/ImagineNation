@@ -107,9 +107,4 @@ public abstract class BaseWeapon : MonoBehaviour
 		m_AttackFinished = true;
 		LightAttackEnd ();
 	}
-
-	//LightAttackBegin
-	//HeavyAttackBegin
-	//ConeAttack
-	//AOEAttack
 }
