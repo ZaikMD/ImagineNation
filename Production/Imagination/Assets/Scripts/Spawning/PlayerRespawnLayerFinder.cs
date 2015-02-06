@@ -32,7 +32,7 @@ public class PlayerRespawnLayerFinder : MonoBehaviour
 	void Start () 
 	{
 		m_SearchForRespawnLayer = true;
-		m_RespawnLayerFound = false;
+		m_RespawnLayerFound = true;
 		m_MinDistanceFromGroundToRespawn = 0.1f;
 	}
 	
