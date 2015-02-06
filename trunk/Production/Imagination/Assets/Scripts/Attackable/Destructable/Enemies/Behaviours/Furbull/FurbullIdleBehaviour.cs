@@ -16,6 +16,14 @@ using System.Collections;
 
 public class FurbullIdleBehaviour : BaseIdleBehaviour 
 {
+    new public AnimatorFurbull EnemyAnimator
+    {
+        get 
+        {
+            return base.EnemyAnimator as AnimatorFurbull; 
+        }
+    }
+
 
 	protected override void start ()
 	{
@@ -28,6 +36,8 @@ public class FurbullIdleBehaviour : BaseIdleBehaviour
     public override void update()
 	{
 		base.update ();
+
+        EnemyAnimator.playAnimation(AnimatorFurbull.Animations.Idle);
 
 		//Set the target
 		setTarget(Target ());

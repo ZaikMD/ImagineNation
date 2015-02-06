@@ -65,6 +65,22 @@ public class EnemyAI : Destructable
 
     const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
 
+    public AnimatorEnemyBase i_Animator;
+
+    protected virtual void Start()
+    {
+        if(i_Animator == null)
+        {
+            i_Animator = (AnimatorEnemyBase)gameObject.GetComponentInChildren(typeof(AnimatorEnemyBase));
+#if DEBUG || UNITY_EDITOR
+            if ( i_Animator == null)
+            {
+                Debug.LogError("fix this or ill break your legs");
+            }
+#endif
+        }
+    }
+
 	//Choose a Behavoir to update
 	public virtual void FixedUpdate ()
 	{
