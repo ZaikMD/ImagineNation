@@ -108,10 +108,14 @@ Shader "Hidden/Internal-PrePassLighting"
 			shadows.z = UNITY_SAMPLE_SHADOW(_ShadowMapTexture, shadowUV + _ShadowOffsets[2]);
 			shadows.w = UNITY_SAMPLE_SHADOW(_ShadowMapTexture, shadowUV + _ShadowOffsets[3]);	
 			shadows = _LightShadowData.xxxx + shadows * (1.0 - _LightShadowData.xxxx);
-			#endif
 			
 			//Get how much to shade the surface based on the shadow on the surface
 			half shadow = dot( shadows, 0.25 );
+			
+			//Otherwise provide no shadow
+			#else
+			half shadow = 1.0;
+			#endif
 			
 			//All our shadows are soft, but just in case we'll set a shadow to nothing if we aren't using a soft shadow for some scene
 			#else

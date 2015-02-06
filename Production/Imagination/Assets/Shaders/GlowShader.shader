@@ -106,7 +106,7 @@ Shader "Production/Glow"
 			struct vertexOutput
 			{
 				float4 pos : POSITION;
-				half distanceFromCamera : POSITION1;
+				half distanceFromCamera : TEXCOORD0;
 			};
 			
 			//Vertex Shader
