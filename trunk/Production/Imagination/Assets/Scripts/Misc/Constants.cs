@@ -51,6 +51,8 @@ public static class Constants
     //This will control how long the hud is displayed for
     public const float HUD_ON_SCREEN_TIME = 3.0f;
 
+	public const string IGNORE_RAYCAST = "Ignore Raycast";
+
 	public const string PLAYER_STRING = "Player";
 	public const string ALEX_STRING = "Alex";
 	public const string DEREK_STRING = "Derek";
