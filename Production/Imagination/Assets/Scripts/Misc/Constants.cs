@@ -95,6 +95,11 @@ public static class Constants
 
 	public const float LIGHT_PEG_FORCE = 60.0f;
 
+	public const string RIGHT_ANGLE = "RightAngle";
+	public const string LEFT_ANGLE = "LeftAngle";
+	public const string FORWARD_ANGLE = "ForwardAngle";
+	public const string BACK_ANGLE = "BackAngle";
+
 	public struct Animations
 	{
 		public const string IDLE = "Idle";

@@ -61,6 +61,11 @@ public class MovingBlock : Destructable
 
     const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
 
+	float RightAngle;
+	float LeftAngle;
+	float ForwardAngle;
+	float BackAngle;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -157,55 +162,63 @@ public class MovingBlock : Destructable
     /// <param name="obj"></param>
 	void setDestination(GameObject obj)
 	{
-		Vector3 rayDirection = transform.position - obj.transform.position;
+		Vector3 direction = transform.position - obj.transform.parent.transform.position;
 
-		Ray ray = new Ray(obj.transform.position, rayDirection);
+		RightAngle = Vector3.Angle (direction, this.transform.right);
+		LeftAngle = Vector3.Angle (direction, -this.transform.right);
+		ForwardAngle = Vector3.Angle (direction, this.transform.forward);
+		BackAngle = Vector3.Angle (direction, -this.transform.forward);
 
-		RaycastHit rayHit;
+		float smallestAngle = RightAngle;
+		string angle = Constants.RIGHT_ANGLE;
 
-
-		Physics.Raycast (ray, out rayHit);
-
-
-
-		Vector3 normal = rayHit.normal;
-
-		normal = rayHit.transform.TransformDirection (normal);
-
-
-
-		if(normal == rayHit.transform.right)
+		if (LeftAngle < smallestAngle)
 		{
+			smallestAngle = LeftAngle;
+			angle =Constants.LEFT_ANGLE;
+		}
+		if (ForwardAngle < smallestAngle)
+		{
+			smallestAngle = ForwardAngle;
+			angle = Constants.FORWARD_ANGLE;
+		}
+		if (BackAngle < smallestAngle)
+		{
+			smallestAngle = BackAngle;
+			angle = Constants.BACK_ANGLE;
+		}
+
+		switch (angle)
+		{
+		case Constants.LEFT_ANGLE:
 			//Hit right side of block
 			m_Destination = new Vector3(transform.position.x - m_Distance, transform.position.y, transform.position.z);
 			m_Health --;
 			m_CurrentMaterial ++;
-		}
+			break;
 
-		if(normal == -rayHit.transform.right)
-		{
+		case Constants.RIGHT_ANGLE:
 			//hit left side
 			m_Destination = new Vector3(transform.position.x + m_Distance, transform.position.y, transform.position.z);
 			m_Health --;
 			m_CurrentMaterial ++;
-		}
+			break;
 
-		if(normal == rayHit.transform.forward)
-		{
+		case Constants.BACK_ANGLE:
 			//hit front side
 			m_Destination = new Vector3(transform.position.x , transform.position.y, transform.position.z - m_Distance);
 			m_Health --;
 			m_CurrentMaterial ++;
-		}
+			break;
 
-		if(normal == -rayHit.transform.forward)
-		{
+		case Constants.FORWARD_ANGLE:
 			//hit back side
 			m_Destination = new Vector3(transform.position.x , transform.position.y, transform.position.z + m_Distance);
 			m_Health --;
 			m_CurrentMaterial ++;
+			break;
 		}
-		
+
         //If the current material is going to be outside the array, reset it
 		if(m_CurrentMaterial >= m_Materials.Length)
 		{
