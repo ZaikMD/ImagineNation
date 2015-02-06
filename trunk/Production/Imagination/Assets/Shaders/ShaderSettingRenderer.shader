@@ -6,7 +6,7 @@
 // Created by Jason Hein
 
 
-Shader "Custom/ShaderSettingRenderer"
+Shader "Production/ShaderSettingRenderer"
 {
 	//Properties that can be set by designers
 	Properties
