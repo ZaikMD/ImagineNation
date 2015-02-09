@@ -64,7 +64,63 @@ ModelImporter:
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 80
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 32
+      loop: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone001
+        weight: 1
+      - path: Bone001/Sphere003
+        weight: 1
+      - path: Bone001/Sphere004
+        weight: 1
+      - path: Bone002
+        weight: 1
+      - path: Bone003
+        weight: 1
+      - path: Bone004
+        weight: 1
+      - path: Bone005
+        weight: 1
+      - path: Bone006
+        weight: 1
+      - path: Bone007
+        weight: 1
+      - path: Bone008
+        weight: 1
+      - path: Bone009
+        weight: 1
+      - path: Bone009/Sphere001
+        weight: 1
+      - path: Bone009/Sphere002
+        weight: 1
+      - path: Box002
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []

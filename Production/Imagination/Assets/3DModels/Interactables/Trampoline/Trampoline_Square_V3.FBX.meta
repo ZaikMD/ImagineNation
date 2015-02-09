@@ -307,7 +307,8 @@ ModelImporter:
     4300134: Cylinder280
     4300136: Cylinder282
     4300138: Cylinder283
-    7400000: Take 001
+    7400000: Jump
+    7400002: Jump2
     9500000: //RootNode
     13700000: Box146
     13700002: Cylinder262
@@ -389,7 +390,507 @@ ModelImporter:
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Jump
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone001
+        weight: 1
+      - path: Bone001/Bone002
+        weight: 1
+      - path: Bone003
+        weight: 1
+      - path: Bone003/Bone004
+        weight: 1
+      - path: Bone005
+        weight: 1
+      - path: Bone005/Bone006
+        weight: 1
+      - path: Bone007
+        weight: 1
+      - path: Bone007/Bone008
+        weight: 1
+      - path: Bone009
+        weight: 1
+      - path: Bone009/Bone010
+        weight: 1
+      - path: Bone011
+        weight: 1
+      - path: Bone011/Bone012
+        weight: 1
+      - path: Bone013
+        weight: 1
+      - path: Bone013/Bone014
+        weight: 1
+      - path: Bone015
+        weight: 1
+      - path: Bone015/Bone016
+        weight: 1
+      - path: Bone019
+        weight: 1
+      - path: Bone019/Bone020
+        weight: 1
+      - path: Bone021
+        weight: 1
+      - path: Bone021/Bone022
+        weight: 1
+      - path: Bone023
+        weight: 1
+      - path: Bone023/Bone024
+        weight: 1
+      - path: Bone025
+        weight: 1
+      - path: Bone025/Bone026
+        weight: 1
+      - path: Bone027
+        weight: 1
+      - path: Bone027/Bone028
+        weight: 1
+      - path: Bone029
+        weight: 1
+      - path: Bone029/Bone030
+        weight: 1
+      - path: Bone031
+        weight: 1
+      - path: Bone031/Bone032
+        weight: 1
+      - path: Bone033
+        weight: 1
+      - path: Bone033/Bone034
+        weight: 1
+      - path: Bone035
+        weight: 1
+      - path: Bone035/Bone036
+        weight: 1
+      - path: Bone037
+        weight: 1
+      - path: Bone037/Bone038
+        weight: 1
+      - path: Bone039
+        weight: 1
+      - path: Bone039/Bone040
+        weight: 1
+      - path: Bone041
+        weight: 1
+      - path: Bone041/Bone042
+        weight: 1
+      - path: SquareTramp
+        weight: 1
+      - path: SquareTramp/Box146
+        weight: 1
+      - path: SquareTramp/Cylinder262
+        weight: 1
+      - path: SquareTramp/Cylinder263
+        weight: 1
+      - path: SquareTramp/Cylinder264
+        weight: 1
+      - path: SquareTramp/Cylinder265
+        weight: 1
+      - path: SquareTramp/Cylinder266
+        weight: 1
+      - path: SquareTramp/Cylinder267
+        weight: 1
+      - path: SquareTramp/Cylinder268
+        weight: 1
+      - path: SquareTramp/Cylinder269
+        weight: 1
+      - path: SquareTramp/Cylinder270
+        weight: 1
+      - path: SquareTramp/Cylinder271
+        weight: 1
+      - path: SquareTramp/Cylinder272
+        weight: 1
+      - path: SquareTramp/Cylinder273
+        weight: 1
+      - path: SquareTramp/Cylinder274
+        weight: 1
+      - path: SquareTramp/Cylinder275
+        weight: 1
+      - path: SquareTramp/Cylinder276
+        weight: 1
+      - path: SquareTramp/Cylinder277
+        weight: 1
+      - path: SquareTramp/Cylinder278
+        weight: 1
+      - path: SquareTramp/Cylinder279
+        weight: 1
+      - path: SquareTramp/Cylinder280
+        weight: 1
+      - path: SquareTramp/Cylinder281
+        weight: 1
+      - path: SquareTramp/Cylinder282
+        weight: 1
+      - path: SquareTramp/Cylinder283
+        weight: 1
+      - path: SquareTramp/Cylinder284
+        weight: 1
+      - path: SquareTramp/Cylinder285
+        weight: 1
+      - path: SquareTramp/Cylinder286
+        weight: 1
+      - path: SquareTramp/Cylinder287
+        weight: 1
+      - path: SquareTramp/Cylinder288
+        weight: 1
+      - path: SquareTramp/Cylinder289
+        weight: 1
+      - path: SquareTramp/Cylinder290
+        weight: 1
+      - path: SquareTramp/Cylinder291
+        weight: 1
+      - path: SquareTramp/Cylinder292
+        weight: 1
+      - path: SquareTramp/Cylinder293
+        weight: 1
+      - path: SquareTramp/Cylinder323
+        weight: 1
+      - path: SquareTramp/Cylinder324
+        weight: 1
+      - path: SquareTramp/Cylinder325
+        weight: 1
+      - path: SquareTramp/Cylinder326
+        weight: 1
+      - path: SquareTramp/Rectangle001
+        weight: 1
+      - path: SquareTramp/Spring130
+        weight: 1
+      - path: SquareTramp/Spring131
+        weight: 1
+      - path: SquareTramp/Spring132
+        weight: 1
+      - path: SquareTramp/Spring133
+        weight: 1
+      - path: SquareTramp/Spring134
+        weight: 1
+      - path: SquareTramp/Spring135
+        weight: 1
+      - path: SquareTramp/Spring136
+        weight: 1
+      - path: SquareTramp/Spring137
+        weight: 1
+      - path: SquareTramp/Spring138
+        weight: 1
+      - path: SquareTramp/Spring139
+        weight: 1
+      - path: SquareTramp/Spring140
+        weight: 1
+      - path: SquareTramp/Spring141
+        weight: 1
+      - path: SquareTramp/Spring142
+        weight: 1
+      - path: SquareTramp/Spring143
+        weight: 1
+      - path: SquareTramp/Spring144
+        weight: 1
+      - path: SquareTramp/Spring145
+        weight: 1
+      - path: SquareTramp/Spring146
+        weight: 1
+      - path: SquareTramp/Spring147
+        weight: 1
+      - path: SquareTramp/Spring148
+        weight: 1
+      - path: SquareTramp/Spring149
+        weight: 1
+      - path: SquareTramp/Spring150
+        weight: 1
+      - path: SquareTramp/Spring151
+        weight: 1
+      - path: SquareTramp/Spring152
+        weight: 1
+      - path: SquareTramp/Spring153
+        weight: 1
+      - path: SquareTramp/Spring154
+        weight: 1
+      - path: SquareTramp/Spring155
+        weight: 1
+      - path: SquareTramp/Spring156
+        weight: 1
+      - path: SquareTramp/Spring157
+        weight: 1
+      - path: SquareTramp/Spring158
+        weight: 1
+      - path: SquareTramp/Spring159
+        weight: 1
+      - path: SquareTramp/Spring160
+        weight: 1
+      - path: SquareTramp/Spring161
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Jump2
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone001
+        weight: 1
+      - path: Bone001/Bone002
+        weight: 1
+      - path: Bone003
+        weight: 1
+      - path: Bone003/Bone004
+        weight: 1
+      - path: Bone005
+        weight: 1
+      - path: Bone005/Bone006
+        weight: 1
+      - path: Bone007
+        weight: 1
+      - path: Bone007/Bone008
+        weight: 1
+      - path: Bone009
+        weight: 1
+      - path: Bone009/Bone010
+        weight: 1
+      - path: Bone011
+        weight: 1
+      - path: Bone011/Bone012
+        weight: 1
+      - path: Bone013
+        weight: 1
+      - path: Bone013/Bone014
+        weight: 1
+      - path: Bone015
+        weight: 1
+      - path: Bone015/Bone016
+        weight: 1
+      - path: Bone019
+        weight: 1
+      - path: Bone019/Bone020
+        weight: 1
+      - path: Bone021
+        weight: 1
+      - path: Bone021/Bone022
+        weight: 1
+      - path: Bone023
+        weight: 1
+      - path: Bone023/Bone024
+        weight: 1
+      - path: Bone025
+        weight: 1
+      - path: Bone025/Bone026
+        weight: 1
+      - path: Bone027
+        weight: 1
+      - path: Bone027/Bone028
+        weight: 1
+      - path: Bone029
+        weight: 1
+      - path: Bone029/Bone030
+        weight: 1
+      - path: Bone031
+        weight: 1
+      - path: Bone031/Bone032
+        weight: 1
+      - path: Bone033
+        weight: 1
+      - path: Bone033/Bone034
+        weight: 1
+      - path: Bone035
+        weight: 1
+      - path: Bone035/Bone036
+        weight: 1
+      - path: Bone037
+        weight: 1
+      - path: Bone037/Bone038
+        weight: 1
+      - path: Bone039
+        weight: 1
+      - path: Bone039/Bone040
+        weight: 1
+      - path: Bone041
+        weight: 1
+      - path: Bone041/Bone042
+        weight: 1
+      - path: SquareTramp
+        weight: 1
+      - path: SquareTramp/Box146
+        weight: 1
+      - path: SquareTramp/Cylinder262
+        weight: 1
+      - path: SquareTramp/Cylinder263
+        weight: 1
+      - path: SquareTramp/Cylinder264
+        weight: 1
+      - path: SquareTramp/Cylinder265
+        weight: 1
+      - path: SquareTramp/Cylinder266
+        weight: 1
+      - path: SquareTramp/Cylinder267
+        weight: 1
+      - path: SquareTramp/Cylinder268
+        weight: 1
+      - path: SquareTramp/Cylinder269
+        weight: 1
+      - path: SquareTramp/Cylinder270
+        weight: 1
+      - path: SquareTramp/Cylinder271
+        weight: 1
+      - path: SquareTramp/Cylinder272
+        weight: 1
+      - path: SquareTramp/Cylinder273
+        weight: 1
+      - path: SquareTramp/Cylinder274
+        weight: 1
+      - path: SquareTramp/Cylinder275
+        weight: 1
+      - path: SquareTramp/Cylinder276
+        weight: 1
+      - path: SquareTramp/Cylinder277
+        weight: 1
+      - path: SquareTramp/Cylinder278
+        weight: 1
+      - path: SquareTramp/Cylinder279
+        weight: 1
+      - path: SquareTramp/Cylinder280
+        weight: 1
+      - path: SquareTramp/Cylinder281
+        weight: 1
+      - path: SquareTramp/Cylinder282
+        weight: 1
+      - path: SquareTramp/Cylinder283
+        weight: 1
+      - path: SquareTramp/Cylinder284
+        weight: 1
+      - path: SquareTramp/Cylinder285
+        weight: 1
+      - path: SquareTramp/Cylinder286
+        weight: 1
+      - path: SquareTramp/Cylinder287
+        weight: 1
+      - path: SquareTramp/Cylinder288
+        weight: 1
+      - path: SquareTramp/Cylinder289
+        weight: 1
+      - path: SquareTramp/Cylinder290
+        weight: 1
+      - path: SquareTramp/Cylinder291
+        weight: 1
+      - path: SquareTramp/Cylinder292
+        weight: 1
+      - path: SquareTramp/Cylinder293
+        weight: 1
+      - path: SquareTramp/Cylinder323
+        weight: 1
+      - path: SquareTramp/Cylinder324
+        weight: 1
+      - path: SquareTramp/Cylinder325
+        weight: 1
+      - path: SquareTramp/Cylinder326
+        weight: 1
+      - path: SquareTramp/Rectangle001
+        weight: 1
+      - path: SquareTramp/Spring130
+        weight: 1
+      - path: SquareTramp/Spring131
+        weight: 1
+      - path: SquareTramp/Spring132
+        weight: 1
+      - path: SquareTramp/Spring133
+        weight: 1
+      - path: SquareTramp/Spring134
+        weight: 1
+      - path: SquareTramp/Spring135
+        weight: 1
+      - path: SquareTramp/Spring136
+        weight: 1
+      - path: SquareTramp/Spring137
+        weight: 1
+      - path: SquareTramp/Spring138
+        weight: 1
+      - path: SquareTramp/Spring139
+        weight: 1
+      - path: SquareTramp/Spring140
+        weight: 1
+      - path: SquareTramp/Spring141
+        weight: 1
+      - path: SquareTramp/Spring142
+        weight: 1
+      - path: SquareTramp/Spring143
+        weight: 1
+      - path: SquareTramp/Spring144
+        weight: 1
+      - path: SquareTramp/Spring145
+        weight: 1
+      - path: SquareTramp/Spring146
+        weight: 1
+      - path: SquareTramp/Spring147
+        weight: 1
+      - path: SquareTramp/Spring148
+        weight: 1
+      - path: SquareTramp/Spring149
+        weight: 1
+      - path: SquareTramp/Spring150
+        weight: 1
+      - path: SquareTramp/Spring151
+        weight: 1
+      - path: SquareTramp/Spring152
+        weight: 1
+      - path: SquareTramp/Spring153
+        weight: 1
+      - path: SquareTramp/Spring154
+        weight: 1
+      - path: SquareTramp/Spring155
+        weight: 1
+      - path: SquareTramp/Spring156
+        weight: 1
+      - path: SquareTramp/Spring157
+        weight: 1
+      - path: SquareTramp/Spring158
+        weight: 1
+      - path: SquareTramp/Spring159
+        weight: 1
+      - path: SquareTramp/Spring160
+        weight: 1
+      - path: SquareTramp/Spring161
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []
