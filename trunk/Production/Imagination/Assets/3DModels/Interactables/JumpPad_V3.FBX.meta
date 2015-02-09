@@ -82,6 +82,7 @@ ModelImporter:
     4300012: Spring162
     7400000: Jump2
     7400002: Jump
+    7400004: none
     9500000: //RootNode
     13700000: Plane024
   materials:
@@ -185,10 +186,10 @@ ModelImporter:
       maskType: 0
       maskSource: {instanceID: 0}
     - serializedVersion: 16
-      name: Jump2
+      name: none
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 12
+      lastFrame: .100000001
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
