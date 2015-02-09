@@ -7,7 +7,6 @@ public class HeavyCollider : BaseCollider
 	void Start () 
 	{
 		KNOCKBACK = 1.2f;
-		
 		m_Damage = 1.0f;
 	}
 
