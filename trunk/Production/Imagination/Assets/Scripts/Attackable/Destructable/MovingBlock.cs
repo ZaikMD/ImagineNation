@@ -169,7 +169,7 @@ public class MovingBlock : Destructable
     /// <param name="obj"></param>
 	void setDestination(GameObject obj)
 	{
-		Vector3 direction = transform.position - obj.transform.parent.transform.position;
+		Vector3 direction = transform.position - obj.transform.position;
 
 		RightAngle = Vector3.Angle (direction, this.transform.right);
 		LeftAngle = Vector3.Angle (direction, -this.transform.right);
