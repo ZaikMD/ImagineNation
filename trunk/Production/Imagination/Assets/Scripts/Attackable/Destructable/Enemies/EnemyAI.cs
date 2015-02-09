@@ -75,7 +75,7 @@ public class EnemyAI : Destructable
 #if DEBUG || UNITY_EDITOR
             if ( i_Animator == null)
             {
-                Debug.LogError("fix this or ill break your legs");
+                Debug.LogError("Error Please fix");
             }
 #endif
         }
