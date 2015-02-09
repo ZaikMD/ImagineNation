@@ -309,6 +309,7 @@ ModelImporter:
     4300138: Cylinder283
     7400000: Jump
     7400002: Jump2
+    7400004: None
     9500000: //RootNode
     13700000: Box146
     13700002: Cylinder262
@@ -642,10 +643,10 @@ ModelImporter:
       maskType: 0
       maskSource: {instanceID: 0}
     - serializedVersion: 16
-      name: Jump2
+      name: None
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 20
+      lastFrame: .100000001
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

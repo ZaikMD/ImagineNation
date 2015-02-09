@@ -16,7 +16,7 @@ public class AnimatorController : MonoBehaviour
 #if UNITY_EDITOR || DEBUG
             if (i_Animator == null)
             {
-                Debug.LogError("You fucked up there should be an \"Animator\" component somewhere on this object or its children");
+                Debug.LogError("there should be an \"Animator\" component somewhere on this object or its children, unless its not actually supposed to be animating if thats the case then you should stop adding scipts that dont need to be on the object");
             }
             else
 #endif
