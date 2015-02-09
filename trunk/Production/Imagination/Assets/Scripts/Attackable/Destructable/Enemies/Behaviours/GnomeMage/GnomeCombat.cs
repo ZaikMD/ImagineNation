@@ -28,8 +28,8 @@ public class GnomeCombat : BaseAttackBehaviour, INotifyHit
 	const float SHIELD_HEALTH = 2.0f;
 	float m_ShieldHealth;
 
-	const float m_MaxTimeBetweenShots = 20.8f;
-	const float m_MinTimeBetweenShots = 10.5f;
+	const float m_MaxTimeBetweenShots = 2.8f;
+	const float m_MinTimeBetweenShots = 1.5f;
 	float m_ShotTimer;
 	
 	Vector3 m_PrevPos;
