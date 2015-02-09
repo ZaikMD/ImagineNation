@@ -41,9 +41,9 @@ public class SpecialAttack : BaseAttack
 		{
 			m_Rotation = Quaternion.Euler(m_InitialRotation.x, m_InitialRotation.y + (i * m_Angle), m_InitialRotation.z);
 			GameObject proj =  (GameObject)GameObject.Instantiate (m_Projectile,
-			                                                                new Vector3(m_InitialPosition.x,
-															            	m_InitialPosition.y + m_FirePointYOffSet,
-															           		m_InitialPosition.z), m_Rotation);
+			                                                       new Vector3(m_InitialPosition.x,
+															       m_InitialPosition.y + m_FirePointYOffSet,
+															       m_InitialPosition.z), m_Rotation);
 
 			LightProjectile projS = proj.GetComponent (typeof(LightProjectile)) as LightProjectile;
 

@@ -3,15 +3,12 @@ using System.Collections;
 
 public class LightCollider : BaseCollider 
 {
-
 	// Use this for initialization
 	void Start () 
 	{
-		KNOCKBACK = 0.6f;
-		
+		KNOCKBACK = 0.6f;		
 		m_Damage = 0.5f;
 	}
-
 
 	void OnTriggerEnter( Collider obj)
 	{

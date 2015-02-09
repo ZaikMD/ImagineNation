@@ -25,7 +25,6 @@ public class DerekWeapon : BaseWeapon
 	void Update () 
 	{
 		update ();
-
 	}
 
 	public override void LightAttackBegin ()
@@ -48,7 +47,7 @@ public class DerekWeapon : BaseWeapon
 	{
 		for (int i = 0; i < m_HeavyCollider.Length; i++)
 		{
-			m_HeavyCollider[i].enabled = true;
+			m_HeavyCollider[i].Activate(true);
 		}
 	}
 	
@@ -56,27 +55,7 @@ public class DerekWeapon : BaseWeapon
 	{
 		for (int i = 0; i < m_HeavyCollider.Length; i++)
 		{
-			m_HeavyCollider[i].enabled = false;
+			m_HeavyCollider[i].Activate(false);
 		}
-	}
-	
-	public override void ConeAttack ()
-	{
-		Debug.Log ("ConeAttack");
-	}
-	
-	public override void AOEAttack ()
-	{
-		Debug.Log ("AOEAttack");
-	}
-
-	public override void HeavyAOEAttack ()
-	{
-		Debug.Log ("HeavyAOE");
-	}
-
-	public override void LineAttack ()
-	{
-		Debug.Log ("LineAttack");
 	}
 }

@@ -11,6 +11,34 @@ public abstract class BaseWeapon : MonoBehaviour
 
 	AnimatorPlayers m_Animator;
 
+	//Projectile Variables(For Attacking)
+	public GameObject m_LightColliderPrefab;
+	public GameObject m_HeavyColliderPrefab;
+
+	protected Vector3 m_InitialProjectilePosition;
+	protected Vector3 m_InitialProjectileRotation;
+	protected Quaternion m_ProjectileRotation;
+	protected float m_FirePointOffset = 0.5f;
+
+	//AOE 
+	public int m_NumberOfAOEProjectiles = 8;
+	protected float m_AOEProjectileAngle;
+	public int m_AOERange = 2;
+	public int m_AOESpeed = 10;
+
+	//Line
+	public int m_LineRange = 6;
+	public int m_LineSpeed = 10;
+
+	//Cone
+	public int m_NumberOfConeProjectiles = 6;
+	public int m_ConeAngle = 15;
+	public int m_ConeRange = 4;
+	public int m_ConeSpeed = 10;
+	int m_ConeAngleOffset;
+
+
+
 	//The constants for the inputs of the attacks, as well as the 
 	//combos the players can do. L = light attack  H = Heavy attack
 
@@ -24,19 +52,16 @@ public abstract class BaseWeapon : MonoBehaviour
 
 	AcceptInputFrom m_ReadInput;  //To get the input
 
-	public abstract void LightAttackBegin();
-	public abstract void LightAttackEnd();
-	public abstract void HeavyAttackBegin();
-	public abstract void HeavyAttackEnd();
-	public abstract void ConeAttack();
-	public abstract void AOEAttack();
-	public abstract void HeavyAOEAttack();
-	public abstract void LineAttack ();
 
 	protected void start()
 	{
 		m_Animator = GetComponentInParent<AnimatorPlayers> ();
 		m_ReadInput = GetComponentInParent<AcceptInputFrom>();
+
+		m_AOEProjectileAngle = 360 / m_NumberOfAOEProjectiles;
+
+		int numb = m_NumberOfConeProjectiles / 2;
+		m_ConeAngleOffset = numb * m_ConeAngle;
 	}
 
 	protected virtual void update()
@@ -107,4 +132,78 @@ public abstract class BaseWeapon : MonoBehaviour
 		m_AttackFinished = true;
 		LightAttackEnd ();
 	}
+
+	public abstract void LightAttackBegin();
+	public abstract void LightAttackEnd();
+	public abstract void HeavyAttackBegin();
+	public abstract void HeavyAttackEnd();
+	
+	public virtual void ConeAttack()
+	{
+		m_InitialProjectilePosition = transform.position;
+		m_InitialProjectileRotation = transform.rotation.eulerAngles;
+		m_InitialProjectileRotation.y -= m_ConeAngleOffset;
+
+		
+		//offet this to be at one end of the cone		
+		for(int i = 0; i < m_NumberOfConeProjectiles; i++)
+		{
+			m_ProjectileRotation = Quaternion.Euler(m_InitialProjectileRotation.x, m_InitialProjectileRotation.y + (i * m_ConeAngle), m_InitialProjectileRotation.z);
+			//Create projectiles 
+			GameObject proj =  (GameObject)GameObject.Instantiate (m_LightColliderPrefab,
+			                                                       new Vector3(m_InitialProjectilePosition.x, 
+			            										   m_InitialProjectilePosition.y + m_FirePointOffset, 
+			           											   m_InitialProjectilePosition.z),
+			                                                       m_ProjectileRotation);
+			proj.GetComponent<LightCollider>().LaunchProjectile(m_ConeSpeed, m_ConeRange);
+		}
+	}
+	
+	public virtual void AOEAttack()
+	{
+		m_InitialProjectilePosition = transform.position;
+		m_InitialProjectileRotation = transform.rotation.eulerAngles;
+		
+		for(int i = 0; i < m_NumberOfAOEProjectiles; i++)
+		{
+			m_ProjectileRotation = Quaternion.Euler(m_InitialProjectileRotation.x, m_InitialProjectileRotation.y + (i * m_AOEProjectileAngle), m_InitialProjectileRotation.z);
+			GameObject proj =  (GameObject)GameObject.Instantiate (m_LightColliderPrefab,
+			                                                       new Vector3(m_InitialProjectilePosition.x,
+			           											   m_InitialProjectilePosition.y + m_FirePointOffset,
+			            										   m_InitialProjectilePosition.z), m_ProjectileRotation);
+			
+			proj.GetComponent<LightCollider>().LaunchProjectile(m_AOESpeed,m_AOERange);
+		}
+	}
+	
+	public virtual void HeavyAOEAttack()
+	{
+		m_InitialProjectilePosition = transform.position;
+		m_InitialProjectileRotation = transform.rotation.eulerAngles;
+		
+		for(int i = 0; i < m_NumberOfAOEProjectiles; i++)
+		{
+			m_ProjectileRotation = Quaternion.Euler(m_InitialProjectileRotation.x, m_InitialProjectileRotation.y + (i * m_AOEProjectileAngle), m_InitialProjectileRotation.z);
+			GameObject proj =  (GameObject)GameObject.Instantiate (m_HeavyColliderPrefab,
+			                                                       new Vector3(m_InitialProjectilePosition.x,
+			           											   m_InitialProjectilePosition.y + m_FirePointOffset,
+			           											   m_InitialProjectilePosition.z), m_ProjectileRotation);
+			
+			proj.GetComponent<HeavyCollider>().LaunchProjectile(m_AOESpeed,m_AOERange);
+		}
+	}
+	
+	public virtual void LineAttack ()
+	{
+		m_InitialProjectilePosition = transform.position;
+		m_InitialProjectileRotation = transform.rotation.eulerAngles;
+		
+		GameObject proj =  (GameObject)GameObject.Instantiate (m_HeavyColliderPrefab,
+		                                                       new Vector3(m_InitialProjectilePosition.x,
+		           											   m_InitialProjectilePosition.y + m_FirePointOffset,
+		           											   m_InitialProjectilePosition.z), Quaternion.Euler(m_InitialProjectileRotation));
+		
+		proj.GetComponent<HeavyCollider>().LaunchProjectile(m_LineSpeed,m_LineRange);
+	}
+
 }
