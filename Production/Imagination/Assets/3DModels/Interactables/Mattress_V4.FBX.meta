@@ -1,54 +1,76 @@
 fileFormatVersion: 2
-guid: abd29f135c0ec194b9aeae32c68a70f3
+guid: d9de119e4e5285c4892ff7be5ac635d8
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
     100000: Bone001
-    100002: Bone002
-    100004: Bone003
-    100006: Bone004
-    100008: Bone005
-    100010: Bone006
-    100012: Bone007
-    100014: Bone008
-    100016: Bone009
-    100018: Box002
-    100020: //RootNode
-    100022: Sphere001
-    100024: Sphere002
-    100026: Sphere003
-    100028: Sphere004
+    100002: Bone004
+    100004: Bone006
+    100006: Bone007
+    100008: Bone008
+    100010: Bone009
+    100012: Bone010
+    100014: Bone011
+    100016: Bone012
+    100018: Bone013
+    100020: Bone014
+    100022: Bone015
+    100024: Bone016
+    100026: Bone017
+    100028: Bone018
+    100030: Bone019
+    100032: Bone020
+    100034: Bone021
+    100036: Bone022
+    100038: Bone023
+    100040: Dummy001
+    100042: Dummy002
+    100044: Dummy003
+    100046: Dummy004
+    100048: Dummy005
+    100050: Dummy006
+    100052: Dummy007
+    100054: Dummy008
+    100056: Dummy009
+    100058: Dummy010
+    100060: Mattress
+    100062: //RootNode
     400000: Bone001
-    400002: Bone002
-    400004: Bone003
-    400006: Bone004
-    400008: Bone005
-    400010: Bone006
-    400012: Bone007
-    400014: Bone008
-    400016: Bone009
-    400018: Box002
-    400020: //RootNode
-    400022: Sphere001
-    400024: Sphere002
-    400026: Sphere003
-    400028: Sphere004
-    2300000: Sphere001
-    2300002: Sphere002
-    2300004: Sphere003
-    2300006: Sphere004
-    3300000: Sphere001
-    3300002: Sphere002
-    3300004: Sphere003
-    3300006: Sphere004
-    4300000: Sphere004
-    4300002: Sphere003
-    4300004: Sphere001
-    4300006: Sphere002
-    4300008: Box002
+    400002: Bone004
+    400004: Bone006
+    400006: Bone007
+    400008: Bone008
+    400010: Bone009
+    400012: Bone010
+    400014: Bone011
+    400016: Bone012
+    400018: Bone013
+    400020: Bone014
+    400022: Bone015
+    400024: Bone016
+    400026: Bone017
+    400028: Bone018
+    400030: Bone019
+    400032: Bone020
+    400034: Bone021
+    400036: Bone022
+    400038: Bone023
+    400040: Dummy001
+    400042: Dummy002
+    400044: Dummy003
+    400046: Dummy004
+    400048: Dummy005
+    400050: Dummy006
+    400052: Dummy007
+    400054: Dummy008
+    400056: Dummy009
+    400058: Dummy010
+    400060: Mattress
+    400062: //RootNode
+    4300000: Mattress
     7400000: Take 001
     9500000: //RootNode
-    13700000: Box002
+    13700000: Mattress
   materials:
     importMaterials: 1
     materialName: 0
