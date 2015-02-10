@@ -3,56 +3,44 @@ using System.Collections;
 
 public class AlexWeapon : BaseWeapon 
 {
+	LightCollider m_LightCollider;
+	HeavyCollider m_HeavyCollider;
 
 	// Use this for initialization
 	void Start () 
 	{
-	
+		start ();
+
+		m_LightCollider = GetComponentInChildren<LightCollider> ();
+		m_HeavyCollider = GetComponentInChildren<HeavyCollider> ();
+
+		m_LightCollider.Activate (false);
+		m_HeavyCollider.Activate (false);
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-	
+		update ();
 	}
 
 	public override void LightAttackBegin ()
 	{
-		throw new System.NotImplementedException ();
+		m_LightCollider.Activate (true);
 	}
 
 	public override void LightAttackEnd ()
 	{
-		throw new System.NotImplementedException ();
+		m_LightCollider.Activate (false);
 	}
 
 	public override void HeavyAttackBegin ()
 	{
-		throw new System.NotImplementedException ();
+		m_HeavyCollider.Activate (true);
 	}
 
 	public override void HeavyAttackEnd ()
 	{
-		throw new System.NotImplementedException ();
-	}
-
-	public override void ConeAttack ()
-	{
-		throw new System.NotImplementedException ();
-	}
-
-	public override void AOEAttack ()
-	{
-		throw new System.NotImplementedException ();
-	}
-
-	public override void HeavyAOEAttack ()
-	{
-		throw new System.NotImplementedException ();
-	}
-
-	public override void LineAttack ()
-	{
-		throw new System.NotImplementedException ();
+		m_HeavyCollider.Activate (false);
 	}
 }
