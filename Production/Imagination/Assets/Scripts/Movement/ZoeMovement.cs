@@ -77,6 +77,7 @@ public class ZoeMovement : BaseMovementAbility
 			if(m_NumberOfAirborneJumps == 1 && m_CanGlide == true)
 			{
 				m_Timer = MAX_GLIDE_TIME;
+				m_AnimatorController.playAnimation(AnimatorPlayers.Animations.Ability);
 			}
 
 			//On the third jump we exit gliding
