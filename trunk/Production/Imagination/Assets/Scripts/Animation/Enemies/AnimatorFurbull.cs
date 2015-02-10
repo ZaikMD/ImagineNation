@@ -11,8 +11,6 @@ public class AnimatorFurbull : AnimatorEnemyBase
         Attack
     };
 
-
-
 	// Use this for initialization
 	protected override void Start () 
     {
@@ -53,7 +51,8 @@ public class AnimatorFurbull : AnimatorEnemyBase
             return;
 
         if (i_Animator.GetCurrentAnimatorStateInfo(0).IsTag(animationName) && m_Timer > 0.0f ||
-            i_Animator.GetCurrentAnimatorStateInfo(0).IsTag(m_States[(int)Animations.Attack]) && m_Timer > 0.0f)
+            i_Animator.GetCurrentAnimatorStateInfo(0).IsTag(m_States[(int)Animations.Attack]) && m_Timer > 0.0f || 
+            i_Animator.GetCurrentAnimatorStateInfo(0).loop && i_Animator.GetCurrentAnimatorStateInfo(0).IsTag(animationName))
             return;
 
         i_Animator.CrossFade(m_StatesDitctionary[animationName][Random.Range(0, m_StatesDitctionary[animationName].Count)], 0.3f);
