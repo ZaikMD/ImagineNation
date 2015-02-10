@@ -23,7 +23,7 @@ public class Spin : MonoBehaviour
 	public Vector3 Speed;
 
 	//the euler angles 
-	protected Vector3 m_EulerAngles;
+	public Vector3 m_EulerAngles;
 
 	protected void Start()
 	{
