@@ -10,7 +10,7 @@ public class ZoeWeapon : BaseWeapon
 	// Use this for initialization
 	void Start () 
 	{
-	
+		start ();
 	}
 	
 	// Update is called once per frame
@@ -29,7 +29,7 @@ public class ZoeWeapon : BaseWeapon
 		           											   m_InitialProjectilePosition.y + m_FirePointOffset,
 		            										   m_InitialProjectilePosition.z), Quaternion.Euler(m_InitialProjectileRotation));
 		
-		proj.GetComponent<HeavyCollider>().LaunchProjectile(m_AttackSpeed,m_AttackRange);
+		proj.GetComponent<LightCollider>().LaunchProjectile(m_AttackSpeed,m_AttackRange);
 	}
 	
 	public override void LightAttackEnd ()
