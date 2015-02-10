@@ -10,6 +10,7 @@ public abstract class BaseWeapon : MonoBehaviour
 	bool m_AttackFinished = true;
 
 	AnimatorPlayers m_Animator;
+	BaseMovementAbility m_Movement;
 
 	//Projectile Variables(For Attacking)
 	public GameObject m_LightColliderPrefab;
@@ -56,6 +57,7 @@ public abstract class BaseWeapon : MonoBehaviour
 	protected void start()
 	{
 		m_Animator = GetComponentInParent<AnimatorPlayers> ();
+		m_Movement = GetComponentInParent<BaseMovementAbility> ();
 		m_ReadInput = GetComponentInParent<AcceptInputFrom>();
 
 		m_AOEProjectileAngle = 360 / m_NumberOfAOEProjectiles;
@@ -71,6 +73,8 @@ public abstract class BaseWeapon : MonoBehaviour
 		if (m_AttackFinished && m_ComboSet)
 		{
 			m_Animator.playAnimation(m_Input);
+			m_Movement.SetForcedInput(transform.forward);
+			m_Movement.SetSpeedMultiplier (0.15f);
 			m_ComboSet = false;
 			m_AttackFinished = false;
 
@@ -129,8 +133,11 @@ public abstract class BaseWeapon : MonoBehaviour
 
 	public void AttackOver()
 	{
+		m_Movement.SetForcedInput(Vector3.zero);
+		m_Movement.SetSpeedMultiplier (1f);
 		m_AttackFinished = true;
 		LightAttackEnd ();
+		HeavyAttackEnd ();
 	}
 
 	public abstract void LightAttackBegin();
