@@ -21,6 +21,7 @@ Shader "Production/ShaderSettingRenderer"
 		//Pass for settings brightness
 		Pass 
 		{
+		
 			//This is a CG shader
 			CGPROGRAM
  			
@@ -68,6 +69,11 @@ Shader "Production/ShaderSettingRenderer"
  				
  				//Base colour of this fragment
             	float4 textureColor = tex2D(_MainTex, output.uv);
+            	
+            	if (textureColor.a < 0.01)
+            	{
+            		discard;
+            	}
 
          		//Return the final colour of the fragment
          		return float4(textureColor.xyz * _Brightness, 1.0);
