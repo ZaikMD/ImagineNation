@@ -6,7 +6,7 @@ public class AnimatorEnemyBase : AnimatorController
 {
     protected Dictionary<string, List<string>> m_StatesDitctionary = new Dictionary<string, List<string>>();
 
-    float m_Timer = 0.0f;
+    protected float m_Timer = 0.0f;
 
     public override void playAnimation(string animationName)
     {
