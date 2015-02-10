@@ -66,7 +66,7 @@ public class FurbullAttackBehaviour : BaseAttackBehaviour
         //if our charge up timer is less than or equal to 0, call Combat
 		if (m_ChargeUpTimer <= 0)
 		{
-           // EnemyAnimator.playAnimation(AnimatorFurbull.Animations.Attack);
+            EnemyAnimator.playAnimation(AnimatorFurbull.Animations.Attack);
        	    Combat();
 			m_ChargeUpTimer = Random.Range (MIN_CHARGE_UP_TIME, MAX_CHARGE_UP_TIME);
 		}

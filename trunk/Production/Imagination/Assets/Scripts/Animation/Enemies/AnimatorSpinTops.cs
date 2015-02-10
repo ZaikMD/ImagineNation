@@ -37,6 +37,10 @@ public class AnimatorSpinTops : AnimatorEnemyBase
         m_StatesDitctionary.Add(m_States[(int)Animations.Attack], new List<string>());
 
         m_StatesDitctionary[m_States[(int)Animations.Attack]].Add("Attack");
+
+        m_StatesDitctionary.Add(m_States[(int)Animations.ExitWobble], new List<string>());
+
+        m_StatesDitctionary[m_States[(int)Animations.ExitWobble]].Add("Exit Wobble");
     }
 
     public virtual void playAnimation(Animations animation)
@@ -50,7 +54,8 @@ public class AnimatorSpinTops : AnimatorEnemyBase
             return;
 
         if (i_Animator.GetCurrentAnimatorStateInfo(0).IsTag(animationName) && m_Timer > 0.0f ||
-            i_Animator.GetCurrentAnimatorStateInfo(0).IsTag(m_States[(int)Animations.Attack]) && m_Timer > 0.0f)
+            i_Animator.GetCurrentAnimatorStateInfo(0).IsTag(m_States[(int)Animations.Attack]) && m_Timer > 0.0f || 
+            i_Animator.GetCurrentAnimatorStateInfo(0).loop && i_Animator.GetCurrentAnimatorStateInfo(0).IsTag(animationName))
             return;
 
         i_Animator.CrossFade(m_StatesDitctionary[animationName][Random.Range(0, m_StatesDitctionary[animationName].Count)], 0.3f);

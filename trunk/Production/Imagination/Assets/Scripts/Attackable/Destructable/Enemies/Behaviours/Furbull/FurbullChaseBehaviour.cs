@@ -59,7 +59,7 @@ public class FurbullChaseBehaviour : BaseChaseBehaviour
             m_EnemyAI.SetState(EnemyAI.EnemyState.Attack);
         }
 
-        //EnemyAnimator.playAnimation(AnimatorFurbull.Animations.Run);
+        EnemyAnimator.playAnimation(AnimatorFurbull.Animations.Run);
 
         //Call Movement
         Movement();
