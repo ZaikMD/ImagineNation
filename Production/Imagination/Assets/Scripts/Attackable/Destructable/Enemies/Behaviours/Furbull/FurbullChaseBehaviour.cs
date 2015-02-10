@@ -16,6 +16,15 @@ using System.Collections;
 
 public class FurbullChaseBehaviour : BaseChaseBehaviour 
 {
+
+    new public AnimatorFurbull EnemyAnimator
+    {
+        get
+        {
+            return base.EnemyAnimator as AnimatorFurbull;
+        }
+    }
+
 	protected override void start ()
     {
         //Call all the component start functions
@@ -26,6 +35,7 @@ public class FurbullChaseBehaviour : BaseChaseBehaviour
 
 	public override void update()
 	{
+        EnemyAnimator.setFloat("Speed", 0.0f);
         //Set the target
 		setTarget(Target());
 
@@ -48,6 +58,8 @@ public class FurbullChaseBehaviour : BaseChaseBehaviour
         {
             m_EnemyAI.SetState(EnemyAI.EnemyState.Attack);
         }
+
+        //EnemyAnimator.playAnimation(AnimatorFurbull.Animations.Run);
 
         //Call Movement
         Movement();

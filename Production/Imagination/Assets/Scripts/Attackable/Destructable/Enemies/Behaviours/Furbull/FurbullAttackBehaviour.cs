@@ -15,6 +15,14 @@ using System.Collections;
 
 public class FurbullAttackBehaviour : BaseAttackBehaviour 
 {
+    new public AnimatorFurbull EnemyAnimator
+    {
+        get
+        {
+            return base.EnemyAnimator as AnimatorFurbull;
+        }
+    }
+
 	const float MIN_CHARGE_UP_TIME = 0.2f;
 	const float MAX_CHARGE_UP_TIME = 0.6f;
 	float m_ChargeUpTimer;
@@ -58,6 +66,7 @@ public class FurbullAttackBehaviour : BaseAttackBehaviour
         //if our charge up timer is less than or equal to 0, call Combat
 		if (m_ChargeUpTimer <= 0)
 		{
+           // EnemyAnimator.playAnimation(AnimatorFurbull.Animations.Attack);
        	    Combat();
 			m_ChargeUpTimer = Random.Range (MIN_CHARGE_UP_TIME, MAX_CHARGE_UP_TIME);
 		}

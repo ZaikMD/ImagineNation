@@ -37,7 +37,7 @@ public class FurbullIdleBehaviour : BaseIdleBehaviour
 	{
 		base.update ();
 
-        EnemyAnimator.playAnimation(AnimatorFurbull.Animations.Idle);
+        EnemyAnimator.playAnimation(AnimatorFurbull.Animations.Run);
 
 		//Set the target
 		setTarget(Target ());
