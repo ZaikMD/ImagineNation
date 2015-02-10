@@ -50,12 +50,16 @@ public class AnimatorFurbull : AnimatorEnemyBase
         if (!m_StatesDitctionary.ContainsKey(animationName))
             return;
 
-        if (i_Animator.GetCurrentAnimatorStateInfo(0).IsTag(animationName) && m_Timer > 0.0f ||
-            i_Animator.GetCurrentAnimatorStateInfo(0).IsTag(m_States[(int)Animations.Attack]) && m_Timer > 0.0f || 
-            i_Animator.GetCurrentAnimatorStateInfo(0).loop && i_Animator.GetCurrentAnimatorStateInfo(0).IsTag(animationName))
+        if (m_CrossfadeTimer > 0.0f)
             return;
 
-        i_Animator.CrossFade(m_StatesDitctionary[animationName][Random.Range(0, m_StatesDitctionary[animationName].Count)], 0.3f);
+        if ((i_Animator.GetCurrentAnimatorStateInfo(0).IsTag(animationName) && m_Timer > 0.0f) ||
+            (i_Animator.GetCurrentAnimatorStateInfo(0).IsTag(m_States[(int)Animations.Attack]) && m_Timer > 0.0f) || 
+            (i_Animator.GetCurrentAnimatorStateInfo(0).loop && i_Animator.GetCurrentAnimatorStateInfo(0).IsTag(animationName)))
+            return;
+
+        m_CrossfadeTimer = CROSS_FADE_LENGTH + CROSS_FADE_TIMER_BUFFER;
+        i_Animator.CrossFade(m_StatesDitctionary[animationName][Random.Range(0, m_StatesDitctionary[animationName].Count)], CROSS_FADE_LENGTH);
         m_Timer = i_Animator.GetCurrentAnimatorStateInfo(0).length;
     }
 }
