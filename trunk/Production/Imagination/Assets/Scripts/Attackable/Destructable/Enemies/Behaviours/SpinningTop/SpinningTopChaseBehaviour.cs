@@ -15,6 +15,14 @@ using System.Collections;
 
 public class SpinningTopChaseBehaviour : BaseChaseBehaviour 
 {
+    new public AnimatorSpinTops EnemyAnimator
+    {
+        get
+        {
+            return base.EnemyAnimator as AnimatorSpinTops;
+        }
+    }
+
     protected override void start()
     {
 		//Call components start functions
@@ -47,6 +55,8 @@ public class SpinningTopChaseBehaviour : BaseChaseBehaviour
         {
             m_EnemyAI.SetState(EnemyAI.EnemyState.Attack);
         }
+
+        EnemyAnimator.playAnimation(AnimatorSpinTops.Animations.Idle);
 
 		//Call movement
         Movement();

@@ -58,7 +58,7 @@ public class AnimatorFurbull : AnimatorEnemyBase
             (i_Animator.GetCurrentAnimatorStateInfo(0).loop && i_Animator.GetCurrentAnimatorStateInfo(0).IsTag(animationName)))
             return;
 
-        m_CrossfadeTimer = CROSS_FADE_LENGTH + CROSS_FADE_TIMER_BUFFER;
+		m_CrossfadeTimer = (m_Timer * CROSS_FADE_LENGTH) + CROSS_FADE_TIMER;
         i_Animator.CrossFade(m_StatesDitctionary[animationName][Random.Range(0, m_StatesDitctionary[animationName].Count)], CROSS_FADE_LENGTH);
         m_Timer = i_Animator.GetCurrentAnimatorStateInfo(0).length;
     }
