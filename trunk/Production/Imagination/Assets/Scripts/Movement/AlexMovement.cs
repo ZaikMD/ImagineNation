@@ -48,6 +48,8 @@ public class AlexMovement : BaseMovementAbility
 		{
 			if(InputManager.getJumpDown(m_AcceptInputFrom.ReadInputFrom))
 			{
+				//m_SFX.playSound(this.transform, Sounds.Collectable);
+				m_SFX.playSound(this.transform, Sounds.AlexJump);
 				Jump();
 			}
 		}
@@ -55,7 +57,9 @@ public class AlexMovement : BaseMovementAbility
         {//jump if needed
             if(InputManager.getJumpDown(m_AcceptInputFrom.ReadInputFrom))
             {
-                Jump();
+			//	m_SFX.playSound(this.transform, Sounds.Collectable);
+				m_SFX.playSound(this.transform, Sounds.AlexJump);
+				Jump();
                 m_TotalAirJumps++;
             }
         }        

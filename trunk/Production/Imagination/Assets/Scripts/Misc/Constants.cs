@@ -158,30 +158,55 @@ public static class Constants
 
 	public struct Sounds
 	{
-		 
-		public const string	JUMP = "Sounds/Alex/Alex_Jump";
+
+		//COMMON
+		public const string	JUMP = "Sounds/NewSounds/Alex/Alex_Double_Jump";
 		public const string WALK = "Sounds/Common/footsteps_carpet_walk";
-		public const string RUN = "Sounds/Common/footsteps_carpet_edit3";
+		public const string RUN_1 = "Sounds/NewSounds/Common/Footstep_1";
+		public const string RUN_2 = "Sounds/NewSounds/Common/Footstep_2";
+		public const string RUN_3 = "Sounds/NewSounds/Common/Footstep_3";
+		public const string RUN_4 = "Sounds/NewSounds/Common/Footstep_4";
+		public const string CHARACTER_DEATH = "Sounds/NewSounds/Common/Character_Death";
+		public const string CHARACTER_RESPAWN = "Sounds/NewSounds/Common/Character_Respawn";
+
 		public const string WEAPON_WOOSH = "Sounds/Common/Woosh";
-		public const string COLLECTABLE = "Sounds/Common/Collectable";
-		public const string JUMPAD = "Sounds/Common/Jump_Pad";
+		public const string COLLECTABLE_1 = "Sounds/NewSounds/Level/Pickup_LightPeg_1";
+		public const string COLLECTABLE_2 = "Sounds/NewSounds/Level/Pickup_LightPeg_2";
+		public const string COLLECTABLE_3 = "Sounds/NewSounds/Level/Pickup_LightPeg_3";
+		public const string COLLECTABLE_4 = "Sounds/NewSounds/Level/Pickup_LightPeg_4";
+		public const string COLLECTABLE_5 = "Sounds/NewSounds/Level/Pickup_LightPeg_5";
+		public const string JUMPAD = "Sounds/NewSounds/Level/Trampoline_Bounce";
 		public const string ZIPPER = "Sounds/Common/Zipper";
 		public const string GATE_OPEN = "Sounds/Interactable/Gate_Down";
+		public const string WEAPON_SWING_1 = "Sounds/NewSounds/Common/Attack_Swing_1";
+		public const string WEAPON_SWING_2 = "Sounds/NewSounds/Common/Attack_Swing_2";
+		public const string WEAPON_SWING_3 = "Sounds/NewSounds/Common/Attack_Swing_3";
+
+		//LEVEL
+		public const string CHECKPOINT_REACHED = "Sounds/NewSounds/Level/Checkpoint_Reached";
+		public const string CONTACT_LEVER = "Sounds/NewSounds/Level/Contact_Lever";
+		public const string LEVEL_COMPLETE = "Sounds/NewSounds/Level/Level_Complete";
+		public const string TRAMPOLINE_BOUNCE = "Sounds/NewSounds/Level/Trampoline_Bounce";
 
 		//Alex Sounds
 		public const string ALEX_FIRST_WEAPON_HIT = "Sounds/Alex/First_Weapon_hit_Alex";
 		public const string ALEX_SECOND_WEAPON_HIT = "Sounds/Alex/Second_Weapon_Hit_Alex";
 		public const string ALEX_THIRD_WEAPON_HIT = "Sounds/Alex/Final_Weapon_hit_Alex";
 		public const string ALEX_HURT = "Sounds/Alex/Alex_Painful_Grunt";
-		public const string ALEX_JUMP = "Sounds/Alex/Alex_Jump";
+		public const string ALEX_JUMP = "Sounds/NewSounds/Alex/Alex_Double_Jump"; //TODO: replace with standard jump
+		public const string ALEX_DOUBLE_JUMP = "Sounds/NewSounds/Alex/Alex_Double_Jump";
 		public const string ALEX_DEATH = "Sounds/Alex/Alex_Death";
+		public const string ALEX_SCRAPE_GROUND_ATTACK = "Sounds/NewSounds/Alex/Alex_Scrape_Ground_Attack";
+		public const string ALEX_WHIRLWIND = "Sounds/NewSounds/Alex/Alex_Whirlwind";
+
 
 		//Derek Sounds
 		public const string DEREK_FIRST_WEAPON_HIT  =  "Sounds/Derek/Derek_First_Hit";
 		public const string DEREK_SECOND_WEAPON_HIT =  "Sounds/Derek/Derek_Second_Hit";
 		public const string DEREK_THIRD_WEAPON_HIT =  "Sounds/Derek/Derek_Third_Hit";
+		public const string DEREK_THUNDER_CLAP = "Sounds/NewSounds/Derek/Derek_Attack_ThunderClap"; // 
 		public const string DEREK_HURT =  "Sounds/Derek/Derek_Painful_Grunt";
-		public const string DEREK_JUMP = "Sounds/Derek/Derek_Jump";
+		public const string DEREK_JUMP = "Sounds/NewSounds/Derek/Derek_Jump_Grunt"; 
 		public const string DEREK_DEATH = "Sounds/Derek/Derek_Death";
 
 		//Zoey Sounds
@@ -196,9 +221,17 @@ public static class Constants
 		public const string ZOEY_WINGS_DEPLOY =  "Sounds/Zoey/Wings_Deploy";
 
 		//Enemy sounds
-		public const string MAGE_SHOOT =  "Sounds/Enemies/Gnome_Mage_Spell_Cast";
-		public const string MAGE_HIT =  "Sounds/Enemies/Gnome_Mage_Spell_Hit";
+		public const string MAGE_SHOOT =  "Sounds/NewSounds/Enemy/GnomeMage_Attack";
+		public const string MAGE_MOVE =  "Sounds/NewSounds/Enemy/GnomeMage_Movement"; 
+		public const string MAGE_SHIELD_BREAK =  "Sounds/NewSounds/Enemy/GnomeMage_Shield_Break"; 
+		public const string MAGE_HIT =  "Sounds/NewSounds/Enemy/GnomeMage_TakesDamage";
 
+		public const string SPINTOP_HIT =  "Sounds/NewSounds/Enemy/SpinTop_Gets_Hit";
+		public const string SPINTOP_CHARGE =  "Sounds/NewSounds/Enemy/SpinTop_Charge";
+
+		public const string FURBULL_HOP =  "Sounds/NewSounds/Enemy/Furbull_Hop";
+
+		public const string ENEMY_DEATH =  "Sounds/NewSounds/Enemy/Enemy_Death";
 	}
 
 	// Enemy Constants

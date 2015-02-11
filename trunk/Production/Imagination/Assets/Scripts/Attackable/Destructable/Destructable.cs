@@ -23,8 +23,14 @@ public class Destructable : MonoBehaviour, Attackable
 {
     public float m_Health;
     public GameObject m_Ragdoll;
+	public SFXManager m_SFX;
 
 	protected const float ENEMY_DAMAGE = 1.0f;
+
+	protected void Start()
+	{
+		m_SFX = SFXManager.Instance;
+	}
 
 	// Update is called once per frame
 	protected void Update () 
@@ -52,6 +58,7 @@ public class Destructable : MonoBehaviour, Attackable
     {
 		if (this.tag == Constants.PLAYER_STRING)
 		m_Health -= ENEMY_DAMAGE;
+
     }
 
 	public virtual void onHit(EnemyProjectile proj, Vector3 KnockBackDirection)
