@@ -62,9 +62,6 @@ public class MenuCamera : ShutterCamera
 			    changePosition(m_NewMenu.CameraMountPoint.transform.position, m_NewMenu.transform);
 		}
 
-		Debug.Log(m_InitialPosition);
-		Debug.DrawLine(transform.position, transform.position, Color.red);
-
         //update the position
         updatePosition();
 
