@@ -871,22 +871,22 @@ public static class InputManager
     static Vector2 turnWASDIntoVector2 ()
 	{
 		Vector2 input = new Vector2 (0.0f, 0.0f);
-		if(Input.GetKey (KeyCode.D))
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
 		{
 			input.x += 1.0f;
 		}
 
-		if(Input.GetKey (KeyCode.A))
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
 		{
 			input.x -= 1.0f;
 		}
 
-		if(Input.GetKey (KeyCode.W))
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
 		{
 			input.y += 1.0f;
 		}
 
-		if(Input.GetKey (KeyCode.S))
+        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
 		{
 			input.y -= 1.0f;
 		}
@@ -1195,17 +1195,17 @@ public static class InputManager
     #region Generic Inputs
     public static bool getMenuStart()
     {
-        return GamePad.GetButton(GamePad.Button.Start, GamePad.Index.Any) || Input.GetKey(KeyCode.Return);
+        return GamePad.GetButton(GamePad.Button.Start, GamePad.Index.Any) || Input.GetKey(KeyCode.Return) || Input.GetKey(KeyCode.Escape);
     }
 
     public static bool getMenuStartDown()
     {
-        return GamePad.GetButtonDown(GamePad.Button.Start, GamePad.Index.Any) || Input.GetKeyDown(KeyCode.Return);
+        return GamePad.GetButtonDown(GamePad.Button.Start, GamePad.Index.Any) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Escape);
     }
 
     public static bool getMenuStartUp()
     {
-        return GamePad.GetButtonUp(GamePad.Button.Start, GamePad.Index.Any) || Input.GetKeyUp(KeyCode.Return);
+        return GamePad.GetButtonUp(GamePad.Button.Start, GamePad.Index.Any) || Input.GetKeyUp(KeyCode.Return) || Input.GetKeyUp(KeyCode.Escape);
     }
     #endregion
     //==========================================================================================
@@ -1215,7 +1215,7 @@ public static class InputManager
         switch (inputToRead)
         {
             case PlayerInput.Keyboard:
-                return Input.GetKey(KeyCode.Return);
+                return Input.GetKey(KeyCode.Return) || Input.GetKey(KeyCode.Escape);
 
             case PlayerInput.GamePadOne:
                 return GamePad.GetButton(GamePad.Button.Start, GamePad.Index.One);
@@ -1241,7 +1241,7 @@ public static class InputManager
         switch (inputToRead)
         {
             case PlayerInput.Keyboard:
-                return Input.GetKeyDown(KeyCode.Return);
+                return Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Escape);
 
             case PlayerInput.GamePadOne:
                 return GamePad.GetButtonDown(GamePad.Button.Start, GamePad.Index.One);
@@ -1267,7 +1267,7 @@ public static class InputManager
         switch (inputToRead)
         {
             case PlayerInput.Keyboard:
-                return Input.GetKeyUp(KeyCode.Return);
+                return Input.GetKeyUp(KeyCode.Return) || Input.GetKeyUp(KeyCode.Escape);
 
             case PlayerInput.GamePadOne:
                 return GamePad.GetButtonUp(GamePad.Button.Start, GamePad.Index.One);

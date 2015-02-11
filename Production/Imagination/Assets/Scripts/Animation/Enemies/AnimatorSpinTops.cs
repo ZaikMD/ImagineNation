@@ -63,8 +63,6 @@ public class AnimatorSpinTops : AnimatorEnemyBase
             i_Animator.GetCurrentAnimatorStateInfo(0).loop && i_Animator.GetCurrentAnimatorStateInfo(0).IsTag(animationName))
             return;
 
-        Debug.Log(animationName);
-
         i_Animator.CrossFade(m_StatesDitctionary[animationName][Random.Range(0, m_StatesDitctionary[animationName].Count)], CROSS_FADE_LENGTH);
         m_Timer = i_Animator.GetCurrentAnimatorStateInfo(0).length;
 
