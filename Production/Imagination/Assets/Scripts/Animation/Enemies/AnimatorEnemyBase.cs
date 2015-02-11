@@ -8,8 +8,8 @@ public class AnimatorEnemyBase : AnimatorController
 
     protected float m_Timer = 0.0f;
 
-    protected const float CROSS_FADE_LENGTH = 0.15f;
-    protected const float CROSS_FADE_TIMER_BUFFER = 0.3f;
+    protected const float CROSS_FADE_LENGTH = 0.1f;
+    protected const float CROSS_FADE_TIMER = 0.2f;
     protected float m_CrossfadeTimer = 0.0f;
 
     public override void playAnimation(string animationName)
@@ -25,7 +25,7 @@ public class AnimatorEnemyBase : AnimatorController
 
         i_Animator.CrossFade(m_StatesDitctionary[animationName][Random.Range(0, m_StatesDitctionary[animationName].Count)], CROSS_FADE_LENGTH);
         m_Timer = i_Animator.GetCurrentAnimatorStateInfo(0).length;
-        m_CrossfadeTimer = CROSS_FADE_LENGTH + CROSS_FADE_TIMER_BUFFER;
+        m_CrossfadeTimer = (m_Timer * CROSS_FADE_LENGTH) + CROSS_FADE_TIMER;
     }
 
     protected virtual void Update()

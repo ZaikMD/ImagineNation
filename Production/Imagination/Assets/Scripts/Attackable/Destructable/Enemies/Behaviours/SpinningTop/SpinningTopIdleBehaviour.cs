@@ -15,6 +15,14 @@ using System.Collections;
 
 public class SpinningTopIdleBehaviour : BaseIdleBehaviour 
 {
+    new public AnimatorSpinTops EnemyAnimator
+    {
+        get
+        {
+            return base.EnemyAnimator as AnimatorSpinTops;
+        }
+    }
+
     protected override void start()
     {
 		//Call the start for each of the Idle Components
@@ -25,6 +33,8 @@ public class SpinningTopIdleBehaviour : BaseIdleBehaviour
 
 	public override void update()
 	{
+        EnemyAnimator.playAnimation(AnimatorSpinTops.Animations.Idle);
+
 		//Set the target
         setTarget(Target());
 

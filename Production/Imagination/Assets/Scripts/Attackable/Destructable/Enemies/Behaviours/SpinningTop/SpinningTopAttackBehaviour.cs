@@ -15,6 +15,14 @@ using System.Collections;
 
 public class SpinningTopAttackBehaviour : BaseAttackBehaviour, INotifyHit 
 {
+    new public AnimatorSpinTops EnemyAnimator
+    {
+        get
+        {
+            return base.EnemyAnimator as AnimatorSpinTops;
+        }
+    }
+
 	//Combat States for each of the Spin Top movements
     private enum CombatStates
     {
@@ -134,6 +142,8 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour, INotifyHit
 
     private void Wobble()
 	{
+        EnemyAnimator.playAnimation(AnimatorSpinTops.Animations.Wobble);
+
 		//Set our spin top to not be invincible when wobbling
 		m_EnemyAI.m_IsInvincible = false;
 
@@ -149,6 +159,7 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour, INotifyHit
 		{
 			//If the timer is up then switch to BuildingUpCharge
             m_CombatState = CombatStates.BuildingUpCharge;
+            EnemyAnimator.playAnimation(AnimatorSpinTops.Animations.ExitWobble);
 			//Reset the timer
             m_WobbleTimer = MaxWobbleTime;
         }
@@ -156,6 +167,7 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour, INotifyHit
 
     private void Charge()
     {
+        //EnemyAnimator.playAnimation(AnimatorSpinTops.Animations.Attack);
 		//Call charge movement
         Movement();
 
@@ -227,6 +239,7 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour, INotifyHit
             m_HitByPlayerTimer = MaxTimeAfterHitByPlayer;
 			//Set to building up charge
             m_CombatState = CombatStates.BuildingUpCharge;
+            EnemyAnimator.playAnimation(AnimatorSpinTops.Animations.ExitWobble);
         }
     }
 
