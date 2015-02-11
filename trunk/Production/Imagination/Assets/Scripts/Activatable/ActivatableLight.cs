@@ -20,9 +20,9 @@ using System.Collections;
 public class ActivatableLight : Activatable 
 {
 	public GameObject m_Darkness;
-	public float m_NewIntensity = 1.0f;
+	public float m_NewIntensity = 8.0f;
 
-	const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
+	const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.PauseMenu;
 
 	bool m_IsActive;
 	Light m_Light;

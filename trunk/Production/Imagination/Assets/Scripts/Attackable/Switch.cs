@@ -39,7 +39,7 @@ public class Switch : SwitchBaseClass, Attackable
 	public bool m_WillPauseForCamera;
 	public float m_CameraPauseTimer;
 
-    const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
+	const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.PauseMenu;
 
 	// Use this for initialization
 	void Start () 
