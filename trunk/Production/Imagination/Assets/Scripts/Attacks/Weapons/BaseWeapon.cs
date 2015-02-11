@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class BaseWeapon : MonoBehaviour 
+public abstract class BaseWeapon : MonoBehaviour, CallBack
 {
 	bool m_CanCombo = true;
 	bool m_ComboSet = false;
@@ -73,8 +73,6 @@ public abstract class BaseWeapon : MonoBehaviour
 		if (m_AttackFinished && m_ComboSet)
 		{
 			m_Animator.playAnimation(m_Input);
-			m_Movement.SetForcedInput(transform.forward);
-			m_Movement.SetSpeedMultiplier (0.15f);
 			m_ComboSet = false;
 			m_AttackFinished = false;
 
@@ -116,6 +114,58 @@ public abstract class BaseWeapon : MonoBehaviour
 	{
 		m_Input = STRING_RESET;
 		m_ComboFinished = false;
+	}
+
+	void FootStep()
+	{
+		m_Movement.SetForcedInput(transform.forward);
+		m_Movement.SetSpeedMultiplier (0.15f);
+	}
+
+    public void CallBack(CallBackEvents callBack)
+	{
+		switch(callBack)
+		{
+			case CallBackEvents.Player_ComboTimeStart:
+				ComboTimeStart();
+				break;
+
+			case CallBackEvents.FootStep: 
+				FootStep();
+				break;
+
+			case CallBackEvents.Player_AttackBegin_Light:
+				LightAttackBegin();
+				break;
+			
+			case CallBackEvents.Player_AttackBegin_Heavy:
+				HeavyAttackBegin();
+				break;
+			
+			case CallBackEvents.Player_AttackBegin_AOE:
+				AOEAttack();
+				break;
+			
+			case CallBackEvents.Player_AttackBegin_HeavyAOE:
+				HeavyAOEAttack();
+				break;
+			
+			case CallBackEvents.Player_AttackBegin_Line:
+				LineAttack ();
+				break;
+			
+			case CallBackEvents.Player_AttackBegin_Cone:
+				ConeAttack();
+				break;
+			
+			case CallBackEvents.Player_ComboTimeEnd:
+				ComboTimeEnd();
+				break;
+			
+			case CallBackEvents.Player_AttackOver:
+				AttackOver();
+				break;
+		}
 	}
 
 	public void ComboTimeStart()
