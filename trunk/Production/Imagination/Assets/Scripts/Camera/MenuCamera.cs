@@ -33,10 +33,10 @@ public class MenuCamera : ShutterCamera
     Vector3 m_TargetPosition = Vector3.zero;
 
     //max distance the target can be from the intial position
-    const float MAX_TARGET_DISTANCE = 0.55f;
+    const float MAX_TARGET_DISTANCE = 0.25f;
 
     //the speed the camera moves at
-    const float MOVE_SPEED = 0.25f;
+    const float MOVE_SPEED = 0.125f;
     #endregion
 
     public Transform LookAt;
@@ -61,6 +61,9 @@ public class MenuCamera : ShutterCamera
             if(m_NewMenu!= null)
 			    changePosition(m_NewMenu.CameraMountPoint.transform.position, m_NewMenu.transform);
 		}
+
+		Debug.Log(m_InitialPosition);
+		Debug.DrawLine(transform.position, transform.position, Color.red);
 
         //update the position
         updatePosition();
@@ -96,8 +99,8 @@ public class MenuCamera : ShutterCamera
     void updatePosition()
     {
         //the vector that were going to use to move this frame
-        Vector3 moveVector = (m_TargetPosition - m_LastTargetPosition) * MOVE_SPEED * Time.deltaTime;
-        if (moveVector.magnitude > (m_TargetPosition - transform.position).magnitude)
+        Vector3 moveVector = (m_TargetPosition - transform.position).normalized * MOVE_SPEED * Time.deltaTime;
+        if (moveVector.magnitude >= (m_TargetPosition - transform.position).magnitude)
         {
             //distance to the target position was less than the position + move vector
             //set the cameras position
@@ -125,6 +128,6 @@ public class MenuCamera : ShutterCamera
         //set the last target
         m_LastTargetPosition = m_TargetPosition;
         //pick the new target
-        m_TargetPosition = m_InitialPosition + new Vector3(Random.value % MAX_TARGET_DISTANCE, Random.value % MAX_TARGET_DISTANCE, 0.0f);
+        m_TargetPosition = m_InitialPosition + new Vector3((Random.value % MAX_TARGET_DISTANCE) - MAX_TARGET_DISTANCE / 2.0f, (Random.value % MAX_TARGET_DISTANCE) - MAX_TARGET_DISTANCE / 2.0f, 0.0f);
     }
 }
