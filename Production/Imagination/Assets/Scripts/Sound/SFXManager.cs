@@ -39,25 +39,36 @@ public enum Sounds
 	//Common
     Jump,
     Walk,
-    Run,
-	Collectable,
+    Run, 
+	Collectable, 
 	WeaponWoosh,
-	JumpPad,
+	JumpPad, 
 	Zipper,
 	GateOpen,
+	CharacterDeath, 
+	CharacterRespawn, 
+
+	//Level
+	Checkpoint, 
+	LeverHit, 
+	LevelComplete, 
 
 	//Alex
 	AlexHitOne,
 	AlexHitTwo,
 	AlexHitThree,
+	AlexScrapeAttack,  
+	AlexWhirlWind, 
 	AlexHurt,
 	AlexDeath,
-	AlexJump,
+	AlexJump, 
+	AlexDoubleJump, 
 
 	//Derek
 	DerekHitOne,
 	DerekHitTwo,
 	DerekHitThree,
+	DerekThunderClap,
 	DerekHurt,
 	DerekDeath,
 	DerekJump,
@@ -74,8 +85,17 @@ public enum Sounds
 	ZoeyDeployedWings,
 
 	//Enemies
-	MageAttack,
-	MageHit
+	MageAttack, 
+	MageMove,  
+	MageShieldBreak, 
+	MageHit, 
+
+	SpinTopHit, 
+	SpinTopCharge, 
+
+	FurbullHop, 
+
+	EnemyDeath	
 }
 
 //this struct holds all the info needed to determine how to play are sounds
@@ -180,7 +200,10 @@ public class SFXManager : MonoBehaviour
 	{
         //check if the sound is done loading
         if (!soundExists(sound))
+		{
+			Debug.Log("no sound exsist");
             return;
+		}
         //create the actual source
         GameObject soundObject = new GameObject();
         SoundSourceMover soundSourceMover = soundObject.AddComponent<SoundSourceMover>();
@@ -268,7 +291,7 @@ public class SFXManager : MonoBehaviour
         {
 	//Common Sounds
         case Sounds.Jump:
-            tempAudioInfo.OneShot = false;
+            tempAudioInfo.OneShot = true;
             break;
 
         case Sounds.Walk:
@@ -276,7 +299,7 @@ public class SFXManager : MonoBehaviour
             break;
 
         case Sounds.Run:
-            tempAudioInfo.OneShot = false;
+            tempAudioInfo.OneShot = true;
             break;
 
 		case Sounds.Collectable:
@@ -295,7 +318,15 @@ public class SFXManager : MonoBehaviour
 			tempAudioInfo.OneShot = false;
 			break;
 
-	//Alex Sounds
+		case Sounds.CharacterDeath:
+			tempAudioInfo.OneShot = true;
+			break;
+
+		case Sounds.CharacterRespawn:
+			tempAudioInfo.OneShot = true;
+			break;
+
+			//Alex Sounds
 		case Sounds.AlexHitOne:
 			tempAudioInfo.OneShot = true;
 			break;
@@ -305,6 +336,14 @@ public class SFXManager : MonoBehaviour
 			break;
 
 		case Sounds.AlexHitThree:
+			tempAudioInfo.OneShot = true;
+			break;
+
+		case Sounds.AlexScrapeAttack:
+			tempAudioInfo.OneShot = true;
+			break;
+
+		case Sounds.AlexWhirlWind:
 			tempAudioInfo.OneShot = true;
 			break;
 
@@ -320,6 +359,9 @@ public class SFXManager : MonoBehaviour
 			tempAudioInfo.OneShot = true;
 			break;
 
+		case Sounds.AlexDoubleJump:
+			tempAudioInfo.OneShot = true;
+			break;
 
 	//Derek Sounds
 		case Sounds.DerekHitOne:
@@ -331,6 +373,10 @@ public class SFXManager : MonoBehaviour
 			break;
 		
 		case Sounds.DerekHitThree:
+			tempAudioInfo.OneShot = true;
+			break;
+
+		case Sounds.DerekThunderClap:
 			tempAudioInfo.OneShot = true;
 			break;
 
@@ -385,13 +431,44 @@ public class SFXManager : MonoBehaviour
 			tempAudioInfo.OneShot = false;
 			break;
 
+
+	//Enemies
 		case Sounds.MageAttack:
+			tempAudioInfo.OneShot = true;
+			break;
+
+		case Sounds.MageShieldBreak:
 			tempAudioInfo.OneShot = true;
 			break;
 
 		case Sounds.MageHit:
 			tempAudioInfo.OneShot = true;
 			break;
+
+		case Sounds.MageMove:
+			tempAudioInfo.OneShot = true;
+			break;
+
+
+
+		case Sounds.SpinTopCharge:
+			tempAudioInfo.OneShot = false;
+			break;
+
+		case Sounds.SpinTopHit:
+			tempAudioInfo.OneShot = true;
+			break;
+
+		
+		case Sounds.FurbullHop:
+			tempAudioInfo.OneShot = true;
+			break;
+
+
+		case Sounds.EnemyDeath:
+			tempAudioInfo.OneShot = true;
+			break;
+
 
 		default:
             tempAudioInfo.OneShot = false;
@@ -411,26 +488,46 @@ public class SFXManager : MonoBehaviour
     void loadOtherSounds()
     {
         //Common Sounds
-        loadSound((int)Sounds.Jump, Constants.Sounds.ALEX_JUMP);
+//        loadSound((int)Sounds.Jump, Constants.Sounds.ALEX_JUMP);
         loadSound((int)Sounds.Walk, Constants.Sounds.WALK);
-        loadSound((int)Sounds.Run, Constants.Sounds.RUN);
-        loadSound((int)Sounds.WeaponWoosh, Constants.Sounds.WEAPON_WOOSH);
-        loadSound((int)Sounds.Collectable, Constants.Sounds.COLLECTABLE);
+        loadSound((int)Sounds.Run, Constants.Sounds.RUN_1);
+		loadSound((int)Sounds.Run, Constants.Sounds.RUN_2);
+		loadSound((int)Sounds.Run, Constants.Sounds.RUN_3);
+		loadSound((int)Sounds.Run, Constants.Sounds.RUN_4);
+        loadSound((int)Sounds.WeaponWoosh, Constants.Sounds.WEAPON_SWING_1);
+		loadSound((int)Sounds.WeaponWoosh, Constants.Sounds.WEAPON_SWING_2);
+		loadSound((int)Sounds.WeaponWoosh, Constants.Sounds.WEAPON_SWING_3);
+        loadSound((int)Sounds.Collectable, Constants.Sounds.COLLECTABLE_1);
+		loadSound((int)Sounds.Collectable, Constants.Sounds.COLLECTABLE_2);
+		loadSound((int)Sounds.Collectable, Constants.Sounds.COLLECTABLE_3);
+		loadSound((int)Sounds.Collectable, Constants.Sounds.COLLECTABLE_4);
+		loadSound((int)Sounds.Collectable, Constants.Sounds.COLLECTABLE_5);
         loadSound((int)Sounds.JumpPad, Constants.Sounds.JUMPAD);
         loadSound((int)Sounds.GateOpen, Constants.Sounds.GATE_OPEN);
+		loadSound((int)Sounds.CharacterRespawn, Constants.Sounds.CHARACTER_RESPAWN);
+		loadSound((int)Sounds.CharacterDeath, Constants.Sounds.CHARACTER_DEATH);
+
+		//Level
+		loadSound((int)Sounds.LevelComplete, Constants.Sounds.LEVEL_COMPLETE);
+		loadSound((int)Sounds.LeverHit, Constants.Sounds.CONTACT_LEVER);
+		loadSound((int)Sounds.Checkpoint, Constants.Sounds.CHECKPOINT_REACHED);
 
         //Alex Sounds
         loadSound((int)Sounds.AlexHitOne, Constants.Sounds.ALEX_FIRST_WEAPON_HIT);
         loadSound((int)Sounds.AlexHitTwo, Constants.Sounds.ALEX_SECOND_WEAPON_HIT);
         loadSound((int)Sounds.AlexHitThree, Constants.Sounds.ALEX_THIRD_WEAPON_HIT);
+		loadSound((int)Sounds.AlexScrapeAttack, Constants.Sounds.ALEX_SCRAPE_GROUND_ATTACK);
+		loadSound((int)Sounds.AlexWhirlWind, Constants.Sounds.ALEX_WHIRLWIND);
         loadSound((int)Sounds.AlexHurt, Constants.Sounds.ALEX_HURT);
         loadSound((int)Sounds.AlexDeath, Constants.Sounds.ALEX_DEATH);
         loadSound((int)Sounds.AlexJump, Constants.Sounds.ALEX_JUMP);
+		loadSound((int)Sounds.AlexDoubleJump, Constants.Sounds.ALEX_DOUBLE_JUMP);
 
         //Derek Sounds
         loadSound((int)Sounds.DerekHitOne, Constants.Sounds.DEREK_FIRST_WEAPON_HIT);
         loadSound((int)Sounds.DerekHitTwo, Constants.Sounds.DEREK_SECOND_WEAPON_HIT);
         loadSound((int)Sounds.DerekHitThree, Constants.Sounds.DEREK_THIRD_WEAPON_HIT);
+		loadSound ((int)Sounds.DerekThunderClap, Constants.Sounds.DEREK_THUNDER_CLAP);
         loadSound((int)Sounds.DerekHurt, Constants.Sounds.DEREK_HURT);
         loadSound((int)Sounds.DerekDeath, Constants.Sounds.DEREK_DEATH);
         loadSound((int)Sounds.DerekJump, Constants.Sounds.DEREK_JUMP);
@@ -449,6 +546,15 @@ public class SFXManager : MonoBehaviour
         //Enimies sounds
 		loadSound((int)Sounds.MageAttack, Constants.Sounds.MAGE_SHOOT);
 		loadSound((int)Sounds.MageHit, Constants.Sounds.MAGE_HIT);
+		loadSound((int)Sounds.MageMove, Constants.Sounds.MAGE_MOVE);
+		loadSound((int)Sounds.MageShieldBreak, Constants.Sounds.MAGE_SHIELD_BREAK);
+
+		loadSound((int)Sounds.SpinTopCharge, Constants.Sounds.SPINTOP_CHARGE);
+		loadSound((int)Sounds.SpinTopHit, Constants.Sounds.SPINTOP_HIT);
+
+		loadSound((int)Sounds.FurbullHop, Constants.Sounds.FURBULL_HOP);
+
+		loadSound ((int)Sounds.EnemyDeath, Constants.Sounds.ENEMY_DEATH);
     }
 
     void loadSound(int key, string filePath)
@@ -474,6 +580,7 @@ public class SFXManager : MonoBehaviour
                 yield return null;
             }
             m_SoundDictionary[key].Add((AudioClip)resource.asset);
+			Debug.Log("sound loaded " + filePath);
         }
 #if UNITY_EDITOR || DEBUG
         else
