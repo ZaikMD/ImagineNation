@@ -119,7 +119,15 @@ Shader "Hidden/Internal-PrePassLighting"
 			
 			//All our shadows are soft, but just in case we'll set a shadow to nothing if we aren't using a soft shadow for some scene
 			#else
+			
+			//Get shadows from a buffer provided by shadow casters
+			#if defined (SHADOWS_NATIVE)
+			half shadow = UNITY_SAMPLE_SHADOW_PROJ(_ShadowMapTexture, aShadowUV) * (1-_LightShadowData.r) + _LightShadowData.r;
+			
+			//Otherwise provide no shadow
+			#else
 			half shadow = 1.0;
+			#endif
 			#endif
 			
 			//Calculate fading based on the distance from a shadow
@@ -167,15 +175,25 @@ Shader "Hidden/Internal-PrePassLighting"
 				//Return how much to shade the surface based on the shadow on the surface
 				return _LightShadowData.xxxx * 0.25;
 			}
-			//Provide a full shadow
+			//Provide no shadow
 			else
 			{
 				return 1.0;
 			}	
 			
-			//We are using soft shadows, but just in case we should return a value for scenes that don't
+			//If their are hard shadows
 			#else
-			return 1.0;
+			
+			//If the distance from the shadow is less then the fade distance, return a full shadow
+			if (getDistanceFromShadow (toLight) < fadeDistance)
+			{
+				return _LightShadowData.r;
+			}
+			//Provide no shadow
+			else
+			{
+				return 1.0;
+			}
 			#endif
 		}
 		#endif
