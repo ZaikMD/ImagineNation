@@ -82,6 +82,7 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 
 			//Tell the movement it cant jump anymore
 			m_Movement.CanJump(false);
+			m_Movement.m_PausedMovement = true;
 
 			//If our combo is over then reset the input
 			if (m_ComboFinished )		  
@@ -135,9 +136,9 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 
 	void FootStep()
 	{
+		m_Movement.m_PausedMovement = true;
 		m_Movement.SetForcedInput(transform.forward);
 		m_Movement.SetSpeedMultiplier (0.15f);
-
 	}
 
     public void CallBack(CallBackEvents callBack)
