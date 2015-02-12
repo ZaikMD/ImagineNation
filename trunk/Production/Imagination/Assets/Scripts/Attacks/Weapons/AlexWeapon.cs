@@ -15,7 +15,10 @@ public class AlexWeapon : BaseWeapon
 		m_HeavyCollider = GetComponentInChildren<HeavyCollider> ();
 
 		m_LightCollider.Activate (false);
+		m_LightCollider.SetCharacter (m_ReadInput.ReadInputFrom);
+
 		m_HeavyCollider.Activate (false);
+		m_HeavyCollider.SetCharacter (m_ReadInput.ReadInputFrom);
 	}
 	
 	// Update is called once per frame

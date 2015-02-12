@@ -38,8 +38,6 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 	public int m_ConeSpeed = 10;
 	int m_ConeAngleOffset;
 
-
-
 	//The constants for the inputs of the attacks, as well as the 
 	//combos the players can do. L = light attack  H = Heavy attack
 
@@ -51,8 +49,7 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 	string m_Input = STRING_RESET;
 	string m_LastInput;
 
-	AcceptInputFrom m_ReadInput;  //To get the input
-
+	protected AcceptInputFrom m_ReadInput;  //To get the input
 
 	protected void start()
 	{
@@ -65,7 +62,7 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 		int numb = m_NumberOfConeProjectiles / 2;
 		m_ConeAngleOffset = numb * m_ConeAngle;
 		GetComponent<AnimationCallBackManager> ().registerCallBack (this);
-	}
+			}
 
 	protected virtual void update()
 	{
@@ -233,7 +230,10 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 			            										   m_InitialProjectilePosition.y + m_FirePointOffset, 
 			           											   m_InitialProjectilePosition.z),
 			                                                       m_ProjectileRotation);
-			proj.GetComponent<LightCollider>().LaunchProjectile(m_ConeSpeed, m_ConeRange);
+
+			LightCollider collider = proj.GetComponent<LightCollider>();
+			collider.LaunchProjectile(m_ConeSpeed, m_ConeRange);
+			collider.SetCharacter(m_ReadInput.ReadInputFrom);
 		}
 	}
 	
@@ -250,7 +250,9 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 			           											   m_InitialProjectilePosition.y + m_FirePointOffset,
 			            										   m_InitialProjectilePosition.z), m_ProjectileRotation);
 			
-			proj.GetComponent<LightCollider>().LaunchProjectile(m_AOESpeed,m_AOERange);
+			LightCollider collider = proj.GetComponent<LightCollider>();
+			collider.LaunchProjectile(m_AOESpeed,m_AOERange);
+			collider.SetCharacter(m_ReadInput.ReadInputFrom);
 		}
 	}
 	
@@ -267,7 +269,9 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 			           											   m_InitialProjectilePosition.y + m_FirePointOffset,
 			           											   m_InitialProjectilePosition.z), m_ProjectileRotation);
 			
-			proj.GetComponent<HeavyCollider>().LaunchProjectile(m_AOESpeed,m_AOERange);
+			HeavyCollider collider = proj.GetComponent<HeavyCollider>();
+			collider.LaunchProjectile(m_AOESpeed,m_AOERange);
+			collider.SetCharacter(m_ReadInput.ReadInputFrom);
 		}
 	}
 	
@@ -281,7 +285,9 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 		           											   m_InitialProjectilePosition.y + m_FirePointOffset,
 		           											   m_InitialProjectilePosition.z), Quaternion.Euler(m_InitialProjectileRotation));
 		
-		proj.GetComponent<HeavyCollider>().LaunchProjectile(m_LineSpeed,m_LineRange);
+		HeavyCollider collider = proj.GetComponent<HeavyCollider> ();
+		collider.LaunchProjectile(m_LineSpeed,m_LineRange);
+		collider.SetCharacter (m_ReadInput.ReadInputFrom);
 	}
 
 }

@@ -90,10 +90,13 @@ public class GnomeCombat : BaseAttackBehaviour, INotifyHit
 			return;
 		}
 
-		// If we are no longuer in attack range go back to chase
+		// If we are no longer in attack range go back to chase
 		float dist = Vector3.Distance (transform.position, getTarget().transform.position); 
 		if (dist >= Constants.MAGE_ATTACK_RANGE)
+		{
 			m_EnemyAI.SetState(EnemyAI.EnemyState.Chase);
+
+		}
 
 		//Calls the update for whichever combat state we are in
 		switch (m_CurrentCombatState)
@@ -258,6 +261,7 @@ public class GnomeCombat : BaseAttackBehaviour, INotifyHit
 			m_ShotTimer = Random.Range(m_MinTimeBetweenShots, m_MaxTimeBetweenShots);
 		}
 	}
+
 
 	public void NotifyHit()
 	{

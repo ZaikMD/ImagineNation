@@ -15,6 +15,8 @@ public class BaseCollider : MonoBehaviour
 	Vector3 m_InitialPosition;
 
 	bool m_isProjectile = false;
+
+	PlayerInput m_Character;
 	
 	// Update is called once per frame
 	void Update () 
@@ -39,6 +41,16 @@ public class BaseCollider : MonoBehaviour
 		m_MoveSpeed = MoveSpeed;
 		m_Range = Range;
 		m_InitialPosition = transform.position;
+	}
+
+	public void SetCharacter(PlayerInput character)
+	{
+		m_Character = character;
+	}
+
+	public PlayerInfo GetPlayerInfo()
+	{
+		return PlayerInfo.getPlayer(m_Character);
 	}
 
 	public void Activate(bool isActive)
