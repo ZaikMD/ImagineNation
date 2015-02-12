@@ -1765,33 +1765,33 @@ ModelImporter:
       curves: []
       events:
       - time: 0
-        functionName: ComboTimeStart
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 2590aad41075bba47acb950a41fb86d5,
+        functionName: callBack
+        data: Player_ComboTimeStart
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: .404856592
-        functionName: LightAttackBegin
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 2590aad41075bba47acb950a41fb86d5,
+        functionName: callBack
+        data: Player_AttackBegin_Light
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .519078314
+        functionName: callBack
+        data: Player_ComboTimeEnd
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: .523272216
-        functionName: AttackOver
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 2590aad41075bba47acb950a41fb86d5,
-          type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: .527666092
-        functionName: ComboTimeEnd
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 2590aad41075bba47acb950a41fb86d5,
+        functionName: callBack
+        data: Player_AttackOver
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
         intParameter: 0
@@ -1970,33 +1970,33 @@ ModelImporter:
       curves: []
       events:
       - time: 0
-        functionName: ComboTimeStart
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 2590aad41075bba47acb950a41fb86d5,
+        functionName: callBack
+        data: Player_ComboTimeStart
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: .422401279
-        functionName: ComboTimeEnd
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 2590aad41075bba47acb950a41fb86d5,
+        functionName: callBack
+        data: Player_ComboTimeEnd
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: .422401279
-        functionName: AttackOver
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 2590aad41075bba47acb950a41fb86d5,
+        functionName: callBack
+        data: Player_AttackOver
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: .251010448
-        functionName: LightAttackBegin
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 2590aad41075bba47acb950a41fb86d5,
+        functionName: callBack
+        data: Player_AttackBegin_Light
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
         intParameter: 0
@@ -2175,33 +2175,33 @@ ModelImporter:
       curves: []
       events:
       - time: 0
-        functionName: ComboTimeStart
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 2590aad41075bba47acb950a41fb86d5,
+        functionName: callBack
+        data: Player_ComboTimeStart
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: .470986962
-        functionName: ComboTimeEnd
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 2590aad41075bba47acb950a41fb86d5,
+        functionName: callBack
+        data: Player_ComboTimeEnd
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: .470986962
-        functionName: AttackOver
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 2590aad41075bba47acb950a41fb86d5,
+        functionName: callBack
+        data: Player_AttackOver
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: .364371836
-        functionName: LightAttackBegin
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 2590aad41075bba47acb950a41fb86d5,
+        functionName: callBack
+        data: Player_AttackBegin_Light
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
         intParameter: 0
@@ -2380,33 +2380,33 @@ ModelImporter:
       curves: []
       events:
       - time: 0
-        functionName: ComboTimeStart
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 2590aad41075bba47acb950a41fb86d5,
+        functionName: callBack
+        data: Player_ComboTimeStart
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: .427798182
-        functionName: ComboTimeEnd
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 2590aad41075bba47acb950a41fb86d5,
+        functionName: callBack
+        data: Player_ComboTimeEnd
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: .427798182
-        functionName: AttackOver
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 2590aad41075bba47acb950a41fb86d5,
+        functionName: callBack
+        data: Player_AttackOver
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: .392711371
-        functionName: AOEAttack
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 2590aad41075bba47acb950a41fb86d5,
+        functionName: callBack
+        data: Player_AttackBegin_AOE
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
         intParameter: 0
@@ -2585,33 +2585,33 @@ ModelImporter:
       curves: []
       events:
       - time: 0
-        functionName: ComboTimeStart
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 2590aad41075bba47acb950a41fb86d5,
+        functionName: callBack
+        data: Player_ComboTimeStart
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: .500673175
-        functionName: ComboTimeEnd
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 2590aad41075bba47acb950a41fb86d5,
+        functionName: callBack
+        data: Player_ComboTimeEnd
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: .500673175
-        functionName: AttackOver
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 2590aad41075bba47acb950a41fb86d5,
+        functionName: callBack
+        data: Player_AttackOver
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: .42915085
-        functionName: ConeAttack
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 2590aad41075bba47acb950a41fb86d5,
+        functionName: callBack
+        data: Player_AttackBegin_Cone
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
         intParameter: 0
@@ -2790,33 +2790,33 @@ ModelImporter:
       curves: []
       events:
       - time: 0
-        functionName: ComboTimeStart
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 2590aad41075bba47acb950a41fb86d5,
+        functionName: callBack
+        data: Player_ComboTimeStart
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: .50472331
-        functionName: ComboTimeEnd
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 2590aad41075bba47acb950a41fb86d5,
+        functionName: callBack
+        data: Player_ComboTimeEnd
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: .50472331
-        functionName: AttackOver
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 2590aad41075bba47acb950a41fb86d5,
+        functionName: callBack
+        data: Player_AttackOver
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: .331982583
-        functionName: LineAttack
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 2590aad41075bba47acb950a41fb86d5,
+        functionName: callBack
+        data: Player_AttackBegin_Line
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
         intParameter: 0
@@ -2995,33 +2995,33 @@ ModelImporter:
       curves: []
       events:
       - time: 0
-        functionName: ComboTimeStart
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 2590aad41075bba47acb950a41fb86d5,
+        functionName: callBack
+        data: Player_ComboTimeStart
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: .380565763
-        functionName: ComboTimeEnd
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 2590aad41075bba47acb950a41fb86d5,
+        functionName: callBack
+        data: Player_ComboTimeEnd
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: .380565763
-        functionName: AttackOver
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 2590aad41075bba47acb950a41fb86d5,
+        functionName: callBack
+        data: Player_AttackOver
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: .225370914
-        functionName: HeavyAOEAttack
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 2590aad41075bba47acb950a41fb86d5,
+        functionName: callBack
+        data: Player_AttackBegin_HeavyAOE
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
         intParameter: 0
