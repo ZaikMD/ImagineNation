@@ -92,6 +92,24 @@ public class SoundSourceMover : MonoBehaviour
 
     void updatePos()
     {
+		if (Players [0] == null || Players [1] == null)
+		{
+			if (m_AutoDestroy)
+			{
+				Destroy (this.gameObject);
+			}
+			return;
+		}
+
+		if (m_SourceObject == null)
+		{
+			if (m_AutoDestroy)
+			{
+				Destroy (this.gameObject);
+			}
+			return;
+		}
+
         //figure out wich is the closest player
         PlayerInfo closestPlayer = Players[0];
         if (Vector3.Distance(Players[0].transform.position, SourceObject.position) > Vector3.Distance(Players[1].transform.position, SourceObject.position))
@@ -99,6 +117,14 @@ public class SoundSourceMover : MonoBehaviour
             closestPlayer = Players[1];
         }
 
+		if(m_AudioListenerTransform == null)
+		{
+			if (m_AutoDestroy)
+			{
+				Destroy (this.gameObject);
+			}
+			return;
+		}
 
         //moves the position of the source to be the correct distance
         transform.position = (m_AudioListenerTransform.position + SourceObject.position - closestPlayer.transform.position);
