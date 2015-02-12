@@ -25,7 +25,7 @@ public class Perception : MonoBehaviour
     public float i_FOVD_RT = 0.5f;
 
 	public float i_FieldOfView = 90.0f;
-	public float i_ViewDist = 10.0f;
+	public float i_ViewDist = 25.0f;
 
     /// <summary>
     /// whats the threshold where the player is guarenteed to be seen
@@ -111,7 +111,7 @@ public class Perception : MonoBehaviour
         RaycastHit raycastData;
         if (!Physics.Raycast(transform.position, player.Player.position - transform.position, out raycastData, distance +1.0f, ~LayerMask.GetMask(Constants.ENEMY_STRING)))// TODO: replace with constant
         {
-			//Debug.DrawLine(transform.position,player.Player.position - transform.position, Color.red);
+			Debug.DrawLine(transform.position, player.Player.position - transform.position, Color.red);
             return 0.0f;
         }
         else
@@ -119,7 +119,7 @@ public class Perception : MonoBehaviour
             //did we hit the player?
             if (raycastData.collider.tag != Constants.PLAYER_STRING)
             {
-				//Debug.DrawLine(transform.position,player.Player.position - transform.position, Color.red);
+				//Debug.DrawLine(transform.position, player.Player.position - transform.position, Color.black);
                 //return 0.0f;
             }
         }
@@ -128,11 +128,13 @@ public class Perception : MonoBehaviour
         float dot = Vector3.Dot(transform.forward.normalized, (player.Player.position - transform.position).normalized);
 		float angle = Mathf.Acos(dot / (transform.forward.normalized.magnitude * (player.Player.position - transform.position).normalized.magnitude)) * ANGLE_MULTIPLIER;
 
+
+
         if (i_FieldOfView < angle)
         {
-            return 0.0f;
+            //return 0.0f;
         }
-
+		Debug.Log (player.PlayerInfo.gameObject.name + " in range/sight");
         //we can see the player
         player.playerSeen(i_ResidualThreatTimerSight);
 
@@ -213,7 +215,13 @@ public class Perception_Player
     public void update()
     {
         if (m_SawPlayerTimer > 0.0f)
+		{
             m_SawPlayerTimer -= Time.deltaTime;
+			if(m_SawPlayerTimer < 0.0f)
+			{
+				m_SawPlayerTimer = 0.0f;
+			}
+		}
 
         if (!m_AttackedUs) 
             return;
@@ -221,6 +229,10 @@ public class Perception_Player
         if (m_AttackedUsTimer > 0.0f)
         {
             m_AttackedUsTimer -= Time.deltaTime;
+			if(m_AttackedUsTimer < 0.0f)
+			{
+				m_AttackedUsTimer = 0.0f;
+			}
         }
         else
         {
