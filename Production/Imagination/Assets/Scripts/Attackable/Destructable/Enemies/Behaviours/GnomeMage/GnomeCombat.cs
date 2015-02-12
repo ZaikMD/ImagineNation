@@ -156,8 +156,8 @@ public class GnomeCombat : BaseAttackBehaviour, INotifyHit
 		{
 			m_CurrentCombatState = CombatStates.Regular;	
 			m_Clones.Clear();
-
 			m_ShieldHealth = SHIELD_HEALTH;
+			return;
 		}
 
 		// Move, attack and decrement the cloned timer
