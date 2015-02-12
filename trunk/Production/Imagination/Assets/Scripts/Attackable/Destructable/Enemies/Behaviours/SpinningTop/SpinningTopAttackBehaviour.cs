@@ -167,6 +167,7 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour, INotifyHit
 
     private void Charge()
     {
+		m_EnemyAI.m_IsInvincible = true;
         //EnemyAnimator.playAnimation(AnimatorSpinTops.Animations.Attack);
 		//Call charge movement
         Movement();
@@ -189,6 +190,7 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour, INotifyHit
 
     private void BuildingUpCharge()
     {
+		m_EnemyAI.m_IsInvincible = true;
 		//Check charge timer
         if (m_ChargeTimer < CHARGE_BUILD_UP_TIME)
         {
@@ -208,6 +210,8 @@ public class SpinningTopAttackBehaviour : BaseAttackBehaviour, INotifyHit
 
     private void KnockedBack()
     {
+		m_EnemyAI.m_IsInvincible = false;
+
 		//If the knockback timer is greater than 0
         if (m_KnockBackTimer > 0.0f)
         {
