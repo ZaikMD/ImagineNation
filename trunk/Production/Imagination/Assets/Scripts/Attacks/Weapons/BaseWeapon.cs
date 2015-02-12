@@ -206,6 +206,7 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 		m_Movement.SetSpeedMultiplier (1f);
 		m_AttackFinished = true;
 		m_Movement.CanJump(true);
+		m_Movement.m_PausedMovement = false;
 		LightAttackEnd ();
 		HeavyAttackEnd ();
 	}
