@@ -68,7 +68,7 @@ ModelImporter:
     400060: Mattress
     400062: //RootNode
     4300000: Mattress
-    7400000: Take 001
+    7400000: Wobble
     9500000: //RootNode
     13700000: Mattress
   materials:
@@ -86,7 +86,97 @@ ModelImporter:
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Wobble
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 80
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Dummy001
+        weight: 1
+      - path: Dummy001/Bone001
+        weight: 1
+      - path: Dummy001/Bone006
+        weight: 1
+      - path: Dummy002
+        weight: 1
+      - path: Dummy002/Bone004
+        weight: 1
+      - path: Dummy002/Bone007
+        weight: 1
+      - path: Dummy003
+        weight: 1
+      - path: Dummy003/Bone008
+        weight: 1
+      - path: Dummy003/Bone009
+        weight: 1
+      - path: Dummy004
+        weight: 1
+      - path: Dummy004/Bone010
+        weight: 1
+      - path: Dummy004/Bone011
+        weight: 1
+      - path: Dummy005
+        weight: 1
+      - path: Dummy005/Bone012
+        weight: 1
+      - path: Dummy005/Bone013
+        weight: 1
+      - path: Dummy006
+        weight: 1
+      - path: Dummy006/Bone014
+        weight: 1
+      - path: Dummy006/Bone015
+        weight: 1
+      - path: Dummy007
+        weight: 1
+      - path: Dummy007/Bone016
+        weight: 1
+      - path: Dummy007/Bone017
+        weight: 1
+      - path: Dummy008
+        weight: 1
+      - path: Dummy008/Bone018
+        weight: 1
+      - path: Dummy008/Bone019
+        weight: 1
+      - path: Dummy009
+        weight: 1
+      - path: Dummy009/Bone020
+        weight: 1
+      - path: Dummy009/Bone021
+        weight: 1
+      - path: Dummy010
+        weight: 1
+      - path: Dummy010/Bone022
+        weight: 1
+      - path: Dummy010/Bone023
+        weight: 1
+      - path: Mattress
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []
