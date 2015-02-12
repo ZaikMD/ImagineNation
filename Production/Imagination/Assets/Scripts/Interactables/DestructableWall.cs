@@ -55,6 +55,7 @@ public class DestructableWall : Destructable
 			group[i].AddComponent<CapsuleCollider>();
 			group[i].GetComponent<DestructableWallRagDoll>().enabled = true;
 			group[i].GetComponent<Rigidbody>().mass = RagdollMass;
+			group[i].GetComponent<Renderer>().material.shader = Shader.Find("Transparent/Diffuse");
 			Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("DPillow"));
 		}
 	}
