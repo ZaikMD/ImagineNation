@@ -99,6 +99,9 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//If the player is currently grounded
 	bool m_IsGrounded = false;
 
+
+	bool m_CanJump = true;
+
 	//Intitialization
 
 	//Called at the start of the program
@@ -147,7 +150,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		}
 
 		//If at any point the jump button is released the player is no longer currently jumping
-		if(InputManager.getJumpUp(m_AcceptInputFrom.ReadInputFrom))
+		if(InputManager.getJumpUp(m_AcceptInputFrom.ReadInputFrom) )
 		{
 			m_CurrentlyJumping = false;
 		}
@@ -178,7 +181,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 			ResetGroundedLaunchMovement();
 
 			//Check if we should start jumping
-			if(InputManager.getJumpDown(m_AcceptInputFrom.ReadInputFrom))
+			if(InputManager.getJumpDown(m_AcceptInputFrom.ReadInputFrom) && m_CanJump)
 			{
 				Jump();
 				AirMovement();
@@ -631,5 +634,15 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	public bool GetIsGrounded()
 	{
 		return m_IsGrounded;
+	}
+
+	/// <summary>
+	/// Determines whether this instance can jump 
+	/// </summary>
+	/// <returns><c>true</c> if this instance can jump the specified canJump; otherwise, <c>false</c>.</returns>
+	/// <param name="canJump">If set to <c>true</c> can jump.</param>
+	public void CanJump(bool canJump)
+	{
+		m_CanJump = canJump;
 	}
 }

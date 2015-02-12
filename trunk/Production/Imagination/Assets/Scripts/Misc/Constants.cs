@@ -237,7 +237,7 @@ public static class Constants
 	// Enemy Constants
 	public const string ENEMY_STRING = "Enemy";
 	public const float MAGE_ATTACK_RANGE = 10.0f;
-    public const float FURBULL_ATTACK_RANGE = 1.0f;
+    public const float FURBULL_ATTACK_RANGE = 1.5f;
     public const float SPIN_TOP_ATTACK_RANGE = 15.0f;
     public const float KNOCKBACK_MULTIPLIER = 20.0f;
 

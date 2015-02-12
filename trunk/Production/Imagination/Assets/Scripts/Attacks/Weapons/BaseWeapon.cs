@@ -70,16 +70,25 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 	{
 		CheckInput ();
 
+		//If the last attack is finished and we have selected the next attack
 		if (m_AttackFinished && m_ComboSet)
 		{
+			//Play the animation
 			m_Animator.playAnimation(m_Input);
+			//Flag that we have not selected our next move and we have not finished our attack
 			m_ComboSet = false;
 			m_AttackFinished = false;
 
+			//Tell the movement it cant jump anymore
+			m_Movement.CanJump(false);
+
+			//If our combo is over then reset the input
 			if (m_ComboFinished )		  
 				ResetInput ();
 		}
 
+		//If our attack is finished and we have not set a new input by now set the can combo to true
+		//This is here so you can start up a new combo after not having attacked
 			if (m_AttackFinished && !m_ComboSet)
 				m_CanCombo = true;
 
@@ -87,22 +96,29 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 
 	void CheckInput()
 	{
-		if (m_CanCombo && !m_ComboSet) 
+		//If we can combo and we have not already selected the next input and we are on the ground
+		if (m_CanCombo && !m_ComboSet && m_Movement.GetIsGrounded()) 
 		{
+			// If we have pressed any of the attack buttons
 			if (InputManager.getAttackDown(m_ReadInput.ReadInputFrom) || InputManager.getHeavyAttackDown(m_ReadInput.ReadInputFrom))
 			{
+				//If we have pressed X add that to the input string 
 				if(InputManager.getAttackDown(m_ReadInput.ReadInputFrom))
 					m_LastInput = X;			
-				
+
+				//If we have pressed Y add that to the input string
 				if(InputManager.getHeavyAttackDown(m_ReadInput.ReadInputFrom))			
 					m_LastInput = Y;
-				
+
+				//If we have pressed Y then its time to end a combo
 				if (m_LastInput == Y )
 					m_ComboFinished = true;
 
+				// If we have pressed 3 x and a y then its time to end the combo
 				else if (m_Input.Contains(XXX) && m_LastInput == X)	
 					ResetInput();
 
+				// Add the last inout into the input string
 				m_Input += m_LastInput;
 				m_ComboSet = true;
 				m_CanCombo = false;
@@ -120,6 +136,7 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 	{
 		m_Movement.SetForcedInput(transform.forward);
 		m_Movement.SetSpeedMultiplier (0.15f);
+
 	}
 
     public void CallBack(CallBackEvents callBack)
@@ -186,6 +203,7 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 		m_Movement.SetForcedInput(Vector3.zero);
 		m_Movement.SetSpeedMultiplier (1f);
 		m_AttackFinished = true;
+		m_Movement.CanJump(true);
 		LightAttackEnd ();
 		HeavyAttackEnd ();
 	}
