@@ -1,0 +1,399 @@
+fileFormatVersion: 2
+guid: 6cb07c31a12c56040b94778c9f52c11b
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: BackLeft
+    100002: BackRight
+    100004: CATRigHub001Bone005Bone001Bone003
+    100006: CATRigHub001Bone006
+    100008: Current01
+    100010: Current03
+    100012: Current04
+    100014: Current06
+    100016: Current09
+    100018: Current10
+    100020: Current11
+    100022: Current14
+    100024: Current15
+    100026: Current16
+    100028: Current17
+    100030: Current18
+    100032: Current20
+    100034: Current24
+    100036: Current25
+    100038: Current27
+    100040: Current28
+    100042: DrumBone
+    100044: FrontLeft
+    100046: FrontRight
+    100048: KeyboardBone
+    100050: //RootNode
+    100052: StickFrontLeft
+    100054: StickFrontRight
+    400000: BackLeft
+    400002: BackRight
+    400004: CATRigHub001Bone005Bone001Bone003
+    400006: CATRigHub001Bone006
+    400008: Current01
+    400010: Current03
+    400012: Current04
+    400014: Current06
+    400016: Current09
+    400018: Current10
+    400020: Current11
+    400022: Current14
+    400024: Current15
+    400026: Current16
+    400028: Current17
+    400030: Current18
+    400032: Current20
+    400034: Current24
+    400036: Current25
+    400038: Current27
+    400040: Current28
+    400042: DrumBone
+    400044: FrontLeft
+    400046: FrontRight
+    400048: KeyboardBone
+    400050: //RootNode
+    400052: StickFrontLeft
+    400054: StickFrontRight
+    4300000: Current03
+    4300002: Current04
+    4300004: Current09
+    4300006: Current10
+    4300008: Current15
+    4300010: Current17
+    4300012: Current18
+    4300014: Current06
+    4300016: Current20
+    4300018: Current14
+    4300020: Current11
+    4300022: Current01
+    4300024: Current24
+    4300026: Current25
+    4300028: Current28
+    4300030: Current27
+    4300032: Current16
+    7400000: 'Shooting '
+    7400002: Dying
+    7400004: Take 001
+    9500000: //RootNode
+    13700000: Current01
+    13700002: Current03
+    13700004: Current04
+    13700006: Current06
+    13700008: Current09
+    13700010: Current10
+    13700012: Current11
+    13700014: Current14
+    13700016: Current15
+    13700018: Current16
+    13700020: Current17
+    13700022: Current18
+    13700024: Current20
+    13700026: Current24
+    13700028: Current25
+    13700030: Current27
+    13700032: Current28
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: 'Shooting '
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Current01
+        weight: 1
+      - path: Current03
+        weight: 1
+      - path: Current04
+        weight: 1
+      - path: Current09
+        weight: 1
+      - path: Current10
+        weight: 1
+      - path: Current15
+        weight: 1
+      - path: Current16
+        weight: 1
+      - path: Current17
+        weight: 1
+      - path: Current17/Current06
+        weight: 1
+      - path: Current17/Current11
+        weight: 1
+      - path: Current17/Current14
+        weight: 1
+      - path: Current17/Current18
+        weight: 1
+      - path: Current17/Current20
+        weight: 1
+      - path: Current24
+        weight: 1
+      - path: Current25
+        weight: 1
+      - path: Current27
+        weight: 1
+      - path: Current28
+        weight: 1
+      - path: KeyboardBone
+        weight: 1
+      - path: KeyboardBone/BackLeft
+        weight: 1
+      - path: KeyboardBone/BackRight
+        weight: 1
+      - path: KeyboardBone/CATRigHub001Bone006
+        weight: 1
+      - path: KeyboardBone/DrumBone
+        weight: 1
+      - path: KeyboardBone/DrumBone/CATRigHub001Bone005Bone001Bone003
+        weight: 1
+      - path: KeyboardBone/DrumBone/StickFrontLeft
+        weight: 1
+      - path: KeyboardBone/DrumBone/StickFrontRight
+        weight: 1
+      - path: KeyboardBone/FrontLeft
+        weight: 1
+      - path: KeyboardBone/FrontRight
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Dying
+      takeName: Take 001
+      firstFrame: 80
+      lastFrame: 122
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Current01
+        weight: 1
+      - path: Current03
+        weight: 1
+      - path: Current04
+        weight: 1
+      - path: Current09
+        weight: 1
+      - path: Current10
+        weight: 1
+      - path: Current15
+        weight: 1
+      - path: Current16
+        weight: 1
+      - path: Current17
+        weight: 1
+      - path: Current17/Current06
+        weight: 1
+      - path: Current17/Current11
+        weight: 1
+      - path: Current17/Current14
+        weight: 1
+      - path: Current17/Current18
+        weight: 1
+      - path: Current17/Current20
+        weight: 1
+      - path: Current24
+        weight: 1
+      - path: Current25
+        weight: 1
+      - path: Current27
+        weight: 1
+      - path: Current28
+        weight: 1
+      - path: KeyboardBone
+        weight: 1
+      - path: KeyboardBone/BackLeft
+        weight: 1
+      - path: KeyboardBone/BackRight
+        weight: 1
+      - path: KeyboardBone/CATRigHub001Bone006
+        weight: 1
+      - path: KeyboardBone/DrumBone
+        weight: 1
+      - path: KeyboardBone/DrumBone/CATRigHub001Bone005Bone001Bone003
+        weight: 1
+      - path: KeyboardBone/DrumBone/StickFrontLeft
+        weight: 1
+      - path: KeyboardBone/DrumBone/StickFrontRight
+        weight: 1
+      - path: KeyboardBone/FrontLeft
+        weight: 1
+      - path: KeyboardBone/FrontRight
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 130
+      lastFrame: 150
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Current01
+        weight: 1
+      - path: Current03
+        weight: 1
+      - path: Current04
+        weight: 1
+      - path: Current09
+        weight: 1
+      - path: Current10
+        weight: 1
+      - path: Current15
+        weight: 1
+      - path: Current16
+        weight: 1
+      - path: Current17
+        weight: 1
+      - path: Current17/Current06
+        weight: 1
+      - path: Current17/Current11
+        weight: 1
+      - path: Current17/Current14
+        weight: 1
+      - path: Current17/Current18
+        weight: 1
+      - path: Current17/Current20
+        weight: 1
+      - path: Current24
+        weight: 1
+      - path: Current25
+        weight: 1
+      - path: Current27
+        weight: 1
+      - path: Current28
+        weight: 1
+      - path: KeyboardBone
+        weight: 1
+      - path: KeyboardBone/BackLeft
+        weight: 1
+      - path: KeyboardBone/BackRight
+        weight: 1
+      - path: KeyboardBone/CATRigHub001Bone006
+        weight: 1
+      - path: KeyboardBone/DrumBone
+        weight: 1
+      - path: KeyboardBone/DrumBone/CATRigHub001Bone005Bone001Bone003
+        weight: 1
+      - path: KeyboardBone/DrumBone/StickFrontLeft
+        weight: 1
+      - path: KeyboardBone/DrumBone/StickFrontRight
+        weight: 1
+      - path: KeyboardBone/FrontLeft
+        weight: 1
+      - path: KeyboardBone/FrontRight
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
