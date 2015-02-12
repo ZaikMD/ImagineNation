@@ -1796,6 +1796,14 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: .0706029609
+        functionName: callBack
+        data: FootStep
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -1996,6 +2004,14 @@ ModelImporter:
       - time: .251010448
         functionName: callBack
         data: Player_AttackBegin_Light
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .0994231105
+        functionName: callBack
+        data: FootStep
         objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
@@ -2206,6 +2222,14 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: .139767855
+        functionName: callBack
+        data: FootStep
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -2406,6 +2430,14 @@ ModelImporter:
       - time: .392711371
         functionName: callBack
         data: Player_AttackBegin_AOE
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .0561948717
+        functionName: callBack
+        data: FootStep
         objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
@@ -2616,6 +2648,14 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: .0691628307
+        functionName: callBack
+        data: FootStep
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -2821,6 +2861,14 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: .0691639036
+        functionName: callBack
+        data: FootStep
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -3021,6 +3069,14 @@ ModelImporter:
       - time: .225370914
         functionName: callBack
         data: Player_AttackBegin_HeavyAOE
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .030259911
+        functionName: callBack
+        data: FootStep
         objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
