@@ -22,7 +22,7 @@ public class PuzzlePiece : BaseCollectable
 			m_CollectableManager.IncrementPuzzleCounter();
 
 			//Play the collected sound
-			PlaySound();
+			m_SFX.playSound(transform, Sounds.PuzzlePeice);
 			
 			//destroy this gameobject
 			Destroy(this.gameObject);            

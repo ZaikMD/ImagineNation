@@ -41,12 +41,14 @@ public enum Sounds
     Walk,
     Run, 
 	Collectable, 
+	PuzzlePeice,
 	WeaponWoosh,
 	JumpPad, 
 	Zipper,
 	GateOpen,
 	CharacterDeath, 
 	CharacterRespawn, 
+	LiveIncrement,
 
 	//Level
 	Checkpoint, 
@@ -94,6 +96,7 @@ public enum Sounds
 	SpinTopCharge, 
 
 	FurbullHop, 
+	FurbullAttack,
 
 	EnemyDeath	
 }
@@ -306,6 +309,10 @@ public class SFXManager : MonoBehaviour
             tempAudioInfo.OneShot = true;
             break;
 
+		case Sounds.PuzzlePeice:
+			tempAudioInfo.OneShot = true;
+			break;
+
 		case Sounds.WeaponWoosh:
 			tempAudioInfo.OneShot = true;
 			break;
@@ -323,6 +330,10 @@ public class SFXManager : MonoBehaviour
 			break;
 
 		case Sounds.LevelComplete:
+			tempAudioInfo.OneShot = true;
+			break;
+
+		case Sounds.LiveIncrement:
 			tempAudioInfo.OneShot = true;
 			break;
 
@@ -472,6 +483,10 @@ public class SFXManager : MonoBehaviour
 			tempAudioInfo.OneShot = true;
 			break;
 
+		case Sounds.FurbullAttack:
+			tempAudioInfo.OneShot = true;
+			break;
+
 
 		case Sounds.EnemyDeath:
 			tempAudioInfo.OneShot = true;
@@ -510,6 +525,8 @@ public class SFXManager : MonoBehaviour
 		loadSound((int)Sounds.Collectable, Constants.Sounds.COLLECTABLE_3);
 		loadSound((int)Sounds.Collectable, Constants.Sounds.COLLECTABLE_4);
 		loadSound((int)Sounds.Collectable, Constants.Sounds.COLLECTABLE_5);
+		loadSound ((int)Sounds.LiveIncrement, Constants.Sounds.COLLECTABLE_50);
+		loadSound((int)Sounds.PuzzlePeice, Constants.Sounds.PUZZLE_PEICE);
         loadSound((int)Sounds.JumpPad, Constants.Sounds.JUMPAD);
         loadSound((int)Sounds.GateOpen, Constants.Sounds.GATE_OPEN);
 		loadSound((int)Sounds.CharacterRespawn, Constants.Sounds.CHARACTER_RESPAWN);
@@ -561,8 +578,9 @@ public class SFXManager : MonoBehaviour
 		loadSound((int)Sounds.SpinTopHit, Constants.Sounds.SPINTOP_HIT);
 
 		loadSound((int)Sounds.FurbullHop, Constants.Sounds.FURBULL_HOP);
+		loadSound((int)Sounds.FurbullAttack, Constants.Sounds.FURBULL_ATTACK);
 
-		loadSound ((int)Sounds.EnemyDeath, Constants.Sounds.ENEMY_DEATH);
+		loadSound((int)Sounds.EnemyDeath, Constants.Sounds.ENEMY_DEATH);
     }
 
     void loadSound(int key, string filePath)
