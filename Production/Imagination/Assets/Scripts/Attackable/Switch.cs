@@ -32,7 +32,7 @@ public class Switch : SwitchBaseClass, Attackable
 
 	Quaternion m_Angle;
 	Vector3 m_MoveToPoint;
-	float m_LerpTime;
+	float m_LerpTime;	
 
 	//Variable for pausing in case the camera needs to show what happens
 
@@ -40,6 +40,9 @@ public class Switch : SwitchBaseClass, Attackable
 	public float m_CameraPauseTimer;
 
 	const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.PauseMenu;
+
+	//Sound varible
+	private SFXManager m_SFX;
 
 	// Use this for initialization
 	void Start () 
@@ -56,6 +59,8 @@ public class Switch : SwitchBaseClass, Attackable
 		                            m_MovingPiece.transform.position.z - 0.3f);
 
 		m_LerpTime = 0.5f;
+
+		m_SFX = SFXManager.Instance;
 	}
 	
 	// Update is called once per frame
@@ -119,6 +124,7 @@ public class Switch : SwitchBaseClass, Attackable
 
     public void onHit(LightCollider proj, float damage) //If the player hits the switch, set activated to true
     {
+		m_SFX.playSound(transform, Sounds.LeverHit);
 		if(!m_WillPauseForCamera)
 		{
        		m_Activated = true;
@@ -131,6 +137,7 @@ public class Switch : SwitchBaseClass, Attackable
 
     public void onHit(HeavyCollider proj, float damage) //If the player hits the switch, set activated to true
     {
+		m_SFX.playSound(transform, Sounds.LeverHit);
         if (!m_WillPauseForCamera)
         {
             m_Activated = true;
