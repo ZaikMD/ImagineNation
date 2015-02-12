@@ -15,7 +15,7 @@ using System.Collections;
 
 public class ChaseTargetMovement : BaseMovement 
 {
-	private const float CHASE_STOPPING_DISTANCE = 2.0f;
+	private const float CHASE_STOPPING_DISTANCE = 1.0f;
 
     public override Vector3 Movement(GameObject target)
     {
