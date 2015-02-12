@@ -318,6 +318,14 @@ public class SFXManager : MonoBehaviour
 			tempAudioInfo.OneShot = false;
 			break;
 
+		case Sounds.LeverHit:
+			tempAudioInfo.OneShot = true;
+			break;
+
+		case Sounds.LevelComplete:
+			tempAudioInfo.OneShot = true;
+			break;
+
 		case Sounds.CharacterDeath:
 			tempAudioInfo.OneShot = true;
 			break;

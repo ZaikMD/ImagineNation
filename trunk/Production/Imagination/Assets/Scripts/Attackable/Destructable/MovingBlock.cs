@@ -78,6 +78,8 @@ public class MovingBlock : Destructable
 		m_Destination = transform.position;
 
 		m_HitTimer = m_SaveHitTimer;
+
+		m_SFX = SFXManager.Instance;
 	}
 	
 	// Update is called once per frame
@@ -136,6 +138,7 @@ public class MovingBlock : Destructable
 		{
 			if(proj.gameObject.tag == Constants.PLAYER_PROJECTILE_STRING) //If the object is a playerProjectile, call setDestination and pass in the gameobject
 			{
+				m_SFX.playSound(transform, Sounds.LeverHit);
 				setDestination (proj.gameObject);
 			}
 		}
@@ -149,6 +152,7 @@ public class MovingBlock : Destructable
 		{
 			if(proj.gameObject.tag == Constants.PLAYER_PROJECTILE_STRING) //If the object is a playerProjectile, call setDestination and pass in the gameobject
 			{
+				m_SFX.playSound(transform, Sounds.LeverHit);
 				setDestination (proj.gameObject);
 			}
 		}

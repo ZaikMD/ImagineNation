@@ -44,7 +44,7 @@ public class PlayerHealth : Destructable
 	int m_Player;
 
 	//used to make sound calls
-	SFXManager m_SFX;
+//	SFXManager m_SFX;
 	Hud m_Hud;
 
 	//Movement for knockback
