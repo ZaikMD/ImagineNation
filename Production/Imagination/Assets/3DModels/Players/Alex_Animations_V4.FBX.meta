@@ -2615,14 +2615,6 @@ ModelImporter:
         intParameter: 0
         messageOptions: 0
       - time: .276656568
-        functionName: NewEvent
-        data: FootStep
-        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
-          type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: .276656568
         functionName: callBack
         data: FootStep
         objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
