@@ -66,7 +66,7 @@ public class CheckPoint : MonoBehaviour
 				m_TimerGUI = m_baseTimeValue;			
 
 			    //Plays the collectable sound
-				m_SFX.playSound(transform, Sounds.Collectable);
+				m_SFX.playSound(transform, Sounds.Checkpoint);
 				m_Hud.ShowCheckpoint();
 
 				GameData.Instance.CurrentCheckPoint = m_Value;

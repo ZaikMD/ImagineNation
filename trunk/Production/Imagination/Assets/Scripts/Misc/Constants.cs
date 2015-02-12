@@ -175,12 +175,15 @@ public static class Constants
 		public const string COLLECTABLE_3 = "Sounds/NewSounds/Level/Pickup_LightPeg_3";
 		public const string COLLECTABLE_4 = "Sounds/NewSounds/Level/Pickup_LightPeg_4";
 		public const string COLLECTABLE_5 = "Sounds/NewSounds/Level/Pickup_LightPeg_5";
+		public const string COLLECTABLE_50 = "Sounds/NewSounds/Level/Pickup_LightPeg_Fifty";
+		public const string PUZZLE_PEICE = "Sounds/NewSounds/Level/Puzzle_Piece_Collected";
 		public const string JUMPAD = "Sounds/NewSounds/Level/Trampoline_Bounce";
 		public const string ZIPPER = "Sounds/Common/Zipper";
 		public const string GATE_OPEN = "Sounds/Interactable/Gate_Down";
 		public const string WEAPON_SWING_1 = "Sounds/NewSounds/Common/Attack_Swing_1";
 		public const string WEAPON_SWING_2 = "Sounds/NewSounds/Common/Attack_Swing_2";
 		public const string WEAPON_SWING_3 = "Sounds/NewSounds/Common/Attack_Swing_3";
+
 
 		//LEVEL
 		public const string CHECKPOINT_REACHED = "Sounds/NewSounds/Level/Checkpoint_Reached";
@@ -230,6 +233,7 @@ public static class Constants
 		public const string SPINTOP_CHARGE =  "Sounds/NewSounds/Enemy/SpinTop_Charge";
 
 		public const string FURBULL_HOP =  "Sounds/NewSounds/Enemy/Furbull_Hop";
+		public const string FURBULL_ATTACK = "Sounds/NewSounds/Enemy/Furbull_Attack_Swing";
 
 		public const string ENEMY_DEATH =  "Sounds/NewSounds/Enemy/Enemy_Death";
 	}

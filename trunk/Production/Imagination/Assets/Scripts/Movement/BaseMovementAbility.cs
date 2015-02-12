@@ -540,7 +540,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		switch(this.gameObject.name)
 		{
 		case Constants.ALEX_WITH_MOVEMENT_STRING:
-			m_SFX.playSound(transform, Sounds.AlexJump);
+		//	m_SFX.playSound(transform, Sounds.AlexJump);
 			break;
 		case Constants.DEREK_WITH_MOVEMENT_STRING:
 			m_SFX.playSound(transform, Sounds.DerekJump);

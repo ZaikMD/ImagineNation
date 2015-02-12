@@ -39,6 +39,8 @@ public class CollectableManager : MonoBehaviour
     int m_NumberOfLightPegsCollect;
 	int m_NumberOfPuzzlePiecesCollected;
 
+	SFXManager m_SFX;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -47,6 +49,9 @@ public class CollectableManager : MonoBehaviour
         //setting our timer.
         m_Timer = OnScreenTime;
         m_NumberOfLightPegsCollect = 0;
+
+		//SFX manager initialize
+		m_SFX = SFXManager.Instance; 
 
         //Getting length to create of our arrays.
         int lengthOfLightPegCollected = m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length + m_LightPegsForCheckPointThree.Length;
@@ -385,6 +390,7 @@ case CheckPoints.CheckPoint_3:
 
 		if(GameData.Instance.TotalLightPegs() >= Constants.LIGHT_PEGS_NEEDED_TO_GAIN_LIVES)
 		{
+			m_SFX.playSound(m_SFX.transform, Sounds.LiveIncrement);
 			GameData.Instance.IncrementLives();
 			m_Hud.ShowLifes();
 			m_NumberOfLightPegsCollect = 0;
