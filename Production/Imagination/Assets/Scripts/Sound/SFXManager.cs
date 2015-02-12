@@ -606,7 +606,6 @@ public class SFXManager : MonoBehaviour
                 yield return null;
             }
             m_SoundDictionary[key].Add((AudioClip)resource.asset);
-			Debug.Log("sound loaded " + filePath);
         }
 #if UNITY_EDITOR || DEBUG
         else
