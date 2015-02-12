@@ -64,6 +64,7 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 
 		int numb = m_NumberOfConeProjectiles / 2;
 		m_ConeAngleOffset = numb * m_ConeAngle;
+		GetComponent<AnimationCallBackManager> ().registerCallBack (this);
 	}
 
 	protected virtual void update()
