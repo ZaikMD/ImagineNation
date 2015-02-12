@@ -67,8 +67,12 @@ public class EnemyAI : Destructable
 
     public AnimatorEnemyBase i_Animator;
 
+	public Perception m_perception;
+
     protected virtual void Start()
     {
+		m_perception = GetComponentInChildren<Perception> ();
+
         if(i_Animator == null)
         {
             i_Animator = (AnimatorEnemyBase)gameObject.GetComponentInChildren(typeof(AnimatorEnemyBase));
@@ -201,6 +205,11 @@ public class EnemyAI : Destructable
 	//Overridden OnHit function for the player's light projectile attack
 	public override void onHit(LightCollider proj, float damage)
 	{
+		if (m_perception != null)
+		{
+			m_perception.attackedUs(proj.GetPlayerInfo());
+		}
+
 		//Call the notifyHit function to let the enemy's know when it gets hit
 		NotifyHit();
 		//Check if the enemy is invincible
@@ -214,6 +223,11 @@ public class EnemyAI : Destructable
 	//Overridden OnHit function for the player's heavy projectile attack
 	public override void onHit(HeavyCollider proj, float damage)
 	{
+		if (m_perception != null)
+		{
+			m_perception.attackedUs(proj.GetPlayerInfo());
+		}
+
 		//Call the notifyHit function to let the enemy's know when it gets hit
 		NotifyHit();
 

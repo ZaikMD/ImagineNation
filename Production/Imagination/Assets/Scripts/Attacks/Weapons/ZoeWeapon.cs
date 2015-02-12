@@ -29,7 +29,9 @@ public class ZoeWeapon : BaseWeapon
 		           											   m_InitialProjectilePosition.y + m_FirePointOffset,
 		            										   m_InitialProjectilePosition.z), Quaternion.Euler(m_InitialProjectileRotation));
 		
-		proj.GetComponent<LightCollider>().LaunchProjectile(m_AttackSpeed,m_AttackRange);
+		LightCollider collider = proj.GetComponent<LightCollider> ();
+		collider.LaunchProjectile(m_AttackSpeed,m_AttackRange);
+		collider.SetCharacter (m_ReadInput.ReadInputFrom);
 	}
 	
 	public override void LightAttackEnd ()
@@ -47,7 +49,9 @@ public class ZoeWeapon : BaseWeapon
 		          											   m_InitialProjectilePosition.y + m_FirePointOffset,
 		          											   m_InitialProjectilePosition.z), Quaternion.Euler(m_InitialProjectileRotation));
 		
-		proj.GetComponent<HeavyCollider>().LaunchProjectile(m_AttackSpeed,m_AttackRange);
+		HeavyCollider collider = proj.GetComponent<HeavyCollider> ();
+		collider.LaunchProjectile(m_AttackSpeed,m_AttackRange);
+		collider.SetCharacter (m_ReadInput.ReadInputFrom);
 	}
 	
 	public override void HeavyAttackEnd ()

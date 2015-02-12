@@ -75,7 +75,7 @@ public class Perception : MonoBehaviour
 		for (int i = 1; i < m_Players.Length; i++)
 		{
 			float temp = getThreat(m_Players[i]);
-			if(temp> threat)
+			if(temp > threat)
 			{
 				threat = temp;
 				highestThreat = i;
