@@ -111,7 +111,7 @@ public class Perception : MonoBehaviour
         RaycastHit raycastData;
         if (!Physics.Raycast(transform.position, player.Player.position - transform.position, out raycastData, distance +1.0f, ~LayerMask.GetMask(Constants.ENEMY_STRING)))// TODO: replace with constant
         {
-			Debug.DrawLine(transform.position, player.Player.position - transform.position, Color.red);
+			//Debug.DrawLine(transform.position, player.Player.position - transform.position, Color.red);
             return 0.0f;
         }
         else
@@ -134,7 +134,7 @@ public class Perception : MonoBehaviour
         {
             //return 0.0f;
         }
-		Debug.Log (player.PlayerInfo.gameObject.name + " in range/sight");
+		//Debug.Log (player.PlayerInfo.gameObject.name + " in range/sight");
         //we can see the player
         player.playerSeen(i_ResidualThreatTimerSight);
 
