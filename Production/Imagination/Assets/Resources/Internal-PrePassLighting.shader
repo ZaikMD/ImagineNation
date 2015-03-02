@@ -334,7 +334,7 @@ Shader "Hidden/Internal-PrePassLighting"
 				half3 lightDirection = -normalize (toLight);
 				
 				//Reduced intensity from being farther from the light
-				float att = dot(toLight, toLight) * _LightPos.w * 0.5;
+				float att = dot(toLight, toLight) * _LightPos.w * 1.0;
 				
 				//Intensity of the light on this surfface
 				float attenuation = tex2D (_LightTextureB0, att.rr).UNITY_ATTEN_CHANNEL;
