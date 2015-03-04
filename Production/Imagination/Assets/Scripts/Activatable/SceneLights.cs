@@ -20,15 +20,17 @@ using System.Collections;
 public class SceneLights : MonoBehaviour
 {
 	//If this light should start turned on or off
-	public bool StartActive = false;
+	public bool ActivateOnStartUp = true;
+	public bool TurnedOnInScene = true;
 
 	//Speeds to change this lights intensity
 	public float ChangeSpeed = 1.0f;
 	float m_IntensityChange = 0.0f;
 
 	//Maximum and minimum intensity
-	float m_MaximumIntensity = 8.0f;
-	public float MinimumIntensity = 0.0f;
+	public float OtherIntensity = 0.0f;
+	float ActiveIntensity = 8.0f;
+	float DeactiveIntensity = 0.0f;
 
 	//Delay before activating or deactivating
 	public float ActivationDelay = 0.0f;
@@ -38,21 +40,34 @@ public class SceneLights : MonoBehaviour
 	//Initialization
 	void Start ()
 	{
-		//Set the intensity of this light when lite, to the starting brightness
-		m_MaximumIntensity = light.intensity;
+		//Set the maximum and minimum intensity
+		if (TurnedOnInScene)
+		{
+			ActiveIntensity = light.intensity;
+			DeactiveIntensity = OtherIntensity;
+		}
+		else
+		{
+			ActiveIntensity = OtherIntensity;
+			DeactiveIntensity = light.intensity;
+		}
 
 		//Check if this lights starts deactivated
-		if (!StartActive)
+		if (ActivateOnStartUp)
+		{
+			light.enabled = true;
+		}
+		else
 		{
 			//Turn off unecessary lights
-			if (MinimumIntensity <= 0.0f)
+			if (DeactiveIntensity <= 0.0f)
 			{
 				//Turn the light off
 				light.enabled = false;
 			}
 
 			//Set this lights intensity to the minimum
-			light.intensity = MinimumIntensity;
+			light.intensity = DeactiveIntensity;
 		}
 	}
 	
@@ -127,10 +142,10 @@ public class SceneLights : MonoBehaviour
 	bool HandleMaximumIllumination ()
 	{
 		//If this light is beyond the maximum intensity
-		if (light.intensity >= m_MaximumIntensity)
+		if (light.intensity >= ActiveIntensity)
 		{
 			//Cap light intensity
-			light.intensity = m_MaximumIntensity;
+			light.intensity = ActiveIntensity;
 			m_IntensityChange = 0.0f;
 
 			//We reached our maximum
@@ -145,10 +160,10 @@ public class SceneLights : MonoBehaviour
 	bool HandleMinumumIllumination ()
 	{
 		//If this light
-		if (light.intensity <= MinimumIntensity)
+		if (light.intensity <= DeactiveIntensity)
 		{
 			//Cap light intensity
-			light.intensity = MinimumIntensity;
+			light.intensity = DeactiveIntensity;
 			m_IntensityChange = 0.0f;
 
 			//Turn off unecessary lights
