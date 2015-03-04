@@ -20,7 +20,7 @@ using System.Collections;
 public class SceneLights : MonoBehaviour
 {
 	//If this light should start turned on or off
-	public bool StartOn = false;
+	public bool StartActive = false;
 
 	//Speeds to change this lights intensity
 	public float ChangeSpeed = 1.0f;
@@ -38,15 +38,20 @@ public class SceneLights : MonoBehaviour
 	//Initialization
 	void Start ()
 	{
-		//Check if this light should start on or off
-		light.enabled = StartOn;
-
 		//Set the intensity of this light when lite, to the starting brightness
 		m_MaximumIntensity = light.intensity;
 
-		//If the light began turned off, make sure the starting intensity is the minimum
-		if (!light.enabled)
+		//Check if this lights starts deactivated
+		if (!StartActive)
 		{
+			//Turn off unecessary lights
+			if (MinimumIntensity <= 0.0f)
+			{
+				//Turn the light off
+				light.enabled = false;
+			}
+
+			//Set this lights intensity to the minimum
 			light.intensity = MinimumIntensity;
 		}
 	}
