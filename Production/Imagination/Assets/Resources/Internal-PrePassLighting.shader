@@ -345,6 +345,19 @@ Shader "Hidden/Internal-PrePassLighting"
 				//Apply point light shadows
 				attenuation *= getPointLightShadow (toLight, (length(toLight) * _LightPositionRange.w) * 0.97);
 				#endif
+				
+				//Remove bright spots
+				if (attenuation > 0.5)
+				{
+					float lessAtten = attenuation - 0.5;
+					attenuation -= lessAtten;
+					lessAtten *= 0.25;
+					attenuation += lessAtten;
+					if (attenuation > 0.5)
+					{
+						attenuation = 0.5;
+					}
+				}
 				#endif
 				
 				
@@ -353,7 +366,6 @@ Shader "Hidden/Internal-PrePassLighting"
 				half3 lightDirection = float3 (1.0, 1.0, 1.0);
 				float attenuation = 1.0;
 				#endif
-				
 				
 				//Diffuse lighting
 				half diffuseShade = max (0.0, dot (lightDirection, normal));
