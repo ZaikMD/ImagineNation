@@ -59,6 +59,7 @@ public class AnimationCallBackManager : MonoBehaviour
         for (int i = 0; i < m_Listeners.Count; i++)
         {
             m_Listeners[i].CallBack(callBackEvent);
+			Debug.Log(m_Events[(int) callBackEvent]);
         }
     }
 
