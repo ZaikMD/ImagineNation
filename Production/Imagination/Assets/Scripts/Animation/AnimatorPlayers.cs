@@ -12,13 +12,12 @@ public class AnimatorPlayers : AnimatorController
         Falling,
         Landing,
         Ability,
-        Combo_X,
-        Combo_XX,
-        Combo_XXX,
-        Combo_Y,
-        Combo_XY,
-        Combo_XXY,
-        Combo_XXXY,
+		Combo_X,
+		Combo_XX,
+		Combo_X_Air,
+		Combo_X_Air_Loop,
+		Combo_Y_Start,
+		Combo_Y,
         Death
     }
 
@@ -37,11 +36,10 @@ public class AnimatorPlayers : AnimatorController
             "Ability",
             "Combo_X",
             "Combo_XX",
-            "Combo_XXX",
+            "Combo_X_Air",
+            "Combo_X_Air_Loop",
+            "Combo_Y_Start",
             "Combo_Y",
-            "Combo_XY",
-            "Combo_XXY",
-            "Combo_XXXY",
             "Death"
         };
     }
@@ -82,7 +80,7 @@ public class AnimatorPlayers : AnimatorController
     {
         if (!m_States[animation].Contains(COMBO_))
         {
-            if (!i_Animator.GetCurrentAnimatorStateInfo(0).IsTag(ATTACK))
+            //if (!i_Animator.GetCurrentAnimatorStateInfo(0).IsTag(ATTACK))
             {
                 i_Animator.Play(m_States[animation]);
                 m_LastAnimationPlayed = animation;
@@ -90,7 +88,7 @@ public class AnimatorPlayers : AnimatorController
         }
         else
         {
-            i_Animator.Play(m_States[animation], 0 , 0);
+            i_Animator.Play(m_States[animation], 1 , 0);
             m_LastAnimationPlayed = animation;
         }        
     }
