@@ -5,6 +5,12 @@
  * of which of the light pegs and puzzled pieces that are active 
  */
 
+#region ChangeLog
+/*
+ * Edit - Added a helper function for replacing light pegs. - Jason Hein March 3rd
+ */ 
+#endregion
+
 
 using UnityEngine;
 using System.Collections;
@@ -24,8 +30,6 @@ public class CollectableManager : MonoBehaviour
     public GameObject[] m_LightPegsForCheckPointOne;
     public GameObject[] m_LightPegsForCheckPointTwo;
     public GameObject[] m_LightPegsForCheckPointThree;
-
-	public GameObject[][] m_LightPegs;
 
 	public GameObject[] m_PuzzlePieceForSection;
 
@@ -171,45 +175,18 @@ case CheckPoints.CheckPoint_1:
             //Loop through all list and spawn a new light peg
 			for(int i = 0; i < m_LightPegsForCheckPointOne.Length; i++)
 			{
-				GameObject newLightPeg = (GameObject)Instantiate(m_LightPegPrefab);
-				newLightPeg.transform.position = m_LightPegsForCheckPointOne[i].transform.position;
-				newLightPeg.GetComponent<LightPeg>().SetInfo(i);
-				SetNewMaterial(newLightPeg);
-
-				//Call helper function
-				CopyLightValuesToLightPeg (newLightPeg.GetComponent<LightPeg>(), m_LightPegsForCheckPointOne[i].gameObject.GetComponent<LightPeg>());
-
-				Destroy(m_LightPegsForCheckPointOne[i].gameObject);
-				m_LightPegsForCheckPointOne[i] = newLightPeg;
-				newLightPeg.name = newLightPeg.name + i;
+				m_LightPegsForCheckPointOne[i] = ReplaceLightPeg (m_LightPegsForCheckPointOne[i], i, 1);
 			}
-
 
 			for(int i = 0; i < m_LightPegsForCheckPointTwo.Length; i++)
 			{
-				GameObject newLightPeg = (GameObject)Instantiate(m_LightPegPrefab);
-				newLightPeg.transform.position = m_LightPegsForCheckPointTwo[i].transform.position;
-				Destroy(m_LightPegsForCheckPointTwo[i].gameObject);
-				m_LightPegsForCheckPointTwo[i] = newLightPeg;
-				newLightPeg.GetComponent<LightPeg>().SetInfo(i + m_LightPegsForCheckPointOne.Length);
-				SetNewMaterial(newLightPeg);
-
-				//Call helper function
-				CopyLightValuesToLightPeg (newLightPeg.GetComponent<LightPeg>(), m_LightPegsForCheckPointTwo[i].gameObject.GetComponent<LightPeg>());
+				m_LightPegsForCheckPointTwo[i] = ReplaceLightPeg (m_LightPegsForCheckPointTwo[i], i, 2);
 			}
 
 
 			for(int i = 0; i < m_LightPegsForCheckPointThree.Length; i++)
 			{
-				GameObject newLightPeg = (GameObject)Instantiate(m_LightPegPrefab);
-				newLightPeg.transform.position = m_LightPegsForCheckPointThree[i].transform.position;
-				Destroy(m_LightPegsForCheckPointThree[i].gameObject);
-				m_LightPegsForCheckPointThree[i] = newLightPeg;
-				newLightPeg.GetComponent<LightPeg>().SetInfo(i + m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length);
-				SetNewMaterial(newLightPeg);
-
-				//Call helper function
-				CopyLightValuesToLightPeg (newLightPeg.GetComponent<LightPeg>(), m_LightPegsForCheckPointThree[i].gameObject.GetComponent<LightPeg>());
+				m_LightPegsForCheckPointThree[i] = ReplaceLightPeg (m_LightPegsForCheckPointThree[i], i, 3);
 			}
 
             //Set counter to 0
@@ -235,46 +212,18 @@ case CheckPoints.CheckPoint_2:
                 }
                 else
                 { 
-                   //this light peg is not collected 
-                   //Spawn light peg
-
-                    GameObject newLightPeg = (GameObject)Instantiate(m_LightPegPrefab);
-                    newLightPeg.transform.position = m_LightPegsForCheckPointOne[i].transform.position;
-                    Destroy(m_LightPegsForCheckPointOne[i].gameObject);
-                    m_LightPegsForCheckPointOne[i] = newLightPeg;
-					SetNewMaterial(newLightPeg);
-
-					//Call helper function
-					CopyLightValuesToLightPeg (newLightPeg.GetComponent<LightPeg>(), m_LightPegsForCheckPointOne[i].gameObject.GetComponent<LightPeg>());
+					m_LightPegsForCheckPointOne[i] = ReplaceLightPeg (m_LightPegsForCheckPointOne[i], i, 1);
                 }           
             }
 
             for (int i = 0; i < m_LightPegsForCheckPointTwo.Length; i++)
             {            
-				GameObject newLightPeg = (GameObject)Instantiate(m_LightPegPrefab);
-				newLightPeg.transform.position = m_LightPegsForCheckPointTwo[i].transform.position;
-				Destroy(m_LightPegsForCheckPointTwo[i].gameObject);
-				m_LightPegsForCheckPointTwo[i] = newLightPeg;
-				newLightPeg.GetComponent<LightPeg>().SetInfo(i + m_LightPegsForCheckPointOne.Length);
-				GameData.Instance.ResetCollectedPeg(i + m_LightPegsForCheckPointOne.Length);
-				SetNewMaterial(newLightPeg);
-
-				//Call helper function
-				CopyLightValuesToLightPeg (newLightPeg.GetComponent<LightPeg>(), m_LightPegsForCheckPointTwo[i].gameObject.GetComponent<LightPeg>());
+				m_LightPegsForCheckPointTwo[i] = ReplaceLightPeg (m_LightPegsForCheckPointTwo[i], i, 2);
             }
 
 			for(int i = 0; i < m_LightPegsForCheckPointThree.Length; i++)
 			{
-				GameObject newLightPeg = (GameObject)Instantiate(m_LightPegPrefab);
-				newLightPeg.transform.position = m_LightPegsForCheckPointThree[i].transform.position;
-				Destroy(m_LightPegsForCheckPointThree[i].gameObject);
-				m_LightPegsForCheckPointThree[i] = newLightPeg;
-				newLightPeg.GetComponent<LightPeg>().SetInfo(i + m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length);
-				GameData.Instance.ResetCollectedPeg(i + m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length);  
-				SetNewMaterial(newLightPeg);
-
-				//Call helper function
-				CopyLightValuesToLightPeg (newLightPeg.GetComponent<LightPeg>(), m_LightPegsForCheckPointThree[i].gameObject.GetComponent<LightPeg>());
+				m_LightPegsForCheckPointThree[i] = ReplaceLightPeg (m_LightPegsForCheckPointThree[i], i, 3);
 			}
                 break;
 #endregion
@@ -297,18 +246,7 @@ case CheckPoints.CheckPoint_3:
 				}
 				else
 				{ 
-					//this light peg is not collected 
-					//Spawn light peg					
-					GameObject newLightPeg = (GameObject)Instantiate(m_LightPegPrefab);
-					newLightPeg.transform.position = m_LightPegsForCheckPointOne[i].transform.position;
-					Destroy(m_LightPegsForCheckPointOne[i].gameObject);
-					m_LightPegsForCheckPointOne[i] = newLightPeg;
-					newLightPeg.GetComponent<LightPeg>().SetInfo(i);
-					GameData.Instance.ResetCollectedPeg(i);
-					SetNewMaterial(newLightPeg);
-
-					//Call helper function
-					CopyLightValuesToLightPeg (newLightPeg.GetComponent<LightPeg>(), m_LightPegsForCheckPointOne[i].gameObject.GetComponent<LightPeg>());
+					m_LightPegsForCheckPointOne[i] = ReplaceLightPeg (m_LightPegsForCheckPointOne[i], i, 1);
 				}           
 			}
 
@@ -325,34 +263,14 @@ case CheckPoints.CheckPoint_3:
 				}
 				else
 				{ 
-					//this light peg is not collected 
-					//Spawn light peg
-					GameObject newLightPeg = (GameObject)Instantiate(m_LightPegPrefab);
-					newLightPeg.transform.position = m_LightPegsForCheckPointTwo[i].transform.position;
-					Destroy(m_LightPegsForCheckPointTwo[i].gameObject);
-					m_LightPegsForCheckPointTwo[i] = newLightPeg;
-					newLightPeg.GetComponent<LightPeg>().SetInfo(i + m_LightPegsForCheckPointOne.Length);
-					GameData.Instance.ResetCollectedPeg(i + m_LightPegsForCheckPointOne.Length);    
-					SetNewMaterial(newLightPeg);
-
-					//Call helper function
-					CopyLightValuesToLightPeg (newLightPeg.GetComponent<LightPeg>(), m_LightPegsForCheckPointTwo[i].gameObject.GetComponent<LightPeg>());
+					m_LightPegsForCheckPointTwo[i] = ReplaceLightPeg (m_LightPegsForCheckPointTwo[i], i, 2);
 				}           
 			}
 
 			//all after checkpoint there come back
 			for(int i = 0; i < m_LightPegsForCheckPointThree.Length; i++)
 			{
-				GameObject newLightPeg = (GameObject)Instantiate(m_LightPegPrefab);
-				newLightPeg.transform.position = m_LightPegsForCheckPointThree[i].transform.position;
-				Destroy(m_LightPegsForCheckPointThree[i].gameObject);
-				m_LightPegsForCheckPointThree[i] = newLightPeg;
-				newLightPeg.GetComponent<LightPeg>().SetInfo(i + m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length);
-				GameData.Instance.ResetCollectedPeg(i + m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length);  
-				SetNewMaterial(newLightPeg);
-
-				//Call helper function
-				CopyLightValuesToLightPeg (newLightPeg.GetComponent<LightPeg>(), m_LightPegsForCheckPointThree[i].gameObject.GetComponent<LightPeg>());
+				m_LightPegsForCheckPointThree[i] = ReplaceLightPeg (m_LightPegsForCheckPointThree[i], i, 3);
 			}
 
 			break;
@@ -392,14 +310,50 @@ case CheckPoints.CheckPoint_3:
         m_Hud.UpdateLightPegs(m_NumberOfLightPegsCollect);
     }
 
-	//Helper function
-	public void CopyLightValuesToLightPeg (LightPeg newPeg, LightPeg otherPeg)
+	//Replaces the given light peg
+	GameObject ReplaceLightPeg (GameObject replacedLightPeg, int index, int checkPointNumber)
 	{
-		if(newPeg != null && otherPeg != null && otherPeg.m_Lights.Length != 0)
+		//Create a new light peg
+		GameObject newLightPeg = (GameObject)Instantiate(m_LightPegPrefab, replacedLightPeg.transform.position, replacedLightPeg.transform.rotation);
+
+		//Name it based on it's index for designers
+		newLightPeg.name = newLightPeg.name + index;
+
+		//Destroy old light peg
+		Destroy(replacedLightPeg);
+
+		//Set new material
+		SetNewMaterial(newLightPeg);
+
+		//Check index for Gamedata
+		if (checkPointNumber == 1)
 		{
-			newPeg.AmountToAdd = otherPeg.AmountToAdd;
-			newPeg.m_Lights = otherPeg.m_Lights;
+			newLightPeg.GetComponent<LightPeg>().SetInfo(index);
+			GameData.Instance.ResetCollectedPeg(index);
 		}
+		else if (checkPointNumber == 2)
+		{
+			newLightPeg.GetComponent<LightPeg>().SetInfo(index + m_LightPegsForCheckPointOne.Length);
+			GameData.Instance.ResetCollectedPeg(index + m_LightPegsForCheckPointOne.Length);
+		}
+		else
+		{
+			newLightPeg.GetComponent<LightPeg>().SetInfo(index + m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length);
+			GameData.Instance.ResetCollectedPeg(index + m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length);
+		}
+
+
+		//Change light adding values
+		LightPeg newPegComponent = newLightPeg.GetComponent<LightPeg> ();
+		LightPeg replacedPegComponent = replacedLightPeg.GetComponent<LightPeg> ();
+		if(newPegComponent != null && replacedPegComponent != null && replacedPegComponent.m_Lights.Length != 0)
+		{
+			newPegComponent.AmountToAdd = replacedPegComponent.AmountToAdd;
+			newPegComponent.m_Lights = replacedPegComponent.m_Lights;
+		}
+
+		//Return gameobject
+		return newLightPeg;
 	}
 
 	public void IncrementPuzzleCounter()
