@@ -8,15 +8,15 @@ public class PlayerLightController : MonoBehaviour
 
 	//Ranes
 	float m_OriginalRange = 10.0f;
-	const float MAX_RANGE_ADDED = 2.5f;
-	const float LIGHTPEG_RANGE_ADDED = 2.0f;
+	const float MAX_RANGE_ADDED = 2.0f;
+	const float LIGHTPEG_RANGE_ADDED = 0.0f;
 	const float RANGE_CHANGE_SPEED = 1.5f;
 
 	//Intesities
 	float m_OriginalIntensity = 2.0f;
-	const float MAX_INTENSITY_ADDED = 2.5f;
-	const float LIGHTPEG_INTENSITY_ADDED = 1.5f;
-	const float INTENSITY_CHANGE_SPEED = 1.5f;
+	const float MAX_INTENSITY_ADDED = 1.25f;
+	const float LIGHTPEG_INTENSITY_ADDED = 1.25f;
+	const float INTENSITY_CHANGE_SPEED = 1.0f;
 
 	//Get the player lights original intesnity
 	void Start ()
