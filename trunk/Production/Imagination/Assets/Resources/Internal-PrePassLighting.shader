@@ -298,7 +298,7 @@ Shader "Hidden/Internal-PrePassLighting"
 				//Make a new shadow UV with a z
 				float4 shadowUV = mul (unity_World2Shadow[0], float4(toLight, 1));
 				
-				//AIf their are spot light shadows
+				//If their are spot light shadows
 				#if defined(SHADOWS_DEPTH)
 				
 				//Apply a shade for a spot light shadow
@@ -346,7 +346,7 @@ Shader "Hidden/Internal-PrePassLighting"
 				attenuation *= getPointLightShadow (toLight, (length(toLight) * _LightPositionRange.w) * 0.97);
 				#endif
 				
-				//Remove bright spots
+				//Reduce bright spots
 				if (attenuation > 0.5)
 				{
 					float lessAtten = attenuation - 0.5;

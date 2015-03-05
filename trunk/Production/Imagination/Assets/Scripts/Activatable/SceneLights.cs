@@ -27,7 +27,7 @@ public class SceneLights : MonoBehaviour
 	float m_IntensityChange = 0.0f;
 
 	//Maximum and minimum intensity
-	public float ActiveIntensity = 2.0f;
+	public float ActiveIntensity = -1.0f;
 	public float DeactiveIntensity = 0.0f;
 
 	//Delay before activating or deactivating
@@ -38,13 +38,16 @@ public class SceneLights : MonoBehaviour
 	//Initialization
 	void Start ()
 	{
+		//Save light intensity
+		if (ActiveIntensity < 0.0f)
+		{
+			ActiveIntensity = light.intensity;
+		}
+
 		//Check if this lights starts deactivated
 		if (ActivateOnStartUp)
 		{
 			light.enabled = true;
-
-			//Set this lights intensity to the minimum
-			light.intensity = DeactiveIntensity;
 		}
 		else
 		{
@@ -53,6 +56,10 @@ public class SceneLights : MonoBehaviour
 			{
 				//Turn the light off
 				light.enabled = false;
+			}
+			else
+			{
+				light.enabled = true;
 			}
 
 			//Set this lights intensity to the minimum

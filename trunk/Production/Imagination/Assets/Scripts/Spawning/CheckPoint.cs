@@ -31,10 +31,7 @@ public class CheckPoint : MonoBehaviour
 	float m_TimerGUI = 0.0f;
 	float m_baseTimeValue = 5.0f;
 	int m_DivideByTwo = 2;
-
-
-	public Material m_OffMaterial;
-	public Material m_OnMaterial;
+	
 	public GameObject m_ColorSection;
 
 	public CheckPoints m_Value;
@@ -42,10 +39,14 @@ public class CheckPoint : MonoBehaviour
 	SFXManager m_SFX;
 	Hud m_Hud;
 
+	//Lights to turn on
+	SceneLights[] m_LightsToTurnOn;
+
+
 	// Use this for initialization
 	void Start ()
 	{
-		m_ColorSection.renderer.material = m_OffMaterial;
+		//m_ColorSection.renderer.material = m_OffMaterial;
 		//gets sound manager
 		m_SFX = SFXManager.Instance;
 		//gets Hud
@@ -53,6 +54,8 @@ public class CheckPoint : MonoBehaviour
 
 		m_DrawGUI = false;
         m_WasUsed = false;
+
+		m_LightsToTurnOn = GetComponentsInChildren<SceneLights> ();
 	}
 
 
@@ -60,7 +63,6 @@ public class CheckPoint : MonoBehaviour
 	{
 		if(obj.tag == Constants.PLAYER_STRING)
 		{
-
 			if(!m_DrawGUI && !m_WasUsed)
 			{
 				m_TimerGUI = m_baseTimeValue;			
@@ -70,7 +72,12 @@ public class CheckPoint : MonoBehaviour
 				m_Hud.ShowCheckpoint();
 
 				GameData.Instance.CurrentCheckPoint = m_Value;
-			    m_ColorSection.renderer.material = m_OnMaterial;
+
+				//Turn lights on
+				for (int i = 0; i < m_LightsToTurnOn.Length; i++)
+				{
+					m_LightsToTurnOn[i].SetLightActive(true);
+				}
 
                 m_DrawGUI = true;
                 m_WasUsed = true;

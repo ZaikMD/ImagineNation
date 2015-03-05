@@ -12,7 +12,7 @@ using System.Collections;
 public class LightPeg : BaseCollectable
 {
 	public SceneLights[] m_Lights;
-	public float AmountToAdd = 1.0f;
+	public float AmountToAdd = 0.5f;
 
 	//All the puzzle pieces should have a trigger on them, when enter, this function will be called
     void OnTriggerEnter(Collider other)
