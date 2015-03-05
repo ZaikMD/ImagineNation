@@ -25,6 +25,8 @@ public class CollectableManager : MonoBehaviour
     public GameObject[] m_LightPegsForCheckPointTwo;
     public GameObject[] m_LightPegsForCheckPointThree;
 
+	public GameObject[][] m_LightPegs;
+
 	public GameObject[] m_PuzzlePieceForSection;
 
 	public float DistanceFromGround;
@@ -85,52 +87,15 @@ public class CollectableManager : MonoBehaviour
 	/// Spawns lightpegs at location specifed.
 	/// </summary>
 	/// <param name="position">The position of the spawnning light pegs.</param>
-    /// <param name="numberOfPegs">The number of Light pegs to spawn.</param>
-	public void SpawnLightPegAtLocation(Vector3 position, int numberOfPegs)
+	public void SpawnLightPegAtLocation(Vector3 position)
 	{
-        //Loops for the number of pegs we have and spawns a light peg.
-		for(int i = 0; i < numberOfPegs; i++)
-		{
-            //instantiates a new object and moves to new position. adds component
-			GameObject newLightPeg = (GameObject)Instantiate(m_LightPegPrefab);
-			position.y += 0.5f; 
-			newLightPeg.transform.position = position;
-			newLightPeg.AddComponent<EnemyLightPegSpawn> ();
-		}
+        //instantiates a new object and moves to new position. adds component
+		GameObject newLightPeg = (GameObject)Instantiate(m_LightPegPrefab);
+		position.y += 0.5f; 
+		newLightPeg.transform.position = position;
+		newLightPeg.AddComponent<EnemyLightPegSpawn> ();
 	}
 
-    /// <summary>
-    /// Spawns LightPegs at the location of a passed in gameobject.
-    /// </summary>
-    /// <param name="gameObjectSpawn">The game object that the light pegs will spawn at.</param>
-    /// <param name="numberOfPegs">The number of light pegs to spawn.</param>
-	public void SpawnLightPegAtLocation(GameObject gameObjectSpawn, int numberOfPegs)
-	{
-        //Passes relavinte information to root function
-		SpawnLightPegAtLocation(gameObjectSpawn.transform.position, numberOfPegs);	
-	}
-
-    /// <summary>
-    /// Spawns a specified number of Lightpegs at the location indicated by the passed in transform.
-    /// </summary>
-    /// <param name="position">The transform of the object you want to spawn light pegs.</param>
-    /// <param name="numberOfPegs">The number of Lightpegs you want to spawn at location.</param>
-	public void SpawnLightPegAtLocation(Transform position, int numberOfPegs)
-	{
-        //Passes relavinte information to root function
-		SpawnLightPegAtLocation(position.position, numberOfPegs);
-	}
-
-    /// <summary>
-    /// Spawn a light peg from this scripts gameobjects position.
-    /// </summary>
-    /// <param name="Script">The current script for the location</param>
-    /// <param name="numberOfPegs">Number of light pegs to be spawnned at location</param>
-	public void SpawnLightPegAtLocation(MonoBehaviour Script, int numberOfPegs)
-	{
-        //Passes relavinte information to root function
-		SpawnLightPegAtLocation (Script.transform.position, numberOfPegs);	
-	}
 
 #endregion
 
