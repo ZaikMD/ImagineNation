@@ -436,7 +436,7 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		projection += m_Camera.right * InputManager.getMove(m_AcceptInputFrom.ReadInputFrom).x;
 		
 		projection.y = 0;
-		return projection.normalized;
+		return projection;
 	}
 
 	/// <summary>
@@ -598,18 +598,15 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		if (horizontalVelocity == Vector2.zero)
         {
 			if(m_AnimatorController != null)
-				m_AnimatorController.playAnimation(AnimatorPlayers.Animations.Idle);           
+				m_AnimatorController.playAnimation(AnimatorPlayers.Animations.Idle);  
+			return;
         }
-		else if (horizontalVelocity.magnitude < (MAX_GROUND_RUNSPEED / 2.0f))
-        {
-			if(m_AnimatorController != null)
-				m_AnimatorController.playAnimation(AnimatorPlayers.Animations.Walk);
-        }
-		else
-		{
-			if(m_AnimatorController != null)
-				m_AnimatorController.playAnimation(AnimatorPlayers.Animations.Run);
-		}        
+
+		m_AnimatorController.playAnimation(AnimatorPlayers.Animations.Run);
+		m_AnimatorController.setMoveSpeed (horizontalVelocity.magnitude / MAX_GROUND_RUNSPEED);
+		//(horizontalVelocity.magnitude < (MAX_GROUND_RUNSPEED / 2.0f))
+		
+		       
 	}
 
 	/// <summary>
