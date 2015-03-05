@@ -15,6 +15,13 @@ public class PuzzlePiece : BaseCollectable
 		//checks to see if the object in our trigger is a player.
 		if (other.gameObject.tag == Constants.PLAYER_STRING)
 		{
+			//Increase the intesnity of the players point light
+			PlayerLightController playerLight = other.gameObject.GetComponent<PlayerLightController>();
+			if (playerLight != null)
+			{
+				playerLight.AddToIntesnity();
+			}
+
 			//Tell GameData this peg was collected
 			GameData.Instance.PuzzlePieceCollected(m_ID);
 
