@@ -211,16 +211,8 @@ case CheckPoints.CheckPoint_1:
 				newLightPeg.GetComponent<LightPeg>().SetInfo(i);
 				SetNewMaterial(newLightPeg);
 
-				LightPegLightControl newLightPegControl = m_LightPegsForCheckPointOne[i].gameObject.GetComponent<LightPegLightControl>();
-
-				if(newLightPegControl != null)
-				{
-					if(newLightPegControl.m_AffectsLight != null && newLightPegControl.m_LightsToAffect.Length != 0)
-					{
-						newLightPeg.GetComponent<LightPeg>().AmountToAdd = newLightPegControl.m_IntensityToAdd;
-						newLightPeg.GetComponent<LightPeg>().m_Lights = newLightPegControl.m_LightsToAffect;
-					}
-				}
+				//Call helper function
+				CopyLightValuesToLightPeg (newLightPeg.GetComponent<LightPeg>(), m_LightPegsForCheckPointOne[i].gameObject.GetComponent<LightPeg>());
 
 				Destroy(m_LightPegsForCheckPointOne[i].gameObject);
 				m_LightPegsForCheckPointOne[i] = newLightPeg;
@@ -237,16 +229,8 @@ case CheckPoints.CheckPoint_1:
 				newLightPeg.GetComponent<LightPeg>().SetInfo(i + m_LightPegsForCheckPointOne.Length);
 				SetNewMaterial(newLightPeg);
 
-				LightPegLightControl newLightPegControl = m_LightPegsForCheckPointTwo[i].gameObject.GetComponent<LightPegLightControl>();
-				
-				if(newLightPegControl != null)
-				{
-					if(newLightPegControl.m_AffectsLight != null && newLightPegControl.m_LightsToAffect.Length != 0)
-					{
-						newLightPeg.GetComponent<LightPeg>().AmountToAdd = newLightPegControl.m_IntensityToAdd;
-						newLightPeg.GetComponent<LightPeg>().m_Lights = newLightPegControl.m_LightsToAffect;
-					}
-				}
+				//Call helper function
+				CopyLightValuesToLightPeg (newLightPeg.GetComponent<LightPeg>(), m_LightPegsForCheckPointTwo[i].gameObject.GetComponent<LightPeg>());
 			}
 
 
@@ -259,16 +243,8 @@ case CheckPoints.CheckPoint_1:
 				newLightPeg.GetComponent<LightPeg>().SetInfo(i + m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length);
 				SetNewMaterial(newLightPeg);
 
-				LightPegLightControl newLightPegControl = m_LightPegsForCheckPointThree[i].gameObject.GetComponent<LightPegLightControl>();
-				
-				if(newLightPegControl != null)
-				{
-					if(newLightPegControl.m_AffectsLight != null && newLightPegControl.m_LightsToAffect.Length != 0)
-					{
-						newLightPeg.GetComponent<LightPeg>().AmountToAdd = newLightPegControl.m_IntensityToAdd;
-						newLightPeg.GetComponent<LightPeg>().m_Lights = newLightPegControl.m_LightsToAffect;
-					}
-				}
+				//Call helper function
+				CopyLightValuesToLightPeg (newLightPeg.GetComponent<LightPeg>(), m_LightPegsForCheckPointThree[i].gameObject.GetComponent<LightPeg>());
 			}
 
             //Set counter to 0
@@ -303,16 +279,8 @@ case CheckPoints.CheckPoint_2:
                     m_LightPegsForCheckPointOne[i] = newLightPeg;
 					SetNewMaterial(newLightPeg);
 
-					LightPegLightControl newLightPegControl = m_LightPegsForCheckPointOne[i].gameObject.GetComponent<LightPegLightControl>();
-					
-					if(newLightPegControl != null)
-					{
-						if(newLightPegControl.m_AffectsLight != null && newLightPegControl.m_LightsToAffect.Length != 0)
-						{
-							newLightPeg.GetComponent<LightPeg>().AmountToAdd = newLightPegControl.m_IntensityToAdd;
-							newLightPeg.GetComponent<LightPeg>().m_Lights = newLightPegControl.m_LightsToAffect;
-						}
-					}
+					//Call helper function
+					CopyLightValuesToLightPeg (newLightPeg.GetComponent<LightPeg>(), m_LightPegsForCheckPointOne[i].gameObject.GetComponent<LightPeg>());
                 }           
             }
 
@@ -326,16 +294,8 @@ case CheckPoints.CheckPoint_2:
 				GameData.Instance.ResetCollectedPeg(i + m_LightPegsForCheckPointOne.Length);
 				SetNewMaterial(newLightPeg);
 
-				LightPegLightControl newLightPegControl = m_LightPegsForCheckPointTwo[i].gameObject.GetComponent<LightPegLightControl>();
-				
-				if(newLightPegControl != null)
-				{
-					if(newLightPegControl.m_AffectsLight != null && newLightPegControl.m_LightsToAffect.Length != 0)
-					{
-						newLightPeg.GetComponent<LightPeg>().AmountToAdd = newLightPegControl.m_IntensityToAdd;
-						newLightPeg.GetComponent<LightPeg>().m_Lights = newLightPegControl.m_LightsToAffect;
-					}
-				}
+				//Call helper function
+				CopyLightValuesToLightPeg (newLightPeg.GetComponent<LightPeg>(), m_LightPegsForCheckPointTwo[i].gameObject.GetComponent<LightPeg>());
             }
 
 			for(int i = 0; i < m_LightPegsForCheckPointThree.Length; i++)
@@ -348,16 +308,8 @@ case CheckPoints.CheckPoint_2:
 				GameData.Instance.ResetCollectedPeg(i + m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length);  
 				SetNewMaterial(newLightPeg);
 
-				LightPegLightControl newLightPegControl = m_LightPegsForCheckPointThree[i].gameObject.GetComponent<LightPegLightControl>();
-				
-				if(newLightPegControl != null)
-				{
-					if(newLightPegControl.m_AffectsLight != null && newLightPegControl.m_LightsToAffect.Length != 0)
-					{
-						newLightPeg.GetComponent<LightPeg>().AmountToAdd = newLightPegControl.m_IntensityToAdd;
-						newLightPeg.GetComponent<LightPeg>().m_Lights = newLightPegControl.m_LightsToAffect;
-					}
-				}
+				//Call helper function
+				CopyLightValuesToLightPeg (newLightPeg.GetComponent<LightPeg>(), m_LightPegsForCheckPointThree[i].gameObject.GetComponent<LightPeg>());
 			}
                 break;
 #endregion
@@ -390,16 +342,8 @@ case CheckPoints.CheckPoint_3:
 					GameData.Instance.ResetCollectedPeg(i);
 					SetNewMaterial(newLightPeg);
 
-					LightPegLightControl newLightPegControl = m_LightPegsForCheckPointOne[i].gameObject.GetComponent<LightPegLightControl>();
-					
-					if(newLightPegControl != null)
-					{
-						if(newLightPegControl.m_AffectsLight != null && newLightPegControl.m_LightsToAffect.Length != 0)
-						{
-							newLightPeg.GetComponent<LightPeg>().AmountToAdd = newLightPegControl.m_IntensityToAdd;
-							newLightPeg.GetComponent<LightPeg>().m_Lights = newLightPegControl.m_LightsToAffect;
-						}
-					}
+					//Call helper function
+					CopyLightValuesToLightPeg (newLightPeg.GetComponent<LightPeg>(), m_LightPegsForCheckPointOne[i].gameObject.GetComponent<LightPeg>());
 				}           
 			}
 
@@ -426,16 +370,8 @@ case CheckPoints.CheckPoint_3:
 					GameData.Instance.ResetCollectedPeg(i + m_LightPegsForCheckPointOne.Length);    
 					SetNewMaterial(newLightPeg);
 
-					LightPegLightControl newLightPegControl = m_LightPegsForCheckPointTwo[i].gameObject.GetComponent<LightPegLightControl>();
-					
-					if(newLightPegControl != null)
-					{
-						if(newLightPegControl.m_AffectsLight != null && newLightPegControl.m_LightsToAffect.Length != 0)
-						{
-							newLightPeg.GetComponent<LightPeg>().AmountToAdd = newLightPegControl.m_IntensityToAdd;
-							newLightPeg.GetComponent<LightPeg>().m_Lights = newLightPegControl.m_LightsToAffect;
-						}
-					}
+					//Call helper function
+					CopyLightValuesToLightPeg (newLightPeg.GetComponent<LightPeg>(), m_LightPegsForCheckPointTwo[i].gameObject.GetComponent<LightPeg>());
 				}           
 			}
 
@@ -450,16 +386,8 @@ case CheckPoints.CheckPoint_3:
 				GameData.Instance.ResetCollectedPeg(i + m_LightPegsForCheckPointOne.Length + m_LightPegsForCheckPointTwo.Length);  
 				SetNewMaterial(newLightPeg);
 
-				LightPegLightControl newLightPegControl = m_LightPegsForCheckPointThree[i].gameObject.GetComponent<LightPegLightControl>();
-				
-				if(newLightPegControl != null)
-				{
-					if(newLightPegControl.m_AffectsLight != null && newLightPegControl.m_LightsToAffect.Length != 0)
-					{
-						newLightPeg.GetComponent<LightPeg>().AmountToAdd = newLightPegControl.m_IntensityToAdd;
-						newLightPeg.GetComponent<LightPeg>().m_Lights = newLightPegControl.m_LightsToAffect;
-					}
-				}
+				//Call helper function
+				CopyLightValuesToLightPeg (newLightPeg.GetComponent<LightPeg>(), m_LightPegsForCheckPointThree[i].gameObject.GetComponent<LightPeg>());
 			}
 
 			break;
@@ -498,6 +426,16 @@ case CheckPoints.CheckPoint_3:
 		}
         m_Hud.UpdateLightPegs(m_NumberOfLightPegsCollect);
     }
+
+	//Helper function
+	public void CopyLightValuesToLightPeg (LightPeg newPeg, LightPeg otherPeg)
+	{
+		if(newPeg != null && otherPeg != null && otherPeg.m_Lights.Length != 0)
+		{
+			newPeg.AmountToAdd = otherPeg.AmountToAdd;
+			newPeg.m_Lights = otherPeg.m_Lights;
+		}
+	}
 
 	public void IncrementPuzzleCounter()
 	{
