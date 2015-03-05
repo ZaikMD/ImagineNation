@@ -23,7 +23,7 @@ public class SceneLights : MonoBehaviour
 	public bool ActivateOnStartUp = true;
 
 	//Speeds to change this lights intensity
-	public float ChangeSpeed = 2.0f;
+	public float ChangeSpeed = 3.0f;
 	float m_IntensityChange = 0.0f;
 
 	//Maximum and minimum intensity
