@@ -6,7 +6,6 @@ public class AnimatorPlayers : AnimatorController
     public enum Animations
     {
         Idle,
-        Walk,
         Run,
         Jump,
         Falling,
@@ -28,7 +27,6 @@ public class AnimatorPlayers : AnimatorController
         m_States = new string[]
         {
             "Idle",
-            "Walk",
             "Run",
             "Jump",
             "Falling",
@@ -46,6 +44,7 @@ public class AnimatorPlayers : AnimatorController
 
     const string COMBO_ = "Combo_";
     const string ATTACK = "Attack";
+	const string NORMALIZED_SPEED = "NormalizedSpeed";
 
     int m_LastAnimationPlayed = 0;
 
@@ -92,4 +91,9 @@ public class AnimatorPlayers : AnimatorController
             m_LastAnimationPlayed = animation;
         }        
     }
+
+	public void setMoveSpeed(float normalizedSpeed)
+	{
+		i_Animator.SetFloat (NORMALIZED_SPEED, normalizedSpeed);
+	}
 }
