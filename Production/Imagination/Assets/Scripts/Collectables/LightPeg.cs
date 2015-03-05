@@ -11,6 +11,9 @@ using System.Collections;
 
 public class LightPeg : BaseCollectable
 {
+	public SceneLights[] m_Lights;
+	public float AmountToAdd = 1.0f;
+
 	//All the puzzle pieces should have a trigger on them, when enter, this function will be called
     void OnTriggerEnter(Collider other)
     {
@@ -21,6 +24,13 @@ public class LightPeg : BaseCollectable
 		//checks to see if the object in our trigger is a player.
         if (other.gameObject.tag == Constants.PLAYER_STRING)
         {
+			//Increase the intesnity of the players point light
+			PlayerLightController playerLight = other.gameObject.GetComponent<PlayerLightController>();
+			if (playerLight != null)
+			{
+				playerLight.AddToIntesnity();
+			}
+
             //Tell GameData this peg was collected
             GameData.Instance.LightPegCollected(m_ID);
 
@@ -29,6 +39,11 @@ public class LightPeg : BaseCollectable
 
 			//Play Collected sound 
 			PlaySound();
+
+			for (int i = 0; i < m_Lights.Length; i++)
+			{
+				m_Lights[i].AddToLightIntensity(AmountToAdd);
+			}
 
             //destroy this gameobject
             Destroy(this.gameObject);            

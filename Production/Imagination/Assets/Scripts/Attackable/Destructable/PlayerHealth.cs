@@ -53,6 +53,9 @@ public class PlayerHealth : Destructable
 	const float LAUNCH_TIMER = 0.25f;
 	const float LAUNCH_UPWARD_DIRECTION = 0.5f;
 
+	//Player Light
+	PlayerLightController m_PlayerLight;
+
     //used to stop the script from executing and used so other scripts can tell the player is dead
 	bool m_IsDead = false;
     public bool IsDead
@@ -142,6 +145,9 @@ public class PlayerHealth : Destructable
 #endif
 
         m_DefaultMaterial = m_PlayerRenderer.materials[0];
+
+		//Load player light
+		m_PlayerLight = GetComponent<PlayerLightController>();
 	}
 
 	void OnDestroy()
@@ -284,6 +290,9 @@ public class PlayerHealth : Destructable
             
 			//Give our ragdoll a reference to the camera
 			ragdoll.GetComponent<PlayerRagDoll>().m_PlayerCamera = PlayerCamera;
+
+			//Return player light
+			m_PlayerLight.RemoveAddedIntesnity();
         }
 	}
 
