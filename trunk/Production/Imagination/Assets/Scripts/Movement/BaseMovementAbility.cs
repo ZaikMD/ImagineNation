@@ -102,6 +102,16 @@ public abstract class BaseMovementAbility : MonoBehaviour
 
 	bool m_CanJump = true;
 
+	bool m_IsAirAttacking  = true;
+	public bool IsAirAttacking
+	{
+		get{ return m_IsAirAttacking; }
+		set{ m_IsAirAttacking = value; }
+	}
+
+	protected const float AIR_ATTACK_FALL_SPEED = - 30.0f;
+	protected const float AIR_ATTACK_LERP_VALUE = 0.1f;
+
 	//Intitialization
 
 	//Called at the start of the program
@@ -206,6 +216,9 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//Moves the player based on the facing angle of the camera and the players input
 	protected virtual void GroundMovement()
 	{
+		if (m_IsAirAttacking)
+			m_IsAirAttacking = false;
+
 		//Do animation logic
 		OnGroundAnimLogic ();
 
@@ -236,6 +249,12 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		m_Velocity = new Vector3(horizontalVelocity.x, 0.0f, horizontalVelocity.y);
 	}
 
+	protected virtual void airAttack()
+	{
+		m_Velocity.y = Mathf.Lerp(m_Velocity.y, AIR_ATTACK_FALL_SPEED, AIR_ATTACK_LERP_VALUE);
+	}
+
+
 	//Moves the player in all three directions
 	//
 	//Horizontal movement is added first, and is based off the previous horizontal speed with a minor change based on controller input, giving the player
@@ -246,6 +265,12 @@ public abstract class BaseMovementAbility : MonoBehaviour
 	//Then we move the player
 	protected virtual void AirMovement()
 	{
+		if(m_IsAirAttacking)
+		{
+			airAttack();
+			return;
+		}
+
 		//if(!IsOnMovingPlatform())
 		//m_AnimatorController.playAnimation(AnimatorPlayers.Animations.Falling);
 
