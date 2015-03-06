@@ -40,6 +40,7 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 	const string X = "X";
 	const string XX = "XX";
 	const string Y = "Y";
+	const string AX = "Combo_X_Air";
 	const string STRING_RESET = "Combo_";
 	
 	string m_Input = STRING_RESET;
@@ -92,7 +93,6 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 		{
 			//Play the animation
 			m_Animator.playAnimation(m_Input);
-			Debug.Log(m_Input + ": AttackExecuted");
 			//Flag that we have not selected our next move and we have not finished our attack
 			m_ComboSet = false;
 			m_AttackFinished = false;
@@ -135,7 +135,6 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 			else if(InputManager.getHeavyAttackDown(m_ReadInput.ReadInputFrom))	
 			{
 				m_LastInput = Y;
-				Debug.Log ("Charging = true");
 				m_Charging = true;	
 				m_ChargeTimer = 0.0f;	
 				m_Movement.m_PausedMovement = true;
@@ -148,19 +147,22 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 			// If we have pressed 2 x then reset the input
 			if (m_Input.Contains(XX))	
 					ResetInput();
-
-			Debug.Log("Registered Input: " + m_LastInput);
-			// Add the last inout into the input string
-			m_Input += m_LastInput;
-			m_ComboSet = true;
-			m_CanCombo = false;
-			if (m_Input.Contains(Y))
-				m_Animator.playAnimation(AnimatorPlayers.Animations.Combo_Y_Start);
-
-			Debug.Log("Actual Input: " + m_Input);
 		}
-		
-		
+
+		else if(!m_Movement.GetIsGrounded())
+		{
+			if(InputManager.getAttackDown(m_ReadInput.ReadInputFrom))
+			{
+				m_LastInput = AX;
+			}
+		}
+
+		// Add the last inout into the input string
+		m_Input += m_LastInput;
+		m_ComboSet = true;
+		m_CanCombo = false;
+		if (m_Input.Contains(Y))
+			m_Animator.playAnimation(AnimatorPlayers.Animations.Combo_Y_Start);
 	}
 	
 	void ResetInput()
@@ -201,7 +203,6 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 	
 	void LeaveCharge()
 	{
-		Debug.Log ("LeftCharge");
 		m_Charging = false;
 		ResetInput ();
 		m_ComboSet = false;
