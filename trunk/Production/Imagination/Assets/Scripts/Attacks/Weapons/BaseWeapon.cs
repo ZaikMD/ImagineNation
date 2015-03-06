@@ -82,7 +82,7 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 					m_AttackFinished = true;
 				}
 				else
-					LeaveCharge();
+					Reset();
 			}
 
 			return;
@@ -137,7 +137,7 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 				m_LastInput = Y;
 				m_Charging = true;	
 				m_ChargeTimer = 0.0f;	
-				m_Movement.m_PausedMovement = true;
+				m_Movement.SetSpeedMultiplier(0.4f);
 				m_Movement.CanJump(false);	
 				
 				if (m_Input.Contains(Y) || m_Input.Contains(X))
@@ -201,16 +201,17 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 		}
 	}
 	
-	void LeaveCharge()
+	void Reset()
 	{
-		m_Charging = false;
 		ResetInput ();
+		m_Charging = false;
 		m_ComboSet = false;
 		m_CanCombo = true;
 		m_AttackFinished = true;
+		m_Movement.SetSpeedMultiplier(1.0f);
 		m_Movement.setMovementPaused (false);
 		m_Movement.CanJump(true);	
-		m_Animator.playAnimation(AnimatorPlayers.Animations.Idle);
+		m_Animator.playAnimation(AnimatorPlayers.Animations.Combo_Blank);
 	}
 	
 	public void ComboTimeStart()
@@ -229,6 +230,7 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 	public void AttackOver()
 	{
 		m_AttackFinished = true;
+		m_Movement.SetSpeedMultiplier(1.0f);
 		m_Movement.CanJump(true);
 		m_Movement.setMovementPaused (false);
 		AttackEnd ();
