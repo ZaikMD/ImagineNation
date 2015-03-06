@@ -48,18 +48,22 @@ public class MovingBlock : Destructable
 	float m_HitTimer;
 
     //The reset for the hit timer
-	protected float m_SaveHitTimer = 1.0f;
+	const float HIT_TIMER = 1.0f;
 
 	//Distance to stop moving
 	const float DISTANCE_TO_STOP = 0.1f;
 
+	//Gravity
+	const float GRAVITY = 0.5f;
+
     //Prefab for the box
 	public GameObject m_BoxPrefab;
-    
-    //Gravity for when the block needs to fall
-	float m_Gravity = 10.0f;
+
 
     const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
+
+	//Chracter controller
+	CharacterController m_CharacterController;
 
 	float RightAngle;
 	float LeftAngle;
@@ -77,9 +81,11 @@ public class MovingBlock : Destructable
 
 		m_Destination = transform.position;
 
-		m_HitTimer = m_SaveHitTimer;
+		m_HitTimer = HIT_TIMER;
 
 		m_SFX = SFXManager.Instance;
+
+		m_CharacterController = GetComponent<CharacterController>();
 	}
 	
 	// Update is called once per frame
@@ -87,38 +93,35 @@ public class MovingBlock : Destructable
 	{
         if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 
-        //If the box is dead, respawn it
-		if(m_Health <= 0.0f)
-		{
-			respawn();
-		}
-
-        //Get the character controller
-		CharacterController controller = GetComponent<CharacterController>();
-
         //Get the direction the box is moving
 		Vector3 direction = m_Destination - transform.position;
 
         //If the block has been hit, decrement the hit timer
 		if(direction.magnitude > DISTANCE_TO_STOP)
 		{
-			controller.Move(direction * m_Speed * Time.deltaTime);
-			m_HitTimer -= Time.deltaTime;
-		}
-		else
-		{
-			transform.position = new Vector3(m_Destination.x, transform.position.y, m_Destination.z);
-		}
+			//Set destination below
+			fall ();
 
-        //If the hit timer is less than zero, the block can be hit again
+			m_CharacterController.Move(direction * m_Speed * Time.deltaTime);
+			m_HitTimer -= Time.deltaTime;
+			UpdateHitTimer ();
+		}
+		else if (m_CharacterController.enabled)
+		{
+			m_CharacterController.enabled = false;
+			m_Hit = false;
+			m_HitTimer = HIT_TIMER;
+		}
+	}
+
+	//If the hit timer is less than zero, the block can be hit again
+	void UpdateHitTimer ()
+	{
 		if(m_HitTimer < 0.0f)
 		{
 			m_Hit = false;
-			m_HitTimer = m_SaveHitTimer;
+			m_HitTimer = HIT_TIMER;
 		}
-
-        //Call the fall function
-		fall ();
 	}
 
 	void respawn()
@@ -129,6 +132,8 @@ public class MovingBlock : Destructable
 		m_Destination = m_Respawn;
 		m_BoxPrefab.renderer.material = m_Materials [m_CurrentMaterial];
 		m_Health = m_SaveHealth;
+		m_Hit = false;
+		m_HitTimer = HIT_TIMER;
 	}
 
     //Override the onHits 
@@ -173,6 +178,28 @@ public class MovingBlock : Destructable
     /// <param name="obj"></param>
 	void setDestination(GameObject obj)
 	{
+		//Hurt the box
+		m_Health --;
+		if(m_Health <= 0.0f)
+		{
+			respawn();
+			return;
+		}
+
+		//Set the box material to a damage state
+		m_CurrentMaterial++;
+		if(m_CurrentMaterial >= m_Materials.Length)
+		{
+			m_CurrentMaterial = 0;
+		}
+		m_BoxPrefab.renderer.material = m_Materials [m_CurrentMaterial]; //Set the current material
+
+		//The block has been hit
+		m_Hit = true;
+		m_CharacterController.enabled = true;
+
+
+		//Direction calculation for movement
 		Vector3 direction = transform.position - obj.transform.position;
 
 		RightAngle = Vector3.Angle (direction, this.transform.right);
@@ -204,40 +231,23 @@ public class MovingBlock : Destructable
 		case Constants.LEFT_ANGLE:
 			//Hit right side of block
 			m_Destination = new Vector3(transform.position.x - m_Distance, transform.position.y, transform.position.z);
-			m_Health --;
-			m_CurrentMaterial ++;
 			break;
 
 		case Constants.RIGHT_ANGLE:
 			//hit left side
 			m_Destination = new Vector3(transform.position.x + m_Distance, transform.position.y, transform.position.z);
-			m_Health --;
-			m_CurrentMaterial ++;
 			break;
 
 		case Constants.BACK_ANGLE:
 			//hit front side
 			m_Destination = new Vector3(transform.position.x , transform.position.y, transform.position.z - m_Distance);
-			m_Health --;
-			m_CurrentMaterial ++;
 			break;
 
 		case Constants.FORWARD_ANGLE:
 			//hit back side
 			m_Destination = new Vector3(transform.position.x , transform.position.y, transform.position.z + m_Distance);
-			m_Health --;
-			m_CurrentMaterial ++;
 			break;
 		}
-
-        //If the current material is going to be outside the array, reset it
-		if(m_CurrentMaterial >= m_Materials.Length)
-		{
-			m_CurrentMaterial = 0;
-		}
-
-		m_BoxPrefab.renderer.material = m_Materials [m_CurrentMaterial]; //Set the current material
-		m_Hit = true; //The block has been hit
 	}
 
 	public void setPressurePlateDestination(Vector3 destination)
@@ -247,17 +257,15 @@ public class MovingBlock : Destructable
 
 	void fall()
 	{
-
-        //Raycast downwards to see if the block will need to fall
-		Vector3 rayDirection = -transform.up;
-		
-		Ray ray = new Ray (transform.position, rayDirection);
-		
-		RaycastHit rayHit;
-
-		Physics.Raycast (ray, out rayHit, m_Gravity);
-
-		m_Destination.y = rayHit.point.y;
+		if (!Physics.Raycast(transform.position, Vector3.down, DISTANCE_TO_STOP))
+		{
+			m_Destination.y = transform.position.y - GRAVITY;
+		}
+		else if (m_Destination.y != transform.position.y)
+		{
+			m_CharacterController.Move(Vector3.down);
+			m_Destination.y = transform.position.y;
+		}
 	}
 
 	protected override void onDeath ()
