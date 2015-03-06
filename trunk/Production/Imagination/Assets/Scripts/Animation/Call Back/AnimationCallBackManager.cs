@@ -8,13 +8,9 @@ public enum CallBackEvents
     Player_ComboTimeStart,
     Player_ComboTimeEnd,
     Player_AttackOver,
-    Player_AttackBegin_Light,
-    Player_AttackBegin_Heavy,
-    Player_AttackBegin_Line,
-    Player_AttackBegin_Cone,
+    Player_AttackBegin,
     Player_AttackBegin_AOE,
     Player_AttackBegin_HeavyAOE,
-    FootStep,
     EnemyAttack
 };
 
@@ -30,13 +26,9 @@ public class AnimationCallBackManager : MonoBehaviour
         "Player_ComboTimeStart",
         "Player_ComboTimeEnd",
         "Player_AttackOver",
-        "Player_AttackBegin_Light",
-        "Player_AttackBegin_Heavy",
-        "Player_AttackBegin_Line",
-        "Player_AttackBegin_Cone",
+        "Player_AttackBegin",
         "Player_AttackBegin_AOE",
         "Player_AttackBegin_HeavyAOE",
-        "FootStep",
         "EnemyAttack"
     };
 
@@ -59,7 +51,6 @@ public class AnimationCallBackManager : MonoBehaviour
         for (int i = 0; i < m_Listeners.Count; i++)
         {
             m_Listeners[i].CallBack(callBackEvent);
-			Debug.Log(m_Events[(int) callBackEvent]);
         }
     }
 
