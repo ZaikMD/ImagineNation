@@ -67,15 +67,19 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 		{
 			// If we have surpassed max charge time then stop charging	
 			m_ChargeTimer += Time.deltaTime;
-			if (m_ChargeTimer >= m_MaxChargeTime)			
+			if (m_ChargeTimer >= m_MaxChargeTime)
+			{
 				m_Charging = false;
-			
-
+				m_AttackFinished = true;
+			}
 			//If we are not still holding the charge button then check if we have surpassed the minimum charge time
 			else if (InputManager.getHeavyAttackUp(m_ReadInput.ReadInputFrom))
 			{
 				if (m_ChargeTimer > m_MinChargeTime)
+				{
 					m_Charging = false;
+					m_AttackFinished = true;
+				}
 				else
 					LeaveCharge();
 			}
@@ -131,6 +135,7 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 			else if(InputManager.getHeavyAttackDown(m_ReadInput.ReadInputFrom))	
 			{
 				m_LastInput = Y;
+				Debug.Log ("Charging = true");
 				m_Charging = true;	
 				m_ChargeTimer = 0.0f;	
 				m_Movement.m_PausedMovement = true;
@@ -170,6 +175,10 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 		{
 		case CallBackEvents.Player_ComboTimeStart:
 			ComboTimeStart();
+			break;
+
+		case CallBackEvents.Player_AttackBegin:
+			AttackBegin();
 			break;
 			
 		case CallBackEvents.Player_AttackBegin_AOE:
