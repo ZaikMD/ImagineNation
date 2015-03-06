@@ -81,7 +81,7 @@ public class MenuV2InputSelect : MenuV2
 
         if (m_CurrentlyMounted[0] != -1 && m_CurrentlyMounted[1] != -1)
         {//two inputs mounted
-            if (m_InputSelects[m_CurrentlyMounted[0]].IsReady && m_InputSelects[m_CurrentlyMounted[1]].IsReady)
+            if (InputManager.getMenuAcceptDown())
             {//both players ready                
                 changeMenu();                
             }
@@ -90,42 +90,25 @@ public class MenuV2InputSelect : MenuV2
 
     protected virtual void mountedBehavior(Vector2 moveInput, int index)
     {
-        if (!m_InputSelects[index].IsReady)
-        {// not ready so see if we should unmount the input
-            if (moveInput.x > 0 && m_CurrentlyMounted[0] == index) // trying to move right and on the left
-            {//unmount
-                m_CurrentlyMounted[0] = -1;
-                m_InputSelects[index].resetMountPoint();
-                return;
-            }
-            else if (moveInput.x < 0 && m_CurrentlyMounted[1] == index) // trying to move left and on the right
-            {//unmount
-                m_CurrentlyMounted[1] = -1;
-                m_InputSelects[index].resetMountPoint();
-                return;
-            }
-            else if(InputManager.getMenuBackDown(m_InputSelects[index].InputType))
-            {//unmount
-                m_CurrentlyMounted[0] = -1;
-                m_InputSelects[index].resetMountPoint();
-                return;
-            }
-
-            //mounted and not trying to unmount
-            //check if accepting
-            if (InputManager.getMenuAcceptDown(m_InputSelects[index].InputType))
-            {
-                m_InputSelects[index].IsReady = true;
-            }
-        }
-        else
-        {//mounted and ready
-            //check if player wants to be unready
-            if (InputManager.getMenuBackDown(m_InputSelects[index].InputType))
-            {
-                m_InputSelects[index].IsReady = false;
-            }
-        }
+	    if (moveInput.x > 0 && m_CurrentlyMounted[0] == index) // trying to move right and on the left
+	    {//unmount
+	        m_CurrentlyMounted[0] = -1;
+	        m_InputSelects[index].resetMountPoint();
+	        return;
+	    }
+	    else if (moveInput.x < 0 && m_CurrentlyMounted[1] == index) // trying to move left and on the right
+	    {//unmount
+	        m_CurrentlyMounted[1] = -1;
+	        m_InputSelects[index].resetMountPoint();
+	        return;
+	    }
+	    else if(InputManager.getMenuBackDown(m_InputSelects[index].InputType))
+	    {//unmount
+	        m_CurrentlyMounted[0] = -1;
+	        m_InputSelects[index].resetMountPoint();
+	        return;
+	    }
+        
     }
 
     protected virtual void unmountedBehavior(Vector2 moveInput, int index)

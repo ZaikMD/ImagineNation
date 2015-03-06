@@ -66,14 +66,6 @@ public class InputSelectV2
         set { m_IsMounted = value; }
     }
 
-    //is the input set to ready?
-    bool m_IsReady = false;
-    public bool IsReady
-    {
-        get { return m_IsReady; }
-        set { m_IsReady = value; }
-    }
-
     //constructor to initialize the class
     public InputSelectV2(Transform mountPoint, GameObject model, PlayerInput inputType)
     {
@@ -109,6 +101,5 @@ public class InputSelectV2
     {
         //reset everything
         resetMountPoint();
-        m_IsReady = false;
     }
 }
