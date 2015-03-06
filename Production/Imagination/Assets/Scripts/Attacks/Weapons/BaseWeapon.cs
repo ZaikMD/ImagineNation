@@ -37,13 +37,13 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 	//The constants for the inputs of the attacks, as well as the 
 	//combos the players can do. L = light attack  H = Heavy attack
 	
-	const string X = "X";
-	const string XX = "XX";
+	protected const string X = "X";
+	protected const string XX = "XX";
 	const string Y = "Y";
-	const string AX = "Combo_X_Air";
+	const string AX = "X_Air";
 	const string STRING_RESET = "Combo_";
 	
-	string m_Input = STRING_RESET;
+	protected string m_Input = STRING_RESET;
 	string m_LastInput;
 	
 	protected AcceptInputFrom m_ReadInput;  //To get the input
@@ -154,6 +154,7 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 			if(InputManager.getAttackDown(m_ReadInput.ReadInputFrom))
 			{
 				m_LastInput = AX;
+				m_Movement.IsAirAttacking = true;
 			}
 		}
 
@@ -236,8 +237,30 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 		AttackEnd ();
 	}
 	
-	public abstract void AttackBegin();
-	public abstract void AttackEnd();
+	public virtual void AttackBegin()
+	{
+		m_InitialProjectilePosition = transform.position;
+		m_InitialProjectileRotation = transform.rotation.eulerAngles;
+		m_InitialProjectileRotation.y -= 50;
+		
+		for(int i = 0; i < 6; i++)
+		{
+			m_ProjectileRotation = Quaternion.Euler(m_InitialProjectileRotation.x, m_InitialProjectileRotation.y + (i * 25 ), m_InitialProjectileRotation.z);
+			GameObject proj =  (GameObject)GameObject.Instantiate (m_HeavyColliderPrefab,
+			                                                       new Vector3(m_InitialProjectilePosition.x,
+			            										   m_InitialProjectilePosition.y + m_FirePointOffset,
+			            										   m_InitialProjectilePosition.z), m_ProjectileRotation);
+			
+			HeavyCollider collider = proj.GetComponent<HeavyCollider>();
+			collider.LaunchProjectile(7,1);
+			collider.SetCharacter(m_ReadInput.ReadInputFrom);
+		}
+	}
+	
+	public virtual void AttackEnd()
+	{
+
+	}
 	
 	public virtual void AOEAttack()
 	{
@@ -249,8 +272,8 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 			m_ProjectileRotation = Quaternion.Euler(m_InitialProjectileRotation.x, m_InitialProjectileRotation.y + (i * m_AOEProjectileAngle), m_InitialProjectileRotation.z);
 			GameObject proj =  (GameObject)GameObject.Instantiate (m_LightColliderPrefab,
 			                                                       new Vector3(m_InitialProjectilePosition.x,
-			            m_InitialProjectilePosition.y + m_FirePointOffset,
-			            m_InitialProjectilePosition.z), m_ProjectileRotation);
+			           											   m_InitialProjectilePosition.y + m_FirePointOffset,
+			            										   m_InitialProjectilePosition.z), m_ProjectileRotation);
 			
 			LightCollider collider = proj.GetComponent<LightCollider>();
 			collider.LaunchProjectile(m_AOESpeed,m_AOERange);
@@ -268,8 +291,8 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 			m_ProjectileRotation = Quaternion.Euler(m_InitialProjectileRotation.x, m_InitialProjectileRotation.y + (i * m_AOEProjectileAngle), m_InitialProjectileRotation.z);
 			GameObject proj =  (GameObject)GameObject.Instantiate (m_HeavyColliderPrefab,
 			                                                       new Vector3(m_InitialProjectilePosition.x,
-			            m_InitialProjectilePosition.y + m_FirePointOffset,
-			            m_InitialProjectilePosition.z), m_ProjectileRotation);
+			            										   m_InitialProjectilePosition.y + m_FirePointOffset,
+			            									       m_InitialProjectilePosition.z), m_ProjectileRotation);
 			
 			HeavyCollider collider = proj.GetComponent<HeavyCollider>();
 			collider.LaunchProjectile(m_AOESpeed,m_AOERange);
