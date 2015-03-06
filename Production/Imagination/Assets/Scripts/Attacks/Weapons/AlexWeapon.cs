@@ -27,23 +27,13 @@ public class AlexWeapon : BaseWeapon
 		update ();
 	}
 
-	public override void LightAttackBegin ()
+	public override void AttackBegin ()
 	{
 		m_LightCollider.Activate (true);
 	}
 
-	public override void LightAttackEnd ()
+	public override void AttackEnd ()
 	{
 		m_LightCollider.Activate (false);
-	}
-
-	public override void HeavyAttackBegin ()
-	{
-		m_HeavyCollider.Activate (true);
-	}
-
-	public override void HeavyAttackEnd ()
-	{
-		m_HeavyCollider.Activate (false);
 	}
 }

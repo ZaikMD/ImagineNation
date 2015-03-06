@@ -30,7 +30,7 @@ public class DerekWeapon : BaseWeapon
 		update ();
 	}
 
-	public override void LightAttackBegin ()
+	public override void AttackBegin ()
 	{
 		for (int i = 0; i < m_LightCollider.Length; i++)
 		{
@@ -38,27 +38,11 @@ public class DerekWeapon : BaseWeapon
 		}
 	}
 	
-	public override void LightAttackEnd ()
+	public override void AttackEnd ()
 	{
 		for (int i = 0; i < m_LightCollider.Length; i++)
 		{
 			m_LightCollider[i].Activate(false);
-		}
-	}
-	
-	public override void HeavyAttackBegin ()
-	{
-		for (int i = 0; i < m_HeavyCollider.Length; i++)
-		{
-			m_HeavyCollider[i].Activate(true);
-		}
-	}
-	
-	public override void HeavyAttackEnd ()
-	{
-		for (int i = 0; i < m_HeavyCollider.Length; i++)
-		{
-			m_HeavyCollider[i].Activate(false);
 		}
 	}
 }

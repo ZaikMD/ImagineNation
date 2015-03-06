@@ -19,7 +19,7 @@ public class ZoeWeapon : BaseWeapon
 		update ();
 	}
 
-	public override void LightAttackBegin ()
+	public override void AttackBegin ()
 	{
 		m_InitialProjectilePosition = transform.position;
 		m_InitialProjectileRotation = transform.rotation.eulerAngles;
@@ -34,30 +34,11 @@ public class ZoeWeapon : BaseWeapon
 		collider.SetCharacter (m_ReadInput.ReadInputFrom);
 	}
 	
-	public override void LightAttackEnd ()
+	public override void AttackEnd ()
 	{
 		//Do nothing
 	}
-	
-	public override void HeavyAttackBegin ()
-	{
-		m_InitialProjectilePosition = transform.position;
-		m_InitialProjectileRotation = transform.rotation.eulerAngles;
-		
-		GameObject proj =  (GameObject)GameObject.Instantiate (m_HeavyColliderPrefab,
-		                                                       new Vector3(m_InitialProjectilePosition.x,
-		          											   m_InitialProjectilePosition.y + m_FirePointOffset,
-		          											   m_InitialProjectilePosition.z), Quaternion.Euler(m_InitialProjectileRotation));
-		
-		HeavyCollider collider = proj.GetComponent<HeavyCollider> ();
-		collider.LaunchProjectile(m_AttackSpeed,m_AttackRange);
-		collider.SetCharacter (m_ReadInput.ReadInputFrom);
-	}
-	
-	public override void HeavyAttackEnd ()
-	{
-		//Do nothing
-	}
+
 	
 
 }
