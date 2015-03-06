@@ -201,42 +201,27 @@ public class MenuV2PlayerSelect : MenuV2
                 }
             }
             else
-            {
-                if (!PlayerArrows[i].getSelection().IsConfirmed)
-                {
-                    //check if unmounting
-                    if (input.Move.x != 0.0f)
-                    {
-                        Vector2 middleToMount = new Vector2((PlayerArrows[i].SelectionMountPoint.position - PlayerArrows[i].transform.position).x, 0.0f);
+            {                
+	            //check if unmounting
+	            if (input.Move.x != 0.0f)
+	            {
+	                Vector2 middleToMount = new Vector2((PlayerArrows[i].SelectionMountPoint.position - PlayerArrows[i].transform.position).x, 0.0f);
 
-                        if (Vector2.Dot(input.Move.normalized, middleToMount.normalized) < 0.0f)
-                        {//player swiped away from their side
-                            if (PlayerArrows[i].IsMounted)
-                            {
-                                PlayerArrows[i].deselect();
-                            }
-                            return;
-                        }
-                    }
-
-                    //check if confriming
-                    if (input.Accept)
-                    {
-                        PlayerArrows[i].getSelection().IsConfirmed = true;
-                    }
-                }
-                else
-                {
-                    //check if un-confirming
-                    if (input.Back)
-                    {
-                        PlayerArrows[i].getSelection().IsConfirmed = false;
-                    }
-                }
+	                if (Vector2.Dot(input.Move.normalized, middleToMount.normalized) < 0.0f)
+	                {//player swiped away from their side
+	                    if (PlayerArrows[i].IsMounted)
+	                    {
+	                        PlayerArrows[i].deselect();
+	                    }
+	                    return;
+	                }
+	            }                
             }
         }
 
-		if (PlayerArrows[PLAYER_ONE].getSelection() != PlayerArrows[PLAYER_TWO].getSelection() && (PlayerArrows[PLAYER_ONE].getSelection().IsConfirmed && PlayerArrows[PLAYER_TWO].getSelection().IsConfirmed))
+		if (PlayerArrows[PLAYER_ONE].getSelection() != PlayerArrows[PLAYER_TWO].getSelection()
+		    && PlayerArrows[PLAYER_ONE].IsMounted && PlayerArrows[PLAYER_TWO].IsMounted 
+		    && InputManager.getMenuAcceptDown())
         {
             //set the characters
             GameData.Instance.PlayerOneCharacter = PlayerArrows[PLAYER_ONE].getCharacterSetting();

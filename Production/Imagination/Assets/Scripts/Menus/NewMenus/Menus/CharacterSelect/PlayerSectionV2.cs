@@ -36,13 +36,6 @@ public class PlayerSectionV2 : MonoBehaviour
         set { m_IsMounted = value; }
     }
 
-    bool m_IsConfirmed = false;
-    public bool IsConfirmed
-    {
-        get { return m_IsConfirmed; }
-        set { m_IsConfirmed = value; }
-    }
-
     const float SCALE_AMOUNT = 3.0f;
 	Vector3 m_InitialScale;
 
@@ -78,7 +71,6 @@ public class PlayerSectionV2 : MonoBehaviour
 
     public void reset()
     {
-        m_IsConfirmed = false;
         m_IsMounted = false;
         m_MountPoint = m_OriginalMountpoint;
     }
