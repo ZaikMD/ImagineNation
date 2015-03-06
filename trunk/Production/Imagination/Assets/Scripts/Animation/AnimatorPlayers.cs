@@ -17,7 +17,8 @@ public class AnimatorPlayers : AnimatorController
 		Combo_X_Air_Loop,
 		Combo_Y_Start,
 		Combo_Y,
-        Death
+        Death,
+		Combo_Blank
     }
 
     protected override void Start()
@@ -38,7 +39,8 @@ public class AnimatorPlayers : AnimatorController
             "Combo_X_Air_Loop",
             "Combo_Y_Start",
             "Combo_Y",
-            "Death"
+            "Death",
+			"Combo_Blank"
         };
     }
 
@@ -67,7 +69,7 @@ public class AnimatorPlayers : AnimatorController
     {
         for (int i = 0; i < m_States.Length; i++)
         {
-            if(m_States[i].CompareTo(animation) == 0)
+            if(m_States[i].Equals(animation, System.StringComparison.OrdinalIgnoreCase))
             {
                 requestAnimation(i);
                 return;
