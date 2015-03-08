@@ -20,18 +20,31 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 	protected Vector3 m_InitialProjectileRotation;
 	protected Quaternion m_ProjectileRotation;
 	protected float m_FirePointOffset = 0.5f;
-	
+	public float m_MoveSpeedPercentageWhileAttacking = 0.8f;
+
+	//Regular Attack
+	public float m_AttackSpeed = 7.0f;
+	public float m_AttackRange = 1.0f;
+	public float m_AttackSpread = 25.0f;
+	public int m_AttackProjectileNumb = 6;
+	public float m_AttackStartingRot = 50.0f;
+
 	// Charging variables
 	protected bool m_Charging = false;
 	protected float m_ChargeTimer;
 	public float m_MinChargeTime = 1.0f;
 	public float m_MaxChargeTime = 3.0f;
+	public float m_MoveSpeedPercentageWhileCharging = 0.4f;
 	
 	//AOE 
 	public int m_NumberOfAOEProjectiles = 8;
 	protected float m_AOEProjectileAngle;
 	public int m_AOERange = 2;
 	public int m_AOESpeed = 10;
+
+	//Safety timer so incase the call back function doesnt get called
+	const float m_SafetyTime = 1.0f;
+	float m_AttackSafetyTimer = 0.0f;
 	
 	
 	//The constants for the inputs of the attacks, as well as the 
@@ -99,7 +112,10 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 			
 			//Tell the movement it cant jump anymore
 			m_Movement.CanJump(false);		
-			
+
+			//Reset the Safety timer
+			m_AttackSafetyTimer = m_SafetyTime;
+
 			//If our combo is over then reset the input
 			if (m_ComboFinished )		  
 				ResetInput ();
@@ -109,6 +125,13 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 		//This is here so you can start up a new combo after not having attacked
 		if (m_AttackFinished && !m_ComboSet)
 			m_CanCombo = true;
+
+		if (!m_AttackFinished)
+		{
+			m_AttackSafetyTimer -= Time.deltaTime;
+			if (m_AttackSafetyTimer < 0.0f)
+				AttackOver();
+		}
 		
 	}
 	
@@ -127,6 +150,8 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 			if(InputManager.getAttackDown(m_ReadInput.ReadInputFrom))
 			{
 				m_LastInput = X;	
+				m_Movement.SetSpeedMultiplier(m_MoveSpeedPercentageWhileAttacking);
+
 				if (m_Input.Contains(Y))
 					ResetInput();
 			}
@@ -137,7 +162,7 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 				m_LastInput = Y;
 				m_Charging = true;	
 				m_ChargeTimer = 0.0f;	
-				m_Movement.SetSpeedMultiplier(0.4f);
+				m_Movement.SetSpeedMultiplier(m_MoveSpeedPercentageWhileCharging);
 				m_Movement.CanJump(false);	
 				
 				if (m_Input.Contains(Y) || m_Input.Contains(X))
@@ -158,12 +183,19 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 			}
 		}
 
-		// Add the last inout into the input string
-		m_Input += m_LastInput;
-		m_ComboSet = true;
-		m_CanCombo = false;
-		if (m_Input.Contains(Y))
-			m_Animator.playAnimation(AnimatorPlayers.Animations.Combo_Y_Start);
+		if (m_LastInput != null)
+		{
+			if (m_Input.Contains(AX))
+				ResetInput();
+
+			// Add the last inout into the input string
+			m_Input += m_LastInput;
+			m_LastInput = null;
+			m_ComboSet = true;
+			m_CanCombo = false;
+			if (m_Input.Contains(Y))
+				m_Animator.playAnimation(AnimatorPlayers.Animations.Combo_Y_Start);
+		}
 	}
 	
 	void ResetInput()
@@ -230,6 +262,7 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 	
 	public void AttackOver()
 	{
+		Debug.Log ("AttackOver");
 		m_AttackFinished = true;
 		m_Movement.SetSpeedMultiplier(1.0f);
 		m_Movement.CanJump(true);
@@ -241,11 +274,11 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 	{
 		m_InitialProjectilePosition = transform.position;
 		m_InitialProjectileRotation = transform.rotation.eulerAngles;
-		m_InitialProjectileRotation.y -= 50;
+		m_InitialProjectileRotation.y -= m_AttackStartingRot;
 		
-		for(int i = 0; i < 6; i++)
+		for(int i = 0; i < m_AttackProjectileNumb; i++)
 		{
-			m_ProjectileRotation = Quaternion.Euler(m_InitialProjectileRotation.x, m_InitialProjectileRotation.y + (i * 25 ), m_InitialProjectileRotation.z);
+			m_ProjectileRotation = Quaternion.Euler(m_InitialProjectileRotation.x, m_InitialProjectileRotation.y + (i * m_AttackSpread ), m_InitialProjectileRotation.z);
 			GameObject proj =  (GameObject)GameObject.Instantiate (m_HeavyColliderPrefab,
 			                                                       new Vector3(m_InitialProjectilePosition.x,
 			            										   m_InitialProjectilePosition.y + m_FirePointOffset,
