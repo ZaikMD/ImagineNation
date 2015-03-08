@@ -45,7 +45,15 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 	//Safety timer so incase the call back function doesnt get called
 	const float m_SafetyTime = 1.0f;
 	float m_AttackSafetyTimer = 0.0f;
-	
+
+	//Particle effect variables	
+
+	public GameObject m_AOEEffectOne;
+	public GameObject m_AOEEffectTwo;
+	public GameObject m_ChargingEffect;
+	public GameObject m_ChargedEffect;
+	protected TrailRenderer[] m_TrailRenderers;
+
 	
 	//The constants for the inputs of the attacks, as well as the 
 	//combos the players can do. L = light attack  H = Heavy attack
@@ -70,6 +78,8 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 		m_AOEProjectileAngle = 360 / m_NumberOfAOEProjectiles;
 		
 		GetComponent<AnimationCallBackManager> ().registerCallBack (this);
+
+		m_TrailRenderers = GetComponentsInChildren<TrailRenderer>();
 	}
 	
 	protected virtual void update()
@@ -81,10 +91,14 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 		{
 			// If we have surpassed max charge time then stop charging	
 			m_ChargeTimer += Time.deltaTime;
+			if (m_ChargeTimer >= m_MinChargeTime)
+				ChargedEffect();
+
 			if (m_ChargeTimer >= m_MaxChargeTime)
 			{
 				m_Charging = false;
 				m_AttackFinished = true;
+				RemoveChargingEffects();
 			}
 			//If we are not still holding the charge button then check if we have surpassed the minimum charge time
 			else if (InputManager.getHeavyAttackUp(m_ReadInput.ReadInputFrom))
@@ -93,6 +107,7 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 				{
 					m_Charging = false;
 					m_AttackFinished = true;
+					RemoveChargingEffects();
 				}
 				else
 					Reset();
@@ -104,6 +119,7 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 		//If the last attack is finished and we have selected the next attack
 		if (m_AttackFinished && m_ComboSet)
 		{
+			TurnOnTrail();
 			//Play the animation
 			m_Animator.playAnimation(m_Input);
 			//Flag that we have not selected our next move and we have not finished our attack
@@ -194,7 +210,10 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 			m_ComboSet = true;
 			m_CanCombo = false;
 			if (m_Input.Contains(Y))
+			{
 				m_Animator.playAnimation(AnimatorPlayers.Animations.Combo_Y_Start);
+				ChargingEffect();
+			}
 		}
 	}
 	
@@ -245,6 +264,7 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 		m_Movement.setMovementPaused (false);
 		m_Movement.CanJump(true);	
 		m_Animator.playAnimation(AnimatorPlayers.Animations.Combo_Blank);
+		RemoveChargingEffects();
 	}
 	
 	public void ComboTimeStart()
@@ -267,7 +287,7 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 		m_Movement.SetSpeedMultiplier(1.0f);
 		m_Movement.CanJump(true);
 		m_Movement.setMovementPaused (false);
-		AttackEnd ();
+		TurnOffTrail();
 	}
 	
 	public virtual void AttackBegin()
@@ -290,11 +310,6 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 		}
 	}
 	
-	public virtual void AttackEnd()
-	{
-
-	}
-	
 	public virtual void AOEAttack()
 	{
 		m_InitialProjectilePosition = transform.position;
@@ -311,6 +326,7 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 			LightCollider collider = proj.GetComponent<LightCollider>();
 			collider.LaunchProjectile(m_AOESpeed,m_AOERange);
 			collider.SetCharacter(m_ReadInput.ReadInputFrom);
+			AOEEffect();
 		}
 	}
 	
@@ -331,5 +347,27 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 			collider.LaunchProjectile(m_AOESpeed,m_AOERange);
 			collider.SetCharacter(m_ReadInput.ReadInputFrom);
 		}
+		AOEEffect();
 	}
+
+	protected void TurnOnTrail()
+	{
+		for (int i = 0; i < m_TrailRenderers.Length; i++)
+		{
+			m_TrailRenderers[i].enabled = true;
+		}
+	}
+
+	protected void TurnOffTrail()
+	{
+		for (int i = 0; i < m_TrailRenderers.Length; i++)
+		{
+			m_TrailRenderers[i].enabled = false;
+		}
+	}
+
+	protected abstract void AOEEffect();
+	protected abstract void ChargingEffect();
+	protected abstract void ChargedEffect();
+	protected abstract void RemoveChargingEffects();
 }

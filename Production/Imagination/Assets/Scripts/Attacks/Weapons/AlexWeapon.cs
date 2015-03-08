@@ -3,23 +3,13 @@ using System.Collections;
 
 public class AlexWeapon : BaseWeapon 
 {
-	LightCollider m_LightCollider;
-	HeavyCollider m_HeavyCollider;
+	Transform m_Sword;
 
 	// Use this for initialization
 	void Start () 
 	{
 		start ();
-
-		m_LightCollider = GetComponentInChildren<LightCollider> ();
-		m_HeavyCollider = GetComponentInChildren<HeavyCollider> ();
-
-		m_LightCollider.Activate (false);
-		m_LightCollider.SetCharacter (m_ReadInput.ReadInputFrom);
-
-		m_HeavyCollider.Activate (false);
-		m_HeavyCollider.SetCharacter (m_ReadInput.ReadInputFrom);
-	}
+	}	
 	
 	// Update is called once per frame
 	void Update () 
@@ -27,13 +17,23 @@ public class AlexWeapon : BaseWeapon
 		update ();
 	}
 
-	public override void AttackBegin ()
+	protected override void ChargingEffect ()
 	{
-		m_LightCollider.Activate (true);
+
 	}
 
-	public override void AttackEnd ()
+	protected override void ChargedEffect ()
 	{
-		m_LightCollider.Activate (false);
+
+	}
+
+	protected override void RemoveChargingEffects ()
+	{
+
+	}
+
+	protected override void AOEEffect ()
+	{
+
 	}
 }
