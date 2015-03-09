@@ -11,7 +11,8 @@ public enum CallBackEvents
     Player_AttackBegin,
     Player_AttackBegin_AOE,
     Player_AttackBegin_HeavyAOE,
-    EnemyAttack
+    EnemyAttack,
+	FootStep
 };
 
 public interface CallBack
@@ -29,7 +30,8 @@ public class AnimationCallBackManager : MonoBehaviour
         "Player_AttackBegin",
         "Player_AttackBegin_AOE",
         "Player_AttackBegin_HeavyAOE",
-        "EnemyAttack"
+        "EnemyAttack",
+		"FootStep"
     };
 
     protected List<CallBack> m_Listeners = new List<CallBack>();
