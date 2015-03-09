@@ -36,6 +36,10 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 	public float m_MaxChargeTime = 3.0f;
 	public float m_MoveSpeedPercentageWhileCharging = 0.4f;
 	
+	//Air Slam variables
+	protected bool m_Slamming = false;
+	public float m_MinDistToSlam = 0.75f;
+	
 	//AOE 
 	public int m_NumberOfAOEProjectiles = 8;
 	protected float m_AOEProjectileAngle;
@@ -115,6 +119,20 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 
 			return;
 		}
+
+		//This is here just to make sure we dont do the slam animation too early, so if we are not grounded yet we will just not continue the logic
+		// If we are in the middle of an air slam
+		if (m_Slamming)
+		{
+			RaycastHit hitInfo;
+			if (!Physics.Raycast(transform.position, Vector3.down, out hitInfo))
+				return;
+
+			if (hitInfo.distance < 1.0f)
+				m_Slamming = false; 
+			else 
+				return;
+		}
 		
 		//If the last attack is finished and we have selected the next attack
 		if (m_AttackFinished && m_ComboSet)
@@ -180,6 +198,8 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 				m_ChargeTimer = 0.0f;	
 				m_Movement.SetSpeedMultiplier(m_MoveSpeedPercentageWhileCharging);
 				m_Movement.CanJump(false);	
+				m_Animator.playAnimation(AnimatorPlayers.Animations.Combo_Y_Start);
+				ChargingEffect();
 				
 				if (m_Input.Contains(Y) || m_Input.Contains(X))
 					ResetInput();
@@ -194,8 +214,17 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 		{
 			if(InputManager.getAttackDown(m_ReadInput.ReadInputFrom))
 			{
-				m_LastInput = AX;
-				m_Movement.IsAirAttacking = true;
+				RaycastHit hitInfo;
+				if (!Physics.Raycast(transform.position, Vector3.down, out hitInfo))
+				    return;
+
+				if(hitInfo.distance >= m_MinDistToSlam)
+				{
+					m_LastInput = AX;
+					m_Slamming = true;
+					m_Movement.IsAirAttacking = true;
+					m_Animator.playAnimation(AnimatorPlayers.Animations.Combo_X_Air_Loop);
+				}
 			}
 		}
 
@@ -209,11 +238,6 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 			m_LastInput = null;
 			m_ComboSet = true;
 			m_CanCombo = false;
-			if (m_Input.Contains(Y))
-			{
-				m_Animator.playAnimation(AnimatorPlayers.Animations.Combo_Y_Start);
-				ChargingEffect();
-			}
 		}
 	}
 	
@@ -284,10 +308,11 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 	{
 		Debug.Log ("AttackOver");
 		m_AttackFinished = true;
-		m_Movement.SetSpeedMultiplier(1.0f);
+		m_Movement.SetSpeedMultiplier(0.75f);
 		m_Movement.CanJump(true);
 		m_Movement.setMovementPaused (false);
 		TurnOffTrail();
+		m_Slamming = false;
 	}
 	
 	public virtual void AttackBegin()
