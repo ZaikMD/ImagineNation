@@ -23,6 +23,8 @@ Shader "Production/DarknessShader2"
 		_NoiseTexSize("Noise Texture Siaze", int) = 1024
 		_Noise("Noise", Float) = 2
 		_NoiseSpeed ("Noise Speed", Float) = 1
+		
+		_VertexDeformation("Vertex Deformation", int) = 1
 	}
 	
 	//Shader
@@ -55,10 +57,12 @@ Shader "Production/DarknessShader2"
          	float4 _MistTint;
          	
          	
-         	sampler2D _NoiseTex;
-         	uint _NoiseTexSize;
-			float _Noise;
-			float _NoiseSpeed;
+         	uniform sampler2D _NoiseTex;
+         	uniform uint _NoiseTexSize;
+			uniform float _Noise;
+			uniform float _NoiseSpeed;
+         	
+         	uniform int _VertexDeformation;
          	
          	//What the vertex shader will recieve
          	struct vertexInput
@@ -78,6 +82,41 @@ Shader "Production/DarknessShader2"
          	//Vertex Shader
          	vertexOutput vertShader(vertexInput input)
          	{
+         		if(_VertexDeformation == 1)
+         		{
+	         		//float4 noisePos = float4(abs(input.pos.x), abs(input.pos.y), abs(input.pos.z), 0.0);
+	         		float4 noisePos = input.pos;
+	         		
+	         		noisePos.x += _Time * _NoiseSpeed;
+	         		if(noisePos.x > 0.0f)
+	         		{ 		
+	         			input.pos.x += (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)) - 0.5f)  * _Noise;
+	         		}
+	         		else
+	         		{
+	         			input.pos.x -= (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)) - 0.5f)  * _Noise;
+	         		}
+	         		
+	         		noisePos.y += _Time * _NoiseSpeed;
+	         		if(noisePos.x > 0.0f)
+	         		{         		
+	         			input.pos.y += (tex2Dlod(_NoiseTex, float4((noisePos.y - noisePos.y % _NoiseTexSize) / _NoiseTexSize, noisePos.y % _NoiseTexSize, 0, 0)) - 0.5f) * _Noise;
+	         		}
+	         		else
+	         		{
+	         			input.pos.y -= (tex2Dlod(_NoiseTex, float4((noisePos.y - noisePos.y % _NoiseTexSize) / _NoiseTexSize, noisePos.y % _NoiseTexSize, 0, 0)) - 0.5f) * _Noise;
+	         		}
+	         		
+	         		noisePos.z += _Time * _NoiseSpeed;   
+	         		if(noisePos.x > 0.0f)
+	         		{      		
+	         			input.pos.z += (tex2Dlod(_NoiseTex, float4((noisePos.z - noisePos.z % _NoiseTexSize) / _NoiseTexSize, noisePos.z % _NoiseTexSize, 0, 0)) - 0.5f) * _Noise;
+	         		}
+	         		else
+	         		{
+	         			input.pos.z -= (tex2Dlod(_NoiseTex, float4((noisePos.z - noisePos.z % _NoiseTexSize) / _NoiseTexSize, noisePos.z % _NoiseTexSize, 0, 0)) - 0.5f) * _Noise;
+	         		}
+         		}
          		//A container for the vertexOutput
          		vertexOutput output;
          		
@@ -97,17 +136,20 @@ Shader "Production/DarknessShader2"
          	//Fragment Shader
          	float4 fragShader (vertexOutput output) : COLOR
          	{
-         		float4 noisePos = abs(output.pos);
+         		if(_VertexDeformation == 0)
+         		{
+	         		float4 noisePos = output.pos;
+	         		
+	         		noisePos.x += _Time * _NoiseSpeed;         		
+	         		output.pos.x += (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)) - 0.5f)  * _Noise;
+	         		
+	         		noisePos.y += _Time * _NoiseSpeed;         		
+	         		output.pos.y += (tex2Dlod(_NoiseTex, float4((noisePos.y - noisePos.y % _NoiseTexSize) / _NoiseTexSize, noisePos.y % _NoiseTexSize, 0, 0)) - 0.5f) * _Noise;
+	         	
+	         		noisePos.z += _Time * _NoiseSpeed;         		
+	         		output.pos.z += (tex2Dlod(_NoiseTex, float4((noisePos.z - noisePos.z % _NoiseTexSize) / _NoiseTexSize, noisePos.z % _NoiseTexSize, 0, 0)) - 0.5f) * _Noise;
+         		}
          		
-         		noisePos.x += _Time * _NoiseSpeed;         		
-         		output.pos.x += tex2D(_NoiseTex, (float2((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize)) - 0.5f) * _Noise;
-         		
-         		noisePos.y += _Time * _NoiseSpeed;         		
-         		output.pos.y += tex2D(_NoiseTex, (float2((noisePos.y - noisePos.y % _NoiseTexSize) / _NoiseTexSize, noisePos.y % _NoiseTexSize)) - 0.5f) * _Noise;
-         	
-         		noisePos.z += _Time * _NoiseSpeed;         		
-         		output.pos.z += tex2D(_NoiseTex, (float2((noisePos.z - noisePos.z % _NoiseTexSize) / _NoiseTexSize, noisePos.z % _NoiseTexSize)) - 0.5f) * _Noise;
-         	
          		//Re-normalize some interpolated vertex output
          		float3 normalDirection = normalize(output.normal);
             	float3 viewDirection = normalize(output.viewDir);
@@ -140,6 +182,7 @@ Shader "Production/DarknessShader2"
 			
 			//Our blend equation is additive
          	Blend SrcAlpha One
+         	//Blend SrcAlpha OneMinusSrcAlpha
          	
          	CGPROGRAM
          	
@@ -157,10 +200,12 @@ Shader "Production/DarknessShader2"
          	float4 _MainTex_ST;
          	float _TransparencyGrow;
          	
-         	sampler2D _NoiseTex;
-         	uint _NoiseTexSize;
-			float _Noise;
-			float _NoiseSpeed;
+         	uniform sampler2D _NoiseTex;
+         	uniform uint _NoiseTexSize;
+			uniform float _Noise;
+			uniform float _NoiseSpeed;
+         	
+         	uniform int _VertexDeformation;
          	
          	//What the vertex shader will recieve
          	struct vertexInput
@@ -181,7 +226,43 @@ Shader "Production/DarknessShader2"
          	
          	//Vertex Shader
          	vertexOutput vertShader(vertexInput input)
-         	{        	
+         	{        
+         		if(_VertexDeformation == 1)
+         		{
+	         		//float4 noisePos = float4(abs(input.pos.x), abs(input.pos.y), abs(input.pos.z), 0.0);
+	         		float4 noisePos = input.vertex;
+	         		
+	         		noisePos.x += _Time * _NoiseSpeed;
+	         		if(noisePos.x > 0.0f)
+	         		{ 		
+	         			input.vertex.x += (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)) - 0.5f)  * _Noise;
+	         		}
+	         		else
+	         		{
+	         			input.vertex.x -= (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)) - 0.5f)  * _Noise;
+	         		}
+	         		
+	         		noisePos.y += _Time * _NoiseSpeed;
+	         		if(noisePos.x > 0.0f)
+	         		{         		
+	         			input.vertex.y += (tex2Dlod(_NoiseTex, float4((noisePos.y - noisePos.y % _NoiseTexSize) / _NoiseTexSize, noisePos.y % _NoiseTexSize, 0, 0)) - 0.5f) * _Noise;
+	         		}
+	         		else
+	         		{
+	         			input.vertex.y -= (tex2Dlod(_NoiseTex, float4((noisePos.y - noisePos.y % _NoiseTexSize) / _NoiseTexSize, noisePos.y % _NoiseTexSize, 0, 0)) - 0.5f) * _Noise;
+	         		}
+	         		
+	         		noisePos.z += _Time * _NoiseSpeed;   
+	         		if(noisePos.x > 0.0f)
+	         		{      		
+	         			input.vertex.z += (tex2Dlod(_NoiseTex, float4((noisePos.z - noisePos.z % _NoiseTexSize) / _NoiseTexSize, noisePos.z % _NoiseTexSize, 0, 0)) - 0.5f) * _Noise;
+	         		}
+	         		else
+	         		{
+	         			input.vertex.z -= (tex2Dlod(_NoiseTex, float4((noisePos.z - noisePos.z % _NoiseTexSize) / _NoiseTexSize, noisePos.z % _NoiseTexSize, 0, 0)) - 0.5f) * _Noise;
+	         		}
+         		}         		
+         		
          		//A container for the vertexOutput
          		vertexOutput output;
          		
@@ -205,17 +286,19 @@ Shader "Production/DarknessShader2"
          	//Fragment Shader
          	float4 fragShader (vertexOutput output) : COLOR
          	{
-         		float4 noisePos = abs(output.pos);
-         		
-         		noisePos.x += _Time * _NoiseSpeed;         		
-         		output.pos.x += tex2D(_NoiseTex, (float2((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize)) - 0.5f) * _Noise;
-         		
-         		noisePos.y += _Time * _NoiseSpeed;         		
-         		output.pos.y += tex2D(_NoiseTex, (float2((noisePos.y - noisePos.y % _NoiseTexSize) / _NoiseTexSize, noisePos.y % _NoiseTexSize)) - 0.5f) * _Noise;
-         	
-         		noisePos.z += _Time * _NoiseSpeed;         		
-         		output.pos.z += tex2D(_NoiseTex, (float2((noisePos.z - noisePos.z % _NoiseTexSize) / _NoiseTexSize, noisePos.z % _NoiseTexSize)) - 0.5f) * _Noise;
-         	
+	         	if(_VertexDeformation == 0)
+	         	{
+	         		float4 noisePos = output.pos;
+	         		
+	         		noisePos.x += _Time * _NoiseSpeed;         		
+	         		output.pos.x += (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)) - 0.5f)  * _Noise;
+	         		
+	         		noisePos.y += _Time * _NoiseSpeed;         		
+	         		output.pos.y += (tex2Dlod(_NoiseTex, float4((noisePos.y - noisePos.y % _NoiseTexSize) / _NoiseTexSize, noisePos.y % _NoiseTexSize, 0, 0)) - 0.5f) * _Noise;
+	         	
+	         		noisePos.z += _Time * _NoiseSpeed;         		
+	         		output.pos.z += (tex2Dlod(_NoiseTex, float4((noisePos.z - noisePos.z % _NoiseTexSize) / _NoiseTexSize, noisePos.z % _NoiseTexSize, 0, 0)) - 0.5f) * _Noise;
+         		}
          		//Re-normalize some interpolated vertex output
          		float3 normalDirection = normalize(output.normal);
             	float3 viewDirection = normalize(output.viewDir);
