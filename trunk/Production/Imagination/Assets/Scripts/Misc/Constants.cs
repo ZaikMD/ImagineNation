@@ -147,13 +147,13 @@ public static class Constants
 		public const string ZOEY_DEAD_HEALTH_IMAGE = "HUD_textures/PlayerHealth/Zoe/ZoeDead";
 
 //Puzzle pieces
-		public const string PUZZLEPIECE_ZERO_IMAGE = "HUD_textures/Puzzle/Puzzle01";
-		public const string PUZZLEPIECE_ONE_IMAGE = "HUD_textures/Puzzle/Puzzle02";
-		public const string PUZZLEPIECE_TWO_IMAGE = "HUD_textures/Puzzle/Puzzle03";
-		public const string PUZZLEPIECE_THREE_IMAGE = "HUD_textures/Puzzle/Puzzle04";
-		public const string PUZZLEPIECE_FOUR_IMAGE = "HUD_textures/Puzzle/Puzzle05";
-		public const string PUZZLEPIECE_FIVE_IMAGE = "HUD_textures/Puzzle/Puzzle06";
-		public const string PUZZLEPIECE_SIX_IMAGE = "HUD_textures/Puzzle/Puzzle07";
+		public const string PUZZLEPIECE_ZERO_IMAGE = "HUD_textures/Puzzle/Puzzle_00";
+		public const string PUZZLEPIECE_ONE_IMAGE = "HUD_textures/Puzzle/Puzzle_01";
+		public const string PUZZLEPIECE_TWO_IMAGE = "HUD_textures/Puzzle/Puzzle_02";
+		public const string PUZZLEPIECE_THREE_IMAGE = "HUD_textures/Puzzle/Puzzle_03";
+		public const string PUZZLEPIECE_FOUR_IMAGE = "HUD_textures/Puzzle/Puzzle_04";
+		public const string PUZZLEPIECE_FIVE_IMAGE = "HUD_textures/Puzzle/Puzzle_05";
+		public const string PUZZLEPIECE_SIX_IMAGE = "HUD_textures/Puzzle/Puzzle_06";
 	}
 
 	public struct Sounds
