@@ -14,6 +14,9 @@
 * 
 * 17/10/2014 Edit: Zach Dubuc
 * Added in checkpoints being reset when a new scene loads
+* 
+* 9/3/2015 Edit: Kole Tackney
+* Added auto continue, and 
 */
 #endregion
 
@@ -25,17 +28,30 @@ public class BaseGoal : MonoBehaviour
 	public Levels m_NextLevel;
 	public Sections m_NextSection;
 
+	public float m_AutoContinueTime;
+
+	public bool m_AutoContinueOnTime;
+	public bool m_PlayerInGoalPrompt;
+	public bool m_PlayerOutOfGoalPrompt;
+
 	protected bool[] m_AtEnd = new bool[2];
 	//protected float m_Speed;
 
 	int m_PlayerWaitingToExit = 0;
-
+	
     const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
+
+	float m_CurrentContinueTimer;
+
+	protected PlayerInput m_PlayerInGoal;
+	protected PlayerInput m_PlayerOutOfGoal;
 
 	//Initialize values
 	void Start()
 	{
 		m_PlayerWaitingToExit = 0;
+
+		m_CurrentContinueTimer = m_AutoContinueTime;
 
 		for(int i = 0; i < m_AtEnd.Length; i++)
 		{
@@ -49,11 +65,43 @@ public class BaseGoal : MonoBehaviour
 
 		//if element 1 of array m_AtEnd equals true than load the next level. Because element 1 would be player2
 		if (m_AtEnd[1])
+		{
+			LoadNext();
+			return;
+		}
+
+		if(m_PlayerWaitingToExit > 0) //If player is in the goal.
+		{
+			m_CurrentContinueTimer -= Time.deltaTime;
+
+			if(m_CurrentContinueTimer < 0)
 			{
-				LoadNext();
-				return;
+				if(m_AutoContinueOnTime)
+				{	
+					LoadNext();
+					return;
+				}
+
+				if(m_PlayerInGoalPrompt)
+				{
+					if(InputManager.getPause(m_PlayerInGoal))
+					{
+						LoadNext();
+						return;
+					}
+				}
+
+				if(m_PlayerOutOfGoalPrompt)
+				{
+					if(InputManager.getPause(m_PlayerOutOfGoal))
+					{
+						LoadNext();
+						return;
+					}
+				}
 			}
 		}
+	}
 
 	//if the player comes in contact with the level goal trigger. It will check if the first element of the m_AtEnd bool = false if yes then increment
 	//the integer m_PlayerWaitingToExit and make m_AtEnd[0] true
@@ -68,8 +116,17 @@ public class BaseGoal : MonoBehaviour
 				AddWaitingPlayer();
 				m_AtEnd[0] = true;
 
-			}
+				m_PlayerInGoal = other.GetComponent<AcceptInputFrom>().ReadInputFrom;
 
+				if( m_PlayerInGoal == GameData.Instance.m_PlayerOneInput)
+				{
+					m_PlayerOutOfGoal = GameData.Instance.m_PlayerTwoInput;
+				}
+				else
+				{
+					m_PlayerOutOfGoal = GameData.Instance.m_PlayerOneInput;
+				}
+			}
 			else 
 			{
 				AddWaitingPlayer();
@@ -84,6 +141,8 @@ public class BaseGoal : MonoBehaviour
 		m_PlayerWaitingToExit--;
 
 		m_AtEnd[0] = false;
+
+		m_CurrentContinueTimer = m_AutoContinueTime; //Reset timer.
 
 	}
 
@@ -103,5 +162,38 @@ public class BaseGoal : MonoBehaviour
 	public void AddWaitingPlayer()
 	{
 		m_PlayerWaitingToExit++;
+	}
+
+	public void OnGUI()
+	{
+		Rect posRect = new Rect(Screen.width / 8, Screen.height / 5 * 3, Screen.width / 8 * 6, Screen.height / 2.5f );
+
+		if(m_PlayerWaitingToExit > 0)
+		{
+			if(m_CurrentContinueTimer > 0)
+			{
+				GUI.Label(posRect, "Waiting for other Player: " + m_CurrentContinueTimer.ToString("#.00"));
+			}
+			else
+			{			
+				if(m_PlayerInGoalPrompt && m_PlayerOutOfGoalPrompt)
+				{
+					GUI.Label(posRect, "Press Start to continue to next level");
+					return;
+				}
+
+				if(m_PlayerInGoalPrompt)
+				{
+					GUI.Label(posRect, "Press Start to continue to next level");
+					return;
+				}
+
+				if(m_PlayerOutOfGoalPrompt)
+				{
+					GUI.Label(posRect, "Press Start to continue to next level");
+					return;
+				}
+			}
+		}
 	}
 }

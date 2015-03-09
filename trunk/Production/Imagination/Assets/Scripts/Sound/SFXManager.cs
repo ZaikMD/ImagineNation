@@ -179,7 +179,7 @@ public class SFXManager : MonoBehaviour
 #if DEBUG || UNITY_EDITOR
 		//TODO: Delete for finale product, Onload will handle. OnLoad does not run when playing scene in editor
 		//Load all sounds
-        loadMenuSounds();
+		loadMenuSounds();
         loadOtherSounds();
 #endif
 	}

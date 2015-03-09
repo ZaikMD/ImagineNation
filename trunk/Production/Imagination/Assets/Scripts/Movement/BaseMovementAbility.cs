@@ -45,7 +45,7 @@ using System.Collections.Generic;
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(AcceptInputFrom))]
 [RequireComponent(typeof(AudioSource))]
-public abstract class BaseMovementAbility : MonoBehaviour
+public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 {
 	//Other objects this class needs
 	public Transform m_Camera;
@@ -123,6 +123,8 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		m_AnimatorController = gameObject.GetComponentInChildren<AnimatorPlayers>();
 
         m_SFX = SFXManager.Instance;
+
+		GetComponentInChildren<AnimationCallBackManager>().registerCallBack(this);
 
 		m_AcceptInputFrom = gameObject.GetComponent<AcceptInputFrom> ();
 
@@ -632,6 +634,17 @@ public abstract class BaseMovementAbility : MonoBehaviour
 		//(horizontalVelocity.magnitude < (MAX_GROUND_RUNSPEED / 2.0f))
 		
 		       
+	}
+
+	public void CallBack(CallBackEvents callBack)
+	{
+		switch(callBack)
+		{
+			case CallBackEvents.FootStep:
+			//Play footstep sound.
+			m_SFX.playSound(this.transform, Sounds.Run);
+			break;
+		}	
 	}
 
 	/// <summary>
