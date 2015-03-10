@@ -14,7 +14,7 @@ public class AlexWeapon : BaseWeapon
 	void Start () 
 	{
 		start ();
-		m_Sword = GameObject.Find ("Sword").transform;
+		m_Sword = GameObject.Find ("SwordBlade").transform;
 	}	
 	
 	// Update is called once per frame
