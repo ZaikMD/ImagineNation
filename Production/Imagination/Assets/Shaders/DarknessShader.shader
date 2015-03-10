@@ -18,6 +18,12 @@ Shader "Production/DarknessShader"
 		_FogTint("Fog Tint", Color) = (1.0, 1.0, 0.0, 1.0)
 		_OffsetSpeed ("Fog Move Speed", Float) = 1
 		_TransparencyGrow("Transprency Growing", Float) = 0.75
+		
+		
+		_NoiseTex ("Texture", 2D) = "white" {}
+		_NoiseTexSize("Noise Texture Siaze", int) = 1024
+		_Noise("Noise", vector) = (0.05, 0.05, 0.05)
+		_NoiseSpeed ("Noise Speed", vector) = (1, 1, 1)
 	}
 	
 	//Shader
@@ -28,6 +34,14 @@ Shader "Production/DarknessShader"
 		//Pass for shading the background enviroment
 		Pass
 		{
+		
+			Stencil
+			{
+				Ref 253
+				Comp Greater
+				Pass replace
+			}
+			
 			//Do not remove the colours behind the object
 			Cull back
 			ZWrite Off
@@ -49,6 +63,11 @@ Shader "Production/DarknessShader"
          	float _TransparencyGrow;
          	float4 _MistTint;
          	
+         	uniform sampler2D _NoiseTex;
+         	uniform uint _NoiseTexSize;
+			uniform float3 _Noise;
+			uniform float3 _NoiseSpeed;
+         	
          	//What the vertex shader will recieve
          	struct vertexInput
          	{
@@ -67,6 +86,40 @@ Shader "Production/DarknessShader"
          	//Vertex Shader
          	vertexOutput vertShader(vertexInput input)
          	{
+         		float4 noisePos = input.pos;
+         		float3 add = float3(0.0, 0.0, 0.0);
+         		
+         		noisePos.x += _Time * _NoiseSpeed.x;
+         		if(noisePos.x > 0.0f)
+         		{ 	
+         			add.x += (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)) - 0.5f)  * _Noise.x;
+         		}
+         		else
+         		{
+         			add.x -= (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)) - 0.5f)  * _Noise.x;
+         		}
+         		
+         		noisePos.y += _Time * _NoiseSpeed.y;
+         		if(noisePos.x > 0.0f)
+         		{         
+         			add.y += (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)) - 0.5f)  * _Noise.y;		
+         		}
+         		else
+         		{
+         			add.y -= (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)) - 0.5f)  * _Noise.y;
+         		}
+         		
+         		noisePos.z += _Time * _NoiseSpeed.z;   
+         		if(noisePos.x > 0.0f)
+         		{    
+         			add.z += (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)) - 0.5f)  * _Noise.z;  		
+         		}
+         		else
+         		{
+         			add.z -= (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)) - 0.5f)  * _Noise.z;
+         		}
+         		input.pos.xyz += add;
+         	
          		//A container for the vertexOutput
          		vertexOutput output;
          		
@@ -74,7 +127,7 @@ Shader "Production/DarknessShader"
          		output.pos = mul(UNITY_MATRIX_MVP, input.pos);
          		
          		//Calculate the normal of the surface in object coordinates
-         		output.normal = normalize(mul(float4(input.normal, 0.0), _World2Object).xyz);
+         		output.normal = normalize(mul(float4(input.normal + add, 0.0), _World2Object).xyz);
          		
          		//Calculate view direction, for dot calculations in the fragment shader
          		output.viewDir = normalize(_WorldSpaceCameraPos - mul(_Object2World, input.pos).xyz);
@@ -112,8 +165,16 @@ Shader "Production/DarknessShader"
 		//Pass for drawing the fog within the darkness
 		Pass
 		{
+		
+			Stencil
+			{
+				Ref 254
+				Comp Greater
+				Pass replace
+			}
+			
 			//Do not remove the colours behind the object
-			Cull off
+			Cull back
 			ZWrite Off
 			
 			//Our blend equation is additive
@@ -135,10 +196,15 @@ Shader "Production/DarknessShader"
          	float4 _MainTex_ST;
          	float _TransparencyGrow;
          	
+         	uniform sampler2D _NoiseTex;
+         	uniform uint _NoiseTexSize;
+			uniform float3 _Noise;
+			uniform float3 _NoiseSpeed;
+         	
          	//What the vertex shader will recieve
          	struct vertexInput
          	{
-         		float4 vertex : POSITION;
+         		float4 pos : POSITION;
          		float3 normal : NORMAL;
             	float4 texcoord : TEXCOORD0;
          	};
@@ -155,17 +221,51 @@ Shader "Production/DarknessShader"
          	//Vertex Shader
          	vertexOutput vertShader(vertexInput input)
          	{
+         		float4 noisePos = input.pos;
+         		float3 add = float3(0.0, 0.0, 0.0);
+         		
+         		noisePos.x += _Time * _NoiseSpeed.x;
+         		if(noisePos.x > 0.0f)
+         		{ 	
+         			add.x += (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)) - 0.5f)  * _Noise.x;
+         		}
+         		else
+         		{
+         			add.x -= (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)) - 0.5f)  * _Noise.x;
+         		}
+         		
+         		noisePos.y += _Time * _NoiseSpeed.y;
+         		if(noisePos.x > 0.0f)
+         		{         
+         			add.y += (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)) - 0.5f)  * _Noise.y;		
+         		}
+         		else
+         		{
+         			add.y -= (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)) - 0.5f)  * _Noise.y;
+         		}
+         		
+         		noisePos.z += _Time * _NoiseSpeed.z;   
+         		if(noisePos.x > 0.0f)
+         		{    
+         			add.z += (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)) - 0.5f)  * _Noise.z;  		
+         		}
+         		else
+         		{
+         			add.z -= (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)) - 0.5f)  * _Noise.z;
+         		}
+         		input.pos.xyz += add;
+         	
          		//A container for the vertexOutput
          		vertexOutput output;
          		
          		//Calculate the vertex's position according to the camera
-         		output.pos = mul(UNITY_MATRIX_MVP, input.vertex);
+         		output.pos = mul(UNITY_MATRIX_MVP, input.pos);
          		
          		//Calculate the normal of the surface in object coordinates
-         		output.normal = normalize(mul(float4(input.normal, 0.0), _World2Object).xyz);
+         		output.normal = normalize(mul(float4(input.normal + add, 0.0), _World2Object).xyz);
          		
          		//Calculate view direction, for dot calculations in the fragment shader
-         		output.viewDir = normalize(_WorldSpaceCameraPos - mul(_Object2World, input.vertex).xyz);
+         		output.viewDir = normalize(_WorldSpaceCameraPos - mul(_Object2World, input.pos).xyz);
          		
          		//Give output the texture's UV
          		output.tex = input.texcoord * _MainTex_ST.xy + _MainTex_ST.zw + _Time.x * _OffsetSpeed;

@@ -73,7 +73,7 @@ Shader "Production/Glow"
 			{
 				Ref 1
 				Comp NotEqual
-				Pass IncrSat
+				Pass Keep
 				ZFail Keep
 			}
 			
