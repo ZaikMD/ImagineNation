@@ -15,7 +15,7 @@ public class ZoeWeapon : BaseWeapon
 	{
 		start ();
 
-		m_Wand = GameObject.Find ("Wand").transform;
+		m_Wand = GameObject.Find ("WandStar").transform;
 	}
 	
 	// Update is called once per frame
