@@ -77,8 +77,10 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 	{
 		m_Animator = GetComponentInParent<AnimatorPlayers> ();
 		m_Movement = GetComponentInParent<BaseMovementAbility> ();
-		m_ReadInput = GetComponentInParent<AcceptInputFrom>();
-		
+		//m_ReadInput = GetComponentInParent<AcceptInputFrom>();
+		m_ReadInput = transform.parent.GetComponent<AcceptInputFrom> ();
+
+
 		m_AOEProjectileAngle = 360 / m_NumberOfAOEProjectiles;
 		
 		GetComponent<AnimationCallBackManager> ().registerCallBack (this);
