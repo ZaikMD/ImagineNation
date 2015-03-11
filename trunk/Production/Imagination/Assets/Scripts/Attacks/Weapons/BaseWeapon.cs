@@ -3,6 +3,8 @@ using System.Collections;
 
 public abstract class BaseWeapon : MonoBehaviour, CallBack
 {
+	protected const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
+
 	bool m_CanCombo = true;
 	bool m_ComboSet = false;
 	
@@ -15,7 +17,7 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 	//Projectile Variables(For Attacking)
 	public GameObject m_LightColliderPrefab;
 	public GameObject m_HeavyColliderPrefab;
-	
+
 	protected Vector3 m_InitialProjectilePosition;
 	protected Vector3 m_InitialProjectileRotation;
 	protected Quaternion m_ProjectileRotation;
@@ -53,6 +55,7 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 	//Particle effect variables	
 
 	public GameObject[] m_AOEEffects;
+	public GameObject[] m_AOESlamEffects;
 	public GameObject[] m_ChargingEffectPrefabs;
 	protected GameObject[] m_ChargingEffectObject;
 	public GameObject[] m_ChargedEffectPrefabs;
@@ -338,7 +341,8 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 			collider.SetCharacter(m_ReadInput.ReadInputFrom);
 		}
 	}
-	
+
+	//used for Combo_AX attack
 	public virtual void AOEAttack()
 	{
 		m_InitialProjectilePosition = transform.position;
@@ -355,10 +359,11 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 			LightCollider collider = proj.GetComponent<LightCollider>();
 			collider.LaunchProjectile(m_AOESpeed,m_AOERange);
 			collider.SetCharacter(m_ReadInput.ReadInputFrom);
-			AOEEffect();
+			AOESlamEffect();
 		}
 	}
-	
+
+	//used for Combo_Y attack
 	public virtual void HeavyAOEAttack()
 	{
 		m_InitialProjectilePosition = transform.position;
@@ -396,6 +401,7 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 	}
 
 	protected abstract void AOEEffect();
+	protected abstract void AOESlamEffect();
 	protected abstract void ChargingEffect();
 	protected abstract void ChargedEffect();
 	protected abstract void RemoveChargingEffects();

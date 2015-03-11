@@ -17,6 +17,7 @@ public class AlexWeapon : BaseWeapon
 	// Update is called once per frame
 	void Update () 
 	{
+		if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 		update ();
 	}
 
@@ -68,5 +69,13 @@ public class AlexWeapon : BaseWeapon
 			Instantiate (m_AOEEffects[i], m_Sword.position, Quaternion.identity);
 		}
 
+	}
+
+	protected override void AOESlamEffect ()
+	{
+		for (int i = 0; i < m_AOESlamEffects.Length; i++)
+		{
+			Instantiate (m_AOESlamEffects[i], m_Sword.position, Quaternion.identity);
+		}
 	}
 }
