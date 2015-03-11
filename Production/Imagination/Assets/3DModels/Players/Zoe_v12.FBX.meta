@@ -1508,7 +1508,7 @@ ModelImporter:
         intParameter: 0
         messageOptions: 0
       - time: .506331444
-        functionName: NewEvent
+        functionName: callBack
         data: Player_AttackOver
         objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
