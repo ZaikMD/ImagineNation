@@ -60,10 +60,15 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 	protected GameObject[] m_ChargingEffectObject;
 	public GameObject[] m_ChargedEffectPrefabs;
 	protected GameObject[] m_ChargedEffectObject;
-	protected TrailRenderer[] m_TrailRenderers;
 	protected bool m_ChargeGlowOn = false;
 
-	
+	//Trail Renderer varibles
+	protected TrailRenderer[] m_TrailRenderers;
+	protected float[] m_TrailRenderersTimeAlive;
+	protected float[] m_TrailRenderersCurrentTime;
+	protected bool[] m_TrailRenderersActive;
+
+	public float m_TrailRendererShrinkRate;
 	//The constants for the inputs of the attacks, as well as the 
 	//combos the players can do. L = light attack  H = Heavy attack
 	
@@ -90,12 +95,25 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 		
 		GetComponent<AnimationCallBackManager> ().registerCallBack (this);
 
+		//Setting up trail renderers.
 		m_TrailRenderers = GetComponentsInChildren<TrailRenderer>();
+
+		m_TrailRenderersActive = new bool[m_TrailRenderers.Length];
+		m_TrailRenderersTimeAlive = new float[m_TrailRenderers.Length];
+		m_TrailRenderersCurrentTime = new float[m_TrailRenderers.Length];
+
+		for(int i = 0; i < m_TrailRenderers.Length; i++)
+		{
+			m_TrailRenderersActive[i] = false;
+			m_TrailRenderersTimeAlive[i] = m_TrailRenderers[i].time;
+			m_TrailRenderersCurrentTime[i] = 0;
+		}
 	}
 	
 	protected virtual void update()
 	{	
-		
+		UpdateTrailRender();
+
 		CheckInput ();
 
 		if (m_Charging)
@@ -388,7 +406,8 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 	{
 		for (int i = 0; i < m_TrailRenderers.Length; i++)
 		{
-			m_TrailRenderers[i].enabled = true;
+			m_TrailRenderersActive[i] = true;
+			m_TrailRenderers[i].time = m_TrailRenderersTimeAlive[i];
 		}
 	}
 
@@ -396,7 +415,21 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 	{
 		for (int i = 0; i < m_TrailRenderers.Length; i++)
 		{
-			m_TrailRenderers[i].enabled = false;
+			m_TrailRenderersActive[i] = false;
+		}
+	}
+
+	protected void UpdateTrailRender()
+	{
+		for( int i = 0; i < m_TrailRenderers.Length; i++)
+		{
+			if(!m_TrailRenderersActive[i])
+			{
+				if(m_TrailRenderers[i].time > 0)
+				{
+					m_TrailRenderers[i].time -= m_TrailRendererShrinkRate * Time.deltaTime;
+				}
+			}
 		}
 	}
 
