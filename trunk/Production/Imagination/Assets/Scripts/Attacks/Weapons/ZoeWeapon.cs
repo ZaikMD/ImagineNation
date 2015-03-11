@@ -54,7 +54,6 @@ public class ZoeWeapon : BaseWeapon
 	protected override void AOEEffect ()
 	{
 		Instantiate (m_AOEEffectOne, m_Wand.position, Quaternion.identity);
-		Instantiate (m_AOEEffectTwo, m_Wand.position, Quaternion.identity);
 	}
 	
 
