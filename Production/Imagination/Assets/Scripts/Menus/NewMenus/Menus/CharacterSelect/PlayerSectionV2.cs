@@ -57,23 +57,21 @@ public class PlayerSectionV2 : MonoBehaviour
 
 
 		m_OriginalSummaryMountpoint = CharacterSummary.transform.position;
+		m_SummaryMountPoint = m_OriginalSummaryMountpoint;
     }
 
     void Update()
     {
+		CharacterSummary.transform.position = Vector3.Lerp(CharacterSummary.transform.position, m_SummaryMountPoint, MOVE_LERP_SPEED);
         if (m_IsMounted)
         {
             transform.position = Vector3.Lerp(transform.position, m_MountPoint, MOVE_LERP_SPEED);
             transform.localScale = Vector3.Lerp(transform.localScale, Vector3.one * SCALE_AMOUNT, SCALE_LERP_SPEED);
-
-			CharacterSummary.transform.position = Vector3.Lerp(CharacterSummary.transform.position, m_SummaryMountPoint, MOVE_LERP_SPEED);
         }
         else
         {
             transform.position = Vector3.Lerp(transform.position, m_OriginalMountpoint, MOVE_LERP_SPEED);
 			transform.localScale = Vector3.Lerp(transform.localScale, m_InitialScale, SCALE_LERP_SPEED);
-
-			CharacterSummary.transform.position = Vector3.Lerp(CharacterSummary.transform.position, m_OriginalSummaryMountpoint, MOVE_LERP_SPEED);
         }
     }
 
@@ -88,9 +86,15 @@ public class PlayerSectionV2 : MonoBehaviour
 		m_SummaryMountPoint = mountPoint;
 	}
 
-    public void reset()
+	public void reset()
+	{
+		m_IsMounted = false;
+		m_MountPoint = m_OriginalMountpoint;
+		resetMointPoint ();
+	}
+
+    public void resetMointPoint()
     {
-        m_IsMounted = false;
-        m_MountPoint = m_OriginalMountpoint;
+		m_SummaryMountPoint = m_OriginalSummaryMountpoint;
     }
 }
