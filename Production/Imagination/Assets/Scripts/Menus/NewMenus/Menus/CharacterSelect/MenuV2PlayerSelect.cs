@@ -30,13 +30,6 @@ public class MenuV2PlayerSelect : MenuV2
 
     public PlayerSelectArrow[] PlayerArrows;
 
-    public Transform[] PlayerInstructionMountPoints;
-
-    GameObject[] PlayerInstructions = new GameObject[2];
-
-    public GameObject KeyboardInstructionsPrefab;
-    public GameObject GamepadInstructionsPreafab;
-
     public string SceneToLoad;
 
     new const float DELAY_TIME = 0.5f;
@@ -58,62 +51,6 @@ public class MenuV2PlayerSelect : MenuV2
         }
     };
 
-    protected override void OnActivated()
-    {
-        if (PlayerInstructionMountPoints.Length >= 2)
-        {
-            if (PlayerInstructions[PLAYER_ONE] != null || PlayerInstructions[PLAYER_TWO] != null)
-            {
-                Destroy(PlayerInstructions[PLAYER_ONE]);
-                Destroy(PlayerInstructions[PLAYER_TWO]);
-            }
-
-            if (PlayerInstructionMountPoints[PLAYER_ONE] != null)
-            {
-                switch(GameData.Instance.m_PlayerOneInput)
-                {
-                    case PlayerInput.GamePadOne: 
-                    case PlayerInput.GamePadTwo: 
-                    case PlayerInput.GamePadThree: 
-                    case PlayerInput.GamePadFour:
-						if ( GamepadInstructionsPreafab != null)
-                        	PlayerInstructions[PLAYER_ONE] = (GameObject)GameObject.Instantiate(GamepadInstructionsPreafab, 
-                                                                                            PlayerInstructionMountPoints[PLAYER_ONE].position, 
-                                                                                            PlayerInstructionMountPoints[PLAYER_ONE].rotation);
-                        break;
-
-                    case PlayerInput.Keyboard:
-						if ( KeyboardInstructionsPrefab != null)
-                        	PlayerInstructions[PLAYER_ONE] = (GameObject)GameObject.Instantiate(KeyboardInstructionsPrefab, 
-                                                                                            PlayerInstructionMountPoints[PLAYER_ONE].position, 
-                                                                                            PlayerInstructionMountPoints[PLAYER_ONE].rotation);
-                        break;
-                }
-            }
-
-            if (PlayerInstructionMountPoints[PLAYER_TWO] != null)
-            {
-                switch (GameData.Instance.m_PlayerTwoInput)
-                {
-                    case PlayerInput.GamePadOne:
-                    case PlayerInput.GamePadTwo:
-                    case PlayerInput.GamePadThree:
-                    case PlayerInput.GamePadFour:
-						if ( GamepadInstructionsPreafab != null)
-                        	PlayerInstructions[PLAYER_TWO] = (GameObject)GameObject.Instantiate(GamepadInstructionsPreafab, 
-                                                                                            PlayerInstructionMountPoints[PLAYER_TWO].position, 
-                                                                                            PlayerInstructionMountPoints[PLAYER_TWO].rotation);
-                        break;
-                    case PlayerInput.Keyboard:
-						if ( KeyboardInstructionsPrefab != null)
-                       		PlayerInstructions[PLAYER_TWO] = (GameObject)GameObject.Instantiate(KeyboardInstructionsPrefab, 
-                                                                                            PlayerInstructionMountPoints[PLAYER_TWO].position, 
-                                                                                            PlayerInstructionMountPoints[PLAYER_TWO].rotation);
-                        break;
-                }
-            }
-        }
-    }
 
     // Update is called once per frame
     protected override void  update()
