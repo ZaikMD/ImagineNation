@@ -78,4 +78,16 @@ public class AlexMovement : BaseMovementAbility
     {
         return JUMP_SPEED;
     }
+
+	public override void CallBack(CallBackEvents callBack)
+	{
+		switch(callBack)
+		{
+		case CallBackEvents.FootStep_Alex:
+			//Play footstep sound.
+			m_SFX.playSound(this.transform, Sounds.Run);
+			break;
+		}	
+	}
+
 }

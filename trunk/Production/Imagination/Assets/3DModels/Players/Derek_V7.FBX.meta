@@ -392,7 +392,7 @@ ModelImporter:
       events:
       - time: .577584803
         functionName: callBack
-        data: FootStep
+        data: FootStep_Derek
         objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
@@ -400,7 +400,7 @@ ModelImporter:
         messageOptions: 0
       - time: .0771811306
         functionName: callBack
-        data: FootStep
+        data: FootStep_Derek
         objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
@@ -2898,7 +2898,7 @@ ModelImporter:
       events:
       - time: .0838926211
         functionName: callBack
-        data: FootStep
+        data: FootStep_Derek
         objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
@@ -2906,7 +2906,7 @@ ModelImporter:
         messageOptions: 0
       - time: .580536902
         functionName: callBack
-        data: FootStep
+        data: FootStep_Derek
         objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
           type: 3}
         floatParameter: 0
