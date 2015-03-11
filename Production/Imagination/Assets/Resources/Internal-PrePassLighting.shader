@@ -47,7 +47,7 @@ Shader "Hidden/Internal-PrePassLighting"
 			//Provide unity the objects texture coordinates
 			output.uv = ComputeScreenPos (output.pos);
 			
-			//Direction for specular light calculations
+			//Vector for where the fragment's position is
 			output.ray = mul (UNITY_MATRIX_MV, input.pos).xyz * float3(-1,-1,1);
 			output.ray = lerp(output.ray, input.norm, _LightAsQuad);
 			
@@ -55,8 +55,10 @@ Shader "Hidden/Internal-PrePassLighting"
 			return output;
 		}
 
-		//Normal mapping uniforms
+		//Normal mapping
 		sampler2D _CameraNormalsTexture;
+		
+		//Depth texture
 		sampler2D_float _CameraDepthTexture;
 
 		//Unity Light uniforms
@@ -117,12 +119,12 @@ Shader "Hidden/Internal-PrePassLighting"
 			half shadow = 1.0;
 			#endif
 			
-			//All our shadows are soft, but just in case we'll set a shadow to nothing if we aren't using a soft shadow for some scene
+			//All our shadows are soft, but just in case we'll set a shadow for lower end pc's
 			#else
 			
-			//Get shadows from a buffer provided by shadow casters
+			//Get shadows from a buffer
 			#if defined (SHADOWS_NATIVE)
-			half shadow = UNITY_SAMPLE_SHADOW_PROJ(_ShadowMapTexture, aShadowUV) * (1-_LightShadowData.r) + _LightShadowData.r;
+			half shadow = UNITY_SAMPLE_SHADOW_PROJ(_ShadowMapTexture, aShadowUV) * (1.0 - _LightShadowData.x) + _LightShadowData.x;
 			
 			//Otherwise provide no shadow
 			#else
@@ -214,7 +216,7 @@ Shader "Hidden/Internal-PrePassLighting"
 			float fade = saturate(fadeDistance * _LightShadowData.z + _LightShadowData.w);
 		
 			//Return a shadow shade
-			return saturate(tex2D (_ShadowMapTexture, uv).r + fade);
+			return saturate(tex2D (_ShadowMapTexture, uv).x + fade);
 		}
 		#endif
 		#endif
@@ -255,15 +257,15 @@ Shader "Hidden/Internal-PrePassLighting"
 			//Fragment shader
 			float4 fragShader (vertexOutput output) : SV_Target
 			{
-				//				Camera far plane / ray z
+				//Bring ray into mvp space
 				output.ray *= _ProjectionParams.z / output.ray.z;
 				float2 uv = output.uv.xy / output.uv.w;
 				
 				//Get the normal of the fragment
-				half4 specularNormal = tex2D (_CameraNormalsTexture, uv);
+				half4 textureNormal = tex2D (_CameraNormalsTexture, uv);
 				
 				//Get the normal of the fragment
-				half3 normal = normalize(specularNormal.rgb * 2.0 - 1.0);
+				half3 normal = normalize(textureNormal.rgb * 2.0 - 1.0);
 				
 				//Get the depth of this fragment from the depth buffer
 				float depth = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, uv);
@@ -289,17 +291,17 @@ Shader "Hidden/Internal-PrePassLighting"
 				half3 lightDirection = normalize (toLight);
 				
 				//
-				float4 uvCookie = mul (_LightMatrix0, float4(worldPosition, 1.0));
-				float attenuation = tex2Dproj (_LightTexture0, UNITY_PROJ_COORD(uvCookie)).w;
-				attenuation *= uvCookie.w < 0;
+				float4 lightUV = mul (_LightMatrix0, float4(worldPosition, 1.0));
+				float attenuation = tex2Dproj (_LightTexture0, UNITY_PROJ_COORD(lightUV)).w;
+				attenuation *= lightUV.w < 0;
 				float att = dot(toLight, toLight) * _LightPos.w;
 				attenuation *= tex2D (_LightTextureB0, att.rr).UNITY_ATTEN_CHANNEL;
 				
-				//Make a new shadow UV with a z
-				float4 shadowUV = mul (unity_World2Shadow[0], float4(toLight, 1));
-				
 				//If their are spot light shadows
 				#if defined(SHADOWS_DEPTH)
+				
+				//Make a new shadow UV with a z
+				float4 shadowUV = mul (unity_World2Shadow[0], float4(toLight, 1));
 				
 				//Apply a shade for a spot light shadow
 				attenuation *= getSpotlightShadow (shadowUV, fadeDistance);
@@ -372,7 +374,7 @@ Shader "Hidden/Internal-PrePassLighting"
 				
 				//Specular lighting
 				half3 specularDirection = normalize (lightDirection - normalize(worldPosition - _WorldSpaceCameraPos));
-				float specularLuminance = pow (max (0.0, dot(specularDirection, normal)), specularNormal.a * 128.0);
+				float specularLuminance = pow (max (0.0, dot(specularDirection, normal)), textureNormal.a * 128.0);
 				specularLuminance *= saturate(attenuation);
 				
 				//Make the final color of the fragment
