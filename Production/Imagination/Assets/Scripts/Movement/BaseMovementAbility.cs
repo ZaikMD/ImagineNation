@@ -554,6 +554,9 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 
 
 
+
+
+
 	//Jumping functions
 
 	//Sets the vertical velocity to a pre-determined jump speed, and our horizontal air movement to our current running speed
@@ -636,16 +639,7 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 		       
 	}
 
-	public void CallBack(CallBackEvents callBack)
-	{
-		switch(callBack)
-		{
-			case CallBackEvents.FootStep:
-			//Play footstep sound.
-			m_SFX.playSound(this.transform, Sounds.Run);
-			break;
-		}	
-	}
+	public abstract void CallBack (CallBackEvents callBack);
 
 	/// <summary>
 	/// Gets the velocity of the player.

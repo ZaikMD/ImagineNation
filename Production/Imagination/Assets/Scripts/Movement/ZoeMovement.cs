@@ -145,4 +145,15 @@ public class ZoeMovement : BaseMovementAbility
 		}
 		return verticalVelocity;
 	}
+
+	public override void CallBack(CallBackEvents callBack)
+	{
+		switch(callBack)
+		{
+		case CallBackEvents.FootStep_Zoe:
+			//Play footstep sound.
+			m_SFX.playSound(this.transform, Sounds.Run);
+			break;
+		}	
+	}
 }

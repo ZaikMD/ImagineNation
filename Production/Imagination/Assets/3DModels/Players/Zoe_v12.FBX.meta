@@ -223,7 +223,23 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: .077181533
+        functionName: callBack
+        data: FootStep_Zoe
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .748322725
+        functionName: callBack
+        data: FootStep_Zoe
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -404,7 +420,23 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: .0827067643
+        functionName: callBack
+        data: FootStep_Zoe
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .573824465
+        functionName: callBack
+        data: FootStep_Zoe
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
