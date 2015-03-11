@@ -22,12 +22,19 @@ using System.Collections;
 public class PlayerSectionV2 : MonoBehaviour
 {
     public GameObject Model;
-    public GameObject CharacterSummaryPrefab;
+    
 
     public Characters Character;
 
     Vector3 m_MountPoint;
     Vector3 m_OriginalMountpoint;
+
+
+	public GameObject CharacterSummary;
+
+	Vector3 m_SummaryMountPoint;
+	Vector3 m_OriginalSummaryMountpoint;
+
 
     bool m_IsMounted = false;
     public bool IsMounted
@@ -47,6 +54,9 @@ public class PlayerSectionV2 : MonoBehaviour
         m_OriginalMountpoint = transform.position;
 
 		m_InitialScale = transform.localScale;
+
+
+		m_OriginalSummaryMountpoint = CharacterSummary.transform.position;
     }
 
     void Update()
@@ -55,11 +65,15 @@ public class PlayerSectionV2 : MonoBehaviour
         {
             transform.position = Vector3.Lerp(transform.position, m_MountPoint, MOVE_LERP_SPEED);
             transform.localScale = Vector3.Lerp(transform.localScale, Vector3.one * SCALE_AMOUNT, SCALE_LERP_SPEED);
+
+			CharacterSummary.transform.position = Vector3.Lerp(CharacterSummary.transform.position, m_SummaryMountPoint, MOVE_LERP_SPEED);
         }
         else
         {
             transform.position = Vector3.Lerp(transform.position, m_OriginalMountpoint, MOVE_LERP_SPEED);
 			transform.localScale = Vector3.Lerp(transform.localScale, m_InitialScale, SCALE_LERP_SPEED);
+
+			CharacterSummary.transform.position = Vector3.Lerp(CharacterSummary.transform.position, m_OriginalSummaryMountpoint, MOVE_LERP_SPEED);
         }
     }
 
@@ -68,6 +82,11 @@ public class PlayerSectionV2 : MonoBehaviour
         m_IsMounted = true;
         m_MountPoint = mountPoint;
     }
+
+	public void setSummaryMountPoint(Vector3 mountPoint)
+	{
+		m_SummaryMountPoint = mountPoint;
+	}
 
     public void reset()
     {

@@ -25,6 +25,7 @@ public class PlayerSelectArrow : MonoBehaviour
 
     public PlayerSectionV2[] CharacterSelections;
 
+	public Transform m_SummaryMountPoint;
 
     bool m_IsMounted = false;
     public bool IsMounted
@@ -110,6 +111,7 @@ public class PlayerSelectArrow : MonoBehaviour
         {
 			transform.position = transform.position + new Vector3(0.0f, 999.0f, 0.0f);
             CharacterSelections[m_Index].setMountPoint(SelectionMountPoint.position);
+			CharacterSelections[m_Index].setSummaryMountPoint(m_SummaryMountPoint.position);
         }
     }
 
