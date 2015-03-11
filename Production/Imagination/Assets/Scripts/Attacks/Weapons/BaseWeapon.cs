@@ -52,11 +52,13 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 
 	//Particle effect variables	
 
-	public GameObject m_AOEEffectOne;
-	public GameObject m_AOEEffectTwo;
-	public GameObject m_ChargingEffect;
-	public GameObject m_ChargedEffect;
+	public GameObject[] m_AOEEffects;
+	public GameObject[] m_ChargingEffectPrefabs;
+	protected GameObject[] m_ChargingEffectObject;
+	public GameObject[] m_ChargedEffectPrefabs;
+	protected GameObject[] m_ChargedEffectObject;
 	protected TrailRenderer[] m_TrailRenderers;
+	protected bool m_ChargeGlowOn = false;
 
 	
 	//The constants for the inputs of the attacks, as well as the 
