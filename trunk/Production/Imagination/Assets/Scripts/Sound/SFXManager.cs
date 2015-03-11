@@ -202,7 +202,7 @@ public class SFXManager : MonoBehaviour
 	public void playSound(Transform location, Sounds sound)
 	{
         //check if the sound is done loading
-        if (!soundExists(sound))
+         if (!soundExists(sound))
 		{
 			Debug.Log("no sound exsist");
             return;

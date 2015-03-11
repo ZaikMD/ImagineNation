@@ -85,7 +85,13 @@ public class AlexMovement : BaseMovementAbility
 		{
 		case CallBackEvents.FootStep_Alex:
 			//Play footstep sound.
-			m_SFX.playSound(this.transform, Sounds.Run);
+
+			if(!m_IsPlayingSound)
+			{
+				m_SFX.playSound(this.transform, Sounds.Run);
+				m_IsPlayingSound = true;
+			}
+
 			break;
 		}	
 	}

@@ -99,6 +99,7 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 	//If the player is currently grounded
 	bool m_IsGrounded = false;
 
+	protected bool m_IsPlayingSound = false;
 
 	bool m_CanJump = true;
 
@@ -640,6 +641,11 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 	}
 
 	public abstract void CallBack (CallBackEvents callBack);
+
+	public void LateUpdate()
+	{
+		m_IsPlayingSound = false;
+	}
 
 	/// <summary>
 	/// Gets the velocity of the player.
