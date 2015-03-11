@@ -6,17 +6,15 @@ public class DerekWeapon : BaseWeapon
 	Transform m_LeftGlove;
 	Transform m_RightGlove;
 
-	GameObject m_ChargingEffectObject;
-	GameObject m_ChargedEffectObject;
-
-	bool m_ChargeGlowOn = false;
-
 	// Use this for initialization
 	void Start () 
 	{
 		start ();
 		m_LeftGlove = GameObject.Find ("LeftGloveEffect").transform;
 		m_RightGlove = GameObject.Find ("RightGloveEffect").transform;
+
+		m_ChargingEffectObject = new GameObject[m_ChargingEffectPrefabs.Length];
+		m_ChargedEffectObject = new GameObject[m_ChargedEffectPrefabs.Length];
 	}
 	
 	// Update is called once per frame
@@ -27,34 +25,51 @@ public class DerekWeapon : BaseWeapon
 
 	protected override void ChargingEffect ()
 	{
-		m_ChargingEffectObject = (GameObject) Instantiate (m_ChargingEffect, m_RightGlove.position, Quaternion.identity);
-		m_ChargingEffectObject.transform.SetParent (m_RightGlove);
+		for (int i = 0; i < m_ChargingEffectObject.Length; i++)
+		{
+			m_ChargingEffectObject[i] = (GameObject) Instantiate (m_ChargingEffectPrefabs[i], m_RightGlove.position, Quaternion.identity);
+			m_ChargingEffectObject[i].transform.SetParent (m_RightGlove);
+		}
 	}
 	
 	protected override void ChargedEffect ()
 	{
 		if (!m_ChargeGlowOn)
 		{
-			m_ChargedEffectObject = (GameObject) Instantiate (m_ChargedEffect, m_RightGlove.position, Quaternion.identity);
-			m_ChargedEffectObject.transform.SetParent (m_RightGlove);
+			for (int i = 0; i < m_ChargedEffectObject.Length; i++)
+			{
+				m_ChargedEffectObject[i] = (GameObject) Instantiate (m_ChargedEffectPrefabs[i], m_RightGlove.position, Quaternion.identity);
+				m_ChargedEffectObject[i].transform.SetParent (m_RightGlove);
+			}
 			m_ChargeGlowOn = true;
 		}
 	}
 
 	protected override void RemoveChargingEffects ()
 	{
-		if (m_ChargingEffectObject != null)
-		Destroy (m_ChargingEffectObject);
+		for (int i = 0; i < m_ChargedEffectObject.Length; i++)
+		{
+			if (m_ChargedEffectObject[i] != null)
+				Destroy (m_ChargedEffectObject[i]);
+		}
 
-		if (m_ChargedEffectObject != null)
-			Destroy (m_ChargedEffectObject);
+		for (int i = 0; i < m_ChargedEffectObject.Length; i++)
+		{
+			if (m_ChargingEffectObject[i] != null)
+				Destroy (m_ChargingEffectObject[i]);
+		}
+
+
 
 		m_ChargeGlowOn = false;
 	}
 
 	protected override void AOEEffect ()
 	{
-		Instantiate (m_AOEEffectOne, m_RightGlove.position, Quaternion.identity);
-		Instantiate (m_AOEEffectTwo, m_RightGlove.position, Quaternion.identity);
+		for (int i = 0; i < m_AOEEffects.Length; i++)
+		{
+			Instantiate (m_AOEEffects[i], m_RightGlove.position, Quaternion.identity);
+		}
+		
 	}
 }
