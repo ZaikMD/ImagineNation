@@ -41,7 +41,6 @@ public class PlayerRagDoll : MonoBehaviour
 		m_Timer = 5;
 
 		//tell the camera to look at the ghost instead of the player
-
 	}
 	
 	// Update is called once per frame

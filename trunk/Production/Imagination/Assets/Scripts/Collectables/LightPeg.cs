@@ -42,7 +42,12 @@ public class LightPeg : BaseCollectable
 
 			for (int i = 0; i < m_Lights.Length; i++)
 			{
-				m_Lights[i].AddToLightIntensity(AmountToAdd);
+				//Safety check so when light pegs that don't have lights but have array values 
+				//won't throw an error because some people might not have a clue how to set the prefab.
+				if(m_Lights[i] != null)
+				{
+					m_Lights[i].AddToLightIntensity(AmountToAdd);
+				}
 			}
 
             //destroy this gameobject
