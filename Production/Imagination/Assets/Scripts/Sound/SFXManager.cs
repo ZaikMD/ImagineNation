@@ -66,7 +66,7 @@ public enum Sounds
 	AlexJump, 
 	AlexDoubleJump, 
 
-	//Derek
+	//Derek7
 	DerekHitOne,
 	DerekHitTwo,
 	DerekHitThree,

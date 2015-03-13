@@ -102,6 +102,7 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 	protected bool m_IsPlayingSound = false;
 
 	bool m_CanJump = true;
+	bool m_UsingTrampoline = false;
 
 	bool m_IsAirAttacking  = true;
 	public bool IsAirAttacking
@@ -190,6 +191,9 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 		//If the player is still grounded after the instant movement
 		if(m_IsGrounded)
 		{
+			//Set trampoline
+			m_UsingTrampoline = false;
+
 			//Reset any launch movement that reset when we touch the ground
 			ResetGroundedLaunchMovement();
 
@@ -323,7 +327,7 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 		if(verticalVelocity > MAX_FALL_SPEED)
 		{
 			//Constantly decrease velocity based on time passed by an deceleration
-			if(InputManager.getJump(m_AcceptInputFrom.ReadInputFrom) && m_CurrentlyJumping == true)
+			if(InputManager.getJump(m_AcceptInputFrom.ReadInputFrom) && m_CurrentlyJumping == true && !m_UsingTrampoline)
 			{
 				verticalVelocity -= Time.deltaTime * HELD_FALL_ACCELERATION;
 			}
@@ -610,6 +614,7 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 
 		//Jump
 		m_CurrentlyJumping = true;
+		m_UsingTrampoline = true;
 		m_Velocity.y = 1.0f;
 		Launch(jump, launchTimer, true);
 #if DEBUG || UNITY_EDITOR

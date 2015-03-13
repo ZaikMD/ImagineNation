@@ -286,13 +286,28 @@ public class PlayerHealth : Destructable
         {
 			//not dead already so die
             m_IsDead = true;
-            GameObject ragdoll = (GameObject) Instantiate(m_Ragdoll, transform.position, transform.rotation);
+
+			RaycastHit HitInfo;
+			Vector3 Down = new Vector3(0, -1, 0);
+
+			Debug.Log(transform.position);
+			Physics.Raycast(transform.position, Down, out HitInfo);
+
+			Vector3 HeightOffset = new Vector3(0, m_RagdollHeightOffset, 0);
+
+			Vector3 RagDollPosition;
+            GameObject ragdoll = (GameObject) Instantiate(m_Ragdoll);
             
+			ragdoll.transform.position = HitInfo.point + HeightOffset;
+
 			//Give our ragdoll a reference to the camera
 			ragdoll.GetComponent<PlayerRagDoll>().m_PlayerCamera = PlayerCamera;
 
-			//Return player light
-			m_PlayerLight.RemoveAddedIntesnity();
+			if(m_PlayerLight != null)
+			{
+				//Return player light
+				m_PlayerLight.RemoveAddedIntesnity();
+			}
         }
 	}
 
