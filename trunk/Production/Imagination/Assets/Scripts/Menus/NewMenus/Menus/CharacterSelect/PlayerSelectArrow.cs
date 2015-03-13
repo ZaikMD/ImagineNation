@@ -28,6 +28,9 @@ public class PlayerSelectArrow : MonoBehaviour
 	public Transform m_SummaryMountPoint;
 
     bool m_IsMounted = false;
+
+	public int m_Player = 0;
+
     public bool IsMounted
     {
         get { return m_IsMounted; }
@@ -47,7 +50,7 @@ public class PlayerSelectArrow : MonoBehaviour
 
     public void moveUp()
     {
-		CharacterSelections[m_Index].resetMointPoint();
+		CharacterSelections[m_Index].resetMointPoint(m_Player);
         if (!m_IsMounted)
         {
             do
@@ -65,7 +68,7 @@ public class PlayerSelectArrow : MonoBehaviour
 
     public void moveDown()
     {
-		CharacterSelections[m_Index].resetMointPoint();
+		CharacterSelections[m_Index].resetMointPoint(m_Player);
         if (!m_IsMounted)
         {
             do
@@ -108,13 +111,13 @@ public class PlayerSelectArrow : MonoBehaviour
         if (!m_IsMounted)
         {
             transform.position = ArrowMountPoints[m_Index].position;
-			CharacterSelections[m_Index].setSummaryMountPoint(m_SummaryMountPoint.position);
+			CharacterSelections[m_Index].setSummaryMountPoint(m_SummaryMountPoint.position, m_Player);
         }
         else
         {
 			transform.position = transform.position + new Vector3(0.0f, 999.0f, 0.0f);
-            CharacterSelections[m_Index].setMountPoint(SelectionMountPoint.position);
-			CharacterSelections[m_Index].resetMointPoint();
+			CharacterSelections[m_Index].setMountPoint(SelectionMountPoint.position);
+			CharacterSelections[m_Index].resetMointPoint(m_Player);
         }
     }
 
@@ -136,7 +139,7 @@ public class PlayerSelectArrow : MonoBehaviour
 
         for (int i = 0; i < CharacterSelections.Length; i++)
         {
-            CharacterSelections[i].reset();
+            CharacterSelections[i].reset(m_Player);
         }
     }
 }

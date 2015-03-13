@@ -51,6 +51,14 @@ public class MenuV2PlayerSelect : MenuV2
         }
     };
 
+	protected override void start ()
+	{
+		base.start ();
+
+		PlayerArrows [0].m_Player = 0;
+		PlayerArrows [1].m_Player = 1;
+	}
+
 
     // Update is called once per frame
     protected override void  update()
