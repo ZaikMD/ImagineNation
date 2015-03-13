@@ -26,15 +26,24 @@ public class DerekWeapon : BaseWeapon
 
 	protected override void ChargingEffect ()
 	{
+		if (m_ChargingEffectObject == null)
+			return;
+
 		for (int i = 0; i < m_ChargingEffectObject.Length; i++)
 		{
-			m_ChargingEffectObject[i] = (GameObject) Instantiate (m_ChargingEffectPrefabs[i], m_RightGlove.position, Quaternion.identity);
-			m_ChargingEffectObject[i].transform.SetParent (m_RightGlove);
+			if (m_ChargingEffectObject[i] != null)
+			{
+				m_ChargingEffectObject[i] = (GameObject) Instantiate (m_ChargingEffectPrefabs[i], m_RightGlove.position, Quaternion.identity);
+				m_ChargingEffectObject[i].transform.SetParent (m_RightGlove);
+			}
 		}
 	}
 	
 	protected override void ChargedEffect ()
 	{
+		if (m_ChargedEffectObject == null)
+			return;
+
 		if (!m_ChargeGlowOn)
 		{
 			for (int i = 0; i < m_ChargedEffectObject.Length; i++)
@@ -48,19 +57,24 @@ public class DerekWeapon : BaseWeapon
 
 	protected override void RemoveChargingEffects ()
 	{
-		for (int i = 0; i < m_ChargedEffectObject.Length; i++)
+		if (m_ChargingEffectObject != null)
 		{
-			if (m_ChargedEffectObject[i] != null)
-				Destroy (m_ChargedEffectObject[i]);
+			for (int i = 0; i < m_ChargedEffectObject.Length; i++)
+			{
+				if (m_ChargedEffectObject[i] != null)
+					Destroy (m_ChargedEffectObject[i]);
+			}
 		}
 
-		for (int i = 0; i < m_ChargedEffectObject.Length; i++)
+		if (m_ChargedEffectObject != null)
 		{
-			if (m_ChargingEffectObject[i] != null)
-				Destroy (m_ChargingEffectObject[i]);
+
+			for (int i = 0; i < m_ChargedEffectObject.Length; i++)
+			{
+				if (m_ChargingEffectObject[i] != null)
+					Destroy (m_ChargingEffectObject[i]);
+			}
 		}
-
-
 
 		m_ChargeGlowOn = false;
 	}
@@ -69,7 +83,8 @@ public class DerekWeapon : BaseWeapon
 	{
 		for (int i = 0; i < m_AOEEffects.Length; i++)
 		{
-			Instantiate (m_AOEEffects[i], m_RightGlove.position, Quaternion.identity);
+			if (m_AOEEffects[i] != null)
+				Instantiate (m_AOEEffects[i], m_RightGlove.position, Quaternion.identity);
 		}
 		
 	}
@@ -78,7 +93,8 @@ public class DerekWeapon : BaseWeapon
 	{
 		for (int i = 0; i < m_AOESlamEffects.Length; i++)
 		{
-			Instantiate (m_AOESlamEffects[i], m_RightGlove.position, Quaternion.identity);
+			if (m_AOESlamEffects != null)
+				Instantiate (m_AOESlamEffects[i], m_RightGlove.position, Quaternion.identity);
 		}
 	}
 }
