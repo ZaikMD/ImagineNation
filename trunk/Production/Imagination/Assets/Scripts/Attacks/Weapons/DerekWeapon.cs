@@ -84,7 +84,13 @@ public class DerekWeapon : BaseWeapon
 		for (int i = 0; i < m_AOEEffects.Length; i++)
 		{
 			if (m_AOEEffects[i] != null)
+			{
 				Instantiate (m_AOEEffects[i], m_RightGlove.position, Quaternion.identity);
+				Instantiate (m_AOEEffects[i], m_RightGlove.position, Quaternion.identity);
+				Instantiate (m_AOEEffects[i], m_RightGlove.position, Quaternion.identity);
+
+
+			}
 		}
 		
 	}

@@ -82,7 +82,13 @@ public class ZoeWeapon : BaseWeapon
 		for (int i = 0; i < m_AOEEffects.Length; i++)
 		{
 			if (m_AOEEffects[i] != null)
+			{
 				Instantiate (m_AOEEffects[i], m_Wand.position, Quaternion.identity);
+				Instantiate (m_AOEEffects[i], m_Wand.position, Quaternion.identity);
+				Instantiate (m_AOEEffects[i], m_Wand.position, Quaternion.identity);
+				Instantiate (m_AOEEffects[i], m_Wand.position, Quaternion.identity);
+				Instantiate (m_AOEEffects[i], m_Wand.position, Quaternion.identity);
+			}
 		}
 		
 	}
