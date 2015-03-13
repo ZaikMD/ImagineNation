@@ -226,7 +226,7 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 				m_Animator.playAnimation(AnimatorPlayers.Animations.Combo_Y_Start);
 				ChargingEffect();
 				
-				if (m_Input.Contains(Y) || m_Input.Contains(X))
+				if (m_Input.Contains(X))
 					ResetInput();
 			}
 			
@@ -255,7 +255,7 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 
 		if (m_LastInput != null)
 		{
-			if (m_Input.Contains(AX))
+			if (m_Input.Contains(AX) || m_Input.Contains(Y))
 				ResetInput();
 
 			// Add the last inout into the input string
