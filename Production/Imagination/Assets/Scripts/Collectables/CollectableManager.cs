@@ -313,6 +313,11 @@ case CheckPoints.CheckPoint_3:
 	//Replaces the given light peg
 	GameObject ReplaceLightPeg (GameObject replacedLightPeg, int index, int checkPointNumber)
 	{
+		if(replacedLightPeg == null)
+		{
+			return null;
+		}
+
 		//Create a new light peg
 		GameObject newLightPeg = (GameObject)Instantiate(m_LightPegPrefab, replacedLightPeg.transform.position, replacedLightPeg.transform.rotation);
 
