@@ -11,6 +11,10 @@ public class AutoDestroy : MonoBehaviour
 	ParticleEmitter m_Emitter;
 	public float m_ShutOffEmitterTime;
 
+
+	public bool m_DestroyWithTrigger = false;
+
+
 	void Start()
 	{
 		if (m_IsParticleEffect)
@@ -21,6 +25,9 @@ public class AutoDestroy : MonoBehaviour
 	void Update ()
 	{
         if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
+
+		if (m_DestroyWithTrigger)
+			return;
 
 		timer -= Time.deltaTime;
 
@@ -39,5 +46,14 @@ public class AutoDestroy : MonoBehaviour
 			m_Emitter.emit = false;
 			m_IsParticleEffect = false;
 		}
+	}
+
+	void OnTriggerEnter(Collider other)
+	{
+		if (!m_DestroyWithTrigger)
+			return;
+
+		if (collider.tag == Constants.PLAYER_STRING)
+			Destroy (this.gameObject);
 	}
 }
