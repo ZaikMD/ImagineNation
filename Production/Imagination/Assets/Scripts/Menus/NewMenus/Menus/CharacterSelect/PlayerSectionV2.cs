@@ -30,10 +30,10 @@ public class PlayerSectionV2 : MonoBehaviour
     Vector3 m_OriginalMountpoint;
 
 
-	public GameObject CharacterSummary;
+	public GameObject[] CharacterSummary = new GameObject[2];
 
-	Vector3 m_SummaryMountPoint;
-	Vector3 m_OriginalSummaryMountpoint;
+	Vector3[] m_SummaryMountPoint = new Vector3[2];
+	Vector3[] m_OriginalSummaryMountpoint = new Vector3[2];
 
 
     bool m_IsMounted = false;
@@ -56,13 +56,18 @@ public class PlayerSectionV2 : MonoBehaviour
 		m_InitialScale = transform.localScale;
 
 
-		m_OriginalSummaryMountpoint = CharacterSummary.transform.position;
-		m_SummaryMountPoint = m_OriginalSummaryMountpoint;
+		m_OriginalSummaryMountpoint[0] = CharacterSummary[0].transform.position;
+		m_SummaryMountPoint[0] = m_OriginalSummaryMountpoint[0];
+
+		m_OriginalSummaryMountpoint[1] = CharacterSummary[1].transform.position;
+		m_SummaryMountPoint[1] = m_OriginalSummaryMountpoint[1];
     }
 
     void Update()
     {
-		CharacterSummary.transform.position = Vector3.Lerp(CharacterSummary.transform.position, m_SummaryMountPoint, MOVE_LERP_SPEED);
+		CharacterSummary[0].transform.position = Vector3.Lerp(CharacterSummary[0].transform.position, m_SummaryMountPoint[0], MOVE_LERP_SPEED);
+		CharacterSummary[1].transform.position = Vector3.Lerp(CharacterSummary[1].transform.position, m_SummaryMountPoint[1], MOVE_LERP_SPEED);
+
         if (m_IsMounted)
         {
             transform.position = Vector3.Lerp(transform.position, m_MountPoint, MOVE_LERP_SPEED);
@@ -81,20 +86,20 @@ public class PlayerSectionV2 : MonoBehaviour
         m_MountPoint = mountPoint;
     }
 
-	public void setSummaryMountPoint(Vector3 mountPoint)
+	public void setSummaryMountPoint(Vector3 mountPoint, int index)
 	{
-		m_SummaryMountPoint = mountPoint;
+		m_SummaryMountPoint[index] = mountPoint;
 	}
 
-	public void reset()
+	public void reset(int index)
 	{
 		m_IsMounted = false;
 		m_MountPoint = m_OriginalMountpoint;
-		resetMointPoint ();
+		resetMointPoint (index);
 	}
 
-    public void resetMointPoint()
+    public void resetMointPoint(int index)
     {
-		m_SummaryMountPoint = m_OriginalSummaryMountpoint;
+		m_SummaryMountPoint [index] = m_OriginalSummaryMountpoint [index];
     }
 }
