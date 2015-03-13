@@ -331,7 +331,6 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 	
 	public void AttackOver()
 	{
-		Debug.Log ("AttackOver");
 		m_AttackFinished = true;
 		m_Movement.SetSpeedMultiplier(0.75f);
 		m_Movement.CanJump(true);
