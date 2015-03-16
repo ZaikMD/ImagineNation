@@ -36,9 +36,6 @@ public class ZoeMovement : BaseMovementAbility
 	private const float GLIDE_MAX_FALL_SPEED = -1.5f;
 	private const float GLIDE_LERP_SPEED_PRE_DELTA = 2.4f;
 
-	//Jump speeds
-	private const float JUMP_SPEED = 6.5f;
-
     const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
 
 	// Call the base start function and initialize all variables
@@ -113,14 +110,6 @@ public class ZoeMovement : BaseMovementAbility
 	{
 		m_Timer = -MAX_GLIDE_TIME;
 		m_CanGlide = false;
-	}
-
-	/// <summary>
-	/// Gets the players jump speed. Must be overrided by inheriting classes in order to jump.
-	/// </summary>
-	protected override float GetJumpSpeed()
-	{
-		return JUMP_SPEED;
 	}
 
 
