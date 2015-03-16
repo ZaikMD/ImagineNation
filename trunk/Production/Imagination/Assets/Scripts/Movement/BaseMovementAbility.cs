@@ -61,10 +61,10 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 	protected Vector3 m_Velocity = new Vector3(0.0f, -1.0f, 0.0f);
 
 	//Maximum speeds
-	protected const float MAX_GROUND_RUNSPEED = 5.0f;
+	protected const float MAX_GROUND_RUNSPEED = 5.1f;
 	protected const float MAX_HORIZONTAL_AIR_SPEED = 5.5f;
 	protected const float MAX_FALL_SPEED = -15.0f;
-	protected const float SPEED_MINIMUM_VALUE_TO_CLAMP = 0.5f;
+	protected const float SPEED_MINIMUM_VALUE_TO_CLAMP = 0.25f;
 
 	//Acceleration
 	protected const float FALL_ACCELERATION = 20.0f;
@@ -72,9 +72,12 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 	protected const float AIR_DECCELERATION_LERP_VALUE_PREDELTA = 0.25f;
 	protected const float GROUND_DECCELERATION_LERP_VALUE_PREDELTA = 6.5f;
 
+	//Jumping velocity
+	protected const float JUMP_SPEED = 6.75f;
+
 	//Distances
-	protected const float GETGROUNDED_RAYCAST_DISTANCE = 0.2f;
-	protected const float GETGROUNDED_SPHERECAST_DISTANCE = 0.15f;
+	protected const float GETGROUNDED_RAYCAST_DISTANCE = 0.15f;
+	protected const float GETGROUNDED_SPHERECAST_DISTANCE = 0.12f;
 
 	//Movement that other classes have requested
 	protected Vector3 m_InstantExternalMovement = Vector3.zero;
@@ -171,12 +174,6 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 			return;
 		}
 
-		if(m_IsGrounded)
-		{
-			//if we are on the ground we can't be using the launcher
-			m_UsingLauncher = false;
-		}
-
 		//If at any point the jump button is released the player is no longer currently jumping
 		if(InputManager.getJumpUp(m_AcceptInputFrom.ReadInputFrom) )
 		{
@@ -191,6 +188,13 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 
 		//Initialize states
 		m_IsGrounded = SetIsGrounded ();
+
+		//Set if the player is being launched
+		if(m_IsGrounded)
+		{
+			//if we are on the ground we can't be using the launcher
+			m_UsingLauncher = false;
+		}
 
 		//Get the projection of the player
 		if (m_ForcedInput == Vector3.zero)
@@ -334,14 +338,14 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 		//Add our horizontal movement to our move
 		float verticalVelocity = m_Velocity.y;
 
+		//Don't cap speed while falling, and disable holding jump to fall slower
 		if(m_UsingLauncher)
 		{
 			verticalVelocity -= Time.deltaTime * FALL_ACCELERATION;
-			return verticalVelocity;
 		}
 
 		//If we are above the max falling speed, we fall faster
-		if(verticalVelocity > MAX_FALL_SPEED)
+		else if(verticalVelocity > MAX_FALL_SPEED)
 		{
 			//Constantly decrease velocity based on time passed by an deceleration
 			if(InputManager.getJump(m_AcceptInputFrom.ReadInputFrom) && m_CurrentlyJumping == true)
@@ -559,14 +563,6 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 	}
 
 	/// <summary>
-	/// Gets the players jump speed. Must be overrided by inheriting classes in order to jump.
-	/// </summary>
-	protected virtual float GetJumpSpeed()
-	{
-		return 0.0f;
-	}
-
-	/// <summary>
 	/// Allows other scripts to momentarily stop all movement
 	/// </summary>
 	/// <param name="paused">If set to <c>true</c> paused.</param>
@@ -604,7 +600,7 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 		m_CurrentlyJumping = true;
 
 		//Set our new velocity
-		m_Velocity.y = GetJumpSpeed();
+		m_Velocity.y = JUMP_SPEED;
 	}
 
 	/// <summary>
@@ -614,6 +610,7 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 	public void Launch(Vector3 jump, float timeToForce, bool cancelOnGrounded)
 	{
 		m_CurrentlyJumping = true;
+		m_UsingLauncher = true;
 		m_LaunchExternalMovement.Add (new LaunchMovement (jump, timeToForce, cancelOnGrounded));
 	}
 
@@ -629,12 +626,8 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 
 		//Jump
 		m_CurrentlyJumping = true;
-		m_UsingLauncher = true;
 		m_Velocity.y = 1.0f;
 		Launch(jump, launchTimer, true);
-#if DEBUG || UNITY_EDITOR
-		Debug.Log ("launch");
-#endif
 	}
 
 

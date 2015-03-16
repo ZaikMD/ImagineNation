@@ -25,7 +25,6 @@ public class DerekMovement : BaseMovementAbility
 	private Quaternion m_LookRotation;
 	private Vector3 m_Direction;
 	private PlayerHealth m_PlayerHealth;
-	private const float JUMP_SPEED = 6.5f;
 	
 	float m_GrappleSpeed = 15.0f;
 	float m_DistBeforeFalling = 1.0f;
@@ -187,11 +186,6 @@ public class DerekMovement : BaseMovementAbility
 		m_GrappleHook.position = transform.position + GRAPPLE_FROM_POSITION + distanceHalfed;
 		m_GrappleHook.localScale = new Vector3 (m_GrappleHook.localScale.x, distanceHalfed.magnitude, m_GrappleHook.localScale.z);
 		m_GrappleHook.rotation = Quaternion.FromToRotation (Vector3.up, distanceHalfed.normalized);
-	}
-
-	protected override float GetJumpSpeed()
-	{
-		return JUMP_SPEED;
 	}
 
 	public override void CallBack(CallBackEvents callBack)

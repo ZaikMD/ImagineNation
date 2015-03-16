@@ -26,8 +26,6 @@ public class AlexMovement : BaseMovementAbility
 
 	float m_TimeinAir;
 
-    private const float JUMP_SPEED = 6.5f;
-
 	// Initialization
 	void Start () {
 		base.start ();
@@ -72,11 +70,6 @@ public class AlexMovement : BaseMovementAbility
         //we know were grounded here so we can reset our counter
         m_TotalAirJumps = 0;
         base.GroundMovement();
-    }
-
-    protected override float GetJumpSpeed()
-    {
-        return JUMP_SPEED;
     }
 
 	public override void CallBack(CallBackEvents callBack)
