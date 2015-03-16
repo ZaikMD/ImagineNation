@@ -189,13 +189,6 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 		//Initialize states
 		m_IsGrounded = SetIsGrounded ();
 
-		//Set if the player is being launched
-		if(m_IsGrounded)
-		{
-			//if we are on the ground we can't be using the launcher
-			m_UsingLauncher = false;
-		}
-
 		//Get the projection of the player
 		if (m_ForcedInput == Vector3.zero)
 		{
@@ -420,6 +413,10 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 			{
 				m_Velocity += m_LaunchExternalMovement[index].launch;
 				m_LaunchExternalMovement.RemoveAt(index);
+				if (m_LaunchExternalMovement.Count == 0)
+				{
+					m_UsingLauncher = false;
+				}
 			}
 		}
 	}
