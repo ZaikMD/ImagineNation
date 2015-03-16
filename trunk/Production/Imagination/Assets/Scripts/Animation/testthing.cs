@@ -3,8 +3,9 @@ using System.Collections;
 
 public class testthing : MonoBehaviour 
 {
-	public int animToPlay = 0;
-	public AnimatorController testy;
+	public AnimatorGnomeMage.Animations animToPlay = AnimatorGnomeMage.Animations.Clone;
+	public AnimatorGnomeMage testy;
+
 	// Update is called once per frame
 	void Update () 
 	{
