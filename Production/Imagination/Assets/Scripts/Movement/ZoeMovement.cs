@@ -145,8 +145,7 @@ public class ZoeMovement : BaseMovementAbility
 			{
 				m_SFX.playSound(this.transform, Sounds.Run);
 				m_IsPlayingSound = true;
-			}
-			
+			}			
 			break;
 		}	
 	}

@@ -36,8 +36,7 @@ public class AlexMovement : BaseMovementAbility
         if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 
 		//then calls base Update script from BaseMovementAbility
-		base.UpdateVelocity ();
-	
+		base.UpdateVelocity ();	
 	}
 
     protected override void AirMovement()
@@ -84,7 +83,6 @@ public class AlexMovement : BaseMovementAbility
 				m_SFX.playSound(this.transform, Sounds.Run);
 				m_IsPlayingSound = true;
 			}
-
 			break;
 		}	
 	}
