@@ -4,8 +4,8 @@
 	Properties
 	{
 		_Color("Color", Color) = (1.0, 1.0, 0.0, 1.0)
-		_FadeAmount("Fade Amount", Float) = 0.75
-		_MinFade("Min Fade", Float) = 0.75
+		_FadeAmount("Fade Amount", Float) = 1.0
+		_MinFade("Min Fade", Float) = 0.01
 	}
 	
 	//Shader
