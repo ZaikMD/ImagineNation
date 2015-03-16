@@ -99,10 +99,10 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 	//If the player is currently grounded
 	bool m_IsGrounded = false;
 
-	protected bool m_IsPlayingSound = false;
+	private bool m_UsingLauncher;
+	private int m_LayerMask;
 
 	bool m_CanJump = true;
-	bool m_UsingTrampoline = false;
 
 	bool m_IsAirAttacking  = true;
 	public bool IsAirAttacking
@@ -113,6 +113,8 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 
 	protected const float AIR_ATTACK_FALL_SPEED = - 30.0f;
 	protected const float AIR_ATTACK_LERP_VALUE = 0.1f;
+
+    protected bool m_IsPlayingSound;
 
 	//Intitialization
 
@@ -138,6 +140,12 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 		//Players ignores moving platform collider inside each other
 		Physics.IgnoreLayerCollision (LayerMask.NameToLayer (Constants.PLAYER_STRING),
 		                              LayerMask.NameToLayer (Constants.COLLIDE_WITH_MOVING_PLATFORM_LAYER_STRING));
+
+		//getting the mask of the player
+		m_LayerMask = LayerMask.GetMask (Constants.LAUNCHER_STRING);
+		//setting our layermask to the inverse of players
+		m_LayerMask = ~m_LayerMask;
+
 	}
 	
 
@@ -161,6 +169,12 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 		if (m_PausedMovement)
 		{
 			return;
+		}
+
+		if(m_IsGrounded)
+		{
+			//if we are on the ground we can't be using the launcher
+			m_UsingLauncher = false;
 		}
 
 		//If at any point the jump button is released the player is no longer currently jumping
@@ -191,9 +205,6 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 		//If the player is still grounded after the instant movement
 		if(m_IsGrounded)
 		{
-			//Set trampoline
-			m_UsingTrampoline = false;
-
 			//Reset any launch movement that reset when we touch the ground
 			ResetGroundedLaunchMovement();
 
@@ -322,14 +333,21 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 	{
 		//Add our horizontal movement to our move
 		float verticalVelocity = m_Velocity.y;
-		
+
+		if(m_UsingLauncher)
+		{
+			verticalVelocity -= Time.deltaTime * FALL_ACCELERATION;
+			return verticalVelocity;
+		}
+
 		//If we are above the max falling speed, we fall faster
 		if(verticalVelocity > MAX_FALL_SPEED)
 		{
 			//Constantly decrease velocity based on time passed by an deceleration
-			if(InputManager.getJump(m_AcceptInputFrom.ReadInputFrom) && m_CurrentlyJumping == true && !m_UsingTrampoline)
+			if(InputManager.getJump(m_AcceptInputFrom.ReadInputFrom) && m_CurrentlyJumping == true)
 			{
 				verticalVelocity -= Time.deltaTime * HELD_FALL_ACCELERATION;
+
 			}
 			else
 			{
@@ -506,7 +524,7 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 			return true;
 		}
 		//Check if we may be grounded anyway
-		else if (Physics.Raycast(transform.position, Vector3.down, out hit, GETGROUNDED_RAYCAST_DISTANCE - GetMovementThisFrame().y))
+		else if (Physics.Raycast(transform.position, Vector3.down, out hit, GETGROUNDED_RAYCAST_DISTANCE - GetMovementThisFrame().y, m_LayerMask))
 		{
 			//Move us directly onto the ground
 			m_CharacterController.Move(Vector3.down);
@@ -521,7 +539,7 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 			return true;
 		}
 		//CFix grounded character controller bug
-		else if (m_Velocity.y == 0.0f && Physics.SphereCast(transform.position, 1.0f, Vector3.down, out hit, GETGROUNDED_SPHERECAST_DISTANCE - GetMovementThisFrame().y))
+		else if (m_Velocity.y == 0.0f && Physics.SphereCast(transform.position, 1.0f, Vector3.down, out hit, GETGROUNDED_SPHERECAST_DISTANCE - GetMovementThisFrame().y, m_LayerMask))
 		{
 			//Move us directly onto the ground
 			m_CharacterController.Move(Vector3.down);
@@ -556,9 +574,6 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 	{
 		m_PausedMovement = paused;
 	}
-
-
-
 
 
 
@@ -614,7 +629,7 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 
 		//Jump
 		m_CurrentlyJumping = true;
-		m_UsingTrampoline = true;
+		m_UsingLauncher = true;
 		m_Velocity.y = 1.0f;
 		Launch(jump, launchTimer, true);
 #if DEBUG || UNITY_EDITOR
@@ -645,11 +660,9 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 		       
 	}
 
-	public abstract void CallBack (CallBackEvents callBack);
-
-	public void LateUpdate()
+	public virtual void CallBack(CallBackEvents callBack)
 	{
-		m_IsPlayingSound = false;
+		
 	}
 
 	/// <summary>
