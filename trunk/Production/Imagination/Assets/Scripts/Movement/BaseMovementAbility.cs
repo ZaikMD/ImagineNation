@@ -174,6 +174,8 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 			return;
 		}
 
+        m_IsPlayingSound = false;
+
 		//If at any point the jump button is released the player is no longer currently jumping
 		if(InputManager.getJumpUp(m_AcceptInputFrom.ReadInputFrom) )
 		{
