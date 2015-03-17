@@ -16,9 +16,6 @@ using System.Collections;
 
 public class Trampoline : MonoBehaviour {
 
-	//Used to be able to access the trampolineJump function from BaseMovementAbility
-	BaseMovementAbility m_BaseMove;
-
 	//The launch point to launch the player towards
 	const string LAUNCHPOINT_NAME = "JumpPoint";
 
@@ -38,8 +35,8 @@ public class Trampoline : MonoBehaviour {
 	{
 		if (other.tag == Constants.PLAYER_STRING)
 		{
-			m_BaseMove = other.gameObject.GetComponent<BaseMovementAbility>();
-			m_BaseMove.LaunchJump(m_LaunchVelocity, m_LaunchTimer);
+			BaseMovementAbility Base = other.gameObject.GetComponent<BaseMovementAbility>();
+			Base.LaunchJump(m_LaunchVelocity, m_LaunchTimer);
 		}
 	}
 }
