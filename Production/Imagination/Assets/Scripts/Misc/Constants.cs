@@ -289,5 +289,4 @@ public static class Constants
 	public static string[] LEAVE_COMBAT_COMPONENTS_ARRAY = {"ProximityAggroLeave"};
 
 	public static string[] TARGETING_COMPONENTS_ARRAY = {"BasicTargeting"};
-
 }
