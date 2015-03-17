@@ -68,7 +68,8 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 
 	//Acceleration
 	protected const float FALL_ACCELERATION = 20.0f;
-	protected const float HELD_FALL_ACCELERATION = 12.0f;
+	protected const float HELD_FALL_ACCELERATION = 8.0f;
+    protected const float LAUNCHER_ACCELERATION = 14.0f;
 	protected const float AIR_DECCELERATION_LERP_VALUE_PREDELTA = 0.25f;
 	protected const float GROUND_DECCELERATION_LERP_VALUE_PREDELTA = 6.5f;
 
@@ -176,7 +177,14 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 
         m_IsPlayingSound = false;
 
-		//If at any point the jump button is released the player is no longer currently jumping
+        if (m_IsGrounded)
+        {
+            m_UsingLauncher = false;
+        }
+
+        Debug.Log(m_UsingLauncher);
+
+        //If at any point the jump button is released the player is no longer currently jumping
 		if(InputManager.getJumpUp(m_AcceptInputFrom.ReadInputFrom) )
 		{
 			m_CurrentlyJumping = false;
@@ -336,7 +344,8 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 		//Don't cap speed while falling, and disable holding jump to fall slower
 		if(m_UsingLauncher)
 		{
-			verticalVelocity -= Time.deltaTime * FALL_ACCELERATION;
+			verticalVelocity -= Time.deltaTime * LAUNCHER_ACCELERATION;
+            return verticalVelocity;
 		}
 
 		//If we are above the max falling speed, we fall faster
@@ -417,7 +426,7 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 				m_LaunchExternalMovement.RemoveAt(index);
 				if (m_LaunchExternalMovement.Count == 0)
 				{
-					m_UsingLauncher = false;
+					
 				}
 			}
 		}
@@ -609,7 +618,6 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 	public void Launch(Vector3 jump, float timeToForce, bool cancelOnGrounded)
 	{
 		m_CurrentlyJumping = true;
-		m_UsingLauncher = true;
 		m_LaunchExternalMovement.Add (new LaunchMovement (jump, timeToForce, cancelOnGrounded));
 	}
 
@@ -625,6 +633,7 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 
 		//Jump
 		m_CurrentlyJumping = true;
+        m_UsingLauncher = true;
 		m_Velocity.y = 1.0f;
 		Launch(jump, launchTimer, true);
 	}
