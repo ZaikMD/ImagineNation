@@ -182,8 +182,6 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
             m_UsingLauncher = false;
         }
 
-        Debug.Log(m_UsingLauncher);
-
         //If at any point the jump button is released the player is no longer currently jumping
 		if(InputManager.getJumpUp(m_AcceptInputFrom.ReadInputFrom) )
 		{
