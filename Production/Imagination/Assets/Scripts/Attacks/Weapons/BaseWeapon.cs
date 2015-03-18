@@ -128,6 +128,7 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 				m_Charging = false;
 				m_AttackFinished = true;
 				RemoveChargingEffects();
+				m_Movement.m_PausedMovement = true;
 			}
 			//If we are not still holding the charge button then check if we have surpassed the minimum charge time
 			else if (InputManager.getHeavyAttackUp(m_ReadInput.ReadInputFrom))
@@ -137,6 +138,7 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 					m_Charging = false;
 					m_AttackFinished = true;
 					RemoveChargingEffects();
+					m_Movement.m_PausedMovement = true;
 				}
 				else
 					Reset();
