@@ -123,19 +123,19 @@ public class CreateHeatMap : EditorWindow
 
 	void CalculatePassCount ()
 	{
-		m_PassCount = new double[m_NumbOfPoints,m_NumbOfPoints];
+		m_PassCount = new double[m_LargestPosX,m_LargestPosY];
 
-		for (int x = 0; x < m_NumbOfPoints; x++)
+		for (int x = 0; x < m_LargestPosX; x++)
 		{
-			for (int y = 0; y < m_NumbOfPoints; y++)
+			for (int y = 0; y < m_LargestPosY; y++)
 			{
 				m_PassCount[x,y] = 0;
 			}
 		}
 
-		for (int x = 0; x < m_NumbOfPoints; x++)
+		for (int x = 0; x < m_LargestPosX; x++)
 		{
-			for (int y = 0; y < m_NumbOfPoints; y++)
+			for (int y = 0; y < m_LargestPosY; y++)
 			{
 				for (int i = 0; i < m_NumbOfPoints; i++)
 				{
@@ -145,9 +145,9 @@ public class CreateHeatMap : EditorWindow
 			}
 		}
 
-		for (int x = 0; x < m_NumbOfPoints; x++)
+		for (int x = 0; x < m_LargestPosX; x++)
 		{
-			for (int y = 0; y < m_NumbOfPoints; y++)
+			for (int y = 0; y < m_LargestPosY; y++)
 			{
 				if (m_PassCount[x,y] > m_MostPassed)
 					m_MostPassed = (int)m_PassCount[x,y];
