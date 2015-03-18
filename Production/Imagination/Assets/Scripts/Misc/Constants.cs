@@ -63,7 +63,7 @@ public static class Constants
 	public const string PLAYER_CENTRE_POINT = "\"Centre Point\"";
     public const string CAMERA_IGNORE_COLLISION_LAYER = "CameraCollisionIgnore";
 
-    public const string LAUNCHER_STRING = "Launcher";
+	public const string LAUNCHER_STRING = "Launcher";
 	public const string MOVING_PLATFORM_LAYER_STRING = "MovingPlatformLayer";
 	public const string COLLIDE_WITH_MOVING_PLATFORM_LAYER_STRING = "CollideWithPlatform";
 	public const string COLLIDE_WITH_MOVING_PLATFORM_STRING = "CollideWithMovingPlatforms";
