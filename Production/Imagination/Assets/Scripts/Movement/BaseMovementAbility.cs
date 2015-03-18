@@ -68,13 +68,13 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 
 	//Acceleration
 	protected const float FALL_ACCELERATION = 20.0f;
-	protected const float HELD_FALL_ACCELERATION = 8.0f;
-    protected const float LAUNCHER_ACCELERATION = 14.0f;
+	protected const float HELD_FALL_ACCELERATION = 12.0f;
+    protected const float LAUNCHER_ACCELERATION = 15.0f;
 	protected const float AIR_DECCELERATION_LERP_VALUE_PREDELTA = 0.25f;
 	protected const float GROUND_DECCELERATION_LERP_VALUE_PREDELTA = 6.5f;
 
 	//Jumping velocity
-	protected const float JUMP_SPEED = 6.75f;
+	protected const float JUMP_SPEED = 8.0f;
 
 	//Distances
 	protected const float GETGROUNDED_RAYCAST_DISTANCE = 0.15f;

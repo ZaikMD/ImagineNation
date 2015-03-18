@@ -36,7 +36,7 @@ public class TPCamera : ShutterCamera
 	const string CAMERA_IGNORE_COLLISION_LAYER = "CameraCollisionIgnore";
     int m_RaycastMask;
 
-    string[] CAMERA_IGNORE_LAYERS = { "CameraIgnore", "CameraOneIgnore", "CameraTwoIgnore"};
+    string[] CAMERA_IGNORE_LAYERS = { "CameraIgnore", "CameraOneIgnore", "CameraTwoIgnore", };
     int m_IgnoreLayer;
 
     static int m_IgnoreCounter = 1;
@@ -113,7 +113,8 @@ public class TPCamera : ShutterCamera
 
 		setShutterLayer (CAMERA_IGNORE_LAYERS [0]);
 
-        m_RaycastMask = LayerMask.GetMask(CAMERA_IGNORE_COLLISION_LAYER) | LayerMask.GetMask(Constants.PLAYER_STRING) | LayerMask.GetMask(Constants.COLLIDE_WITH_MOVING_PLATFORM_LAYER_STRING);
+        m_RaycastMask = LayerMask.GetMask(CAMERA_IGNORE_COLLISION_LAYER) | LayerMask.GetMask(Constants.PLAYER_STRING) | 
+			LayerMask.GetMask(Constants.COLLIDE_WITH_MOVING_PLATFORM_LAYER_STRING) | LayerMask.GetMask(Constants.CHECKPOINT_STRING);
         for(int i = 0; i < CAMERA_IGNORE_LAYERS.Length; i++)
         {
             m_RaycastMask = m_RaycastMask | LayerMask.GetMask(CAMERA_IGNORE_LAYERS[i]);
