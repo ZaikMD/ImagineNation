@@ -89,34 +89,37 @@ Shader "Production/DarknessShader"
          		float4 noisePos = input.pos;
          		float3 add = float3(0.0, 0.0, 0.0);
          		
-         		noisePos.x += _Time * _NoiseSpeed.x;
          		if(noisePos.x > 0.0f)
          		{ 	
-         			add.x += (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)) - 0.5f)  * _Noise.x;
+         			noisePos.x += _Time * _NoiseSpeed.x;
+         			add.x += (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)).r - 0.5f)  * _Noise.x;
          		}
          		else
          		{
-         			add.x -= (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)) - 0.5f)  * _Noise.x;
+         			noisePos.x += _Time * _NoiseSpeed.x;
+         			add.x -= (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)).r - 0.5f)  * _Noise.x;
          		}
          		
-         		noisePos.y += _Time * _NoiseSpeed.y;
-         		if(noisePos.x > 0.0f)
+         		if(noisePos.y > 0.0f)
          		{         
-         			add.y += (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)) - 0.5f)  * _Noise.y;		
+         			noisePos.y += _Time * _NoiseSpeed.y;
+         			add.y += (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)).g - 0.5f)  * _Noise.y;		
          		}
          		else
          		{
-         			add.y -= (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)) - 0.5f)  * _Noise.y;
+         			noisePos.y += _Time * _NoiseSpeed.y;
+         			add.y -= (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)).g - 0.5f)  * _Noise.y;
          		}
          		
-         		noisePos.z += _Time * _NoiseSpeed.z;   
-         		if(noisePos.x > 0.0f)
+         		if(noisePos.z > 0.0f)
          		{    
-         			add.z += (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)) - 0.5f)  * _Noise.z;  		
+         			noisePos.z += _Time * _NoiseSpeed.z; 
+         			add.z += (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)).b - 0.5f)  * _Noise.z;  		
          		}
          		else
          		{
-         			add.z -= (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)) - 0.5f)  * _Noise.z;
+         			noisePos.z += _Time * _NoiseSpeed.z; 
+         			add.z -= (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)).b - 0.5f)  * _Noise.z;
          		}
          		input.pos.xyz += add;
          	
@@ -224,34 +227,37 @@ Shader "Production/DarknessShader"
          		float4 noisePos = input.pos;
          		float3 add = float3(0.0, 0.0, 0.0);
          		
-         		noisePos.x += _Time * _NoiseSpeed.x;
          		if(noisePos.x > 0.0f)
          		{ 	
-         			add.x += (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)) - 0.5f)  * _Noise.x;
+         			noisePos.x += _Time * _NoiseSpeed.x;
+         			add.x += (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)).r - 0.5f)  * _Noise.x;
          		}
          		else
          		{
-         			add.x -= (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)) - 0.5f)  * _Noise.x;
+         			noisePos.x += _Time * _NoiseSpeed.x;
+         			add.x -= (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)).r - 0.5f)  * _Noise.x;
          		}
          		
-         		noisePos.y += _Time * _NoiseSpeed.y;
-         		if(noisePos.x > 0.0f)
+         		if(noisePos.y > 0.0f)
          		{         
-         			add.y += (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)) - 0.5f)  * _Noise.y;		
+         			noisePos.y += _Time * _NoiseSpeed.y;
+         			add.y += (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)).g - 0.5f)  * _Noise.y;		
          		}
          		else
          		{
-         			add.y -= (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)) - 0.5f)  * _Noise.y;
+         			noisePos.y += _Time * _NoiseSpeed.y;
+         			add.y -= (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)).g - 0.5f)  * _Noise.y;
          		}
          		
-         		noisePos.z += _Time * _NoiseSpeed.z;   
-         		if(noisePos.x > 0.0f)
+         		if(noisePos.z > 0.0f)
          		{    
-         			add.z += (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)) - 0.5f)  * _Noise.z;  		
+         			noisePos.z += _Time * _NoiseSpeed.z; 
+         			add.z += (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)).b - 0.5f)  * _Noise.z;  		
          		}
          		else
          		{
-         			add.z -= (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)) - 0.5f)  * _Noise.z;
+         			noisePos.z += _Time * _NoiseSpeed.z; 
+         			add.z -= (tex2Dlod(_NoiseTex, float4((noisePos.x - noisePos.x % _NoiseTexSize) / _NoiseTexSize, noisePos.x % _NoiseTexSize, 0, 0)).b - 0.5f)  * _Noise.z;
          		}
          		input.pos.xyz += add;
          	
