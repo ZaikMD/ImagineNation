@@ -59,16 +59,15 @@ public class MovingBlock : Destructable
     //Prefab for the box
 	public GameObject m_BoxPrefab;
 
+	//Angle to use
+	const float ANGLE_TO_USE = 45.01f;
 
+	//When to pause
     const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
 
 	//Chracter controller
 	CharacterController m_CharacterController;
 
-	float RightAngle;
-	float LeftAngle;
-	float ForwardAngle;
-	float BackAngle;
 
 	// Use this for initialization
 	void Start () 
@@ -88,7 +87,7 @@ public class MovingBlock : Destructable
 		m_CharacterController = GetComponent<CharacterController>();
 	}
 	
-	// Update is called once per frame
+	//Every frame
 	void Update () 
 	{
         if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
@@ -103,7 +102,6 @@ public class MovingBlock : Destructable
 			fall ();
 
 			m_CharacterController.Move(direction * m_Speed * Time.deltaTime);
-			m_HitTimer -= Time.deltaTime;
 			UpdateHitTimer ();
 		}
 		else if (m_CharacterController.enabled)
@@ -117,6 +115,7 @@ public class MovingBlock : Destructable
 	//If the hit timer is less than zero, the block can be hit again
 	void UpdateHitTimer ()
 	{
+		m_HitTimer -= Time.deltaTime;
 		if(m_HitTimer < 0.0f)
 		{
 			m_Hit = false;
@@ -124,6 +123,7 @@ public class MovingBlock : Destructable
 		}
 	}
 
+	//Respawn the box
 	void respawn()
 	{
         //Respawn will reset all the variables for the block and reset it's position
@@ -134,6 +134,7 @@ public class MovingBlock : Destructable
 		m_Health = m_SaveHealth;
 		m_Hit = false;
 		m_HitTimer = HIT_TIMER;
+		m_CharacterController.enabled = false;
 	}
 
     //Override the onHits 
@@ -198,55 +199,25 @@ public class MovingBlock : Destructable
 		m_Hit = true;
 		m_CharacterController.enabled = true;
 
-
 		//Direction calculation for movement
-		Vector3 direction = transform.position - obj.transform.position;
+		Vector3 direction = obj.transform.forward;//(transform.position - obj.transform.position).normalized;
 
-		RightAngle = Vector3.Angle (direction, this.transform.right);
-		LeftAngle = Vector3.Angle (direction, -this.transform.right);
-		ForwardAngle = Vector3.Angle (direction, this.transform.forward);
-		BackAngle = Vector3.Angle (direction, -this.transform.forward);
-
-		float smallestAngle = RightAngle;
-		string angle = Constants.RIGHT_ANGLE;
-
-		if (LeftAngle < smallestAngle)
+		//Choose a destination
+		if (Vector3.Angle (direction, transform.right) < ANGLE_TO_USE)
 		{
-			smallestAngle = LeftAngle;
-			angle =Constants.LEFT_ANGLE;
+			m_Destination = transform.position + transform.right * m_Distance;
 		}
-		if (ForwardAngle < smallestAngle)
+		else if (Vector3.Angle (direction, -transform.right) < ANGLE_TO_USE)
 		{
-			smallestAngle = ForwardAngle;
-			angle = Constants.FORWARD_ANGLE;
+			m_Destination = transform.position - transform.right * m_Distance;
 		}
-		if (BackAngle < smallestAngle)
+		else if (Vector3.Angle (direction, transform.forward) < ANGLE_TO_USE)
 		{
-			smallestAngle = BackAngle;
-			angle = Constants.BACK_ANGLE;
+			m_Destination = transform.position + transform.forward * m_Distance;
 		}
-
-		switch (angle)
+		else if (Vector3.Angle (direction, -transform.forward) < ANGLE_TO_USE)
 		{
-		case Constants.LEFT_ANGLE:
-			//Hit right side of block
-			m_Destination = new Vector3(transform.position.x - m_Distance, transform.position.y, transform.position.z);
-			break;
-
-		case Constants.RIGHT_ANGLE:
-			//hit left side
-			m_Destination = new Vector3(transform.position.x + m_Distance, transform.position.y, transform.position.z);
-			break;
-
-		case Constants.BACK_ANGLE:
-			//hit front side
-			m_Destination = new Vector3(transform.position.x , transform.position.y, transform.position.z - m_Distance);
-			break;
-
-		case Constants.FORWARD_ANGLE:
-			//hit back side
-			m_Destination = new Vector3(transform.position.x , transform.position.y, transform.position.z + m_Distance);
-			break;
+			m_Destination = transform.position - transform.forward * m_Distance;
 		}
 	}
 
@@ -257,7 +228,7 @@ public class MovingBlock : Destructable
 
 	void fall()
 	{
-		if (!Physics.Raycast(transform.position, Vector3.down, DISTANCE_TO_STOP))
+		if (!Physics.Raycast(transform.position, Vector3.down, 1.0f))
 		{
 			m_Destination.y = transform.position.y - GRAVITY;
 		}
