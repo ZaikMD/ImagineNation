@@ -53,10 +53,8 @@ public class PauseScreen : MenuV2
 		{
 		case ScriptPauseLevel.Cutscene:
 			return m_GameIsPaused || m_InCutscene;
-			break;
 		case ScriptPauseLevel.PauseMenu:
 			return m_GameIsPaused;
-			break;
 		default:
 			return false;
 		}
