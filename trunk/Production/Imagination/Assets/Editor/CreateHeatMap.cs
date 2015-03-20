@@ -31,7 +31,7 @@ public class CreateHeatMap : EditorWindow
 	//Will be 100% red
 	int m_MostPassed;
 
-	int m_TexSize = 500;
+	int m_TexSize = 5000;
 
 	[MenuItem ("Tools/CreateHeatMap")]
 	public static void ShowWindow()
@@ -113,10 +113,10 @@ public class CreateHeatMap : EditorWindow
 	{
 		for (int i = 0; i < m_NumbOfPoints; i++)
 		{
-			if (m_Positions[i].x > m_LargestPosX)
+			if (m_Positions[i].x > m_LargestPosX && m_Positions[i].x < 500)
 				m_LargestPosX = (int)m_Positions[i].x;
 			
-			if (m_Positions[i].y > m_LargestPosY)
+			if (m_Positions[i].y > m_LargestPosY && m_Positions[i].y < 500)
 				m_LargestPosY = (int)m_Positions[i].y;
 		}
 	}
