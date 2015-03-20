@@ -172,6 +172,7 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 		//Do not move if we are paused (used by other classes to pause the movement)
 		if (m_PausedMovement)
 		{
+			m_AnimatorController.playAnimation(AnimatorPlayers.Animations.Idle);  
 			return;
 		}
 
