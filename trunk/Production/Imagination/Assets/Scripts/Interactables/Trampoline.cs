@@ -27,7 +27,7 @@ public class Trampoline : MonoBehaviour {
 	//Load the launch point
 	void Start ()
 	{
-		m_LaunchVelocity = (transform.FindChild (LAUNCHPOINT_NAME).position - transform.position).normalized * m_LaunchAmount;
+//		m_LaunchVelocity = (transform.FindChild (LAUNCHPOINT_NAME).position - transform.position).normalized * m_LaunchAmount;
 	}
 
 	//When a player lands on the trampoline, launch them to the launch point
@@ -35,6 +35,7 @@ public class Trampoline : MonoBehaviour {
 	{
 		if (other.tag == Constants.PLAYER_STRING)
 		{
+			m_LaunchVelocity = (transform.FindChild (LAUNCHPOINT_NAME).position - transform.position).normalized * m_LaunchAmount;
 			BaseMovementAbility Base = other.gameObject.GetComponent<BaseMovementAbility>();
 			Base.LaunchJump(m_LaunchVelocity, m_LaunchTimer);
 		}
