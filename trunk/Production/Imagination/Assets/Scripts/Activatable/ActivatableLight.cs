@@ -50,7 +50,11 @@ public class ActivatableLight : Activatable
 			{
 				TurnOnLight();
 				m_IsActive = true;
-				m_Darkness.SetActive(false);
+
+				if (m_Darkness != null)
+				{
+					m_Darkness.SetActive(false);
+				}
 			}
 		}
 		else
@@ -64,7 +68,10 @@ public class ActivatableLight : Activatable
 				{
 					ResetLight();
 					m_IsActive = false;
-					m_Darkness.SetActive(true);
+					if (m_Darkness != null)
+					{
+						m_Darkness.SetActive(true);
+					}
 				}
 			}
 		}
@@ -74,6 +81,7 @@ public class ActivatableLight : Activatable
 	//Simply set the light's intensity to zero
 	void TurnOnLight()
 	{
+		m_Light.enabled = true;
 		m_Light.intensity = m_NewIntensity;
 	}
 
@@ -81,6 +89,10 @@ public class ActivatableLight : Activatable
 	void ResetLight()
 	{
 		m_Light.intensity = m_OriginalIntensity;
+		if (m_Light.intensity == 0.0f)
+		{
+			m_Light.enabled = false;
+		}
 	}
 
 
