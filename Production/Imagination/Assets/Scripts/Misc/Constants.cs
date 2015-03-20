@@ -62,7 +62,7 @@ public static class Constants
 	public const string ZOE_WITH_MOVEMENT_STRING = "Zoe With Movement";
 	public const string PLAYER_CENTRE_POINT = "\"Centre Point\"";
     public const string CAMERA_IGNORE_COLLISION_LAYER = "CameraCollisionIgnore";
-
+	
 	public const string LAUNCHER_STRING = "Launcher";
 	public const string MOVING_PLATFORM_LAYER_STRING = "MovingPlatformLayer";
 	public const string COLLIDE_WITH_MOVING_PLATFORM_LAYER_STRING = "CollideWithPlatform";
@@ -76,6 +76,7 @@ public static class Constants
 	public const string CHECK_POINT_2_STRING = "CheckPoint_2";
 	public const string CHECK_POINT_3_STRING = "CheckPoint_3";
 
+	public const string LIGHT_PEG_TAG = "LightPeg";
 	public const string MAIN_CAMERA_STRING = "MainCamera";
 	public const string SOUND_MANAGER = "SoundManager";
     public const string COLLECTABLE_MANAGER = "CollectableManager";
