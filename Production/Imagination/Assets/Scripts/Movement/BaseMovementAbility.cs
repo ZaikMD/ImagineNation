@@ -492,7 +492,12 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 	//Gets a vector3 for the direction we should be getting input based of off the cameras facing angle
 	protected Vector3 GetInputRelativeToTheCamera()
 	{
-		Vector3 projection = m_Camera.forward * InputManager.getMove(m_AcceptInputFrom.ReadInputFrom).y;
+		Vector3 cameraForward = m_Camera.forward;
+
+		cameraForward.y = 0;
+		cameraForward.Normalize();
+
+		Vector3 projection = cameraForward * InputManager.getMove(m_AcceptInputFrom.ReadInputFrom).y;
 		projection += m_Camera.right * InputManager.getMove(m_AcceptInputFrom.ReadInputFrom).x;
 		
 		projection.y = 0;
