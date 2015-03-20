@@ -113,13 +113,7 @@ public class TPCamera : ShutterCamera
 
 		setShutterLayer (CAMERA_IGNORE_LAYERS [0]);
 
-        m_RaycastMask = LayerMask.GetMask(CAMERA_IGNORE_COLLISION_LAYER) | LayerMask.GetMask(Constants.PLAYER_STRING) | 
-			LayerMask.GetMask(Constants.COLLIDE_WITH_MOVING_PLATFORM_LAYER_STRING) | LayerMask.GetMask(Constants.CHECKPOINT_STRING);
-        for(int i = 0; i < CAMERA_IGNORE_LAYERS.Length; i++)
-        {
-            m_RaycastMask = m_RaycastMask | LayerMask.GetMask(CAMERA_IGNORE_LAYERS[i]);
-        }
-        m_RaycastMask = ~m_RaycastMask;
+		SetLayerMask();
 
 		//===================================================================
 		//find the player the camera is on
@@ -170,6 +164,17 @@ public class TPCamera : ShutterCamera
         //===================================================================
 		//make sure that game data updates our rotation scale modifyer
 		GameData.Instance.updateCameraRotationSpeeds();
+	}
+
+	void SetLayerMask()
+	{
+		m_RaycastMask = LayerMask.GetMask(CAMERA_IGNORE_COLLISION_LAYER) | LayerMask.GetMask(Constants.PLAYER_STRING) | 
+			LayerMask.GetMask(Constants.COLLIDE_WITH_MOVING_PLATFORM_LAYER_STRING) | LayerMask.GetMask(Constants.CHECKPOINT_STRING);
+		for(int i = 0; i < CAMERA_IGNORE_LAYERS.Length; i++)
+		{
+			m_RaycastMask = m_RaycastMask | LayerMask.GetMask(CAMERA_IGNORE_LAYERS[i]);
+		}
+		m_RaycastMask = ~m_RaycastMask;	
 	}
 
 	void setShutterLayer(string layer)

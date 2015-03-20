@@ -26,8 +26,10 @@ public class Targeting : MonoBehaviour {
     private List<GameObject> m_PossibleTargets;
 	private GameObject m_TargetArrow;
 	private GameObject m_PreviousTarget;
+	public LayerMask m_HideFrom;
 
     private int m_LayerMask;
+
 
     const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
 
@@ -54,6 +56,8 @@ public class Targeting : MonoBehaviour {
 				m_PossibleTargets.Add(objectsToAdd[n]);
 			}
 		}
+
+		m_HideFrom = GetCameraIgnoreLayer ();
 
     }
 	
@@ -154,6 +158,7 @@ public class Targeting : MonoBehaviour {
 		{
 			Vector3 Offset = new Vector3(m_TargetArrowOffset.x, m_CurrentTarget.collider.bounds.size.y + m_TargetArrowOffset.y, m_TargetArrowOffset.z); 
 			m_TargetArrow.transform.position = m_CurrentTarget.transform.position + Offset;
+//			m_TargetArrow.layer = ~m_HideFrom;
 		}
 		else
 		{
@@ -163,6 +168,7 @@ public class Targeting : MonoBehaviour {
 			}
 
 			m_TargetArrow = (GameObject)Instantiate(m_TargetArrowPrefab);
+//			m_TargetArrow.layer = ~m_HideFrom;
 			Vector3 Offset = new Vector3(m_TargetArrowOffset.x, m_CurrentTarget.collider.bounds.size.y + m_TargetArrowOffset.y, m_TargetArrowOffset.z); 
 			m_TargetArrow.transform.position = m_CurrentTarget.transform.position + Offset;
 		}
@@ -173,4 +179,23 @@ public class Targeting : MonoBehaviour {
     {
         return m_Camera.transform.forward;
     }
+
+	LayerMask GetCameraIgnoreLayer()
+	{
+		if(GameData.Instance.m_PlayerOneInput == this.GetComponent<AcceptInputFrom>().ReadInputFrom)
+		{
+			//We are player one;
+			return LayerMask.GetMask("CameraTwoIgnore");
+		}
+		else
+		{
+			//We are player two;
+			return LayerMask.GetMask("CameraOneIgnore"); //they ignore the opposite
+		}
+	}
+
+	void AddObjectToTargetable(GameObject objectToAdd)
+	{
+		m_PossibleTargets.Add(objectToAdd);
+	}
 }

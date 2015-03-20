@@ -102,6 +102,7 @@ public class DerekMovement : BaseMovementAbility
 		//if you should be grappling move to your target
 		if(m_Grappling)
 		{
+			PlayAnimation();
 			MoveTowardsTarget();
 			SetGrappleTransform ();
 			return;
@@ -170,13 +171,10 @@ public class DerekMovement : BaseMovementAbility
 
 			}
 		}
-
 		else
 		{
 			m_Grappling = false;
 		}
-
-
 	}
 
 	//Sets the grapple to be between the player and their target
@@ -186,6 +184,11 @@ public class DerekMovement : BaseMovementAbility
 		m_GrappleHook.position = transform.position + GRAPPLE_FROM_POSITION + distanceHalfed;
 		m_GrappleHook.localScale = new Vector3 (m_GrappleHook.localScale.x, distanceHalfed.magnitude, m_GrappleHook.localScale.z);
 		m_GrappleHook.rotation = Quaternion.FromToRotation (Vector3.up, distanceHalfed.normalized);
+	}
+
+	void PlayAnimation()
+	{
+		m_AnimatorController.playAnimation(AnimatorPlayers.Animations.Ability);
 	}
 
 	public override void CallBack(CallBackEvents callBack)

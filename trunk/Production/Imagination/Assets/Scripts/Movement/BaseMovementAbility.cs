@@ -541,6 +541,11 @@ public abstract class BaseMovementAbility : MonoBehaviour , CallBack
 		//Check if we may be grounded anyway
 		else if (Physics.Raycast(transform.position, Vector3.down, out hit, GETGROUNDED_RAYCAST_DISTANCE - GetMovementThisFrame().y, m_LayerMask))
 		{
+			if(hit.collider.tag == Constants.LIGHT_PEG_TAG)
+			{
+				return false;
+			}
+
 			//Move us directly onto the ground
 			m_CharacterController.Move(Vector3.down);
 			
