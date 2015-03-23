@@ -173,6 +173,7 @@ public class SFXManager : MonoBehaviour
     { 
         //Load all sounds
         loadMenuSounds();//menu sounds load instantly since they need to be used immediately
+		loadMusicSounds();
         loadOtherSounds();//other sounds load asynronously to help reduce lag on scene initilization
     }
 
@@ -182,10 +183,12 @@ public class SFXManager : MonoBehaviour
     /// </summary>
 	void Start ()
     {
+
 #if DEBUG || UNITY_EDITOR
 		//TODO: Delete for finale product, Onload will handle. OnLoad does not run when playing scene in editor
 		//Load all sounds
 		loadMenuSounds();
+		loadMusicSounds();
         loadOtherSounds();
 #endif
 	}
@@ -210,7 +213,7 @@ public class SFXManager : MonoBehaviour
         //check if the sound is done loading
          if (!soundExists(sound))
 		{
-			Debug.Log("no sound exsist");
+			Debug.Log("no sound exsist for " + sound);
             return;
 		}
         //create the actual source
@@ -520,6 +523,7 @@ public class SFXManager : MonoBehaviour
             tempAudioInfo.OneShot = false;
 #if DEBUG || UNITY_EDITOR
 			Debug.LogError("No regonized sound passed in");
+			Debug.Log(sound);
 #endif            
             break;
         }
