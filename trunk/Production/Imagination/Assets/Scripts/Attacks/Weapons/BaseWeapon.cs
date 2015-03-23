@@ -364,6 +364,7 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 	//used for Combo_AX attack
 	public virtual void AOEAttack()
 	{
+		m_Movement.m_PausedMovement = true;
 		m_InitialProjectilePosition = transform.position;
 		m_InitialProjectileRotation = transform.rotation.eulerAngles;
 		
