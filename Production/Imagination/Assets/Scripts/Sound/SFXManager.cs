@@ -98,7 +98,13 @@ public enum Sounds
 	FurbullHop, 
 	FurbullAttack,
 
-	EnemyDeath	
+	EnemyDeath,
+
+	//music
+	SongSection1,
+	SongSection2,
+	SongSection3,
+	SongMainMenu
 }
 
 //this struct holds all the info needed to determine how to play are sounds
@@ -493,6 +499,23 @@ public class SFXManager : MonoBehaviour
 			break;
 
 
+		case Sounds.SongSection1:
+			tempAudioInfo.OneShot = false;
+			break;
+
+		case Sounds.SongSection2:
+			tempAudioInfo.OneShot = false;
+			break; 
+
+		case Sounds.SongSection3:
+			tempAudioInfo.OneShot = false;
+			break; 
+
+		case Sounds.SongMainMenu:
+			tempAudioInfo.OneShot = false;
+			break;
+
+
 		default:
             tempAudioInfo.OneShot = false;
 #if DEBUG || UNITY_EDITOR
@@ -507,6 +530,14 @@ public class SFXManager : MonoBehaviour
     {
         
     }
+
+	void loadMusicSounds()
+	{
+		loadSound ((int)Sounds.SongSection1, Constants.Sounds.SONG_SECTION_1);
+		loadSound ((int)Sounds.SongSection2, Constants.Sounds.SONG_SECTION_2);
+		loadSound ((int)Sounds.SongSection3, Constants.Sounds.SONG_SECTION_3);
+		loadSound ((int)Sounds.SongMainMenu, Constants.Sounds.SONG_MAIN_MENU);
+	}
 
     void loadOtherSounds()
     {
