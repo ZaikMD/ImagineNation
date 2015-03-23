@@ -84,7 +84,7 @@ public class BaseGoal : MonoBehaviour
 
 				if(m_PlayerInGoalPrompt)
 				{
-					if(InputManager.getPause(m_PlayerInGoal))
+					if(InputManager.getJump(m_PlayerInGoal))
 					{
 						LoadNext();
 						return;
@@ -93,7 +93,7 @@ public class BaseGoal : MonoBehaviour
 
 				if(m_PlayerOutOfGoalPrompt)
 				{
-					if(InputManager.getPause(m_PlayerOutOfGoal))
+					if(InputManager.getJump(m_PlayerOutOfGoal))
 					{
 						LoadNext();
 						return;
@@ -178,19 +178,19 @@ public class BaseGoal : MonoBehaviour
 			{			
 				if(m_PlayerInGoalPrompt && m_PlayerOutOfGoalPrompt)
 				{
-					GUI.Label(posRect, "Press Start to continue to next level");
+					GUI.Label(posRect, "Press A/Space to continue to next level");
 					return;
 				}
 
 				if(m_PlayerInGoalPrompt)
 				{
-					GUI.Label(posRect, "Press Start to continue to next level");
+					GUI.Label(posRect, "Press A/Space to continue to next level");
 					return;
 				}
 
 				if(m_PlayerOutOfGoalPrompt)
 				{
-					GUI.Label(posRect, "Press Start to continue to next level");
+					GUI.Label(posRect, "Press A/Space to continue to next level");
 					return;
 				}
 			}
