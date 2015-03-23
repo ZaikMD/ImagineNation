@@ -158,7 +158,16 @@ public class Targeting : MonoBehaviour {
 		{
 			Vector3 Offset = new Vector3(m_TargetArrowOffset.x, m_CurrentTarget.collider.bounds.size.y + m_TargetArrowOffset.y, m_TargetArrowOffset.z); 
 			m_TargetArrow.transform.position = m_CurrentTarget.transform.position + Offset;
-//			m_TargetArrow.layer = ~m_HideFrom;
+
+			//set layer so only this player see the target arrow
+			if((int)m_HideFrom == 16384)
+			{
+				m_TargetArrow.layer = 13;
+			}
+			else
+			{
+				m_TargetArrow.layer = 14;
+			}
 		}
 		else
 		{
@@ -168,7 +177,17 @@ public class Targeting : MonoBehaviour {
 			}
 
 			m_TargetArrow = (GameObject)Instantiate(m_TargetArrowPrefab);
-//			m_TargetArrow.layer = ~m_HideFrom;
+
+			//set layer so only this player see the target arrow
+			if((int)m_HideFrom == 16384)
+			{
+				m_TargetArrow.layer = 15;
+			}
+			else
+			{
+				m_TargetArrow.layer = 14;
+			}
+
 			Vector3 Offset = new Vector3(m_TargetArrowOffset.x, m_CurrentTarget.collider.bounds.size.y + m_TargetArrowOffset.y, m_TargetArrowOffset.z); 
 			m_TargetArrow.transform.position = m_CurrentTarget.transform.position + Offset;
 		}
