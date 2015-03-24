@@ -10,12 +10,12 @@ public class AnimatorGnomeMage : AnimatorEnemyBase
 		Attack
 	};
 
-	protected const string BLANK = "Blank";
+	protected string[] m_Attacks = new string[] {"Attack Left Arm", "Attack Right Arm"};
 
 	protected override void Start ()
 	{
 		base.Start ();
-		m_States = new string[]{ "Hover",
+		m_States = new string[]{ "Idle",
 								 "Clone",
 								 "Attack"};
 	}
@@ -27,20 +27,12 @@ public class AnimatorGnomeMage : AnimatorEnemyBase
 
 	public override void playAnimation(string animationName)
 	{
+		if (i_Animator.GetCurrentAnimatorStateInfo (1).IsTag (animationName))
+			return;
+
 		if(animationName.Equals(m_States[(int)Animations.Attack],System.StringComparison.OrdinalIgnoreCase))
 		{
-
-			if(i_Animator.GetCurrentAnimatorStateInfo(1).IsTag(BLANK))
-			{
-				i_Animator.Play(animationName, 1);
-			}
-			else
-			{
-				if(i_Animator.GetCurrentAnimatorStateInfo(2).IsTag(BLANK))
-				{
-					i_Animator.Play(animationName, 2);
-				}
-			}
+			i_Animator.Play(m_Attacks[Random.Range(0, m_Attacks.Length)]);
 			return;
 		}
 
