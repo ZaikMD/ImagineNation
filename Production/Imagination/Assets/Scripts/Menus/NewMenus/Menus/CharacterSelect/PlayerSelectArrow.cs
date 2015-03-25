@@ -44,8 +44,7 @@ public class PlayerSelectArrow : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
-        m_Index = m_IndexesUsed++;
-        transform.position = ArrowMountPoints[m_Index].position;
+		changePosition ();
 	}
 
     public void moveUp()

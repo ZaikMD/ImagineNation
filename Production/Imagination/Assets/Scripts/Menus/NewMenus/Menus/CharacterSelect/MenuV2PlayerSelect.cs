@@ -36,6 +36,9 @@ public class MenuV2PlayerSelect : MenuV2
     float m_PlayerOneTimer = 0.0f;
     float m_PlayerTwoTimer = 0.0f;
 
+	public Texture Prompt;
+	public Vector2 PromptLocation = new Vector2(0.5f, 0.0f);
+	public Vector2 PromptSize = new Vector2(0.25f, 0.25f);
 
     struct input
     {
@@ -185,6 +188,18 @@ public class MenuV2PlayerSelect : MenuV2
             }
         }
     }
+
+	void OnGUI()
+	{
+		if (PlayerArrows[PLAYER_ONE].getSelection() != PlayerArrows[PLAYER_TWO].getSelection()
+		    && PlayerArrows[PLAYER_ONE].IsMounted && PlayerArrows[PLAYER_TWO].IsMounted)
+		{//two mounted
+			GUI.DrawTexture(new Rect(Screen.width * PromptLocation.x, Screen.height * PromptLocation.y,
+			                         Screen.width * PromptSize.x,     Screen.height * PromptSize.y), 
+			                Prompt,
+			                ScaleMode.ScaleToFit);
+		}
+	}
 
     protected override void back()
     {

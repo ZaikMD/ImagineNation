@@ -33,6 +33,10 @@ public class MenuV2InputSelect : MenuV2
     //what the delay is being modified by
     protected const float INPUT_DELAY_MODIFYER = 2.0f;
 
+	public Texture Prompt;
+	public Vector2 PromptLocation = new Vector2(0.5f, 0.0f);
+	public Vector2 PromptSize = new Vector2(0.25f, 0.25f);
+
 	// Use this for initialization
 	protected override void start () 
     {
@@ -87,6 +91,17 @@ public class MenuV2InputSelect : MenuV2
             }
         }
     }
+
+	void OnGUI()
+	{
+		if (m_CurrentlyMounted[0] != -1 && m_CurrentlyMounted[1] != -1)
+		{//two inputs mounted
+			GUI.DrawTexture(new Rect(Screen.width * PromptLocation.x, Screen.height * PromptLocation.y,
+			                         Screen.width * PromptSize.x,     Screen.height * PromptSize.y), 
+			                Prompt,
+			                ScaleMode.ScaleToFit);
+		}
+	}
 
     protected virtual void mountedBehavior(Vector2 moveInput, int index)
     {
