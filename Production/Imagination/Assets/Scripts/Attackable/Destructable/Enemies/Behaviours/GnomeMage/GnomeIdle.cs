@@ -15,6 +15,13 @@ using System.Collections;
 
 public class GnomeIdle : BaseIdleBehaviour 
 {
+	new public AnimatorGnomeMage EnemyAnimator
+	{
+		get
+		{
+			return base.EnemyAnimator as AnimatorGnomeMage;
+		}
+	}
 	// Use this for initialization
 	protected override void start ()
 	{
@@ -28,6 +35,7 @@ public class GnomeIdle : BaseIdleBehaviour
 	// Update is called once per frame 
 	public override void update()
 	{
+		EnemyAnimator.playAnimation (AnimatorGnomeMage.Animations.Hover);
 		//Grab current target
 		setTarget(Target ());
 

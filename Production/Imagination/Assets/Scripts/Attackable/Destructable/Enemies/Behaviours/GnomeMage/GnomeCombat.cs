@@ -55,6 +55,14 @@ public class GnomeCombat : BaseAttackBehaviour, INotifyHit
 	//prefabs
 	public GameObject m_GnomeClonePrefab;
 
+	new public AnimatorGnomeMage EnemyAnimator
+	{
+		get
+		{
+			return base.EnemyAnimator as AnimatorGnomeMage;
+		}
+	}
+
 
 	// Use this for initialization
 	protected override void start ()
@@ -140,6 +148,8 @@ public class GnomeCombat : BaseAttackBehaviour, INotifyHit
 		float dist = Vector3.Distance (pos1, pos2);
 		if (dist <= 2.0f || m_PrevPos == transform.position)
 		{
+			EnemyAnimator.playAnimation (AnimatorGnomeMage.Animations.Clone);
+
 			CreateClones ();
 			m_ClonedTimer = m_ClonedTime;
 			m_CurrentCombatState = CombatStates.Cloned;
@@ -247,6 +257,7 @@ public class GnomeCombat : BaseAttackBehaviour, INotifyHit
 				switch (m_CurrentCombatState)
 				{
 				case CombatStates.Regular:
+					EnemyAnimator.playAnimation (AnimatorGnomeMage.Animations.Attack);
 					if (m_CombatComponent != null)
 						m_CombatComponent.Combat(getTarget());				
 					break;

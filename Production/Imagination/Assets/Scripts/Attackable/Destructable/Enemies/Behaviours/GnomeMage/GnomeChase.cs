@@ -20,6 +20,13 @@ public class GnomeChase : BaseChaseBehaviour
 	const float m_TimeBetweenShots = 1.5f;
 	float m_ShotTimer;
 
+	new public AnimatorGnomeMage EnemyAnimator
+	{
+		get
+		{
+			return base.EnemyAnimator as AnimatorGnomeMage;
+		}
+	}
 
 
 	// Use this for initialization
@@ -35,6 +42,8 @@ public class GnomeChase : BaseChaseBehaviour
 	// Update is called once per frame
 	public override void update () 
 	{  
+		EnemyAnimator.playAnimation (AnimatorGnomeMage.Animations.Hover);
+
 		//Grab the current target
 		setTarget(Target ());
 
