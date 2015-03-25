@@ -1,0 +1,349 @@
+fileFormatVersion: 2
+guid: f714d226b07189c4a965b0d3fb550e26
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: BackLeft
+    100002: BackRight
+    100004: CATRigHub001Bone005Bone001Bone003
+    100006: CATRigHub001Bone006
+    100008: Current01
+    100010: Current03
+    100012: Current04
+    100014: Current09
+    100016: Current10
+    100018: Current15
+    100020: Current16
+    100022: Current17
+    100024: Current24
+    100026: Current25
+    100028: Current27
+    100030: Current28
+    100032: DrumBone
+    100034: FrontLeft
+    100036: FrontRight
+    100038: KeyboardBone
+    100040: //RootNode
+    100042: StickFrontLeft
+    100044: StickFrontRight
+    400000: BackLeft
+    400002: BackRight
+    400004: CATRigHub001Bone005Bone001Bone003
+    400006: CATRigHub001Bone006
+    400008: Current01
+    400010: Current03
+    400012: Current04
+    400014: Current09
+    400016: Current10
+    400018: Current15
+    400020: Current16
+    400022: Current17
+    400024: Current24
+    400026: Current25
+    400028: Current27
+    400030: Current28
+    400032: DrumBone
+    400034: FrontLeft
+    400036: FrontRight
+    400038: KeyboardBone
+    400040: //RootNode
+    400042: StickFrontLeft
+    400044: StickFrontRight
+    4300000: Current03
+    4300002: Current04
+    4300004: Current09
+    4300006: Current10
+    4300008: Current15
+    4300010: Current17
+    4300012: Current01
+    4300014: Current24
+    4300016: Current25
+    4300018: Current28
+    4300020: Current27
+    4300022: Current16
+    7400000: Shooting
+    7400002: Dying
+    7400004: Hit
+    9500000: //RootNode
+    13700000: Current01
+    13700002: Current03
+    13700004: Current04
+    13700006: Current09
+    13700008: Current10
+    13700010: Current15
+    13700012: Current16
+    13700014: Current17
+    13700016: Current24
+    13700018: Current25
+    13700020: Current27
+    13700022: Current28
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Shooting
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Current01
+        weight: 1
+      - path: Current03
+        weight: 1
+      - path: Current04
+        weight: 1
+      - path: Current09
+        weight: 1
+      - path: Current10
+        weight: 1
+      - path: Current15
+        weight: 1
+      - path: Current16
+        weight: 1
+      - path: Current17
+        weight: 1
+      - path: Current24
+        weight: 1
+      - path: Current25
+        weight: 1
+      - path: Current27
+        weight: 1
+      - path: Current28
+        weight: 1
+      - path: KeyboardBone
+        weight: 1
+      - path: KeyboardBone/BackLeft
+        weight: 1
+      - path: KeyboardBone/BackRight
+        weight: 1
+      - path: KeyboardBone/CATRigHub001Bone006
+        weight: 1
+      - path: KeyboardBone/DrumBone
+        weight: 1
+      - path: KeyboardBone/DrumBone/CATRigHub001Bone005Bone001Bone003
+        weight: 1
+      - path: KeyboardBone/DrumBone/StickFrontLeft
+        weight: 1
+      - path: KeyboardBone/DrumBone/StickFrontRight
+        weight: 1
+      - path: KeyboardBone/FrontLeft
+        weight: 1
+      - path: KeyboardBone/FrontRight
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Dying
+      takeName: Take 001
+      firstFrame: 80
+      lastFrame: 122
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Current01
+        weight: 1
+      - path: Current03
+        weight: 1
+      - path: Current04
+        weight: 1
+      - path: Current09
+        weight: 1
+      - path: Current10
+        weight: 1
+      - path: Current15
+        weight: 1
+      - path: Current16
+        weight: 1
+      - path: Current17
+        weight: 1
+      - path: Current24
+        weight: 1
+      - path: Current25
+        weight: 1
+      - path: Current27
+        weight: 1
+      - path: Current28
+        weight: 1
+      - path: KeyboardBone
+        weight: 1
+      - path: KeyboardBone/BackLeft
+        weight: 1
+      - path: KeyboardBone/BackRight
+        weight: 1
+      - path: KeyboardBone/CATRigHub001Bone006
+        weight: 1
+      - path: KeyboardBone/DrumBone
+        weight: 1
+      - path: KeyboardBone/DrumBone/CATRigHub001Bone005Bone001Bone003
+        weight: 1
+      - path: KeyboardBone/DrumBone/StickFrontLeft
+        weight: 1
+      - path: KeyboardBone/DrumBone/StickFrontRight
+        weight: 1
+      - path: KeyboardBone/FrontLeft
+        weight: 1
+      - path: KeyboardBone/FrontRight
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Hit
+      takeName: Take 001
+      firstFrame: 130
+      lastFrame: 150
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Current01
+        weight: 1
+      - path: Current03
+        weight: 1
+      - path: Current04
+        weight: 1
+      - path: Current09
+        weight: 1
+      - path: Current10
+        weight: 1
+      - path: Current15
+        weight: 1
+      - path: Current16
+        weight: 1
+      - path: Current17
+        weight: 1
+      - path: Current24
+        weight: 1
+      - path: Current25
+        weight: 1
+      - path: Current27
+        weight: 1
+      - path: Current28
+        weight: 1
+      - path: KeyboardBone
+        weight: 1
+      - path: KeyboardBone/BackLeft
+        weight: 1
+      - path: KeyboardBone/BackRight
+        weight: 1
+      - path: KeyboardBone/CATRigHub001Bone006
+        weight: 1
+      - path: KeyboardBone/DrumBone
+        weight: 1
+      - path: KeyboardBone/DrumBone/CATRigHub001Bone005Bone001Bone003
+        weight: 1
+      - path: KeyboardBone/DrumBone/StickFrontLeft
+        weight: 1
+      - path: KeyboardBone/DrumBone/StickFrontRight
+        weight: 1
+      - path: KeyboardBone/FrontLeft
+        weight: 1
+      - path: KeyboardBone/FrontRight
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
