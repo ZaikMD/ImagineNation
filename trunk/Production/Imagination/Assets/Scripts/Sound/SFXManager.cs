@@ -169,12 +169,14 @@ public class SFXManager : MonoBehaviour
 	/// Raises the level load event.
 	/// Loads in all the sounds from resources folder
 	/// </summary>
-    void OnLevelLoad()
+ 
+	void OnEnable()
     { 
         //Load all sounds
         loadMenuSounds();//menu sounds load instantly since they need to be used immediately
 		loadMusicSounds();
         loadOtherSounds();//other sounds load asynronously to help reduce lag on scene initilization
+	//	PlaySong();
     }
 
     /// <summary>
@@ -190,7 +192,9 @@ public class SFXManager : MonoBehaviour
 		loadMenuSounds();
 		loadMusicSounds();
         loadOtherSounds();
+	//	PlaySong();
 #endif
+
 	}
 
     bool soundExists(Sounds key)
@@ -537,10 +541,54 @@ public class SFXManager : MonoBehaviour
 
 	void loadMusicSounds()
 	{
-		loadSound ((int)Sounds.SongSection1, Constants.Sounds.SONG_SECTION_1);
-		loadSound ((int)Sounds.SongSection2, Constants.Sounds.SONG_SECTION_2);
-		loadSound ((int)Sounds.SongSection3, Constants.Sounds.SONG_SECTION_3);
-		loadSound ((int)Sounds.SongMainMenu, Constants.Sounds.SONG_MAIN_MENU);
+		switch (GameData.Instance.CurrentSection)
+		{
+			case Sections.None:
+			loadSoundNow((int)Sounds.SongMainMenu, Constants.Sounds.SONG_MAIN_MENU);
+			break;
+
+			case Sections.Sections_1:
+			loadSoundNow((int)Sounds.SongSection1, Constants.Sounds.SONG_SECTION_1);
+			break;
+
+			case Sections.Sections_2:
+			loadSoundNow((int)Sounds.SongSection2, Constants.Sounds.SONG_SECTION_2);
+			break;
+
+			case Sections.Sections_3:
+			loadSoundNow((int)Sounds.SongSection3, Constants.Sounds.SONG_SECTION_3);
+			break;
+
+			default:
+			loadSoundNow((int)Sounds.SongMainMenu, Constants.Sounds.SONG_MAIN_MENU);
+			break;
+		}
+	}
+
+	public void PlaySong()
+	{
+		switch(GameData.Instance.CurrentSection)
+		{
+		case Sections.None:
+			playSound(this.transform, Sounds.SongMainMenu);
+			break;
+			
+		case Sections.Sections_1:
+			playSound(this.transform, Sounds.SongSection1);
+			break;
+			
+		case Sections.Sections_2:
+			playSound(this.transform, Sounds.SongSection2);
+			break;
+			
+		case Sections.Sections_3:
+			playSound(this.transform, Sounds.SongSection3);
+			break;
+
+		default:
+			playSound(this.transform, Sounds.SongMainMenu);
+			break;
+		}	
 	}
 
     void loadOtherSounds()

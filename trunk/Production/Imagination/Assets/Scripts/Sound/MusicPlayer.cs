@@ -11,6 +11,7 @@ public class MusicPlayer : MonoBehaviour
 	void Start () 
 	{
 		m_SFX = GameObject.FindGameObjectWithTag(Constants.SOUND_MANAGER).GetComponent<SFXManager>();
+		m_SFX.PlaySong();
 	}
 
 	void Update()
