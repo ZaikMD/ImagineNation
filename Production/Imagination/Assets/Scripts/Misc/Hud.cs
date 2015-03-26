@@ -10,7 +10,8 @@ using System.Collections;
  */
 
 
-public class Hud : MonoBehaviour {
+public class Hud : MonoBehaviour 
+{
 
 	//bool's to determine to show things
     bool m_ShowCheckPoint;
@@ -49,8 +50,7 @@ public class Hud : MonoBehaviour {
 	Texture[] m_PlayerOneHealthImages;
 	Texture[] m_PlayerTwoHealthImages;
 
-    //Font for numbers
-    public Font m_NumberFont;
+	HudNumbers m_NumbersDrawer;
 
 	void OnLoad()
 	{
@@ -108,6 +108,8 @@ public class Hud : MonoBehaviour {
 		}
 
 		ShowHiddenHud();
+
+		m_NumbersDrawer = gameObject.AddComponent<HudNumbers> ();
 	}
 
 	void LoadHudImage()
@@ -283,15 +285,11 @@ public class Hud : MonoBehaviour {
 
 		float SizeOfHudElements = Screen.width / 10;
 		Rect PositionRect = new Rect(0, 0, SizeOfHudElements, SizeOfHudElements);
-		//Need to fix the custom fonts.
-		//GUI.skin.font = m_NumberFont;
+
 		//Hidden hud elements such as collectables and Lives remaining
         if(m_ShowHiddenHud)
         {
 			GetNumberOfLifes();
-
-			//this will scale our font to the approximite size
-			GUI.skin.label.fontSize = Screen.width/12;
 
             //Light Pegs
          	GUI.DrawTexture(PositionRect, m_LightPegHudImage);
@@ -299,11 +297,11 @@ public class Hud : MonoBehaviour {
             PositionRect.Set(PositionRect.width, 0, SizeOfHudElements, SizeOfHudElements);
             if (LightPegCollected < 10)
             {
-                GUI.Label(PositionRect, "0" + LightPegCollected.ToString());
+				m_NumbersDrawer.drawNumber("0" + LightPegCollected.ToString(), PositionRect);
             }
             else
             {
-                GUI.Label(PositionRect, LightPegCollected.ToString());
+				m_NumbersDrawer.drawNumber(LightPegCollected.ToString(), PositionRect);
             }
 
 			//PuzzlePieces
@@ -319,31 +317,29 @@ public class Hud : MonoBehaviour {
 			if(NumberOfLives < 10)
 			{
 				//No Lifes implemented yet
-				GUI.Label(PositionRect, "0" + NumberOfLives.ToString());
+				m_NumbersDrawer.drawNumber("0" + NumberOfLives.ToString(), PositionRect);
 			}
 			else
 			{
 				//No Lives imlemented yet
-				GUI.Label(PositionRect, NumberOfLives.ToString());
+				m_NumbersDrawer.drawNumber(NumberOfLives.ToString(), PositionRect);
 			}
         }
 
 		//Light Pegs by themselves
 		if(m_ShowLightPegs)
 		{
-			GUI.skin.label.fontSize = Screen.width/12;
-
 			PositionRect.Set(0, 0, SizeOfHudElements, SizeOfHudElements);
 			GUI.DrawTexture(PositionRect, m_LightPegHudImage);
 
 			PositionRect.Set(PositionRect.width, 0, SizeOfHudElements, SizeOfHudElements);
 			if (LightPegCollected < 10)
 			{
-				GUI.Label(PositionRect, "0" + LightPegCollected.ToString());
+				m_NumbersDrawer.drawNumber("0" + LightPegCollected.ToString(), PositionRect);
 			}
 			else
 			{
-				GUI.Label(PositionRect, LightPegCollected.ToString());
+				m_NumbersDrawer.drawNumber(LightPegCollected.ToString(), PositionRect);
 			}
 		}
 
@@ -360,12 +356,12 @@ public class Hud : MonoBehaviour {
 			if(NumberOfLives < 10)
 			{
 				//No Lifes implemented yet
-				GUI.Label(PositionRect, "0" + NumberOfLives.ToString());
+				m_NumbersDrawer.drawNumber("0" + NumberOfLives.ToString(), PositionRect);
 			}
 			else
 			{
 				//No Lives imlemented yet
-				GUI.Label(PositionRect, NumberOfLives.ToString());
+				m_NumbersDrawer.drawNumber(NumberOfLives.ToString(), PositionRect);
 			}
 		}
 

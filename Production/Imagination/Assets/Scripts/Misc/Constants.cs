@@ -123,6 +123,8 @@ public static class Constants
 
 	public struct HudImages
 	{
+//numbers
+		public const string NUMBERS_PATH = "HUD textures/Numbers";
 
 //standard hud images
 		public const string LIGHT_PEG_HUD_IMAGE = "HUD_textures/Light_Bright";
