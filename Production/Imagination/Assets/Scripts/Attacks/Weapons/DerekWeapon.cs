@@ -13,8 +13,15 @@ public class DerekWeapon : BaseWeapon
 		m_LeftGlove = GameObject.Find ("LeftGloveEffect").transform;
 		m_RightGlove = GameObject.Find ("RightGloveEffect").transform;
 
-		m_ChargingEffectObject = new GameObject[m_ChargingEffectPrefabs.Length];
-		m_ChargedEffectObject = new GameObject[m_ChargedEffectPrefabs.Length];
+		m_ChargingEffectMat = m_ChargingEffectObject.renderer.material;
+
+		m_ObjectMaxSize = 0.25f;
+		m_ObjectGrowRate = m_ObjectMaxSize / m_MinChargeTime;
+
+		m_FadeMaxAmount = 1.0f;
+		m_FadeGrowRate = 2.9f / m_MinChargeTime;
+
+		m_ChargingObjectStartScale = m_ChargingEffectObject.transform.localScale;
 	}
 	
 	// Update is called once per frame
@@ -26,57 +33,33 @@ public class DerekWeapon : BaseWeapon
 
 	protected override void ChargingEffect ()
 	{
-		if (m_ChargingEffectObject == null)
-			return;
-
-		for (int i = 0; i < m_ChargingEffectObject.Length; i++)
+		if (m_ChargingEffectObject != null) 
 		{
-			if (m_ChargingEffectObject[i] != null)
-			{
-				m_ChargingEffectObject[i] = (GameObject) Instantiate (m_ChargingEffectPrefabs[i], m_RightGlove.position, Quaternion.identity);
-				m_ChargingEffectObject[i].transform.SetParent (m_RightGlove);
-			}
-		}
-	}
-	
-	protected override void ChargedEffect ()
-	{
-		if (m_ChargedEffectObject == null)
-			return;
+			Vector3 scale = m_ChargingEffectObject.transform.localScale;
+			scale.x += m_ObjectGrowRate * Time.deltaTime;
+			scale.y += m_ObjectGrowRate * Time.deltaTime;
+			scale.z += m_ObjectGrowRate * Time.deltaTime;
 
-		if (!m_ChargeGlowOn)
-		{
-			for (int i = 0; i < m_ChargedEffectObject.Length; i++)
-			{
-				m_ChargedEffectObject[i] = (GameObject) Instantiate (m_ChargedEffectPrefabs[i], m_RightGlove.position, Quaternion.identity);
-				m_ChargedEffectObject[i].transform.SetParent (m_RightGlove);
-			}
-			m_ChargeGlowOn = true;
-		}
-	}
+			if (scale.x > m_ObjectMaxSize)
+				scale.x = m_ObjectMaxSize;
 
-	protected override void RemoveChargingEffects ()
-	{
-		if (m_ChargingEffectObject != null)
-		{
-			for (int i = 0; i < m_ChargedEffectObject.Length; i++)
-			{
-				if (m_ChargedEffectObject[i] != null)
-					Destroy (m_ChargedEffectObject[i]);
-			}
+			if (scale.y > m_ObjectMaxSize)
+				scale.y = m_ObjectMaxSize;
+
+			if (scale.z > m_ObjectMaxSize)
+				scale.z = m_ObjectMaxSize;
+
+			m_ChargingEffectObject.transform.localScale = scale;
 		}
 
-		if (m_ChargedEffectObject != null)
+		if (m_ChargingEffectMat != null)
 		{
+			m_ChargingEffectMat.SetFloat("_FadeAmount", m_ChargingEffectMat.GetFloat("_FadeAmount") - m_FadeGrowRate * Time.deltaTime);
 
-			for (int i = 0; i < m_ChargedEffectObject.Length; i++)
-			{
-				if (m_ChargingEffectObject[i] != null)
-					Destroy (m_ChargingEffectObject[i]);
-			}
+			if (m_ChargingEffectMat.GetFloat("_FadeAmount") < m_FadeMaxAmount)
+				m_ChargingEffectMat.SetFloat("_FadeAmount", m_FadeMaxAmount);
 		}
 
-		m_ChargeGlowOn = false;
 	}
 
 	protected override void AOEEffect ()
@@ -88,11 +71,8 @@ public class DerekWeapon : BaseWeapon
 				Instantiate (m_AOEEffects[i], m_RightGlove.position, Quaternion.identity);
 				Instantiate (m_AOEEffects[i], m_RightGlove.position, Quaternion.identity);
 				Instantiate (m_AOEEffects[i], m_RightGlove.position, Quaternion.identity);
-
-
 			}
-		}
-		
+		}		
 	}
 
 	protected override void AOESlamEffect ()
