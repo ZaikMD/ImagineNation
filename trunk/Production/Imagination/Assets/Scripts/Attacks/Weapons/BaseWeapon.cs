@@ -90,7 +90,7 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 		//m_ReadInput = GetComponentInParent<AcceptInputFrom>();
 		m_ReadInput = transform.parent.GetComponent<AcceptInputFrom> ();
 
-
+		// The angle between each of the projectiles
 		m_AOEProjectileAngle = 360 / m_NumberOfAOEProjectiles;
 		
 		GetComponent<AnimationCallBackManager> ().registerCallBack (this);
@@ -118,11 +118,12 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 
 		if (m_Charging)
 		{
-			// If we have surpassed max charge time then stop charging	
 			m_ChargeTimer += Time.deltaTime;
+			// If we have reached the minimum charge time activate the effect
 			if (m_ChargeTimer >= m_MinChargeTime)
 				ChargedEffect();
 
+			// If we have surpassed max charge time then stop charging	
 			if (m_ChargeTimer >= m_MaxChargeTime)
 			{
 				m_Charging = false;
