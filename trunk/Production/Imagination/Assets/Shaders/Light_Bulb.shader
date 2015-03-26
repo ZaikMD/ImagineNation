@@ -1,9 +1,10 @@
 ﻿// TO USE
 //
-// 1. Create a darkness material (unless one has been made)
+// 1. Create a light bulb or lamp material.
 // 2. Apply the material to the object
-// 3. Drag a texture to the "_Texture" box
-// 3. You are done
+// 3. Choose the color and opacity of the object, and choose a nice opacity growing value.
+// 4. Choose how affected this object is affected by normal diffuse lighting (for less or more lit glass)
+// 5. You are done
 //
 // Created by Jason Hein
 
@@ -13,8 +14,12 @@ Shader "Production/Light_Bulb"
 	//Properties that can be set by designers
 	Properties
 	{
-		_Color ("Color", Color) = (0.0, 0.0, 0.0, 0.1)
-		_TransparencyGrow("Transprency Growing", Float) = 20.0
+		_GlassColor ("Color", Color) = (0.3, 0.3, 0.3, 0.1)
+		_OpacityGrow("Opacity Grow", Float) = 0.5
+		_MinimumOpacity ("Minimum Opacity", Float) = 0.1
+		_MaximumOpacity ("Maximum Opacity", Float) = 1.0
+		_Gloss ("Gloss", Float) = 10.0
+		_DiffuseLightingStrength ("Diffuse Lighting Strength", Float) = 0.5
 	}
 	
 	//Shader
@@ -41,8 +46,10 @@ Shader "Production/Light_Bulb"
          	#pragma fragment fragShader
          	
          	//Public Uniforms;
-         	float _TransparencyGrow;
-         	float4 _Color;
+         	float4 _GlassColor;
+         	float _OpacityGrow;
+         	float _MinimumOpacity;
+         	float _MaximumOpacity;
          	
          	//What the vertex shader will recieve
          	struct vertexInput
@@ -86,18 +93,10 @@ Shader "Production/Light_Bulb"
             	float3 viewDirection = normalize(output.viewDir);
  
  				//Calculate a new opacity for faces that are facing away from the camera
- 				float affectOfColorOpacity = _Color.a * 0.05 + 0.98;
-            	float newOpacity = 	pow(min(1.0, affectOfColorOpacity - dot(viewDirection, normalDirection) * (1.0 / _TransparencyGrow)), _TransparencyGrow);
-            	if (newOpacity < 0.01)
-            	{
-            		discard;
-            	}
-            	
-            	//Calculate the colour of this fragment
-            	float4 fragmentColour = float4 (_Color.xyz, newOpacity);
-            	
+            	float newOpacity = min(_MaximumOpacity, max(_MinimumOpacity, _GlassColor.a / max(0.01, (pow(dot(viewDirection, normalDirection), _OpacityGrow)))));
+
             	//Return the colour of the first pass's fragment
-            	return fragmentColour;
+            	return float4 (_GlassColor.xyz, newOpacity);
          	}
          	
          	ENDCG
@@ -113,7 +112,7 @@ Shader "Production/Light_Bulb"
 			Cull back
 			ZWrite Off
 			
-			//Our blend equation is multiplicative
+			//Our blend equation is additive
          	Blend One One
          	
          	CGPROGRAM
@@ -125,8 +124,12 @@ Shader "Production/Light_Bulb"
          	#pragma fragment fragShader
          	
          	//Public Uniforms;
-         	float _TransparencyGrow;
-         	float4 _Color;
+         	float4 _GlassColor;
+         	float _OpacityGrow;
+         	float _MinimumOpacity;
+         	float _MaximumOpacity;
+         	float _Gloss;
+         	float _DiffuseLightingStrength;
          	float4 _LightColor0;
          	
          	//What the vertex shader will recieve
@@ -175,12 +178,7 @@ Shader "Production/Light_Bulb"
             	float3 viewDirection = normalize(output.viewDir);
  
  				//Calculate a new opacity for faces that are facing away from the camera
- 				float affectOfColorOpacity = _Color.a * 0.05 + 0.98;
-            	float newOpacity = 	pow(min(1.0, affectOfColorOpacity - dot(viewDirection, normalDirection) * (1.0 / _TransparencyGrow)), _TransparencyGrow);
-            	if (newOpacity < 0.01)
-            	{
-            		discard;
-            	}
+            	float newOpacity = min(_MaximumOpacity, max(_MinimumOpacity, _GlassColor.a / max(0.01, (pow(dot(viewDirection, normalDirection), _OpacityGrow)))));
             	
             	//Direction of our light, for dot product calculations
             	float3 lightDirection = normalize(_WorldSpaceLightPos0.xyz - output.worldPos.xyz);
@@ -189,217 +187,15 @@ Shader "Production/Light_Bulb"
             	float distShading = 1.0 / pow(length(_WorldSpaceLightPos0.xyz - output.worldPos.xyz), 2.0);
             	
             	//Shading
-            	float attenuation = distShading * _Color.a * newOpacity * max(0.0, dot(normalize(normalDirection + viewDirection), -lightDirection));
-            	
-            	//Calculate lighting for lights inside this object
-            	float4 illumination = float4((_LightColor0.xyz + _Color.xyz) * attenuation, 1.0);
+            	float diffuseShading = max(0.0, dot(normalize(normalDirection), -lightDirection));
+            	float specularShading = max(0.0, pow(dot(normalize(normalDirection + viewDirection), -lightDirection), _Gloss));
+            	float attenuation = distShading * newOpacity * (diffuseShading * _DiffuseLightingStrength + specularShading);
             	
             	//Return the colour of illumination to add to this fragments current color
-            	return illumination;
+            	return float4((_LightColor0.xyz * _GlassColor.xyz) * attenuation, 1.0);
          	}
          	
          	ENDCG
 		}
 	}
 }
-
-
-/*
-// TO USE
-//
-// 1. Create a darkness material (unless one has been made)
-// 2. Apply the material to the object
-// 3. Drag a texture to the "_Texture" box
-// 3. You are done
-//
-// Created by Jason Hein
-
-
-Shader "Production/Light_Bulb"
-{
-	//Properties that can be set by designers
-	Properties
-	{
-		_Color ("Color", Color) = (0.0, 0.0, 0.0, 0.1)
-		_MinimumTransparency ("Minimum Transparency", Float) = 0.05
-		_TransparencyGrow("Transprency Growing", Float) = 2.0
-	}
-	
-	//Shader
-	Subshader
-	{
-		Tags { "Queue" = "Transparent" } 
-		
-		//Pass for shading the background enviroment
-		Pass
-		{
-			//Do not remove the colours behind the object
-			Cull back
-			ZWrite Off
-			
-			//Our blend equation is multiplicative
-         	Blend SrcAlpha OneMinusSrcAlpha
-         	
-         	CGPROGRAM
-         	
-         	//Allows us to get offset and tiling
-			#include "UnityCG.cginc"
- 
-         	#pragma vertex vertShader
-         	#pragma fragment fragShader
-         	
-         	//Public Uniforms;
-         	float _TransparencyGrow;
-         	float _MinimumTransparency;
-         	float4 _Color;
-         	
-         	//What the vertex shader will recieve
-         	struct vertexInput
-         	{
-         		float4 pos : POSITION;
-         		float3 normal : NORMAL;
-         	};
-         	
-         	//What the fragment shader will recieve
-         	struct vertexOutput
-         	{
-         		float4 pos : SV_POSITION;
-            	float3 normal : TEXCOORD0;
-            	float3 viewDir : TEXCOORD1;
-         	};
-         	
-         	//Vertex Shader
-         	vertexOutput vertShader(vertexInput input)
-         	{
-         		//A container for the vertexOutput
-         		vertexOutput output;
-         		
-         		//Calculate the vertex's position according to the camera
-         		output.pos = mul(UNITY_MATRIX_MVP, input.pos);
-         		
-         		//Calculate the normal of the surface in object coordinates
-         		output.normal = normalize(mul(float4(input.normal, 0.0), _World2Object).xyz);
-         		
-         		//Calculate view direction, for dot calculations in the fragment shader
-         		output.viewDir = normalize(_WorldSpaceCameraPos - mul(_Object2World, input.pos).xyz);
-         		
-         		//Return our output
-         		return output;
-         	}
-         	
-         	//Fragment Shader
-         	float4 fragShader (vertexOutput output) : COLOR
-         	{
-         		//Re-normalize some interpolated vertex output
-         		float3 normalDirection = normalize(output.normal);
-            	float3 viewDirection = normalize(output.viewDir);
- 
- 				//Calculate a new opacity for faces that are facing away from the camera
-            	float newOpacity = pow(_Color.a * dot(viewDirection, normalDirection), _TransparencyGrow);
-            	
-            	//Calculate the colour of this fragment
-            	float4 fragmentColour = float4 (_Color.xyz, newOpacity);
-            	
-            	//Return the colour of the first pass's fragment
-            	return fragmentColour;
-         	}
-         	
-         	ENDCG
-		}
-		
-		//Pass for point light
-		Pass
-		{
-			//Point lights
-			Tags { "LightMode" = "ForwardAdd" }
-		
-			//Do not remove the colours behind the object
-			Cull back
-			ZWrite Off
-			
-			//Our blend equation is multiplicative
-         	Blend One One
-         	
-         	CGPROGRAM
-         	
-         	//Allows us to get offset and tiling
-			#include "UnityCG.cginc"
- 
-         	#pragma vertex vertShader
-         	#pragma fragment fragShader
-         	
-         	//Public Uniforms;
-         	float _TransparencyGrow;
-         	float _MinimumTransparency;
-         	float4 _Color;
-         	float4 _LightColor0;
-         	
-         	//What the vertex shader will recieve
-         	struct vertexInput
-         	{
-         		float4 pos : POSITION;
-         		float3 normal : NORMAL;
-         	};
-         	
-         	//What the fragment shader will recieve
-         	struct vertexOutput
-         	{
-         		float4 pos : SV_POSITION;
-            	float3 normal : TEXCOORD0;
-            	float3 viewDir : TEXCOORD1;
-            	float4 worldPos : TEXCOORD2;
-         	};
-         	
-         	//Vertex Shader
-         	vertexOutput vertShader(vertexInput input)
-         	{
-         		//A container for the vertexOutput
-         		vertexOutput output;
-         		
-         		//Calculate the vertex's position according to the camera
-         		output.pos = mul(UNITY_MATRIX_MVP, input.pos);
-         		
-         		//Provide the fragment shader our world position
-         		output.worldPos = mul (_Object2World, input.pos);
-         		
-         		//Calculate the normal of the surface in object coordinates
-         		output.normal = normalize(mul(float4(input.normal, 0.0), _World2Object).xyz);
-         		
-         		//Calculate view direction, for dot calculations in the fragment shader
-         		output.viewDir = normalize(_WorldSpaceCameraPos - mul(_Object2World, input.pos).xyz);
-         		
-         		//Return our output
-         		return output;
-         	}
-         	
-         	//Fragment Shader
-         	float4 fragShader (vertexOutput output) : COLOR
-         	{
-         		//Re-normalize some interpolated vertex output
-         		float3 normalDirection = normalize(output.normal);
-            	float3 viewDirection = normalize(output.viewDir);
- 
- 				//Calculate a new opacity for faces that are facing away from the camera
-            	float newOpacity = pow(_Color.a * dot(viewDirection, normalDirection), _TransparencyGrow);
-            	
-            	//Direction of our light, for dot product calculations
-            	float3 lightDirection = normalize(_WorldSpaceLightPos0.xyz - output.worldPos.xyz);
-            	
-            	//Shading for being far from the point light
-            	float distShading = 1.0 / pow(length(_WorldSpaceLightPos0.xyz - output.worldPos.xyz), 2.0);
-            	
-            	//Shading
-            	float attenuation = distShading * newOpacity * max(0.0, dot(normalize(normalDirection + viewDirection), -lightDirection));
-            	
-            	//Calculate lighting for lights inside this object
-            	float4 illumination = float4((_LightColor0.xyz + _Color.xyz) * attenuation, 1.0);
-            	
-            	//Return the colour of illumination to add to this fragments current color
-            	return illumination;
-         	}
-         	
-         	ENDCG
-		}
-	}
-}
-*/
