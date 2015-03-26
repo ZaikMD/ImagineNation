@@ -58,9 +58,6 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 	public GameObject[] m_AOESlamEffects;
 	public GameObject m_ChargingEffectObject;
 	protected Material m_ChargingEffectMat;
-	protected Vector3 m_ChargingObjectStartScale;
-	protected float m_ObjectGrowRate;
-	protected float m_ObjectMaxSize;
 	protected float m_FadeMaxAmount;
 	protected float m_FadeGrowRate;
 
@@ -92,7 +89,6 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 		//m_ReadInput = GetComponentInParent<AcceptInputFrom>();
 		m_ReadInput = transform.parent.GetComponent<AcceptInputFrom> ();
 
-
 		m_AOEProjectileAngle = 360 / m_NumberOfAOEProjectiles;
 		
 		GetComponent<AnimationCallBackManager> ().registerCallBack (this);
@@ -110,6 +106,8 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 			m_TrailRenderersTimeAlive[i] = m_TrailRenderers[i].time;
 			m_TrailRenderersCurrentTime[i] = 0;
 		}
+
+		m_ChargingEffectMat = m_ChargingEffectObject.renderer.material;
 	}
 	
 	protected virtual void update()
@@ -435,16 +433,23 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 		}
 	}
 
+	protected virtual void ChargingEffect()
+	{
+		if (m_ChargingEffectMat != null)
+		{
+			m_ChargingEffectMat.SetFloat("_FadeAmount", m_ChargingEffectMat.GetFloat("_FadeAmount") - m_FadeGrowRate * Time.deltaTime);
+			
+			if (m_ChargingEffectMat.GetFloat("_FadeAmount") < m_FadeMaxAmount)
+				m_ChargingEffectMat.SetFloat("_FadeAmount", m_FadeMaxAmount);
+		}
+	}
+
 	protected virtual void RemoveChargingEffects()
 	{
-		if (m_ChargingEffectObject != null)
-			m_ChargingEffectObject.transform.localScale = m_ChargingObjectStartScale;
-
 		if (m_ChargingEffectMat != null)
 			m_ChargingEffectMat.SetFloat ("_FadeAmount", 3.0f);
 	}
 
 	protected abstract void AOEEffect();
 	protected abstract void AOESlamEffect();
-	protected abstract void ChargingEffect();
 }
