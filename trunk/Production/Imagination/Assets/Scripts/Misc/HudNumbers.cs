@@ -4,17 +4,13 @@ using System.Text.RegularExpressions;
 
 public class HudNumbers : MonoBehaviour 
 {
-	public Texture[] i_NumberTextures;
+	Texture[] i_NumberTextures;
 	public ScaleMode i_ScaleMode = ScaleMode.ScaleToFit;
-
-	public string num = "500";
-
 	Regex m_Validate = new Regex("^\\d*$");
 
-	void OnGUI()
+	void Start()
 	{
-		drawNumber (num, new Rect (Screen.width * 0.25f, Screen.height * 0.25f,
-	                           		 Screen.width * 0.5f, Screen.height * 0.5f));
+		i_NumberTextures = Resources.LoadAll<Texture> (Constants.HudImages.NUMBERS_PATH);
 	}
 
 	/// <summary>
