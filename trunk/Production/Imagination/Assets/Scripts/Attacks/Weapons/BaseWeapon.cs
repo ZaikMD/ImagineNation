@@ -56,11 +56,13 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 
 	public GameObject[] m_AOEEffects;
 	public GameObject[] m_AOESlamEffects;
-	public GameObject[] m_ChargingEffectPrefabs;
-	protected GameObject[] m_ChargingEffectObject;
-	public GameObject[] m_ChargedEffectPrefabs;
-	protected GameObject[] m_ChargedEffectObject;
-	protected bool m_ChargeGlowOn = false;
+	public GameObject m_ChargingEffectObject;
+	protected Material m_ChargingEffectMat;
+	protected Vector3 m_ChargingObjectStartScale;
+	protected float m_ObjectGrowRate;
+	protected float m_ObjectMaxSize;
+	protected float m_FadeMaxAmount;
+	protected float m_FadeGrowRate;
 
 	//Trail Renderer varibles
 	protected TrailRenderer[] m_TrailRenderers;
@@ -90,7 +92,7 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 		//m_ReadInput = GetComponentInParent<AcceptInputFrom>();
 		m_ReadInput = transform.parent.GetComponent<AcceptInputFrom> ();
 
-		// The angle between each of the projectiles
+
 		m_AOEProjectileAngle = 360 / m_NumberOfAOEProjectiles;
 		
 		GetComponent<AnimationCallBackManager> ().registerCallBack (this);
@@ -119,16 +121,13 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 		if (m_Charging)
 		{
 			m_ChargeTimer += Time.deltaTime;
-			// If we have reached the minimum charge time activate the effect
-			if (m_ChargeTimer >= m_MinChargeTime)
-				ChargedEffect();
+			ChargingEffect();
 
 			// If we have surpassed max charge time then stop charging	
 			if (m_ChargeTimer >= m_MaxChargeTime)
 			{
 				m_Charging = false;
 				m_AttackFinished = true;
-				RemoveChargingEffects();
 				m_Movement.m_PausedMovement = true;
 			}
 			//If we are not still holding the charge button then check if we have surpassed the minimum charge time
@@ -138,7 +137,6 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 				{
 					m_Charging = false;
 					m_AttackFinished = true;
-					RemoveChargingEffects();
 					m_Movement.m_PausedMovement = true;
 				}
 				else
@@ -403,6 +401,7 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 			collider.SetCharacter(m_ReadInput.ReadInputFrom);
 		}
 		AOEEffect();
+		RemoveChargingEffects();
 	}
 
 	protected void TurnOnTrail()
@@ -436,9 +435,16 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 		}
 	}
 
+	protected virtual void RemoveChargingEffects()
+	{
+		if (m_ChargingEffectObject != null)
+			m_ChargingEffectObject.transform.localScale = m_ChargingObjectStartScale;
+
+		if (m_ChargingEffectMat != null)
+			m_ChargingEffectMat.SetFloat ("_FadeAmount", 3.0f);
+	}
+
 	protected abstract void AOEEffect();
 	protected abstract void AOESlamEffect();
 	protected abstract void ChargingEffect();
-	protected abstract void ChargedEffect();
-	protected abstract void RemoveChargingEffects();
 }
