@@ -135,6 +135,7 @@ public class BaseKnockedBackBehavouir : BaseBehaviour
 				//Return the enemy to the nav mesh
 				GetAgent().enabled = true;
 				m_EnemyAI.SetState(EnemyAI.EnemyState.Idle);
+
 			}
 			//The enemy has hit a wall
 			else if (m_Velocity.y > 0.0f)

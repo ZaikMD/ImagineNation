@@ -41,7 +41,7 @@ public class CollisionCombat : BaseCombat
 		base.start (baseBehaviour);
 
 		m_RayDistance = RAY_DISTANCE;
-		m_LayerMask = ~LayerMask.GetMask (Constants.PLAYER_STRING);
+		m_LayerMask = LayerMask.GetMask (Constants.PLAYER_STRING);
 	}
 
 	public override void Combat(GameObject target)
@@ -75,6 +75,10 @@ public class CollisionCombat : BaseCombat
 
 	private bool Raycast()
 	{
+		//Draw line for testing 
+		Debug.DrawRay (m_RayOrigin, m_RayDirection);
+		Debug.DrawLine (m_RayOrigin, m_RayOrigin + (m_RayDirection * m_RayDistance));
+
 		//Check Raycast and return based on results
 		if(Physics.Raycast(m_RayOrigin, m_RayDirection, m_RayDistance, m_LayerMask))
 			return true;
