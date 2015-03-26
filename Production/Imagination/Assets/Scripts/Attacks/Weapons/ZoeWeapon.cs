@@ -11,6 +11,9 @@ public class ZoeWeapon : BaseWeapon
 		start ();
 
 		m_Wand = GameObject.Find ("WandStar").transform;
+
+		m_FadeMaxAmount = 1.0f;
+		m_FadeGrowRate = 2.0f / m_MinChargeTime;
 	}
 	
 	// Update is called once per frame
@@ -18,26 +21,6 @@ public class ZoeWeapon : BaseWeapon
 	{
 		if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 		update ();
-	}
-
-	protected override void ChargingEffect ()
-	{
-		if (m_ChargingEffectObject != null) 
-		{
-			
-			
-			
-		}
-	}
-	
-	protected override void RemoveChargingEffects ()
-	{
-		if (m_ChargingEffectObject != null) 
-		{
-			
-			
-			
-		}
 	}
 	
 	protected override void AOEEffect ()
