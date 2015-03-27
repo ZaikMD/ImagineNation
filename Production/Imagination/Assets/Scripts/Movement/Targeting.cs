@@ -13,7 +13,8 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Targeting : MonoBehaviour {
+public class Targeting : MonoBehaviour 
+{
 
     public string[] m_TargetableTags;
     public float m_FieldOfView;

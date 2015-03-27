@@ -32,43 +32,40 @@ public class RailFollowCam : Activatable
 	{ 
 		if (PauseScreen.shouldPause(PAUSE_LEVEL)){return;}
 
+		//If the camera has not already finished
 		if (!m_IsDone)
 		{
+			// If the camera is not active
 			if (!m_Active)
 			{
-				for(int i = 0; i < m_Switches.Length;i ++)
-				{
-					if(m_Switches[i].beenHit() != true)
-					{
-						m_Active = false;
-						PauseScreen.InCutscene = false;
-					}
+				// Have the required switches been hit
+				if (!CheckSwitchesForCam())
+					return;
 
-					else
-					{
-						m_Active = true;
-						PauseScreen.InCutscene = true;
-					} 
-				}
-				if (m_Active)
+				// If they have then set active to true, Activate this camera and disable the player ones
+				m_Active = true;
+				PauseScreen.InCutscene = true;			
+
+				for (int i = 0; i < m_PLayerCams.Length; i ++)
 				{
-					for (int i = 0; i < m_PLayerCams.Length; i ++)
-					{
 						m_PLayerCams[i].SetActive(false);
-					}
-
-					m_Camera.enabled = true;
 				}
+
+				m_Camera.enabled = true;
 			}
+			// else the camera is currently active
 			else
 			{
+				// Continues along the path and look at the desired point
 				m_Loc += Time.deltaTime / m_Time;
 				
 				transform.LookAt (m_LookTarget.position);
 				transform.position = m_Rail.GetPoint(m_Loc);
 
+				// Have we reached our destination point?
 				if (IsDone())
 				{
+					// If we have disable this camera and reactivate the player cams
 					m_Camera.enabled = false;
 					PauseScreen.InCutscene = false;
 
