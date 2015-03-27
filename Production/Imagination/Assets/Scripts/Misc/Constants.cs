@@ -188,6 +188,7 @@ public static class Constants
 		public const string WEAPON_SWING_1 = "Sounds/NewSounds/Common/Attack_Swing_1";
 		public const string WEAPON_SWING_2 = "Sounds/NewSounds/Common/Attack_Swing_2";
 		public const string WEAPON_SWING_3 = "Sounds/NewSounds/Common/Attack_Swing_3";
+		public const string AIR_ATTACK_SMASH = "Sounds/NewSounds/Common/Character_Smash_Attack";
 
 
 		//LEVEL

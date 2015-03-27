@@ -48,6 +48,10 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 	public int m_AOERange = 2;
 	public int m_AOESpeed = 10;
 
+	//Sound
+	protected SFXManager m_SFX;
+	protected bool m_IsPlayingSound;
+
 	//Safety timer so incase the call back function doesnt get called
 	const float m_SafetyTime = 1.0f;
 	float m_AttackSafetyTimer = 0.0f;
@@ -108,6 +112,8 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 		}
 
 		m_ChargingEffectMat = m_ChargingEffectObject.renderer.material;
+
+		m_SFX = SFXManager.Instance;
 	}
 	
 	protected virtual void update()
@@ -190,7 +196,8 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 			if (m_AttackSafetyTimer < 0.0f)
 				AttackOver();
 		}
-		
+
+		m_IsPlayingSound = false;
 	}
 	
 	void CheckInput()
@@ -281,10 +288,12 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 
 		case CallBackEvents.Player_AttackBegin:
 			AttackBegin();
+			AttackWooshSound();
 			break;
 			
 		case CallBackEvents.Player_AttackBegin_AOE:
 			AOEAttack();
+			AttackAirAOESound();
 			break;
 			
 		case CallBackEvents.Player_AttackBegin_HeavyAOE:
@@ -430,6 +439,25 @@ public abstract class BaseWeapon : MonoBehaviour, CallBack
 					m_TrailRenderers[i].time -= m_TrailRendererShrinkRate * Time.deltaTime;
 				}
 			}
+		}
+	}
+
+	//Added by Greg, makes the woosh sound effects of swings
+	protected void AttackWooshSound()
+	{
+		if (m_IsPlayingSound == false)
+		{
+			m_SFX.playSound(this.transform, Sounds.WeaponWoosh);
+			m_IsPlayingSound = true;
+		}
+	}
+
+	protected void AttackAirAOESound()
+	{
+		if (m_IsPlayingSound == false)
+		{
+			m_SFX.playSound(this.transform, Sounds.AirSmashAttack);
+			m_IsPlayingSound = true;
 		}
 	}
 
