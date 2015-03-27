@@ -65,9 +65,15 @@ public class DeadPlayerManager : MonoBehaviour
 
     const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
 
+	//Sounds
+	SFXManager m_SFX;
+
+
 	// Use this for initialization
 	void Start () 
 	{
+		m_SFX = SFXManager.Instance;
+
 		RESPAWN_TIMER = m_RespawnTimer;
 
 
@@ -212,6 +218,7 @@ public class DeadPlayerManager : MonoBehaviour
 						{
 							m_DeadPlayerHealth.resetHealth(); //Reset player health
 							m_DeadPlayerHealth.gameObject.transform.position = m_RespawnLocation; //Respawn player
+							m_SFX.playSound(this.transform, Sounds.CharacterRespawn);
 							finder.SetSearchForRespawnLayer(false); //Set looking for a respawn layer to false
 
 							m_RespawnTimer = RESPAWN_TIMER; //Reset respawn timer
