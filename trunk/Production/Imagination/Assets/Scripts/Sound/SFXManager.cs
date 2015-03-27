@@ -49,6 +49,7 @@ public enum Sounds
 	CharacterDeath, 
 	CharacterRespawn, 
 	LiveIncrement,
+	AirSmashAttack,
 
 	//Level
 	Checkpoint, 
@@ -358,6 +359,10 @@ public class SFXManager : MonoBehaviour
 			tempAudioInfo.OneShot = true;
 			break;
 
+		case Sounds.AirSmashAttack:
+			tempAudioInfo.OneShot = true;
+			break;
+
 			//Alex Sounds
 		case Sounds.AlexHitOne:
 			tempAudioInfo.OneShot = true;
@@ -614,6 +619,7 @@ public class SFXManager : MonoBehaviour
         loadSound((int)Sounds.GateOpen, Constants.Sounds.GATE_OPEN);
 		loadSound((int)Sounds.CharacterRespawn, Constants.Sounds.CHARACTER_RESPAWN);
 		loadSound((int)Sounds.CharacterDeath, Constants.Sounds.CHARACTER_DEATH);
+		loadSound ((int)Sounds.AirSmashAttack, Constants.Sounds.AIR_ATTACK_SMASH);
 
 		//Level
 		loadSound((int)Sounds.LevelComplete, Constants.Sounds.LEVEL_COMPLETE);
