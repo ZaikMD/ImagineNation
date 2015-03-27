@@ -36,6 +36,8 @@ public class ZoeWeapon : BaseWeapon
 				Instantiate (m_AOEEffects[i], m_Wand.position, Quaternion.identity);
 			}
 		}
+
+		m_SFX.playSound(this.transform, Sounds.ZoeyAOE);
 		
 	}
 

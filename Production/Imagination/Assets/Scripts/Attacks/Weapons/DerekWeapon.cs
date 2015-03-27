@@ -34,7 +34,10 @@ public class DerekWeapon : BaseWeapon
 				Instantiate (m_AOEEffects[i], m_RightGlove.position, Quaternion.identity);
 				Instantiate (m_AOEEffects[i], m_RightGlove.position, Quaternion.identity);
 			}
-		}		
+		}
+
+		m_SFX.playSound(this.transform, Sounds.AirSmashAttack);
+
 	}
 
 	protected override void AOESlamEffect ()

@@ -86,6 +86,7 @@ public enum Sounds
 	ZoeyOpenWings,
 	ZoeyCloseWings,
 	ZoeyDeployedWings,
+	ZoeyAOE,
 
 	//Enemies
 	MageAttack, 
@@ -468,6 +469,10 @@ public class SFXManager : MonoBehaviour
 			tempAudioInfo.OneShot = false;
 			break;
 
+		case Sounds.ZoeyAOE:
+			tempAudioInfo.OneShot = true;
+			break;
+
 
 	//Enemies
 		case Sounds.MageAttack:
@@ -656,6 +661,8 @@ public class SFXManager : MonoBehaviour
         loadSound((int)Sounds.ZoeyOpenWings, Constants.Sounds.ZOEY_WINGS_OPEN);
         loadSound((int)Sounds.ZoeyCloseWings, Constants.Sounds.ZOEY_WINGS_CLOSE);
 		loadSound((int)Sounds.ZoeyDeployedWings, Constants.Sounds.ZOEY_WINGS_DEPLOY);
+		loadSound ((int)Sounds.ZoeyAOE, Constants.Sounds.ZOEY_ATTACK_AOE);
+
 
         //Enimies sounds
 		loadSound((int)Sounds.MageAttack, Constants.Sounds.MAGE_SHOOT);
