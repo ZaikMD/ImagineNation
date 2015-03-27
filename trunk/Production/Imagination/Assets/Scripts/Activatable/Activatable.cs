@@ -78,6 +78,52 @@ public class Activatable : MonoBehaviour
 		return false;
 	}
 
+	// Specifically made for the camera, does mostly the same thing but will avoid the action delay that occurs
+	protected bool CheckSwitchesForCam() 
+	{
+		//Is this object activated on enemy deaths
+		if(!m_ActivatesOnEnemiesDeath)
+		{
+			//Is only one switch required
+			if(m_OnlyOneSwitchNeeded)
+			{
+				//Check to see if atleast one switch is true
+				for(int i = 0; i < m_Switches.Length; i++)
+				{
+					if(m_Switches[i].beenHit() == true)
+					{
+						return true;
+					}
+				}
+			}
+			else
+			{
+				//Check to see if ALL switches are active
+				for(int i = 0; i < m_Switches.Length; i++)
+				{
+					if(m_Switches[i].beenHit() != true)
+					{
+						return false;
+					}
+				}
+				return true;
+			}
+		}
+		else
+		{
+			//Check the enemy spawners
+			if(CheckSpawners())
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		return false;
+	}
+
 	//An additional function that will check enemy spawners
 	//if the activatable is triggered by enemy deaths
 	bool CheckSpawners() 
