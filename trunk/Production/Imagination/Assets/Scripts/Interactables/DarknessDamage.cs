@@ -32,11 +32,27 @@ public class DarknessDamage : MonoBehaviour
 	//onTriggerEnter damage the destructable if there is one
     void OnTriggerEnter(Collider obj)
     {
+		GameObject otherObject = obj.gameObject;
+
+		//When an enemy enters a darkness, they die
+		if (otherObject.tag == Constants.ENEMY_STRING)
+		{
+			//Kill the enemy
+			Destructable destructable = otherObject.GetComponent<Destructable>();
+			if (destructable != null)
+			{
+				destructable.instantKill();
+			}
+			Debug.Log("Darkness");
+			return;
+		}
+
+		//Otherwise damage a player
         Destructable objDestructable = (Destructable)obj.GetComponentInChildren<Destructable>();
         if (objDestructable != null)
         {
             objDestructable.onHit(new EnemyProjectile(), Vector3.zero);
-        }
+		}
     }
 
 	//OnTriggerStay damage the destructable if there is one
