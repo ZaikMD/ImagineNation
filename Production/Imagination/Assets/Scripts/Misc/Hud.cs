@@ -51,6 +51,10 @@ public class Hud : MonoBehaviour
 	Texture[] m_PlayerTwoHealthImages;
 
 	HudNumbers m_NumbersDrawer;
+		
+	Texture m_Divider;
+	Vector2 m_DividerPos = new Vector2(0.4975f, 0.0f);
+	Vector2 m_DividerScale = new Vector2 (0.005f, 1.0f);
 
 	void OnLoad()
 	{
@@ -151,6 +155,8 @@ public class Hud : MonoBehaviour
 		m_PuzzlePieceHudImages[4] = (Texture)Resources.Load(Constants.HudImages.PUZZLEPIECE_FOUR_IMAGE);
 		m_PuzzlePieceHudImages[5] = (Texture)Resources.Load(Constants.HudImages.PUZZLEPIECE_FIVE_IMAGE);
 		m_PuzzlePieceHudImages[6] = (Texture)Resources.Load(Constants.HudImages.PUZZLEPIECE_SIX_IMAGE);
+	
+		m_Divider = Resources.Load<Texture> (Constants.HudImages.HUD_DIVIDER);
 	}
 
 	// Update is called once per frame
@@ -282,6 +288,9 @@ public class Hud : MonoBehaviour
     void OnGUI()
     {
         if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
+
+		GUI.DrawTexture (new Rect (Screen.width * m_DividerPos.x, Screen.height * m_DividerPos.y,
+		                          Screen.width * m_DividerScale.x, Screen.height * m_DividerScale.y), m_Divider, ScaleMode.StretchToFill);
 
 		float SizeOfHudElements = Screen.width / 10;
 		Rect PositionRect = new Rect(0, 0, SizeOfHudElements, SizeOfHudElements);

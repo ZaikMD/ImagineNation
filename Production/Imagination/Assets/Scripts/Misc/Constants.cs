@@ -133,6 +133,8 @@ public static class Constants
 		public const string LEFT_HEALTH_BOARDER = "HUD_textures/HealthBoarders/PortraitBorderLeft";
 		public const string RIGHT_HEALTH_BOARDER = "HUD_textures/HealthBoarders/PortraitBorderRight";
 
+		public const string HUD_DIVIDER = "HUD textures/WindowBorder";
+
 //Alex hud images
 		public const string ALEX_FULL_HEALTH_IMAGE = "HUD_textures/PlayerHealth/Alex/Alex";
 		public const string ALEX_INJURED_HEALTH_IMAGE = "HUD_textures/PlayerHealth/Alex/AlexInjured";
