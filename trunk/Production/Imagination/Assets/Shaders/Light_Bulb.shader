@@ -188,7 +188,7 @@ Shader "Production/Light_Bulb"
             	
             	//Shading
             	float diffuseShading = max(0.0, dot(normalize(normalDirection), -lightDirection));
-            	float specularShading = max(0.0, pow(dot(normalize(normalDirection + viewDirection), -lightDirection), _Gloss));
+            	float specularShading = max(0.0, pow(dot(normalize(normalDirection), viewDirection), _Gloss));
             	float attenuation = distShading * newOpacity * (diffuseShading * _DiffuseLightingStrength + specularShading);
             	
             	//Return the colour of illumination to add to this fragments current color
