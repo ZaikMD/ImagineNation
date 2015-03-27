@@ -11,6 +11,7 @@ public class AnimatorEnemyBase : AnimatorController
     protected const float CROSS_FADE_LENGTH = 0.1f;
     protected const float CROSS_FADE_TIMER = 0.2f;
     protected float m_CrossfadeTimer = 0.0f;
+	protected bool m_IsPlayingSound;
 
     public override void playAnimation(string animationName)
     {
@@ -35,5 +36,6 @@ public class AnimatorEnemyBase : AnimatorController
 
         if (m_CrossfadeTimer > 0.0f)
             m_CrossfadeTimer -= Time.deltaTime;
+	
     }
 }

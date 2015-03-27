@@ -181,23 +181,6 @@ public class SFXManager : MonoBehaviour
 	//	PlaySong();
     }
 
-    /// <summary>
-    /// Start this instance.
-	/// using Start to load for testing, OnLevelLoad in future
-    /// </summary>
-	void Start ()
-    {
-
-#if DEBUG || UNITY_EDITOR
-		//TODO: Delete for finale product, Onload will handle. OnLoad does not run when playing scene in editor
-		//Load all sounds
-		loadMenuSounds();
-		loadMusicSounds();
-        loadOtherSounds();
-	//	PlaySong();
-#endif
-
-	}
 
     bool soundExists(Sounds key)
     {
