@@ -28,7 +28,7 @@ public class RandomSpin : MonoBehaviour
 
 	//Magnitude of rotation
 	public Vector3 m_MaxRandomizedSpeed;
-	Vector3 m_RandomizedSpeedMagnitude = Vector3.one;
+	public Vector3 m_RandomizedSpeedMagnitude = Vector3.one;
 	public Vector3 m_ConstantSpeed = new Vector3 (0.0f, 0.0f, 50.0f);
 
 	public bool UseRandomConstantSpeed;
@@ -63,7 +63,6 @@ public class RandomSpin : MonoBehaviour
 		if(RandomizeYAxis)
 		{
 			Y = Random.Range (0.0f, 360.0f);
-			//Debug.Log(Y);
 		}
 		else
 		{
@@ -84,14 +83,12 @@ public class RandomSpin : MonoBehaviour
 			float x = Random.Range(m_MinConstantSpeed.x, m_MaxConstantSpeed.x);
 			float y = Random.Range(m_MinConstantSpeed.y, m_MaxConstantSpeed.y);
 			float z = Random.Range(m_MinConstantSpeed.z, m_MaxConstantSpeed.z);
-
 			m_ConstantSpeed.Set(x, y, z);
 		}
 
 
 		//Set the initial rotation to something random
 		transform.rotation = new Quaternion(X, Y, Z, 1.0f);
-
 		transform.Rotate(transform.rotation.x, Y, transform.rotation.z);
 
 		//Set the new speed of the object
@@ -99,7 +96,6 @@ public class RandomSpin : MonoBehaviour
 
 		//Set timers and magnitude to be random for each peg
 		i_Delay = new Vector3 (Random.Range (0.0f, MAX_DELAY), Random.Range (0.0f, MAX_DELAY), Random.Range (0.0f, MAX_DELAY));
-		m_RandomizedSpeedMagnitude = new Vector3 (Random.Range (0.0f, m_MaxRandomizedSpeed.x), Random.Range (0.0f, m_MaxRandomizedSpeed.y), Random.Range (0.0f, m_MaxRandomizedSpeed.z));
 
 		//Set the timer
 		m_Timer = i_Delay;
@@ -109,33 +105,34 @@ public class RandomSpin : MonoBehaviour
 	protected void Update () 
 	{
 		//Rotate the object
-		if(!RandomizeOnlyAtStart)
 		transform.Rotate (m_RandomizedSpeedMagnitude * Time.deltaTime);
 
-		transform.Rotate (m_ConstantSpeed * Time.deltaTime);
-
-		//Update timers
-		m_Timer.x -= Time.deltaTime;
-		m_Timer.y -= Time.deltaTime;
-
-		if(m_Timer.x < 0.0f)
+		//If we should continue to randomize the speed
+		if (!RandomizeOnlyAtStart)
 		{
-			newSpeedX();
-			m_Timer.x = i_Delay.x;
-		}
+			//Update timers
+			m_Timer.x -= Time.deltaTime;
+			m_Timer.y -= Time.deltaTime;
+			m_Timer.z -= Time.deltaTime;
 
-		if(m_Timer.y < 0.0f)
-		{
-			newSpeedY();
-			m_Timer.y = i_Delay.y;
-		}
+			if(m_Timer.x < 0.0f)
+			{
+				newSpeedX();
+				m_Timer.x = i_Delay.x;
+			}
 
-		if(m_Timer.z < 0.0f)
-		{
-			newSpeedZ();
-			m_Timer.z = i_Delay.z;
-		}
+			if(m_Timer.y < 0.0f)
+			{
+				newSpeedY();
+				m_Timer.y = i_Delay.y;
+			}
 
+			if(m_Timer.z < 0.0f)
+			{
+				newSpeedZ();
+				m_Timer.z = i_Delay.z;
+			}
+		}
 	}
 
 	//Set a new speed
@@ -151,11 +148,11 @@ public class RandomSpin : MonoBehaviour
 	{
 		if(RandomizeXAxis)
 		{
-			m_RandomizedSpeedMagnitude.x = Random.Range (0.0f, m_MaxRandomizedSpeed.x);
+			m_RandomizedSpeedMagnitude.x = Random.Range (0.0f, m_MaxRandomizedSpeed.x) + m_ConstantSpeed.x;
 		}
 		else
 		{
-			m_RandomizedSpeedMagnitude.x = 0;
+			m_RandomizedSpeedMagnitude.x = m_ConstantSpeed.x;
 		}		
 	}
 
@@ -164,11 +161,11 @@ public class RandomSpin : MonoBehaviour
 	{
 		if(RandomizeZAxis)
 		{
-			m_RandomizedSpeedMagnitude.z = Random.Range (0.0f, m_MaxRandomizedSpeed.z);
+			m_RandomizedSpeedMagnitude.z = Random.Range (0.0f, m_MaxRandomizedSpeed.z) + m_ConstantSpeed.z;
 		}
 		else
 		{
-			m_RandomizedSpeedMagnitude.z = 0;
+			m_RandomizedSpeedMagnitude.z = m_ConstantSpeed.z;
 		}
 	}
 
@@ -176,11 +173,11 @@ public class RandomSpin : MonoBehaviour
 	{
 		if(RandomizeYAxis)
 		{
-			m_RandomizedSpeedMagnitude.y = Random.Range (0.0f, m_MaxRandomizedSpeed.y);
+			m_RandomizedSpeedMagnitude.y = Random.Range (0.0f, m_MaxRandomizedSpeed.y) + m_ConstantSpeed.y;
 		}
 		else
 		{
-			m_RandomizedSpeedMagnitude.y = 0;
+			m_RandomizedSpeedMagnitude.y = m_ConstantSpeed.y;
 		}
 
 	}
