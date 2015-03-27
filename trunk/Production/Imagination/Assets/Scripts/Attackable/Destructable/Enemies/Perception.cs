@@ -48,6 +48,9 @@ public class Perception : MonoBehaviour
 
     const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
 
+	const float UPDATE_DELAY = 0.3f;
+	float m_UpdateTimer = 0.0f;
+
     void Start()
     {
         m_Players = new Perception_Player[PlayerInfo.PlayerList.Count];
@@ -59,6 +62,16 @@ public class Perception : MonoBehaviour
 
     void Update()
     {
+		if(m_UpdateTimer > 0.0f)
+		{
+			m_UpdateTimer -= Time.deltaTime;
+			return;
+		}
+		else
+		{
+			m_UpdateTimer = UPDATE_DELAY;
+		}
+
         if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 
         for (int i = 0; i < m_Players.Length; i++)
