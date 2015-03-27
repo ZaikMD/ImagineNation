@@ -55,10 +55,7 @@ public class BeanBagLauncher : Destructable
 
 	public float m_LightHeight;
 	public GameObject m_BulletPrefab;
-	public Animation m_Anim;
-
-	public AnimationClip m_ChargeAndShoot;
-	public AnimationClip m_Death;
+	public AnimatorMusicalMortar m_Animator;
 
 	private float m_CurrentAimTime;
 	private float m_CurrentChargeTime;
@@ -191,7 +188,7 @@ public class BeanBagLauncher : Destructable
 	
 	void UpdateCharge()
 	{
-		m_Anim.Play("ChargeAndShoot");
+		m_Animator.playAnimation (AnimatorMusicalMortar.Animations.Shooting);
 		FlashCrosshair(); //Turns the crosshair on and off, based on a timer.
 		PaintTarget(); // move the cross hairs to the launch location.
 		if(m_CurrentChargeTime < 0) // checks if we are done charging.
@@ -526,10 +523,47 @@ public class BeanBagLauncher : Destructable
 	{
 		if(!m_HasAlreadyDead)
 		{
-			m_Anim.Play(m_Death.name);
+			m_Animator.playAnimation(AnimatorMusicalMortar.Animations.Dying);
 			m_CurrentState = TimingStates.Dead;
 			m_HasAlreadyDead = true;
 			m_CurrentDeathTime = m_DeathTime;
+		}
+	}
+
+	public override void onHit(LightCollider proj, float damage)
+	{
+		if (this.tag != Constants.PLAYER_STRING)
+		{
+			m_Health -= damage; 
+			m_Animator.playAnimation(AnimatorMusicalMortar.Animations.Hit);
+		}
+	}
+	
+	public override void onHit(HeavyCollider proj, float damage)
+	{
+		if (this.tag != Constants.PLAYER_STRING)
+		{
+			m_Health -= damage; 
+			m_Animator.playAnimation(AnimatorMusicalMortar.Animations.Hit);
+		}
+	}
+	
+	public override void onHit(EnemyProjectile proj)
+	{
+		if (this.tag == Constants.PLAYER_STRING)
+		{
+			m_Health -= ENEMY_DAMAGE;
+			m_Animator.playAnimation(AnimatorMusicalMortar.Animations.Hit);
+		}
+		
+	}
+	
+	public override void onHit(EnemyProjectile proj, Vector3 KnockBackDirection)
+	{
+		if (this.tag == Constants.PLAYER_STRING)
+		{
+			m_Health -= ENEMY_DAMAGE;
+			m_Animator.playAnimation(AnimatorMusicalMortar.Animations.Hit);
 		}
 	}
 }
