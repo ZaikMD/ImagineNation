@@ -228,6 +228,7 @@ public static class Constants
 		public const string ZOEY_WINGS_OPEN = "Sounds/Zoey/Wings_Open";
 		public const string ZOEY_WINGS_CLOSE =  "Sounds/Zoey/Wings_Close";
 		public const string ZOEY_WINGS_DEPLOY =  "Sounds/Zoey/Wings_Deploy";
+		public const string ZOEY_ATTACK_AOE = "Sounds/NewSounds/Zoey/Zoey_AOE_Attack";
 
 		//Enemy sounds
 		public const string MAGE_SHOOT =  "Sounds/NewSounds/Enemy/GnomeMage_Attack";

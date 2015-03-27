@@ -36,6 +36,7 @@ public class AlexWeapon : BaseWeapon
 
 			}
 		}
+		m_SFX.playSound(this.transform, Sounds.AlexWhirlWind);
 
 	}
 
