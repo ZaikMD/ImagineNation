@@ -20,7 +20,8 @@ using System.Collections;
 public class PlayerSpawner : MonoBehaviour 
 {
 	public static PlayerSpawner Instance{ get; private set; }
-	
+
+
 	void Awake()
 	{
 		//if theres another instance (there shouldnt be) destroy this
