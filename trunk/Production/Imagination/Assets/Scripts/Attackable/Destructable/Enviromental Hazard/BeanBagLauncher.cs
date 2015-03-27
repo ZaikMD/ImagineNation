@@ -188,6 +188,9 @@ public class BeanBagLauncher : Destructable
 	
 	void UpdateCharge()
 	{
+        if (m_HasAlreadyDead)
+            return;
+
 		m_Animator.playAnimation (AnimatorMusicalMortar.Animations.Shooting);
 		FlashCrosshair(); //Turns the crosshair on and off, based on a timer.
 		PaintTarget(); // move the cross hairs to the launch location.
@@ -409,6 +412,9 @@ public class BeanBagLauncher : Destructable
 	//if no current target, sets the player entering to current target.
 	void OnTriggerEnter(Collider other)
 	{
+        if (m_HasAlreadyDead)
+            return;
+
 		//check if other is player.
 		if(other.tag != Constants.PLAYER_STRING)
 			return;
@@ -455,6 +461,9 @@ public class BeanBagLauncher : Destructable
 
 	void OnTriggerExit(Collider other)
 	{
+        if (m_HasAlreadyDead)
+            return;
+
 		//local varibale.
 		Characters OtherCharacter = Characters.Alex;
 		short tempCharcater;
@@ -535,7 +544,8 @@ public class BeanBagLauncher : Destructable
 		if (this.tag != Constants.PLAYER_STRING)
 		{
 			m_Health -= damage; 
-			m_Animator.playAnimation(AnimatorMusicalMortar.Animations.Hit);
+            if(!m_HasAlreadyDead)
+			    m_Animator.playAnimation(AnimatorMusicalMortar.Animations.Hit);
 		}
 	}
 	
@@ -543,8 +553,9 @@ public class BeanBagLauncher : Destructable
 	{
 		if (this.tag != Constants.PLAYER_STRING)
 		{
-			m_Health -= damage; 
-			m_Animator.playAnimation(AnimatorMusicalMortar.Animations.Hit);
+			m_Health -= damage;
+            if (!m_HasAlreadyDead)
+			    m_Animator.playAnimation(AnimatorMusicalMortar.Animations.Hit);
 		}
 	}
 	
@@ -553,7 +564,8 @@ public class BeanBagLauncher : Destructable
 		if (this.tag == Constants.PLAYER_STRING)
 		{
 			m_Health -= ENEMY_DAMAGE;
-			m_Animator.playAnimation(AnimatorMusicalMortar.Animations.Hit);
+            if (!m_HasAlreadyDead)
+			    m_Animator.playAnimation(AnimatorMusicalMortar.Animations.Hit);
 		}
 		
 	}
@@ -563,7 +575,8 @@ public class BeanBagLauncher : Destructable
 		if (this.tag == Constants.PLAYER_STRING)
 		{
 			m_Health -= ENEMY_DAMAGE;
-			m_Animator.playAnimation(AnimatorMusicalMortar.Animations.Hit);
+            if (!m_HasAlreadyDead)
+			    m_Animator.playAnimation(AnimatorMusicalMortar.Animations.Hit);
 		}
 	}
 }
