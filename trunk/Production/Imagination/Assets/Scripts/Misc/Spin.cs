@@ -24,11 +24,15 @@ public class Spin : MonoBehaviour
 
 	//the euler angles 
 	public Vector3 m_EulerAngles;
+	
+	Quaternion m_OriginalRotation;
 
 	protected void Start()
 	{
 		//set the initial euler angles
 		m_EulerAngles = transform.eulerAngles;
+
+		m_OriginalRotation = gameObject.transform.rotation;
 	}
 
 	// Update is called once per frame
@@ -38,5 +42,10 @@ public class Spin : MonoBehaviour
 		m_EulerAngles += (Speed * Time.deltaTime);
 		//set the euler angles
 		transform.eulerAngles = m_EulerAngles;
+	}
+
+	public void resetAngles()
+	{
+		m_EulerAngles = m_OriginalRotation.eulerAngles;
 	}
 }
