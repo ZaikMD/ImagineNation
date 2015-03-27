@@ -1,0 +1,764 @@
+fileFormatVersion: 2
+guid: 39f830c0f5902eb4a9835e1d37d86ba0
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: Dummy004
+    100002: //RootNode
+    100004: GnomeMage001
+    100006: Hair
+    100008: hat
+    100010: MarineHead
+    100012: MarineLArmCollarbone
+    100014: MarineLArmDigit01
+    100016: MarineLArmDigit02
+    100018: MarineLArmDigit03
+    100020: MarineLArmDigit11
+    100022: MarineLArmDigit12
+    100024: MarineLArmDigit13
+    100026: MarineLArmDigit21
+    100028: MarineLArmDigit22
+    100030: MarineLArmDigit23
+    100032: MarineLArmDigit31
+    100034: MarineLArmDigit32
+    100036: MarineLArmDigit33
+    100038: MarineLArmForearm1
+    100040: MarineLArmForearm2
+    100042: MarineLArmPalm
+    100044: MarineLArmUpperarm
+    100046: MarineLLegAnkle
+    100048: MarineLLegCalf
+    100050: MarineLLegThigh
+    100052: MarineLLegToe
+    100054: MarineNeck1
+    100056: MarineNeck2
+    100058: MarinePelvis
+    100060: MarineRAnkle
+    100062: MarineRCalf
+    100064: MarineRCollarbone
+    100066: MarineRDigit01
+    100068: MarineRDigit02
+    100070: MarineRDigit03
+    100072: MarineRDigit11
+    100074: MarineRDigit12
+    100076: MarineRDigit13
+    100078: MarineRDigit21
+    100080: MarineRDigit22
+    100082: MarineRDigit23
+    100084: MarineRDigit31
+    100086: MarineRDigit32
+    100088: MarineRDigit33
+    100090: MarineRForearm1
+    100092: MarineRForearm2
+    100094: MarineRibcage
+    100096: MarineRPalm
+    100098: MarineRThigh
+    100100: MarineRToe
+    100102: MarineRUpperarm
+    100104: MarineSpine1
+    100106: MarineSpine2
+    100108: MarineSpine3
+    100110: Object
+    100112: Object010
+    100114: Robe001
+    400000: Dummy004
+    400002: //RootNode
+    400004: GnomeMage001
+    400006: Hair
+    400008: hat
+    400010: MarineHead
+    400012: MarineLArmCollarbone
+    400014: MarineLArmDigit01
+    400016: MarineLArmDigit02
+    400018: MarineLArmDigit03
+    400020: MarineLArmDigit11
+    400022: MarineLArmDigit12
+    400024: MarineLArmDigit13
+    400026: MarineLArmDigit21
+    400028: MarineLArmDigit22
+    400030: MarineLArmDigit23
+    400032: MarineLArmDigit31
+    400034: MarineLArmDigit32
+    400036: MarineLArmDigit33
+    400038: MarineLArmForearm1
+    400040: MarineLArmForearm2
+    400042: MarineLArmPalm
+    400044: MarineLArmUpperarm
+    400046: MarineLLegAnkle
+    400048: MarineLLegCalf
+    400050: MarineLLegThigh
+    400052: MarineLLegToe
+    400054: MarineNeck1
+    400056: MarineNeck2
+    400058: MarinePelvis
+    400060: MarineRAnkle
+    400062: MarineRCalf
+    400064: MarineRCollarbone
+    400066: MarineRDigit01
+    400068: MarineRDigit02
+    400070: MarineRDigit03
+    400072: MarineRDigit11
+    400074: MarineRDigit12
+    400076: MarineRDigit13
+    400078: MarineRDigit21
+    400080: MarineRDigit22
+    400082: MarineRDigit23
+    400084: MarineRDigit31
+    400086: MarineRDigit32
+    400088: MarineRDigit33
+    400090: MarineRForearm1
+    400092: MarineRForearm2
+    400094: MarineRibcage
+    400096: MarineRPalm
+    400098: MarineRThigh
+    400100: MarineRToe
+    400102: MarineRUpperarm
+    400104: MarineSpine1
+    400106: MarineSpine2
+    400108: MarineSpine3
+    400110: Object
+    400112: Object010
+    400114: Robe001
+    2300000: Hair
+    2300002: hat
+    2300004: Object
+    2300006: Object010
+    3300000: Hair
+    3300002: hat
+    3300004: Object
+    3300006: Object010
+    4300000: GnomeMage001
+    4300002: Robe001
+    4300004: hat
+    4300006: Hair
+    4300008: Object010
+    4300010: Object
+    7400000: Idle
+    7400002: Attack Right Arm
+    7400004: Attack Left Arm
+    7400006: Clone
+    9500000: //RootNode
+    13700000: GnomeMage001
+    13700002: Robe001
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Idle
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 50
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Dummy004
+        weight: 1
+      - path: Dummy004/MarinePelvis
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineLLegThigh
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineLLegThigh/MarineLLegCalf
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineLLegThigh/MarineLLegCalf/MarineLLegAnkle
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineLLegThigh/MarineLLegCalf/MarineLLegAnkle/MarineLLegToe
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineRThigh
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineRThigh/MarineRCalf
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineRThigh/MarineRCalf/MarineRAnkle
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineRThigh/MarineRCalf/MarineRAnkle/MarineRToe
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit01
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit01/MarineLArmDigit02
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit01/MarineLArmDigit02/MarineLArmDigit03
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit11
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit11/MarineLArmDigit12
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit11/MarineLArmDigit12/MarineLArmDigit13
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit21
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit21/MarineLArmDigit22
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit21/MarineLArmDigit22/MarineLArmDigit23
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit31
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit31/MarineLArmDigit32
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit31/MarineLArmDigit32/MarineLArmDigit33
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2/MarineHead
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2/MarineHead/hat
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2/MarineHead/hat/Hair
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2/MarineHead/hat/Object
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2/MarineHead/hat/Object010
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit01
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit01/MarineRDigit02
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit01/MarineRDigit02/MarineRDigit03
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit11
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit11/MarineRDigit12
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit11/MarineRDigit12/MarineRDigit13
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit21
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit21/MarineRDigit22
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit21/MarineRDigit22/MarineRDigit23
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit31
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit31/MarineRDigit32
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit31/MarineRDigit32/MarineRDigit33
+        weight: 1
+      - path: GnomeMage001
+        weight: 1
+      - path: Robe001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Attack Right Arm
+      takeName: Take 001
+      firstFrame: 50
+      lastFrame: 80
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Dummy004
+        weight: 1
+      - path: Dummy004/MarinePelvis
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineLLegThigh
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineLLegThigh/MarineLLegCalf
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineLLegThigh/MarineLLegCalf/MarineLLegAnkle
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineLLegThigh/MarineLLegCalf/MarineLLegAnkle/MarineLLegToe
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineRThigh
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineRThigh/MarineRCalf
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineRThigh/MarineRCalf/MarineRAnkle
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineRThigh/MarineRCalf/MarineRAnkle/MarineRToe
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit01
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit01/MarineLArmDigit02
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit01/MarineLArmDigit02/MarineLArmDigit03
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit11
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit11/MarineLArmDigit12
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit11/MarineLArmDigit12/MarineLArmDigit13
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit21
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit21/MarineLArmDigit22
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit21/MarineLArmDigit22/MarineLArmDigit23
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit31
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit31/MarineLArmDigit32
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit31/MarineLArmDigit32/MarineLArmDigit33
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2/MarineHead
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2/MarineHead/hat
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2/MarineHead/hat/Hair
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2/MarineHead/hat/Object
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2/MarineHead/hat/Object010
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit01
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit01/MarineRDigit02
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit01/MarineRDigit02/MarineRDigit03
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit11
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit11/MarineRDigit12
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit11/MarineRDigit12/MarineRDigit13
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit21
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit21/MarineRDigit22
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit21/MarineRDigit22/MarineRDigit23
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit31
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit31/MarineRDigit32
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit31/MarineRDigit32/MarineRDigit33
+        weight: 1
+      - path: GnomeMage001
+        weight: 1
+      - path: Robe001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Attack Left Arm
+      takeName: Take 001
+      firstFrame: 100
+      lastFrame: 130
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Dummy004
+        weight: 1
+      - path: Dummy004/MarinePelvis
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineLLegThigh
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineLLegThigh/MarineLLegCalf
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineLLegThigh/MarineLLegCalf/MarineLLegAnkle
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineLLegThigh/MarineLLegCalf/MarineLLegAnkle/MarineLLegToe
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineRThigh
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineRThigh/MarineRCalf
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineRThigh/MarineRCalf/MarineRAnkle
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineRThigh/MarineRCalf/MarineRAnkle/MarineRToe
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit01
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit01/MarineLArmDigit02
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit01/MarineLArmDigit02/MarineLArmDigit03
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit11
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit11/MarineLArmDigit12
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit11/MarineLArmDigit12/MarineLArmDigit13
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit21
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit21/MarineLArmDigit22
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit21/MarineLArmDigit22/MarineLArmDigit23
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit31
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit31/MarineLArmDigit32
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit31/MarineLArmDigit32/MarineLArmDigit33
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2/MarineHead
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2/MarineHead/hat
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2/MarineHead/hat/Hair
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2/MarineHead/hat/Object
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2/MarineHead/hat/Object010
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit01
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit01/MarineRDigit02
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit01/MarineRDigit02/MarineRDigit03
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit11
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit11/MarineRDigit12
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit11/MarineRDigit12/MarineRDigit13
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit21
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit21/MarineRDigit22
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit21/MarineRDigit22/MarineRDigit23
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit31
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit31/MarineRDigit32
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit31/MarineRDigit32/MarineRDigit33
+        weight: 1
+      - path: GnomeMage001
+        weight: 1
+      - path: Robe001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Clone
+      takeName: Take 001
+      firstFrame: 140
+      lastFrame: 170
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Dummy004
+        weight: 1
+      - path: Dummy004/MarinePelvis
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineLLegThigh
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineLLegThigh/MarineLLegCalf
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineLLegThigh/MarineLLegCalf/MarineLLegAnkle
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineLLegThigh/MarineLLegCalf/MarineLLegAnkle/MarineLLegToe
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineRThigh
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineRThigh/MarineRCalf
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineRThigh/MarineRCalf/MarineRAnkle
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineRThigh/MarineRCalf/MarineRAnkle/MarineRToe
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit01
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit01/MarineLArmDigit02
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit01/MarineLArmDigit02/MarineLArmDigit03
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit11
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit11/MarineLArmDigit12
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit11/MarineLArmDigit12/MarineLArmDigit13
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit21
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit21/MarineLArmDigit22
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit21/MarineLArmDigit22/MarineLArmDigit23
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit31
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit31/MarineLArmDigit32
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit31/MarineLArmDigit32/MarineLArmDigit33
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2/MarineHead
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2/MarineHead/hat
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2/MarineHead/hat/Hair
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2/MarineHead/hat/Object
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2/MarineHead/hat/Object010
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit01
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit01/MarineRDigit02
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit01/MarineRDigit02/MarineRDigit03
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit11
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit11/MarineRDigit12
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit11/MarineRDigit12/MarineRDigit13
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit21
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit21/MarineRDigit22
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit21/MarineRDigit22/MarineRDigit23
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit31
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit31/MarineRDigit32
+        weight: 1
+      - path: Dummy004/MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit31/MarineRDigit32/MarineRDigit33
+        weight: 1
+      - path: GnomeMage001
+        weight: 1
+      - path: Robe001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
