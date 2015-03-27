@@ -15,10 +15,18 @@ using System.Collections;
 [RequireComponent(typeof(NavMeshAgent))]
 public class EnemyWithMovement : EnemyAI
 {
+	
+
 	//Public Transform to add PathNodes to the object
 	public Transform[] m_PathNodes;
 
     const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
+
+	protected override void Start ()
+	{
+		m_SFX = SFXManager.Instance;
+		base.Start ();
+	}
 
 	//FixedUpdate to go by time
 	public override void FixedUpdate ()
@@ -36,5 +44,15 @@ public class EnemyWithMovement : EnemyAI
 	public NavMeshAgent GetAgent
 	{
 		get { return gameObject.GetComponent<NavMeshAgent>();}
+	}
+
+	protected override void onDeath ()
+	{
+		if(m_SFX != null)
+		{
+			m_SFX.playSound(this.transform, Sounds.EnemyDeath); 
+		}
+		base.onDeath ();
+
 	}
 }

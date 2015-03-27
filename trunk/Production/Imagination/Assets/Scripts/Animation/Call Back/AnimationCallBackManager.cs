@@ -14,7 +14,8 @@ public enum CallBackEvents
     EnemyAttack,
 	FootStep_Zoe,
 	FootStep_Alex,
-	FootStep_Derek
+	FootStep_Derek,
+	FurbullFootstep,
 };
 
 public interface CallBack
@@ -35,7 +36,8 @@ public class AnimationCallBackManager : MonoBehaviour
         "EnemyAttack",
 		"FootStep_Zoe",
 		"FootStep_Alex",
-		"FootStep_Derek"
+		"FootStep_Derek",
+		"FurbullFootstep"
     };
 
     protected List<CallBack> m_Listeners = new List<CallBack>();

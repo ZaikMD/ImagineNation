@@ -24,7 +24,7 @@ public class Destructable : MonoBehaviour, Attackable
     public float m_Health;
     public GameObject m_Ragdoll;
 	public float m_RagdollHeightOffset;
-	public SFXManager m_SFX;
+	protected SFXManager m_SFX;
 
 	protected const float ENEMY_DAMAGE = 1.0f;
 

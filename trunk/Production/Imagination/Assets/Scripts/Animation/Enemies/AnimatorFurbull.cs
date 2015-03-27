@@ -2,8 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class AnimatorFurbull : AnimatorEnemyBase 
+public class AnimatorFurbull : AnimatorEnemyBase , CallBack
 {
+	SFXManager m_SFX;
+
     public enum Animations
     {
         Idle,
@@ -15,6 +17,9 @@ public class AnimatorFurbull : AnimatorEnemyBase
 	protected override void Start () 
     {
         base.Start();
+
+		m_SFX = SFXManager.Instance;
+		GetComponentInChildren<AnimationCallBackManager>().registerCallBack(this);
 
         m_States = new string[]
         {
@@ -40,6 +45,12 @@ public class AnimatorFurbull : AnimatorEnemyBase
         m_StatesDitctionary[m_States[(int)Animations.Attack]].Add("Head Butt");
 	}
 
+	protected override void Update()
+	{
+		base.Update ();
+		m_IsPlayingSound = false;
+	}
+
     public virtual void playAnimation(Animations animation)
     {
         playAnimation(m_States[(int)animation]);
@@ -62,4 +73,21 @@ public class AnimatorFurbull : AnimatorEnemyBase
         i_Animator.CrossFade(m_StatesDitctionary[animationName][Random.Range(0, m_StatesDitctionary[animationName].Count)], CROSS_FADE_LENGTH);
         m_Timer = i_Animator.GetCurrentAnimatorStateInfo(0).length;
     }
+
+	public void CallBack(CallBackEvents callBackEvents)
+	{
+		switch (callBackEvents) 
+		{
+		case CallBackEvents.FurbullFootstep:
+			if(m_IsPlayingSound == false)
+			{
+				//temporary muted until a solution for not having "popcorn" like sound effects from hordes of furbulls
+				//m_SFX.playSound(this.transform, Sounds.FurbullHop);
+				//m_IsPlayingSound = true;
+			}
+			break;
+		}
+
+	}
+
 }
