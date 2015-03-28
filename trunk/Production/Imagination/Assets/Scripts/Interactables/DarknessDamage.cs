@@ -43,7 +43,6 @@ public class DarknessDamage : MonoBehaviour
 			{
 				destructable.instantKill();
 			}
-			Debug.Log("Darkness");
 			return;
 		}
 
