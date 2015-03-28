@@ -34,6 +34,10 @@ public class BaseGoal : MonoBehaviour
 	public bool m_PlayerInGoalPrompt;
 	public bool m_PlayerOutOfGoalPrompt;
 
+	private bool m_Loading = false;
+
+	public ScreenFade m_Fader;
+
 	protected bool[] m_AtEnd = new bool[2];
 	//protected float m_Speed;
 
@@ -149,13 +153,33 @@ public class BaseGoal : MonoBehaviour
 	//Loads the next level
 	public void LoadNext()
 	{
-		GameData.Instance.CurrentLevel = m_NextLevel;
-		GameData.Instance.CurrentSection = m_NextSection;
-		//Tell Game Data to load next level
-		GameData.Instance.resetCheckPoint (); //Reset the checkpoint
-		GameData.Instance.FirstTimePlayingLevel = true;// reset first time playing
+		if(m_Loading)
+		{
+			return;
+		}
 
-		Application.LoadLevel (Constants.LOADING_SCREEN); // load the next level
+		if(m_Fader != null)
+		{
+			GameData.Instance.CurrentLevel = m_NextLevel;
+			GameData.Instance.CurrentSection = m_NextSection;
+			//Tell Game Data to load next level
+			GameData.Instance.resetCheckPoint (); //Reset the checkpoint
+			GameData.Instance.FirstTimePlayingLevel = true;// reset first time playing
+			m_Fader.BeginFadeOut();
+			m_Loading = true;
+			return;
+		}
+		else
+		{
+			GameData.Instance.CurrentLevel = m_NextLevel;
+			GameData.Instance.CurrentSection = m_NextSection;
+			//Tell Game Data to load next level
+			GameData.Instance.resetCheckPoint (); //Reset the checkpoint
+			GameData.Instance.FirstTimePlayingLevel = true;// reset first time playing
+
+			Application.LoadLevel (Constants.LOADING_SCREEN); // load the next level
+		}
+		
 	}
 
 	//Increment waiting player count so that it knows how many people are waiting to change level

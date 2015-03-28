@@ -1174,7 +1174,615 @@ ModelImporter:
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: -40
+      lastFrame: 410
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: .918918908
+        functionName: callBack
+        data: Cutscene_Done
+        objectReferenceParameter: {fileID: 11500000, guid: 104c6651b64b5a24c981714b4505d5f5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Cam Dummy
+        weight: 1
+      - path: Cam Dummy/Cutscene Cam
+        weight: 1
+      - path: Coat003
+        weight: 1
+      - path: Cylinder001
+        weight: 1
+      - path: Dummy011
+        weight: 1
+      - path: Dummy011/Platform65
+        weight: 1
+      - path: Dummy011/Platform65/Platform01
+        weight: 1
+      - path: Dummy011/Platform65/Platform02
+        weight: 1
+      - path: Dummy011/Platform65/Platform03
+        weight: 1
+      - path: Dummy011/Platform65/Platform04
+        weight: 1
+      - path: Dummy011/Platform65/Platform05
+        weight: 1
+      - path: Dummy011/Platform65/Platform06
+        weight: 1
+      - path: Dummy011/Platform65/Platform07
+        weight: 1
+      - path: Dummy011/Platform65/Platform08
+        weight: 1
+      - path: Dummy011/Platform65/Platform09
+        weight: 1
+      - path: Dummy011/Platform65/Platform10
+        weight: 1
+      - path: Dummy011/Platform65/Platform36
+        weight: 1
+      - path: Dummy011/Platform65/Platform40
+        weight: 1
+      - path: Dummy011/Platform65/Platform42
+        weight: 1
+      - path: Dummy012
+        weight: 1
+      - path: Dummy012/Platform66
+        weight: 1
+      - path: Dummy012/Platform66/Platform20
+        weight: 1
+      - path: Dummy012/Platform66/Platform21
+        weight: 1
+      - path: Dummy012/Platform66/Platform22
+        weight: 1
+      - path: Dummy012/Platform66/Platform23
+        weight: 1
+      - path: Dummy012/Platform66/Platform24
+        weight: 1
+      - path: Dummy012/Platform66/Platform25
+        weight: 1
+      - path: Dummy012/Platform66/Platform32
+        weight: 1
+      - path: Dummy012/Platform66/Platform34
+        weight: 1
+      - path: Dummy012/Platform66/Platform37
+        weight: 1
+      - path: Dummy012/Platform66/Platform46
+        weight: 1
+      - path: Dummy012/Platform66/Platform47
+        weight: 1
+      - path: Dummy013
+        weight: 1
+      - path: Dummy013/Platform67
+        weight: 1
+      - path: Dummy013/Platform67/Platform48
+        weight: 1
+      - path: Dummy013/Platform67/Platform49
+        weight: 1
+      - path: Dummy013/Platform67/Platform50
+        weight: 1
+      - path: Dummy013/Platform67/Platform51
+        weight: 1
+      - path: Dummy013/Platform67/Platform52
+        weight: 1
+      - path: Dummy013/Platform67/Platform53
+        weight: 1
+      - path: Dummy014
+        weight: 1
+      - path: Dummy014/Platform64
+        weight: 1
+      - path: Dummy014/Platform64/Platform19
+        weight: 1
+      - path: Dummy014/Platform64/Platform26
+        weight: 1
+      - path: Dummy014/Platform64/Platform27
+        weight: 1
+      - path: Dummy014/Platform64/Platform28
+        weight: 1
+      - path: Dummy014/Platform64/Platform29
+        weight: 1
+      - path: Dummy014/Platform64/Platform30
+        weight: 1
+      - path: Dummy014/Platform64/Platform31
+        weight: 1
+      - path: Dummy014/Platform64/Platform33
+        weight: 1
+      - path: Dummy014/Platform64/Platform35
+        weight: 1
+      - path: Dummy014/Platform64/Platform38
+        weight: 1
+      - path: Dummy014/Platform64/Platform41
+        weight: 1
+      - path: Dummy014/Platform64/Platform45
+        weight: 1
+      - path: Dummy015
+        weight: 1
+      - path: Dummy015/Platform63
+        weight: 1
+      - path: Dummy015/Platform63/Platform11
+        weight: 1
+      - path: Dummy015/Platform63/Platform12
+        weight: 1
+      - path: Dummy015/Platform63/Platform13
+        weight: 1
+      - path: Dummy015/Platform63/Platform14
+        weight: 1
+      - path: Dummy015/Platform63/Platform15
+        weight: 1
+      - path: Dummy015/Platform63/Platform16
+        weight: 1
+      - path: Dummy015/Platform63/Platform17
+        weight: 1
+      - path: Dummy015/Platform63/Platform18
+        weight: 1
+      - path: Dummy015/Platform63/Platform39
+        weight: 1
+      - path: Dummy015/Platform63/Platform43
+        weight: 1
+      - path: Dummy015/Platform63/Platform44
+        weight: 1
+      - path: GnomeMage004
+        weight: 1
+      - path: MarineLLegPlatform
+        weight: 1
+      - path: MarinePelvis
+        weight: 1
+      - path: MarinePelvis/MarineLLeg1
+        weight: 1
+      - path: MarinePelvis/MarineSpine1
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit01
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit01/MarineLArmDigit02
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit01/MarineLArmDigit02/MarineLArmDigit03
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit11
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit11/MarineLArmDigit12
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit11/MarineLArmDigit12/MarineLArmDigit13
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit21
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit21/MarineLArmDigit22
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit21/MarineLArmDigit22/MarineLArmDigit23
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit31
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit31/MarineLArmDigit32
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineLArmCollarbone/MarineLArmUpperarm/MarineLArmForearm1/MarineLArmForearm2/MarineLArmPalm/MarineLArmDigit31/MarineLArmDigit32/MarineLArmDigit33
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2/MarineNeck3
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2/MarineNeck3/MarineHead
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2/MarineNeck3/MarineHead/MarineHeadBone001
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2/MarineNeck3/MarineHead/MarineHeadBone001/Object035
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2/MarineNeck3/MarineHead/Object034
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2/MarineNeck3/MarineHead/Sphere110
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineNeck1/MarineNeck2/Rollar003
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit01
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit01/MarineRDigit02
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit01/MarineRDigit02/MarineRDigit03
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit11
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit11/MarineRDigit12
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit11/MarineRDigit12/MarineRDigit13
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit21
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit21/MarineRDigit22
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit21/MarineRDigit22/MarineRDigit23
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit31
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit31/MarineRDigit32
+        weight: 1
+      - path: MarinePelvis/MarineSpine1/MarineSpine2/MarineSpine3/MarineRibcage/MarineRCollarbone/MarineRUpperarm/MarineRForearm1/MarineRForearm2/MarineRPalm/MarineRDigit31/MarineRDigit32/MarineRDigit33
+        weight: 1
+      - path: Platform55
+        weight: 1
+      - path: Platform55/Platform54
+        weight: 1
+      - path: Platform57
+        weight: 1
+      - path: Platform57/Platform56
+        weight: 1
+      - path: Platform59
+        weight: 1
+      - path: Platform59/Platform58
+        weight: 1
+      - path: Platform61
+        weight: 1
+      - path: Platform61/Platform60
+        weight: 1
+      - path: Player 1 Dummy
+        weight: 1
+      - path: Player 1 Dummy/GEO-Char_Genaric_Chest001
+        weight: 1
+      - path: Player 2 Dummy
+        weight: 1
+      - path: Player 2 Dummy/GEO-Char_Genaric_Chest002
+        weight: 1
+      - path: Sec304
+        weight: 1
+      - path: Sec305
+        weight: 1
+      - path: Sec306
+        weight: 1
+      - path: Sec307
+        weight: 1
+      - path: Sec314
+        weight: 1
+      - path: Sec320
+        weight: 1
+      - path: Sec321
+        weight: 1
+      - path: Sec323
+        weight: 1
+      - path: Sec325
+        weight: 1
+      - path: Sec326
+        weight: 1
+      - path: Sec338
+        weight: 1
+      - path: Sec343
+        weight: 1
+      - path: Sec346
+        weight: 1
+      - path: Sec349
+        weight: 1
+      - path: Sec352
+        weight: 1
+      - path: Sec355
+        weight: 1
+      - path: Sec358
+        weight: 1
+      - path: Sec361
+        weight: 1
+      - path: Sec364
+        weight: 1
+      - path: Sec367
+        weight: 1
+      - path: Sec370
+        weight: 1
+      - path: Sec375
+        weight: 1
+      - path: Sec3129
+        weight: 1
+      - path: Sec3130
+        weight: 1
+      - path: Sec3131
+        weight: 1
+      - path: Sec3132
+        weight: 1
+      - path: Sec3133
+        weight: 1
+      - path: Sec3134
+        weight: 1
+      - path: Sec3135
+        weight: 1
+      - path: Sec3135/Sec335
+        weight: 1
+      - path: Sec3135/Sec336
+        weight: 1
+      - path: Sec3135/Sec337
+        weight: 1
+      - path: Sec3137
+        weight: 1
+      - path: Sec3137/Sec344
+        weight: 1
+      - path: Sec3137/Sec3184
+        weight: 1
+      - path: Sec3138
+        weight: 1
+      - path: Sec3138/Sec345
+        weight: 1
+      - path: Sec3138/Sec3185
+        weight: 1
+      - path: Sec3139
+        weight: 1
+      - path: Sec3139/Sec347
+        weight: 1
+      - path: Sec3139/Sec3186
+        weight: 1
+      - path: Sec3140
+        weight: 1
+      - path: Sec3140/Sec348
+        weight: 1
+      - path: Sec3140/Sec3187
+        weight: 1
+      - path: Sec3141
+        weight: 1
+      - path: Sec3141/Sec350
+        weight: 1
+      - path: Sec3141/Sec3188
+        weight: 1
+      - path: Sec3142
+        weight: 1
+      - path: Sec3142/Sec351
+        weight: 1
+      - path: Sec3142/Sec3189
+        weight: 1
+      - path: Sec3143
+        weight: 1
+      - path: Sec3143/Sec353
+        weight: 1
+      - path: Sec3143/Sec3190
+        weight: 1
+      - path: Sec3144
+        weight: 1
+      - path: Sec3144/Sec354
+        weight: 1
+      - path: Sec3144/Sec3191
+        weight: 1
+      - path: Sec3145
+        weight: 1
+      - path: Sec3145/Sec356
+        weight: 1
+      - path: Sec3145/Sec3192
+        weight: 1
+      - path: Sec3146
+        weight: 1
+      - path: Sec3146/Sec357
+        weight: 1
+      - path: Sec3146/Sec3193
+        weight: 1
+      - path: Sec3147
+        weight: 1
+      - path: Sec3147/Sec359
+        weight: 1
+      - path: Sec3147/Sec3194
+        weight: 1
+      - path: Sec3148
+        weight: 1
+      - path: Sec3148/Sec360
+        weight: 1
+      - path: Sec3148/Sec3195
+        weight: 1
+      - path: Sec3149
+        weight: 1
+      - path: Sec3149/Sec362
+        weight: 1
+      - path: Sec3149/Sec3196
+        weight: 1
+      - path: Sec3150
+        weight: 1
+      - path: Sec3150/Sec363
+        weight: 1
+      - path: Sec3150/Sec3197
+        weight: 1
+      - path: Sec3151
+        weight: 1
+      - path: Sec3151/Sec365
+        weight: 1
+      - path: Sec3151/Sec3198
+        weight: 1
+      - path: Sec3152
+        weight: 1
+      - path: Sec3152/Sec366
+        weight: 1
+      - path: Sec3152/Sec3199
+        weight: 1
+      - path: Sec3153
+        weight: 1
+      - path: Sec3153/Sec368
+        weight: 1
+      - path: Sec3153/Sec3200
+        weight: 1
+      - path: Sec3154
+        weight: 1
+      - path: Sec3154/Sec369
+        weight: 1
+      - path: Sec3154/Sec3201
+        weight: 1
+      - path: Sec3155
+        weight: 1
+      - path: Sec3155/Sec371
+        weight: 1
+      - path: Sec3155/Sec3202
+        weight: 1
+      - path: Sec3156
+        weight: 1
+      - path: Sec3156/Sec372
+        weight: 1
+      - path: Sec3156/Sec3203
+        weight: 1
+      - path: Sec3157
+        weight: 1
+      - path: Sec3160
+        weight: 1
+      - path: Sec3165
+        weight: 1
+      - path: Sec3166
+        weight: 1
+      - path: Sec3167
+        weight: 1
+      - path: Sec3168
+        weight: 1
+      - path: Sec3171
+        weight: 1
+      - path: Sec3172
+        weight: 1
+      - path: Sec3173
+        weight: 1
+      - path: Sec3183
+        weight: 1
+      - path: Sec3209
+        weight: 1
+      - path: Sec3210
+        weight: 1
+      - path: Sec3211
+        weight: 1
+      - path: Sec3212
+        weight: 1
+      - path: Sec3214
+        weight: 1
+      - path: Sec3215
+        weight: 1
+      - path: Sec3216
+        weight: 1
+      - path: Sec3217
+        weight: 1
+      - path: Sec3218
+        weight: 1
+      - path: Sec3219
+        weight: 1
+      - path: Sec3220
+        weight: 1
+      - path: Sec3230
+        weight: 1
+      - path: Sec3231
+        weight: 1
+      - path: Sec3232
+        weight: 1
+      - path: Sec3233
+        weight: 1
+      - path: Sec3234
+        weight: 1
+      - path: Sec3235
+        weight: 1
+      - path: Sec3236
+        weight: 1
+      - path: Sec3237
+        weight: 1
+      - path: Sec3238
+        weight: 1
+      - path: Sec3239
+        weight: 1
+      - path: Sec3240
+        weight: 1
+      - path: Sec3241
+        weight: 1
+      - path: Sec3242
+        weight: 1
+      - path: Sec3243
+        weight: 1
+      - path: Sec3258
+        weight: 1
+      - path: Sec3261
+        weight: 1
+      - path: Sec3262
+        weight: 1
+      - path: Sec3263
+        weight: 1
+      - path: Sec3264
+        weight: 1
+      - path: Sec3266
+        weight: 1
+      - path: Sec3268
+        weight: 1
+      - path: Sec3269
+        weight: 1
+      - path: Sec3275
+        weight: 1
+      - path: Sec3275/Sec327
+        weight: 1
+      - path: Sec3275/Sec3174
+        weight: 1
+      - path: Sec3276
+        weight: 1
+      - path: Sec3276/Sec328
+        weight: 1
+      - path: Sec3276/Sec3175
+        weight: 1
+      - path: Sec3277
+        weight: 1
+      - path: Sec3277/Sec329
+        weight: 1
+      - path: Sec3277/Sec3176
+        weight: 1
+      - path: Sec3278
+        weight: 1
+      - path: Sec3278/Sec330
+        weight: 1
+      - path: Sec3278/Sec3177
+        weight: 1
+      - path: Sec3279
+        weight: 1
+      - path: Sec3279/Sec331
+        weight: 1
+      - path: Sec3279/Sec3178
+        weight: 1
+      - path: Sec3280
+        weight: 1
+      - path: Sec3280/Sec332
+        weight: 1
+      - path: Sec3280/Sec3179
+        weight: 1
+      - path: Sec3281
+        weight: 1
+      - path: Sec3281/Sec333
+        weight: 1
+      - path: Sec3281/Sec3180
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []

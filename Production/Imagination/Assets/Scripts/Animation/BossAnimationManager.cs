@@ -26,8 +26,8 @@ public class BossAnimationManager : MonoBehaviour , CallBack
 
 	public Animator i_BossAnimator;
 
-	public AudioClip m_CutSceneSound;
 	public AudioSource m_AudioSource;
+	public ScreenFade m_ScreenFade;
 
 	// Use this for initialization
 	void Start () 
@@ -133,7 +133,7 @@ public class BossAnimationManager : MonoBehaviour , CallBack
 	{
 		if(callBack == CallBackEvents.Cutscene_Done)
 		{
-			Application.LoadLevel(Constants.MAIN_MENU_NAME);
+			m_ScreenFade.BeginFadeOut();
 		}
 	}
 }
