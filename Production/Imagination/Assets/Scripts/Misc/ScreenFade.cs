@@ -4,13 +4,16 @@ using System.Collections;
 
 public class ScreenFade : MonoBehaviour {
 
+
 	public float m_FadeInSpeed;
 	public float m_FadeOutSpeed;
 	public bool m_FadeIn = false;
 
 	public Image m_ImageForFade;
 
-	private bool m_FadeOut = false;
+	public Sections m_SectionTooLoad;
+
+	public bool m_FadeOut = false;
 
 	private float m_CurrentFadeTime;
 
@@ -48,7 +51,7 @@ public class ScreenFade : MonoBehaviour {
 				m_FadeOut = false;
 				m_ImageForFade.color = Color.black;
 
-				Application.LoadLevel(Constants.MAIN_MENU_NAME);
+				LoadNextLevel();
 			}
 		}
 	}
@@ -73,5 +76,31 @@ public class ScreenFade : MonoBehaviour {
 	{
 		m_ImageForFade.color = new Vector4(1, 1, 1, 0.05f);
 		m_FadeOut = true;
+	}
+
+	public void LoadNextLevel()
+	{
+		switch (m_SectionTooLoad) 
+		{
+			case Sections.Sections_1:
+			Application.LoadLevel(Constants.LEVEL1_SECTION1);
+			break;
+
+			case Sections.Sections_2:
+			Application.LoadLevel(Constants.LEVEL1_SECTION2);
+			break;
+		
+			case Sections.Sections_3:
+			Application.LoadLevel(Constants.LEVEL1_SECTION3);
+			break;
+
+			case Sections.Sections_Boss:
+			Application.LoadLevel(Constants.LEVEL1_SECTIONBOSS);
+			break;
+
+			default:
+			Application.LoadLevel(Constants.MAIN_MENU_NAME);
+			break;
+		}
 	}
 }
