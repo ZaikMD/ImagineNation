@@ -94,6 +94,9 @@ public enum Sounds
 	MageShieldBreak, 
 	MageHit, 
 
+	MortarGunBuildUp,
+	MortarGunShot,
+
 	SpinTopHit, 
 	SpinTopCharge, 
 
@@ -475,6 +478,13 @@ public class SFXManager : MonoBehaviour
 			break;
 
 
+		case Sounds.MortarGunBuildUp:
+			tempAudioInfo.OneShot = true;
+			break;
+
+		case Sounds.MortarGunShot:
+			tempAudioInfo.OneShot = true;
+			break;
 
 		case Sounds.SpinTopCharge:
 			tempAudioInfo.OneShot = false;
@@ -647,11 +657,14 @@ public class SFXManager : MonoBehaviour
 		loadSound ((int)Sounds.ZoeyAOE, Constants.Sounds.ZOEY_ATTACK_AOE);
 
 
-        //Enimies sounds
+        //Enemies sounds
 		loadSound((int)Sounds.MageAttack, Constants.Sounds.MAGE_SHOOT);
 		loadSound((int)Sounds.MageHit, Constants.Sounds.MAGE_HIT);
 		loadSound((int)Sounds.MageMove, Constants.Sounds.MAGE_MOVE);
 		loadSound((int)Sounds.MageShieldBreak, Constants.Sounds.MAGE_SHIELD_BREAK);
+
+		loadSound((int)Sounds.MortarGunBuildUp, Constants.Sounds.MORTAR_CHARGE);
+		loadSound((int)Sounds.MortarGunShot, Constants.Sounds.MORTAR_SHOOT);
 
 		loadSound((int)Sounds.SpinTopCharge, Constants.Sounds.SPINTOP_CHARGE);
 		loadSound((int)Sounds.SpinTopHit, Constants.Sounds.SPINTOP_HIT);
