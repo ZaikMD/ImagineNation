@@ -26,6 +26,9 @@ public class BossAnimationManager : MonoBehaviour , CallBack
 
 	public Animator i_BossAnimator;
 
+	public AudioClip m_CutSceneSound;
+	public AudioSource m_AudioSource;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -88,8 +91,8 @@ public class BossAnimationManager : MonoBehaviour , CallBack
 		else
 		{//Zoe and alex
 			GameObject Zoe = (GameObject)GameObject.Instantiate(i_ZoePrefab, 
-			                                                    StartPos[((int)PlayerIndecies.Zoe ^ (int)PlayerIndecies.Derek) - 1].position,
-			                                                    StartPos[((int)PlayerIndecies.Zoe ^ (int)PlayerIndecies.Derek) - 1].rotation);
+			                                                    StartPos[((int)PlayerIndecies.Zoe ^ (int)PlayerIndecies.Alex) - 1].position,
+			                                                    StartPos[((int)PlayerIndecies.Zoe ^ (int)PlayerIndecies.Alex) - 1].rotation);
 			Animator Zoe_Anim = Zoe.GetComponentInChildren<Animator>();
 
 			GameObject Alex = (GameObject)GameObject.Instantiate(i_AlexPrefab, 
@@ -112,7 +115,7 @@ public class BossAnimationManager : MonoBehaviour , CallBack
 			Zoe_Anim.Play(m_AnimationStarts[((int)PlayerIndecies.Zoe ^ (int)PlayerIndecies.Alex) - 1]);
 		}
 		//TODO:Playe Sound
-
+		m_AudioSource.Play();
 		//Debug.Break ();
 
 		StartCoroutine ("delayedParenting");
