@@ -67,6 +67,7 @@ public static class Constants
 	public const string MOVING_PLATFORM_LAYER_STRING = "MovingPlatformLayer";
 	public const string COLLIDE_WITH_MOVING_PLATFORM_LAYER_STRING = "CollideWithPlatform";
 	public const string COLLIDE_WITH_MOVING_PLATFORM_STRING = "CollideWithMovingPlatforms";
+	public const string DARKNESS_STRING = "Darkness";
 
 	public const string PLAYER_PROJECTILE_STRING = "PlayerProjectile";
 	public const string ENEMY_PROJECTILE_STRING = "EnemyProjectile";
