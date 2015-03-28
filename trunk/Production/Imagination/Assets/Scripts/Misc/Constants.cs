@@ -248,6 +248,9 @@ public static class Constants
 
 		public const string ENEMY_DEATH =  "Sounds/NewSounds/Enemy/Enemy_Death";
 
+		public const string MORTAR_CHARGE = "Sounds/NewSounds/Enemy/MortarGun_BuildUp";
+		public const string MORTAR_SHOOT = "Sounds/NewSounds/Enemy/MortarGun_Shot";
+
 		public const string SONG_SECTION_1 = "Sounds/NewSounds/Music/Section1_Song";
 		public const string SONG_SECTION_2 = "Sounds/NewSounds/Music/Section2_Song";
 		public const string SONG_SECTION_3 = "Sounds/NewSounds/Music/Section3_Song";

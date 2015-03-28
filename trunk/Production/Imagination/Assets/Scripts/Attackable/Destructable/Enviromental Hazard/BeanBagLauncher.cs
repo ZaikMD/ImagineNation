@@ -70,6 +70,9 @@ public class BeanBagLauncher : Destructable
 	private Vector3 m_LaunchLocation;
 	public GameObject m_CrossHair;
 
+	bool m_SoundIsPlaying;
+
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -78,6 +81,9 @@ public class BeanBagLauncher : Destructable
 		m_HasTraget = false;
 		m_CurrentState = TimingStates.Idle;
 		m_LaunchLocation = new Vector3 (0, 0, 0);
+
+		m_SFX = SFXManager.Instance;
+
 	}
 	
 	// Update is called once per frame
@@ -100,14 +106,17 @@ public class BeanBagLauncher : Destructable
 
 			case TimingStates.Aim:
 			UpdateAim();
+			m_SoundIsPlaying = false;
 			break;
 
 			case TimingStates.Charge:
 			UpdateCharge();
+			ChargeSound();
 			break;
 
 			case TimingStates.Launch:
 			UpdateLaunch();
+			ShotSound();
 			break;
 
 			case TimingStates.Reload:
@@ -116,8 +125,10 @@ public class BeanBagLauncher : Destructable
 
 			case TimingStates.Dead:
 			UpdateDead();
+			DeathSound();
 			break;
 		}
+
 	}
 
 	//Resets all the timer's to there starting time
@@ -579,5 +590,30 @@ public class BeanBagLauncher : Destructable
 			    m_Animator.playAnimation(AnimatorMusicalMortar.Animations.Hit);
 		}
 	}
+
+	private void ChargeSound()
+	{
+		if(m_SoundIsPlaying == false)
+		{
+			m_SFX.playSound(this.transform, Sounds.MortarGunBuildUp);
+			m_SoundIsPlaying = true;
+		}
+	}
+
+	private void ShotSound()
+	{
+		m_SFX.playSound(this.transform, Sounds.MortarGunShot);
+		m_SoundIsPlaying = true;
+	}
+
+	private void DeathSound()
+	{
+		if(m_SoundIsPlaying == false)
+		{
+			m_SFX.playSound(this.transform, Sounds.EnemyDeath);
+			m_SoundIsPlaying = true;
+		}
+	}
+
 }
 
