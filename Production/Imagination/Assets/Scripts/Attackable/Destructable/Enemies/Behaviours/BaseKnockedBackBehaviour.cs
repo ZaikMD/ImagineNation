@@ -73,7 +73,7 @@ public class BaseKnockedBackBehavouir : BaseBehaviour
 			GameObject hitObject = hit.gameObject;
 
 			//CHeck if we hit darkness
-			if (hitObject.tag == Constants.DARKNESS_STRING)
+			if (hitObject.tag == Constants.DARKNESS_STRING || hitObject.tag == Constants.MOVING_PLATFORM_TAG_STRING)
 			{
 				Destructable destuctable = GetComponentInParent<Destructable>();
 				if (destuctable != null)
@@ -83,7 +83,7 @@ public class BaseKnockedBackBehavouir : BaseBehaviour
 			}
 
 			//Ignore stopping velocity from collisions with enemies
-			if (hitObject.CompareTag(Constants.ENEMY_STRING))
+			if (hitObject.CompareTag(Constants.ENEMY_STRING)))
 			{
 				BaseKnockedBackBehavouir knockedBack = hitObject.GetComponentInChildren<BaseKnockedBackBehavouir>();
 

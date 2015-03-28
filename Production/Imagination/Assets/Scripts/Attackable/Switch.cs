@@ -126,8 +126,6 @@ public class Switch : SwitchBaseClass, Attackable
 
     public void onHit(LightCollider proj, float damage) //If the player hits the switch, set activated to true
     {
-
-
 		//TO make sure we only play sounds once
 		if(m_PlayingSound == false)
 		{

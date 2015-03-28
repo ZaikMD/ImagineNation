@@ -15,6 +15,8 @@ public class SoundSourceMover : MonoBehaviour
 {
     //this objects audio source
     AudioSource m_AudioSource;
+	bool m_Initialized = false;
+
     public AudioSource AudioSource
     {
         get { return m_AudioSource; }
@@ -74,11 +76,16 @@ public class SoundSourceMover : MonoBehaviour
 		{
 			updatePos();
 		}
+
+		m_Initialized = true;
     }
 
 	// Update is called once per frame
 	void Update () 
     {
+		if (!m_Initialized)
+			return;
+
         if (m_AudioSource.isPlaying && m_SourceObject != null && m_AudioListenerTransform != null)
         {
             updatePos();

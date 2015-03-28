@@ -226,6 +226,13 @@ public class SFXManager : MonoBehaviour
         {//check to see if it already exsists
             for(int i = 0; i < m_NonAutoDestroySources.Count; i++)
             {
+				if(m_NonAutoDestroySources[i] == null || m_NonAutoDestroySources[i].AudioSource == null)
+				{
+					GameObject.Destroy(m_NonAutoDestroySources[i]);
+					m_NonAutoDestroySources.RemoveAt(i);
+					return;
+				}
+
                 if (m_NonAutoDestroySources[i].AudioSource.clip == tempSoundInfo.m_AudioClip && m_NonAutoDestroySources[i].SourceObject == location)
                 {
                     if (!m_NonAutoDestroySources[i].AudioSource.isPlaying)
