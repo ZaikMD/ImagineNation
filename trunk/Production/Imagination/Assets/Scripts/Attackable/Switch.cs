@@ -21,7 +21,7 @@ public class Switch : SwitchBaseClass, Attackable
     public bool m_OnTimer;
     public float m_Timer;
 	public bool m_Rotate;
-
+	bool m_PlayingSound;
     
     //Save for the timer
 	protected float m_SaveTimer;
@@ -66,6 +66,8 @@ public class Switch : SwitchBaseClass, Attackable
 	// Update is called once per frame
 	void Update () 
     {
+		m_PlayingSound = false;
+
         if (PauseScreen.shouldPause(PAUSE_LEVEL)) { return; }
 
 		if(m_WillPauseForCamera) //If the switch will pause for the camera to show something
@@ -124,7 +126,15 @@ public class Switch : SwitchBaseClass, Attackable
 
     public void onHit(LightCollider proj, float damage) //If the player hits the switch, set activated to true
     {
-		m_SFX.playSound(transform, Sounds.LeverHit);
+
+
+		//TO make sure we only play sounds once
+		if(m_PlayingSound == false)
+		{
+			m_SFX.playSound(transform, Sounds.LeverHit);
+			m_PlayingSound = true;
+		}
+
 		if(!m_WillPauseForCamera)
 		{
        		m_Activated = true;
@@ -137,7 +147,13 @@ public class Switch : SwitchBaseClass, Attackable
 
     public void onHit(HeavyCollider proj, float damage) //If the player hits the switch, set activated to true
     {
-		m_SFX.playSound(transform, Sounds.LeverHit);
+		//TO make sure we only play sounds once
+		if(m_PlayingSound == false)
+		{
+			m_SFX.playSound(transform, Sounds.LeverHit);
+			m_PlayingSound = true;
+		}
+
         if (!m_WillPauseForCamera)
         {
             m_Activated = true;
