@@ -94,6 +94,7 @@ public static class Constants
 	public const string LEVEL1_SECTION3 = "Level1_Section3";
 	public const string LEVEL1_SECTIONBOSS = "Level1_SectionBoss";
 	public const string GAME_OVER_SCREEN = "GameOverScreen";
+	public const string MAIN_MENU_NAME = "Menusv2";
 
 	public const string NAV_AGENT = "NavMeshAgent";
 

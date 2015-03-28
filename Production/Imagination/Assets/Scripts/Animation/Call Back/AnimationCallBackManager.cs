@@ -16,6 +16,7 @@ public enum CallBackEvents
 	FootStep_Alex,
 	FootStep_Derek,
 	FurbullFootstep,
+	Cutscene_Done
 };
 
 public interface CallBack
@@ -37,7 +38,8 @@ public class AnimationCallBackManager : MonoBehaviour
 		"FootStep_Zoe",
 		"FootStep_Alex",
 		"FootStep_Derek",
-		"FurbullFootstep"
+		"FurbullFootstep",
+		"Cutscene_Done"
     };
 
     protected List<CallBack> m_Listeners = new List<CallBack>();
