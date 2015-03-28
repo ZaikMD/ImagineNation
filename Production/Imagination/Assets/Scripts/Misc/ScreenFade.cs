@@ -47,6 +47,8 @@ public class ScreenFade : MonoBehaviour {
 			{
 				m_FadeOut = false;
 				m_ImageForFade.color = Color.black;
+
+				Application.LoadLevel(Constants.MAIN_MENU_NAME);
 			}
 		}
 	}
