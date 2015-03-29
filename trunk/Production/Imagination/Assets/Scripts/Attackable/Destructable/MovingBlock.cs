@@ -60,7 +60,7 @@ public class MovingBlock : Destructable
 	public GameObject m_BoxPrefab;
 
 	//Angle to use
-	const float ANGLE_TO_USE = 45.01f;
+	const float ANGLE_TO_USE = 360.0f;
 
 	//When to pause
     const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.Cutscene;
@@ -200,23 +200,29 @@ public class MovingBlock : Destructable
 		m_CharacterController.enabled = true;
 
 		//Direction calculation for movement
-		Vector3 direction = obj.transform.forward;//(transform.position - obj.transform.position).normalized;
+		Vector3 direction =  transform.position - GameObject.Find(obj.GetComponent<BaseCollider> ().GetPlayerInfo ().name).transform.position ; //(transform.position - obj.transform.position).normalized;
+
+		float smallestAngle = ANGLE_TO_USE;
 
 		//Choose a destination
-		if (Vector3.Angle (direction, transform.right) < ANGLE_TO_USE)
+		if (Vector3.Angle (direction, transform.right) < smallestAngle)
 		{
+			smallestAngle = Vector3.Angle (direction, transform.right);
 			m_Destination = transform.position + transform.right * m_Distance;
 		}
-		else if (Vector3.Angle (direction, -transform.right) < ANGLE_TO_USE)
+	    if (Vector3.Angle (direction, -transform.right) < smallestAngle)
 		{
+			smallestAngle = Vector3.Angle (direction, -transform.right);
 			m_Destination = transform.position - transform.right * m_Distance;
 		}
-		else if (Vector3.Angle (direction, transform.forward) < ANGLE_TO_USE)
+		if (Vector3.Angle (direction, transform.forward) < smallestAngle)
 		{
+			smallestAngle = Vector3.Angle (direction, transform.forward);
 			m_Destination = transform.position + transform.forward * m_Distance;
 		}
-		else if (Vector3.Angle (direction, -transform.forward) < ANGLE_TO_USE)
+	    if (Vector3.Angle (direction, -transform.forward) < smallestAngle)
 		{
+			smallestAngle = Vector3.Angle (direction, -transform.forward);
 			m_Destination = transform.position - transform.forward * m_Distance;
 		}
 	}
