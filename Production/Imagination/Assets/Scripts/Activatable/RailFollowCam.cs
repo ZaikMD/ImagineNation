@@ -14,6 +14,8 @@ public class RailFollowCam : Activatable
 	bool m_IsDone = false;
 	float m_Loc = 0.0f;
 
+	bool m_SentDone = false;
+
 	const ScriptPauseLevel PAUSE_LEVEL = ScriptPauseLevel.PauseMenu;
 
 	// Use this for initialization
@@ -63,8 +65,10 @@ public class RailFollowCam : Activatable
 				transform.position = m_Rail.GetPoint(m_Loc);
 
 				// Have we reached our destination point?
-				if (IsDone())
+				if (!m_SentDone && IsDone())
 				{
+					m_SentDone = true;
+
 					// If we have disable this camera and reactivate the player cams
 					m_Camera.enabled = false;
 					PauseScreen.InCutscene = false;
