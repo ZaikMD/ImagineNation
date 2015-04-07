@@ -323,6 +323,7 @@ public class PlayerHealth : Destructable
 		m_IsDead = false;
 		m_Health = m_TotalHealth;
 		m_InvulnerabilityTimer = InvulnerabilityTimer;
+		m_PlayerRenderer.material =  i_InvulnerableMaterial;
 		m_HealthRegenTimer = HealthRegenTime;
 		m_Hud.SetHealth (m_Health, m_Player);
 		PlayerCamera.Player = this.gameObject.transform.FindChild("\"Centre Point\"").gameObject;
